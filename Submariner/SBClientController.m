@@ -51,7 +51,6 @@
 #import "NSURL+Parameters.h"
 #import "NSString+Hex.h"
 #import "NSOperationQueue+Shared.h"
-#import <LRResty/LRResty.h>
 
 
 @interface SBClientController (Private)
@@ -180,7 +179,8 @@
 
 
 - (void)requestWithURL:(NSURL *)url requestType:(SBSubsonicRequestType)type {
-
+    NSLog(@"Hey, requestWithURL is nopped out");
+/*
     [[LRResty authenticatedClientWithUsername:server.username password:server.password] get:[url absoluteString] withBlock:^(LRRestyResponse *response) {
         
         if(!response) {
@@ -232,6 +232,7 @@
             NSLog(@"status : %ld", response.status);
         }
     }];
+*/
 }
 
 
@@ -299,6 +300,8 @@
     
     NSURL *url = [NSURL URLWithString:server.url command:@"rest/getCoverArt.view" parameters:params];
     
+    NSLog(@"Hey, getCoverWithID is nopped out");
+/*
     [[LRResty authenticatedClientWithUsername:server.username password:server.password] get:[url absoluteString] withBlock:^(LRRestyResponse *response) {
                 
         if (response.status == 200) { // special status for binary data
@@ -313,6 +316,7 @@
             [operation release];
         }
     }];
+*/
 }
 
 
@@ -457,6 +461,8 @@
     NSURL *url = [NSURL URLWithString:server.url command:@"rest/search2.view" parameters:params];
     SBSearchResult *searchResult = [[[SBSearchResult alloc] initWithQuery:query] autorelease];
     
+    NSLog(@"Hey, search is nopped out");
+/*
     [[LRResty authenticatedClientWithUsername:server.username password:server.password] get:[url absoluteString] withBlock:^(LRRestyResponse *response) {
         
         if (response.status == 200) { // special status for binary data
@@ -471,6 +477,7 @@
             [operation release];
         }
     }];
+*/
 }
 
 

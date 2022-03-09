@@ -33,7 +33,6 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <libkern/OSAtomic.h>
-#import <LRResty/LRResty.h>
 #import <SFBAudioEngine/AudioPlayer.h>
 #import <SFBAudioEngine/AudioDecoder.h>
 
