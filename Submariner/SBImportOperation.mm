@@ -34,7 +34,7 @@
 
 #import "SBImportOperation.h"
 #import <CoreServices/CoreServices.h>
-#import <QTKit/QTKit.h>
+//#import <QTKit/QTKit.h>
 
 #import <SFBAudioEngine/AudioDecoder.h>
 #import <SFBAudioEngine/AudioMetadata.h>

@@ -49,7 +49,6 @@
 #import "NSManagedObjectContext+Fetch.h"
 #import "NSOperationQueue+Shared.h"
 #import "NSString+Time.h"
-#import "QTMovie+Async.h"
 
 
 #define LOCAL_PLAYER (static_cast<AudioPlayer *>(localPlayer))
@@ -60,12 +59,12 @@ NSString *SBPlayerPlaylistUpdatedNotification = @"SBPlayerPlaylistUpdatedNotific
 NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotification";
 
 
-
+/*
 @interface QTMovie(IdlingAdditions)
 -(QTTime)maxTimeLoaded;
 - (void)movieDidEnd:(NSNotification *)notification;
 @end
-
+*/
 
 
 @interface SBPlayer (Private)
@@ -151,7 +150,11 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
     
     delete LOCAL_PLAYER, localPlayer = NULL;
     
+/*
     [remotePlayer release];
+    [remotePlayerItem release];
+    [remotePlayerAsset release];
+*/
     [currentTrack release];
     [playlist release];
     [tmpLocation release];
@@ -260,7 +263,8 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
                 [self playLocalWithURL:[self.currentTrack.localTrack streamURL]];
                 //[self playRemoteWithURL:[self.currentTrack.localTrack streamURL]];
             } else {
-                [self playRemoteWithURL:[self.currentTrack streamURL]];
+                [self playLocalWithURL:[self.currentTrack streamURL]];
+                //[self playRemoteWithURL:[self.currentTrack streamURL]];
             }
         }   
     }
@@ -273,16 +277,20 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
 }
 
 
-- (void)playRemoteWithURL:(NSURL *)url {    
+- (void)playRemoteWithURL:(NSURL *)url {
+/*
     NSError *error = nil;
     //remotePlayer = [[QTMovie alloc] initWithURL:url error:&error];
 
-    remotePlayer = [[QTMovie movieWithURL:url error:&error] retain];
+    remotePlayerAsset = [AVAsset assetWithURL:URL];
     
 	if (!remotePlayer || error)
 		NSLog(@"Couldn't init player : %@", error);
     
 	else {
+
+        remotePlayerItem = [AVPlayerItem playerItemWithAsset: remotePlayerAsset]
+        remotePlayer = [AVPlayer playerWithPlayerItem:playerItem];
         
         [remotePlayer setDelegate:self];
         [remotePlayer setVolume:[self volume]];
@@ -306,6 +314,7 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
             
         }
     }
+*/
 }
 
 - (void)playLocalWithURL:(NSURL *)url {
@@ -331,13 +340,13 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
 
 
 - (void)playPause {
-    
+    /*
     if((remotePlayer != nil) && ([remotePlayer rate] != 0)) {
         [remotePlayer stop];
     } else {
         [remotePlayer play];
     }
-    
+    */
     if(LOCAL_PLAYER && LOCAL_PLAYER->GetPlayingURL() != NULL) {
         LOCAL_PLAYER->PlayPause();
     }
@@ -369,15 +378,17 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
     
     [[NSUserDefaults standardUserDefaults] setFloat:volume forKey:@"playerVolume"];
     
+/*
     if(remotePlayer)
         [remotePlayer setVolume:volume];
+*/
     
     LOCAL_PLAYER->SetVolume(volume);
 }
 
 
 - (void)seek:(double)time {
-    
+    /*
     if(remotePlayer != nil) {
         NSTimeInterval duration;
         QTGetTimeInterval([remotePlayer duration], &duration);    
@@ -386,6 +397,7 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
         
         [remotePlayer setCurrentTime:qtTime];
     }
+    */
     
     if(LOCAL_PLAYER && LOCAL_PLAYER->IsPlaying()) {
         SInt64 totalFrames;
@@ -410,11 +422,13 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
 
     @synchronized(self) {
         // stop players
+/*
         if(remotePlayer) {
             [remotePlayer stop];
             [remotePlayer release];
             remotePlayer = nil;
         }
+*/
         
         if(LOCAL_PLAYER->IsPlaying()) {
             LOCAL_PLAYER->Stop();
@@ -448,6 +462,7 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
 
 - (NSString *)currentTimeString {
     
+/*
     if(remotePlayer != nil)
     {
         NSTimeInterval currentTime; 
@@ -455,6 +470,7 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
         
         return [NSString stringWithTime:currentTime];
     }
+*/
     
     if(LOCAL_PLAYER->IsPlaying())
     {
@@ -471,6 +487,7 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
 
 - (NSString *)remainingTimeString {
     
+/*
     if(remotePlayer != nil)
     {
         NSTimeInterval currentTime; 
@@ -482,6 +499,7 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
         NSTimeInterval remainingTime = duration-currentTime;
         return [NSString stringWithTime:-remainingTime];
     }
+*/
     
     if(LOCAL_PLAYER->IsPlaying())
     {
@@ -498,6 +516,7 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
 
 - (double)progress {
     
+/*
     if(remotePlayer != nil)
     {
         // typedef struct { long long timeValue; long timeScale; long flags; } QTTime
@@ -523,6 +542,7 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
             return 0;
         }
     }
+*/
     
     if(LOCAL_PLAYER->IsPlaying())
     {
@@ -555,6 +575,7 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
 - (double)percentLoaded {
     double percentLoaded = 0;
     
+/*
     if(remotePlayer != nil) {
         NSTimeInterval tMaxLoaded;
         NSTimeInterval tDuration;
@@ -564,6 +585,7 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
         
         percentLoaded = (double) tMaxLoaded/tDuration;
     }
+*/
     
     if(LOCAL_PLAYER->IsPlaying()) {
         percentLoaded = 1;
@@ -581,6 +603,7 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
 - (void)loadStateDidChange:(NSNotification *)notification {
     NSError *error = nil;
     
+/*
     // First make sure that this notification is for our movie.
     if([notification object] == remotePlayer)
     {
@@ -629,10 +652,12 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
             
         }
     }
+*/
 }
 
 - (void)movieDidEnd:(NSNotification *)notification {
-    
+  
+/*  
     if([notification object] == remotePlayer) //if the player is our player
     {
         if([remotePlayer rate] > 0) // really playing
@@ -640,6 +665,7 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
             
         }
     }
+*/
 }
 
 - (void) decodingStarted:(const AudioDecoder *)decoder

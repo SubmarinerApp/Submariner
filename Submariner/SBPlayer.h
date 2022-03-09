@@ -33,7 +33,6 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import <Foundation/Foundation.h>
-#import <QTKit/QTKit.h>
 
 #if __cplusplus
 #include <SFBAudioEngine/AudioPlayer.h>
@@ -60,8 +59,12 @@ enum SBPlayerRepeatMode {
 
 @interface SBPlayer : NSObject <NSSoundDelegate> {
 @private
-    QTMovie       *remotePlayer;
-    void          *localPlayer;
+/*
+   AVAsset       *remotePlayerAsset;
+   AVPlayerItem  *remotePlayerItem;
+   AVPlayer      *remotePlayer;
+*/
+   void          *localPlayer;
     
     NSMutableArray *playlist;
     SBTrack *currentTrack;

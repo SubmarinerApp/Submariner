@@ -37,9 +37,6 @@
 #import "NSString+Time.h"
 #import "NSString+Hex.h"
 
-#import <QTKit/QTKit.h>
-
-
 
 @implementation SBTrack
 
@@ -264,10 +261,13 @@
 
 - (NSDictionary *)movieAttributes {
     NSLog(@"URL : %@", [self streamURL]);
+    return [NSDictionary dictionary];
+/*
     return [NSDictionary dictionaryWithObjectsAndKeys:
             [self streamURL], QTMovieURLAttribute,
             [NSNumber numberWithBool:NO], QTMovieOpenForPlaybackAttribute,
             nil];
+*/
 }
 
 @end
