@@ -36,8 +36,11 @@
 #import <CoreServices/CoreServices.h>
 //#import <QTKit/QTKit.h>
 
-#import <SFBAudioEngine/AudioDecoder.h>
-#import <SFBAudioEngine/AudioMetadata.h>
+#import <SFBAudioEngine/SFBAttachedPicture.h>
+#import <SFBAudioEngine/SFBAudioDecoder.h>
+#import <SFBAudioEngine/SFBAudioFile.h>
+#import <SFBAudioEngine/SFBAudioMetadata.h>
+#import <SFBAudioEngine/SFBAudioProperties.h>
 
 //#import <taglib/taglib.h>
 //#import <taglib/fileref.h>
@@ -141,22 +144,24 @@
                                                                        reinterpret_cast<const UInt8 *>([path UTF8String]), 
                                                                        strlen([path UTF8String]), 
                                                                        FALSE);
-            
-            AudioMetadata *metadata =  AudioMetadata::CreateMetadataForURL(fileURL);
+            SFBAudioFile *audioFile = [SFBAudioFile audioFileWithURL: fileURL];
+            SFBAudioMetadata *metadata = [audioFile metadata];
+            SFBAudioProperties *properties = [audioFile properties];
             CFRelease(fileURL), fileURL = NULL;
             
-            if(NULL != metadata) {
+            if(NULL != metadata && NULL != properties) {
                 if(!remoteTrackID) {
                     
                     // get file metadata
-                    titleString       = (NSString *)metadata->GetTitle(); 
-                    artistString      = (NSString *)metadata->GetArtist();
-                    albumString       = (NSString *)metadata->GetAlbumTitle();
-                    genreString       = (NSString *)metadata->GetGenre();
-                    trackNumber       = (NSNumber *)metadata->GetTrackNumber();
-                    durationNumber    = (NSNumber *)metadata->GetDuration();
-                    bitRateNumber     = (NSNumber *)metadata->GetBitrate();
-                    coverData         = (NSData   *)metadata->GetFrontCoverArt();
+                    titleString       = [metadata title];
+                    artistString      = [metadata artist];
+                    albumString       = [metadata albumTitle];
+                    genreString       = [metadata genre];
+                    trackNumber       = [metadata trackNumber];
+                    durationNumber    = [properties duration];
+                    bitRateNumber     = [metadata bitrate];
+// XXX
+                    coverData         = [[[metadata attachedPictures] anyObject] imageData];
                     
                     // if this is a cache or download data importation
                 } else {
@@ -171,7 +176,8 @@
                     durationNumber    = remoteTrack.duration;
                     bitRateNumber     = remoteTrack.bitRate;
                     contentType       = remoteTrack.contentType;
-                    coverData         = (NSData   *)metadata->GetFrontCoverArt();
+// XXX
+                    coverData         = [[[metadata attachedPictures] anyObject] imageData];
                 }
             }
             
