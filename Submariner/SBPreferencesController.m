@@ -35,7 +35,6 @@
 
 #import "SBPreferencesController.h"
 #import "SBAppDelegate.h"
-#import "DDHotKeyCenter.h"
 
 
 
@@ -68,11 +67,6 @@
                                             forKeyPath:@"maxBitRate" 
                                                options:NSKeyValueObservingOptionNew 
                                                context:nil];
-    
-    NSInteger code = [[NSUserDefaults standardUserDefaults] integerForKey:@"PlayerKeyCode"];
-    NSUInteger flags = [[NSUserDefaults standardUserDefaults] integerForKey:@"PlayerKeyFlags"];
-    KeyCombo key = SRMakeKeyCombo(code, flags);
-    [hotKeyControl setKeyCombo:key];
 }
 
 - (void)dealloc {
@@ -197,22 +191,6 @@
         
         [downloadLocationPopUp insertItemWithTitle:downloadLocationName atIndex:0];
         [downloadLocationPopUp selectItemAtIndex:0];
-    }
-}
-
-
-- (void)shortcutRecorder:(SRRecorderControl *)aRecorder keyComboDidChange:(KeyCombo)newKeyCombo {
-    NSLog(@"newKeyCombo code : %d", newKeyCombo.code);
-    NSLog(@"newKeyCombo flag : %u", newKeyCombo.flags);
-    
-    if(newKeyCombo.code != -1 && newKeyCombo.flags != 0) {
-        [[NSUserDefaults standardUserDefaults] setInteger:newKeyCombo.code forKey:@"PlayerKeyCode"];
-        [[NSUserDefaults standardUserDefaults] setInteger:newKeyCombo.flags forKey:@"PlayerKeyFlags"];
-    } else {
-        NSInteger code = [[NSUserDefaults standardUserDefaults] integerForKey:@"PlayerKeyCode"];
-        NSUInteger flags = [[NSUserDefaults standardUserDefaults] integerForKey:@"PlayerKeyFlags"];
-        
-        [[[SBAppDelegate sharedInstance] hotKeyCenter] unregisterHotKeyWithKeyCode:code modifierFlags:flags];
     }
 }
 

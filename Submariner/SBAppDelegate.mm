@@ -43,7 +43,6 @@
 // Additions
 #import "NSManagedObjectContext+Fetch.h"
 #import "NSWindow-Zoom.h"
-#import "DDHotKeyCenter.h"
 
 
 
@@ -51,7 +50,6 @@
 
 @interface SBAppDelegate (Private)
 
-- (void)registeredHotKeyWithCode:(NSInteger)code andFlags:(NSUInteger)flags;
 - (void)activateStatusMenu;
 
 @end
@@ -63,10 +61,6 @@
 
 
 @implementation SBAppDelegate
-
-
-@synthesize hotKeyCenter;
-
 
 
 #pragma mark -
@@ -91,15 +85,11 @@
 
 - (id)init {
     self = [super init];
-    if (self) {
-        hotKeyCenter = [[DDHotKeyCenter alloc] init];
-    }
     return self;
 }
 
 
 - (void)dealloc {
-    [hotKeyCenter release];
     [statusItem release];
     [super dealloc];
 }
@@ -233,23 +223,6 @@
 
 
 #pragma mark -
-#pragma mark DDHotKeyCenter Methods
-
-- (void)registeredHotKeyWithCode:(NSInteger)code andFlags:(NSUInteger)flags {
-    
-    [hotKeyCenter registerHotKeyWithKeyCode:code modifierFlags:flags task:^(NSEvent *) {
-        
-        [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
-        [statusItem popUpStatusItemMenu:[statusItem menu]];
-    }];
-    
-}
-
-
-
-
-
-#pragma mark -
 #pragma mark NSApplicationDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -261,46 +234,10 @@
     databaseController = [[SBDatabaseController alloc] initWithManagedObjectContext:[self managedObjectContext]];
     
     [self zoomDatabaseWindow:nil];
-    
-    // register hot key
-    NSInteger code = [[NSUserDefaults standardUserDefaults] integerForKey:@"PlayerKeyCode"];
-    NSUInteger flags = [[NSUserDefaults standardUserDefaults] integerForKey:@"PlayerKeyFlags"];
-    [self registeredHotKeyWithCode:code andFlags:flags];
-    
-    // observe hot key changes
-    [[NSUserDefaults standardUserDefaults] addObserver:self 
-                                            forKeyPath:@"PlayerKeyCode" 
-                                               options:NSKeyValueObservingOptionNew 
-                                               context:nil];
-    
-    [[NSUserDefaults standardUserDefaults] addObserver:self 
-                                            forKeyPath:@"PlayerKeyFlags" 
-                                               options:NSKeyValueObservingOptionNew 
-                                               context:nil];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     
-    if([NSUserDefaults standardUserDefaults] == object && [keyPath isEqualToString:@"PlayerKeyCode"]) {
-        
-        NSInteger newKeyCode = [[change valueForKey:NSKeyValueChangeNewKey] integerValue];
-        NSUInteger currentFlags = [[NSUserDefaults standardUserDefaults] integerForKey:@"PlayerKeyFlags"];
-        
-        // register new key
-        if(newKeyCode > 0 && currentFlags > 0) {
-            [self registeredHotKeyWithCode:newKeyCode andFlags:currentFlags];
-        }
-            
-    } else if([NSUserDefaults standardUserDefaults] == object && [keyPath isEqualToString:@"PlayerKeyFlags"]) {
-                
-        NSUInteger newFlags = [[change valueForKey:NSKeyValueChangeNewKey] integerValue];
-        NSInteger currentCode = [[NSUserDefaults standardUserDefaults] integerForKey:@"PlayerKeyCode"];
-        
-        // register new key
-        if(currentCode > 0 && newFlags > 0) {
-            [self registeredHotKeyWithCode:currentCode andFlags:newFlags];
-        }
-    }
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {

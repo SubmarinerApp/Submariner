@@ -34,7 +34,6 @@
 
 #import <Foundation/Foundation.h>
 #import "SBWindowController.h"
-#import <ShortcutRecorder/ShortcutRecorder.h>
 
 @interface SBPreferencesController : SBWindowController <NSToolbarDelegate> {
 
@@ -47,7 +46,6 @@
 	IBOutlet NSView *subsonicPreferenceView;
     IBOutlet NSMatrix *playerBehaviorMatrix;
     IBOutlet NSPopUpButton *downloadLocationPopUp;
-    IBOutlet SRRecorderControl *hotKeyControl;
     
 	NSInteger currentViewTag;
 }
