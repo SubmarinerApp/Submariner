@@ -33,11 +33,10 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <libkern/OSAtomic.h>
-#import <SFBAudioEngine/AudioPlayer.h>
-#import <SFBAudioEngine/AudioDecoder.h>
+#import <SFBAudioEngine/SFBAudioPlayer.h>
+#import <SFBAudioEngine/SFBAudioDecoder.h>
 
 #import "SBAppDelegate.h"
-#import "SBMovieWindowController.h"
 #import "SBPlayer.h"
 #import "SBTrack.h"
 #import "SBServer.h"
@@ -50,7 +49,7 @@
 #import "NSString+Time.h"
 
 
-#define LOCAL_PLAYER (static_cast<AudioPlayer *>(localPlayer))
+#define LOCAL_PLAYER (static_cast<SFBAudioPlayer *>(localPlayer))
 
 
 // notifications
@@ -71,7 +70,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 - (void)playRemoteWithURL:(NSURL *)url;
 - (void)playLocalWithURL:(NSURL *)url;
 - (void)unplayAllTracks;
-- (void)decodingStarted:(const AudioDecoder *)decoder;
+- (void)decodingStarted:(const SFBAudioDecoder *)decoder;
 - (SBTrack *)getRandomTrackExceptingTrack:(SBTrack *)_track;
 - (SBTrack *)nextTrack;
 - (SBTrack *)prevTrack;
@@ -84,13 +83,13 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 // local player C++ callbacks
 static SBPlayer *staticSelf = nil;
 
-static void decodingStarted(void *context, const AudioDecoder *decoder)
+static void decodingStarted(void *context, const SFBAudioDecoder *decoder)
 {
 	[(SBPlayer *)context decodingStarted:decoder];
 }
 
 // This is called from the realtime rendering thread and as such MUST NOT BLOCK!!
-static void renderingFinished(void *context, const AudioDecoder *decoder)
+static void renderingFinished(void *context, const SFBAudioDecoder *decoder)
 {
     if(staticSelf) {
         //[staticSelf stop];
@@ -115,7 +114,7 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
 #pragma mark -
 #pragma mark Singleton support 
 
-+ (id)sharedInstance {
++ (SBPlayer*)sharedInstance {
 
     static SBPlayer* sharedInstance = nil;
     if (sharedInstance == nil) {
@@ -130,7 +129,7 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
 - (id)init {
     self = [super init];
     if (self) {
-        localPlayer = new AudioPlayer();
+        localPlayer = new SFBAudioPlayer();
         
         playlist = [[NSMutableArray alloc] init];
         isShuffle = NO;
@@ -147,7 +146,8 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
     // remove remote player observers
     [self stop];
     
-    delete LOCAL_PLAYER, localPlayer = NULL;
+    [LOCAL_PLAYER dealloc];
+    localPlayer = NULL;
     
 /*
     [remotePlayer release];
@@ -318,19 +318,27 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
 
 - (void)playLocalWithURL:(NSURL *)url {
     
-    AudioDecoder *decoder = AudioDecoder::CreateDecoderForURL(reinterpret_cast<CFURLRef>(url));
+    SFBAudioDecoder *decoder = [SFBAudioDecoder initWithURL: url];
 	if(NULL != decoder) {
         
-        LOCAL_PLAYER->SetVolume([self volume]);
+        [LOCAL_PLAYER setVolume: [self volume]];
         
         // Register for rendering started/finished notifications so the UI can be updated properly
+/*
+// XXX: These seem to have been moved to SFBAudioPlayer
         decoder->SetDecodingStartedCallback(decodingStarted, self);
         decoder->SetRenderingFinishedCallback(renderingFinished, self);
-        
-        if(decoder->Open() && LOCAL_PLAYER->Enqueue(decoder)) {
+*/
+        NSError *decoderError = nil;
+        [decoder openReturningError: &decoderError];
+        if (decoderError) {
+            NSLog(@"Decoder open error: %@", decoderError);
+            [decoder dealloc];
+        }
+        if([LOCAL_PLAYER enqueueDecoder: decoder]) {
             //[[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:url];
         }else {
-            delete decoder;
+            [decoder dealloc];
         }
     } else {
         NSLog(@"Couldn't decode file");
@@ -346,8 +354,8 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
         [remotePlayer play];
     }
     */
-    if(LOCAL_PLAYER && LOCAL_PLAYER->GetPlayingURL() != NULL) {
-        LOCAL_PLAYER->PlayPause();
+    if(LOCAL_PLAYER && [LOCAL_PLAYER engineIsRunning]) {
+        [LOCAL_PLAYER togglePlayPauseReturningError];
     }
 }
 
@@ -382,7 +390,7 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
         [remotePlayer setVolume:volume];
 */
     
-    LOCAL_PLAYER->SetVolume(volume);
+    [LOCAL_PLAYER setVolume:volume];
 }
 
 
@@ -398,14 +406,17 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
     }
     */
     
-    if(LOCAL_PLAYER && LOCAL_PLAYER->IsPlaying()) {
+    if(LOCAL_PLAYER && [LOCAL_PLAYER isPlaying]) {
         SInt64 totalFrames;
-        if(LOCAL_PLAYER->SupportsSeeking()) {
+        if([LOCAL_PLAYER supportsSeeking]) {
+/*
+// XXX: Think about this one later
             if(LOCAL_PLAYER->GetTotalFrames(totalFrames)) {
                 //NSLog(@"seek");
                 SInt64 desiredFrame = static_cast<SInt64>((time / 100.0) * totalFrames);
                 LOCAL_PLAYER->SeekToFrame(desiredFrame);
-            }   
+            }
+*/
         } else {
             NSLog(@"WARNING : no seek support for this file");
         }
@@ -429,9 +440,9 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
         }
 */
         
-        if(LOCAL_PLAYER->IsPlaying()) {
-            LOCAL_PLAYER->Stop();
-            LOCAL_PLAYER->ClearQueuedDecoders();
+        if([LOCAL_PLAYER isPlaying]) {
+            [LOCAL_PLAYER stop];
+            [LOCAL_PLAYER clearQueue];
         }
         
         // unplay current track
@@ -471,14 +482,18 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
     }
 */
     
-    if(LOCAL_PLAYER->IsPlaying())
+    if([LOCAL_PLAYER isPlaying])
     {
+// XXX: getPlaybackPosition
+/*
         SInt64 currentFrame, totalFrames;
         CFTimeInterval currentTime, totalTime;
         
         if(LOCAL_PLAYER->GetPlaybackPositionAndTime(currentFrame, totalFrames, currentTime, totalTime)) {
             return [NSString stringWithTime:currentTime];
         }
+*/
+return nil;
     }
     
     return nil;
@@ -500,14 +515,17 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
     }
 */
     
-    if(LOCAL_PLAYER->IsPlaying())
+    if([LOCAL_PLAYER isPlaying])
     {
         SInt64 currentFrame, totalFrames;
         CFTimeInterval currentTime, totalTime;
         
+/*
+// XXX: getPlaybackPosition
         if(LOCAL_PLAYER->GetPlaybackPositionAndTime(currentFrame, totalFrames, currentTime, totalTime)) {
             return [NSString stringWithTime:(-1 * (totalTime - currentTime))];
         }
+*/
     }
     
     return nil;
@@ -543,11 +561,13 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
     }
 */
     
-    if(LOCAL_PLAYER->IsPlaying())
+    if([LOCAL_PLAYER isPlaying])
     {
         SInt64 currentFrame, totalFrames;
         CFTimeInterval currentTime, totalTime;
         
+/*
+// XXX: getPlaybackPosition
         if(LOCAL_PLAYER->GetPlaybackPositionAndTime(currentFrame, totalFrames, currentTime, totalTime)) {
             double fractionComplete = static_cast<double>(currentFrame) / static_cast<double>(totalFrames) * 100;
             
@@ -561,6 +581,8 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
         } else {
             return 0;
         }
+*/
+return 0;
     }
     
     return 0;
@@ -586,7 +608,7 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
     }
 */
     
-    if(LOCAL_PLAYER->IsPlaying()) {
+    if([LOCAL_PLAYER isPlaying]) {
         percentLoaded = 1;
     }
     
@@ -667,10 +689,10 @@ static void renderingFinished(void *context, const AudioDecoder *decoder)
 */
 }
 
-- (void) decodingStarted:(const AudioDecoder *)decoder
+- (void) decodingStarted:(const SFBAudioDecoder *)decoder
 {
     #pragma unused(decoder)
-	LOCAL_PLAYER->Play();
+	[LOCAL_PLAYER play];
 }
 
 

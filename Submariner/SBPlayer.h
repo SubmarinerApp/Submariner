@@ -35,7 +35,7 @@
 #import <Foundation/Foundation.h>
 
 #if __cplusplus
-#include <SFBAudioEngine/AudioPlayer.h>
+#include <SFBAudioEngine/SFBAudioPlayer.h>
 #endif
 
 // notifications
@@ -85,7 +85,7 @@ enum SBPlayerRepeatMode {
 @property (readwrite) BOOL isPaused;
 @property (readwrite) SBPlayerRepeatMode repeatMode;
 
-+ (id)sharedInstance;
++ (SBPlayer*)sharedInstance;
 
 // manage player tracklist
 - (void)addTrack:(SBTrack *)track replace:(BOOL)replace;
