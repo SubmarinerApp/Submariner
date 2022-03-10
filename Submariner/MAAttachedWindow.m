@@ -1,4 +1,3 @@
-//
 //  MAAttachedWindow.m
 //
 //  Created by Matt Gemmell on 27/09/2007.
@@ -7,9 +6,15 @@
 
 #import "MAAttachedWindow.h"
 
+// this file needs -fno-objc-arc in the compile build phase
+#if __has_feature(objc_arc)
+#error This file needs ARC to be disabled!
+#endif
+
+
 #define MAATTACHEDWINDOW_DEFAULT_BACKGROUND_COLOR [NSColor colorWithCalibratedWhite:0.1 alpha:0.75]
 #define MAATTACHEDWINDOW_DEFAULT_BORDER_COLOR [NSColor whiteColor]
-#define MAATTACHEDWINDOW_SCALE_FACTOR [[NSScreen mainScreen] userSpaceScaleFactor]
+#define MAATTACHEDWINDOW_SCALE_FACTOR 1.0
 
 @interface MAAttachedWindow (MAPrivateMethods)
 
@@ -33,7 +38,7 @@
 #pragma mark Initializers
 
 
-- (MAAttachedWindow *)initWithView:(NSView *)view 
+- (instancetype)initWithView:(NSView *)view 
                    attachedToPoint:(NSPoint)point 
                           inWindow:(NSWindow *)window 
                             onSide:(MAWindowPosition)side 
@@ -49,23 +54,22 @@
     contentRect.size = [view frame].size;
     
     if ((self = [super initWithContentRect:contentRect 
-                                styleMask:NSBorderlessWindowMask 
+                                styleMask:NSWindowStyleMaskBorderless 
                                   backing:NSBackingStoreBuffered 
                                     defer:NO])) {
-        _view = view;
-        _window = window;
+        _hostingView = view;
+        _hostingWindow = window;
         _point = point;
         _side = side;
         _distance = distance;
         
         // Configure window characteristics.
         [super setBackgroundColor:[NSColor clearColor]];
-        [self setMovableByWindowBackground:YES];
+        [self setMovableByWindowBackground:NO];
         [self setExcludedFromWindowsMenu:YES];
-        [self setAlphaValue:0.0];
+        [self setAlphaValue:1.0];
         [self setOpaque:NO];
         [self setHasShadow:YES];
-        [self useOptimizedDrawing:YES];
         
         // Set up some sensible defaults for display.
         _MABackgroundColor = [MAATTACHEDWINDOW_DEFAULT_BACKGROUND_COLOR copy];
@@ -91,7 +95,7 @@
         [self _updateBackground];
         
         // Add view as subview of our contentView.
-        [[self contentView] addSubview:_view];
+        [[self contentView] addSubview:_hostingView];
         
         // Subscribe to notifications for when we change size.
         [[NSNotificationCenter defaultCenter] addObserver:self 
@@ -103,7 +107,7 @@
 }
 
 
-- (MAAttachedWindow *)initWithView:(NSView *)view 
+- (instancetype)initWithView:(NSView *)view 
                    attachedToPoint:(NSPoint)point 
                           inWindow:(NSWindow *)window 
                         atDistance:(float)distance
@@ -114,7 +118,7 @@
 }
 
 
-- (MAAttachedWindow *)initWithView:(NSView *)view 
+- (instancetype)initWithView:(NSView *)view 
                    attachedToPoint:(NSPoint)point 
                             onSide:(MAWindowPosition)side 
                         atDistance:(float)distance
@@ -125,7 +129,7 @@
 }
 
 
-- (MAAttachedWindow *)initWithView:(NSView *)view 
+- (instancetype)initWithView:(NSView *)view 
                    attachedToPoint:(NSPoint)point 
                         atDistance:(float)distance
 {
@@ -135,7 +139,7 @@
 }
 
 
-- (MAAttachedWindow *)initWithView:(NSView *)view 
+- (instancetype)initWithView:(NSView *)view 
                    attachedToPoint:(NSPoint)point 
                           inWindow:(NSWindow *)window
 {
@@ -145,7 +149,7 @@
 }
 
 
-- (MAAttachedWindow *)initWithView:(NSView *)view 
+- (instancetype)initWithView:(NSView *)view 
                    attachedToPoint:(NSPoint)point 
                             onSide:(MAWindowPosition)side
 {
@@ -155,7 +159,7 @@
 }
 
 
-- (MAAttachedWindow *)initWithView:(NSView *)view 
+- (instancetype)initWithView:(NSView *)view 
                    attachedToPoint:(NSPoint)point
 {
     return [self initWithView:view attachedToPoint:point 
@@ -180,12 +184,12 @@
 - (void)_updateGeometry
 {
     NSRect contentRect = NSZeroRect;
-    contentRect.size = [_view frame].size;
+    contentRect.size = [_hostingView frame].size;
     
     // Account for viewMargin.
     _viewFrame = NSMakeRect(viewMargin * MAATTACHEDWINDOW_SCALE_FACTOR,
                             viewMargin * MAATTACHEDWINDOW_SCALE_FACTOR,
-                            [_view frame].size.width, [_view frame].size.height);
+                            [_hostingView frame].size.width, [_hostingView frame].size.height);
     contentRect = NSInsetRect(contentRect, 
                               -viewMargin * MAATTACHEDWINDOW_SCALE_FACTOR, 
                               -viewMargin * MAATTACHEDWINDOW_SCALE_FACTOR);
@@ -223,7 +227,11 @@
     }
     
     // Position frame origin appropriately for _side, accounting for arrow-inset.
-    contentRect.origin = (_window) ? [_window convertBaseToScreen:_point] : _point;
+
+	NSRect positionRect =  {_point, 1.0, 1.0};
+	positionRect = (_hostingWindow) ? [_hostingWindow convertRectToScreen:positionRect] : positionRect;
+
+    contentRect.origin = positionRect.origin;
     float arrowInset = [self _arrowInset];
     float halfWidth = contentRect.size.width / 2.0;
     float halfHeight = contentRect.size.height / 2.0;
@@ -302,7 +310,7 @@
     
     // Reconfigure window and view frames appropriately.
     [self setFrame:contentRect display:NO];
-    [_view setFrame:_viewFrame];
+    [_hostingView setFrame:_viewFrame];
 }
 
 
@@ -310,13 +318,16 @@
 {
     // Get all relevant geometry in screen coordinates.
     NSRect screenFrame;
-    if (_window && [_window screen]) {
-        screenFrame = [[_window screen] visibleFrame];
+    if (_hostingWindow && [_hostingWindow screen]) {
+        screenFrame = [[_hostingWindow screen] visibleFrame];
     } else {
          screenFrame = [[NSScreen mainScreen] visibleFrame];
     }
-    NSPoint pointOnScreen = (_window) ? [_window convertBaseToScreen:_point] : _point;
-    NSSize viewSize = [_view frame].size;
+	NSRect positionRect =  {_point, 1.0, 1.0};
+	positionRect = (_hostingWindow) ? [_hostingWindow convertRectToScreen:positionRect] : positionRect;
+
+	NSPoint pointOnScreen = positionRect.origin;
+    NSSize viewSize = [_hostingView frame].size;
     viewSize.width += (viewMargin * MAATTACHEDWINDOW_SCALE_FACTOR) * 2.0;
     viewSize.height += (viewMargin * MAATTACHEDWINDOW_SCALE_FACTOR) * 2.0;
     MAWindowPosition side = MAPositionBottom; // By default, position us centered below.
@@ -344,7 +355,7 @@
     float halfWidth = viewSize.width / 2.0;
     float halfHeight = viewSize.height / 2.0;
     
-    NSRect parentFrame = (_window) ? [_window frame] : screenFrame;
+    NSRect parentFrame = (_hostingWindow) ? [_hostingWindow frame] : screenFrame;
     float arrowInset = [self _arrowInset];
     
     // We're currently at a primary side.
@@ -424,55 +435,35 @@
     // Call NSWindow's implementation of -setBackgroundColor: because we override 
     // it in this class to let us set the entire background image of the window 
     // as an NSColor patternImage.
-    NSDisableScreenUpdates();
     [super setBackgroundColor:[self _backgroundColorPatternImage]];
     if ([self isVisible]) {
         [self display];
         [self invalidateShadow];
     }
-    NSEnableScreenUpdates();
 }
 
 
 - (NSColor *)_backgroundColorPatternImage
 {
-    NSImage *bg = [[NSImage alloc] initWithSize:[self frame].size];
-    NSRect bgRect = NSZeroRect;
-    bgRect.size = [bg size];
-    
-    [bg lockFocus];
-    NSBezierPath *bgPath = [self _backgroundPath];
-    [NSGraphicsContext saveGraphicsState];
-    [bgPath addClip];
-    
-    // Draw background.
-    [_MABackgroundColor set];
-    NSGradient *gradient = [[[NSGradient alloc] initWithColorsAndLocations:
-                             [NSColor colorWithDeviceWhite:0.85 alpha:1.0], 0.0,
-                             [NSColor colorWithDeviceWhite:0.60 alpha:1.0], 0.2,
-                             [NSColor lightGrayColor], 0.8,
-                             [NSColor colorWithDeviceWhite:0.60 alpha:1.0], 1.0,
-                             nil] autorelease];
-    
-    [bgPath setClip];
-    [gradient drawInBezierPath:bgPath angle:-90];
-    
-    NSRect topHighlightRect = NSMakeRect(0.0, NSMaxY([bgPath bounds])-1, NSWidth([bgPath bounds]), 1.0);
-    [[NSColor colorWithDeviceWhite:0.9 alpha:1.0] setFill];
-    NSRectFill(topHighlightRect);
-    
-    // Draw border if appropriate.
-    if (borderWidth > 0) {
-        // Double the borderWidth since we're drawing inside the path.
-        [bgPath setLineWidth:(borderWidth * 2.0) * MAATTACHEDWINDOW_SCALE_FACTOR];
-        [borderColor set];
-        [bgPath stroke];
-    }
-    
-    [NSGraphicsContext restoreGraphicsState];
-    [bg unlockFocus];
-    
-    return [NSColor colorWithPatternImage:[bg autorelease]];
+	NSImage *patternImage = [NSImage imageWithSize:self.frame.size flipped:NO drawingHandler:^BOOL(NSRect dstRect) {
+		NSBezierPath *bgPath = [self _backgroundPath];
+		[bgPath addClip];
+
+		// Draw background.
+		[_MABackgroundColor set];
+		[bgPath fill];
+
+		// Draw border if appropriate.
+		if (borderWidth > 0) {
+			// Double the borderWidth since we're drawing inside the path.
+			[bgPath setLineWidth:(borderWidth * 2.0) * MAATTACHEDWINDOW_SCALE_FACTOR];
+			[borderColor set];
+			[bgPath stroke];
+		}
+
+		return YES;
+	}];
+    return [NSColor colorWithPatternImage:patternImage];
 }
 
 
@@ -733,10 +724,8 @@
     }
     
     _resizing = YES;
-    NSDisableScreenUpdates();
     [self _updateGeometry];
     [self _updateBackground];
-    NSEnableScreenUpdates();
     _resizing = NO;
 }
 
@@ -764,8 +753,8 @@
 
 - (BOOL)validateMenuItem:(NSMenuItem *)item
 {
-    if (_window) {
-        return [_window validateMenuItem:item];
+    if (_hostingWindow) {
+        return [_hostingWindow validateMenuItem:item];
     }
     return [super validateMenuItem:item];
 }
@@ -773,8 +762,8 @@
 
 - (IBAction)performClose:(id)sender
 {
-    if (_window) {
-        [_window performClose:sender];
+    if (_hostingWindow) {
+        [_hostingWindow performClose:sender];
     } else {
         [super performClose:sender];
     }
@@ -798,10 +787,8 @@
 	// Thanks to Martin Redington.
 	_point = point;
 	_side = side;
-	NSDisableScreenUpdates();
 	[self _updateGeometry];
 	[self _updateBackground];
-	NSEnableScreenUpdates();
 }
 
 
@@ -957,41 +944,6 @@
     if (value) {
         [self setBackgroundColor:[NSColor colorWithPatternImage:value]];
     }
-}
-
-- (void)makeKeyAndOrderFront:(id)sender {
-    [super makeKeyAndOrderFront:sender];
-    
-	float alpha = 0.0;    
-    for (int x = 0; x < 10; x++) {
-		alpha += 0.1;
-		[self setAlphaValue:alpha];
-		[NSThread sleepForTimeInterval:0.020];
-	}
-}
-
-
-
-- (void)orderFront:(id)sender {
-    [super orderFront:sender];
-    
-	float alpha = 0.0;    
-    for (int x = 0; x < 10; x++) {
-		alpha += 0.1;
-		[self setAlphaValue:alpha];
-		[NSThread sleepForTimeInterval:0.020];
-	}
-}
-
-- (void)orderOut:(id)sender {
-    float alpha = 1.0;
-    
-    for (int x = 0; x < 10; x++) {
-		alpha -= 0.1;
-		[self setAlphaValue:alpha];
-		[NSThread sleepForTimeInterval:0.020];
-	}
-	[super orderOut:sender];
 }
 
 
