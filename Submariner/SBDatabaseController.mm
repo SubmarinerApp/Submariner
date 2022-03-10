@@ -40,7 +40,6 @@
 #import "SBMusicController.h"
 #import "SBMusicTopbarController.h"
 #import "SBTracklistController.h"
-#import "SBMovieViewController.h"
 #import "SBPlaylistController.h"
 #import "SBServerTopbarController.h"
 #import "SBDownloadsController.h"
@@ -144,7 +143,6 @@
         tracklistController = [[SBTracklistController alloc] initWithManagedObjectContext:self.managedObjectContext];
         playlistController = [[SBPlaylistController alloc] initWithManagedObjectContext:self.managedObjectContext];
         serverTopbarController = [[SBServerTopbarController alloc] initWithManagedObjectContext:self.managedObjectContext];
-        movieViewController = [[SBMovieViewController alloc] initWithManagedObjectContext:self.managedObjectContext];
         
         [tracklistController setDatabaseController:self];
     }
@@ -166,7 +164,6 @@
     [serverTopbarController release];
     [resourceSortDescriptors release];
     [mainSplitViewDelegate release];
-    [movieViewController release];
     [library release];
     [progressUpdateTimer release];
     [flipController release];
@@ -911,11 +908,6 @@
         [serverTopbarController setServer:(SBServer *)resource];  
         [serverTopbarController setViewControllerAtIndex:[(SBServer *)resource selectedTabIndex]];
 
-    } else if([resource isKindOfClass:[QTMovie class]]) {
-        
-        //[topbarBox setContentView:nil];
-        [self setCurrentView:(SBAnimatedView *)[movieViewController view]];
-        [movieViewController setMovie:(QTMovie *)resource];
     }
 }
 
