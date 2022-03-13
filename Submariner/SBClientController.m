@@ -179,60 +179,71 @@
 
 
 - (void)requestWithURL:(NSURL *)url requestType:(SBSubsonicRequestType)type {
-    NSLog(@"Hey, requestWithURL is nopped out");
-/*
-    [[LRResty authenticatedClientWithUsername:server.username password:server.password] get:[url absoluteString] withBlock:^(LRRestyResponse *response) {
-        
-        if(!response) {
-            NSLog(@"no response !");
-        }
-        
-        if (response.status == 200) {
-            SBSubsonicParsingOperation *operation = [[SBSubsonicParsingOperation alloc] initWithManagedObjectContext:self.managedObjectContext
-                                                                                                              client:self
-                                                                                                         requestType:type
-                                                                                                              server:[self.server objectID]
-                                                                                                                 xml:[response responseData]];
-            
-            [[NSOperationQueue sharedServerQueue] cancelAllOperations];
-            [[NSOperationQueue sharedServerQueue] addOperation:operation];
-            [operation release];
-        } else if (response.status >= 400 && response.status < 504) {
+	NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+	NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: url];
+	NSString *loginString = [NSString stringWithFormat: @"%@:%@", server.username, server.password];
+	NSData *loginData = [loginString dataUsingEncoding: NSUTF8StringEncoding];
+	NSString *base64login = [loginData base64EncodedStringWithOptions: 0];
+	NSString *authHeader = [NSString stringWithFormat: @"Basic %@", base64login];
+	configuration.HTTPAdditionalHeaders = @{@"Authorization": authHeader};
+	NSURLSessionDataTask *httpTask = [session dataTaskWithRequest: request completionHandler:
+		^(NSData *data, NSURLResponse *response, NSError *error) {
+		NSLog(@"Handling %@", url);
+		if (error != nil) {
+			NSLog(@"Error in requddestWithURL: %@", error);
+			[NSApp presentError: error];
+			return;
+		}
+		if (response == nil) {
+			NSLog(@"No response in requestWithURL");
+			return;
+		}
+		NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+		NSInteger statusCode = [httpResponse statusCode];
+		NSLog(@"Status code is %ld", (long)statusCode);
+		if (statusCode!= 200) {
+			NSError *newError = nil;
+			NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+			switch (statusCode) {
+			case 400: [userInfo setValue:@"Bad request" forKey:NSLocalizedDescriptionKey];
+				break;
+			case 401: [userInfo setValue:@"Unauthorized" forKey:NSLocalizedDescriptionKey];
+				break;
+			case 402: [userInfo setValue:@"Payment Required" forKey:NSLocalizedDescriptionKey];
+				break;
+			case 403: [userInfo setValue:@"Forbidden" forKey:NSLocalizedDescriptionKey];
+				break;
+			case 404: [userInfo setValue:@"Not Found" forKey:NSLocalizedDescriptionKey];
+				break;
+			case 500: [userInfo setValue:@"Internal Error" forKey:NSLocalizedDescriptionKey];
+				break;
+			case 501: [userInfo setValue:@"Not Implemented" forKey:NSLocalizedDescriptionKey];
+				break;
+			case 502: [userInfo setValue:@"Service temporarily overloaded" forKey:NSLocalizedDescriptionKey];
+				break;
+			case 503: [userInfo setValue:@"Gateway timeout" forKey:NSLocalizedDescriptionKey];
+				break;
+			default: [userInfo setValue:@"Bad request" forKey:NSLocalizedDescriptionKey];
+				break;
+			}
+			newError = [NSError errorWithDomain:NSPOSIXErrorDomain code: statusCode userInfo:userInfo];
+			[NSApp presentError: newError];
+			[newError release];
+			return;
+		}
 
-            // error ?
-            NSError *error = nil;
-            NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-            
-            switch (response.status) {
-                case 400: [userInfo setValue:@"Bad request" forKey:NSLocalizedDescriptionKey];
-                    break;
-                case 401: [userInfo setValue:@"Unauthorized" forKey:NSLocalizedDescriptionKey];
-                    break;
-                case 402: [userInfo setValue:@"Payment Required" forKey:NSLocalizedDescriptionKey];
-                    break;
-                case 403: [userInfo setValue:@"Forbidden" forKey:NSLocalizedDescriptionKey];
-                    break;
-                case 404: [userInfo setValue:@"Not Found" forKey:NSLocalizedDescriptionKey];
-                    break;
-                case 500: [userInfo setValue:@"Internal Error" forKey:NSLocalizedDescriptionKey];
-                    break;
-                case 501: [userInfo setValue:@"Not Implemented" forKey:NSLocalizedDescriptionKey];
-                    break;
-                case 502: [userInfo setValue:@"Service temporarily overloaded" forKey:NSLocalizedDescriptionKey];
-                    break;
-                case 503: [userInfo setValue:@"Gateway timeout" forKey:NSLocalizedDescriptionKey];
-                    break;
-                default: [userInfo setValue:@"Bad request" forKey:NSLocalizedDescriptionKey];
-                    break;
-            }
-            
-            error = [NSError errorWithDomain:NSPOSIXErrorDomain code:response.status userInfo:userInfo];
-            [NSApp presentError:error];
-        } else {
-            NSLog(@"status : %ld", response.status);
-        }
-    }];
-*/
+		SBSubsonicParsingOperation *operation = [[SBSubsonicParsingOperation alloc]
+			initWithManagedObjectContext:self.managedObjectContext
+			client:self
+			requestType:type
+			server:[self.server objectID]
+			xml: data];
+		[[NSOperationQueue sharedServerQueue] cancelAllOperations];
+		[[NSOperationQueue sharedServerQueue] addOperation:operation];
+		[operation release];
+	}];
+	[httpTask resume];
 }
 
 
