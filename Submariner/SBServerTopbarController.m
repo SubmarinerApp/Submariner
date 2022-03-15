@@ -206,6 +206,8 @@
         NSDictionary *attr = [notification object];
         NSInteger code = [[attr valueForKey:@"code"] intValue];
         
+        // Even creating the alert on the main thread is a problem
+        dispatch_async(dispatch_get_main_queue(), ^{
         NSAlert *alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"Subsonic Error (code %ld)", code]
                                          defaultButton:@"OK"
                                        alternateButton:nil
@@ -213,6 +215,7 @@
                              informativeTextWithFormat:[attr valueForKey:@"message"]];
         
         [alert performSelectorOnMainThread:@selector(runModal) withObject:nil waitUntilDone:NO];
+        });
     }
 }
 

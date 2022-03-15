@@ -189,6 +189,7 @@
 	configuration.HTTPAdditionalHeaders = @{@"Authorization": authHeader};
 	NSURLSessionDataTask *httpTask = [session dataTaskWithRequest: request completionHandler:
 		^(NSData *data, NSURLResponse *response, NSError *error) {
+		dispatch_async(dispatch_get_main_queue(), ^{
 		NSLog(@"Handling %@", url);
 		if (error != nil) {
 			NSLog(@"Error in requddestWithURL: %@", error);
@@ -242,6 +243,7 @@
 		[[NSOperationQueue sharedServerQueue] cancelAllOperations];
 		[[NSOperationQueue sharedServerQueue] addOperation:operation];
 		[operation release];
+		});
 	}];
 	[httpTask resume];
 }
