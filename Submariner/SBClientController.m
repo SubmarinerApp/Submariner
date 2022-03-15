@@ -433,24 +433,6 @@
     [self requestWithURL:url requestType:type];
 }
 
-- (void)getChatMessagesSince:(NSDate *)date {    
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:parameters];
-    [params setValue:[NSString stringWithFormat:@"%00.f", [date timeIntervalSince1970]] forKey:@"since"];
-    
-    NSURL *url = [NSURL URLWithString:server.url command:@"rest/getChatMessages.view" parameters:params];
-    [self requestWithURL:url requestType:SBSubsonicRequestGetChatMessages];    
-}
-
-
-- (void)addChatMessage:(NSString *)message {
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:parameters];
-    [params setValue:message forKey:@"message"];
-    
-    NSURL *url = [NSURL URLWithString:server.url command:@"rest/addChatMessage.view" parameters:params];
-    [self requestWithURL:url requestType:SBSubsonicRequestAddChatMessage];  
-}
-
-
 - (void)getNowPlaying {
     NSURL *url = [NSURL URLWithString:server.url command:@"rest/getNowPlaying.view" parameters:parameters];
     [self requestWithURL:url requestType:SBSubsonicRequestGetNowPlaying];   

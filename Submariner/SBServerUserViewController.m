@@ -36,7 +36,6 @@
 #import "SBPrioritySplitViewDelegate.h"
 #import "SBSubsonicParsingOperation.h"
 #import "SBServer.h"
-#import "SBChatMessage.h"
 
 
 
@@ -53,12 +52,8 @@
 
 
 @interface SBServerUserViewController (Private)
-- (void)subsonicChatMessageAdded:(NSNotification *)notification;
 - (void)subsonicNowPlayingUpdated:(NSNotification *)notification;
 - (void)subsonicCoversUpdatedNotification:(NSNotification *)notification;
-- (void)synchronizeChatMessages;
-- (void)clearUnreadMessages;
-- (void)startRefreshChatTimer;
 - (void)startRefreshNowPlayingTimer;
 - (void)refreshAll;
 @end
@@ -84,9 +79,6 @@
         
         
         // timers
-        if([[NSUserDefaults standardUserDefaults] boolForKey:@"autoRefreshChat"])
-            [self startRefreshChatTimer];
-        
         if([[NSUserDefaults standardUserDefaults] boolForKey:@"autoRefreshNowPlaying"])
             [self startRefreshNowPlayingTimer];
     }
@@ -96,19 +88,12 @@
 
 - (void)dealloc {
     
-    [chatMessagesController removeObserver:self forKeyPath:@"content"];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self 
-                                                    name:SBSubsonicChatMessageAddedNotification 
-                                                  object:nil];
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self 
                                                     name:SBSubsonicNowPlayingUpdatedNotification 
                                                   object:nil];
     
     [nowPlayingSortDescriptors release];
     [splitViewDelegate release];
-    [refreshChatTimer release];
     [refreshNowPlayingTimer release];
     [super dealloc];
 }
@@ -141,11 +126,6 @@
     
     // add add subsonic observers
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(subsonicChatMessageAdded:)
-                                                 name:SBSubsonicChatMessageAddedNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(subsonicNowPlayingUpdated:)
                                                  name:SBSubsonicNowPlayingUpdatedNotification
                                                object:nil];
@@ -154,11 +134,6 @@
                                              selector:@selector(subsonicCoversUpdatedNotification:) 
                                                  name:SBSubsonicCoversUpdatedNotification
                                                object:nil];
-    
-    [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:@"autoRefreshChat"
-                                               options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
-                                               context:nil];
     
     [[NSUserDefaults standardUserDefaults] addObserver:self
                                             forKeyPath:@"autoRefreshNowPlaying"
@@ -170,7 +145,6 @@
 
 - (void)viewDidLoad {
     [self refreshAll];
-    [self clearUnreadMessages];
 }
 
 
@@ -179,33 +153,6 @@
 
 #pragma mark -
 #pragma mark IBActions
-
-- (IBAction)refreshChat:(id)sender {
-    
-    
-    // get last message date
-    NSFetchRequest *fetchRequest1 = [[NSFetchRequest alloc] init];
-    NSError *error = nil;
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"ChatMessage" inManagedObjectContext:[self managedObjectContext]];
-    
-    [fetchRequest1 setEntity:entity];
-    
-    NSSortDescriptor *dateSort = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
-    [fetchRequest1 setSortDescriptors:[NSArray arrayWithObject:dateSort]];
-    [dateSort release], dateSort = nil;
-    
-    [fetchRequest1 setFetchLimit:1];
-    
-    SBChatMessage *latest = (SBChatMessage *)[[[self managedObjectContext] executeFetchRequest:fetchRequest1 error:&error] lastObject];
-    [fetchRequest1 release], fetchRequest1 = nil;
-    
-    if(latest) {
-        [server getChatMessagesSince:latest.date];
-    } else {
-        NSDate *lastWeek  = [[NSDate date] addTimeInterval:-1209600.0];
-        [server getChatMessagesSince:lastWeek];
-    }
-}
 
 - (IBAction)refreshNowPlaying:(id)sender {
     
@@ -232,25 +179,7 @@
 }
 
 
-- (IBAction)clearChat:(id)sender {
-    [chatTextView setString:@""];
-    
-    NSFetchRequest * request = [[NSFetchRequest alloc] init];
-    [request setEntity:[NSEntityDescription entityForName:@"ChatMessage" inManagedObjectContext:self.managedObjectContext]];
-    [request setIncludesPropertyValues:NO]; //only fetch the managedObjectID
-    
-    NSError * error = nil;
-    NSArray * messages = [self.managedObjectContext executeFetchRequest:request error:&error];
-    [request release];
-    
-    for (NSManagedObject * message in messages) {
-        [self.managedObjectContext deleteObject:message];
-    }
-}
-
-
 - (void)refreshAll {
-    [self refreshChat:nil];
     [self refreshNowPlaying:nil];
 }
 
@@ -260,11 +189,7 @@
 #pragma mark Observers
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if([keyPath isEqualToString:@"content"]) {
-        [self synchronizeChatMessages];
-    } else if([keyPath isEqualToString:@"autoRefreshChat"]) {
-        [self startRefreshChatTimer];
-    } else if([keyPath isEqualToString:@"autoRefreshNowPlaying"]) {
+    if([keyPath isEqualToString:@"autoRefreshNowPlaying"]) {
         [self startRefreshNowPlayingTimer];
     }  
 }
@@ -275,10 +200,6 @@
 
 #pragma mark -
 #pragma mark Subsonic Notifications
-
-- (void)subsonicChatMessageAdded:(NSNotification *)notification {
-    [self refreshChat:nil];
-}
 
 - (void)subsonicNowPlayingUpdated:(NSNotification *)notification {
     
@@ -293,60 +214,6 @@
 
 #pragma mark -
 #pragma mark Private
-
-- (void)synchronizeChatMessages {
-    // sort messages by date
-    NSSortDescriptor *descriptor =[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO];
-    NSArray *chatMessages = [[chatMessagesController arrangedObjects] sortedArrayUsingDescriptors:[NSArray arrayWithObject:descriptor]];
-    
-    // clean ciew
-    [chatTextView setString:@""];
-    
-    // add messages
-    for(SBChatMessage *message in chatMessages) {
-        NSDictionary *usernameAttrs = [NSDictionary dictionaryWithObject:[NSFont boldSystemFontOfSize:12.0f] forKey:NSFontAttributeName];
-        NSString *usernameString = [NSString stringWithFormat:@"%@ : ", message.username];
-        NSAttributedString *attrUsernameString = [[NSAttributedString alloc] initWithString:usernameString attributes:usernameAttrs];
-        
-        [[chatTextView textStorage] appendAttributedString:attrUsernameString];
-        
-        NSString *messageString = [NSString stringWithFormat:@"%@\n", message.message];
-        NSAttributedString *attrMessageString = [[NSAttributedString alloc] initWithString:messageString];
-        
-        [[chatTextView textStorage] appendAttributedString:attrMessageString];
-        
-        [attrUsernameString release];
-        [attrMessageString release];
-    }
-}
-
-
-- (void)clearUnreadMessages {
-    NSArray *messages = [chatMessagesController arrangedObjects];
-    for(SBChatMessage *message in messages) {
-        if([message.unread boolValue])
-            [message setUnread:[NSNumber numberWithBool:NO]];
-    }
-    [[NSApp dockTile] setBadgeLabel:nil];
-}
-
-
-
-- (void)startRefreshChatTimer {
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"autoRefreshChat"]) {
-
-        refreshChatTimer = [NSTimer scheduledTimerWithTimeInterval:30.0f
-                                                        target:self
-                                                      selector:@selector(refreshChat:)
-                                                      userInfo:nil
-                                                       repeats:YES];
-    } else {
-        if(refreshChatTimer) {
-
-            [refreshChatTimer invalidate];
-        }
-    }
-}
 
 - (void)startRefreshNowPlayingTimer {
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"autoRefreshNowPlaying"]) {
@@ -363,20 +230,6 @@
         }
     }
 }
-
-
-#pragma mark -
-#pragma mark NSTextField Delegate
-
-- (void)controlTextDidEndEditing:(NSNotification *)obj {
-    NSString *string = [[obj object] stringValue];
-    
-    if(string && [string length] > 0) {
-        [[obj object] setStringValue:@""];
-        [server addChatMessage:string];
-    }
-}
-
 
 
 @end

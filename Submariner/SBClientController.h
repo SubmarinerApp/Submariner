@@ -107,9 +107,6 @@
 - (void)createPlaylistWithName:(NSString *)playlistName tracks:(NSArray *)tracks;
 - (void)updatePlaylistWithID:(NSString *)playlistID tracks:(NSArray *)tracks;
 
-- (void)getChatMessagesSince:(NSDate *)date;
-- (void)addChatMessage:(NSString *)message;
-
 - (void)getNowPlaying;
 - (void)getUserWithName:(NSString *)username;
 

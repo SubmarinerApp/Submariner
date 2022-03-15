@@ -46,7 +46,6 @@
 #import "SBArtist.h"
 #import "SBAlbum.h"
 #import "SBCover.h"
-#import "SBChatMessage.h"
 #import "SBNowPlaying.h"
 #import "SBSearchResult.h"
 #import "SBPodcast.h"
@@ -82,7 +81,6 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
 - (SBTrack *)createTrackWithAttribute:(NSDictionary *)attributeDict;
 - (SBCover *)createCoverWithAttribute:(NSDictionary *)attributeDict;
 - (SBPlaylist *)createPlaylistWithAttribute:(NSDictionary *)attributeDict;
-- (SBChatMessage *)createMessageWithAttribute:(NSDictionary *)attributeDict;
 - (SBNowPlaying *)createNowPlayingWithAttribute:(NSDictionary *)attributeDict;
 - (SBPodcast *)createPodcastWithAttribute:(NSDictionary *)attributeDict;
 - (SBEpisode *)createEpisodeWithAttribute:(NSDictionary *)attributeDict;
@@ -162,7 +160,6 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
         requestType         = type;
         numberOfChildrens   = 0;
         playlistIndex       = 0;
-        hasUnread           = NO;
     }
     
     return self;
@@ -654,9 +651,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
 #if DEBUG
         NSLog(@"Create new chat message");
 #endif
-        SBChatMessage *newMessage = [self createMessageWithAttribute:attributeDict];
-        [server addMessagesObject:newMessage];
-        [newMessage setServer:server];
+        NSLog(@"Chat is no longer supported.");
     }
     
     if([elementName isEqualToString:@"user"]) {
@@ -868,12 +863,6 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
             [currentPlaylist release];
             currentPlaylist = nil;
         }
-    } else if(requestType == SBSubsonicRequestAddChatMessage) {
-        // inform the app that the message is posted
-        [nc postNotificationName:SBSubsonicChatMessageAddedNotification object:serverID];
-        if(hasUnread && [[NSUserDefaults standardUserDefaults] boolForKey:@"jumpInDock"]) {
-            [NSApp requestUserAttention:NSInformationalRequest];
-        }
     } else if (requestType == SBSubsonicRequestGetNowPlaying) {
         [nc postNotificationName:SBSubsonicNowPlayingUpdatedNotification object:serverID];
         
@@ -1006,24 +995,6 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     return newPlaylist;
 }
 
-
-- (SBChatMessage *)createMessageWithAttribute:(NSDictionary *)attributeDict {
-    SBChatMessage * newMessage = [SBChatMessage insertInManagedObjectContext:[self threadedContext]];
-    
-    if([attributeDict valueForKey:@"username"])
-        [newMessage setUsername:[attributeDict valueForKey:@"username"]];
-    if([attributeDict valueForKey:@"time"]) {
-        [newMessage setDate:[NSDate dateWithTimeIntervalSince1970:[[attributeDict valueForKey:@"time"] doubleValue]]];
-    }
-    if([attributeDict valueForKey:@"message"])
-        [newMessage setMessage:[attributeDict valueForKey:@"message"]];
-    
-    // new message are unread
-    [newMessage setUnread:[NSNumber numberWithBool:YES]];
-    hasUnread = YES;
-    
-    return newMessage;
-}
 
 - (SBNowPlaying *)createNowPlayingWithAttribute:(NSDictionary *)attributeDict {
     SBNowPlaying * nowPlaying = [SBNowPlaying insertInManagedObjectContext:[self threadedContext]];

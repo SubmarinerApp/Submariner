@@ -1185,12 +1185,7 @@
 - (BOOL)sourceList:(SBSourceList*)aSourceList itemHasBadge:(id)item {
     BOOL result = NO;
     
-    if([[item representedObject] isKindOfClass:[SBServer class]]) {
-        SBServer *server = [item representedObject];
-        if([server hasUnread]) {
-            result = YES;
-        }
-    } else if([[item representedObject] isKindOfClass:[SBDownloads class]]) {
+    if([[item representedObject] isKindOfClass:[SBDownloads class]]) {
         if(downloadsController.downloadActivities.count > 0)
             result = YES;
     }
@@ -1202,17 +1197,7 @@
     NSInteger result = 0;
     
     if([[item representedObject] isKindOfClass:[SBServer class]]) {
-        SBServer *server = [item representedObject];
-        if([server hasUnread]) {
-            result = [server numberOfUnread];
-            
-            if(result == 0) {
-                [[NSApp dockTile] setBadgeLabel:nil];
-            } else {
-                [[NSApp dockTile] setBadgeLabel:[NSString stringWithFormat:@"%ld", [server numberOfUnread]]];
-            }
-
-        }
+                [[NSApp dockTile] setBadgeLabel:nil]; // XXX: Needed?
     } else if([[item representedObject] isKindOfClass:[SBDownloads class]]) {
         if(downloadsController.downloadActivities.count > 0)
             result = downloadsController.downloadActivities.count;

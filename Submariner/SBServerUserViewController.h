@@ -44,7 +44,6 @@
     IBOutlet NSCollectionView *nowPlayingCollectionView;
     IBOutlet NSSplitView *chatSplitView;
     
-    NSTimer *refreshChatTimer;
     NSTimer *refreshNowPlayingTimer;
     NSArray *nowPlayingSortDescriptors;
     SBPrioritySplitViewDelegate *splitViewDelegate;
@@ -53,8 +52,6 @@
 @property (readwrite, retain) NSArray *nowPlayingSortDescriptors;
 
 - (void)viewDidLoad;
-- (IBAction)refreshChat:(id)sender;
-- (IBAction)clearChat:(id)sender;
 - (IBAction)refreshNowPlaying:(id)sender;
 
 @end

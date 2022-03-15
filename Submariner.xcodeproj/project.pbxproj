@@ -236,9 +236,7 @@
 		4CFAFC52139FFDF200E82B57 /* _SBHome.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC4F139FFDF200E82B57 /* _SBHome.m */; };
 		4CFAFC53139FFDF200E82B57 /* SBHome.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC51139FFDF200E82B57 /* SBHome.m */; };
 		4CFAFC56139FFE1700E82B57 /* NSURL+Parameters.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC55139FFE1700E82B57 /* NSURL+Parameters.m */; };
-		4CFAFC5F139FFED000E82B57 /* _SBChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC58139FFED000E82B57 /* _SBChatMessage.m */; };
 		4CFAFC60139FFED000E82B57 /* _SBNowPlaying.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC5A139FFED000E82B57 /* _SBNowPlaying.m */; };
-		4CFAFC61139FFED000E82B57 /* SBChatMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC5C139FFED000E82B57 /* SBChatMessage.m */; };
 		4CFAFC62139FFED000E82B57 /* SBNowPlaying.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC5E139FFED000E82B57 /* SBNowPlaying.m */; };
 		4CFAFC6613A0150300E82B57 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CFAFC6513A0150300E82B57 /* AudioToolbox.framework */; };
 		4CFAFC7D13A0F7E000E82B57 /* SBAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC7C13A0F7E000E82B57 /* SBAnimatedView.m */; };
@@ -654,12 +652,8 @@
 		4CFAFC51139FFDF200E82B57 /* SBHome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBHome.m; sourceTree = "<group>"; };
 		4CFAFC54139FFE1700E82B57 /* NSURL+Parameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+Parameters.h"; sourceTree = "<group>"; };
 		4CFAFC55139FFE1700E82B57 /* NSURL+Parameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+Parameters.m"; sourceTree = "<group>"; };
-		4CFAFC57139FFED000E82B57 /* _SBChatMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SBChatMessage.h; sourceTree = "<group>"; };
-		4CFAFC58139FFED000E82B57 /* _SBChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SBChatMessage.m; sourceTree = "<group>"; };
 		4CFAFC59139FFED000E82B57 /* _SBNowPlaying.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SBNowPlaying.h; sourceTree = "<group>"; };
 		4CFAFC5A139FFED000E82B57 /* _SBNowPlaying.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SBNowPlaying.m; sourceTree = "<group>"; };
-		4CFAFC5B139FFED000E82B57 /* SBChatMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBChatMessage.h; sourceTree = "<group>"; };
-		4CFAFC5C139FFED000E82B57 /* SBChatMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBChatMessage.m; sourceTree = "<group>"; };
 		4CFAFC5D139FFED000E82B57 /* SBNowPlaying.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBNowPlaying.h; sourceTree = "<group>"; };
 		4CFAFC5E139FFED000E82B57 /* SBNowPlaying.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBNowPlaying.m; sourceTree = "<group>"; };
 		4CFAFC6513A0150300E82B57 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -1098,8 +1092,6 @@
 			children = (
 				4C42BEEE13AA411300299DBD /* SBDownloads.h */,
 				4C42BEEF13AA411300299DBD /* SBDownloads.m */,
-				4CFAFC5B139FFED000E82B57 /* SBChatMessage.h */,
-				4CFAFC5C139FFED000E82B57 /* SBChatMessage.m */,
 				4CFAFC5D139FFED000E82B57 /* SBNowPlaying.h */,
 				4CFAFC5E139FFED000E82B57 /* SBNowPlaying.m */,
 				4CFAFC50139FFDF200E82B57 /* SBHome.h */,
@@ -1147,8 +1139,6 @@
 				4C568676140435F200BE3478 /* _SBPodcast.m */,
 				4C42BEEC13AA411300299DBD /* _SBDownloads.h */,
 				4C42BEED13AA411300299DBD /* _SBDownloads.m */,
-				4CFAFC57139FFED000E82B57 /* _SBChatMessage.h */,
-				4CFAFC58139FFED000E82B57 /* _SBChatMessage.m */,
 				4CFAFC59139FFED000E82B57 /* _SBNowPlaying.h */,
 				4CFAFC5A139FFED000E82B57 /* _SBNowPlaying.m */,
 				4CFAFC4E139FFDF200E82B57 /* _SBHome.h */,
@@ -1599,9 +1589,7 @@
 				4CFAFC52139FFDF200E82B57 /* _SBHome.m in Sources */,
 				4CFAFC53139FFDF200E82B57 /* SBHome.m in Sources */,
 				4CFAFC56139FFE1700E82B57 /* NSURL+Parameters.m in Sources */,
-				4CFAFC5F139FFED000E82B57 /* _SBChatMessage.m in Sources */,
 				4CFAFC60139FFED000E82B57 /* _SBNowPlaying.m in Sources */,
-				4CFAFC61139FFED000E82B57 /* SBChatMessage.m in Sources */,
 				4CFAFC62139FFED000E82B57 /* SBNowPlaying.m in Sources */,
 				4CFAFC7D13A0F7E000E82B57 /* SBAnimatedView.m in Sources */,
 				4CFAFC8113A1110700E82B57 /* NSOperationQueue+Shared.m in Sources */,

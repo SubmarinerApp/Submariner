@@ -44,7 +44,6 @@ extern NSString *SBSubsonicTracksUpdatedNotification;
 extern NSString *SBSubsonicCoversUpdatedNotification;
 extern NSString *SBSubsonicPlaylistsUpdatedNotification;
 extern NSString *SBSubsonicPlaylistUpdatedNotification;
-extern NSString *SBSubsonicChatMessageAddedNotification;
 extern NSString *SBSubsonicNowPlayingUpdatedNotification;
 extern NSString *SBSubsonicUserInfoUpdatedNotification;
 extern NSString *SBSubsonicPlaylistsCreatedNotification;

@@ -49,8 +49,6 @@
 
 
 // accessors
-- (BOOL)hasUnread;
-- (NSInteger)numberOfUnread;
 - (NSImage *)licenseImage;
 
 
@@ -74,10 +72,6 @@
 
 // podcasts
 - (void)getServerPodcasts;
-
-// chat
-- (void)addChatMessage:(NSString *)message;
-- (void)getChatMessagesSince:(NSDate *)date;
 
 // now playing
 - (void)getNowPlaying;

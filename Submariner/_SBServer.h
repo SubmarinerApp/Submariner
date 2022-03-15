@@ -5,7 +5,6 @@
 #import "SBResource.h"
 
 @class SBIndex;
-@class SBChatMessage;
 @class SBPodcast;
 @class SBPlaylist;
 @class SBNowPlaying;
@@ -129,11 +128,6 @@
 - (void)removeIndexes:(NSSet*)value_;
 - (void)addIndexesObject:(SBIndex*)value_;
 - (void)removeIndexesObject:(SBIndex*)value_;
-
-- (void)addMessages:(NSSet*)value_;
-- (void)removeMessages:(NSSet*)value_;
-- (void)addMessagesObject:(SBChatMessage*)value_;
-- (void)removeMessagesObject:(SBChatMessage*)value_;
 
 - (void)addPodcasts:(NSSet*)value_;
 - (void)removePodcasts:(NSSet*)value_;

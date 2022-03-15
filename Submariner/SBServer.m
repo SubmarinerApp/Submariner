@@ -35,7 +35,6 @@
 #import "SBArtist.h"
 #import "SBAlbum.h"
 #import "SBPlaylist.h"
-#import "SBChatMessage.h"
 
 #import "EMKeychainItem.h"
 
@@ -56,14 +55,6 @@
     
     if([key isEqualToString:@"resources"]) {
         result = [NSSet setWithObjects:@"playlists", nil];
-    }
-    
-    if([key isEqualToString:@"hasUnread"]) {
-        result = [NSSet setWithObjects:@"messages.unread", nil];
-    }
-    
-    if([key isEqualToString:@"numberOfUnread"]) {
-        result = [NSSet setWithObjects:@"messages.unread", nil];
     }
     
     if([key isEqualToString:@"licenseImage"]) {
@@ -147,22 +138,6 @@
     [self didChangeValueForKey:@"resources"];
 }
 
-
-
-- (BOOL)hasUnread {
-    return ([self numberOfUnread] > 0 ? YES : NO);
-}
-
-
-- (NSInteger)numberOfUnread {
-    NSInteger ret = 0;
-    
-    for(SBChatMessage *message in self.messages) {
-        if([message.unread  boolValue])
-            ret++;
-    }
-    return ret;
-}
 
 
 - (NSImage *)licenseImage {
@@ -330,20 +305,6 @@
 - (void)getServerPodcasts {
    [[self clientController] getPodcasts]; 
 }
-
-
-
-#pragma mark -
-#pragma mark Subsonic Client (Chat)
-
-- (void)addChatMessage:(NSString *)message {
-    [[self clientController] addChatMessage:message]; 
-}
-
-- (void)getChatMessagesSince:(NSDate *)date {
-    [[self clientController] getChatMessagesSince:date];
-}
-
 
 
 
