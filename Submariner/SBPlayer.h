@@ -34,7 +34,7 @@
 
 #import <Foundation/Foundation.h>
 
-#if __cplusplus
+#ifdef __cplusplus
 #include <SFBAudioEngine/SFBAudioPlayer.h>
 #endif
 
@@ -64,7 +64,11 @@ enum SBPlayerRepeatMode {
    AVPlayerItem  *remotePlayerItem;
    AVPlayer      *remotePlayer;
 */
-   void          *localPlayer;
+#ifdef __cplusplus
+    SFBAudioPlayer *localPlayer;
+#else
+    void *localPlayer;
+#endif
     
     NSMutableArray *playlist;
     SBTrack *currentTrack;

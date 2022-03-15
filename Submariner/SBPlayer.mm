@@ -49,7 +49,7 @@
 #import "NSString+Time.h"
 
 
-#define LOCAL_PLAYER (static_cast<SFBAudioPlayer *>(localPlayer))
+#define LOCAL_PLAYER localPlayer
 
 
 // notifications
@@ -129,7 +129,7 @@ static void renderingFinished(void *context, const SFBAudioDecoder *decoder)
 - (id)init {
     self = [super init];
     if (self) {
-        localPlayer = new SFBAudioPlayer();
+        localPlayer = [[SFBAudioPlayer alloc] init];
         
         playlist = [[NSMutableArray alloc] init];
         isShuffle = NO;
@@ -317,11 +317,11 @@ static void renderingFinished(void *context, const SFBAudioDecoder *decoder)
 }
 
 - (void)playLocalWithURL:(NSURL *)url {
-    
-    SFBAudioDecoder *decoder = [SFBAudioDecoder initWithURL: url];
+    NSError *decodeError = nil;
+    SFBAudioDecoder *decoder = [[SFBAudioDecoder alloc] initWithURL: url decoderName:SFBAudioDecoderNameMPEG error: &decodeError];
 	if(NULL != decoder) {
         
-        [LOCAL_PLAYER setVolume: [self volume]];
+        [LOCAL_PLAYER setVolume: [self volume] error: nil];
         
         // Register for rendering started/finished notifications so the UI can be updated properly
 /*
@@ -334,14 +334,15 @@ static void renderingFinished(void *context, const SFBAudioDecoder *decoder)
         if (decoderError) {
             NSLog(@"Decoder open error: %@", decoderError);
             [decoder dealloc];
+            return;
         }
-        if([LOCAL_PLAYER enqueueDecoder: decoder]) {
+        if([LOCAL_PLAYER enqueueDecoder: decoder error: nil]) {
             //[[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:url];
         }else {
             [decoder dealloc];
         }
     } else {
-        NSLog(@"Couldn't decode file");
+        NSLog(@"Couldn't decode %@: %@", url, decodeError);
     }
 }
 
