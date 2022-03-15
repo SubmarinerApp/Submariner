@@ -311,9 +311,9 @@
         // number of currently running operations
         if([keyPath isEqualToString:@"operationCount"]) {
             if([[NSOperationQueue sharedServerQueue] operationCount] > 0) {
-                [progressIndicator startAnimation:self];
+                [progressIndicator performSelectorOnMainThread: @selector(startAnimation:) withObject: self waitUntilDone: NO];
             } else {
-                [progressIndicator stopAnimation:self];
+                [progressIndicator performSelectorOnMainThread: @selector(stopAnimation:) withObject: self waitUntilDone: NO];
             }
         }
     } else if(object == resourcesController) {

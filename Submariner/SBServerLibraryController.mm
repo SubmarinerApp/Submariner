@@ -224,7 +224,7 @@
 }
 
 - (void)subsonicTracksUpdatedNotification:(NSNotification *)notification {
-    [tracksTableView reloadData];
+    [tracksTableView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
 }
 
 
