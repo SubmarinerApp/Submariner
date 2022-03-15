@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		3E53DBA427D6F25500DB4C84 /* SFBAudioEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBA127D6F25500DB4C84 /* SFBAudioEngine.framework */; };
+		3E53DBA527D6F25500DB4C84 /* SFBAudioEngine.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBA127D6F25500DB4C84 /* SFBAudioEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4C0096A513AEAE5F0014F331 /* NSGradient+SourceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0096A413AEAE5F0014F331 /* NSGradient+SourceList.m */; };
 		4C0D423C1496090F00A29E7E /* SBCoverSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D423B1496090F00A29E7E /* SBCoverSplitView.m */; };
 		4C0D423F1496104100A29E7E /* cover_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0D423D1496103800A29E7E /* cover_off.png */; };
@@ -37,8 +39,6 @@
 		4C1D411413A7BE3E002D77F3 /* online.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C1D411313A7BE3E002D77F3 /* online.png */; };
 		4C1D411613A7BFB6002D77F3 /* online_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C1D411513A7BFB6002D77F3 /* online_white.png */; };
 		4C1D412D13A8F2CE002D77F3 /* SBApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1D412C13A8F2CE002D77F3 /* SBApplication.m */; };
-		4C1F6B93149384450005B303 /* SBMovieViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1F6B91149384450005B303 /* SBMovieViewController.m */; };
-		4C1F6B94149384450005B303 /* MovieView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C1F6B92149384450005B303 /* MovieView.xib */; };
 		4C1F6B9E1494333F0005B303 /* SBTopbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1F6B9D1494333F0005B303 /* SBTopbarView.m */; };
 		4C1F6BA11494F3520005B303 /* NSImage+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1F6BA01494F3520005B303 /* NSImage+Additions.m */; };
 		4C2FF14813BFDF7B008DBAFD /* Tracklist-on.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 4C2FF14613BFDF7B008DBAFD /* Tracklist-on.PNG */; };
@@ -66,10 +66,6 @@
 		4C56868514050B9A00BE3478 /* SBPodcastItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56868414050B9A00BE3478 /* SBPodcastItemView.m */; };
 		4C56868814050C1100BE3478 /* SBPodcastViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56868714050C1100BE3478 /* SBPodcastViewItem.m */; };
 		4C69DBD5140655DE00F016A7 /* pending.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C69DBD4140655DE00F016A7 /* pending.tiff */; };
-		4C7A3EC6148F085A009C6EE6 /* LRResty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7A3EAD148F0830009C6EE6 /* LRResty.framework */; };
-		4C7A3EC7148F085A009C6EE6 /* SFBAudioEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7A3EBB148F083E009C6EE6 /* SFBAudioEngine.framework */; };
-		4C7A3EC8148F0866009C6EE6 /* SFBAudioEngine.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7A3EBB148F083E009C6EE6 /* SFBAudioEngine.framework */; };
-		4C7A3EC9148F0866009C6EE6 /* LRResty.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7A3EAD148F0830009C6EE6 /* LRResty.framework */; };
 		4C7AA221139D530B0050BE95 /* RWTableHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA21E139D530B0050BE95 /* RWTableHeaderCell.m */; };
 		4C7AA222139D530B0050BE95 /* RWCornerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA220139D530B0050BE95 /* RWCornerView.m */; };
 		4C7AA226139D53870050BE95 /* CTGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA225139D53870050BE95 /* CTGradient.m */; };
@@ -189,7 +185,6 @@
 		4C87EE5F139CE4680064DE2E /* SBTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EE51139CE4680064DE2E /* SBTrack.m */; };
 		4C87EE60139CE4680064DE2E /* SBTracklist.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EE53139CE4680064DE2E /* SBTracklist.m */; };
 		4C90218F142C8AA800EDA210 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C90218E142C8AA800EDA210 /* libz.dylib */; };
-		4C9DE9B61451760200632936 /* DDHotKeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9DE9B51451760200632936 /* DDHotKeyCenter.m */; };
 		4CAA0E2A145571F600574FDD /* icon-mini.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CAA0E29145571F600574FDD /* icon-mini.png */; };
 		4CAA0E47145599E100574FDD /* Forward-mini.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CAA0E43145599E100574FDD /* Forward-mini.png */; };
 		4CAA0E48145599E100574FDD /* Pause-mini.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CAA0E44145599E100574FDD /* Pause-mini.png */; };
@@ -224,16 +219,11 @@
 		4CCF7FEF13B673CA00954C6E /* SBServerSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCF7FED13B673C900954C6E /* SBServerSearchController.m */; };
 		4CCF7FF013B673CA00954C6E /* ServerSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CCF7FEE13B673C900954C6E /* ServerSearch.xib */; };
 		4CCF7FF413B6762F00954C6E /* SBSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCF7FF313B6762F00954C6E /* SBSearchResult.m */; };
-		4CD55EBE1490CE5D002E4774 /* ShortcutRecorder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD55EB31490CE23002E4774 /* ShortcutRecorder.framework */; };
-		4CD55EBF1490CE63002E4774 /* ShortcutRecorder.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 4CD55EB31490CE23002E4774 /* ShortcutRecorder.framework */; };
-		4CE0364114B6F0C100CE609B /* QTMovie+Async.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CE0364014B6F0C100CE609B /* QTMovie+Async.m */; };
 		4CE3B7DF13FA733F006A4F69 /* off.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4CE3B7DD13FA733F006A4F69 /* off.tiff */; };
 		4CE3B7E013FA733F006A4F69 /* on.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4CE3B7DE13FA733F006A4F69 /* on.tiff */; };
 		4CEB4A4413C0FDAE00A92617 /* unmute.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CEB4A4313C0FDAE00A92617 /* unmute.png */; };
 		4CEB4A4B13C1AA7000A92617 /* users.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 4CEB4A4A13C1AA7000A92617 /* users.PNG */; };
 		4CED8E1F144CE2A400332417 /* NSString+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CED8E1E144CE2A400332417 /* NSString+Hex.m */; };
-		4CED8E4C144D773C00332417 /* SBMovieWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CED8E4B144D773C00332417 /* SBMovieWindowController.m */; };
-		4CED8F48144E289700332417 /* MovieWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CED8F47144E289700332417 /* MovieWindow.xib */; };
 		4CED9B4913BDD1BF00003152 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CED9B4813BDD1BF00003152 /* OpenGL.framework */; };
 		4CEF83371449B649005E28EE /* SBArtistTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CEF83361449B649005E28EE /* SBArtistTableView.m */; };
 		4CFAFC2C139EF08800E82B57 /* SBServerHomeController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC2A139EF08800E82B57 /* SBServerHomeController.mm */; };
@@ -268,6 +258,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3E53DBA027D6F25500DB4C84 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C7A3EAE148F083E009C6EE6 /* SFBAudioEngine.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3210AB9017B9C05A00743639;
+			remoteInfo = macOS;
+		};
+		3E53DBA227D6F25500DB4C84 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4C7A3EAE148F083E009C6EE6 /* SFBAudioEngine.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 32714C7C2551D4DF00029BD7;
+			remoteInfo = iOS;
+		};
 		4C1561221490D48000819EF6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4C87ED56139CD8BE0064DE2E /* Project object */;
@@ -275,124 +279,12 @@
 			remoteGlobalIDString = 4C15611D1490D30800819EF6;
 			remoteInfo = "Unzip Audio Frameworks";
 		};
-		4C7A3EA4148F0830009C6EE6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C7A3E98148F0830009C6EE6 /* LRResty.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A3ACE19513A12D3100E18687;
-			remoteInfo = "LRResty-StaticLib";
-		};
-		4C7A3EA6148F0830009C6EE6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C7A3E98148F0830009C6EE6 /* LRResty.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A3BB537613A13DC90007A07F;
-			remoteInfo = "Unit Tests";
-		};
-		4C7A3EA8148F0830009C6EE6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C7A3E98148F0830009C6EE6 /* LRResty.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A3BB537713A13DC90007A07F;
-			remoteInfo = "Acceptance Tests";
-		};
-		4C7A3EAA148F0830009C6EE6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C7A3E98148F0830009C6EE6 /* LRResty.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A3BB537813A13DC90007A07F;
-			remoteInfo = ExamplesRunner;
-		};
-		4C7A3EAC148F0830009C6EE6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C7A3E98148F0830009C6EE6 /* LRResty.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4C12624414194A530073042C;
-			remoteInfo = LRResty;
-		};
-		4C7A3EBA148F083E009C6EE6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C7A3EAE148F083E009C6EE6 /* SFBAudioEngine.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 32C212D51091116D00BA2493;
-			remoteInfo = SFBAudioEngine.framework;
-		};
-		4C7A3EBC148F083E009C6EE6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C7A3EAE148F083E009C6EE6 /* SFBAudioEngine.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3252E83B10CC9E4500F1AA23;
-			remoteInfo = SimplePlayer;
-		};
-		4C7A3EBE148F083E009C6EE6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C7A3EAE148F083E009C6EE6 /* SFBAudioEngine.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 32AEB2701409AC30001F9A60;
-			remoteInfo = SFBAudioEngine;
-		};
-		4C7A3EC0148F083E009C6EE6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C7A3EAE148F083E009C6EE6 /* SFBAudioEngine.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 32AEB3041409BE48001F9A60;
-			remoteInfo = "SimplePlayer-iOS";
-		};
 		4C7A3EC2148F0855009C6EE6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4C7A3EAE148F083E009C6EE6 /* SFBAudioEngine.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 32C212D41091116D00BA2493;
 			remoteInfo = SFBAudioEngine.framework;
-		};
-		4C7A3EC4148F0855009C6EE6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C7A3E98148F0830009C6EE6 /* LRResty.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = A3ACE1A513A12DB200E18687;
-			remoteInfo = LRResty;
-		};
-		4CD55EB21490CE23002E4774 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4CD55EA51490CE23002E4774 /* ShortcutRecorder.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 939837800DA42965007F53F3;
-			remoteInfo = "ShortcutRecorder.framework - with embedded ibplugin";
-		};
-		4CD55EB41490CE23002E4774 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4CD55EA51490CE23002E4774 /* ShortcutRecorder.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 939838A50DA4300F007F53F3;
-			remoteInfo = "ShortcutRecorder.ibplugin - for embedding in framework";
-		};
-		4CD55EB61490CE23002E4774 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4CD55EA51490CE23002E4774 /* ShortcutRecorder.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 93983B220DA43C4E007F53F3;
-			remoteInfo = ShortcutRecorderFramework_Tester;
-		};
-		4CD55EB81490CE23002E4774 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4CD55EA51490CE23002E4774 /* ShortcutRecorder.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 342E00CF109CCBF5009AD8CA;
-			remoteInfo = "ShortcutRecorder.ibplugin - standalone";
-		};
-		4CD55EBA1490CE23002E4774 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4CD55EA51490CE23002E4774 /* ShortcutRecorder.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 342E0104109CCC36009AD8CA;
-			remoteInfo = "ShortcutRecorder.framework - for embedding in ibplugin";
-		};
-		4CD55EBC1490CE37002E4774 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4CD55EA51490CE23002E4774 /* ShortcutRecorder.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 9398377F0DA42965007F53F3;
-			remoteInfo = "ShortcutRecorder.framework - with embedded ibplugin";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -403,9 +295,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4C7A3EC8148F0866009C6EE6 /* SFBAudioEngine.framework in Copy Frameworks */,
-				4C7A3EC9148F0866009C6EE6 /* LRResty.framework in Copy Frameworks */,
-				4CD55EBF1490CE63002E4774 /* ShortcutRecorder.framework in Copy Frameworks */,
+				3E53DBA527D6F25500DB4C84 /* SFBAudioEngine.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -441,9 +331,6 @@
 		4C1D411513A7BFB6002D77F3 /* online_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = online_white.png; sourceTree = "<group>"; };
 		4C1D412B13A8F2CD002D77F3 /* SBApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBApplication.h; sourceTree = "<group>"; };
 		4C1D412C13A8F2CE002D77F3 /* SBApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBApplication.m; sourceTree = "<group>"; };
-		4C1F6B90149384450005B303 /* SBMovieViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBMovieViewController.h; sourceTree = "<group>"; };
-		4C1F6B91149384450005B303 /* SBMovieViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBMovieViewController.m; sourceTree = "<group>"; };
-		4C1F6B92149384450005B303 /* MovieView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MovieView.xib; sourceTree = "<group>"; };
 		4C1F6B9C1494333F0005B303 /* SBTopbarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBTopbarView.h; sourceTree = "<group>"; };
 		4C1F6B9D1494333F0005B303 /* SBTopbarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBTopbarView.m; sourceTree = "<group>"; };
 		4C1F6B9F1494F3520005B303 /* NSImage+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+Additions.h"; sourceTree = "<group>"; };
@@ -488,7 +375,6 @@
 		4C56868614050C1100BE3478 /* SBPodcastViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPodcastViewItem.h; sourceTree = "<group>"; };
 		4C56868714050C1100BE3478 /* SBPodcastViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPodcastViewItem.m; sourceTree = "<group>"; };
 		4C69DBD4140655DE00F016A7 /* pending.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = pending.tiff; sourceTree = "<group>"; };
-		4C7A3E98148F0830009C6EE6 /* LRResty.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LRResty.xcodeproj; path = LRResty/LRResty.xcodeproj; sourceTree = "<group>"; };
 		4C7A3EAE148F083E009C6EE6 /* SFBAudioEngine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFBAudioEngine.xcodeproj; path = SFBAudioEngine/SFBAudioEngine.xcodeproj; sourceTree = "<group>"; };
 		4C7AA21D139D530B0050BE95 /* RWTableHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWTableHeaderCell.h; sourceTree = "<group>"; };
 		4C7AA21E139D530B0050BE95 /* RWTableHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWTableHeaderCell.m; sourceTree = "<group>"; };
@@ -683,8 +569,6 @@
 		4C87EE53139CE4680064DE2E /* SBTracklist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBTracklist.m; sourceTree = "<group>"; };
 		4C90218E142C8AA800EDA210 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		4C9DE9A91451749D00632936 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
-		4C9DE9B41451760200632936 /* DDHotKeyCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DDHotKeyCenter.h; path = ../DDHotKey/DDHotKeyCenter.h; sourceTree = "<group>"; };
-		4C9DE9B51451760200632936 /* DDHotKeyCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DDHotKeyCenter.m; path = ../DDHotKey/DDHotKeyCenter.m; sourceTree = "<group>"; };
 		4CAA0E29145571F600574FDD /* icon-mini.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-mini.png"; sourceTree = "<group>"; };
 		4CAA0E43145599E100574FDD /* Forward-mini.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Forward-mini.png"; sourceTree = "<group>"; };
 		4CAA0E44145599E100574FDD /* Pause-mini.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Pause-mini.png"; sourceTree = "<group>"; };
@@ -740,9 +624,6 @@
 		4CCF7FEE13B673C900954C6E /* ServerSearch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerSearch.xib; sourceTree = "<group>"; };
 		4CCF7FF213B6762F00954C6E /* SBSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSearchResult.h; sourceTree = "<group>"; };
 		4CCF7FF313B6762F00954C6E /* SBSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSearchResult.m; sourceTree = "<group>"; };
-		4CD55EA51490CE23002E4774 /* ShortcutRecorder.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ShortcutRecorder.xcodeproj; path = ShortcutRecorder/ShortcutRecorder.xcodeproj; sourceTree = "<group>"; };
-		4CE0363F14B6F0C100CE609B /* QTMovie+Async.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QTMovie+Async.h"; sourceTree = "<group>"; };
-		4CE0364014B6F0C100CE609B /* QTMovie+Async.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "QTMovie+Async.m"; sourceTree = "<group>"; };
 		4CE3B7DD13FA733F006A4F69 /* off.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = off.tiff; sourceTree = "<group>"; };
 		4CE3B7DE13FA733F006A4F69 /* on.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = on.tiff; sourceTree = "<group>"; };
 		4CEB4A4313C0FDAE00A92617 /* unmute.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unmute.png; sourceTree = "<group>"; };
@@ -750,9 +631,6 @@
 		4CED8E1D144CE2A400332417 /* NSString+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hex.h"; sourceTree = "<group>"; };
 		4CED8E1E144CE2A400332417 /* NSString+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hex.m"; sourceTree = "<group>"; };
 		4CED8E20144D6CDC00332417 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
-		4CED8E4A144D773C00332417 /* SBMovieWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBMovieWindowController.h; sourceTree = "<group>"; };
-		4CED8E4B144D773C00332417 /* SBMovieWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBMovieWindowController.m; sourceTree = "<group>"; };
-		4CED8F47144E289700332417 /* MovieWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MovieWindow.xib; sourceTree = "<group>"; };
 		4CED9B4813BDD1BF00003152 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		4CEF83351449B649005E28EE /* SBArtistTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBArtistTableView.h; sourceTree = "<group>"; };
 		4CEF83361449B649005E28EE /* SBArtistTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBArtistTableView.m; sourceTree = "<group>"; };
@@ -819,8 +697,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C7A3EC6148F085A009C6EE6 /* LRResty.framework in Frameworks */,
-				4C7A3EC7148F085A009C6EE6 /* SFBAudioEngine.framework in Frameworks */,
 				4C4DE62413A200AD006A1EC1 /* Carbon.framework in Frameworks */,
 				4C7FFC3113B0CB80004F02AB /* QTKit.framework in Frameworks */,
 				4C90218F142C8AA800EDA210 /* libz.dylib in Frameworks */,
@@ -830,7 +706,7 @@
 				4CFAFC6613A0150300E82B57 /* AudioToolbox.framework in Frameworks */,
 				4C7AA247139D619F0050BE95 /* Quartz.framework in Frameworks */,
 				4C87ED64139CD8BE0064DE2E /* Cocoa.framework in Frameworks */,
-				4CD55EBE1490CE5D002E4774 /* ShortcutRecorder.framework in Frameworks */,
+				3E53DBA427D6F25500DB4C84 /* SFBAudioEngine.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -851,32 +727,16 @@
 		4C7A3E97148F07F7009C6EE6 /* Subprojects */ = {
 			isa = PBXGroup;
 			children = (
-				4CD55EA51490CE23002E4774 /* ShortcutRecorder.xcodeproj */,
 				4C7A3EAE148F083E009C6EE6 /* SFBAudioEngine.xcodeproj */,
-				4C7A3E98148F0830009C6EE6 /* LRResty.xcodeproj */,
 			);
 			name = Subprojects;
-			sourceTree = "<group>";
-		};
-		4C7A3E99148F0830009C6EE6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4C7A3EA5148F0830009C6EE6 /* libLRResty.a */,
-				4C7A3EA7148F0830009C6EE6 /* Unit Tests.octest */,
-				4C7A3EA9148F0830009C6EE6 /* Acceptance Tests.octest */,
-				4C7A3EAB148F0830009C6EE6 /* ExamplesRunner.app */,
-				4C7A3EAD148F0830009C6EE6 /* LRResty.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		4C7A3EAF148F083E009C6EE6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4C7A3EBB148F083E009C6EE6 /* SFBAudioEngine.framework */,
-				4C7A3EBD148F083E009C6EE6 /* SimplePlayer.app */,
-				4C7A3EBF148F083E009C6EE6 /* libSFBAudioEngine.a */,
-				4C7A3EC1148F083E009C6EE6 /* SimplePlayer-iOS.app */,
+				3E53DBA127D6F25500DB4C84 /* SFBAudioEngine.framework */,
+				3E53DBA327D6F25500DB4C84 /* SFBAudioEngine.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1077,8 +937,6 @@
 				4CC6B56714041F7E003AEAC0 /* ServerPodcasts.xib */,
 				4C1A69BA13A6AEE10054A3EF /* ServerUsers.xib */,
 				4CCF7FEE13B673C900954C6E /* ServerSearch.xib */,
-				4C1F6B92149384450005B303 /* MovieView.xib */,
-				4CED8F47144E289700332417 /* MovieWindow.xib */,
 			);
 			name = Nibs;
 			sourceTree = "<group>";
@@ -1114,8 +972,6 @@
 				4C0D4250149618DC00A29E7E /* NSView+CHLayout.m */,
 				4C0D4251149618DC00A29E7E /* SinTransformer.h */,
 				4C0D4252149618DC00A29E7E /* SinTransformer.m */,
-				4C9DE9B41451760200632936 /* DDHotKeyCenter.h */,
-				4C9DE9B51451760200632936 /* DDHotKeyCenter.m */,
 				4C4DE61F13A1733D006A1EC1 /* EMKeychainItem.h */,
 				4C4DE62013A1733D006A1EC1 /* EMKeychainItem.m */,
 				4C1A69B413A6AC4F0054A3EF /* NSWindow-Zoom.h */,
@@ -1153,8 +1009,6 @@
 				4C0096A413AEAE5F0014F331 /* NSGradient+SourceList.m */,
 				4C1F6B9F1494F3520005B303 /* NSImage+Additions.h */,
 				4C1F6BA01494F3520005B303 /* NSImage+Additions.m */,
-				4CE0363F14B6F0C100CE609B /* QTMovie+Async.h */,
-				4CE0364014B6F0C100CE609B /* QTMovie+Async.m */,
 			);
 			name = Additions;
 			sourceTree = "<group>";
@@ -1362,18 +1216,6 @@
 			name = "Shadowed Text Cell";
 			sourceTree = "<group>";
 		};
-		4CD55EA61490CE23002E4774 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4CD55EB31490CE23002E4774 /* ShortcutRecorder.framework */,
-				4CD55EB51490CE23002E4774 /* ShortcutRecorder.ibplugin */,
-				4CD55EB71490CE23002E4774 /* ShortcutRecorder.app */,
-				4CD55EB91490CE23002E4774 /* ShortcutRecorder.ibplugin */,
-				4CD55EBB1490CE23002E4774 /* ShortcutRecorder.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		4CD55EC01490CF15002E4774 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -1432,8 +1274,6 @@
 				4C4113AC13A3BD680069CC33 /* SBAddServerPlaylistController.m */,
 				4C4A1E8513B4E6A0000BA93D /* SBMergeArtistsController.h */,
 				4C4A1E8613B4E6A0000BA93D /* SBMergeArtistsController.m */,
-				4CED8E4A144D773C00332417 /* SBMovieWindowController.h */,
-				4CED8E4B144D773C00332417 /* SBMovieWindowController.m */,
 			);
 			name = "Window Controllers";
 			sourceTree = "<group>";
@@ -1453,8 +1293,6 @@
 				4CFB3EF0139D4693008DC01A /* SBTracklistController.mm */,
 				4C7AA22A139D563A0050BE95 /* SBPlaylistController.h */,
 				4C7AA22B139D563A0050BE95 /* SBPlaylistController.mm */,
-				4C1F6B90149384450005B303 /* SBMovieViewController.h */,
-				4C1F6B91149384450005B303 /* SBMovieViewController.m */,
 				4C7AA27C139D698D0050BE95 /* SBServerTopbarController.h */,
 				4C7AA27D139D698E0050BE95 /* SBServerTopbarController.m */,
 				4C7AA24A139D64920050BE95 /* SBServerLibraryController.h */,
@@ -1494,9 +1332,7 @@
 			);
 			dependencies = (
 				4C1561231490D48000819EF6 /* PBXTargetDependency */,
-				4CD55EBD1490CE37002E4774 /* PBXTargetDependency */,
 				4C7A3EC3148F0855009C6EE6 /* PBXTargetDependency */,
-				4C7A3EC5148F0855009C6EE6 /* PBXTargetDependency */,
 			);
 			name = Submariner;
 			productName = Submariner;
@@ -1509,7 +1345,7 @@
 		4C87ED56139CD8BE0064DE2E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 1320;
 				ORGANIZATIONNAME = OPALE;
 			};
 			buildConfigurationList = 4C87ED59139CD8BE0064DE2E /* Build configuration list for PBXProject "Submariner" */;
@@ -1517,6 +1353,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 4C87ED54139CD8BE0064DE2E;
@@ -1524,16 +1361,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 4C7A3E99148F0830009C6EE6 /* Products */;
-					ProjectRef = 4C7A3E98148F0830009C6EE6 /* LRResty.xcodeproj */;
-				},
-				{
 					ProductGroup = 4C7A3EAF148F083E009C6EE6 /* Products */;
 					ProjectRef = 4C7A3EAE148F083E009C6EE6 /* SFBAudioEngine.xcodeproj */;
-				},
-				{
-					ProductGroup = 4CD55EA61490CE23002E4774 /* Products */;
-					ProjectRef = 4CD55EA51490CE23002E4774 /* ShortcutRecorder.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1545,102 +1374,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		4C7A3EA5148F0830009C6EE6 /* libLRResty.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libLRResty.a;
-			remoteRef = 4C7A3EA4148F0830009C6EE6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4C7A3EA7148F0830009C6EE6 /* Unit Tests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Unit Tests.octest";
-			remoteRef = 4C7A3EA6148F0830009C6EE6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4C7A3EA9148F0830009C6EE6 /* Acceptance Tests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Acceptance Tests.octest";
-			remoteRef = 4C7A3EA8148F0830009C6EE6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4C7A3EAB148F0830009C6EE6 /* ExamplesRunner.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = ExamplesRunner.app;
-			remoteRef = 4C7A3EAA148F0830009C6EE6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4C7A3EAD148F0830009C6EE6 /* LRResty.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = LRResty.framework;
-			remoteRef = 4C7A3EAC148F0830009C6EE6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4C7A3EBB148F083E009C6EE6 /* SFBAudioEngine.framework */ = {
+		3E53DBA127D6F25500DB4C84 /* SFBAudioEngine.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = SFBAudioEngine.framework;
-			remoteRef = 4C7A3EBA148F083E009C6EE6 /* PBXContainerItemProxy */;
+			remoteRef = 3E53DBA027D6F25500DB4C84 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		4C7A3EBD148F083E009C6EE6 /* SimplePlayer.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = SimplePlayer.app;
-			remoteRef = 4C7A3EBC148F083E009C6EE6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4C7A3EBF148F083E009C6EE6 /* libSFBAudioEngine.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libSFBAudioEngine.a;
-			remoteRef = 4C7A3EBE148F083E009C6EE6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4C7A3EC1148F083E009C6EE6 /* SimplePlayer-iOS.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "SimplePlayer-iOS.app";
-			remoteRef = 4C7A3EC0148F083E009C6EE6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4CD55EB31490CE23002E4774 /* ShortcutRecorder.framework */ = {
+		3E53DBA327D6F25500DB4C84 /* SFBAudioEngine.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = ShortcutRecorder.framework;
-			remoteRef = 4CD55EB21490CE23002E4774 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4CD55EB51490CE23002E4774 /* ShortcutRecorder.ibplugin */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ShortcutRecorder.ibplugin;
-			remoteRef = 4CD55EB41490CE23002E4774 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4CD55EB71490CE23002E4774 /* ShortcutRecorder.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = ShortcutRecorder.app;
-			remoteRef = 4CD55EB61490CE23002E4774 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4CD55EB91490CE23002E4774 /* ShortcutRecorder.ibplugin */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ShortcutRecorder.ibplugin;
-			remoteRef = 4CD55EB81490CE23002E4774 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		4CD55EBB1490CE23002E4774 /* ShortcutRecorder.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = ShortcutRecorder.framework;
-			remoteRef = 4CD55EBA1490CE23002E4774 /* PBXContainerItemProxy */;
+			path = SFBAudioEngine.framework;
+			remoteRef = 3E53DBA227D6F25500DB4C84 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1721,7 +1466,6 @@
 				4CC6B5631404195D003AEAC0 /* Podcast.png in Resources */,
 				4CC6B56914041F7E003AEAC0 /* ServerPodcasts.xib in Resources */,
 				4C69DBD5140655DE00F016A7 /* pending.tiff in Resources */,
-				4CED8F48144E289700332417 /* MovieWindow.xib in Resources */,
 				4CAA0E2A145571F600574FDD /* icon-mini.png in Resources */,
 				4CAA0E47145599E100574FDD /* Forward-mini.png in Resources */,
 				4CAA0E48145599E100574FDD /* Pause-mini.png in Resources */,
@@ -1730,7 +1474,6 @@
 				4CAA0E4C14559BA200574FDD /* icon-mini-activated.png in Resources */,
 				4CAA0E4E1455A76400574FDD /* ServerUsers.PNG in Resources */,
 				4CAA0E501455A77000574FDD /* playing-mini.png in Resources */,
-				4C1F6B94149384450005B303 /* MovieView.xib in Resources */,
 				4C0D423F1496104100A29E7E /* cover_off.png in Resources */,
 				4C0D42401496104100A29E7E /* cover_on.png in Resources */,
 			);
@@ -1906,9 +1649,6 @@
 				4CB1E451144B3B50006F33FA /* RDLightTextFieldCell.m in Sources */,
 				4CB1E452144B3B50006F33FA /* RDDarkTextFieldCell.m in Sources */,
 				4CED8E1F144CE2A400332417 /* NSString+Hex.m in Sources */,
-				4CED8E4C144D773C00332417 /* SBMovieWindowController.m in Sources */,
-				4C9DE9B61451760200632936 /* DDHotKeyCenter.m in Sources */,
-				4C1F6B93149384450005B303 /* SBMovieViewController.m in Sources */,
 				4C1F6B9E1494333F0005B303 /* SBTopbarView.m in Sources */,
 				4C1F6BA11494F3520005B303 /* NSImage+Additions.m in Sources */,
 				4C0D423C1496090F00A29E7E /* SBCoverSplitView.m in Sources */,
@@ -1918,7 +1658,6 @@
 				4C0D4255149618DC00A29E7E /* NSNumber+CHLayout.m in Sources */,
 				4C0D4256149618DC00A29E7E /* NSView+CHLayout.m in Sources */,
 				4C0D4257149618DC00A29E7E /* SinTransformer.m in Sources */,
-				4CE0364114B6F0C100CE609B /* QTMovie+Async.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1934,16 +1673,6 @@
 			isa = PBXTargetDependency;
 			name = SFBAudioEngine.framework;
 			targetProxy = 4C7A3EC2148F0855009C6EE6 /* PBXContainerItemProxy */;
-		};
-		4C7A3EC5148F0855009C6EE6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = LRResty;
-			targetProxy = 4C7A3EC4148F0855009C6EE6 /* PBXContainerItemProxy */;
-		};
-		4CD55EBD1490CE37002E4774 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "ShortcutRecorder.framework - with embedded ibplugin";
-			targetProxy = 4CD55EBC1490CE37002E4774 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1992,7 +1721,7 @@
 		4C87ED7E139CD8BE0064DE2E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ARC_MIGRATION = donothing;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -2008,7 +1737,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -2016,7 +1745,7 @@
 		4C87ED7F139CD8BE0064DE2E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ARC_MIGRATION = donothing;
 				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_IDENTITY = "";
@@ -2028,7 +1757,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -2056,7 +1785,7 @@
 				GCC_PREFIX_HEADER = "Submariner/Submariner-Prefix.pch";
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "Submariner/Submariner-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -2089,7 +1818,7 @@
 				GCC_PREFIX_HEADER = "Submariner/Submariner-Prefix.pch";
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "Submariner/Submariner-Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
