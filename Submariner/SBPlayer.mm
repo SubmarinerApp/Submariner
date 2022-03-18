@@ -78,26 +78,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 
 @end
 
-
-
-// local player C++ callbacks
-static SBPlayer *staticSelf = nil;
-
-static void decodingStarted(void *context, const SFBAudioDecoder *decoder)
-{
-	[(SBPlayer *)context decodingStarted:decoder];
-}
-
-// This is called from the realtime rendering thread and as such MUST NOT BLOCK!!
-static void renderingFinished(void *context, const SFBAudioDecoder *decoder)
-{
-    if(staticSelf) {
-        //[staticSelf stop];
-        [staticSelf next];
-    }
-}
-
-
 @implementation SBPlayer
 
 
@@ -136,8 +116,6 @@ static void renderingFinished(void *context, const SFBAudioDecoder *decoder)
         isCaching = NO;
         
         repeatMode = SBPlayerRepeatNo;
-        
-        staticSelf = [self retain];
     }
     return self;
 }
@@ -149,15 +127,10 @@ static void renderingFinished(void *context, const SFBAudioDecoder *decoder)
     [LOCAL_PLAYER dealloc];
     localPlayer = NULL;
     
-/*
     [remotePlayer release];
-    [remotePlayerItem release];
-    [remotePlayerAsset release];
-*/
     [currentTrack release];
     [playlist release];
     [tmpLocation release];
-    [staticSelf release];
     [super dealloc];
 }
 
@@ -247,12 +220,7 @@ static void renderingFinished(void *context, const SFBAudioDecoder *decoder)
     // play the song remotely (QTMovie from QTKit framework) or locally (AudioPlayer from SFBAudioEngine framework)
     if(self.currentTrack.isVideo) {
         [self showVideoAlert];
-        
-//        if(self.currentTrack.localTrack != nil) {
-//            [self playRemoteWithURL:[self.currentTrack.localTrack streamURL]];
-//        } else {
-//            [self playRemoteWithURL:[self.currentTrack streamURL]];
-//        }
+        return;
     } else {
         if([self.currentTrack.isLocal boolValue]) { // should add video exception here
             [self playLocalWithURL:[self.currentTrack streamURL]];
@@ -277,58 +245,26 @@ static void renderingFinished(void *context, const SFBAudioDecoder *decoder)
 
 
 - (void)playRemoteWithURL:(NSURL *)url {
-/*
-    NSError *error = nil;
-    //remotePlayer = [[QTMovie alloc] initWithURL:url error:&error];
-
-    remotePlayerAsset = [AVAsset assetWithURL:URL];
+    remotePlayer = [[AVPlayer alloc] initWithURL:url];
     
-	if (!remotePlayer || error)
-		NSLog(@"Couldn't init player : %@", error);
+	if (!remotePlayer)
+		NSLog(@"Couldn't init player");
     
 	else {
-
-        remotePlayerItem = [AVPlayerItem playerItemWithAsset: remotePlayerAsset]
-        remotePlayer = [AVPlayer playerWithPlayerItem:playerItem];
-        
-        [remotePlayer setDelegate:self];
         [remotePlayer setVolume:[self volume]];
-        [remotePlayer autoplay];
-        
-        if([url.scheme isEqualToString:@"http"] || [url.scheme isEqualToString:@"https"]) {
-            
-            [[NSNotificationCenter defaultCenter] addObserver:self 
-                                                     selector:@selector(loadStateDidChange:) 
-                                                         name:QTMovieLoadStateDidChangeNotification 
-                                                       object:remotePlayer];
-        }
-        
-//        else {
-//            [remotePlayer performSelector:@selector(play) withObject:nil afterDelay:0.2f]; 
-//        }
-        
-        if(self.currentTrack.isVideo) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerMovieToPlayNotification 
-                                                                object:remotePlayer];
-            
-        }
+        [remotePlayer addObserver:self forKeyPath:@"status" options:0 context:nil];
     }
-*/
 }
 
 - (void)playLocalWithURL:(NSURL *)url {
     NSError *decodeError = nil;
-    SFBAudioDecoder *decoder = [[SFBAudioDecoder alloc] initWithURL: url decoderName:SFBAudioDecoderNameMPEG error: &decodeError];
+    SFBAudioDecoder *decoder = [[SFBAudioDecoder alloc] initWithURL: url /*decoderName:SFBAudioDecoderNameFLAC*/ error: &decodeError];
 	if(NULL != decoder) {
         
         [LOCAL_PLAYER setVolume: [self volume] error: nil];
         
         // Register for rendering started/finished notifications so the UI can be updated properly
-/*
-// XXX: These seem to have been moved to SFBAudioPlayer
-        decoder->SetDecodingStartedCallback(decodingStarted, self);
-        decoder->SetRenderingFinishedCallback(renderingFinished, self);
-*/
+        [LOCAL_PLAYER setDelegate:self];
         NSError *decoderError = nil;
         [decoder openReturningError: &decoderError];
         if (decoderError) {
@@ -348,15 +284,14 @@ static void renderingFinished(void *context, const SFBAudioDecoder *decoder)
 
 
 - (void)playPause {
-    /*
     if((remotePlayer != nil) && ([remotePlayer rate] != 0)) {
-        [remotePlayer stop];
+        [remotePlayer pause];
     } else {
         [remotePlayer play];
     }
-    */
     if(LOCAL_PLAYER && [LOCAL_PLAYER engineIsRunning]) {
-        [LOCAL_PLAYER togglePlayPauseReturningError];
+        NSError *error;
+        [LOCAL_PLAYER togglePlayPauseReturningError:&error];
     }
 }
 
@@ -386,12 +321,11 @@ static void renderingFinished(void *context, const SFBAudioDecoder *decoder)
     
     [[NSUserDefaults standardUserDefaults] setFloat:volume forKey:@"playerVolume"];
     
-/*
     if(remotePlayer)
         [remotePlayer setVolume:volume];
-*/
     
-    [LOCAL_PLAYER setVolume:volume];
+    NSError *error = nil;
+    [LOCAL_PLAYER setVolume:volume error:&error];
 }
 
 
@@ -433,13 +367,11 @@ static void renderingFinished(void *context, const SFBAudioDecoder *decoder)
 
     @synchronized(self) {
         // stop players
-/*
         if(remotePlayer) {
-            [remotePlayer stop];
+            [remotePlayer replaceCurrentItemWithPlayerItem:nil];
             [remotePlayer release];
             remotePlayer = nil;
         }
-*/
         
         if([LOCAL_PLAYER isPlaying]) {
             [LOCAL_PLAYER stop];
@@ -473,15 +405,12 @@ static void renderingFinished(void *context, const SFBAudioDecoder *decoder)
 
 - (NSString *)currentTimeString {
     
-/*
     if(remotePlayer != nil)
     {
-        NSTimeInterval currentTime; 
-        QTGetTimeInterval([remotePlayer currentTime], &currentTime);
-        
+        CMTime currentTimeCM = [remotePlayer currentTime];
+        NSTimeInterval currentTime = CMTimeGetSeconds(currentTimeCM);
         return [NSString stringWithTime:currentTime];
     }
-*/
     
     if([LOCAL_PLAYER isPlaying])
     {
@@ -622,83 +551,63 @@ return 0;
 #pragma mark -
 #pragma mark Remote Player Notification 
 
-- (void)loadStateDidChange:(NSNotification *)notification {
-    NSError *error = nil;
-    
-/*
-    // First make sure that this notification is for our movie.
-    if([notification object] == remotePlayer)
-    {
-        QTMovieLoadState state = [[remotePlayer attributeForKey:QTMovieLoadStateAttribute] integerValue];
-        
-        
-        if (state >= QTMovieLoadStateComplete) { // 100000L
-            
-            if([[NSUserDefaults standardUserDefaults] boolForKey:@"enableCacheStreaming"] == YES) 
-            {
-                NSDictionary* attr2 = [NSDictionary dictionaryWithObjectsAndKeys:
-                                       [NSNumber numberWithBool:YES], QTMovieFlatten,
-                                       //[NSNumber numberWithBool:YES], QTMovieExport,
-                                       //[NSNumber numberWithLong:kQTFileType], QTMovieExportType,
-                                       [NSNumber numberWithLong:kAppleManufacturer], QTMovieExportManufacturer,
-                                       nil];
-                
-                [remotePlayer writeToFile:tmpLocation withAttributes:attr2 error:&error];                        
-                
-                NSManagedObjectContext *moc = self.currentTrack.managedObjectContext;
-                SBLibrary *library = [moc fetchEntityNammed:@"Library" withPredicate:nil error:nil];
-                
-                // import audio file
-                SBImportOperation *op = [[SBImportOperation alloc] initWithManagedObjectContext:moc];
-                [op setFilePaths:[NSArray arrayWithObject:tmpLocation]];
-                [op setLibraryID:[library objectID]];
-                [op setRemoteTrackID:[self.currentTrack objectID]];
-                [op setCopy:YES];
-                [op setRemove:YES];
-                
-                [[NSOperationQueue sharedDownloadQueue] addOperation:op];
-            }
-            
-        } else if (state >= QTMovieLoadStatePlayable) { // 10000L
-            //[remotePlayer play];
-            
-        } else if (state >= QTMovieLoadStateLoaded) { // 2000L
-            
-        } else if (state >= QTMovieLoadStateLoading) { // 1000L
-            
-        } else if (state == -1) { // -1L
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (object == remotePlayer && [keyPath isEqualToString:@"status"]) {
+        if ([remotePlayer status] == AVPlayerStatusFailed) {
+            NSLog(@"AVPlayer Failed: %@", [remotePlayer error]);
             [self stop];
-            
-            NSError *error = [remotePlayer attributeForKey:QTMovieLoadStateErrorAttribute];
-            if(error) [NSApp presentError:error];
-            
+        } else if ([remotePlayer status] == AVPlayerStatusReadyToPlay) {
+            NSLog(@"AVPlayerStatusReadyToPlay");
+            [remotePlayer play];
+        } else if ([remotePlayer status] == AVPlayerItemStatusUnknown) {
+            NSLog(@"AVPlayer Unknown");
+            [self stop];
         }
     }
-*/
-}
-
-- (void)movieDidEnd:(NSNotification *)notification {
-  
-/*  
-    if([notification object] == remotePlayer) //if the player is our player
-    {
-        if([remotePlayer rate] > 0) // really playing
-        {   
+    /*
+        NSError *error = nil;
+        if([[NSUserDefaults standardUserDefaults] boolForKey:@"enableCacheStreaming"] == YES)
+        {
+            NSDictionary* attr2 = [NSDictionary dictionaryWithObjectsAndKeys:
+                                   [NSNumber numberWithBool:YES], QTMovieFlatten,
+                                   //[NSNumber numberWithBool:YES], QTMovieExport,
+                                   //[NSNumber numberWithLong:kQTFileType], QTMovieExportType,
+                                   [NSNumber numberWithLong:kAppleManufacturer], QTMovieExportManufacturer,
+                                   nil];
             
+            [remotePlayer writeToFile:tmpLocation withAttributes:attr2 error:&error];
+            
+            NSManagedObjectContext *moc = self.currentTrack.managedObjectContext;
+            SBLibrary *library = [moc fetchEntityNammed:@"Library" withPredicate:nil error:nil];
+            
+            // import audio file
+            SBImportOperation *op = [[SBImportOperation alloc] initWithManagedObjectContext:moc];
+            [op setFilePaths:[NSArray arrayWithObject:tmpLocation]];
+            [op setLibraryID:[library objectID]];
+            [op setRemoteTrackID:[self.currentTrack objectID]];
+            [op setCopy:YES];
+            [op setRemove:YES];
+            
+            [[NSOperationQueue sharedDownloadQueue] addOperation:op];
         }
-    }
-*/
+    */
 }
 
-- (void) decodingStarted:(const SFBAudioDecoder *)decoder
+#pragma mark -
+#pragma mark Local Player Delegate
+
+- (void) audioPlayer:(SFBAudioPlayer *)audioPlayer decodingStarted:(id<SFBPCMDecoding>)decoder
 {
     #pragma unused(decoder)
-	[LOCAL_PLAYER play];
+    NSError *error = nil;
+    [LOCAL_PLAYER playReturningError:&error];
 }
 
-
-
-
+// This is called from the realtime rendering thread and as such MUST NOT BLOCK!!
+- (void) audioPlayer:(SFBAudioPlayer *)audioPlayer decodingComplete:(id<SFBPCMDecoding>)decoder
+{
+    [self next];
+}
 
 #pragma mark -
 #pragma mark Private

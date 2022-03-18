@@ -33,10 +33,10 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import <Foundation/Foundation.h>
+#include <AVFoundation/AVPlayer.h>
+#include <CoreMedia/CoreMedia.h>
 
-#ifdef __cplusplus
 #include <SFBAudioEngine/SFBAudioPlayer.h>
-#endif
 
 // notifications
 extern NSString *SBPlayerPlaylistUpdatedNotification;
@@ -57,13 +57,9 @@ enum SBPlayerRepeatMode {
 @class SBTrack;
 
 
-@interface SBPlayer : NSObject <NSSoundDelegate> {
+@interface SBPlayer : NSObject <NSSoundDelegate, SFBAudioPlayerDelegate> {
 @private
-/*
-   AVAsset       *remotePlayerAsset;
-   AVPlayerItem  *remotePlayerItem;
-   AVPlayer      *remotePlayer;
-*/
+    AVPlayer      *remotePlayer;
 #ifdef __cplusplus
     SFBAudioPlayer *localPlayer;
 #else
