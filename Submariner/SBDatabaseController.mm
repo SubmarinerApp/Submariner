@@ -1218,13 +1218,14 @@
     
     if (selectedRow != -1) {
         SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
-        if(resource) {
-            [self displayViewControllerForResource:resource];
-        }
         
-        if([resource isKindOfClass:[SBServer class]]) {
+        if(resource && [resource isKindOfClass:[SBServer class]]) {
             SBServer *server = (SBServer *)resource;
             [server connect];
+        }
+        // Must be after the connection.
+        if(resource) {
+            [self displayViewControllerForResource:resource];
         }
         
         if([resource isKindOfClass:[SBPlaylist class]]) {
