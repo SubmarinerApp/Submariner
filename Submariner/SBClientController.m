@@ -56,6 +56,9 @@
 @interface SBClientController (Private)
 - (void)initServerResources;
 - (void)unplayAllTracks;
+- (void)requestWithURL:(NSURL *)url requestType:(SBSubsonicRequestType)type coverID:(NSString*) coverID searchResult:(SBSearchResult*)searchResult;
+- (void)requestWithURL:(NSURL *)url requestType:(SBSubsonicRequestType)type coverID:(NSString*) coverID;
+- (void)requestWithURL:(NSURL *)url requestType:(SBSubsonicRequestType)type searchResult:(SBSearchResult*)searchResult;
 - (void)requestWithURL:(NSURL *)url requestType:(SBSubsonicRequestType)type;
 @end
 
@@ -178,7 +181,7 @@
 
 
 
-- (void)requestWithURL:(NSURL *)url requestType:(SBSubsonicRequestType)type {
+- (void)requestWithURL:(NSURL *)url requestType:(SBSubsonicRequestType)type coverID:(NSString*) coverID searchResult:(SBSearchResult*)searchResult {
 	NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
 	NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: url];
@@ -240,7 +243,13 @@
 			requestType:type
 			server:[self.server objectID]
 			xml: data];
-		[[NSOperationQueue sharedServerQueue] cancelAllOperations];
+		if (type == SBSubsonicRequestGetCoverArt) {
+			[operation setCurrentCoverID:coverID];
+		} else if (type == SBSubsonicRequestSearch) {
+			[operation setCurrentSearch:searchResult];
+		} else {
+			[[NSOperationQueue sharedServerQueue] cancelAllOperations];
+		}
 		[[NSOperationQueue sharedServerQueue] addOperation:operation];
 		[operation release];
 		});
@@ -248,9 +257,19 @@
 	[httpTask resume];
 }
 
+- (void)requestWithURL:(NSURL *)url requestType:(SBSubsonicRequestType)type coverID:(NSString*) coverID {
+    NSParameterAssert(coverID != nil);
+    [self requestWithURL:url requestType:type coverID:coverID searchResult:nil];
+}
 
+- (void)requestWithURL:(NSURL *)url requestType:(SBSubsonicRequestType)type searchResult:(SBSearchResult*)searchResult {
+    NSParameterAssert(searchResult != nil);
+    [self requestWithURL:url requestType:type coverID:nil searchResult:searchResult];
+}
 
-
+- (void)requestWithURL:(NSURL *)url requestType:(SBSubsonicRequestType)type {
+    [self requestWithURL:url requestType:type coverID:nil searchResult:nil];
+}
 
 #pragma mark -
 #pragma mark Request Messages
@@ -312,24 +331,7 @@
      [params setValue:[[NSUserDefaults standardUserDefaults] stringForKey:@"MaxCoverSize"] forKey:@"size"];
     
     NSURL *url = [NSURL URLWithString:server.url command:@"rest/getCoverArt.view" parameters:params];
-    
-    NSLog(@"Hey, getCoverWithID is nopped out");
-/*
-    [[LRResty authenticatedClientWithUsername:server.username password:server.password] get:[url absoluteString] withBlock:^(LRRestyResponse *response) {
-                
-        if (response.status == 200) { // special status for binary data
-            SBSubsonicParsingOperation *operation = [[SBSubsonicParsingOperation alloc] initWithManagedObjectContext:self.managedObjectContext
-                                                                                                              client:self
-                                                                                                         requestType:SBSubsonicRequestGetCoverArt
-                                                                                                              server:[self.server objectID]
-                                                                                                                 xml:[response responseData]];
-            [operation setCurrentCoverID:coverID];
-            [[NSOperationQueue sharedServerQueue] addOperation:operation];
-            //[operation main];
-            [operation release];
-        }
-    }];
-*/
+    [self requestWithURL: url requestType: SBSubsonicRequestGetCoverArt coverID:coverID];
 }
 
 
@@ -455,24 +457,7 @@
     
     NSURL *url = [NSURL URLWithString:server.url command:@"rest/search2.view" parameters:params];
     SBSearchResult *searchResult = [[[SBSearchResult alloc] initWithQuery:query] autorelease];
-    
-    NSLog(@"Hey, search is nopped out");
-/*
-    [[LRResty authenticatedClientWithUsername:server.username password:server.password] get:[url absoluteString] withBlock:^(LRRestyResponse *response) {
-        
-        if (response.status == 200) { // special status for binary data
-            SBSubsonicParsingOperation *operation = [[SBSubsonicParsingOperation alloc] initWithManagedObjectContext:self.managedObjectContext
-                                                                                                              client:self
-                                                                                                         requestType:SBSubsonicRequestSearch
-                                                                                                              server:[self.server objectID]
-                                                                                                                 xml:[response responseData]];
-            [operation setCurrentSearch:searchResult];
-            [[NSOperationQueue sharedServerQueue] addOperation:operation];
-            //[operation main];
-            [operation release];
-        }
-    }];
-*/
+    [self requestWithURL:url requestType: SBSubsonicRequestSearch searchResult:searchResult];
 }
 
 
