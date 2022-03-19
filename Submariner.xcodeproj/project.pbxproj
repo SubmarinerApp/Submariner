@@ -65,8 +65,6 @@
 		4C7AA23A139D59500050BE95 /* NSImage-NoodleExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA235139D59500050BE95 /* NSImage-NoodleExtensions.m */; };
 		4C7AA23B139D59500050BE95 /* NSIndexSet-NoodleExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA237139D59500050BE95 /* NSIndexSet-NoodleExtensions.m */; };
 		4C7AA23C139D59500050BE95 /* NSTableView-NoodleExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA239139D59500050BE95 /* NSTableView-NoodleExtensions.m */; };
-		4C7AA244139D5B140050BE95 /* ESiTunesScroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA241139D5B130050BE95 /* ESiTunesScroller.m */; };
-		4C7AA245139D5B140050BE95 /* ESScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA243139D5B130050BE95 /* ESScrollView.m */; };
 		4C7AA247139D619F0050BE95 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7AA246139D619F0050BE95 /* Quartz.framework */; };
 		4C7AA249139D64020050BE95 /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C7AA248139D64020050BE95 /* close.png */; };
 		4C7AA24D139D64930050BE95 /* SBServerLibraryController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA24B139D64920050BE95 /* SBServerLibraryController.mm */; };
@@ -376,10 +374,6 @@
 		4C7AA237139D59500050BE95 /* NSIndexSet-NoodleExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet-NoodleExtensions.m"; sourceTree = "<group>"; };
 		4C7AA238139D59500050BE95 /* NSTableView-NoodleExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTableView-NoodleExtensions.h"; sourceTree = "<group>"; };
 		4C7AA239139D59500050BE95 /* NSTableView-NoodleExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTableView-NoodleExtensions.m"; sourceTree = "<group>"; };
-		4C7AA240139D5B130050BE95 /* ESiTunesScroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESiTunesScroller.h; sourceTree = "<group>"; };
-		4C7AA241139D5B130050BE95 /* ESiTunesScroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESiTunesScroller.m; sourceTree = "<group>"; };
-		4C7AA242139D5B130050BE95 /* ESScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESScrollView.h; sourceTree = "<group>"; };
-		4C7AA243139D5B130050BE95 /* ESScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ESScrollView.m; sourceTree = "<group>"; };
 		4C7AA246139D619F0050BE95 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		4C7AA248139D64020050BE95 /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
 		4C7AA24A139D64920050BE95 /* SBServerLibraryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBServerLibraryController.h; sourceTree = "<group>"; };
@@ -830,10 +824,6 @@
 				4CFAFC34139EF20500E82B57 /* MGScopeBarDelegateProtocol.h */,
 				4CFAFC35139EF20500E82B57 /* MGRecessedPopUpButtonCell.h */,
 				4CFAFC36139EF20500E82B57 /* MGRecessedPopUpButtonCell.m */,
-				4C7AA240139D5B130050BE95 /* ESiTunesScroller.h */,
-				4C7AA241139D5B130050BE95 /* ESiTunesScroller.m */,
-				4C7AA242139D5B130050BE95 /* ESScrollView.h */,
-				4C7AA243139D5B130050BE95 /* ESScrollView.m */,
 				4C7AA227139D53A40050BE95 /* SBTableView.h */,
 				4C7AA228139D53A50050BE95 /* SBTableView.m */,
 				4C7AA21D139D530B0050BE95 /* RWTableHeaderCell.h */,
@@ -1538,8 +1528,6 @@
 				4C7AA23A139D59500050BE95 /* NSImage-NoodleExtensions.m in Sources */,
 				4C7AA23B139D59500050BE95 /* NSIndexSet-NoodleExtensions.m in Sources */,
 				4C7AA23C139D59500050BE95 /* NSTableView-NoodleExtensions.m in Sources */,
-				4C7AA244139D5B140050BE95 /* ESiTunesScroller.m in Sources */,
-				4C7AA245139D5B140050BE95 /* ESScrollView.m in Sources */,
 				4C7AA24D139D64930050BE95 /* SBServerLibraryController.mm in Sources */,
 				4C7AA26F139D66200050BE95 /* NSBezierPath+MCAdditions.m in Sources */,
 				4C7AA270139D66200050BE95 /* NSShadow+MCAdditions.m in Sources */,
