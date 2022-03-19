@@ -98,6 +98,7 @@
 - (void)subsonicPlaylistsUpdatedNotification:(NSNotification *)notification;
 - (void)subsonicPlaylistsCreatedNotification:(NSNotification *)notification;
 - (void)playerPlaylistUpdatedNotification:(NSNotification *)notification;
+- (void)playerPlayStateNotification:(NSNotification *)notification;
 - (void)playerHaveMovieToPlayNotification:(NSNotification *)notification;
 
 @end
@@ -255,6 +256,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerPlaylistUpdatedNotification:)
                                                  name:SBPlayerPlaylistUpdatedNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(playerPlayStateNotification:)
+                                                 name:SBPlayerPlayStateNotification
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -1009,9 +1015,9 @@
             }
         else [onlineImageView setImage:nil];
         
-        if(![currentTrack.isPlaying boolValue])
-            [playPauseButton setState:NSOffState];
-        else [playPauseButton setState:NSOnState];
+//        if(![currentTrack.isPlaying boolValue])
+//            [playPauseButton setState:NSOffState];
+//        else [playPauseButton setState:NSOnState];
         
     } else {
         [trackTitleTextField setStringValue:@""];
@@ -1019,6 +1025,23 @@
         [onlineImageView setImage:nil];
         [coverImageView setImage:[NSImage imageNamed:@"NoArtwork"]];
         [playPauseButton setState:NSOnState];
+    }
+}
+- (void)playerPlayStateNotification:(NSNotification *)notification {
+    SBTrack *currentTrack = [[SBPlayer sharedInstance] currentTrack];
+    
+    if(currentTrack != nil) {
+        if([[SBPlayer sharedInstance] isPaused]) {
+            [playPauseButton setState:NSOffState];
+            NSLog(@"Paused?");
+        }
+        else {
+            [playPauseButton setState:NSOnState];
+            NSLog(@"Playing?");
+        }
+    } else {
+        [playPauseButton setState:NSOnState];
+        NSLog(@"Stopped?");
     }
 }
 

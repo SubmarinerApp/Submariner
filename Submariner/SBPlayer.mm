@@ -60,15 +60,9 @@
 
 // notifications
 NSString *SBPlayerPlaylistUpdatedNotification = @"SBPlayerPlaylistUpdatedNotification";
+NSString *SBPlayerPlayStateNotification = @"SBPlayerPlayStateNotification";
 NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotification";
 
-
-/*
-@interface QTMovie(IdlingAdditions)
--(QTTime)maxTimeLoaded;
-- (void)movieDidEnd:(NSNotification *)notification;
-@end
-*/
 
 
 @interface SBPlayer (Private)
@@ -216,7 +210,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     [defaultCenter setNowPlayingInfo: songInfo];
 }
 
-// XXX: The database window doesn't handle this news very well. Fix it.
 - (MPRemoteCommandHandlerStatus)clickPlay {
     [self playOrResume];
     return MPRemoteCommandHandlerStatusSuccess;
@@ -351,6 +344,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerPlaylistUpdatedNotification object:self];
     self.isPlaying = YES;
     self.isPaused = NO;
+    [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerPlayStateNotification object:self];
     
     // update NPIC
     [self updateSystemNowPlaying];
@@ -412,6 +406,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         self.isPaused = [LOCAL_PLAYER isPaused];
     }
     [self updateSystemNowPlaying];
+    [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerPlayStateNotification object:self];
 }
 
 
@@ -425,6 +420,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         self.isPaused = YES;
     }
     [self updateSystemNowPlaying];
+    [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerPlayStateNotification object:self];
 }
 
 
@@ -442,6 +438,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         self.isPaused = [LOCAL_PLAYER isPaused];
     }
     [self updateSystemNowPlaying];
+    [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerPlayStateNotification object:self];
 }
 
 - (void)next {
@@ -570,6 +567,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         
         // update NPIC
         [self updateSystemNowPlaying];
+        [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerPlayStateNotification object:self];
 	}
 }
 

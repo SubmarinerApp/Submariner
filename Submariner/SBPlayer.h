@@ -40,6 +40,7 @@
 
 // notifications
 extern NSString *SBPlayerPlaylistUpdatedNotification;
+extern NSString *SBPlayerPlayStateNotification;
 extern NSString *SBPlayerMovieToPlayNotification;
 
 
