@@ -42,11 +42,6 @@
 #import <SFBAudioEngine/SFBAudioMetadata.h>
 #import <SFBAudioEngine/SFBAudioProperties.h>
 
-//#import <taglib/taglib.h>
-//#import <taglib/fileref.h>
-//#import <taglib/tag.h>
-//#import <taglib/tstring.h>
-
 #import "SBAppDelegate.h"
 
 #import "SBLibrary.h"
@@ -181,41 +176,6 @@
                 }
             }
             
-            
-            // use of taglib
-//            TagLib::FileRef audioFile([path UTF8String]);  
-//            QTMovie *audioSound = [[QTMovie alloc] initWithFile:path error:nil];
-//            
-//            // get file duration
-//            NSTimeInterval durationInterval = nil;
-//            QTGetTimeInterval([audioSound duration], &durationInterval);
-//            
-//            // if this is a local file importation
-//            if(!remoteTrackID) {
-//                // get file metadata
-//                titleString       = [NSString stringWithUTF8String:audioFile.tag()->title().toCString()];
-//                artistString      = [NSString stringWithUTF8String:audioFile.tag()->artist().toCString()];
-//                albumString       = [NSString stringWithUTF8String:audioFile.tag()->album().toCString()];
-//                genreString       = [NSString stringWithUTF8String:audioFile.tag()->genre().toCString()];
-//                trackNumber       = [NSNumber numberWithUnsignedInt:audioFile.tag()->track()];
-//                durationNumber    = [NSNumber numberWithDouble:durationInterval];
-//                bitRateNumber     = [NSNumber numberWithFloat:[audioSound rate]];
-//                coverData         = nil;
-//            
-//            // if this is a cache or download data importation
-//            } else {
-//                // use remote track metadata
-//                SBTrack *remoteTrack = (SBTrack *)[[self threadedContext] objectWithID:remoteTrackID];
-//                
-//                titleString       = remoteTrack.itemName;
-//                artistString      = remoteTrack.artistString;
-//                albumString       = remoteTrack.albumString;
-//                genreString       = remoteTrack.genre;
-//                trackNumber       = remoteTrack.trackNumber;
-//                durationNumber    = remoteTrack.duration;
-//                bitRateNumber     = remoteTrack.bitRate;
-//                coverData         = nil;
-//            }
             
             // create artist object if needed
             if(!artistString || [artistString isEqualToString:@""])
