@@ -34,12 +34,10 @@
 
 #import "SBApplication.h"
 #import "SBAppDelegate.h"
-#import <IOKit/hidsystem/ev_keymap.h>
 
 
 
 @interface SBApplication ()
-- (void)mediaKeyEvent:(int)key state:(BOOL)state;
 @end
 
 
@@ -80,57 +78,4 @@
     
     return self;
 }
-
-
-/**
- * Listen media key event from Apple Keyboard
- */
-- (void)sendEvent:(NSEvent *)event {
-    // Catch media key events
-    if ([event type] == NSSystemDefined && [event subtype] == 8) {
-        
-        int keyCode = (([event data1] & 0xFFFF0000) >> 16);
-        int keyFlags = ([event data1] & 0x0000FFFF);
-        int keyState = (((keyFlags & 0xFF00) >> 8)) == 0xA;
-                
-        [self mediaKeyEvent:keyCode state:keyState];
-        return;
-    }
-    
-    // Continue on to super
-    [super sendEvent:event];
-}
-
-
-/**
- * Treat the media key event
- */
-- (void)mediaKeyEvent:(int)key state:(BOOL)state {
-    switch (key) {
-        // Play pressed
-        case NX_KEYTYPE_PLAY:
-            
-            if (state == NO)
-                [(SBAppDelegate *)[self delegate] playPause:self];
-            
-            break;
-            
-        // Rewind
-        case NX_KEYTYPE_FAST:
-            if (state == YES)
-                [(SBAppDelegate *)[self delegate] nextTrack:self];
-            
-            break;
-            
-        // Previous
-        case NX_KEYTYPE_REWIND:
-            if (state == YES)
-                [(SBAppDelegate *)[self delegate] previousTrack:self];
-            
-            break;
-            
-    }
-    
-}
-
 @end

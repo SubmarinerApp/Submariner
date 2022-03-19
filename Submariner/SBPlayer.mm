@@ -211,7 +211,8 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 }
 
 - (MPRemoteCommandHandlerStatus)clickPlay {
-    [self playOrResume];
+    // This is a toggle because the system media key always sends play.
+    [self playPause];
     return MPRemoteCommandHandlerStatusSuccess;
 }
 
