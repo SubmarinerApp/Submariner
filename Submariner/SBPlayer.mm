@@ -253,6 +253,8 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 	else {
         [remotePlayer setVolume:[self volume]];
         [remotePlayer addObserver:self forKeyPath:@"status" options:0 context:nil];
+        AVPlayerItem *currentItem = [remotePlayer currentItem];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemDidFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object:currentItem];
     }
 }
 
@@ -583,6 +585,10 @@ return 0;
             [[NSOperationQueue sharedDownloadQueue] addOperation:op];
         }
     */
+}
+
+-(void)itemDidFinishPlaying:(NSNotification *) notification {
+    [self next];
 }
 
 #pragma mark -
