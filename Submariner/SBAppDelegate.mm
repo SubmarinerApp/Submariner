@@ -45,21 +45,6 @@
 #import "NSWindow-Zoom.h"
 
 
-
-
-
-@interface SBAppDelegate (Private)
-
-- (void)activateStatusMenu;
-
-@end
-
-
-
-
-
-
-
 @implementation SBAppDelegate
 
 
@@ -95,141 +80,11 @@
 }
 
 
-
-
-#pragma mark -
-#pragma mark NSStatusItem Methods
-
-- (void)activateStatusMenu
-{
-    NSStatusBar *bar = [NSStatusBar systemStatusBar];
-    
-    statusItem = [[bar statusItemWithLength:NSVariableStatusItemLength] retain];
-    
-    [statusItem setImage:[NSImage imageNamed:@"icon-mini"]];
-    [statusItem setLength:22.0f];
-    [statusItem setHighlightMode:YES];
-    [statusItem setMenu:statusMenu];
-}
-
-
-#pragma mark -
-#pragma mark NSMenuDelegate Methods
-
-- (void)menuWillOpen:(NSMenu *)menu {
-    
-    [statusItem setImage:[NSImage imageNamed:@"icon-mini-activated"]];
-    
-    [menu removeAllItems];
-    
-    NSMenuItem *item = nil;
-    
-    // currently playing track
-    if([[SBPlayer sharedInstance] currentTrack] != nil) {
-        SBTrack *track = [[SBPlayer sharedInstance] currentTrack];
-        NSString *trackTitle = [NSString stringWithFormat:@"%@. %@ (%@)", track.trackNumber, track.itemName, track.durationString];
-        NSString *currentTrackString = [NSString stringWithFormat:@"Playing : %@", trackTitle];
-        
-        [menu addItemWithTitle:currentTrackString action:nil keyEquivalent:@""];
-        [menu addItem:[NSMenuItem separatorItem]];
-    }
-    
-    // play/pause item
-    SBPlayer *player = [SBPlayer sharedInstance];
-    
-    if([[SBPlayer sharedInstance] currentTrack] && !player.isPaused) {
-        item = [menu addItemWithTitle:@"Pause" action:@selector(playPause:) keyEquivalent:@""];
-        [item setImage:[NSImage imageNamed:@"Pause-mini"]];
-    } else {
-        item = [menu addItemWithTitle:@"Play" action:@selector(playPause:) keyEquivalent:@""];
-        [item setImage:[NSImage imageNamed:@"Play-mini"]];
-    }
-    
-    // previous item
-    item = [menu addItemWithTitle:@"Previous" action:@selector(previousTrack:) keyEquivalent:@""];
-    [item setImage:[NSImage imageNamed:@"Rewind-mini"]];
-    
-    // next item
-    item = [menu addItemWithTitle:@"Next" action:@selector(nextTrack:) keyEquivalent:@""];
-    [item setImage:[NSImage imageNamed:@"Forward-mini"]];
-    
-    
-    // library
-    [menu addItem:[NSMenuItem separatorItem]];
-    if(databaseController.library != nil) {
-        
-        NSMenu *artistMenu = [[[NSMenu alloc] initWithTitle:@"Library"] autorelease];
-        
-        NSArray *descriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"itemName" ascending:YES]];
-        NSArray *artists = [databaseController.library.artists sortedArrayUsingDescriptors:descriptors];
-        
-        for(SBArtist *artist in artists) {
-            item = [artistMenu addItemWithTitle:artist.itemName action:nil keyEquivalent:@""];
-            NSMenu *albumMenu = [[[NSMenu alloc] initWithTitle:artist.itemName] autorelease];
-            [item setSubmenu:albumMenu];
-            
-            NSArray *albums = [artist.albums sortedArrayUsingDescriptors:descriptors];
-            for(SBAlbum *album in albums) {
-                item = [albumMenu addItemWithTitle:album.itemName action:nil keyEquivalent:@""];
-                NSMenu *trackMenu = [[[NSMenu alloc] initWithTitle:album.itemName] autorelease];
-                [item setSubmenu:trackMenu];
-                
-                NSArray *descriptors2 = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"trackNumber" ascending:YES]];
-                NSArray *tracks = [album.tracks sortedArrayUsingDescriptors:descriptors2];
-                
-                for(SBTrack *track in tracks) {
-                    NSString *trackTitle = [NSString stringWithFormat:@"%@. %@ (%@)", track.trackNumber, track.itemName, track.durationString];
-                    item = [trackMenu addItemWithTitle:trackTitle action:@selector(playTrackForMenuItem:) keyEquivalent:@""];
-                    [item setRepresentedObject:track];
-                }
-            }
-        }
-        
-        item = [menu addItemWithTitle:@"Library" action:nil keyEquivalent:@""];
-        [item setSubmenu:artistMenu];
-    }
-    
-    // separator if needed
-    if([[SBPlayer sharedInstance] playlist] && [[[SBPlayer sharedInstance] playlist] count] > 0)
-        [menu addItem:[NSMenuItem separatorItem]];
-    
-    // current tracklist
-    for(SBTrack *track in [[SBPlayer sharedInstance] playlist]) {
-        NSString *trackTitle = [NSString stringWithFormat:@"%@. %@ (%@)", track.trackNumber, track.itemName, track.durationString];
-
-        item = [[NSMenuItem alloc] initWithTitle:trackTitle action:@selector(playTrackForMenuItem:) keyEquivalent:@""];
-        [item setRepresentedObject:track];
-        
-        if([track.isPlaying boolValue])
-            [item setImage:[NSImage imageNamed:@"playing-mini"]];
-        else 
-            [item setImage:nil];
-        
-        [menu addItem:item];
-        [item release];
-    }
-    
-    // database window item
-    [menu addItem:[NSMenuItem separatorItem]];
-    [menu addItemWithTitle:@"Database Window" action:@selector(zoomDatabaseWindow:) keyEquivalent:@""];
-}
-
-- (void)menuDidClose:(NSMenu *)menu {
-    [statusItem setImage:[NSImage imageNamed:@"icon-mini"]];
-}
-
-
-
-
-
 #pragma mark -
 #pragma mark NSApplicationDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    // Insert code here to initialize your application
-    [self activateStatusMenu];
-    
     preferencesController = [[SBPreferencesController alloc] initWithManagedObjectContext:[self managedObjectContext]];
     databaseController = [[SBDatabaseController alloc] initWithManagedObjectContext:[self managedObjectContext]];
     
