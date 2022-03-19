@@ -230,8 +230,8 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
                 [self playLocalWithURL:[self.currentTrack.localTrack streamURL]];
                 //[self playRemoteWithURL:[self.currentTrack.localTrack streamURL]];
             } else {
-                [self playLocalWithURL:[self.currentTrack streamURL]];
-                //[self playRemoteWithURL:[self.currentTrack streamURL]];
+                //[self playLocalWithURL:[self.currentTrack streamURL]];
+                [self playRemoteWithURL:[self.currentTrack streamURL]];
             }
         }   
     }
@@ -330,16 +330,12 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 
 
 - (void)seek:(double)time {
-    /*
     if(remotePlayer != nil) {
-        NSTimeInterval duration;
-        QTGetTimeInterval([remotePlayer duration], &duration);    
-        double newSeekTime = (time / 100.0) * duration;     
-        QTTime qtTime = QTMakeTimeWithTimeInterval(newSeekTime);
-        
-        [remotePlayer setCurrentTime:qtTime];
+        AVPlayerItem *currentItem = [remotePlayer currentItem];
+        CMTime durationCM = [currentItem duration];
+        CMTime newTime = CMTimeMultiplyByFloat64(durationCM, (time / 100.0));
+        [remotePlayer seekToTime:newTime];
     }
-    */
     
     if(LOCAL_PLAYER && [LOCAL_PLAYER isPlaying]) {
         SInt64 totalFrames;
@@ -430,20 +426,16 @@ return nil;
 }
 
 - (NSString *)remainingTimeString {
-    
-/*
     if(remotePlayer != nil)
     {
-        NSTimeInterval currentTime; 
-        NSTimeInterval duration;
-        
-        QTGetTimeInterval([remotePlayer duration], &duration);
-        QTGetTimeInterval([remotePlayer currentTime], &currentTime);
-        
+        AVPlayerItem *currentItem = [remotePlayer currentItem];
+        CMTime durationCM = [currentItem duration];
+        CMTime currentTimeCM = [currentItem currentTime];
+        NSTimeInterval duration = CMTimeGetSeconds(durationCM);
+        NSTimeInterval currentTime = CMTimeGetSeconds(currentTimeCM);
         NSTimeInterval remainingTime = duration-currentTime;
         return [NSString stringWithTime:-remainingTime];
     }
-*/
     
     if([LOCAL_PLAYER isPlaying])
     {
@@ -462,17 +454,14 @@ return nil;
 }
 
 - (double)progress {
-    
-/*
     if(remotePlayer != nil)
     {
         // typedef struct { long long timeValue; long timeScale; long flags; } QTTime
-        QTTime qtCurrentTime = [remotePlayer currentTime];
-        QTTime qtDuration    = [remotePlayer duration];
-
-        long long currentTime = qtCurrentTime.timeValue;
-        long long duration = qtDuration.timeValue;
-        
+        AVPlayerItem *currentItem = [remotePlayer currentItem];
+        CMTime durationCM = [currentItem duration];
+        CMTime currentTimeCM = [currentItem currentTime];
+        NSTimeInterval duration = CMTimeGetSeconds(durationCM);
+        NSTimeInterval currentTime = CMTimeGetSeconds(currentTimeCM);
         
         if(duration > 0) {
             double progress = ((double)currentTime) / ((double)duration) * 100; // make percent
@@ -489,7 +478,6 @@ return nil;
             return 0;
         }
     }
-*/
     
     if([LOCAL_PLAYER isPlaying])
     {
@@ -525,18 +513,22 @@ return 0;
 
 - (double)percentLoaded {
     double percentLoaded = 0;
-    
-/*
+
     if(remotePlayer != nil) {
+        AVPlayerItem *currentItem = [remotePlayer currentItem];
+        CMTime durationCM = [currentItem duration];
         NSTimeInterval tMaxLoaded;
-        NSTimeInterval tDuration;
-        
-        QTGetTimeInterval([remotePlayer duration], &tDuration);
-        QTGetTimeInterval([remotePlayer maxTimeLoaded], &tMaxLoaded);
+        NSArray *ranges = [currentItem loadedTimeRanges];
+        if ([ranges count] > 0) {
+            CMTimeRange range = [[ranges firstObject] CMTimeRangeValue];
+            tMaxLoaded = CMTimeGetSeconds(range.duration) - CMTimeGetSeconds(range.start);
+        } else {
+            tMaxLoaded = 0;
+        }
+        NSTimeInterval tDuration = CMTimeGetSeconds(durationCM);
         
         percentLoaded = (double) tMaxLoaded/tDuration;
     }
-*/
     
     if([LOCAL_PLAYER isPlaying]) {
         percentLoaded = 1;
