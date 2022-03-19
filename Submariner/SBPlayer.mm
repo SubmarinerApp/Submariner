@@ -48,6 +48,12 @@
 #import "NSOperationQueue+Shared.h"
 #import "NSString+Time.h"
 
+#import <MediaPlayer/MPNowPlayingInfoCenter.h>
+#import <MediaPlayer/MPMediaItem.h>
+
+#import <MediaPlayer/MPRemoteCommandCenter.h>
+#import <MediaPlayer/MPRemoteCommandEvent.h>
+#import <MediaPlayer/MPRemoteCommand.h>
 
 #define LOCAL_PLAYER localPlayer
 
@@ -104,7 +110,26 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     
 }
 
+- (void)initializeSystemMediaControls
+{
+    MPRemoteCommandCenter *remoteCommandCenter = [MPRemoteCommandCenter sharedCommandCenter];
+    
+    [remoteCommandCenter.playCommand setEnabled:YES];
+    [remoteCommandCenter.pauseCommand setEnabled:YES];
+    [remoteCommandCenter.togglePlayPauseCommand setEnabled:YES];
+    [remoteCommandCenter.stopCommand setEnabled:YES];
+    [remoteCommandCenter.changePlaybackPositionCommand setEnabled:YES];
+    [remoteCommandCenter.nextTrackCommand setEnabled:YES];
+    [remoteCommandCenter.previousTrackCommand setEnabled:YES];
 
+    [[remoteCommandCenter playCommand] addTarget:self action:@selector(clickPlay)];
+    [[remoteCommandCenter pauseCommand] addTarget:self action:@selector(clickPause)];
+    [[remoteCommandCenter togglePlayPauseCommand] addTarget:self action:@selector(clickPlay)];
+    [[remoteCommandCenter stopCommand] addTarget:self action:@selector(clickStop)];
+    [[remoteCommandCenter changePlaybackPositionCommand] addTarget:self action:@selector(clickSeek:)];
+    [[remoteCommandCenter nextTrackCommand] addTarget:self action:@selector(clickNext)];
+    [[remoteCommandCenter previousTrackCommand] addTarget:self action:@selector(clickPrev)];
+}
 
 - (id)init {
     self = [super init];
@@ -117,6 +142,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         
         repeatMode = SBPlayerRepeatNo;
     }
+    [self initializeSystemMediaControls];
     return self;
 }
 
@@ -134,9 +160,93 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     [super dealloc];
 }
 
+#pragma mark -
+#pragma mark System Now Playing/Controls
 
+-(void) updateSystemNowPlaying {
+    MPNowPlayingInfoCenter * defaultCenter = [MPNowPlayingInfoCenter defaultCenter];
+    
+    SBTrack *currentTrack = [self currentTrack];
+    // XXX: We could optimize this by reusing the same dictionary
+    NSMutableDictionary *songInfo = [[NSMutableDictionary alloc] init];
+    
+    if (currentTrack != nil) {
+        // i guess if we ever support video again...
+        [songInfo setObject: [NSNumber numberWithInteger: MPNowPlayingInfoMediaTypeAudio] forKey:MPMediaItemPropertyMediaType];
+        // XXX: podcasts will have different properties on SBTrack
+        [songInfo setObject: [currentTrack itemName] forKey:MPMediaItemPropertyTitle];
+        [songInfo setObject: [currentTrack albumString] forKey:MPMediaItemPropertyAlbumTitle];
+        [songInfo setObject: [currentTrack artistName] forKey:MPMediaItemPropertyArtist];
+        [songInfo setObject: [currentTrack genre] forKey:MPMediaItemPropertyGenre];
+        [songInfo setObject: [currentTrack rating] forKey:MPMediaItemPropertyRating];
+        // seems the OS can use this to generate waveforms? should it be the download URL?
+        [songInfo setObject:[currentTrack streamURL] forKey:MPMediaItemPropertyAssetURL];
+        // do we have enough metadata to fill in?
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDate *releaseYear = [calendar dateWithEra:1 year:[[currentTrack year] intValue] month:0 day:0 hour:0 minute:0 second:0 nanosecond:0];
+        [songInfo setObject:releaseYear forKey:MPMediaItemPropertyReleaseDate];
+        // XXX: movieAttributes is blank and could be filled in with externalMetadata?
+        if (@available(macOS 10.13.2, *)) {
+            NSImage *artwork = [currentTrack coverImage];
+            CGSize artworkSize = [artwork size];
+            MPMediaItemArtwork *mpArtwork = [[MPMediaItemArtwork alloc] initWithBoundsSize:artworkSize requestHandler:^NSImage * _Nonnull(CGSize size) {
+                return artwork;
+            }];
+            [songInfo setObject: mpArtwork forKey:MPMediaItemPropertyArtwork];
+        }
+        // times are in sec; trust the SBTrack if the player isn't ready
+        // as passing NaNs here will crash the menu bar (!)
+        auto duration = [self durationTime];
+        if (isnan(duration) || duration == 0) {
+            [songInfo setObject: [NSNumber numberWithDouble: 0] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
+            [songInfo setObject: [currentTrack duration] forKey:MPMediaItemPropertyPlaybackDuration];
+        } else {
+            [songInfo setObject: [NSNumber numberWithDouble: [self currentTime]] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
+            [songInfo setObject: [NSNumber numberWithDouble: duration] forKey:MPMediaItemPropertyPlaybackDuration];
+        }
+    }
+    
+    if (![self isPaused] && [self isPlaying]) {
+        [defaultCenter setPlaybackState:MPNowPlayingPlaybackStatePlaying];
+    } else if ([self isPaused] && [self isPlaying]) {
+        [defaultCenter setPlaybackState:MPNowPlayingPlaybackStatePaused];
+    } else if (![self isPlaying]) {
+        [defaultCenter setPlaybackState:MPNowPlayingPlaybackStateStopped];
+    }
+    [defaultCenter setNowPlayingInfo: songInfo];
+}
 
+// XXX: The database window doesn't handle this news very well. Fix it.
+- (MPRemoteCommandHandlerStatus)clickPlay {
+    [self playOrResume];
+    return MPRemoteCommandHandlerStatusSuccess;
+}
 
+- (MPRemoteCommandHandlerStatus)clickPause {
+    [self pause];
+    return MPRemoteCommandHandlerStatusSuccess;
+}
+
+- (MPRemoteCommandHandlerStatus)clickStop {
+    [self stop];
+    return MPRemoteCommandHandlerStatusSuccess;
+}
+
+- (MPRemoteCommandHandlerStatus)clickNext {
+    [self next];
+    return MPRemoteCommandHandlerStatusSuccess;
+}
+
+- (MPRemoteCommandHandlerStatus)clickPrev {
+    [self previous];
+    return MPRemoteCommandHandlerStatusSuccess;
+}
+
+- (MPRemoteCommandHandlerStatus)clickSeek: (MPChangePlaybackPositionCommandEvent*)event {
+    auto newTime = [event positionTime];
+    [self seekToTime: newTime];
+    return MPRemoteCommandHandlerStatusSuccess;
+}
 
 #pragma mark -
 #pragma mark Playlist Management
@@ -241,6 +351,9 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerPlaylistUpdatedNotification object:self];
     self.isPlaying = YES;
     self.isPaused = NO;
+    
+    // update NPIC
+    [self updateSystemNowPlaying];
 }
 
 
@@ -285,16 +398,50 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 }
 
 
+- (void)playOrResume {
+    if(remotePlayer != nil) {
+        [remotePlayer play];
+        self.isPaused = NO;
+    }
+    if(LOCAL_PLAYER && [LOCAL_PLAYER isPaused]) {
+        [LOCAL_PLAYER resume];
+        self.isPaused = NO;
+    } else if (LOCAL_PLAYER) {
+        NSError *error;
+        [LOCAL_PLAYER playReturningError:&error];
+        self.isPaused = [LOCAL_PLAYER isPaused];
+    }
+    [self updateSystemNowPlaying];
+}
+
+
+- (void)pause {
+    if(remotePlayer != nil) {
+        [remotePlayer pause];
+        self.isPaused = YES;
+    }
+    if(LOCAL_PLAYER && [LOCAL_PLAYER engineIsRunning]) {
+        [LOCAL_PLAYER pause];
+        self.isPaused = YES;
+    }
+    [self updateSystemNowPlaying];
+}
+
+
 - (void)playPause {
     if((remotePlayer != nil) && ([remotePlayer rate] != 0)) {
         [remotePlayer pause];
+        self.isPaused = YES;
     } else {
         [remotePlayer play];
+        self.isPaused = NO;
     }
     if(LOCAL_PLAYER && [LOCAL_PLAYER engineIsRunning]) {
         NSError *error;
         [LOCAL_PLAYER togglePlayPauseReturningError:&error];
+        self.isPaused = [LOCAL_PLAYER isPaused];
     }
+    [self updateSystemNowPlaying];
 }
 
 - (void)next {
@@ -330,7 +477,38 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     [LOCAL_PLAYER setVolume:volume error:&error];
 }
 
+- (void)seekToTime:(NSTimeInterval)time {
+    if(remotePlayer != nil) {
+        AVPlayerItem *currentItem = [remotePlayer currentItem];
+        CMTime timeCM = CMTimeMakeWithSeconds(time, NSEC_PER_SEC);
+        [remotePlayer seekToTime:timeCM];
+    }
+    
+    if(LOCAL_PLAYER && [LOCAL_PLAYER isPlaying]) {
+        SInt64 totalFrames;
+        if([LOCAL_PLAYER supportsSeeking]) {
+/*
+// XXX: Think about this one later
+            if(LOCAL_PLAYER->GetTotalFrames(totalFrames)) {
+                //NSLog(@"seek");
+                SInt64 desiredFrame = static_cast<SInt64>((time / 100.0) * totalFrames);
+                LOCAL_PLAYER->SeekToFrame(desiredFrame);
+            }
+*/
+        } else {
+            NSLog(@"WARNING : no seek support for this file");
+        }
+    }
+    
+    if(isCaching) {
+        isCaching = NO;
+    }
+    
+    // seeks will desync the NPIC
+    [self updateSystemNowPlaying];
+}
 
+// This is relative (0..100) it seems
 - (void)seek:(double)time {
     if(remotePlayer != nil) {
         AVPlayerItem *currentItem = [remotePlayer currentItem];
@@ -358,6 +536,9 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     if(isCaching) {
         isCaching = NO;
     }
+    
+    // seeks will desync the NPIC
+    [self updateSystemNowPlaying];
 }
 
 
@@ -386,6 +567,9 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         // stop player !
         self.isPlaying = NO;
         self.isPaused = YES; // for sure
+        
+        // update NPIC
+        [self updateSystemNowPlaying];
 	}
 }
 
@@ -400,14 +584,13 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 #pragma mark -
 #pragma mark Accessors (Player Properties)
 
-
-- (NSString *)currentTimeString {
+- (NSTimeInterval)currentTime {
     
     if(remotePlayer != nil)
     {
         CMTime currentTimeCM = [remotePlayer currentTime];
         NSTimeInterval currentTime = CMTimeGetSeconds(currentTimeCM);
-        return [NSString stringWithTime:currentTime];
+        return currentTime;
     }
     
     if([LOCAL_PLAYER isPlaying])
@@ -421,22 +604,24 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
             return [NSString stringWithTime:currentTime];
         }
 */
-return nil;
     }
     
-    return nil;
+    return 0;
 }
 
-- (NSString *)remainingTimeString {
+
+- (NSString *)currentTimeString {
+    return [NSString stringWithTime: [self currentTime]];
+}
+
+- (NSTimeInterval)durationTime
+{
     if(remotePlayer != nil)
     {
         AVPlayerItem *currentItem = [remotePlayer currentItem];
         CMTime durationCM = [currentItem duration];
-        CMTime currentTimeCM = [currentItem currentTime];
         NSTimeInterval duration = CMTimeGetSeconds(durationCM);
-        NSTimeInterval currentTime = CMTimeGetSeconds(currentTimeCM);
-        NSTimeInterval remainingTime = duration-currentTime;
-        return [NSString stringWithTime:-remainingTime];
+        return duration;
     }
     
     if([LOCAL_PLAYER isPlaying])
@@ -452,7 +637,40 @@ return nil;
 */
     }
     
-    return nil;
+    return 0;
+}
+
+- (NSTimeInterval)remainingTime
+{
+    if(remotePlayer != nil)
+    {
+        AVPlayerItem *currentItem = [remotePlayer currentItem];
+        CMTime durationCM = [currentItem duration];
+        CMTime currentTimeCM = [currentItem currentTime];
+        NSTimeInterval duration = CMTimeGetSeconds(durationCM);
+        NSTimeInterval currentTime = CMTimeGetSeconds(currentTimeCM);
+        NSTimeInterval remainingTime = duration-currentTime;
+        return remainingTime;
+    }
+    
+    if([LOCAL_PLAYER isPlaying])
+    {
+        SInt64 currentFrame, totalFrames;
+        CFTimeInterval currentTime, totalTime;
+        
+/*
+// XXX: getPlaybackPosition
+        if(LOCAL_PLAYER->GetPlaybackPositionAndTime(currentFrame, totalFrames, currentTime, totalTime)) {
+            return [NSString stringWithTime:(-1 * (totalTime - currentTime))];
+        }
+*/
+    }
+    
+    return 0;
+}
+
+- (NSString *)remainingTimeString {
+    [NSString stringWithTime: [self remainingTime]];
 }
 
 - (double)progress {
