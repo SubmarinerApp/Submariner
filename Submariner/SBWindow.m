@@ -37,17 +37,12 @@
 @implementation SBTitlebarView
 - (void)drawRect:(NSRect)dirtyRect
 {
-    BOOL key = [[self window] isKeyWindow];
     NSRect drawingRect = [self bounds];
     drawingRect.size.height -= 1.0; // Decrease the height by 1.0px to show the highlight line at the top
     
-    NSColor *startColor = key ? COLOR_KEY_START : COLOR_NOTKEY_START;
-    NSColor *endColor = key ? COLOR_KEY_END : COLOR_NOTKEY_END;
     NSBezierPath *clipPath = [self clippingPathWithRect:drawingRect cornerRadius:CORNER_CLIP_RADIUS];
     [NSGraphicsContext saveGraphicsState];
     [clipPath addClip];
-    NSGradient *gradient = [[[NSGradient alloc] initWithStartingColor:startColor endingColor:endColor] autorelease];
-    [gradient drawInRect:drawingRect angle:90];
     [NSGraphicsContext restoreGraphicsState];
     
     NSRect bottomRect = NSMakeRect(0.0, NSMinY(drawingRect), NSWidth(drawingRect), 1.0);
