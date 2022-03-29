@@ -98,8 +98,6 @@
 		4C87EDA1139CD97B0064DE2E /* SBSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED94139CD97B0064DE2E /* SBSplitView.m */; };
 		4C87EDA2139CD97B0064DE2E /* RWVolumeSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED96139CD97B0064DE2E /* RWVolumeSliderCell.m */; };
 		4C87EDA3139CD97B0064DE2E /* SBPlayerSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED98139CD97B0064DE2E /* SBPlayerSliderCell.m */; };
-		4C87EDA4139CD97B0064DE2E /* SBBottomLeftBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED9A139CD97B0064DE2E /* SBBottomLeftBorderView.m */; };
-		4C87EDA5139CD97B0064DE2E /* SBBottomMiddleBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED9C139CD97B0064DE2E /* SBBottomMiddleBorderView.m */; };
 		4C87EDA6139CD97B0064DE2E /* SBBottomRightBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED9E139CD97B0064DE2E /* SBBottomRightBorderView.m */; };
 		4C87EDAB139CD9DA0064DE2E /* Database.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C87EDAA139CD9DA0064DE2E /* Database.xib */; };
 		4C87EDB0139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDAF139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m */; };
@@ -186,8 +184,6 @@
 		4CB1E451144B3B50006F33FA /* RDLightTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1E44E144B3B50006F33FA /* RDLightTextFieldCell.m */; };
 		4CB1E452144B3B50006F33FA /* RDDarkTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1E450144B3B50006F33FA /* RDDarkTextFieldCell.m */; };
 		4CB4D8CC13A6253100F706EC /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D8CB13A6253100F706EC /* MAAttachedWindow.m */; };
-		4CB4D8E113A6634E00F706EC /* SBBottomBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D8E013A6634E00F706EC /* SBBottomBorderView.m */; };
-		4CB4D8E813A6645A00F706EC /* SBTopBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D8E713A6645A00F706EC /* SBTopBorderView.m */; };
 		4CB4D8F313A6664000F706EC /* BWTransparentTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D8EF13A6663E00F706EC /* BWTransparentTableView.m */; };
 		4CB4D8F413A6664000F706EC /* BWTransparentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D8F113A6663F00F706EC /* BWTransparentTableViewCell.m */; };
 		4CB4D8F713A670BF00F706EC /* SBPrioritySplitViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D8F613A670BF00F706EC /* SBPrioritySplitViewDelegate.m */; };
@@ -433,10 +429,6 @@
 		4C87ED96139CD97B0064DE2E /* RWVolumeSliderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWVolumeSliderCell.m; sourceTree = "<group>"; };
 		4C87ED97139CD97B0064DE2E /* SBPlayerSliderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPlayerSliderCell.h; sourceTree = "<group>"; };
 		4C87ED98139CD97B0064DE2E /* SBPlayerSliderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPlayerSliderCell.m; sourceTree = "<group>"; };
-		4C87ED99139CD97B0064DE2E /* SBBottomLeftBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBBottomLeftBorderView.h; sourceTree = "<group>"; };
-		4C87ED9A139CD97B0064DE2E /* SBBottomLeftBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBBottomLeftBorderView.m; sourceTree = "<group>"; };
-		4C87ED9B139CD97B0064DE2E /* SBBottomMiddleBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBBottomMiddleBorderView.h; sourceTree = "<group>"; };
-		4C87ED9C139CD97B0064DE2E /* SBBottomMiddleBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBBottomMiddleBorderView.m; sourceTree = "<group>"; };
 		4C87ED9D139CD97B0064DE2E /* SBBottomRightBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBBottomRightBorderView.h; sourceTree = "<group>"; };
 		4C87ED9E139CD97B0064DE2E /* SBBottomRightBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBBottomRightBorderView.m; sourceTree = "<group>"; };
 		4C87EDAA139CD9DA0064DE2E /* Database.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Database.xib; sourceTree = "<group>"; };
@@ -566,10 +558,6 @@
 		4CB1E450144B3B50006F33FA /* RDDarkTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDDarkTextFieldCell.m; sourceTree = "<group>"; };
 		4CB4D8CA13A6253100F706EC /* MAAttachedWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAttachedWindow.h; sourceTree = "<group>"; };
 		4CB4D8CB13A6253100F706EC /* MAAttachedWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAAttachedWindow.m; sourceTree = "<group>"; };
-		4CB4D8DF13A6634D00F706EC /* SBBottomBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBBottomBorderView.h; sourceTree = "<group>"; };
-		4CB4D8E013A6634E00F706EC /* SBBottomBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBBottomBorderView.m; sourceTree = "<group>"; };
-		4CB4D8E613A6645900F706EC /* SBTopBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBTopBorderView.h; sourceTree = "<group>"; };
-		4CB4D8E713A6645A00F706EC /* SBTopBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBTopBorderView.m; sourceTree = "<group>"; };
 		4CB4D8EE13A6663E00F706EC /* BWTransparentTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWTransparentTableView.h; sourceTree = "<group>"; };
 		4CB4D8EF13A6663E00F706EC /* BWTransparentTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWTransparentTableView.m; sourceTree = "<group>"; };
 		4CB4D8F013A6663F00F706EC /* BWTransparentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWTransparentTableViewCell.h; sourceTree = "<group>"; };
@@ -844,14 +832,6 @@
 				4CB4D8FF13A69FAA00F706EC /* SBPlayerControlView.m */,
 				4CB4D90113A6A19E00F706EC /* SBControlBarView.h */,
 				4CB4D90213A6A1A100F706EC /* SBControlBarView.m */,
-				4CB4D8E613A6645900F706EC /* SBTopBorderView.h */,
-				4CB4D8E713A6645A00F706EC /* SBTopBorderView.m */,
-				4CB4D8DF13A6634D00F706EC /* SBBottomBorderView.h */,
-				4CB4D8E013A6634E00F706EC /* SBBottomBorderView.m */,
-				4C87ED99139CD97B0064DE2E /* SBBottomLeftBorderView.h */,
-				4C87ED9A139CD97B0064DE2E /* SBBottomLeftBorderView.m */,
-				4C87ED9B139CD97B0064DE2E /* SBBottomMiddleBorderView.h */,
-				4C87ED9C139CD97B0064DE2E /* SBBottomMiddleBorderView.m */,
 				4C87ED9D139CD97B0064DE2E /* SBBottomRightBorderView.h */,
 				4C87ED9E139CD97B0064DE2E /* SBBottomRightBorderView.m */,
 				4C87EDBD139CDC250064DE2E /* SBSourceList.h */,
@@ -1478,8 +1458,6 @@
 				4C87EDA1139CD97B0064DE2E /* SBSplitView.m in Sources */,
 				4C87EDA2139CD97B0064DE2E /* RWVolumeSliderCell.m in Sources */,
 				4C87EDA3139CD97B0064DE2E /* SBPlayerSliderCell.m in Sources */,
-				4C87EDA4139CD97B0064DE2E /* SBBottomLeftBorderView.m in Sources */,
-				4C87EDA5139CD97B0064DE2E /* SBBottomMiddleBorderView.m in Sources */,
 				4C87EDA6139CD97B0064DE2E /* SBBottomRightBorderView.m in Sources */,
 				4C87EDB0139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m in Sources */,
 				4C87EDB3139CDA0D0064DE2E /* NSBezierPath+BezierPathQuartzUtilities.m in Sources */,
@@ -1558,8 +1536,6 @@
 				4C4DE62113A1733D006A1EC1 /* EMKeychainItem.m in Sources */,
 				4C4113AD13A3BD680069CC33 /* SBAddServerPlaylistController.m in Sources */,
 				4CB4D8CC13A6253100F706EC /* MAAttachedWindow.m in Sources */,
-				4CB4D8E113A6634E00F706EC /* SBBottomBorderView.m in Sources */,
-				4CB4D8E813A6645A00F706EC /* SBTopBorderView.m in Sources */,
 				4CB4D8F313A6664000F706EC /* BWTransparentTableView.m in Sources */,
 				4CB4D8F413A6664000F706EC /* BWTransparentTableViewCell.m in Sources */,
 				4CB4D8F713A670BF00F706EC /* SBPrioritySplitViewDelegate.m in Sources */,
