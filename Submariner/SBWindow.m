@@ -35,38 +35,6 @@
 @end
 
 @implementation SBTitlebarView
-- (void)drawRect:(NSRect)dirtyRect
-{
-    NSRect drawingRect = [self bounds];
-    drawingRect.size.height -= 1.0; // Decrease the height by 1.0px to show the highlight line at the top
-    
-    NSBezierPath *clipPath = [self clippingPathWithRect:drawingRect cornerRadius:CORNER_CLIP_RADIUS];
-    [NSGraphicsContext saveGraphicsState];
-    [clipPath addClip];
-    [NSGraphicsContext restoreGraphicsState];
-    
-    NSRect bottomRect = NSMakeRect(0.0, NSMinY(drawingRect), NSWidth(drawingRect), 1.0);
-    [[NSColor darkGrayColor] setFill];
-    NSRectFill(bottomRect);
-}
-
-// Uses code from NSBezierPath+PXRoundedRectangleAdditions by Andy Matuschak
-// <http://code.andymatuschak.org/pixen/trunk/NSBezierPath+PXRoundedRectangleAdditions.m>
-
-- (NSBezierPath*)clippingPathWithRect:(NSRect)aRect cornerRadius:(float)radius
-{
-    NSBezierPath *path = [NSBezierPath bezierPath];
-	NSRect rect = NSInsetRect(aRect, radius, radius);
-    NSPoint cornerPoint = NSMakePoint(NSMinX(aRect), NSMinY(aRect));
-    // Create a rounded rectangle path, omitting the bottom left/right corners
-    [path appendBezierPathWithPoints:&cornerPoint count:1];
-    cornerPoint = NSMakePoint(NSMaxX(aRect), NSMinY(aRect));
-    [path appendBezierPathWithPoints:&cornerPoint count:1];
-    [path appendBezierPathWithArcWithCenter:NSMakePoint(NSMaxX(rect), NSMaxY(rect)) radius:radius startAngle:  0.0 endAngle: 90.0];
-    [path appendBezierPathWithArcWithCenter:NSMakePoint(NSMinX(rect), NSMaxY(rect)) radius:radius startAngle: 90.0 endAngle:180.0];
-    [path closePath];
-    return path;
-}
 
 
 @end
@@ -91,42 +59,12 @@
 }
 
 #pragma mark -
-#pragma mark Memory Management
-
-
-#pragma mark -
-#pragma mark NSWindow Overrides
-
-// Disable window titles
-
-- (NSString*)title
-{
-    return @"";
-}
-
-- (void)setTitle:(NSString *)aString
-{
-    return;
-}
-
-#pragma mark -
 #pragma mark Accessors
 
 - (void)setTitleBarView:(NSView *)newTitleBarView
 {
     if ((_titleBarView != newTitleBarView) && newTitleBarView) {
-        [_titleBarView removeFromSuperview];
         _titleBarView = newTitleBarView;
-        
-        // Configure the view properties and add it as a subview of the theme frame
-        NSView *contentView = [self contentView];
-        NSView *themeFrame = [contentView superview];
-        NSView *firstSubview = [[themeFrame subviews] objectAtIndex:0];
-        [_titleBarView setAutoresizingMask:(NSViewMinYMargin | NSViewWidthSizable)];
-        [self _recalculateFrameForTitleBarView];
-        [themeFrame addSubview:_titleBarView positioned:NSWindowBelow relativeTo:firstSubview];
-        [self _layoutTrafficLightsAndContent];
-        [self display];
     }
 }
 
@@ -135,96 +73,27 @@
     return _titleBarView;
 }
 
-- (void)setTitleBarHeight:(float)newTitleBarHeight
-{
-    float minTitleHeight = [self _minimumTitlebarHeight];
-    if (newTitleBarHeight < minTitleHeight) {
-        newTitleBarHeight = minTitleHeight;
-    }
-    _titleBarHeight = newTitleBarHeight;
-    [self _recalculateFrameForTitleBarView];
-    [self _layoutTrafficLightsAndContent];
-    [self display];
-}
-
-- (float)titleBarHeight
-{
-    return _titleBarHeight;
-}
         
 #pragma mark -
 #pragma mark Private
 
 - (void)_doInitialWindowSetup
 {
-    // Calculate titlebar height
-    _titleBarHeight = [self _minimumTitlebarHeight];
-    [self setMovableByWindowBackground:YES];
-    /** -----------------------------------------
-     - The window automatically does layout every time its moved or resized, which means that the traffic lights and content view get reset at the original positions, so we need to put them back in place
-     - NSWindow is hardcoded to redraw the traffic lights in a specific rect, so when they are moved down, only part of the buttons get redrawn, causing graphical artifacts. Therefore, the window must be force redrawn every time it becomes key/resigns key
-     ----------------------------------------- **/
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self selector:@selector(_layoutTrafficLightsAndContent) name:NSWindowDidResizeNotification object:self];
-    [nc addObserver:self selector:@selector(_layoutTrafficLightsAndContent) name:NSWindowDidMoveNotification object:self];
-    [nc addObserver:self selector:@selector(display) name:NSWindowDidResignKeyNotification object:self];
-    [nc addObserver:self selector:@selector(display) name:NSWindowDidBecomeKeyNotification object:self];
-    [self _createTitlebarView];
-    [self _layoutTrafficLightsAndContent];
-    
 }
 
 - (void)_layoutTrafficLightsAndContent
 {
-    NSView *contentView = [self contentView];
-    NSButton *close = [self standardWindowButton:NSWindowCloseButton];
-    NSButton *minimize = [self standardWindowButton:NSWindowMiniaturizeButton];
-    NSButton *zoom = [self standardWindowButton:NSWindowZoomButton];
-    
-    // Set the frame of the window buttons
-    NSRect closeFrame = [close frame];
-    NSRect minimizeFrame = [minimize frame];
-    NSRect zoomFrame = [zoom frame];
-    float buttonOrigin = floor(NSMidY([_titleBarView frame]) - (closeFrame.size.height / 2.0));
-    closeFrame.origin.y = buttonOrigin;
-    minimizeFrame.origin.y = buttonOrigin;
-    zoomFrame.origin.y = buttonOrigin;
-    [close setFrame:closeFrame];
-    [minimize setFrame:minimizeFrame];
-    [zoom setFrame:zoomFrame];
-    
-    // Reposition the content view
-    NSRect windowFrame = [self frame];
-    NSRect newFrame = [contentView frame];
-    float titleHeight = windowFrame.size.height - newFrame.size.height;
-    float extraHeight = _titleBarHeight - titleHeight;
-    newFrame.size.height -= extraHeight;
-    [contentView setFrame:newFrame];
 }
 
 - (void)_createTitlebarView
 {
-    // Create the title bar view
-    self.titleBarView = [[[SBTitlebarView alloc] initWithFrame:NSZeroRect] autorelease];
 }
 
 - (void)_recalculateFrameForTitleBarView
 {
-    NSView *contentView = [self contentView];
-    NSView *themeFrame = [contentView superview];
-    NSRect themeFrameRect = [themeFrame frame];
-    NSRect titleFrame = NSMakeRect(0.0, NSMaxY(themeFrameRect) - _titleBarHeight, themeFrameRect.size.width, _titleBarHeight);
-    [_titleBarView setFrame:titleFrame];
 }
 
 - (float)_minimumTitlebarHeight
 {
-    static float minTitleHeight = 0.0;
-    if (!minTitleHeight) {
-        NSRect frameRect = [self frame];
-        NSRect contentRect = [self contentRectForFrameRect:frameRect];
-        minTitleHeight = (frameRect.size.height - contentRect.size.height);
-    }
-    return minTitleHeight;
 }
 @end

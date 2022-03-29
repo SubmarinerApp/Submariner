@@ -1005,6 +1005,8 @@
         
         [trackTitleTextField setStringValue:currentTrack.itemName];
         [trackInfosTextField setStringValue:trackInfos];
+        [self.window setTitle:currentTrack.itemName];
+        [self.window setSubtitle:trackInfos];
         [coverImageView setImage:coverImage];
         
         if(![currentTrack.isLocal boolValue])
@@ -1022,6 +1024,8 @@
     } else {
         [trackTitleTextField setStringValue:@""];
         [trackInfosTextField setStringValue:@""];
+        [self.window setTitle: @""];
+        [self.window setSubtitle: @""];
         [onlineImageView setImage:nil];
         [coverImageView setImage:[NSImage imageNamed:@"NoArtwork"]];
         [playPauseButton setState:NSOnState];
