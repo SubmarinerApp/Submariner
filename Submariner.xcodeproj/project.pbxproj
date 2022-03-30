@@ -1293,7 +1293,7 @@
 		4C87ED56139CD8BE0064DE2E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1330;
 				ORGANIZATIONNAME = OPALE;
 			};
 			buildConfigurationList = 4C87ED59139CD8BE0064DE2E /* Build configuration list for PBXProject "Submariner" */;
