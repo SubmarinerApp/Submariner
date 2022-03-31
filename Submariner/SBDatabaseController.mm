@@ -34,7 +34,6 @@
 
 #import "SBDatabaseController.h"
 #import "SBAppDelegate.h"
-#import "SBMainSplitViewDelegate.h"
 #import "SBEditServerController.h"
 #import "SBAddServerPlaylistController.h"
 #import "SBMusicController.h"
@@ -164,7 +163,6 @@
     [playlistController release];
     [serverTopbarController release];
     [resourceSortDescriptors release];
-    [mainSplitViewDelegate release];
     [library release];
     [progressUpdateTimer release];
     [flipController release];
@@ -216,19 +214,7 @@
     [customWindow setTitleBarView:titleView];
     
     // setup splitviews
-    mainSplitViewDelegate = [[SBMainSplitViewDelegate alloc] init];
-    
-    [mainSplitViewDelegate setPriority:LEFT_VIEW_PRIORITY forViewAtIndex:LEFT_VIEW_INDEX];
-	[mainSplitViewDelegate setMinimumLength:LEFT_VIEW_MINIMUM_WIDTH forViewAtIndex:LEFT_VIEW_INDEX];
-    
-	[mainSplitViewDelegate setPriority:MAIN_VIEW_PRIORITY forViewAtIndex:MAIN_VIEW_INDEX];
-	[mainSplitViewDelegate setMinimumLength:MAIN_VIEW_MINIMUM_WIDTH forViewAtIndex:MAIN_VIEW_INDEX];
-    
-    [mainSplitViewDelegate setAccessoryView:handleSplitView];
-    [mainSplitViewDelegate setSynchronizedSplitView:titleSplitView];
-
-	[mainSplitView setDelegate:mainSplitViewDelegate];
-    [titleSplitView setDelegate:mainSplitViewDelegate];
+    // TODO: Conversion to NSSplitViewController here, probably
     
     // source list drag and drop
     [sourceList registerForDraggedTypes:[NSArray arrayWithObject:SBLibraryTableViewDataType]];

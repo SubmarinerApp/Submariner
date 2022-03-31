@@ -13,7 +13,6 @@
 		3E53DBBC27E41B6400DB4C84 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */; };
 		3E82701827E653F0007E5695 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E82701727E653F0007E5695 /* MediaPlayer.framework */; };
 		4C0096A513AEAE5F0014F331 /* NSGradient+SourceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0096A413AEAE5F0014F331 /* NSGradient+SourceList.m */; };
-		4C0D423C1496090F00A29E7E /* SBCoverSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D423B1496090F00A29E7E /* SBCoverSplitView.m */; };
 		4C0D423F1496104100A29E7E /* cover_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0D423D1496103800A29E7E /* cover_off.png */; };
 		4C0D42401496104100A29E7E /* cover_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0D423E1496103C00A29E7E /* cover_on.png */; };
 		4C0D42431496177300A29E7E /* MCViewFlipController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D42421496177300A29E7E /* MCViewFlipController.m */; };
@@ -93,7 +92,6 @@
 		4C87ED7A139CD8BE0064DE2E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C87ED78139CD8BE0064DE2E /* MainMenu.xib */; };
 		4C87ED7D139CD8BE0064DE2E /* Submariner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED7B139CD8BE0064DE2E /* Submariner.xcdatamodeld */; };
 		4C87ED8E139CD91B0064DE2E /* SBWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED8D139CD91B0064DE2E /* SBWindowController.m */; };
-		4C87ED9F139CD97B0064DE2E /* SBMainSplitViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED90139CD97B0064DE2E /* SBMainSplitViewDelegate.m */; };
 		4C87EDA0139CD97B0064DE2E /* SBWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED92139CD97B0064DE2E /* SBWindow.m */; };
 		4C87EDA1139CD97B0064DE2E /* SBSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED94139CD97B0064DE2E /* SBSplitView.m */; };
 		4C87EDA2139CD97B0064DE2E /* RWVolumeSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED96139CD97B0064DE2E /* RWVolumeSliderCell.m */; };
@@ -281,8 +279,6 @@
 		3E82701727E653F0007E5695 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		4C0096A313AEAE5F0014F331 /* NSGradient+SourceList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSGradient+SourceList.h"; sourceTree = "<group>"; };
 		4C0096A413AEAE5F0014F331 /* NSGradient+SourceList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSGradient+SourceList.m"; sourceTree = "<group>"; };
-		4C0D423A1496090F00A29E7E /* SBCoverSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCoverSplitView.h; sourceTree = "<group>"; };
-		4C0D423B1496090F00A29E7E /* SBCoverSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCoverSplitView.m; sourceTree = "<group>"; };
 		4C0D423D1496103800A29E7E /* cover_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cover_off.png; sourceTree = "<group>"; };
 		4C0D423E1496103C00A29E7E /* cover_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cover_on.png; sourceTree = "<group>"; };
 		4C0D42411496177300A29E7E /* MCViewFlipController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCViewFlipController.h; sourceTree = "<group>"; };
@@ -419,8 +415,6 @@
 		4C87ED7C139CD8BE0064DE2E /* Submariner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Submariner.xcdatamodel; sourceTree = "<group>"; };
 		4C87ED8C139CD91B0064DE2E /* SBWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBWindowController.h; sourceTree = "<group>"; };
 		4C87ED8D139CD91B0064DE2E /* SBWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBWindowController.m; sourceTree = "<group>"; };
-		4C87ED8F139CD97B0064DE2E /* SBMainSplitViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBMainSplitViewDelegate.h; sourceTree = "<group>"; };
-		4C87ED90139CD97B0064DE2E /* SBMainSplitViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBMainSplitViewDelegate.m; sourceTree = "<group>"; };
 		4C87ED91139CD97B0064DE2E /* SBWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBWindow.h; sourceTree = "<group>"; };
 		4C87ED92139CD97B0064DE2E /* SBWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBWindow.m; sourceTree = "<group>"; };
 		4C87ED93139CD97B0064DE2E /* SBSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSplitView.h; sourceTree = "<group>"; };
@@ -680,8 +674,6 @@
 			children = (
 				4CB4D8F513A670BF00F706EC /* SBPrioritySplitViewDelegate.h */,
 				4CB4D8F613A670BF00F706EC /* SBPrioritySplitViewDelegate.m */,
-				4C87ED8F139CD97B0064DE2E /* SBMainSplitViewDelegate.h */,
-				4C87ED90139CD97B0064DE2E /* SBMainSplitViewDelegate.m */,
 			);
 			name = "SplitView Delegates";
 			sourceTree = "<group>";
@@ -795,8 +787,6 @@
 				4CB1E431144B1F02006F33FA /* Streaming Slider */,
 				4C7AA287139D70390050BE95 /* SBCoverImageView.h */,
 				4C7AA288139D70390050BE95 /* SBCoverImageView.m */,
-				4C0D423A1496090F00A29E7E /* SBCoverSplitView.h */,
-				4C0D423B1496090F00A29E7E /* SBCoverSplitView.m */,
 				4CEF83351449B649005E28EE /* SBArtistTableView.h */,
 				4CEF83361449B649005E28EE /* SBArtistTableView.m */,
 				4CC18E7413B9128400AA4FDB /* SBImageBrowserBackgroundLayer.h */,
@@ -1453,7 +1443,6 @@
 				4C87ED77139CD8BE0064DE2E /* SBAppDelegate.mm in Sources */,
 				4C87ED7D139CD8BE0064DE2E /* Submariner.xcdatamodeld in Sources */,
 				4C87ED8E139CD91B0064DE2E /* SBWindowController.m in Sources */,
-				4C87ED9F139CD97B0064DE2E /* SBMainSplitViewDelegate.m in Sources */,
 				4C87EDA0139CD97B0064DE2E /* SBWindow.m in Sources */,
 				4C87EDA1139CD97B0064DE2E /* SBSplitView.m in Sources */,
 				4C87EDA2139CD97B0064DE2E /* RWVolumeSliderCell.m in Sources */,
@@ -1576,7 +1565,6 @@
 				4CED8E1F144CE2A400332417 /* NSString+Hex.m in Sources */,
 				4C1F6B9E1494333F0005B303 /* SBTopbarView.m in Sources */,
 				4C1F6BA11494F3520005B303 /* NSImage+Additions.m in Sources */,
-				4C0D423C1496090F00A29E7E /* SBCoverSplitView.m in Sources */,
 				4C0D42431496177300A29E7E /* MCViewFlipController.m in Sources */,
 				4C0D4253149618DC00A29E7E /* CHLayoutConstraint.m in Sources */,
 				4C0D4254149618DC00A29E7E /* CHLayoutManager.m in Sources */,

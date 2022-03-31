@@ -39,7 +39,6 @@
 #import "RWStreamingSlider.h"
 #import "MCViewFlipController.h"
 
-@class SBMainSplitViewDelegate;
 @class SBSplitView;
 @class SBSourceList;
 @class SBEditServerController;
@@ -93,7 +92,6 @@
     SBPlaylistController *playlistController;
     SBServerTopbarController *serverTopbarController;
     SBMovieViewController *movieViewController;
-    SBMainSplitViewDelegate *mainSplitViewDelegate;
     MCViewFlipController *flipController;
     NSArray *resourceSortDescriptors;
     SBLibrary *library;

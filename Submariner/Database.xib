@@ -20,8 +20,6 @@
                 <outlet property="progressTextField" destination="270" id="287"/>
                 <outlet property="resourcesController" destination="92" id="108"/>
                 <outlet property="sourceList" destination="15" id="96"/>
-                <outlet property="titleSplitView" destination="36" id="41"/>
-                <outlet property="titleView" destination="4" id="164"/>
                 <outlet property="topbarBox" destination="162" id="165"/>
                 <outlet property="window" destination="1" id="350"/>
             </connections>
@@ -55,7 +53,7 @@
                 <outlet property="sheet" destination="199" id="209"/>
             </connections>
         </customObject>
-        <window title="Submariner" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="Submariner" animationBehavior="default" id="1" userLabel="Database Window" customClass="SBWindow">
+        <window title="Submariner" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="Submariner" animationBehavior="default" tabbingMode="disallowed" id="1" userLabel="Database Window" customClass="SBWindow">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="669" y="470" width="691" height="412"/>
@@ -65,7 +63,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="691" height="412"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <splitView focusRingType="none" autosaveName="MainSplitView" dividerStyle="thin" vertical="YES" id="7" customClass="SBSplitView">
+                    <splitView focusRingType="none" autosaveName="MainSplitView" dividerStyle="thin" vertical="YES" id="7">
                         <rect key="frame" x="0.0" y="0.0" width="691" height="412"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -159,7 +157,7 @@
                     </splitView>
                 </subviews>
             </view>
-            <toolbar key="toolbar" implicitIdentifier="56941344-3B6F-484B-B803-624E33D38051" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconOnly" sizeMode="regular" id="CqV-jK-sMT">
+            <toolbar key="toolbar" implicitIdentifier="56941344-3B6F-484B-B803-624E33D38051" autosavesConfiguration="NO" displayMode="iconOnly" sizeMode="regular" id="CqV-jK-sMT">
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="otC-h2-Pjt"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="Jsx-Cl-TNf"/>
@@ -340,7 +338,6 @@ IA
             <contentBorderThickness minY="40"/>
             <connections>
                 <outlet property="delegate" destination="-2" id="344"/>
-                <outlet property="titleBarView" destination="4" id="5"/>
             </connections>
             <point key="canvasLocation" x="138.5" y="126"/>
         </window>
@@ -610,38 +607,13 @@ Gw
             </view>
             <point key="canvasLocation" x="-152" y="-364"/>
         </window>
-        <customView id="4" customClass="SBTitlebarView">
-            <rect key="frame" x="0.0" y="0.0" width="690" height="40"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <splitView autosaveName="MainTitleSplitView" dividerStyle="thin" vertical="YES" id="36" customClass="SBSplitView">
-                    <rect key="frame" x="0.0" y="0.0" width="690" height="40"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <subviews>
-                        <customView fixedFrame="YES" id="37">
-                            <rect key="frame" x="0.0" y="0.0" width="145" height="40"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </customView>
-                        <customView fixedFrame="YES" id="38">
-                            <rect key="frame" x="146" y="0.0" width="544" height="40"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                        </customView>
-                    </subviews>
-                    <holdingPriorities>
-                        <real value="250"/>
-                        <real value="250"/>
-                    </holdingPriorities>
-                </splitView>
-            </subviews>
-            <point key="canvasLocation" x="96" y="-196"/>
-        </customView>
         <userDefaultsController representsSharedInstance="YES" id="297"/>
         <customView id="uUw-JF-ATV" userLabel="Album Art View">
-            <rect key="frame" x="0.0" y="0.0" width="163" height="96"/>
+            <rect key="frame" x="0.0" y="0.0" width="163" height="181"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <imageView id="215" customClass="SBCoverImageView">
-                    <rect key="frame" x="0.0" y="-92" width="181" height="202"/>
+                    <rect key="frame" x="0.0" y="0.0" width="163" height="195"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NoArtwork" id="216"/>
                     <connections>
@@ -649,7 +621,7 @@ Gw
                     </connections>
                 </imageView>
             </subviews>
-            <point key="canvasLocation" x="709" y="66"/>
+            <point key="canvasLocation" x="708.5" y="108.5"/>
         </customView>
     </objects>
     <resources>
