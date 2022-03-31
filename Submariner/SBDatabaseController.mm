@@ -52,7 +52,6 @@
 #import "SBTableView.h"
 #import "RWStreamingSliderCell.h"
 
-#import "SBWindow.h"
 #import "SBSplitView.h"
 #import "SBSection.h"
 #import "SBTracklist.h"
@@ -208,10 +207,6 @@
     
     // pre-load views
     
-    // setup window
-    SBWindow *customWindow = (SBWindow *)self.window;
-    [customWindow setTitleBarHeight:40];
-    [customWindow setTitleBarView:titleView];
     
     // setup splitviews
     // TODO: Conversion to NSSplitViewController here, probably

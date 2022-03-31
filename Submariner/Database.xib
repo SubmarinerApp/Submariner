@@ -53,7 +53,7 @@
                 <outlet property="sheet" destination="199" id="209"/>
             </connections>
         </customObject>
-        <window title="Submariner" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="Submariner" animationBehavior="default" tabbingMode="disallowed" id="1" userLabel="Database Window" customClass="SBWindow">
+        <window title="Submariner" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="Submariner" animationBehavior="default" tabbingMode="disallowed" id="1" userLabel="Database Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="669" y="470" width="691" height="412"/>

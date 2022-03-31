@@ -92,7 +92,6 @@
 		4C87ED7A139CD8BE0064DE2E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C87ED78139CD8BE0064DE2E /* MainMenu.xib */; };
 		4C87ED7D139CD8BE0064DE2E /* Submariner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED7B139CD8BE0064DE2E /* Submariner.xcdatamodeld */; };
 		4C87ED8E139CD91B0064DE2E /* SBWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED8D139CD91B0064DE2E /* SBWindowController.m */; };
-		4C87EDA0139CD97B0064DE2E /* SBWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED92139CD97B0064DE2E /* SBWindow.m */; };
 		4C87EDA1139CD97B0064DE2E /* SBSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED94139CD97B0064DE2E /* SBSplitView.m */; };
 		4C87EDA2139CD97B0064DE2E /* RWVolumeSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED96139CD97B0064DE2E /* RWVolumeSliderCell.m */; };
 		4C87EDA3139CD97B0064DE2E /* SBPlayerSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED98139CD97B0064DE2E /* SBPlayerSliderCell.m */; };
@@ -415,8 +414,6 @@
 		4C87ED7C139CD8BE0064DE2E /* Submariner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Submariner.xcdatamodel; sourceTree = "<group>"; };
 		4C87ED8C139CD91B0064DE2E /* SBWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBWindowController.h; sourceTree = "<group>"; };
 		4C87ED8D139CD91B0064DE2E /* SBWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBWindowController.m; sourceTree = "<group>"; };
-		4C87ED91139CD97B0064DE2E /* SBWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBWindow.h; sourceTree = "<group>"; };
-		4C87ED92139CD97B0064DE2E /* SBWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBWindow.m; sourceTree = "<group>"; };
 		4C87ED93139CD97B0064DE2E /* SBSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSplitView.h; sourceTree = "<group>"; };
 		4C87ED94139CD97B0064DE2E /* SBSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSplitView.m; sourceTree = "<group>"; };
 		4C87ED95139CD97B0064DE2E /* RWVolumeSliderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWVolumeSliderCell.h; sourceTree = "<group>"; };
@@ -812,8 +809,6 @@
 				4C7AA21E139D530B0050BE95 /* RWTableHeaderCell.m */,
 				4C7AA21F139D530B0050BE95 /* RWCornerView.h */,
 				4C7AA220139D530B0050BE95 /* RWCornerView.m */,
-				4C87ED91139CD97B0064DE2E /* SBWindow.h */,
-				4C87ED92139CD97B0064DE2E /* SBWindow.m */,
 				4C87ED93139CD97B0064DE2E /* SBSplitView.h */,
 				4C87ED94139CD97B0064DE2E /* SBSplitView.m */,
 				4C87ED97139CD97B0064DE2E /* SBPlayerSliderCell.h */,
@@ -1443,7 +1438,6 @@
 				4C87ED77139CD8BE0064DE2E /* SBAppDelegate.mm in Sources */,
 				4C87ED7D139CD8BE0064DE2E /* Submariner.xcdatamodeld in Sources */,
 				4C87ED8E139CD91B0064DE2E /* SBWindowController.m in Sources */,
-				4C87EDA0139CD97B0064DE2E /* SBWindow.m in Sources */,
 				4C87EDA1139CD97B0064DE2E /* SBSplitView.m in Sources */,
 				4C87EDA2139CD97B0064DE2E /* RWVolumeSliderCell.m in Sources */,
 				4C87EDA3139CD97B0064DE2E /* SBPlayerSliderCell.m in Sources */,
