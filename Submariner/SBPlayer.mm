@@ -669,7 +669,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 }
 
 - (NSString *)remainingTimeString {
-    [NSString stringWithTime: [self remainingTime]];
+    return [NSString stringWithTime: [self remainingTime]];
 }
 
 - (double)progress {
