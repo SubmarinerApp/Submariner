@@ -650,7 +650,6 @@
         NSString *currentTimeString = [[SBPlayer sharedInstance] currentTimeString];
         NSString *remainingTimeString = [[SBPlayer sharedInstance] remainingTimeString];
         double progress = [[SBPlayer sharedInstance] progress];
-        double buffered = [[SBPlayer sharedInstance] percentLoaded];
         
         if(currentTimeString)
             [progressTextField setStringValue:currentTimeString];
@@ -661,7 +660,7 @@
         if(progress > 0)
             [progressSlider setDoubleValue:progress];
         
-        [(RWStreamingSliderCell *)progressSlider.cell setBufferValue:buffered*100];
+        // If buffering is useful to know, we could reimplement it better someday.
     
     } else {
         [progressSlider setEnabled:NO];
