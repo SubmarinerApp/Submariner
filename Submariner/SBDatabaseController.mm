@@ -287,6 +287,39 @@
     flipController = [[MCViewFlipController alloc] initWithHostView:hostView frontView:coverImageView backView:tracklistController.view];
 }
 
+#pragma mark -
+#pragma mark Awake from NIB
+
+/* from https://stackoverflow.com/questions/64531415/how-to-use-the-big-sur-style-toolbar-split-view-from-an-old-codebase */
+- (void)awakeFromNib {
+    [super awakeFromNib];
+
+    // create a new-style NSSplitView using NSSplitViewController
+    splitVC=[[NSSplitViewController alloc] init];
+    splitVC.splitView.vertical=YES;
+    splitVC.view.translatesAutoresizingMaskIntoConstraints=NO;
+
+    // prepare the left pane as a sidebar
+    NSSplitViewItem*a=[NSSplitViewItem sidebarWithViewController:leftVC];
+    //[a setTitlebarSeparatorStyle:NSTitlebarSeparatorStyleShadow];
+    [splitVC addSplitViewItem:a];
+    //a.canCollapse=NO;
+
+    // prepare the right pane
+    NSSplitViewItem*b=[NSSplitViewItem splitViewItemWithViewController:rightVC];
+    [splitVC addSplitViewItem:b];
+
+    // swap the old NSSplitView with the new one
+    [self.window.contentView replaceSubview:mainSplitView with:splitVC.view ];
+
+    // set up the constraints so that the new `NSSplitView` to fill the window
+    [splitVC.view.topAnchor constraintEqualToAnchor:self.window.contentView.topAnchor
+                                           constant:0].active=YES;
+    [splitVC.view.bottomAnchor constraintEqualToAnchor:((NSLayoutGuide*)self.window.contentLayoutGuide).bottomAnchor].active=YES;
+    [splitVC.view.leftAnchor constraintEqualToAnchor:((NSLayoutGuide*)self.window.contentLayoutGuide).leftAnchor].active=YES;
+    [splitVC.view.rightAnchor constraintEqualToAnchor:((NSLayoutGuide*)self.window.contentLayoutGuide).rightAnchor].active=YES;
+}
+
 
 
 #pragma mark -

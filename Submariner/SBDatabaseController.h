@@ -85,6 +85,10 @@
     IBOutlet NSImageView *coverImageView;
     IBOutlet NSButton *playPauseButton;
     
+    IBOutlet NSViewController *leftVC;
+    IBOutlet NSViewController *rightVC;
+    NSSplitViewController *splitVC;
+    
     SBMusicController *musicController;
     SBMusicTopbarController *musicTopbarController;
     SBDownloadsController *downloadsController;
