@@ -604,14 +604,14 @@
     
     if([sender state] == NSOnState) {
         [[SBPlayer sharedInstance] setRepeatMode:SBPlayerRepeatAll];
-        [sender setAlternateImage:[NSImage imageNamed:@"repeat_on"]];
+        [sender setAlternateImage:[NSImage imageWithSystemSymbolName: @"repeat.circle.fill" accessibilityDescription: @"Repeat On"]];
     } 
     if([sender state] == NSOffState) {
         [[SBPlayer sharedInstance] setRepeatMode:SBPlayerRepeatNo];
     } 
     if([sender state] == NSMixedState) {
         [[SBPlayer sharedInstance] setRepeatMode:SBPlayerRepeatOne];
-        [sender setAlternateImage:[NSImage imageNamed:@"repeat_one_on"]];
+        [sender setAlternateImage:[NSImage imageWithSystemSymbolName: @"repeat.1.circle.fill" accessibilityDescription: @"Repeat One"]];
     }
 }
 

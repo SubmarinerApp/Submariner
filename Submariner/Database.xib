@@ -250,12 +250,12 @@ IA
                             </textFieldCell>
                         </textField>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="79841E82-13BA-4D74-8CD0-7511780AD663" label="Mute" paletteLabel="Mute" image="mute" sizingBehavior="auto" id="YxS-gO-x0P">
+                    <toolbarItem implicitItemIdentifier="79841E82-13BA-4D74-8CD0-7511780AD663" label="Mute" paletteLabel="Mute" image="volume" catalog="system" sizingBehavior="auto" id="YxS-gO-x0P">
                         <nil key="toolTip"/>
-                        <button key="view" imageHugsTitle="YES" id="272">
-                            <rect key="frame" x="7" y="14" width="20" height="20"/>
+                        <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="272">
+                            <rect key="frame" x="6" y="14" width="22" height="26"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
-                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="mute" imagePosition="only" alignment="center" inset="2" id="276">
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="volume" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="276">
                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -276,12 +276,12 @@ IA
                             </connections>
                         </slider>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="3B989F90-C4D7-461B-B5AA-08B7D18BF8E9" label="Hearing Damage" paletteLabel="Hearing Damage" image="unmute" sizingBehavior="auto" id="1fQ-Lg-41i">
+                    <toolbarItem implicitItemIdentifier="3B989F90-C4D7-461B-B5AA-08B7D18BF8E9" label="Hearing Damage" paletteLabel="Hearing Damage" image="volume.2" catalog="system" sizingBehavior="auto" id="1fQ-Lg-41i">
                         <nil key="toolTip"/>
-                        <button key="view" imageHugsTitle="YES" id="273">
-                            <rect key="frame" x="38" y="14" width="20" height="20"/>
+                        <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="273">
+                            <rect key="frame" x="37" y="14" width="22" height="26"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
-                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="unmute" imagePosition="only" alignment="center" inset="2" id="275">
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="volume.2" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="275">
                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -290,12 +290,12 @@ IA
                             </connections>
                         </button>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="A976DC3F-A37E-4600-A750-BC24B516BB13" label="Shuffle" paletteLabel="Shuffle" image="shuffle_off" sizingBehavior="auto" id="4vs-eG-BJh">
+                    <toolbarItem implicitItemIdentifier="A976DC3F-A37E-4600-A750-BC24B516BB13" label="Shuffle" paletteLabel="Shuffle" image="shuffle.circle" catalog="system" sizingBehavior="auto" id="4vs-eG-BJh">
                         <nil key="toolTip"/>
-                        <button key="view" imageHugsTitle="YES" id="302">
-                            <rect key="frame" x="11" y="14" width="24" height="18"/>
+                        <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="302">
+                            <rect key="frame" x="10" y="14" width="26" height="26"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="shuffle_off" imagePosition="only" alignment="center" alternateImage="shuffle_on" imageScaling="axesIndependently" inset="2" id="303">
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="shuffle.circle" catalog="system" imagePosition="only" alignment="center" alternateImage="shuffle.circle.fill" borderStyle="border" inset="2" id="303">
                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -304,12 +304,12 @@ IA
                             </connections>
                         </button>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="F638AE08-B100-4361-940E-E62D1338014A" label="Repeat" paletteLabel="Repeat" image="repeat_off" sizingBehavior="auto" id="S62-qJ-fzK">
+                    <toolbarItem implicitItemIdentifier="F638AE08-B100-4361-940E-E62D1338014A" label="Repeat" paletteLabel="Repeat" image="repeat.circle" catalog="system" sizingBehavior="auto" id="S62-qJ-fzK">
                         <nil key="toolTip"/>
-                        <button key="view" imageHugsTitle="YES" id="308">
-                            <rect key="frame" x="10" y="14" width="24" height="18"/>
+                        <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="308">
+                            <rect key="frame" x="9" y="14" width="26" height="26"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                            <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="repeat_off" imagePosition="only" alignment="center" alternateImage="repeat" allowsMixedState="YES" imageScaling="axesIndependently" inset="2" id="309">
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="repeat.circle" catalog="system" imagePosition="only" alignment="center" alternateImage="repeat.circle.fill" borderStyle="border" allowsMixedState="YES" inset="2" id="309">
                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -628,14 +628,14 @@ Gw
         <image name="NoArtwork" width="512" height="512"/>
         <image name="backward" catalog="system" width="19" height="12"/>
         <image name="forward" catalog="system" width="19" height="12"/>
-        <image name="mute" width="24" height="24"/>
         <image name="off" width="16" height="16"/>
         <image name="pause" catalog="system" width="9" height="13"/>
         <image name="play" catalog="system" width="12" height="13"/>
-        <image name="repeat" width="128" height="128"/>
-        <image name="repeat_off" width="32" height="24"/>
-        <image name="shuffle_off" width="32" height="24"/>
-        <image name="shuffle_on" width="32" height="24"/>
-        <image name="unmute" width="32" height="32"/>
+        <image name="repeat.circle" catalog="system" width="15" height="15"/>
+        <image name="repeat.circle.fill" catalog="system" width="15" height="15"/>
+        <image name="shuffle.circle" catalog="system" width="15" height="15"/>
+        <image name="shuffle.circle.fill" catalog="system" width="15" height="15"/>
+        <image name="volume" catalog="system" width="14" height="14"/>
+        <image name="volume.2" catalog="system" width="19" height="14"/>
     </resources>
 </document>
