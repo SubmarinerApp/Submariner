@@ -130,20 +130,30 @@
                                 <rect key="frame" x="182" y="0.0" width="509" height="412"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
-                                    <box autoresizesSubviews="NO" boxType="custom" borderType="none" title="Box" titlePosition="noTitle" id="187">
-                                        <rect key="frame" x="0.0" y="0.0" width="509" height="373"/>
+                                    <box boxType="custom" borderType="none" cornerRadius="4" title="Box" id="qEb-hU-l3O" userLabel="Containment Box">
+                                        <rect key="frame" x="0.0" y="0.0" width="509" height="412"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <view key="contentView" id="Yfx-4j-bnf">
-                                            <rect key="frame" x="0.0" y="0.0" width="509" height="373"/>
+                                        <view key="contentView" id="wyZ-6N-Hjp">
+                                            <rect key="frame" x="0.0" y="0.0" width="509" height="412"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        </view>
-                                    </box>
-                                    <box autoresizesSubviews="NO" boxType="custom" borderType="none" title="Box" titlePosition="noTitle" id="162">
-                                        <rect key="frame" x="0.0" y="372" width="509" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <view key="contentView" id="rbd-DE-0VE">
-                                            <rect key="frame" x="0.0" y="0.0" width="509" height="40"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <box autoresizesSubviews="NO" boxType="custom" borderType="none" title="Box" titlePosition="noTitle" id="187" userLabel="Content Box">
+                                                    <rect key="frame" x="0.0" y="0.0" width="509" height="373"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <view key="contentView" id="Yfx-4j-bnf">
+                                                        <rect key="frame" x="0.0" y="0.0" width="509" height="373"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    </view>
+                                                </box>
+                                                <box autoresizesSubviews="NO" boxType="custom" borderType="none" title="Box" titlePosition="noTitle" id="162" userLabel="Topbar Box">
+                                                    <rect key="frame" x="0.0" y="372" width="509" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <view key="contentView" id="rbd-DE-0VE">
+                                                        <rect key="frame" x="0.0" y="0.0" width="509" height="40"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    </view>
+                                                </box>
+                                            </subviews>
                                         </view>
                                     </box>
                                 </subviews>
@@ -163,6 +173,10 @@
                 <allowedToolbarItems>
                     <toolbarItem implicitItemIdentifier="NSToolbarSpaceItem" id="otC-h2-Pjt"/>
                     <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="Jsx-Cl-TNf"/>
+                    <toolbarItem implicitItemIdentifier="F5D6BCAC-00D0-4F36-BCA2-9E2D56606A99" explicitItemIdentifier="NSToolbarSidebarTrackingSeparatorItemIdentifier" label="Sidebar Separator" paletteLabel="Sidebar Separator" tag="-1" bordered="YES" id="urp-JS-CHY">
+                        <size key="minSize" width="24" height="25"/>
+                        <size key="maxSize" width="24" height="25"/>
+                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="0E266961-1DCC-4AE8-AD1D-AD17E4D0C9DF" label="Progress Indicator" paletteLabel="Progress Indicator" tag="-1" title="Progress Indicator" sizingBehavior="auto" navigational="YES" id="amK-dn-Tr2">
                         <nil key="toolTip"/>
                         <progressIndicator key="view" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" id="195">
@@ -170,11 +184,25 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </progressIndicator>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="87708EA7-FC46-4E8B-9D35-38D1CD5AE527" label="Sidebar" paletteLabel="Sidebar" image="sidebar.left" catalog="system" sizingBehavior="auto" id="x3E-BS-STX">
+                        <nil key="toolTip"/>
+                        <button key="view" verticalHuggingPriority="750" id="mza-yT-8Pr">
+                            <rect key="frame" x="11" y="14" width="27" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="sidebar.left" catalog="system" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="8DD-f1-XMe">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <connections>
+                                    <action selector="toggleSidebar:" target="-1" id="CIP-9q-uSc"/>
+                                </connections>
+                            </buttonCell>
+                        </button>
+                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="B71E009C-6208-43BC-9F33-BE1E546849B7" label="Play/Pause" paletteLabel="Play/Pause" image="play" catalog="system" sizingBehavior="auto" id="8gb-MR-oSz">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="234">
-                            <rect key="frame" x="16" y="14" width="32" height="26"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                            <rect key="frame" x="20" y="14" width="24" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="play" catalog="system" imagePosition="only" alignment="center" alternateImage="pause" borderStyle="border" inset="2" id="239">
                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -190,8 +218,8 @@ IA
                     <toolbarItem implicitItemIdentifier="D8E775C8-9646-4075-89D6-E78C8DB9EA08" label="Previous" paletteLabel="Previous" image="backward" catalog="system" sizingBehavior="auto" id="ub0-ue-gyH">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="235">
-                            <rect key="frame" x="10" y="14" width="34" height="26"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                            <rect key="frame" x="11" y="14" width="31" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="backward" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="238">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -205,8 +233,8 @@ IA
                     <toolbarItem implicitItemIdentifier="B63065D6-25E1-4246-BD4B-B4CAF0C74E35" label="Forward" paletteLabel="Forward" image="forward" catalog="system" sizingBehavior="auto" id="jzM-Vk-B8y">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="240">
-                            <rect key="frame" x="8" y="14" width="34" height="26"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                            <rect key="frame" x="10" y="14" width="31" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="forward" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="241">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -217,11 +245,23 @@ IA
                             </connections>
                         </button>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="D49D7AE8-8081-46E9-90F3-09E7640095F2" label="Progress" paletteLabel="Progress" sizingBehavior="auto" id="8J7-oa-JoQ">
+                        <nil key="toolTip"/>
+                        <textField key="view" verticalHuggingPriority="750" id="270">
+                            <rect key="frame" x="12" y="14" width="31" height="11"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="00:00" id="278">
+                                <font key="font" metaFont="miniSystem"/>
+                                <color key="textColor" red="0.32282003710000001" green="0.32653061220000001" blue="0.32653061220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                            </textFieldCell>
+                        </textField>
+                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="EE6E6CE1-FB9F-4853-A706-7715B7C05F13" label="Position" paletteLabel="Position" sizingBehavior="auto" id="xeN-ij-0rW">
                         <nil key="toolTip"/>
                         <slider key="view" verticalHuggingPriority="750" id="268">
-                            <rect key="frame" x="0.0" y="14" width="191" height="21"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <rect key="frame" x="0.0" y="14" width="191" height="28"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <sliderCell key="cell" enabled="NO" state="on" alignment="left" maxValue="100" tickMarkPosition="above" sliderType="linear" id="280"/>
                             <connections>
                                 <action selector="seekTime:" target="-2" id="345"/>
@@ -231,21 +271,9 @@ IA
                     <toolbarItem implicitItemIdentifier="0CB85B96-471B-4F16-92B4-C0F067699C04" label="Duration" paletteLabel="Duration" sizingBehavior="auto" id="ulm-c1-CKY">
                         <nil key="toolTip"/>
                         <textField key="view" verticalHuggingPriority="750" id="269">
-                            <rect key="frame" x="6" y="14" width="40" height="11"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            <rect key="frame" x="9" y="14" width="35" height="11"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="-00:00" id="279">
-                                <font key="font" metaFont="miniSystem"/>
-                                <color key="textColor" red="0.32282003710000001" green="0.32653061220000001" blue="0.32653061220000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                            </textFieldCell>
-                        </textField>
-                    </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="D49D7AE8-8081-46E9-90F3-09E7640095F2" label="Progress" paletteLabel="Progress" sizingBehavior="auto" id="8J7-oa-JoQ">
-                        <nil key="toolTip"/>
-                        <textField key="view" verticalHuggingPriority="750" id="270">
-                            <rect key="frame" x="12" y="14" width="30" height="11"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="00:00" id="278">
                                 <font key="font" metaFont="miniSystem"/>
                                 <color key="textColor" red="0.32282003710000001" green="0.32653061220000001" blue="0.32653061220000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -255,8 +283,8 @@ IA
                     <toolbarItem implicitItemIdentifier="79841E82-13BA-4D74-8CD0-7511780AD663" label="Mute" paletteLabel="Mute" image="volume" catalog="system" sizingBehavior="auto" id="YxS-gO-x0P">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="272">
-                            <rect key="frame" x="6" y="14" width="22" height="26"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                            <rect key="frame" x="4" y="14" width="26" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="volume" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="276">
                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -269,8 +297,8 @@ IA
                     <toolbarItem implicitItemIdentifier="E0F45DFA-C7DF-4932-9C5F-33E3875DA2D2" label="Volume" paletteLabel="Volume" sizingBehavior="auto" id="W29-qo-AJA">
                         <nil key="toolTip"/>
                         <slider key="view" verticalHuggingPriority="750" id="271">
-                            <rect key="frame" x="0.0" y="14" width="92" height="21"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                            <rect key="frame" x="0.0" y="14" width="92" height="28"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="277" customClass="RWVolumeSliderCell"/>
                             <connections>
                                 <action selector="setVolume:" target="-2" id="296"/>
@@ -281,8 +309,8 @@ IA
                     <toolbarItem implicitItemIdentifier="3B989F90-C4D7-461B-B5AA-08B7D18BF8E9" label="Hearing Damage" paletteLabel="Hearing Damage" image="volume.2" catalog="system" sizingBehavior="auto" id="1fQ-Lg-41i">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="273">
-                            <rect key="frame" x="37" y="14" width="22" height="26"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                            <rect key="frame" x="32" y="14" width="31" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="volume.2" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="275">
                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -292,25 +320,11 @@ IA
                             </connections>
                         </button>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="A976DC3F-A37E-4600-A750-BC24B516BB13" label="Shuffle" paletteLabel="Shuffle" image="shuffle.circle" catalog="system" sizingBehavior="auto" id="4vs-eG-BJh">
-                        <nil key="toolTip"/>
-                        <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="302">
-                            <rect key="frame" x="10" y="14" width="26" height="26"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="shuffle.circle" catalog="system" imagePosition="only" alignment="center" alternateImage="shuffle.circle.fill" borderStyle="border" inset="2" id="303">
-                                <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="shuffle:" target="-2" id="311"/>
-                            </connections>
-                        </button>
-                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="F638AE08-B100-4361-940E-E62D1338014A" label="Repeat" paletteLabel="Repeat" image="repeat.circle" catalog="system" sizingBehavior="auto" id="S62-qJ-fzK">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="308">
-                            <rect key="frame" x="9" y="14" width="26" height="26"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                            <rect key="frame" x="9" y="14" width="27" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="repeat.circle" catalog="system" imagePosition="only" alignment="center" alternateImage="repeat.circle.fill" borderStyle="border" allowsMixedState="YES" inset="2" id="309">
                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -320,13 +334,27 @@ IA
                             </connections>
                         </button>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="A976DC3F-A37E-4600-A750-BC24B516BB13" label="Shuffle" paletteLabel="Shuffle" image="shuffle.circle" catalog="system" sizingBehavior="auto" id="4vs-eG-BJh">
+                        <nil key="toolTip"/>
+                        <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="302">
+                            <rect key="frame" x="9" y="14" width="27" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="shuffle.circle" catalog="system" imagePosition="only" alignment="center" alternateImage="shuffle.circle.fill" borderStyle="border" inset="2" id="303">
+                                <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="shuffle:" target="-2" id="311"/>
+                            </connections>
+                        </button>
+                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
-                    <toolbarItem reference="Jsx-Cl-TNf"/>
-                    <toolbarItem reference="amK-dn-Tr2"/>
                     <toolbarItem reference="ub0-ue-gyH"/>
                     <toolbarItem reference="8gb-MR-oSz"/>
                     <toolbarItem reference="jzM-Vk-B8y"/>
+                    <toolbarItem reference="urp-JS-CHY"/>
+                    <toolbarItem reference="amK-dn-Tr2"/>
                     <toolbarItem reference="8J7-oa-JoQ"/>
                     <toolbarItem reference="xeN-ij-0rW"/>
                     <toolbarItem reference="ulm-c1-CKY"/>
@@ -632,7 +660,7 @@ Gw
         </viewController>
         <viewController id="yws-aa-txV" userLabel="Main Content View Controller">
             <connections>
-                <outlet property="view" destination="9" id="lHK-Ml-JYe"/>
+                <outlet property="view" destination="9" id="RSo-UR-GCC"/>
             </connections>
         </viewController>
     </objects>
@@ -647,6 +675,7 @@ Gw
         <image name="repeat.circle.fill" catalog="system" width="15" height="15"/>
         <image name="shuffle.circle" catalog="system" width="15" height="15"/>
         <image name="shuffle.circle.fill" catalog="system" width="15" height="15"/>
+        <image name="sidebar.left" catalog="system" width="18" height="14"/>
         <image name="volume" catalog="system" width="14" height="14"/>
         <image name="volume.2" catalog="system" width="19" height="14"/>
     </resources>
