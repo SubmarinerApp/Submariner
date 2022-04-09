@@ -88,6 +88,7 @@
     IBOutlet NSViewController *leftVC;
     IBOutlet NSViewController *rightVC;
     NSSplitViewController *splitVC;
+    IBOutlet NSBox *containerView;
     
     SBMusicController *musicController;
     SBMusicTopbarController *musicTopbarController;

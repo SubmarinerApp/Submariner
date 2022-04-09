@@ -205,12 +205,6 @@
     [musicTopbarController setDatabaseController:self];
     [musicTopbarController setMusicController:musicController];
     
-    // pre-load views
-    
-    
-    // setup splitviews
-    // TODO: Conversion to NSSplitViewController here, probably
-    
     // source list drag and drop
     [sourceList registerForDraggedTypes:[NSArray arrayWithObject:SBLibraryTableViewDataType]];
     
@@ -307,8 +301,8 @@
 
     // prepare the right pane
     NSSplitViewItem*b=[NSSplitViewItem splitViewItemWithViewController:rightVC];
+    b.titlebarSeparatorStyle = NSTitlebarSeparatorStyleNone;
     [splitVC addSplitViewItem:b];
-
     // swap the old NSSplitView with the new one
     [self.window.contentView replaceSubview:mainSplitView with:splitVC.view ];
 
@@ -319,8 +313,6 @@
     [splitVC.view.leftAnchor constraintEqualToAnchor:((NSLayoutGuide*)self.window.contentLayoutGuide).leftAnchor].active=YES;
     [splitVC.view.rightAnchor constraintEqualToAnchor:((NSLayoutGuide*)self.window.contentLayoutGuide).rightAnchor].active=YES;
 }
-
-
 
 #pragma mark -
 #pragma mark Observers
@@ -418,7 +410,7 @@
     // Attach/detach window
     if (!attachedWindow) {
         // manual track point position set because of titled style window
-        double x = [[[mainSplitView subviews] objectAtIndex:0] frame].size.width + 25;
+        double x = [self.window frame].size.width + 25;
         double y = 20;
         NSPoint tracklistPoint = NSMakePoint(x, y);
         
@@ -1411,21 +1403,13 @@
 #pragma mark -
 #pragma mark NSWindow Delegate
 
-/*** Used here to set the sheet position for Mac App Store like window */
-- (NSRect)window:(NSWindow *)window willPositionSheet:(NSWindow *)sheet usingRect:(NSRect)rect {
-    
-    NSRect fieldRect = [titleView frame];
-    fieldRect.size.height = 0;
-    return fieldRect;
-}
-
 - (void)windowWillClose:(NSNotification *)notification {
 	if(attachedWindow && [[[self window] childWindows] containsObject:attachedWindow])
 		[self toggleTrackList:nil];
 }
 
 - (void)windowWillMove:(NSNotification *)notification {
-
+    containerView.frame = rightVC.view.safeAreaRect;
     if(attachedWindow && [notification object] == attachedWindow) {
         [[self window] removeChildWindow:attachedWindow];
         [attachedWindow setHasArrow:NO];
@@ -1433,6 +1417,7 @@
 }
 
 - (void)windowWillStartLiveResize:(NSNotification *)notification {
+    containerView.frame = rightVC.view.safeAreaRect;
     if(attachedWindow && [[[self window] childWindows] containsObject:attachedWindow]) {
         [self toggleTrackList:nil];
     }
