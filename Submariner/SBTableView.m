@@ -41,16 +41,6 @@ NSString *SBDeleteKeyPressedOnRowsNotification = @"SBDeleteKeyPressedOnRowsNotif
 NSString *SBEnterKeyPressedOnRowsNotification = @"SBEnterKeyPressedOnRowsNotification";
 
 
-@implementation NSColor (ColorChangingFun)
-
-+(NSArray*)controlAlternatingRowBackgroundColors
-{
-    return [NSArray arrayWithObjects:[NSColor colorWithDeviceWhite:0.95 alpha:1.0], [NSColor whiteColor], nil];
-}
-
-@end
-
-
 
 @interface SBTableView (Notifications)
 
