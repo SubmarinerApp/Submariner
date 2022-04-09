@@ -1016,9 +1016,9 @@
         
         if(![currentTrack.isLocal boolValue])
             if(currentTrack.localTrack != nil) {
-                [onlineImageView setImage:[NSImage imageNamed:@"cached"]];
+                [onlineImageView setImage:[NSImage imageWithSystemSymbolName:@"wifi.slash" accessibilityDescription:@"Cached"]];
             } else {
-                [onlineImageView setImage:[NSImage imageNamed:@"online"]];
+                [onlineImageView setImage:[NSImage imageWithSystemSymbolName:@"wifi" accessibilityDescription:@"Online"]];
             }
         else [onlineImageView setImage:nil];
         
@@ -1090,19 +1090,19 @@
 - (NSImage*)sourceList:(SBSourceList*)aSourceList iconForItem:(id)item {
 
     if([[item representedObject] isKindOfClass:[SBLibrary class]])
-        return [NSImage imageNamed:@"Library"];
+        return [NSImage imageWithSystemSymbolName:@"music.note" accessibilityDescription:@"Library"];
     
     if([[item representedObject] isKindOfClass:[SBTracklist class]])
-        return [NSImage imageNamed:@"playlist"];
+        return [NSImage imageWithSystemSymbolName:@"music.note.list" accessibilityDescription:@"Tracklist"];
     
     if([[item representedObject] isKindOfClass:[SBPlaylist class]])
-        return [NSImage imageNamed:@"playlist"];
+        return [NSImage imageWithSystemSymbolName:@"music.note.list" accessibilityDescription:@"Playlist"];
     
     if([[item representedObject] isKindOfClass:[SBServer class]])
-        return [NSImage imageNamed:@"NSNetwork"];
+        return [NSImage imageWithSystemSymbolName:@"network" accessibilityDescription:@"Network"];
     
     if([[item representedObject] isKindOfClass:[SBDownloads class]])
-        return [NSImage imageNamed:@"download"];
+        return [NSImage imageWithSystemSymbolName:@"tray.and.arrow.down.fill" accessibilityDescription:@"Downloads"];
     
     return nil;
 }
