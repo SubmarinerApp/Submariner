@@ -12,6 +12,7 @@
 		3E53DBBA27E4192B00DB4C84 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBB927E4192B00DB4C84 /* AVFoundation.framework */; };
 		3E53DBBC27E41B6400DB4C84 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */; };
 		3E82701827E653F0007E5695 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E82701727E653F0007E5695 /* MediaPlayer.framework */; };
+		3ECF63FA280362BA004F9176 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ECF63F9280362BA004F9176 /* Assets.xcassets */; };
 		4C0096A513AEAE5F0014F331 /* NSGradient+SourceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0096A413AEAE5F0014F331 /* NSGradient+SourceList.m */; };
 		4C0D423F1496104100A29E7E /* cover_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0D423D1496103800A29E7E /* cover_off.png */; };
 		4C0D42401496104100A29E7E /* cover_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0D423E1496103C00A29E7E /* cover_on.png */; };
@@ -276,6 +277,7 @@
 		3E53DBB927E4192B00DB4C84 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		3E82701727E653F0007E5695 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		3ECF63F9280362BA004F9176 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C0096A313AEAE5F0014F331 /* NSGradient+SourceList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSGradient+SourceList.h"; sourceTree = "<group>"; };
 		4C0096A413AEAE5F0014F331 /* NSGradient+SourceList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSGradient+SourceList.m"; sourceTree = "<group>"; };
 		4C0D423D1496103800A29E7E /* cover_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cover_off.png; sourceTree = "<group>"; };
@@ -763,6 +765,7 @@
 		4C87ED6A139CD8BE0064DE2E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3ECF63F9280362BA004F9176 /* Assets.xcassets */,
 				4C87EDC2139CDCA70064DE2E /* Pictures */,
 				4C87ED6B139CD8BE0064DE2E /* Submariner-Info.plist */,
 				4C87ED6C139CD8BE0064DE2E /* InfoPlist.strings */,
@@ -1393,6 +1396,7 @@
 				4CEB4A4B13C1AA7000A92617 /* users.PNG in Resources */,
 				4C804DF813C1D86A002A4656 /* NSLinenBackgroundPattern.png in Resources */,
 				4CE3B7DF13FA733F006A4F69 /* off.tiff in Resources */,
+				3ECF63FA280362BA004F9176 /* Assets.xcassets in Resources */,
 				4CE3B7E013FA733F006A4F69 /* on.tiff in Resources */,
 				4CFCE444140257EE00D35770 /* MusicSearch.xib in Resources */,
 				4CC6B5631404195D003AEAC0 /* Podcast.png in Resources */,
@@ -1654,6 +1658,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ARC_MIGRATION = donothing;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
@@ -1687,6 +1692,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ARC_MIGRATION = donothing;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
