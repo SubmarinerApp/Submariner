@@ -170,14 +170,11 @@ static CGImageRef pinImage()
 		selectionLayer.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
 		
 		//set a background color
-        color = CGColorCreateGenericGray(1.0, 0.2);
+        color = [[NSColor selectedContentBackgroundColor] CGColor];
 		[selectionLayer setBackgroundColor:color];
-		CFRelease(color);
 		
 		//set a border color
-		color = CGColorCreateGenericGray(1.0, 0.3);
 		[selectionLayer setBorderColor:color];
-		CFRelease(color);
 
 		[selectionLayer setBorderWidth:1.0];
 		[selectionLayer setCornerRadius:5];

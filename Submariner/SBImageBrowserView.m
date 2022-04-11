@@ -52,51 +52,28 @@
 
 #import "SBImageBrowserView.h"
 #import "SBImageBrowserCell.h"
-#import "SBImageBrowserBackgroundLayer.h"
 
 @implementation SBImageBrowserView
 
 
 - (void)awakeFromNib {
-    // album browser
-    SBImageBrowserBackgroundLayer *backgroundLayer = [[[SBImageBrowserBackgroundLayer alloc] init] autorelease];
-	[self setBackgroundLayer:backgroundLayer];
-	backgroundLayer.owner = self;
     
-    // shadow
-    NSShadow *unselectedShadow = [[[NSShadow alloc] init] autorelease];
-    [unselectedShadow setShadowColor:[NSColor lightGrayColor]];
-    [unselectedShadow setShadowBlurRadius:0.0f];
-    [unselectedShadow setShadowOffset:NSMakeSize(0.f, -1.f)];
-    
-    NSShadow *selectedShadow = [[[NSShadow alloc] init] autorelease];
-    [selectedShadow setShadowColor:[NSColor darkGrayColor]];
-    [selectedShadow setShadowBlurRadius:0.0f];
-    [selectedShadow setShadowOffset:NSMakeSize(0.f, -1.f)];
-    
-    // create a centered paragraph style
-	NSMutableParagraphStyle *paraphStyle = [[[NSMutableParagraphStyle alloc] init] autorelease];
-	[paraphStyle setLineBreakMode:NSLineBreakByTruncatingTail];
-	[paraphStyle setAlignment:NSCenterTextAlignment];
-	
-	NSMutableDictionary *attributes = [[[NSMutableDictionary alloc] init] autorelease];	
-	[attributes setObject:[NSFont systemFontOfSize:11] forKey:NSFontAttributeName]; 
-	[attributes setObject:[NSColor blackColor] forKey:NSForegroundColorAttributeName];
-    [attributes setObject:unselectedShadow forKey:NSShadowAttributeName];
+    NSMutableDictionary *attributes = [[[NSMutableDictionary alloc] init] autorelease];
+    [attributes setObject:[NSFont systemFontOfSize:11] forKey:NSFontAttributeName];
+    // XXX: Should update these colours when dark mode is toggled on/of
+    [attributes setObject:[NSColor textColor] forKey:NSForegroundColorAttributeName];
 	[self setValue:attributes forKey:IKImageBrowserCellsTitleAttributesKey];
 	    
 	attributes = [[[NSMutableDictionary alloc] init] autorelease];	
-	[attributes setObject:[NSFont boldSystemFontOfSize:11] forKey:NSFontAttributeName]; 
-	[attributes setObject:selectedShadow forKey:NSShadowAttributeName];
-	[attributes setObject:[NSColor whiteColor] forKey:NSForegroundColorAttributeName];
+	[attributes setObject:[NSFont boldSystemFontOfSize:11] forKey:NSFontAttributeName];
+	[attributes setObject:[NSColor selectedControlTextColor] forKey:NSForegroundColorAttributeName];
 	
-	[self setValue:attributes forKey:IKImageBrowserCellsHighlightedTitleAttributesKey];	
+	[self setValue:attributes forKey:IKImageBrowserCellsHighlightedTitleAttributesKey];
+    // No need for linen, let's just pass through the colour under, which works in dark mode.
+    [self setValue:[NSColor colorWithDeviceRed:0.0 green:0.0 blue:0.0 alpha:0.0] forKey:IKImageBrowserBackgroundColorKey];
     
     //change intercell spacing
 	[self setIntercellSpacing:NSMakeSize(20, 20)];
-    
-	//set initial zoom value
-	[self setZoomValue:0.99999];
 }
 
 //---------------------------------------------------------------------------------
@@ -107,28 +84,6 @@
 - (IKImageBrowserCell *) newCellForRepresentedItem:(id) cell
 {
 	return [[SBImageBrowserCell alloc] init];
-}
-
-//---------------------------------------------------------------------------------
-// drawRect:
-//
-// override draw rect and force the background layer to redraw if the view did resize or did scroll 
-//---------------------------------------------------------------------------------
-- (void) drawRect:(NSRect) rect
-{
-	//retrieve the visible area
-	NSRect visibleRect = [self visibleRect];
-	
-	//compare with the visible rect at the previous frame
-	if(!NSEqualRects(visibleRect, lastVisibleRect)){
-		//we did scroll or resize, redraw the background
-		[[self backgroundLayer] setNeedsDisplay];
-		
-		//update last visible rect
-		lastVisibleRect = visibleRect;
-	}
-    
-	[super drawRect:rect];
 }
 
 @end

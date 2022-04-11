@@ -36,7 +36,6 @@
 #import "SBDatabaseController.h"
 #import "SBPrioritySplitViewDelegate.h"
 #import "SBMergeArtistsController.h"
-#import "SBImageBrowserBackgroundLayer.h"
 #import "RDLightTextFieldCell.h"
 #import "SBIndex.h"
 #import "SBGroup.h"

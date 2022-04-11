@@ -41,7 +41,6 @@
 #import "SBPlayer.h"
 #import "SBSubsonicDownloadOperation.h"
 #import "SBOperationActivity.h"
-#import "SBImageBrowserBackgroundLayer.h"
 #import "NSOperationQueue+Shared.h"
 
 

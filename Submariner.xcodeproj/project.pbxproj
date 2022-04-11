@@ -188,7 +188,6 @@
 		4CB4D90013A69FAD00F706EC /* SBPlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D8FF13A69FAA00F706EC /* SBPlayerControlView.m */; };
 		4CB4D90313A6A1A300F706EC /* SBControlBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D90213A6A1A100F706EC /* SBControlBarView.m */; };
 		4CC0478513AC0F970004099E /* SBNowPlayingViewItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4CC0478413AC0F970004099E /* SBNowPlayingViewItem.mm */; };
-		4CC18E7613B9128400AA4FDB /* SBImageBrowserBackgroundLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC18E7513B9128400AA4FDB /* SBImageBrowserBackgroundLayer.m */; };
 		4CC18E8013B9145400AA4FDB /* SBImageBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC18E7D13B9145400AA4FDB /* SBImageBrowserCell.m */; };
 		4CC18E8113B9145400AA4FDB /* SBImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC18E7F13B9145400AA4FDB /* SBImageBrowserView.m */; };
 		4CC18E8413B914B500AA4FDB /* SBUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC18E8313B914B500AA4FDB /* SBUtilities.m */; };
@@ -560,8 +559,6 @@
 		4CB4D90213A6A1A100F706EC /* SBControlBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBControlBarView.m; sourceTree = "<group>"; };
 		4CC0478313AC0F960004099E /* SBNowPlayingViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBNowPlayingViewItem.h; sourceTree = "<group>"; };
 		4CC0478413AC0F970004099E /* SBNowPlayingViewItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SBNowPlayingViewItem.mm; sourceTree = "<group>"; };
-		4CC18E7413B9128400AA4FDB /* SBImageBrowserBackgroundLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBImageBrowserBackgroundLayer.h; sourceTree = "<group>"; };
-		4CC18E7513B9128400AA4FDB /* SBImageBrowserBackgroundLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBImageBrowserBackgroundLayer.m; sourceTree = "<group>"; };
 		4CC18E7C13B9145400AA4FDB /* SBImageBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBImageBrowserCell.h; sourceTree = "<group>"; };
 		4CC18E7D13B9145400AA4FDB /* SBImageBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBImageBrowserCell.m; sourceTree = "<group>"; };
 		4CC18E7E13B9145400AA4FDB /* SBImageBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBImageBrowserView.h; sourceTree = "<group>"; };
@@ -781,8 +778,6 @@
 				4CB1E431144B1F02006F33FA /* Streaming Slider */,
 				4C7AA287139D70390050BE95 /* SBCoverImageView.h */,
 				4C7AA288139D70390050BE95 /* SBCoverImageView.m */,
-				4CC18E7413B9128400AA4FDB /* SBImageBrowserBackgroundLayer.h */,
-				4CC18E7513B9128400AA4FDB /* SBImageBrowserBackgroundLayer.m */,
 				4CC18E7C13B9145400AA4FDB /* SBImageBrowserCell.h */,
 				4CC18E7D13B9145400AA4FDB /* SBImageBrowserCell.m */,
 				4CC18E7E13B9145400AA4FDB /* SBImageBrowserView.h */,
@@ -1530,7 +1525,6 @@
 				4C4A1E8713B4E6A0000BA93D /* SBMergeArtistsController.m in Sources */,
 				4CCF7FEF13B673CA00954C6E /* SBServerSearchController.m in Sources */,
 				4CCF7FF413B6762F00954C6E /* SBSearchResult.m in Sources */,
-				4CC18E7613B9128400AA4FDB /* SBImageBrowserBackgroundLayer.m in Sources */,
 				4CC18E8013B9145400AA4FDB /* SBImageBrowserCell.m in Sources */,
 				4CC18E8113B9145400AA4FDB /* SBImageBrowserView.m in Sources */,
 				4CC18E8413B914B500AA4FDB /* SBUtilities.m in Sources */,
