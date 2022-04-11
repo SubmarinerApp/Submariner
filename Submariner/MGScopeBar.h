@@ -10,7 +10,6 @@
 #import "MGScopeBarDelegateProtocol.h"
 
 @interface MGScopeBar : NSView {
-@private
 	IBOutlet id <MGScopeBarDelegate, NSObject> delegate; // weak ref.
 	NSMutableArray *_separatorPositions; // x-coords of separators, indexed by their group-number.
 	NSMutableArray *_groups; // groups of items.
@@ -24,7 +23,7 @@
 	BOOL _smartResizeEnabled; // whether to do our clever collapsing/expanding of buttons when resizing (Smart Resizing).
 }
 
-@property(assign) id delegate; // should implement the MGScopeBarDelegate protocol.
+@property(nonatomic, assign) id delegate; // should implement the MGScopeBarDelegate protocol.
 
 - (void)reloadData; // causes the scope-bar to reload all groups/items from its delegate.
 - (void)sizeToFit; // only resizes vertically to optimum height; does not affect width.
@@ -36,9 +35,8 @@
 - (void)setSmartResizeEnabled:(BOOL)enabled;
 
 // The following method must be used to manage selections in the scope-bar; do not attempt to manipulate buttons etc directly.
-- (void)setSelected:(BOOL)selected forItem:(NSString *)identifier inGroup:(int)groupNumber;
+- (void)setSelected:(BOOL)selected forItem:(NSString *)identifier inGroup:(NSInteger)groupNumber;
 - (NSArray *)selectedItems;
-
 /*
  Note:	The -selectedItems method returns an array of arrays.
 		Each index in the returned array represents the group of items at that index.
@@ -47,5 +45,8 @@
 		Depending on the group's selection-mode, sub-arrays may contain zero, one or many identifiers.
 		The identifiers in each sub-array are not in any particular order.
  */
+
+- (BOOL) isItemSelectedWithIdentifier:(NSString*)identifier inGroup:(NSInteger)groupNumber;
+- (void)updateSelectedState:(BOOL)selected forItem:(NSString *)identifier inGroup:(NSInteger)groupNumber informDelegate:(BOOL)inform;
 
 @end

@@ -125,7 +125,7 @@
 	[scopeGroups addObject:[NSDictionary dictionaryWithObjectsAndKeys:
                             @"Date :", GROUP_LABEL, 
                             [NSNumber numberWithBool:NO], GROUP_SEPARATOR, 
-                            [NSNumber numberWithInt:MGRadioSelectionMode], GROUP_SELECTION_MODE, // single selection group.
+                            [NSNumber numberWithInt:MGScopeBarGroupSelectionModeRadio], GROUP_SELECTION_MODE, // single selection group.
                             items, GROUP_ITEMS, 
                             nil]];
     
