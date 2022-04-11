@@ -147,12 +147,13 @@
                                                     </view>
                                                 </box>
                                                 <box autoresizesSubviews="NO" boxType="custom" borderType="none" title="Box" titlePosition="noTitle" id="162" userLabel="Topbar Box">
-                                                    <rect key="frame" x="0.0" y="325" width="509" height="36"/>
+                                                    <rect key="frame" x="0.0" y="321" width="509" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                     <view key="contentView" id="rbd-DE-0VE">
-                                                        <rect key="frame" x="0.0" y="0.0" width="509" height="36"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="509" height="40"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     </view>
+                                                    <color key="fillColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </box>
                                             </subviews>
                                         </view>
