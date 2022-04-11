@@ -98,10 +98,6 @@
 //    return 1.0f;
 //}
 
-- (NSColor *)dividerColor {
-    return [NSColor grayColor];
-}
-
 
 - (BOOL)mouseDownCanMoveWindow {
     return YES;
