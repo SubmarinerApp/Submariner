@@ -180,8 +180,6 @@
 		4CB1E435144B1F5A006F33FA /* RWVolumeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1E434144B1F5A006F33FA /* RWVolumeSlider.m */; };
 		4CB1E451144B3B50006F33FA /* RDLightTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1E44E144B3B50006F33FA /* RDLightTextFieldCell.m */; };
 		4CB1E452144B3B50006F33FA /* RDDarkTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1E450144B3B50006F33FA /* RDDarkTextFieldCell.m */; };
-		4CB4D8F313A6664000F706EC /* BWTransparentTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D8EF13A6663E00F706EC /* BWTransparentTableView.m */; };
-		4CB4D8F413A6664000F706EC /* BWTransparentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D8F113A6663F00F706EC /* BWTransparentTableViewCell.m */; };
 		4CB4D8F713A670BF00F706EC /* SBPrioritySplitViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D8F613A670BF00F706EC /* SBPrioritySplitViewDelegate.m */; };
 		4CB4D8F913A69B6600F706EC /* playing_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB4D8F813A69B6600F706EC /* playing_white.png */; };
 		4CB4D90013A69FAD00F706EC /* SBPlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D8FF13A69FAA00F706EC /* SBPlayerControlView.m */; };
@@ -543,10 +541,6 @@
 		4CB1E44E144B3B50006F33FA /* RDLightTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDLightTextFieldCell.m; sourceTree = "<group>"; };
 		4CB1E44F144B3B50006F33FA /* RDDarkTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDDarkTextFieldCell.h; sourceTree = "<group>"; };
 		4CB1E450144B3B50006F33FA /* RDDarkTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDDarkTextFieldCell.m; sourceTree = "<group>"; };
-		4CB4D8EE13A6663E00F706EC /* BWTransparentTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWTransparentTableView.h; sourceTree = "<group>"; };
-		4CB4D8EF13A6663E00F706EC /* BWTransparentTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWTransparentTableView.m; sourceTree = "<group>"; };
-		4CB4D8F013A6663F00F706EC /* BWTransparentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWTransparentTableViewCell.h; sourceTree = "<group>"; };
-		4CB4D8F113A6663F00F706EC /* BWTransparentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWTransparentTableViewCell.m; sourceTree = "<group>"; };
 		4CB4D8F513A670BF00F706EC /* SBPrioritySplitViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPrioritySplitViewDelegate.h; sourceTree = "<group>"; };
 		4CB4D8F613A670BF00F706EC /* SBPrioritySplitViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPrioritySplitViewDelegate.m; sourceTree = "<group>"; };
 		4CB4D8F813A69B6600F706EC /* playing_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playing_white.png; sourceTree = "<group>"; };
@@ -781,10 +775,6 @@
 				4CC18E7F13B9145400AA4FDB /* SBImageBrowserView.m */,
 				4CC18E8213B914B500AA4FDB /* SBUtilities.h */,
 				4CC18E8313B914B500AA4FDB /* SBUtilities.m */,
-				4CB4D8EE13A6663E00F706EC /* BWTransparentTableView.h */,
-				4CB4D8EF13A6663E00F706EC /* BWTransparentTableView.m */,
-				4CB4D8F013A6663F00F706EC /* BWTransparentTableViewCell.h */,
-				4CB4D8F113A6663F00F706EC /* BWTransparentTableViewCell.m */,
 				4CFAFC32139EF20500E82B57 /* MGScopeBar.h */,
 				4CFAFC33139EF20500E82B57 /* MGScopeBar.m */,
 				4CFAFC34139EF20500E82B57 /* MGScopeBarDelegateProtocol.h */,
@@ -1501,8 +1491,6 @@
 				4C4DE61113A12954006A1EC1 /* SBSpinningProgressIndicator.m in Sources */,
 				4C4DE62113A1733D006A1EC1 /* EMKeychainItem.m in Sources */,
 				4C4113AD13A3BD680069CC33 /* SBAddServerPlaylistController.m in Sources */,
-				4CB4D8F313A6664000F706EC /* BWTransparentTableView.m in Sources */,
-				4CB4D8F413A6664000F706EC /* BWTransparentTableViewCell.m in Sources */,
 				4CB4D8F713A670BF00F706EC /* SBPrioritySplitViewDelegate.m in Sources */,
 				4CB4D90013A69FAD00F706EC /* SBPlayerControlView.m in Sources */,
 				4CB4D90313A6A1A300F706EC /* SBControlBarView.m in Sources */,
