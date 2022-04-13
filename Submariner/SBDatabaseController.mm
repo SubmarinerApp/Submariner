@@ -44,7 +44,6 @@
 #import "SBDownloadsController.h"
 #import "SBAnimatedView.h"
 #import "SBSpinningProgressIndicator.h"
-#import "MAAttachedWindow.h"
 #import "SBImportOperation.h"
 #import "SBSubsonicParsingOperation.h"
 #import "SBSubsonicDownloadOperation.h"
@@ -394,58 +393,14 @@
 }
 
 
-
-- (IBAction)attachDettachTracklist:(id)sender {
-    if(attachedWindow) {
-        [[self window] removeChildWindow:attachedWindow];
-        //[[self window] ];
-    }
-}
-
-
 - (IBAction)toggleTrackList:(id)sender {
-    
-    [self animateTrackListButton];
-    
-    // Attach/detach window
-    if (!attachedWindow) {
-        // manual track point position set because of titled style window
-        double x = [self.window frame].size.width + 25;
-        double y = 20;
-        NSPoint tracklistPoint = NSMakePoint(x, y);
-        
-        attachedWindow = [[MAAttachedWindow alloc] initWithView:[tracklistController view] 
-                                                attachedToPoint:tracklistPoint 
-                                                       inWindow:[toggleButton window] 
-                                                         onSide:MAPositionTop
-                                                     atDistance:10.0f];
-        
-        [attachedWindow setBorderColor:[NSColor clearColor]];
-        [attachedWindow setBackgroundColor:[NSColor colorWithCalibratedWhite:0.0 alpha:0.80]];
-        [attachedWindow setViewMargin:0.0f];
-        [attachedWindow setBorderWidth:1.0f];
-        [attachedWindow setCornerRadius:6.0f];
-        [attachedWindow setHasArrow:YES];
-        [attachedWindow setDrawsRoundCornerBesideArrow:YES];
-        [attachedWindow setArrowBaseWidth:20.0f];
-        [attachedWindow setArrowHeight:14.0f];
-        [attachedWindow setDelegate:self];
-        
-        if([[self window] isKeyWindow]) {
-		    [[self window] addChildWindow:attachedWindow ordered:NSWindowAbove];
-		} else {
-            [attachedWindow setHasArrow:NO];
-        }
-        
-        [attachedWindow orderFront:sender];
+    tracklistPopoverVC.view = tracklistController.view;
+    NSView *view = playPauseButton;
+    NSRect boundary = view.bounds;
+    if (tracklistPopover.shown) {
+        [tracklistPopover close];
     } else {
-        
-        [[self window] removeChildWindow:attachedWindow];
-        [attachedWindow orderOut:self];
-        [attachedWindow release];
-        attachedWindow = nil;
-        
-        [toggleButton setState:NSOffState];
+        [tracklistPopover showRelativeToRect: boundary ofView: view preferredEdge:NSMaxYEdge];
     }
 }
 
@@ -1404,28 +1359,27 @@
 #pragma mark NSWindow Delegate
 
 - (void)windowWillClose:(NSNotification *)notification {
-	if(attachedWindow && [[[self window] childWindows] containsObject:attachedWindow])
+	if([tracklistPopover isShown])
 		[self toggleTrackList:nil];
 }
 
 - (void)windowWillMove:(NSNotification *)notification {
     containerView.frame = rightVC.view.safeAreaRect;
-    if(attachedWindow && [notification object] == attachedWindow) {
-        [[self window] removeChildWindow:attachedWindow];
-        [attachedWindow setHasArrow:NO];
+    if([tracklistPopover isShown]) {
+        [self toggleTrackList:nil];
     }
 }
 
 - (void)windowWillStartLiveResize:(NSNotification *)notification {
     containerView.frame = rightVC.view.safeAreaRect;
-    if(attachedWindow && [[[self window] childWindows] containsObject:attachedWindow]) {
+    if([tracklistPopover isShown]) {
         [self toggleTrackList:nil];
     }
 }
 
 
 - (void)windowWillMiniaturize:(NSNotification *)notification {
-    if(attachedWindow && [[[self window] childWindows] containsObject:attachedWindow]) {
+    if([tracklistPopover isShown]) {
         [self toggleTrackList:nil];
     }
 }

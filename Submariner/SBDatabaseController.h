@@ -53,7 +53,6 @@
 @class SBAnimatedView;
 @class SBSpinningProgressIndicator;
 @class SBMovieViewController;
-@class MAAttachedWindow;
 
 
 #define SBLibraryTableViewDataType @"SBLibraryTableViewDataType"
@@ -90,6 +89,9 @@
     NSSplitViewController *splitVC;
     IBOutlet NSBox *containerView;
     
+    IBOutlet NSPopover *tracklistPopover;
+    IBOutlet NSViewController *tracklistPopoverVC;
+    
     SBMusicController *musicController;
     SBMusicTopbarController *musicTopbarController;
     SBDownloadsController *downloadsController;
@@ -101,7 +103,6 @@
     NSArray *resourceSortDescriptors;
     SBLibrary *library;
     
-    MAAttachedWindow *attachedWindow;
     CATransition *transition;
     
     NSTimer *progressUpdateTimer;
@@ -118,7 +119,6 @@
 
 - (IBAction)openAudioFiles:(id)sender;
 - (IBAction)toggleTrackList:(id)sender;
-- (IBAction)attachDettachTracklist:(id)sender;
 - (IBAction)addPlaylist:(id)sender;
 - (IBAction)addRemotePlaylist:(id)sender;
 - (IBAction)addServer:(id)sender;

@@ -180,7 +180,6 @@
 		4CB1E435144B1F5A006F33FA /* RWVolumeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1E434144B1F5A006F33FA /* RWVolumeSlider.m */; };
 		4CB1E451144B3B50006F33FA /* RDLightTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1E44E144B3B50006F33FA /* RDLightTextFieldCell.m */; };
 		4CB1E452144B3B50006F33FA /* RDDarkTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1E450144B3B50006F33FA /* RDDarkTextFieldCell.m */; };
-		4CB4D8CC13A6253100F706EC /* MAAttachedWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D8CB13A6253100F706EC /* MAAttachedWindow.m */; };
 		4CB4D8F313A6664000F706EC /* BWTransparentTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D8EF13A6663E00F706EC /* BWTransparentTableView.m */; };
 		4CB4D8F413A6664000F706EC /* BWTransparentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D8F113A6663F00F706EC /* BWTransparentTableViewCell.m */; };
 		4CB4D8F713A670BF00F706EC /* SBPrioritySplitViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D8F613A670BF00F706EC /* SBPrioritySplitViewDelegate.m */; };
@@ -544,8 +543,6 @@
 		4CB1E44E144B3B50006F33FA /* RDLightTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDLightTextFieldCell.m; sourceTree = "<group>"; };
 		4CB1E44F144B3B50006F33FA /* RDDarkTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDDarkTextFieldCell.h; sourceTree = "<group>"; };
 		4CB1E450144B3B50006F33FA /* RDDarkTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDDarkTextFieldCell.m; sourceTree = "<group>"; };
-		4CB4D8CA13A6253100F706EC /* MAAttachedWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAAttachedWindow.h; sourceTree = "<group>"; };
-		4CB4D8CB13A6253100F706EC /* MAAttachedWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAAttachedWindow.m; sourceTree = "<group>"; };
 		4CB4D8EE13A6663E00F706EC /* BWTransparentTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWTransparentTableView.h; sourceTree = "<group>"; };
 		4CB4D8EF13A6663E00F706EC /* BWTransparentTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWTransparentTableView.m; sourceTree = "<group>"; };
 		4CB4D8F013A6663F00F706EC /* BWTransparentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWTransparentTableViewCell.h; sourceTree = "<group>"; };
@@ -823,8 +820,6 @@
 				4CFAFC7C13A0F7E000E82B57 /* SBAnimatedView.m */,
 				4C4DE60F13A12953006A1EC1 /* SBSpinningProgressIndicator.h */,
 				4C4DE61013A12954006A1EC1 /* SBSpinningProgressIndicator.m */,
-				4CB4D8CA13A6253100F706EC /* MAAttachedWindow.h */,
-				4CB4D8CB13A6253100F706EC /* MAAttachedWindow.m */,
 				4C56868314050B9A00BE3478 /* SBPodcastItemView.h */,
 				4C56868414050B9A00BE3478 /* SBPodcastItemView.m */,
 			);
@@ -1506,7 +1501,6 @@
 				4C4DE61113A12954006A1EC1 /* SBSpinningProgressIndicator.m in Sources */,
 				4C4DE62113A1733D006A1EC1 /* EMKeychainItem.m in Sources */,
 				4C4113AD13A3BD680069CC33 /* SBAddServerPlaylistController.m in Sources */,
-				4CB4D8CC13A6253100F706EC /* MAAttachedWindow.m in Sources */,
 				4CB4D8F313A6664000F706EC /* BWTransparentTableView.m in Sources */,
 				4CB4D8F413A6664000F706EC /* BWTransparentTableViewCell.m in Sources */,
 				4CB4D8F713A670BF00F706EC /* SBPrioritySplitViewDelegate.m in Sources */,

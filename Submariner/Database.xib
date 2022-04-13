@@ -24,6 +24,8 @@
                 <outlet property="rightVC" destination="yws-aa-txV" id="ZRO-sn-Exi"/>
                 <outlet property="sourceList" destination="15" id="96"/>
                 <outlet property="topbarBox" destination="162" id="165"/>
+                <outlet property="tracklistPopover" destination="Adu-Xv-JyI" id="6HL-WY-zWi"/>
+                <outlet property="tracklistPopoverVC" destination="UU0-Po-5l1" id="eZF-qG-uBI"/>
                 <outlet property="window" destination="1" id="350"/>
             </connections>
         </customObject>
@@ -665,6 +667,12 @@ Gw
                 <outlet property="view" destination="9" id="RSo-UR-GCC"/>
             </connections>
         </viewController>
+        <viewController id="UU0-Po-5l1" userLabel="Tracklist Popover View Controller"/>
+        <popover behavior="t" id="Adu-Xv-JyI" userLabel="Tracklist Popover">
+            <connections>
+                <outlet property="contentViewController" destination="UU0-Po-5l1" id="iwT-LE-ft9"/>
+            </connections>
+        </popover>
     </objects>
     <resources>
         <image name="NoArtwork" width="512" height="512"/>
