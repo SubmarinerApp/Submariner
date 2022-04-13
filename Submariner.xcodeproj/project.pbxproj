@@ -16,7 +16,6 @@
 		4C0096A513AEAE5F0014F331 /* NSGradient+SourceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0096A413AEAE5F0014F331 /* NSGradient+SourceList.m */; };
 		4C0D423F1496104100A29E7E /* cover_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0D423D1496103800A29E7E /* cover_off.png */; };
 		4C0D42401496104100A29E7E /* cover_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0D423E1496103C00A29E7E /* cover_on.png */; };
-		4C0D42431496177300A29E7E /* MCViewFlipController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D42421496177300A29E7E /* MCViewFlipController.m */; };
 		4C0D4253149618DC00A29E7E /* CHLayoutConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D424A149618DC00A29E7E /* CHLayoutConstraint.m */; };
 		4C0D4254149618DC00A29E7E /* CHLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D424C149618DC00A29E7E /* CHLayoutManager.m */; };
 		4C0D4255149618DC00A29E7E /* NSNumber+CHLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C0D424E149618DC00A29E7E /* NSNumber+CHLayout.m */; };
@@ -276,8 +275,6 @@
 		4C0096A413AEAE5F0014F331 /* NSGradient+SourceList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSGradient+SourceList.m"; sourceTree = "<group>"; };
 		4C0D423D1496103800A29E7E /* cover_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cover_off.png; sourceTree = "<group>"; };
 		4C0D423E1496103C00A29E7E /* cover_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cover_on.png; sourceTree = "<group>"; };
-		4C0D42411496177300A29E7E /* MCViewFlipController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCViewFlipController.h; sourceTree = "<group>"; };
-		4C0D42421496177300A29E7E /* MCViewFlipController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCViewFlipController.m; sourceTree = "<group>"; };
 		4C0D4248149618DC00A29E7E /* CHLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHLayout.h; sourceTree = "<group>"; };
 		4C0D4249149618DC00A29E7E /* CHLayoutConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHLayoutConstraint.h; sourceTree = "<group>"; };
 		4C0D424A149618DC00A29E7E /* CHLayoutConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHLayoutConstraint.m; sourceTree = "<group>"; };
@@ -1216,8 +1213,6 @@
 				4CC0478413AC0F970004099E /* SBNowPlayingViewItem.mm */,
 				4C56868614050C1100BE3478 /* SBPodcastViewItem.h */,
 				4C56868714050C1100BE3478 /* SBPodcastViewItem.m */,
-				4C0D42411496177300A29E7E /* MCViewFlipController.h */,
-				4C0D42421496177300A29E7E /* MCViewFlipController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -1527,7 +1522,6 @@
 				4CED8E1F144CE2A400332417 /* NSString+Hex.m in Sources */,
 				4C1F6B9E1494333F0005B303 /* SBTopbarView.m in Sources */,
 				4C1F6BA11494F3520005B303 /* NSImage+Additions.m in Sources */,
-				4C0D42431496177300A29E7E /* MCViewFlipController.m in Sources */,
 				4C0D4253149618DC00A29E7E /* CHLayoutConstraint.m in Sources */,
 				4C0D4254149618DC00A29E7E /* CHLayoutManager.m in Sources */,
 				4C0D4255149618DC00A29E7E /* NSNumber+CHLayout.m in Sources */,

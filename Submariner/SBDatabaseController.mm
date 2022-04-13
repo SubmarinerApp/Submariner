@@ -163,7 +163,6 @@
     [resourceSortDescriptors release];
     [library release];
     [progressUpdateTimer release];
-    [flipController release];
     
     [super dealloc];
 }
@@ -276,8 +275,6 @@
     
 
     [hostView setWantsLayer:YES];
-
-    flipController = [[MCViewFlipController alloc] initWithHostView:hostView frontView:coverImageView backView:tracklistController.view];
 }
 
 #pragma mark -
@@ -593,10 +590,6 @@
         [[SBPlayer sharedInstance] setRepeatMode:SBPlayerRepeatOne];
         [sender setAlternateImage:[NSImage imageWithSystemSymbolName: @"repeat.1.circle.fill" accessibilityDescription: @"Repeat One"]];
     }
-}
-
-- (IBAction)flip:(id)sender {
-    [flipController flip:sender];
 }
 
 

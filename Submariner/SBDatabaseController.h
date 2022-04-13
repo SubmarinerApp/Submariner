@@ -37,7 +37,6 @@
 #import "SBWindowController.h"
 #import "SBSourceList.h"
 #import "RWStreamingSlider.h"
-#import "MCViewFlipController.h"
 
 @class SBSplitView;
 @class SBSourceList;
@@ -99,7 +98,6 @@
     SBPlaylistController *playlistController;
     SBServerTopbarController *serverTopbarController;
     SBMovieViewController *movieViewController;
-    MCViewFlipController *flipController;
     NSArray *resourceSortDescriptors;
     SBLibrary *library;
     
@@ -136,6 +134,5 @@
 - (IBAction)openHomePage:(id)sender;
 - (IBAction)shuffle:(id)sender;
 - (IBAction)repeat:(id)sender;
-- (IBAction)flip:(id)sender;
 
 @end
