@@ -49,7 +49,6 @@
 #import "SBSubsonicDownloadOperation.h"
 #import "SBPlayer.h"
 #import "SBTableView.h"
-#import "RWStreamingSliderCell.h"
 
 #import "SBSplitView.h"
 #import "SBSection.h"

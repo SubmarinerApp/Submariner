@@ -91,7 +91,6 @@
 		4C87ED7D139CD8BE0064DE2E /* Submariner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED7B139CD8BE0064DE2E /* Submariner.xcdatamodeld */; };
 		4C87ED8E139CD91B0064DE2E /* SBWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED8D139CD91B0064DE2E /* SBWindowController.m */; };
 		4C87EDA1139CD97B0064DE2E /* SBSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED94139CD97B0064DE2E /* SBSplitView.m */; };
-		4C87EDA2139CD97B0064DE2E /* RWVolumeSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED96139CD97B0064DE2E /* RWVolumeSliderCell.m */; };
 		4C87EDAB139CD9DA0064DE2E /* Database.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C87EDAA139CD9DA0064DE2E /* Database.xib */; };
 		4C87EDB0139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDAF139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m */; };
 		4C87EDB3139CDA0D0064DE2E /* NSBezierPath+BezierPathQuartzUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDB2139CDA0D0064DE2E /* NSBezierPath+BezierPathQuartzUtilities.m */; };
@@ -171,9 +170,6 @@
 		4CAA0E4E1455A76400574FDD /* ServerUsers.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 4CAA0E4D1455A76400574FDD /* ServerUsers.PNG */; };
 		4CAA0E501455A77000574FDD /* playing-mini.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CAA0E4F1455A77000574FDD /* playing-mini.png */; };
 		4CAD75C813AA597E00E7455C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAD75C713AA597E00E7455C /* CoreServices.framework */; };
-		4CB1E42F144B1F00006F33FA /* RWStreamingSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1E42C144B1F00006F33FA /* RWStreamingSlider.m */; };
-		4CB1E430144B1F00006F33FA /* RWStreamingSliderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1E42E144B1F00006F33FA /* RWStreamingSliderCell.m */; };
-		4CB1E435144B1F5A006F33FA /* RWVolumeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1E434144B1F5A006F33FA /* RWVolumeSlider.m */; };
 		4CB1E451144B3B50006F33FA /* RDLightTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1E44E144B3B50006F33FA /* RDLightTextFieldCell.m */; };
 		4CB1E452144B3B50006F33FA /* RDDarkTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1E450144B3B50006F33FA /* RDDarkTextFieldCell.m */; };
 		4CB4D8F713A670BF00F706EC /* SBPrioritySplitViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D8F613A670BF00F706EC /* SBPrioritySplitViewDelegate.m */; };
@@ -402,8 +398,6 @@
 		4C87ED8D139CD91B0064DE2E /* SBWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBWindowController.m; sourceTree = "<group>"; };
 		4C87ED93139CD97B0064DE2E /* SBSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSplitView.h; sourceTree = "<group>"; };
 		4C87ED94139CD97B0064DE2E /* SBSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSplitView.m; sourceTree = "<group>"; };
-		4C87ED95139CD97B0064DE2E /* RWVolumeSliderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWVolumeSliderCell.h; sourceTree = "<group>"; };
-		4C87ED96139CD97B0064DE2E /* RWVolumeSliderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWVolumeSliderCell.m; sourceTree = "<group>"; };
 		4C87EDAA139CD9DA0064DE2E /* Database.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Database.xib; sourceTree = "<group>"; };
 		4C87EDAE139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBezierPath+PXRoundedRectangleAdditions.h"; sourceTree = "<group>"; };
 		4C87EDAF139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+PXRoundedRectangleAdditions.m"; sourceTree = "<group>"; };
@@ -519,12 +513,6 @@
 		4CAA0E4D1455A76400574FDD /* ServerUsers.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ServerUsers.PNG; sourceTree = "<group>"; };
 		4CAA0E4F1455A77000574FDD /* playing-mini.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playing-mini.png"; sourceTree = "<group>"; };
 		4CAD75C713AA597E00E7455C /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
-		4CB1E42B144B1F00006F33FA /* RWStreamingSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWStreamingSlider.h; sourceTree = "<group>"; };
-		4CB1E42C144B1F00006F33FA /* RWStreamingSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWStreamingSlider.m; sourceTree = "<group>"; };
-		4CB1E42D144B1F00006F33FA /* RWStreamingSliderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWStreamingSliderCell.h; sourceTree = "<group>"; };
-		4CB1E42E144B1F00006F33FA /* RWStreamingSliderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWStreamingSliderCell.m; sourceTree = "<group>"; };
-		4CB1E433144B1F5A006F33FA /* RWVolumeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWVolumeSlider.h; sourceTree = "<group>"; };
-		4CB1E434144B1F5A006F33FA /* RWVolumeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWVolumeSlider.m; sourceTree = "<group>"; };
 		4CB1E44D144B3B50006F33FA /* RDLightTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDLightTextFieldCell.h; sourceTree = "<group>"; };
 		4CB1E44E144B3B50006F33FA /* RDLightTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDLightTextFieldCell.m; sourceTree = "<group>"; };
 		4CB1E44F144B3B50006F33FA /* RDDarkTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDDarkTextFieldCell.h; sourceTree = "<group>"; };
@@ -753,8 +741,6 @@
 				4C1F6B9D1494333F0005B303 /* SBTopbarView.m */,
 				4CB1E436144B3B2D006F33FA /* Shadowed Text Cell */,
 				4C1D412E13A8F367002D77F3 /* SplitView Delegates */,
-				4CB1E432144B1F1B006F33FA /* Volume Slider */,
-				4CB1E431144B1F02006F33FA /* Streaming Slider */,
 				4C7AA287139D70390050BE95 /* SBCoverImageView.h */,
 				4C7AA288139D70390050BE95 /* SBCoverImageView.m */,
 				4CC18E7C13B9145400AA4FDB /* SBImageBrowserCell.h */,
@@ -1072,28 +1058,6 @@
 			name = Abstract;
 			sourceTree = "<group>";
 		};
-		4CB1E431144B1F02006F33FA /* Streaming Slider */ = {
-			isa = PBXGroup;
-			children = (
-				4CB1E42B144B1F00006F33FA /* RWStreamingSlider.h */,
-				4CB1E42C144B1F00006F33FA /* RWStreamingSlider.m */,
-				4CB1E42D144B1F00006F33FA /* RWStreamingSliderCell.h */,
-				4CB1E42E144B1F00006F33FA /* RWStreamingSliderCell.m */,
-			);
-			name = "Streaming Slider";
-			sourceTree = "<group>";
-		};
-		4CB1E432144B1F1B006F33FA /* Volume Slider */ = {
-			isa = PBXGroup;
-			children = (
-				4CB1E433144B1F5A006F33FA /* RWVolumeSlider.h */,
-				4CB1E434144B1F5A006F33FA /* RWVolumeSlider.m */,
-				4C87ED95139CD97B0064DE2E /* RWVolumeSliderCell.h */,
-				4C87ED96139CD97B0064DE2E /* RWVolumeSliderCell.m */,
-			);
-			name = "Volume Slider";
-			sourceTree = "<group>";
-		};
 		4CB1E436144B3B2D006F33FA /* Shadowed Text Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1393,7 +1357,6 @@
 				4C87ED7D139CD8BE0064DE2E /* Submariner.xcdatamodeld in Sources */,
 				4C87ED8E139CD91B0064DE2E /* SBWindowController.m in Sources */,
 				4C87EDA1139CD97B0064DE2E /* SBSplitView.m in Sources */,
-				4C87EDA2139CD97B0064DE2E /* RWVolumeSliderCell.m in Sources */,
 				4C87EDB0139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m in Sources */,
 				4C87EDB3139CDA0D0064DE2E /* NSBezierPath+BezierPathQuartzUtilities.m in Sources */,
 				4C87EDB6139CDAA50064DE2E /* SBPreferencesController.m in Sources */,
@@ -1496,9 +1459,6 @@
 				4C56868214050AD000BE3478 /* SBCollectionView.m in Sources */,
 				4C56868514050B9A00BE3478 /* SBPodcastItemView.m in Sources */,
 				4C56868814050C1100BE3478 /* SBPodcastViewItem.m in Sources */,
-				4CB1E42F144B1F00006F33FA /* RWStreamingSlider.m in Sources */,
-				4CB1E430144B1F00006F33FA /* RWStreamingSliderCell.m in Sources */,
-				4CB1E435144B1F5A006F33FA /* RWVolumeSlider.m in Sources */,
 				4CB1E451144B3B50006F33FA /* RDLightTextFieldCell.m in Sources */,
 				4CB1E452144B3B50006F33FA /* RDDarkTextFieldCell.m in Sources */,
 				4CED8E1F144CE2A400332417 /* NSString+Hex.m in Sources */,
