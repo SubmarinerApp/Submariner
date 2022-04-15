@@ -76,14 +76,14 @@
                                 <rect key="frame" x="0.0" y="0.0" width="181" height="412"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
-                                    <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="11">
+                                    <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="11">
                                         <rect key="frame" x="0.0" y="0.0" width="181" height="412"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" drawsBackground="NO" id="cdO-el-ZLY">
                                             <rect key="frame" x="0.0" y="0.0" width="181" height="412"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" autosaveName="SourceList" rowHeight="20" indentationPerLevel="14" autosaveExpandedItems="YES" indentationMarkerFollowsCell="NO" outlineTableColumn="16" id="15" customClass="SBSourceList">
+                                                <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="sourceList" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" autosaveName="SourceList" rowHeight="24" indentationPerLevel="13" autosaveExpandedItems="YES" indentationMarkerFollowsCell="NO" outlineTableColumn="16" id="15" customClass="SBSourceList">
                                                     <rect key="frame" x="0.0" y="0.0" width="181" height="412"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="0.0"/>
@@ -98,7 +98,7 @@
                                                             <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="19">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <connections>
@@ -119,7 +119,7 @@
                                             <nil key="backgroundColor"/>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="14">
-                                            <rect key="frame" x="0.0" y="138" width="0.0" height="16"/>
+                                            <rect key="frame" x="0.0" y="396" width="181" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="12">
@@ -155,7 +155,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="509" height="40"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     </view>
-                                                    <color key="fillColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="fillColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                 </box>
                                             </subviews>
                                         </view>
@@ -369,7 +369,7 @@ IA
                     <toolbarItem reference="1fQ-Lg-41i"/>
                 </defaultToolbarItems>
             </toolbar>
-            <contentBorderThickness minY="40"/>
+            <contentBorderThickness minY="40" maxY="0.0"/>
             <connections>
                 <outlet property="delegate" destination="-2" id="344"/>
             </connections>
@@ -650,9 +650,6 @@ Gw
                     <rect key="frame" x="0.0" y="0.0" width="163" height="195"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NoArtwork" id="216"/>
-                    <connections>
-                        <action selector="flip:" target="-2" id="362"/>
-                    </connections>
                 </imageView>
             </subviews>
             <point key="canvasLocation" x="708.5" y="108.5"/>
