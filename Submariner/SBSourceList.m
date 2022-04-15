@@ -9,7 +9,6 @@
 //
 
 #import "SBSourceList.h"
-#import "NSGradient+SourceList.h"
 
 
 //Layout constants
@@ -18,7 +17,7 @@
 #define BADGE_MARGIN							5.0			//The spacing between the badge and the cell for that row
 #define ROW_RIGHT_MARGIN						10.0			//The spacing between the right edge of the badge and the edge of the table column
 #define ICON_SPACING							2.0			//The spacing between the icon and it's adjacent cell
-#define DISCLOSURE_TRIANGLE_SPACE				5.0		//The indentation reserved for disclosure triangles for non-group items
+#define DISCLOSURE_TRIANGLE_SPACE				10.0		//The indentation reserved for disclosure triangles for non-group items
 
 //Drawing constants
 #define BADGE_BACKGROUND_COLOR					[NSColor colorWithCalibratedRed:(152/255.0) green:(168/255.0) blue:(202/255.0) alpha:1]
@@ -391,77 +390,29 @@ NSString * const PXSLDeleteKeyPressedOnRowsNotification = @"PXSourceListDeleteKe
 
 
 
+// https://stackoverflow.com/a/16138027
+- (NSImage *)imageTintedWithColor:(NSImage*)image tint:(NSColor *)tint
+{
+    image = [image copy];
+    if (tint) {
+        [image lockFocus];
+        [tint set];
+        NSRect imageRect = {NSZeroPoint, [image size]};
+        NSRectFillUsingOperation(imageRect, NSCompositingOperationSourceIn);
+        [image unlockFocus];
+    }
+    return image;
+}
+
 - (void)highlightSelectionInClipRect:(NSRect)clipRect
 {
-    NSRange aVisibleRowIndexes = [self rowsInRect:clipRect];
-    NSIndexSet *aSelectedRowIndexes = [self selectedRowIndexes];
-    NSInteger aRow = aVisibleRowIndexes.location;
-    NSInteger anEndRow = aRow + aVisibleRowIndexes.length;
-    
-    NSColor *aColor = [NSColor blackColor];
-    [aColor set];
-    
-    BOOL isKey = [[[self window] firstResponder] isEqual:self]; 
-    NSGradient *gradient = [NSGradient sourceListSelectionGradient:isKey];
-    
-    [NSGraphicsContext saveGraphicsState];
-    // draw highlight for the visible, selected rows
-    for(aRow; aRow < anEndRow; aRow++) {
-        if([aSelectedRowIndexes containsIndex:aRow]) {
-            
-            
-            NSRect aRowRect = [self rectOfRow:aRow];
-            [gradient drawInRect:aRowRect angle:90];
-            
-            NSRect bottomLineRect = NSMakeRect(aRowRect.origin.x, 
-                                               aRowRect.origin.y+aRowRect.size.height, 
-                                               aRowRect.size.width, 
-                                               1);
-            
-            if(isKey) {
-                [[NSColor colorWithCalibratedRed:0.1567 green:0.3942 blue:0.7096 alpha:1.0000] set];
-            } else {
-                [[NSColor colorWithCalibratedRed:0.5020 green:0.5518 blue:0.6759 alpha:1.0000] set];
-            }
-            NSFrameRect(bottomLineRect);
-            
-            NSRect topLineRect = NSMakeRect(aRowRect.origin.x, 
-                                            aRowRect.origin.y, 
-                                            aRowRect.size.width, 
-                                            1);
-            if(isKey) {
-                [[NSColor colorWithCalibratedRed:0.1701 green:0.4463 blue:0.7877 alpha:1.0000] set];
-            } else {
-                [[NSColor colorWithCalibratedRed:0.6807 green:0.7196 blue:0.8052 alpha:1.0000] set];
-            }
-            
-            NSFrameRect(topLineRect);
-            
-            NSRect topLightLineRect = NSMakeRect(aRowRect.origin.x, 
-                                                 aRowRect.origin.y+1, 
-                                                 aRowRect.size.width, 
-                                                 1);
-            
-            if(isKey) {
-                [[NSColor colorWithCalibratedRed:0.3763 green:0.6640 blue:0.8984 alpha:1.0000] set];
-            } else {
-                [[NSColor colorWithCalibratedRed:0.7171 green:0.7517 blue:0.8476 alpha:1.0000] set];
-            }
-            NSFrameRect(topLightLineRect);
-            
-            [self setNeedsDisplay:YES];
-        }
-    }
-    [NSGraphicsContext restoreGraphicsState];
+    // For some reason, [super highlightSelectionInClipRect:] draws some bizarre 10.5 era background
+    [super drawBackgroundInClipRect:clipRect];
 }
-
 
 - (void)drawRect:(NSRect)dirtyRect {
-    
 	[super drawRect:dirtyRect];
 }
-
-
 
 - (void)drawRow:(NSInteger)rowIndex clipRect:(NSRect)clipRect
 {	
@@ -472,45 +423,12 @@ NSString * const PXSLDeleteKeyPressedOnRowsNotification = @"PXSourceListDeleteKe
         
         if(![[self selectedRowIndexes] containsIndex:rowIndex])
         {
-            
-            NSRect cellFrame = [self rectOfRow:rowIndex];
-            id parentItem = [item parentNode];
-            
-            // draw tinted background
-//            [[NSColor colorWithPatternImage:[NSImage imageNamed:@"sourcelist-back-child"]] setFill];
-//            NSRectFill(cellFrame);
-//            
-//            // draw bottom border
-//            if([item isEqualTo:[[parentItem childNodes] objectAtIndex:[[parentItem childNodes] count]-1]]) {
-//                
-////                NSRect shadowRect = NSMakeRect(cellFrame.origin.x, cellFrame.origin.y+cellFrame.size.height-2, cellFrame.size.width, 2);
-////                NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:[NSColor clearColor] 
-////                                                                     endingColor:[NSColor colorWithDeviceWhite:0.4 alpha:0.1]];
-////                [gradient drawInRect:shadowRect angle:90];
-//                
-//                NSRect edgeRect = NSMakeRect(cellFrame.origin.x, cellFrame.origin.y+cellFrame.size.height, cellFrame.size.width, 1);
-//                [[NSColor colorWithDeviceWhite:0.8 alpha:1.0] setFill];
-//                NSFrameRect(edgeRect);
-//                
-//            }
-//            
-//            // draw top border
-//            if([item isEqualTo:[[parentItem childNodes] objectAtIndex:0]] && [self isGroupItem:parentItem]) {
-//                
-//                NSRect shadowRect = NSMakeRect(cellFrame.origin.x, cellFrame.origin.y, cellFrame.size.width, 3);
-//                NSGradient *gradient = [[[NSGradient alloc] initWithStartingColor:[NSColor clearColor] 
-//                                                                     endingColor:[NSColor colorWithDeviceWhite:0.4 alpha:0.1]] autorelease];
-//                [gradient drawInRect:shadowRect angle:-90];
-//                
-//                NSRect edgeRect = NSMakeRect(cellFrame.origin.x, cellFrame.origin.y, cellFrame.size.width, 1);
-//                [[NSColor colorWithDeviceWhite:0.8 alpha:1.0] setFill];
-//                NSFrameRect(edgeRect);
-//            }
-            
             [self setNeedsDisplay:YES];
         }
     }
  
+    // XXX: Figure out a way to make drawRow work like Mail.app/Finder,
+    // with the selected row not using the highlight colour
 	[super drawRow:rowIndex clipRect:clipRect];
 	
 	//Draw an icon if the item has one
@@ -532,6 +450,19 @@ NSString * const PXSLDeleteKeyPressedOnRowsNotification = @"PXSourceListDeleteKe
 				if(icon!=nil)
 				{
 					NSSize actualIconSize = [icon size];
+                    // tint the plain SF Symbol for big sur style sidebar
+                    NSColor *tint;
+                    if (![[self selectedRowIndexes] containsIndex:rowIndex]) {
+                        // might not be the exact shade, but seems to pick up our colour
+                        tint = [NSColor controlAccentColor];
+                    } else if ([[self window] firstResponder] == self) {
+                        // the condition is to make sure the source list is highlighted;
+                        // if so, we use a diff colour, but the grey highlight will enable
+                        // using the tinted colour.
+                        // the colour for highlighted rows should be white, basically.
+                        tint = [NSColor selectedMenuItemTextColor];
+                    }
+                    icon = [self imageTintedWithColor:icon tint: tint];
 					
 					//If the icon is *smaller* than the size retrieved from the -iconSize property, make sure we
 					//reduce the size of the rectangle to draw the icon in, so that it is not stretched.
@@ -543,21 +474,13 @@ NSString * const PXSLDeleteKeyPressedOnRowsNotification = @"PXSourceListDeleteKe
 											  actualIconSize.height);
 					}
 					
-                    //Use 10.6 NSImage drawing if we can
-                    if([icon respondsToSelector:@selector(drawInRect:fromRect:operation:fraction:respectFlipped:hints:)]) {
-                        [icon drawInRect:iconRect
+                    [icon drawInRect:iconRect
                                 fromRect:NSZeroRect
-                               operation:NSCompositeSourceOver
+                           operation:NSCompositingOperationSourceOver
                                 fraction:1
                           respectFlipped:YES hints:nil];
-                    }
-                    else {
-                        [icon setFlipped:[self isFlipped]];
-                        [icon drawInRect:iconRect
-                                fromRect:NSZeroRect
-                               operation:NSCompositeSourceOver
-                                fraction:1];
-                    }
+                    // we cloned it when tinting
+                    [icon release];
 				}
 			}
 		}
