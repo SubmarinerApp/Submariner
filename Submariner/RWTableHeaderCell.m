@@ -33,7 +33,6 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "RWTableHeaderCell.h"
-#import "CTGradient.h"
 
 @implementation RWTableHeaderCell
 
