@@ -452,15 +452,19 @@ NSString * const PXSLDeleteKeyPressedOnRowsNotification = @"PXSourceListDeleteKe
 					NSSize actualIconSize = [icon size];
                     // tint the plain SF Symbol for big sur style sidebar
                     NSColor *tint;
+                    bool isActive = [[self window] firstResponder] == self;
                     if (![[self selectedRowIndexes] containsIndex:rowIndex]) {
                         // might not be the exact shade, but seems to pick up our colour
                         tint = [NSColor controlAccentColor];
-                    } else if ([[self window] firstResponder] == self) {
+                    } else if (isActive) {
                         // the condition is to make sure the source list is highlighted;
                         // if so, we use a diff colour, but the grey highlight will enable
                         // using the tinted colour.
                         // the colour for highlighted rows should be white, basically.
                         tint = [NSColor selectedMenuItemTextColor];
+                    } else {
+                        // huh
+                        tint = [NSColor controlAccentColor];
                     }
                     icon = [self imageTintedWithColor:icon tint: tint];
 					
