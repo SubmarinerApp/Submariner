@@ -49,7 +49,6 @@
 @class SBServerTopbarController;
 @class SBLibrary;
 @class SBAnimatedView;
-@class SBSpinningProgressIndicator;
 @class SBMovieViewController;
 
 

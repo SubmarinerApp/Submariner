@@ -43,7 +43,6 @@
 #import "SBServerTopbarController.h"
 #import "SBDownloadsController.h"
 #import "SBAnimatedView.h"
-#import "SBSpinningProgressIndicator.h"
 #import "SBImportOperation.h"
 #import "SBSubsonicParsingOperation.h"
 #import "SBSubsonicDownloadOperation.h"

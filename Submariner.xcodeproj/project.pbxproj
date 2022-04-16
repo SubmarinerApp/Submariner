@@ -41,7 +41,6 @@
 		4C4A1E6A13B28CF2000BA93D /* cached_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4A1E6813B28CF2000BA93D /* cached_white.png */; };
 		4C4A1E6B13B28CF2000BA93D /* cached.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C4A1E6913B28CF2000BA93D /* cached.png */; };
 		4C4A1E8713B4E6A0000BA93D /* SBMergeArtistsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A1E8613B4E6A0000BA93D /* SBMergeArtistsController.m */; };
-		4C4DE61113A12954006A1EC1 /* SBSpinningProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4DE61013A12954006A1EC1 /* SBSpinningProgressIndicator.m */; };
 		4C4DE62113A1733D006A1EC1 /* EMKeychainItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4DE62013A1733D006A1EC1 /* EMKeychainItem.m */; };
 		4C4DE62413A200AD006A1EC1 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4DE62213A200AA006A1EC1 /* Carbon.framework */; };
 		4C4DE62513A200AD006A1EC1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4DE62313A200AC006A1EC1 /* Security.framework */; };
@@ -309,8 +308,6 @@
 		4C4A1E6913B28CF2000BA93D /* cached.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cached.png; sourceTree = "<group>"; };
 		4C4A1E8513B4E6A0000BA93D /* SBMergeArtistsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBMergeArtistsController.h; sourceTree = "<group>"; };
 		4C4A1E8613B4E6A0000BA93D /* SBMergeArtistsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBMergeArtistsController.m; sourceTree = "<group>"; };
-		4C4DE60F13A12953006A1EC1 /* SBSpinningProgressIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSpinningProgressIndicator.h; sourceTree = "<group>"; };
-		4C4DE61013A12954006A1EC1 /* SBSpinningProgressIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSpinningProgressIndicator.m; sourceTree = "<group>"; };
 		4C4DE61F13A1733D006A1EC1 /* EMKeychainItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMKeychainItem.h; sourceTree = "<group>"; };
 		4C4DE62013A1733D006A1EC1 /* EMKeychainItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EMKeychainItem.m; sourceTree = "<group>"; };
 		4C4DE62213A200AA006A1EC1 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
@@ -780,8 +777,6 @@
 				4C7AA274139D662B0050BE95 /* ANSegmentedControl.m */,
 				4CFAFC7B13A0F7E000E82B57 /* SBAnimatedView.h */,
 				4CFAFC7C13A0F7E000E82B57 /* SBAnimatedView.m */,
-				4C4DE60F13A12953006A1EC1 /* SBSpinningProgressIndicator.h */,
-				4C4DE61013A12954006A1EC1 /* SBSpinningProgressIndicator.m */,
 				4C56868314050B9A00BE3478 /* SBPodcastItemView.h */,
 				4C56868414050B9A00BE3478 /* SBPodcastItemView.m */,
 			);
@@ -1429,7 +1424,6 @@
 				4CFAFC62139FFED000E82B57 /* SBNowPlaying.m in Sources */,
 				4CFAFC7D13A0F7E000E82B57 /* SBAnimatedView.m in Sources */,
 				4CFAFC8113A1110700E82B57 /* NSOperationQueue+Shared.m in Sources */,
-				4C4DE61113A12954006A1EC1 /* SBSpinningProgressIndicator.m in Sources */,
 				4C4DE62113A1733D006A1EC1 /* EMKeychainItem.m in Sources */,
 				4C4113AD13A3BD680069CC33 /* SBAddServerPlaylistController.m in Sources */,
 				4CB4D8F713A670BF00F706EC /* SBPrioritySplitViewDelegate.m in Sources */,
