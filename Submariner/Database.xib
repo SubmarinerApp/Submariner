@@ -64,27 +64,27 @@
             <rect key="contentRect" x="669" y="470" width="691" height="412"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
             <value key="minSize" type="size" width="625" height="378"/>
-            <view key="contentView" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="691" height="412"/>
+            <view key="contentView" misplaced="YES" id="2">
+                <rect key="frame" x="0.0" y="0.0" width="691" height="440"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <splitView focusRingType="none" autosaveName="MainSplitView" dividerStyle="thin" vertical="YES" id="7">
-                        <rect key="frame" x="0.0" y="0.0" width="691" height="412"/>
+                        <rect key="frame" x="0.0" y="0.0" width="691" height="440"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <customView fixedFrame="YES" id="8">
-                                <rect key="frame" x="0.0" y="0.0" width="181" height="412"/>
+                                <rect key="frame" x="0.0" y="0.0" width="181" height="440"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="11">
-                                        <rect key="frame" x="0.0" y="0.0" width="181" height="412"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="181" height="440"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" drawsBackground="NO" id="cdO-el-ZLY">
-                                            <rect key="frame" x="0.0" y="0.0" width="181" height="412"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="181" height="440"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="sourceList" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" autosaveName="SourceList" rowHeight="24" indentationPerLevel="13" autosaveExpandedItems="YES" indentationMarkerFollowsCell="NO" outlineTableColumn="16" id="15" customClass="SBSourceList">
-                                                    <rect key="frame" x="0.0" y="0.0" width="181" height="412"/>
+                                                <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" autosaveName="SourceList" rowHeight="24" indentationPerLevel="13" autosaveExpandedItems="YES" indentationMarkerFollowsCell="NO" outlineTableColumn="16" id="15" customClass="SBSourceList">
+                                                    <rect key="frame" x="0.0" y="0.0" width="181" height="440"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="0.0"/>
                                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -130,32 +130,32 @@
                                 </subviews>
                             </customView>
                             <customView fixedFrame="YES" id="9">
-                                <rect key="frame" x="182" y="0.0" width="509" height="412"/>
+                                <rect key="frame" x="182" y="0.0" width="509" height="440"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <box boxType="custom" borderType="none" cornerRadius="4" title="Box" id="qEb-hU-l3O" userLabel="Containment Box">
-                                        <rect key="frame" x="0.0" y="0.0" width="509" height="361"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="509" height="389"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <view key="contentView" id="wyZ-6N-Hjp">
-                                            <rect key="frame" x="0.0" y="0.0" width="509" height="361"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="509" height="389"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <box autoresizesSubviews="NO" boxType="custom" borderType="none" title="Box" titlePosition="noTitle" id="187" userLabel="Content Box">
-                                                    <rect key="frame" x="0.0" y="0.0" width="509" height="322"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="509" height="350"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <view key="contentView" id="Yfx-4j-bnf">
-                                                        <rect key="frame" x="0.0" y="0.0" width="509" height="322"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="509" height="350"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     </view>
                                                 </box>
                                                 <box autoresizesSubviews="NO" boxType="custom" borderType="none" title="Box" titlePosition="noTitle" id="162" userLabel="Topbar Box">
-                                                    <rect key="frame" x="0.0" y="321" width="509" height="40"/>
+                                                    <rect key="frame" x="0.0" y="349" width="509" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                                     <view key="contentView" id="rbd-DE-0VE">
                                                         <rect key="frame" x="0.0" y="0.0" width="509" height="40"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     </view>
-                                                    <color key="fillColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="fillColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </box>
                                             </subviews>
                                         </view>
