@@ -390,20 +390,6 @@ NSString * const PXSLDeleteKeyPressedOnRowsNotification = @"PXSourceListDeleteKe
 
 
 
-// https://stackoverflow.com/a/16138027
-- (NSImage *)imageTintedWithColor:(NSImage*)image tint:(NSColor *)tint
-{
-    image = [image copy];
-    if (tint) {
-        [image lockFocus];
-        [tint set];
-        NSRect imageRect = {NSZeroPoint, [image size]};
-        NSRectFillUsingOperation(imageRect, NSCompositingOperationSourceIn);
-        [image unlockFocus];
-    }
-    return image;
-}
-
 - (void)highlightSelectionInClipRect:(NSRect)clipRect
 {
     // For some reason, [super highlightSelectionInClipRect:] draws some bizarre 10.5 era background
@@ -466,7 +452,7 @@ NSString * const PXSLDeleteKeyPressedOnRowsNotification = @"PXSourceListDeleteKe
                         // huh
                         tint = [NSColor controlAccentColor];
                     }
-                    icon = [self imageTintedWithColor:icon tint: tint];
+                    icon = [icon imageTintedWithColor: tint];
 					
 					//If the icon is *smaller* than the size retrieved from the -iconSize property, make sure we
 					//reduce the size of the rectangle to draw the icon in, so that it is not stretched.
@@ -483,8 +469,6 @@ NSString * const PXSLDeleteKeyPressedOnRowsNotification = @"PXSourceListDeleteKe
                            operation:NSCompositingOperationSourceOver
                                 fraction:1
                           respectFlipped:YES hints:nil];
-                    // we cloned it when tinting
-                    [icon release];
 				}
 			}
 		}

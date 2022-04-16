@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "NSImage+Additions.h"
+
 #import "SBSourceListDelegate.h"
 #import "SBSourceListDataSource.h"
 
