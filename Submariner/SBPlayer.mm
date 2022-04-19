@@ -150,7 +150,9 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     [remotePlayer release];
     [currentTrack release];
     [playlist release];
-    [tmpLocation release];
+    if (tmpLocation) {
+        [tmpLocation release];
+    }
     [super dealloc];
 }
 
@@ -302,24 +304,8 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     // set the new current track
     [self setCurrentTrack:track];    
     
-    // check if cache download enable or not : manage the tmp file
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"enableCacheStreaming"] == YES) {
-        if(tmpLocation) {
-            [tmpLocation release];
-            tmpLocation = nil;
-        }
-        
-        // create a cache temp file
-        NSURL *tempFileURL = [NSURL temporaryFileURL];
-        tmpLocation = [[[tempFileURL absoluteString] stringByAppendingPathExtension:@"mp3"] retain];
-        
-        if([[NSFileManager defaultManager] createFileAtPath:tmpLocation contents:nil attributes:nil]) {
-            isCaching = YES;
-        }
-    } else {
-        isCaching = NO;
-    }
-    
+    // Caching is handled when we request it now, including its file name
+    isCaching = NO;
     
     // play the song remotely (QTMovie from QTKit framework) or locally (AudioPlayer from SFBAudioEngine framework)
     if(self.currentTrack.isVideo) {
@@ -762,6 +748,13 @@ return 0;
 #pragma mark -
 #pragma mark Remote Player Notification 
 
+- (NSString*)extensionForContentType: (NSString*)contentType {
+    CFStringRef fileUTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, (__bridge CFStringRef)contentType, NULL);
+    CFStringRef extension = UTTypeCopyPreferredTagWithClass(fileUTI, kUTTagClassFilenameExtension);
+    CFRelease(fileUTI);
+    return (__bridge NSString*)extension;
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (object == remotePlayer && [keyPath isEqualToString:@"status"]) {
         if ([remotePlayer status] == AVPlayerStatusFailed) {
@@ -775,19 +768,54 @@ return 0;
             [self stop];
         }
     }
-    /*
-        NSError *error = nil;
-        if([[NSUserDefaults standardUserDefaults] boolForKey:@"enableCacheStreaming"] == YES)
-        {
-            NSDictionary* attr2 = [NSDictionary dictionaryWithObjectsAndKeys:
-                                   [NSNumber numberWithBool:YES], QTMovieFlatten,
-                                   //[NSNumber numberWithBool:YES], QTMovieExport,
-                                   //[NSNumber numberWithLong:kQTFileType], QTMovieExportType,
-                                   [NSNumber numberWithLong:kAppleManufacturer], QTMovieExportManufacturer,
-                                   nil];
-            
-            [remotePlayer writeToFile:tmpLocation withAttributes:attr2 error:&error];
-            
+    
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"enableCacheStreaming"] == YES)
+    {
+        // AVAssetExportSession doesn't work on remote files, download the stream ourself
+        // XXX: Should we use the transcode type? The download URL?
+        NSString *contentType = [self currentTrack].contentType;
+        NSString *extension = [self extensionForContentType: contentType];
+        // create a cache temp file
+        NSURL *tempFileURL = [NSURL temporaryFileURL];
+        if (tmpLocation) {
+            [tmpLocation release];
+        }
+        // XXX: Should have in this scope?
+        tmpLocation = [[tempFileURL absoluteString] stringByAppendingPathExtension: extension];
+        // XXX: Move to the ClientController?
+        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+        NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: [self currentTrack].streamURL];
+        // XXX: Seems Navidrome at least doesn't care, but prob sketch
+//        NSString *loginString = [NSString stringWithFormat: @"%@:%@", server.username, server.password];
+//        NSData *loginData = [loginString dataUsingEncoding: NSUTF8StringEncoding];
+//        NSString *base64login = [loginData base64EncodedStringWithOptions: 0];
+//        NSString *authHeader = [NSString stringWithFormat: @"Basic %@", base64login];
+//        configuration.HTTPAdditionalHeaders = @{@"Authorization": authHeader};
+        NSURLSessionDataTask *httpTask = [session dataTaskWithRequest: request completionHandler:
+                ^(NSData *data, NSURLResponse *response, NSError *error) {
+            if (error != nil) {
+                NSLog(@"Error in import stream: %@", error);
+                [NSApp presentError: error];
+                return;
+            }
+            if (response == nil) {
+                NSLog(@"No response in import stream");
+                return;
+            }
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+            NSInteger statusCode = [httpResponse statusCode];
+            NSLog(@"Status code is %ld", (long)statusCode);
+            if (statusCode!= 200) {
+                return;
+            }
+            // write the data to the temp file, then go for it
+            if ([[NSFileManager defaultManager] createFileAtPath: tmpLocation contents: data attributes: nil] == NO) {
+                NSLog(@"Failed to write import file %@", tmpLocation);
+                return;
+            }
+            // unsure if we can write, but we're def caching
+            isCaching = YES;
             NSManagedObjectContext *moc = self.currentTrack.managedObjectContext;
             SBLibrary *library = [moc fetchEntityNammed:@"Library" withPredicate:nil error:nil];
             
@@ -800,8 +828,10 @@ return 0;
             [op setRemove:YES];
             
             [[NSOperationQueue sharedDownloadQueue] addOperation:op];
-        }
-    */
+            
+        }];
+        [httpTask resume];
+    }
 }
 
 -(void)itemDidFinishPlaying:(NSNotification *) notification {

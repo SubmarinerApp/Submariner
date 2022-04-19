@@ -139,7 +139,13 @@
                                                                        reinterpret_cast<const UInt8 *>([path UTF8String]), 
                                                                        strlen([path UTF8String]), 
                                                                        FALSE);
-            SFBAudioFile *audioFile = [SFBAudioFile audioFileWithURL: fileURL];
+            NSError *error = nil;
+            SFBAudioFile *audioFile = [SFBAudioFile audioFileWithURL: (NSURL*)fileURL error: &error];
+            if (error) {
+                NSLog(@"Error loading audio file for import: %@", error);
+                CFRelease(fileURL), fileURL = NULL;
+                continue;
+            }
             SFBAudioMetadata *metadata = [audioFile metadata];
             SFBAudioProperties *properties = [audioFile properties];
             CFRelease(fileURL), fileURL = NULL;
