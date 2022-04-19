@@ -37,7 +37,6 @@
 #import "SBAddServerPlaylistController.h"
 #import "SBSubsonicParsingOperation.h"
 #import "SBSubsonicDownloadOperation.h"
-#import "RDLightTextFieldCell.h"
 #import "SBPlayer.h"
 #import "SBTableView.h"
 #import "SBServer.h"

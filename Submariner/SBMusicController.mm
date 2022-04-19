@@ -36,7 +36,6 @@
 #import "SBDatabaseController.h"
 #import "SBPrioritySplitViewDelegate.h"
 #import "SBMergeArtistsController.h"
-#import "RDLightTextFieldCell.h"
 #import "SBIndex.h"
 #import "SBGroup.h"
 #import "SBArtist.h"
@@ -142,18 +141,7 @@
 
 - (NSDictionary *)artistCellSelectedAttributes {
     if(artistCellSelectedAttributes == nil) {
-        NSShadow *shadow = [[NSShadow alloc] init];
-        [shadow setShadowColor:[NSColor blackColor]];
-        [shadow setShadowBlurRadius:0.12f];
-        [shadow setShadowOffset:NSMakeSize(0.f, -1.f)];
-        
-        NSFont *font = [NSFont boldSystemFontOfSize:12.0f];
-        
         artistCellSelectedAttributes = [[NSMutableDictionary dictionary] retain];
-        [artistCellSelectedAttributes setValue:shadow forKey:NSShadowAttributeName];
-        [artistCellSelectedAttributes setValue:[NSColor whiteColor] forKey:NSForegroundColorAttributeName];
-        [artistCellSelectedAttributes setValue:font forKey:NSFontAttributeName];
-        [shadow release];
         
         return artistCellSelectedAttributes;
     }
@@ -162,18 +150,7 @@
 
 - (NSDictionary *)artistCellUnselectedAttributes {
     if(artistCellUnselectedAttributes == nil) {
-        NSShadow *shadow = [[NSShadow alloc] init];
-        [shadow setShadowColor:[NSColor whiteColor]];
-        [shadow setShadowBlurRadius:0.0f];
-        [shadow setShadowOffset:NSMakeSize(0.f, -1.f)];
-        
-        NSFont *font = [NSFont systemFontOfSize:12.0f];
-        
         artistCellUnselectedAttributes = [[NSMutableDictionary dictionary] retain];
-        [artistCellUnselectedAttributes setValue:shadow forKey:NSShadowAttributeName];
-        [artistCellUnselectedAttributes setValue:[NSColor darkGrayColor] forKey:NSForegroundColorAttributeName];
-        [artistCellUnselectedAttributes setValue:font forKey:NSFontAttributeName];
-        [shadow release];
         
         return artistCellUnselectedAttributes;
     }

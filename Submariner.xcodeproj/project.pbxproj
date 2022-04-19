@@ -169,8 +169,6 @@
 		4CAA0E4E1455A76400574FDD /* ServerUsers.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 4CAA0E4D1455A76400574FDD /* ServerUsers.PNG */; };
 		4CAA0E501455A77000574FDD /* playing-mini.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CAA0E4F1455A77000574FDD /* playing-mini.png */; };
 		4CAD75C813AA597E00E7455C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAD75C713AA597E00E7455C /* CoreServices.framework */; };
-		4CB1E451144B3B50006F33FA /* RDLightTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1E44E144B3B50006F33FA /* RDLightTextFieldCell.m */; };
-		4CB1E452144B3B50006F33FA /* RDDarkTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB1E450144B3B50006F33FA /* RDDarkTextFieldCell.m */; };
 		4CB4D8F713A670BF00F706EC /* SBPrioritySplitViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D8F613A670BF00F706EC /* SBPrioritySplitViewDelegate.m */; };
 		4CB4D8F913A69B6600F706EC /* playing_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB4D8F813A69B6600F706EC /* playing_white.png */; };
 		4CB4D90313A6A1A300F706EC /* SBControlBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D90213A6A1A100F706EC /* SBControlBarView.m */; };
@@ -509,10 +507,6 @@
 		4CAA0E4D1455A76400574FDD /* ServerUsers.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ServerUsers.PNG; sourceTree = "<group>"; };
 		4CAA0E4F1455A77000574FDD /* playing-mini.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "playing-mini.png"; sourceTree = "<group>"; };
 		4CAD75C713AA597E00E7455C /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
-		4CB1E44D144B3B50006F33FA /* RDLightTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDLightTextFieldCell.h; sourceTree = "<group>"; };
-		4CB1E44E144B3B50006F33FA /* RDLightTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDLightTextFieldCell.m; sourceTree = "<group>"; };
-		4CB1E44F144B3B50006F33FA /* RDDarkTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RDDarkTextFieldCell.h; sourceTree = "<group>"; };
-		4CB1E450144B3B50006F33FA /* RDDarkTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RDDarkTextFieldCell.m; sourceTree = "<group>"; };
 		4CB4D8F513A670BF00F706EC /* SBPrioritySplitViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPrioritySplitViewDelegate.h; sourceTree = "<group>"; };
 		4CB4D8F613A670BF00F706EC /* SBPrioritySplitViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPrioritySplitViewDelegate.m; sourceTree = "<group>"; };
 		4CB4D8F813A69B6600F706EC /* playing_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playing_white.png; sourceTree = "<group>"; };
@@ -733,7 +727,6 @@
 			children = (
 				4C1F6B9C1494333F0005B303 /* SBTopbarView.h */,
 				4C1F6B9D1494333F0005B303 /* SBTopbarView.m */,
-				4CB1E436144B3B2D006F33FA /* Shadowed Text Cell */,
 				4C1D412E13A8F367002D77F3 /* SplitView Delegates */,
 				4C7AA287139D70390050BE95 /* SBCoverImageView.h */,
 				4C7AA288139D70390050BE95 /* SBCoverImageView.m */,
@@ -1046,17 +1039,6 @@
 				4C87EE2C139CE44C0064DE2E /* _SBTracklist.m */,
 			);
 			name = Abstract;
-			sourceTree = "<group>";
-		};
-		4CB1E436144B3B2D006F33FA /* Shadowed Text Cell */ = {
-			isa = PBXGroup;
-			children = (
-				4CB1E44D144B3B50006F33FA /* RDLightTextFieldCell.h */,
-				4CB1E44E144B3B50006F33FA /* RDLightTextFieldCell.m */,
-				4CB1E44F144B3B50006F33FA /* RDDarkTextFieldCell.h */,
-				4CB1E450144B3B50006F33FA /* RDDarkTextFieldCell.m */,
-			);
-			name = "Shadowed Text Cell";
 			sourceTree = "<group>";
 		};
 		4CD55EC01490CF15002E4774 /* Libraries */ = {
@@ -1447,8 +1429,6 @@
 				4C56868214050AD000BE3478 /* SBCollectionView.m in Sources */,
 				4C56868514050B9A00BE3478 /* SBPodcastItemView.m in Sources */,
 				4C56868814050C1100BE3478 /* SBPodcastViewItem.m in Sources */,
-				4CB1E451144B3B50006F33FA /* RDLightTextFieldCell.m in Sources */,
-				4CB1E452144B3B50006F33FA /* RDDarkTextFieldCell.m in Sources */,
 				4CED8E1F144CE2A400332417 /* NSString+Hex.m in Sources */,
 				4C1F6B9E1494333F0005B303 /* SBTopbarView.m in Sources */,
 				4C1F6BA11494F3520005B303 /* NSImage+Additions.m in Sources */,
