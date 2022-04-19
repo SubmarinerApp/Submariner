@@ -123,6 +123,8 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     [[remoteCommandCenter changePlaybackPositionCommand] addTarget:self action:@selector(clickSeek:)];
     [[remoteCommandCenter nextTrackCommand] addTarget:self action:@selector(clickNext)];
     [[remoteCommandCenter previousTrackCommand] addTarget:self action:@selector(clickPrev)];
+    
+    songInfo = [[NSMutableDictionary alloc] init];
 }
 
 - (id)init {
@@ -147,6 +149,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     [LOCAL_PLAYER dealloc];
     localPlayer = NULL;
     
+    [songInfo release];
     [remotePlayer release];
     [currentTrack release];
     [playlist release];
@@ -159,12 +162,39 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 #pragma mark -
 #pragma mark System Now Playing/Controls
 
--(void) updateSystemNowPlaying {
+// These two are separate because updating metadata is more expensive than i.e. seek position
+-(void) updateSystemNowPlayingStatus  {
     MPNowPlayingInfoCenter * defaultCenter = [MPNowPlayingInfoCenter defaultCenter];
     
     SBTrack *currentTrack = [self currentTrack];
-    // XXX: We could optimize this by reusing the same dictionary
-    NSMutableDictionary *songInfo = [[NSMutableDictionary alloc] init];
+    
+    if (currentTrack != nil) {
+        // times are in sec; trust the SBTrack if the player isn't ready
+        // as passing NaNs here will crash the menu bar (!)
+        auto duration = [self durationTime];
+        if (isnan(duration) || duration == 0) {
+            [songInfo setObject: [NSNumber numberWithDouble: 0] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
+            [songInfo setObject: [currentTrack duration] forKey:MPMediaItemPropertyPlaybackDuration];
+        } else {
+            [songInfo setObject: [NSNumber numberWithDouble: [self currentTime]] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
+            [songInfo setObject: [NSNumber numberWithDouble: duration] forKey:MPMediaItemPropertyPlaybackDuration];
+        }
+    }
+    
+    if (![self isPaused] && [self isPlaying]) {
+        [defaultCenter setPlaybackState:MPNowPlayingPlaybackStatePlaying];
+    } else if ([self isPaused] && [self isPlaying]) {
+        [defaultCenter setPlaybackState:MPNowPlayingPlaybackStatePaused];
+    } else if (![self isPlaying]) {
+        [defaultCenter setPlaybackState:MPNowPlayingPlaybackStateStopped];
+    }
+    [defaultCenter setNowPlayingInfo: songInfo];
+}
+
+-(void) updateSystemNowPlayingMetadata {
+    MPNowPlayingInfoCenter * defaultCenter = [MPNowPlayingInfoCenter defaultCenter];
+    
+    SBTrack *currentTrack = [self currentTrack];
     
     if (currentTrack != nil) {
         // i guess if we ever support video again...
@@ -190,26 +220,12 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
             }];
             [songInfo setObject: mpArtwork forKey:MPMediaItemPropertyArtwork];
         }
-        // times are in sec; trust the SBTrack if the player isn't ready
-        // as passing NaNs here will crash the menu bar (!)
-        auto duration = [self durationTime];
-        if (isnan(duration) || duration == 0) {
-            [songInfo setObject: [NSNumber numberWithDouble: 0] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
-            [songInfo setObject: [currentTrack duration] forKey:MPMediaItemPropertyPlaybackDuration];
-        } else {
-            [songInfo setObject: [NSNumber numberWithDouble: [self currentTime]] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
-            [songInfo setObject: [NSNumber numberWithDouble: duration] forKey:MPMediaItemPropertyPlaybackDuration];
-        }
     }
-    
-    if (![self isPaused] && [self isPlaying]) {
-        [defaultCenter setPlaybackState:MPNowPlayingPlaybackStatePlaying];
-    } else if ([self isPaused] && [self isPlaying]) {
-        [defaultCenter setPlaybackState:MPNowPlayingPlaybackStatePaused];
-    } else if (![self isPlaying]) {
-        [defaultCenter setPlaybackState:MPNowPlayingPlaybackStateStopped];
-    }
-    [defaultCenter setNowPlayingInfo: songInfo];
+}
+
+-(void) updateSystemNowPlaying {
+    [self updateSystemNowPlayingMetadata];
+    [self updateSystemNowPlayingStatus];
 }
 
 - (MPRemoteCommandHandlerStatus)clickPlay {
@@ -406,12 +422,13 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         [LOCAL_PLAYER pause];
         self.isPaused = YES;
     }
-    [self updateSystemNowPlaying];
+    [self updateSystemNowPlayingStatus];
     [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerPlayStateNotification object:self];
 }
 
 
 - (void)playPause {
+    bool wasPlaying = self.isPlaying;
     if((remotePlayer != nil) && ([remotePlayer rate] != 0)) {
         [remotePlayer pause];
         self.isPaused = YES;
@@ -424,7 +441,12 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         [LOCAL_PLAYER togglePlayPauseReturningError:&error];
         self.isPaused = [LOCAL_PLAYER isPaused];
     }
-    [self updateSystemNowPlaying];
+    // if we weren't playing, we need to update the metadata
+    if (wasPlaying) {
+        [self updateSystemNowPlayingStatus];
+    } else {
+        [self updateSystemNowPlaying];
+    }
     [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerPlayStateNotification object:self];
 }
 
@@ -489,7 +511,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     }
     
     // seeks will desync the NPIC
-    [self updateSystemNowPlaying];
+    [self updateSystemNowPlayingStatus];
 }
 
 // This is relative (0..100) it seems
@@ -522,7 +544,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     }
     
     // seeks will desync the NPIC
-    [self updateSystemNowPlaying];
+    [self updateSystemNowPlayingStatus];
 }
 
 
@@ -781,7 +803,7 @@ return 0;
             [tmpLocation release];
         }
         // XXX: Should have in this scope?
-        tmpLocation = [[tempFileURL absoluteString] stringByAppendingPathExtension: extension];
+        tmpLocation = [[[tempFileURL absoluteString] stringByAppendingPathExtension: extension] retain];
         // XXX: Move to the ClientController?
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
         NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
