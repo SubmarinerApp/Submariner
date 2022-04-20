@@ -192,8 +192,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 }
 
 -(void) updateSystemNowPlayingMetadata {
-    MPNowPlayingInfoCenter * defaultCenter = [MPNowPlayingInfoCenter defaultCenter];
-    
     SBTrack *currentTrack = [self currentTrack];
     
     if (currentTrack != nil) {
@@ -202,7 +200,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         // XXX: podcasts will have different properties on SBTrack
         [songInfo setObject: [currentTrack itemName] forKey:MPMediaItemPropertyTitle];
         [songInfo setObject: [currentTrack albumString] forKey:MPMediaItemPropertyAlbumTitle];
-        [songInfo setObject: [currentTrack artistName] forKey:MPMediaItemPropertyArtist];
+        [songInfo setObject: [currentTrack artistString] forKey:MPMediaItemPropertyArtist];
         [songInfo setObject: [currentTrack genre] forKey:MPMediaItemPropertyGenre];
         [songInfo setObject: [currentTrack rating] forKey:MPMediaItemPropertyRating];
         // seems the OS can use this to generate waveforms? should it be the download URL?

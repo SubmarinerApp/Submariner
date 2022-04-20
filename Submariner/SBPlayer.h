@@ -71,6 +71,8 @@ enum SBPlayerRepeatMode {
     SBTrack *currentTrack;
     NSString *tmpLocation;
     
+    NSMutableDictionary *songInfo;
+    
     SBPlayerRepeatMode repeatMode; // the player repeat mode
     BOOL isShuffle;
     BOOL isPlaying;
