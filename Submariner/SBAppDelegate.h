@@ -38,7 +38,7 @@
 @class SBDatabaseController;
 @class DDHotKeyCenter;
 
-@interface SBAppDelegate : NSObject <NSApplicationDelegate, NSMenuDelegate> {
+@interface SBAppDelegate : NSObject <NSApplicationDelegate, NSMenuDelegate, NSUserInterfaceValidations> {
 @private
     // Core Data
     NSPersistentStoreCoordinator *__persistentStoreCoordinator;
@@ -72,6 +72,7 @@
 - (IBAction)newPlaylist:(id)sender;
 - (IBAction)newServer:(id)sender;
 - (IBAction)playPause:(id)sender;
+- (IBAction)stop:(id)sender;
 - (IBAction)nextTrack:(id)sender;
 - (IBAction)previousTrack:(id)sender;
 - (IBAction)showWebsite:(id)sender;

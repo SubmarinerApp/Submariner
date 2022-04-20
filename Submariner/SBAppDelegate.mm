@@ -280,6 +280,10 @@
     [databaseController playPause:sender];
 }
 
+- (IBAction)stop:(id)sender {
+    [databaseController stop:sender];
+}
+
 - (IBAction)nextTrack:(id)sender {
     [databaseController nextTrack:sender];
 }
@@ -415,6 +419,15 @@
 
 - (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)window {
     return [[self managedObjectContext] undoManager];
+}
+
+
+
+#pragma mark -
+#pragma mark UI Validator
+
+- (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item {
+    return [databaseController validateUserInterfaceItem: item];
 }
 
 

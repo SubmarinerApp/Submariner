@@ -540,6 +540,10 @@
     }
 }
 
+- (IBAction)stop:(id)sender {
+    [[SBPlayer sharedInstance] stop];
+}
+
 - (IBAction)nextTrack:(id)sender {
     [[SBPlayer sharedInstance] next];   
 }
@@ -1373,6 +1377,28 @@
     if([tracklistPopover isShown]) {
         [self toggleTrackList:nil];
     }
+}
+
+
+
+#pragma mark -
+#pragma mark UI Validator
+
+// XXX: Toolbars too
+- (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item {
+    SEL action = [item action];
+    
+    BOOL isPlaying = [[SBPlayer sharedInstance] isPlaying];
+    
+    if (action == @selector(playPause:) || action == @selector(stop:)) {
+        return isPlaying;
+    }
+    // Similar, but could use if prv/next track exist
+    if (action == @selector(previousTrack:) || action == @selector(nextTrack:)) {
+        return isPlaying;
+    }
+    
+    return YES;
 }
 
 

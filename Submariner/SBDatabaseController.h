@@ -123,6 +123,7 @@
 - (IBAction)deleteRemotePlaylist:(id)sender;
 - (IBAction)reloadServer:(id)sender;
 - (IBAction)playPause:(id)sender;
+- (IBAction)stop:(id)sender;
 - (IBAction)nextTrack:(id)sender;
 - (IBAction)previousTrack:(id)sender;
 - (IBAction)seekTime:(id)sender;
@@ -132,5 +133,8 @@
 - (IBAction)openHomePage:(id)sender;
 - (IBAction)shuffle:(id)sender;
 - (IBAction)repeat:(id)sender;
+
+// NSUserInterfaceValidations protocol is implemented by AppDelegate, but logic lives here
+- (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item;
 
 @end
