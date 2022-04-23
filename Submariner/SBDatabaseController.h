@@ -89,6 +89,9 @@
     IBOutlet NSPopover *tracklistPopover;
     IBOutlet NSViewController *tracklistPopoverVC;
     
+    IBOutlet NSButton *volumeButton;
+    IBOutlet NSPopover *volumePopover;
+    
     SBMusicController *musicController;
     SBMusicTopbarController *musicTopbarController;
     SBDownloadsController *downloadsController;

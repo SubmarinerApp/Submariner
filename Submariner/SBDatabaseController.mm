@@ -399,6 +399,17 @@
     }
 }
 
+
+- (IBAction)toggleVolume:(id)sender {
+    NSView *view = volumeButton;
+    NSRect boundary = view.bounds;
+    if (volumePopover.shown) {
+        [volumePopover close];
+    } else {
+        [volumePopover showRelativeToRect: boundary ofView: view preferredEdge:NSMaxYEdge];
+    }
+}
+
 - (IBAction)addPlaylist:(id)sender {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@)", @"PLAYLISTS"];
     SBSection *playlistsSection = [self.managedObjectContext fetchEntityNammed:@"Section" withPredicate:predicate error:nil];
