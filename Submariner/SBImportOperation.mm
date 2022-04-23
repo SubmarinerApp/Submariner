@@ -140,7 +140,7 @@
                                                                        strlen([path UTF8String]), 
                                                                        FALSE);
             NSError *error = nil;
-            SFBAudioFile *audioFile = [SFBAudioFile audioFileWithURL: (NSURL*)fileURL error: &error];
+            SFBAudioFile *audioFile = [SFBAudioFile audioFileWithURL: (__bridge NSURL*)fileURL error: &error];
             if (error) {
                 NSLog(@"Error loading audio file for import: %@", error);
                 CFRelease(fileURL), fileURL = NULL;
@@ -160,7 +160,7 @@
                     genreString       = [metadata genre];
                     trackNumber       = [metadata trackNumber];
                     durationNumber    = [properties duration];
-                    bitRateNumber     = [metadata bitrate];
+                    bitRateNumber     = [properties bitrate];
 // XXX
                     coverData         = [[[metadata attachedPictures] anyObject] imageData];
                     
