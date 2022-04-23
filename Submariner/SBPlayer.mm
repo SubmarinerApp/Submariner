@@ -483,22 +483,13 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 
 - (void)seekToTime:(NSTimeInterval)time {
     if(remotePlayer != nil) {
-        AVPlayerItem *currentItem = [remotePlayer currentItem];
         CMTime timeCM = CMTimeMakeWithSeconds(time, NSEC_PER_SEC);
         [remotePlayer seekToTime:timeCM];
     }
     
     if(LOCAL_PLAYER && [LOCAL_PLAYER isPlaying]) {
-        SInt64 totalFrames;
         if([LOCAL_PLAYER supportsSeeking]) {
-/*
-// XXX: Think about this one later
-            if(LOCAL_PLAYER->GetTotalFrames(totalFrames)) {
-                //NSLog(@"seek");
-                SInt64 desiredFrame = static_cast<SInt64>((time / 100.0) * totalFrames);
-                LOCAL_PLAYER->SeekToFrame(desiredFrame);
-            }
-*/
+            [LOCAL_PLAYER seekToTime: time];
         } else {
             NSLog(@"WARNING : no seek support for this file");
         }
@@ -522,16 +513,12 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     }
     
     if(LOCAL_PLAYER && [LOCAL_PLAYER isPlaying]) {
-        SInt64 totalFrames;
         if([LOCAL_PLAYER supportsSeeking]) {
-/*
-// XXX: Think about this one later
-            if(LOCAL_PLAYER->GetTotalFrames(totalFrames)) {
-                //NSLog(@"seek");
-                SInt64 desiredFrame = static_cast<SInt64>((time / 100.0) * totalFrames);
-                LOCAL_PLAYER->SeekToFrame(desiredFrame);
-            }
-*/
+            SFBAudioPlayerPlaybackPosition sfbPos;
+            SFBAudioPlayerPlaybackTime sfbTime;
+            [LOCAL_PLAYER getPlaybackPosition:&sfbPos andTime:&sfbTime];
+            NSTimeInterval newTime = sfbTime.totalTime * (time / 100.0);
+            [LOCAL_PLAYER seekToTime:newTime];
         } else {
             NSLog(@"WARNING : no seek support for this file");
         }
@@ -600,15 +587,10 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     
     if([LOCAL_PLAYER isPlaying])
     {
-// XXX: getPlaybackPosition
-/*
-        SInt64 currentFrame, totalFrames;
-        CFTimeInterval currentTime, totalTime;
-        
-        if(LOCAL_PLAYER->GetPlaybackPositionAndTime(currentFrame, totalFrames, currentTime, totalTime)) {
-            return [NSString stringWithTime:currentTime];
-        }
-*/
+        SFBAudioPlayerPlaybackPosition sfbPos;
+        SFBAudioPlayerPlaybackTime sfbTime;
+        [LOCAL_PLAYER getPlaybackPosition:&sfbPos andTime:&sfbTime];
+        return sfbTime.currentTime;
     }
     
     return 0;
@@ -631,15 +613,10 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     
     if([LOCAL_PLAYER isPlaying])
     {
-        SInt64 currentFrame, totalFrames;
-        CFTimeInterval currentTime, totalTime;
-        
-/*
-// XXX: getPlaybackPosition
-        if(LOCAL_PLAYER->GetPlaybackPositionAndTime(currentFrame, totalFrames, currentTime, totalTime)) {
-            return [NSString stringWithTime:(-1 * (totalTime - currentTime))];
-        }
-*/
+        SFBAudioPlayerPlaybackPosition sfbPos;
+        SFBAudioPlayerPlaybackTime sfbTime;
+        [LOCAL_PLAYER getPlaybackPosition:&sfbPos andTime:&sfbTime];
+        return sfbTime.totalTime;
     }
     
     return 0;
@@ -660,15 +637,10 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     
     if([LOCAL_PLAYER isPlaying])
     {
-        SInt64 currentFrame, totalFrames;
-        CFTimeInterval currentTime, totalTime;
-        
-/*
-// XXX: getPlaybackPosition
-        if(LOCAL_PLAYER->GetPlaybackPositionAndTime(currentFrame, totalFrames, currentTime, totalTime)) {
-            return [NSString stringWithTime:(-1 * (totalTime - currentTime))];
-        }
-*/
+        SFBAudioPlayerPlaybackPosition sfbPos;
+        SFBAudioPlayerPlaybackTime sfbTime;
+        [LOCAL_PLAYER getPlaybackPosition:&sfbPos andTime:&sfbTime];
+        return sfbTime.totalTime - sfbTime.currentTime;
     }
     
     return 0;
