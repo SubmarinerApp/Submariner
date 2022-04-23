@@ -62,6 +62,7 @@
 - (void)getAlbumsForArtist:(SBArtist *)artist;
 - (void)getAlbumListForType:(SBSubsonicRequestType)type;
 - (void)getTracksForAlbum:(SBAlbum *)album;
+- (void)getTracksForAlbumID:(NSString *)albumID;
 
 // playlist management
 - (void)getServerPlaylists;
