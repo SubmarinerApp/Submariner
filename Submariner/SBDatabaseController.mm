@@ -64,8 +64,6 @@
 #import "NSManagedObjectContext+Fetch.h"
 #import "NSOutlineView+Expand.h"
 #import "NSOperationQueue+Shared.h"
-#import "NSView+CHLayout.h"
-#import "CHLayoutConstraint.h"
 
 
 
