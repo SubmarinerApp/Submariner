@@ -36,6 +36,8 @@
 #import "SBSubsonicParsingOperation.h"
 #import "SBDatabaseController.h"
 #import "SBPlayer.h"
+#import "SBTrack.h"
+#import "SBSearchResult.h"
 #import "SBSubsonicDownloadOperation.h"
 #import "NSOperationQueue+Shared.h"
 
