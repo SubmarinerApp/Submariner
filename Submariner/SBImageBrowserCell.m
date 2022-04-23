@@ -52,38 +52,7 @@
 
 
 #import "SBImageBrowserCell.h"
-#import "SBUtilities.h"
 
-
-//---------------------------------------------------------------------------------
-// glossyImage
-//
-// utilty function that creates, caches and returns the image named glossy.png
-//---------------------------------------------------------------------------------
-static CGImageRef glossyImage()
-{
-	static CGImageRef image = NULL;
-	
-	if(image == NULL)
-		image = createImageWithName(@"glossy.png");
-	
-	return image;
-}
-
-//---------------------------------------------------------------------------------
-// pinImage
-//
-// utilty function that creates, caches and returns the image named pin.tiff
-//---------------------------------------------------------------------------------
-static CGImageRef pinImage()
-{
-	static CGImageRef image = NULL;
-	
-	if(image == NULL)
-		image = createImageWithName(@"pin.tiff");
-	
-	return image;
-}
 
 
 @implementation SBImageBrowserCell
