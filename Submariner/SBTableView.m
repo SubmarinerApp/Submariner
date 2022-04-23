@@ -120,7 +120,7 @@ NSString *SBEnterKeyPressedOnRowsNotification = @"SBEnterKeyPressedOnRowsNotific
             [self selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
             
             if([self delegate] && [[self delegate] respondsToSelector:@selector(tableView:menuForEvent:)]) {
-                NSMenu *menu = [(__bridge id<SBTableViewDelegate> _Nullable)[self delegate] tableView:self menuForEvent:theEvent];
+                NSMenu *menu = [[self delegate] tableView:self menuForEvent:theEvent];
                 if(menu != nil) {
                     return menu;
                 }
@@ -129,7 +129,7 @@ NSString *SBEnterKeyPressedOnRowsNotification = @"SBEnterKeyPressedOnRowsNotific
             // you can disable this if you don't want clicking on an empty space to deselect all rows
             //[self deselectAll:self];
             if([self delegate] && [[self delegate] respondsToSelector:@selector(tableView:menuForEvent:)]) {
-                NSMenu *menu = [(__bridge id<SBTableViewDelegate> _Nullable)[self delegate] tableView:self menuForEvent:theEvent];
+                NSMenu *menu = [[self delegate] tableView:self menuForEvent:theEvent];
                 if(menu != nil) {
                     return menu;
                 }
@@ -180,7 +180,7 @@ NSString *SBEnterKeyPressedOnRowsNotification = @"SBEnterKeyPressedOnRowsNotific
 - (void)deleteKeyPressedOnRowsNotification:(NSNotification *)notification {
     if([notification object] == self) {
         if([self delegate] && [[self delegate] respondsToSelector:@selector(tableViewEnterKeyPressedNotification:)]) {
-            [(__bridge id<SBTableViewDelegate> _Nullable)[self delegate] tableViewDeleteKeyPressedNotification:notification];
+            [[self delegate] tableViewDeleteKeyPressedNotification:notification];
         }
     }
 }
@@ -189,7 +189,7 @@ NSString *SBEnterKeyPressedOnRowsNotification = @"SBEnterKeyPressedOnRowsNotific
 - (void)enterKeyPressedOnRowsNotification:(NSNotification *)notification {
     if([notification object] == self) {
         if([self delegate] && [[self delegate] respondsToSelector:@selector(tableViewDeleteKeyPressedNotification:)]) {
-            [(__bridge id<SBTableViewDelegate> _Nullable)[self delegate] tableViewEnterKeyPressedNotification:notification];
+            [[self delegate] tableViewEnterKeyPressedNotification:notification];
         } 
     }
 }

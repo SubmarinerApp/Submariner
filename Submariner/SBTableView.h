@@ -38,11 +38,13 @@
 extern NSString *SBDeleteKeyPressedOnRowsNotification;
 extern NSString *SBEnterKeyPressedOnRowsNotification;
 
+// forward declare to break chicken/egg
+@protocol SBTableViewDelegate;
 
-@interface SBTableView : NSTableView {
-@private
-    
-}
+
+@interface SBTableView : NSTableView
+
+@property (nullable, weak) id<SBTableViewDelegate> delegate;
 
 @end
 
@@ -50,8 +52,8 @@ extern NSString *SBEnterKeyPressedOnRowsNotification;
 
 @protocol SBTableViewDelegate <NSTableViewDelegate>
 
-- (NSMenu *)tableView:(SBTableView *)tableView menuForEvent:(NSEvent *)event;
-- (void)tableViewEnterKeyPressedNotification:(NSNotification *)notification;
-- (void)tableViewDeleteKeyPressedNotification:(NSNotification *)notification;
+- (NSMenu *)tableView:(SBTableView *)tableView menuForEvent:(NSEvent *_Nonnull)event;
+- (void)tableViewEnterKeyPressedNotification:(NSNotification *_Nonnull)notification;
+- (void)tableViewDeleteKeyPressedNotification:(NSNotification *_Nonnull)notification;
 
 @end
