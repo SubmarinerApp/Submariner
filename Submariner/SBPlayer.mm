@@ -678,26 +678,23 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     
     if([LOCAL_PLAYER isPlaying])
     {
-        SInt64 currentFrame, totalFrames;
-        CFTimeInterval currentTime, totalTime;
-        
-/*
-// XXX: getPlaybackPosition
-        if(LOCAL_PLAYER->GetPlaybackPositionAndTime(currentFrame, totalFrames, currentTime, totalTime)) {
-            double fractionComplete = static_cast<double>(currentFrame) / static_cast<double>(totalFrames) * 100;
+        SFBAudioPlayerPlaybackPosition sfbPos;
+        SFBAudioPlayerPlaybackTime sfbTime;
+        [LOCAL_PLAYER getPlaybackPosition:&sfbPos andTime:&sfbTime];
+        if(sfbTime.totalTime > 0) {
+            double progress = ((double)sfbTime.currentTime) / ((double)sfbTime.totalTime) * 100; // make percent
+            //double bitrate = [[[remotePlayer movieAttributes] valueForKey:QTMovieDataSizeAttribute] doubleValue]/duration * 10;
+            //NSLog(@"bitrate : %f", bitrate);
             
-//            NSLog(@"fractionComplete : %f", fractionComplete);
-//            if(fractionComplete > 99.9) { // movie is at end
-//                [self playPause];
-//                [self next];
-//            }
+            if(progress == 100) { // movie is at end
+                [self next];
+            }
             
-            return fractionComplete;
+            return progress;
+            
         } else {
             return 0;
         }
-*/
-return 0;
     }
     
     return 0;
