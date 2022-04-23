@@ -85,7 +85,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                            forKeyPath:@"playlist"  
                                               options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) 
-                                              context:[SBPlayer sharedInstance]];
+                                              context:(__bridge void*)[SBPlayer sharedInstance]];
 }
 
 
