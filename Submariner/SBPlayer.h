@@ -61,11 +61,7 @@ enum SBPlayerRepeatMode {
 @interface SBPlayer : NSObject <NSSoundDelegate, SFBAudioPlayerDelegate> {
 @private
     AVPlayer      *remotePlayer;
-#ifdef __cplusplus
     SFBAudioPlayer *localPlayer;
-#else
-    void *localPlayer;
-#endif
     
     NSMutableArray *playlist;
     SBTrack *currentTrack;
