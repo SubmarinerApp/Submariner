@@ -340,16 +340,12 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         }   
     }
     
-    // setup player for playing. must use main thread for notifs or player thread processes them
+    // setup player for playing
     [self.currentTrack setIsPlaying:[NSNumber numberWithBool:YES]];
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerPlaylistUpdatedNotification object:self];
-    });
+    [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerPlaylistUpdatedNotification object:self];
     self.isPlaying = YES;
     self.isPaused = NO;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerPlayStateNotification object:self];
-    });
+    [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerPlayStateNotification object:self];
     
     // update NPIC
     [self updateSystemNowPlaying];
