@@ -845,6 +845,8 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 - (void) audioPlayer:(SFBAudioPlayer *)audioPlayer decodingComplete:(id<SFBPCMDecoding>)decoder
 {
     [self next];
+    // needed to make it continue?
+    [self playOrResume];
 }
 
 #pragma mark -
