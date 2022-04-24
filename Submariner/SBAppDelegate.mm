@@ -96,10 +96,6 @@
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
-        
-    // remove user defaults observers
-    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"PlayerKeyCode"];
-    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"PlayerKeyFlags"];
     
     // unplay all tracks before quitting
     NSError *error = nil;
