@@ -680,11 +680,9 @@
 }
 
 
-- (void)importSheetDidEnd: (NSWindow *)sheet returnCode: (NSInteger)returnCode contextInfo: (void *)contextInfo {
+- (void)importSheetDidEnd: (NSWindow *)sheet returnCode: (NSInteger)returnCode contextInfo: (NSArray *)choosedFiles {
     
-    if(returnCode == NSAlertDefaultReturn) {
-        
-        NSArray *choosedFiles = (NSArray *)contextInfo;
+    if(returnCode == NSAlertFirstButtonReturn) {
         if(choosedFiles != nil) {
             
             SBImportOperation *op = [[SBImportOperation alloc] initWithManagedObjectContext:self.managedObjectContext];
@@ -696,9 +694,7 @@
             [[NSOperationQueue sharedDownloadQueue] addOperation:op];
         }
         
-    } else if(returnCode == NSAlertAlternateReturn) {
-        
-        NSArray *choosedFiles = (NSArray *)contextInfo;
+    } else if(returnCode == NSAlertSecondButtonReturn) {
         if(choosedFiles != nil) {
             
             SBImportOperation *op = [[SBImportOperation alloc] initWithManagedObjectContext:self.managedObjectContext];
@@ -895,17 +891,15 @@
 
 
 - (BOOL)openImportAlert:(NSWindow *)sender files:(NSArray *)files {
-    NSBeginAlertSheet(
-                      @"Do you want to copy imported audio files ?",
-                      @"Copy",    
-                      @"Link",    
-                      @"Cancel",  
-                      sender,     
-                      self,       
-                      @selector(importSheetDidEnd:returnCode:contextInfo:),
-                      NULL,   
-                      files,  
-                      @"If you click the \"Copy\" button, imported files will be copied into the database. If you click the \"Link\" button, files will no be copied, but linked into the database.");
+    NSAlert *importAlert = [[NSAlert alloc] init];
+    [importAlert setMessageText:@"Do you want to copy the imported audio files?"];
+    [importAlert setInformativeText: @"If you click the \"Copy\" button, the imported files will be copied into the database. If you click the \"Link\" button, the files will not be copied, but instead linked into the database."];
+    [importAlert addButtonWithTitle: @"Copy"];
+    [importAlert addButtonWithTitle: @"Link"];
+    [importAlert addButtonWithTitle: @"Cancel"];
+    [importAlert beginSheetModalForWindow: sender completionHandler:^(NSModalResponse alertReturnCode) {
+        [self importSheetDidEnd: sender returnCode: alertReturnCode contextInfo: files];
+    }];
     
     //[files autorelease];
     return NO;
