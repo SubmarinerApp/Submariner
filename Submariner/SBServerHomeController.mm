@@ -444,7 +444,8 @@
         
         // get tracks URIs
         [rowIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-            [trackURIs addObject:[[[[tracksController arrangedObjects] objectAtIndex:idx] objectID] URIRepresentation]];
+            SBTrack *track = [[tracksController arrangedObjects] objectAtIndex:idx];
+            [trackURIs addObject:[[track objectID] URIRepresentation]];
         }];
         
         // encode to data
