@@ -840,9 +840,11 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 // This is called from the realtime rendering thread and as such MUST NOT BLOCK!!
 - (void) audioPlayer:(SFBAudioPlayer *)audioPlayer decodingComplete:(id<SFBPCMDecoding>)decoder
 {
-    [self next];
-    // needed to make it continue?
-    [self playOrResume];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self next];
+        // needed to make it continue?
+        [self playOrResume];
+    });
 }
 
 #pragma mark -
