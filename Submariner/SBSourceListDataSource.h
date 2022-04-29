@@ -10,7 +10,7 @@
 
 @class SBSourceList;
 
-@protocol SBSourceListDataSource <NSObject>
+@protocol SBSourceListDataSource <NSOutlineViewDataSource>
 
 @required
 - (NSUInteger)sourceList:(SBSourceList*)sourceList numberOfChildrenOfItem:(id)item;

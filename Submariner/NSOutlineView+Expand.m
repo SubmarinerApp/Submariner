@@ -87,7 +87,7 @@
         BOOL found = NO;
 
         for (i = 0; i < numberOfRows; i++ ) {
-            if ([[[self delegate] outlineView:self persistentObjectForItem:[self itemAtRow:i]] isEqualToString:nextCollectionURI]) {
+            if ([[[self dataSource] outlineView:self persistentObjectForItem:[self itemAtRow:i]] isEqualToString:nextCollectionURI]) {
                 
                 [self expandItem:[self itemAtRow:i]];
                 foundAtLeastOne = YES;
@@ -120,7 +120,7 @@
         
         for (i = 0; i < numberOfRows; i++ ) {
             
-            if ([[[self delegate] outlineView:self 
+            if ([[[self dataSource] outlineView:self
                       persistentObjectForItem:[self itemAtRow:i]] isEqualToString:nextCollectionURI]) {
                 
                 [self reloadItem:[self itemAtRow:i] reloadChildren:YES];

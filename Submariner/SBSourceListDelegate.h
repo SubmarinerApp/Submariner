@@ -10,7 +10,7 @@
 
 @class SBSourceList;
 
-@protocol SBSourceListDelegate <NSObject>
+@protocol SBSourceListDelegate <NSOutlineViewDelegate>
 
 @optional
 //Extra methods
