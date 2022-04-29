@@ -1330,7 +1330,7 @@
 
 
 - (id)sourceList:(SBSourceList *)aSourceList persistentObjectForItem:(id)item {
-    return [[[[item representedObject] objectID] URIRepresentation] absoluteString];
+    return [[[(NSManagedObject*)[item representedObject] objectID] URIRepresentation] absoluteString];
 }
 
 
