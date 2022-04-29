@@ -126,7 +126,6 @@
 		4C87EE08139CDCB10064DE2E /* shuffle_off.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C87EDE4139CDCB10064DE2E /* shuffle_off.png */; };
 		4C87EE09139CDCB10064DE2E /* shuffle_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C87EDE5139CDCB10064DE2E /* shuffle_on.png */; };
 		4C87EE0A139CDCB10064DE2E /* Split-sizer.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C87EDE6139CDCB10064DE2E /* Split-sizer.png */; };
-		4C87EE0D139CDCF20064DE2E /* SBShadowTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EE0C139CDCF10064DE2E /* SBShadowTextFieldCell.m */; };
 		4C87EE10139CE33B0064DE2E /* NSManagedObjectContext+Fetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EE0F139CE33B0064DE2E /* NSManagedObjectContext+Fetch.m */; };
 		4C87EE2D139CE44C0064DE2E /* _SBAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EE14139CE44C0064DE2E /* _SBAlbum.m */; };
 		4C87EE2E139CE44C0064DE2E /* _SBArtist.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EE16139CE44C0064DE2E /* _SBArtist.m */; };
@@ -206,7 +205,6 @@
 		4CFB3EF2139D4693008DC01A /* SBTracklistController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB3EF0139D4693008DC01A /* SBTracklistController.mm */; };
 		4CFB3EF3139D4693008DC01A /* Tracklist.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CFB3EF1139D4693008DC01A /* Tracklist.xib */; };
 		4CFB3EF8139D47EA008DC01A /* SBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB3EF7139D47EA008DC01A /* SBViewController.m */; };
-		4CFB3EFB139D4E32008DC01A /* SBVerticalLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB3EFA139D4E32008DC01A /* SBVerticalLine.m */; };
 		4CFCE444140257EE00D35770 /* MusicSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CFCE443140257EE00D35770 /* MusicSearch.xib */; };
 		4CFCE4471402582400D35770 /* SBMusicSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFCE4461402582400D35770 /* SBMusicSearchController.m */; };
 /* End PBXBuildFile section */
@@ -423,8 +421,6 @@
 		4C87EDE4139CDCB10064DE2E /* shuffle_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shuffle_off.png; sourceTree = "<group>"; };
 		4C87EDE5139CDCB10064DE2E /* shuffle_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shuffle_on.png; sourceTree = "<group>"; };
 		4C87EDE6139CDCB10064DE2E /* Split-sizer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Split-sizer.png"; sourceTree = "<group>"; };
-		4C87EE0B139CDCF10064DE2E /* SBShadowTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBShadowTextFieldCell.h; sourceTree = "<group>"; };
-		4C87EE0C139CDCF10064DE2E /* SBShadowTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBShadowTextFieldCell.m; sourceTree = "<group>"; };
 		4C87EE0E139CE33B0064DE2E /* NSManagedObjectContext+Fetch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+Fetch.h"; sourceTree = "<group>"; };
 		4C87EE0F139CE33B0064DE2E /* NSManagedObjectContext+Fetch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+Fetch.m"; sourceTree = "<group>"; };
 		4C87EE13139CE44C0064DE2E /* _SBAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SBAlbum.h; sourceTree = "<group>"; };
@@ -565,8 +561,6 @@
 		4CFB3EF1139D4693008DC01A /* Tracklist.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Tracklist.xib; sourceTree = "<group>"; };
 		4CFB3EF6139D47EA008DC01A /* SBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBViewController.h; sourceTree = "<group>"; };
 		4CFB3EF7139D47EA008DC01A /* SBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBViewController.m; sourceTree = "<group>"; };
-		4CFB3EF9139D4E31008DC01A /* SBVerticalLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBVerticalLine.h; sourceTree = "<group>"; };
-		4CFB3EFA139D4E32008DC01A /* SBVerticalLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBVerticalLine.m; sourceTree = "<group>"; };
 		4CFCE443140257EE00D35770 /* MusicSearch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MusicSearch.xib; sourceTree = "<group>"; };
 		4CFCE4451402582400D35770 /* SBMusicSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBMusicSearchController.h; sourceTree = "<group>"; };
 		4CFCE4461402582400D35770 /* SBMusicSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBMusicSearchController.m; sourceTree = "<group>"; };
@@ -734,10 +728,6 @@
 				4C87EDBE139CDC250064DE2E /* SBSourceList.m */,
 				4C87EDBF139CDC250064DE2E /* SBSourceListDataSource.h */,
 				4C87EDC0139CDC260064DE2E /* SBSourceListDelegate.h */,
-				4C87EE0B139CDCF10064DE2E /* SBShadowTextFieldCell.h */,
-				4C87EE0C139CDCF10064DE2E /* SBShadowTextFieldCell.m */,
-				4CFB3EF9139D4E31008DC01A /* SBVerticalLine.h */,
-				4CFB3EFA139D4E32008DC01A /* SBVerticalLine.m */,
 				4C7AA271139D662B0050BE95 /* ANSegmentedCell.h */,
 				4C7AA272139D662B0050BE95 /* ANSegmentedCell.m */,
 				4C7AA273139D662B0050BE95 /* ANSegmentedControl.h */,
@@ -1302,7 +1292,6 @@
 				4C87EDB6139CDAA50064DE2E /* SBPreferencesController.m in Sources */,
 				4C87EDBA139CDAB90064DE2E /* SBDatabaseController.mm in Sources */,
 				4C87EDC1139CDC260064DE2E /* SBSourceList.m in Sources */,
-				4C87EE0D139CDCF20064DE2E /* SBShadowTextFieldCell.m in Sources */,
 				4C87EE10139CE33B0064DE2E /* NSManagedObjectContext+Fetch.m in Sources */,
 				4C87EE2D139CE44C0064DE2E /* _SBAlbum.m in Sources */,
 				4C87EE2E139CE44C0064DE2E /* _SBArtist.m in Sources */,
@@ -1338,7 +1327,6 @@
 				4CFB3EAE139D11CE008DC01A /* SBImportOperation.mm in Sources */,
 				4CFB3EF2139D4693008DC01A /* SBTracklistController.mm in Sources */,
 				4CFB3EF8139D47EA008DC01A /* SBViewController.m in Sources */,
-				4CFB3EFB139D4E32008DC01A /* SBVerticalLine.m in Sources */,
 				4C7AA221139D530B0050BE95 /* RWTableHeaderCell.m in Sources */,
 				4C7AA222139D530B0050BE95 /* RWCornerView.m in Sources */,
 				4C7AA229139D53A50050BE95 /* SBTableView.m in Sources */,
