@@ -84,7 +84,6 @@
 @interface SBDatabaseController (Private)
 - (void)populatedDefaultSections;
 - (void)displayViewControllerForResource:(SBResource *)resource;
-- (void)animateTrackListButton;
 - (void)updateProgress:(NSTimer *)updatedTimer;
 
 // notifications
@@ -904,17 +903,6 @@
     //[files autorelease];
     return NO;
 }
-
-
-- (void)animateTrackListButton {
-
-    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"pulse"];
-    [animation setDuration:5.0f];
-    [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-
-    [[toggleButton layer] addAnimation:animation forKey:@"backgroungColor"];
-}
-
 
 
 
