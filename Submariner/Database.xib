@@ -24,8 +24,8 @@
                 <outlet property="rightVC" destination="yws-aa-txV" id="ZRO-sn-Exi"/>
                 <outlet property="sourceList" destination="15" id="96"/>
                 <outlet property="topbarBox" destination="162" id="165"/>
-                <outlet property="tracklistPopover" destination="Adu-Xv-JyI" id="6HL-WY-zWi"/>
-                <outlet property="tracklistPopoverVC" destination="UU0-Po-5l1" id="eZF-qG-uBI"/>
+                <outlet property="tracklistContainmentBox" destination="neC-xR-4bn" id="jLu-00-92L"/>
+                <outlet property="tracklistVC" destination="UU0-Po-5l1" id="I76-My-MNO"/>
                 <outlet property="volumeButton" destination="Sgq-JE-YWM" id="ye3-qO-rO1"/>
                 <outlet property="volumePopover" destination="2nc-GS-yTR" id="HHE-dW-G4q"/>
                 <outlet property="window" destination="1" id="350"/>
@@ -318,7 +318,7 @@ IA
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="Sgq-JE-YWM">
                             <rect key="frame" x="10" y="14" width="27" height="25"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="volume" catalog="system" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="Ofy-se-eTz">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
@@ -616,17 +616,50 @@ Gw
             <point key="canvasLocation" x="-152" y="-364"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="297"/>
-        <customView id="uUw-JF-ATV" userLabel="Album Art View">
-            <rect key="frame" x="0.0" y="0.0" width="163" height="181"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+        <customView id="uUw-JF-ATV" userLabel="Tracklist Sidebar View">
+            <rect key="frame" x="0.0" y="0.0" width="230" height="367"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView id="215" customClass="SBCoverImageView">
-                    <rect key="frame" x="0.0" y="0.0" width="163" height="195"/>
+                <splitView dividerStyle="thin" id="aAG-gb-Gdq">
+                    <rect key="frame" x="0.0" y="0.0" width="230" height="367"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NoArtwork" id="216"/>
-                </imageView>
+                    <subviews>
+                        <customView fixedFrame="YES" id="pcK-LA-pJG">
+                            <rect key="frame" x="0.0" y="0.0" width="230" height="136"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <subviews>
+                                <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="neC-xR-4bn" userLabel="Tracklist Containment Box">
+                                    <rect key="frame" x="0.0" y="0.0" width="230" height="136"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <view key="contentView" id="dv4-gh-fP9">
+                                        <rect key="frame" x="0.0" y="0.0" width="230" height="136"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </view>
+                                </box>
+                            </subviews>
+                        </customView>
+                        <customView id="jGx-de-wfl">
+                            <rect key="frame" x="0.0" y="137" width="230" height="230"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                            <subviews>
+                                <imageView id="215" customClass="SBCoverImageView">
+                                    <rect key="frame" x="0.0" y="0.0" width="230" height="230"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="NoArtwork" id="216"/>
+                                </imageView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="jGx-de-wfl" secondAttribute="height" multiplier="1:1" id="EmX-Na-vlg"/>
+                            </constraints>
+                        </customView>
+                    </subviews>
+                    <holdingPriorities>
+                        <real value="250"/>
+                        <real value="445"/>
+                    </holdingPriorities>
+                </splitView>
             </subviews>
-            <point key="canvasLocation" x="708.5" y="108.5"/>
+            <point key="canvasLocation" x="742" y="201.5"/>
         </customView>
         <viewController id="kgz-hh-1FR" userLabel="Left Sidebar View Controller">
             <connections>
@@ -638,12 +671,11 @@ Gw
                 <outlet property="view" destination="9" id="RSo-UR-GCC"/>
             </connections>
         </viewController>
-        <viewController id="UU0-Po-5l1" userLabel="Tracklist Popover View Controller"/>
-        <popover behavior="t" id="Adu-Xv-JyI" userLabel="Tracklist Popover">
+        <viewController id="UU0-Po-5l1" userLabel="Tracklist Sidebar View Controller">
             <connections>
-                <outlet property="contentViewController" destination="UU0-Po-5l1" id="iwT-LE-ft9"/>
+                <outlet property="view" destination="uUw-JF-ATV" id="bed-NR-Hd9"/>
             </connections>
-        </popover>
+        </viewController>
         <viewController id="jAr-li-mdC" userLabel="Volume Popover View Controller">
             <connections>
                 <outlet property="view" destination="Y4Y-TV-6ce" id="lvI-hy-EP6"/>

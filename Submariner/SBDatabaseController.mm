@@ -288,12 +288,20 @@
     NSSplitViewItem*a=[NSSplitViewItem sidebarWithViewController:leftVC];
     //[a setTitlebarSeparatorStyle:NSTitlebarSeparatorStyleShadow];
     [splitVC addSplitViewItem:a];
-    //a.canCollapse=NO;
 
     // prepare the right pane
     NSSplitViewItem*b=[NSSplitViewItem splitViewItemWithViewController:rightVC];
     b.titlebarSeparatorStyle = NSTitlebarSeparatorStyleNone;
     [splitVC addSplitViewItem:b];
+    
+    // prepare the righter pane
+    NSSplitViewItem*c=[NSSplitViewItem splitViewItemWithViewController:tracklistVC];
+    c.titlebarSeparatorStyle = NSTitlebarSeparatorStyleNone;
+    //[tracklistContainmentBox.contentView addSubview: [tracklistController view]];
+    tracklistContainmentBox.contentView = [tracklistController view];
+    [splitVC addSplitViewItem:c];
+    c.canCollapse=YES;
+    
     // swap the old NSSplitView with the new one
     [self.window.contentView replaceSubview:mainSplitView with:splitVC.view ];
 
@@ -386,14 +394,7 @@
 
 
 - (IBAction)toggleTrackList:(id)sender {
-    tracklistPopoverVC.view = tracklistController.view;
-    NSView *view = playPauseButton;
-    NSRect boundary = view.bounds;
-    if (tracklistPopover.shown) {
-        [tracklistPopover close];
-    } else {
-        [tracklistPopover showRelativeToRect: boundary ofView: view preferredEdge:NSMaxYEdge];
-    }
+    // TODO: this
 }
 
 
@@ -1345,29 +1346,18 @@
 #pragma mark NSWindow Delegate
 
 - (void)windowWillClose:(NSNotification *)notification {
-	if([tracklistPopover isShown])
-		[self toggleTrackList:nil];
 }
 
 - (void)windowWillMove:(NSNotification *)notification {
     containerView.frame = rightVC.view.safeAreaRect;
-    if([tracklistPopover isShown]) {
-        [self toggleTrackList:nil];
-    }
 }
 
 - (void)windowWillStartLiveResize:(NSNotification *)notification {
     containerView.frame = rightVC.view.safeAreaRect;
-    if([tracklistPopover isShown]) {
-        [self toggleTrackList:nil];
-    }
 }
 
 
 - (void)windowWillMiniaturize:(NSNotification *)notification {
-    if([tracklistPopover isShown]) {
-        [self toggleTrackList:nil];
-    }
 }
 
 

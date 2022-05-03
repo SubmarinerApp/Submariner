@@ -86,8 +86,8 @@
     NSSplitViewController *splitVC;
     IBOutlet NSBox *containerView;
     
-    IBOutlet NSPopover *tracklistPopover;
-    IBOutlet NSViewController *tracklistPopoverVC;
+    IBOutlet NSViewController *tracklistVC;
+    IBOutlet NSBox *tracklistContainmentBox;
     
     IBOutlet NSButton *volumeButton;
     IBOutlet NSPopover *volumePopover;
