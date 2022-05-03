@@ -297,6 +297,8 @@
     // prepare the righter pane
     NSSplitViewItem*c=[NSSplitViewItem splitViewItemWithViewController:tracklistVC];
     c.titlebarSeparatorStyle = NSTitlebarSeparatorStyleNone;
+    // This uses the width in the nib, which is specified to show everything while not looking ridiculous.
+    c.maximumThickness = [tracklistController view].frame.size.width;
     //[tracklistContainmentBox.contentView addSubview: [tracklistController view]];
     tracklistContainmentBox.contentView = [tracklistController view];
     [splitVC addSplitViewItem:c];
