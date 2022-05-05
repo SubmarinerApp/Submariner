@@ -307,6 +307,7 @@
     tracklistContainmentBox.contentView = [tracklistController view];
     [splitVC addSplitViewItem: tracklistSplit];
     tracklistSplit.canCollapse=YES;
+    tracklistSplit.collapsed = YES;
     
     // swap the old NSSplitView with the new one
     [self.window.contentView replaceSubview:mainSplitView with:splitVC.view ];
