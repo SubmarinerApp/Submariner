@@ -154,11 +154,13 @@
 		@"Number of valid views in priority list is less than the subview count"
 		@" of split view %p.",
 		sender);
+    /*
 	NSAssert3(fabs(delta) < 0.5,
 		@"Split view %p resized smaller than minimum %@ of %f",
 		sender,
 		isVertical ? @"width" : @"height",
 		sender.frame.size.width - delta);
+     */
 	
 	CGFloat offset = 0;
 	CGFloat dividerThickness = [sender dividerThickness];
