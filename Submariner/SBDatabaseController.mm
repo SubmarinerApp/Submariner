@@ -295,14 +295,17 @@
     [splitVC addSplitViewItem:b];
     
     // prepare the righter pane
-    NSSplitViewItem*c=[NSSplitViewItem splitViewItemWithViewController:tracklistVC];
-    c.titlebarSeparatorStyle = NSTitlebarSeparatorStyleNone;
+    tracklistSplit=[NSSplitViewItem splitViewItemWithViewController:tracklistVC];
+    tracklistSplit.titlebarSeparatorStyle = NSTitlebarSeparatorStyleNone;
     // This uses the width in the nib, which is specified to show everything while not looking ridiculous.
-    c.maximumThickness = [tracklistController view].frame.size.width;
+    tracklistSplit.maximumThickness = [tracklistController view].frame.size.width;
+    // Width of tracklist title + icon + leading bit of padding + bit of end padding before time
+    // tracklistContainmentBox.frame.size.width would be default size to clamp to if you want
+    tracklistSplit.minimumThickness = 150 + 36;
     //[tracklistContainmentBox.contentView addSubview: [tracklistController view]];
     tracklistContainmentBox.contentView = [tracklistController view];
-    [splitVC addSplitViewItem:c];
-    c.canCollapse=YES;
+    [splitVC addSplitViewItem: tracklistSplit];
+    tracklistSplit.canCollapse=YES;
     
     // swap the old NSSplitView with the new one
     [self.window.contentView replaceSubview:mainSplitView with:splitVC.view ];
@@ -396,7 +399,7 @@
 
 
 - (IBAction)toggleTrackList:(id)sender {
-    // TODO: this
+    [tracklistSplit setCollapsed: ![tracklistSplit isCollapsed]];
 }
 
 

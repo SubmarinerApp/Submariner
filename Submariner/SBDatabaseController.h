@@ -84,6 +84,7 @@
     IBOutlet NSViewController *leftVC;
     IBOutlet NSViewController *rightVC;
     NSSplitViewController *splitVC;
+    NSSplitViewItem *tracklistSplit;
     IBOutlet NSBox *containerView;
     
     IBOutlet NSViewController *tracklistVC;
