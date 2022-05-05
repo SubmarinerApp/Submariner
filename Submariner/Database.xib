@@ -317,7 +317,7 @@ IA
                     <toolbarItem implicitItemIdentifier="7BB2B735-54FA-4211-874E-DC54D248F3E5" label="Volume" paletteLabel="Volume" image="volume" catalog="system" sizingBehavior="auto" id="Yk7-oS-omj">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="Sgq-JE-YWM">
-                            <rect key="frame" x="10" y="14" width="27" height="25"/>
+                            <rect key="frame" x="10" y="14" width="26" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="volume" catalog="system" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="Ofy-se-eTz">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -327,6 +327,20 @@ IA
                                 <action selector="toggleVolume:" target="-2" id="eXX-QD-Vek"/>
                             </connections>
                         </button>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="7F4AA384-9A44-4EB0-8789-7EEF116D73AF" label="Tracklist" paletteLabel="Tracklist" image="music.note.list" catalog="system" sizingBehavior="auto" id="aAW-If-dJs">
+                        <nil key="toolTip"/>
+                        <button key="view" verticalHuggingPriority="750" id="5fD-bB-Du9">
+                            <rect key="frame" x="13" y="14" width="27" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="music.note.list" catalog="system" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="XuZ-5I-yef">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
+                        <connections>
+                            <action selector="toggleTrackList:" target="-2" id="cXb-yx-2pH"/>
+                        </connections>
                     </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
@@ -341,6 +355,8 @@ IA
                     <toolbarItem reference="S62-qJ-fzK"/>
                     <toolbarItem reference="4vs-eG-BJh"/>
                     <toolbarItem reference="Yk7-oS-omj"/>
+                    <toolbarItem reference="otC-h2-Pjt"/>
+                    <toolbarItem reference="aAW-If-dJs"/>
                 </defaultToolbarItems>
             </toolbar>
             <contentBorderThickness minY="40" maxY="0.0"/>
@@ -729,6 +745,7 @@ Gw
         <image name="NoArtwork" width="512" height="512"/>
         <image name="backward" catalog="system" width="19" height="12"/>
         <image name="forward" catalog="system" width="19" height="12"/>
+        <image name="music.note.list" catalog="system" width="16" height="15"/>
         <image name="off" width="16" height="16"/>
         <image name="pause" catalog="system" width="9" height="13"/>
         <image name="play" catalog="system" width="12" height="13"/>
