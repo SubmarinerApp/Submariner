@@ -296,6 +296,7 @@
     
     // prepare the righter pane
     tracklistSplit=[NSSplitViewItem splitViewItemWithViewController:tracklistVC];
+    // XXX: Not really working like you'd expect
     tracklistSplit.titlebarSeparatorStyle = NSTitlebarSeparatorStyleNone;
     // This uses the width in the nib, which is specified to show everything while not looking ridiculous.
     tracklistSplit.maximumThickness = [tracklistController view].frame.size.width;
@@ -399,7 +400,7 @@
 
 
 - (IBAction)toggleTrackList:(id)sender {
-    [tracklistSplit setCollapsed: ![tracklistSplit isCollapsed]];
+    [tracklistSplit.animator setCollapsed: ![tracklistSplit isCollapsed]];
 }
 
 
