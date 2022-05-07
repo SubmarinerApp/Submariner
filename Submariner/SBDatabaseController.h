@@ -152,6 +152,9 @@
 - (IBAction)shuffle:(id)sender;
 - (IBAction)repeat:(id)sender;
 - (IBAction)search:(id)sender;
+- (IBAction)showIndices:(id)sender;
+- (IBAction)showAlbums:(id)sender;
+- (IBAction)showPodcasts:(id)sender;
 
 // NSUserInterfaceValidations protocol is implemented by AppDelegate, but logic lives here
 - (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item;

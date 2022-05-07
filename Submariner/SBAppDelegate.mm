@@ -288,6 +288,22 @@
     [databaseController previousTrack:sender];
 }
 
+- (IBAction)search:(id)sender {
+    [databaseController search:sender];
+}
+
+- (IBAction)showIndices:(id)sender {
+    [databaseController showIndices:sender];
+}
+
+- (IBAction)showAlbums:(id)sender {
+    [databaseController showAlbums:sender];
+}
+
+- (IBAction)showPodcasts:(id)sender {
+    [databaseController showPodcasts:sender];
+}
+
 - (IBAction)showWebsite:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://www.read-write.fr/"]];
 }

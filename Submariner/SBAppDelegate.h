@@ -77,5 +77,9 @@
 - (IBAction)previousTrack:(id)sender;
 - (IBAction)showWebsite:(id)sender;
 - (IBAction)playTrackForMenuItem:(id)sender;
+- (IBAction)search:(id)sender;
+- (IBAction)showIndices:(id)sender;
+- (IBAction)showAlbums:(id)sender;
+- (IBAction)showPodcasts:(id)sender;
 
 @end

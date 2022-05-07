@@ -328,10 +328,31 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="CjL-a2-UBJ"/>
+                            <menuItem title="Indices" keyEquivalent="1" id="55g-AS-KKB">
+                                <connections>
+                                    <action selector="showIndices:" target="-1" id="fjk-mu-Tqe"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Albums" keyEquivalent="2" id="vwP-t7-5am">
+                                <connections>
+                                    <action selector="showAlbums:" target="-1" id="QZU-gc-pvx"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Podcasts" keyEquivalent="3" id="q8o-ph-bkR">
+                                <connections>
+                                    <action selector="showPodcasts:" target="-1" id="FPa-Tb-sZ8"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="QJS-St-0Uh"/>
                             <menuItem title="Show Sidebar" keyEquivalent="s" id="4oR-GM-6rE">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
                                     <action selector="toggleSidebar:" target="-1" id="v3y-0N-FQU"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Toggle Tracklist" keyEquivalent="t" id="542">
+                                <connections>
+                                    <action selector="toogleTracklist:" target="494" id="543"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="B89-9O-rLZ"/>
@@ -393,11 +414,6 @@
                             <menuItem title="Database" keyEquivalent="D" id="534">
                                 <connections>
                                     <action selector="zoomDatabaseWindow:" target="494" id="544"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Toggle Tracklist" keyEquivalent="t" id="542">
-                                <connections>
-                                    <action selector="toogleTracklist:" target="494" id="543"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="92">

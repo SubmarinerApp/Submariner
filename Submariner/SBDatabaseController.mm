@@ -651,6 +651,32 @@
 	[self setCurrentView:(SBAnimatedView *)[downloadsController view]];
 }
 
+- (IBAction)showIndices:(id)sender {
+    if (!self.server) {
+        return;
+    }
+    [serverLibraryController setDatabaseController:self];
+    [serverLibraryController setServer:self.server];
+    [self setCurrentView:(SBAnimatedView *)[serverLibraryController view]];
+}
+
+- (IBAction)showAlbums:(id)sender {
+    if (!self.server) {
+        return;
+    }
+    [serverHomeController setDatabaseController:self];
+    [serverHomeController setServer:self.server];
+    [self setCurrentView:(SBAnimatedView *)[serverHomeController view]];
+}
+
+- (IBAction)showPodcasts:(id)sender {
+    if (!self.server) {
+        return;
+    }
+    [serverPodcastController setServer:self.server];
+    [self setCurrentView:(SBAnimatedView *)[serverPodcastController view]];
+}
+
 
 - (IBAction)search:(id)sender {
     NSString *query = [sender stringValue];
@@ -1438,6 +1464,11 @@
     // Similar, but could use if prv/next track exist
     if (action == @selector(previousTrack:) || action == @selector(nextTrack:)) {
         return isPlaying;
+    }
+    
+    // only works if we have a server set
+    if (action == @selector(showIndices:) || action == @selector(showAlbums:) || action == @selector(showPodcasts:)) {
+        return self.server != nil;
     }
     
     return YES;
