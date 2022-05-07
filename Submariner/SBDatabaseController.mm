@@ -151,6 +151,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     // release all object references
+    [musicSearchController release];
     [musicController release];
     [musicTopbarController release];
     [downloadsController release];
