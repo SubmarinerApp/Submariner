@@ -656,9 +656,16 @@
     NSString *query = [sender stringValue];
     
     if(query && [query length] > 0) {
-        // Local
-        [self setCurrentView:(SBAnimatedView *)[musicSearchController view]];
-        [musicSearchController searchString:query];
+        if (self.server) {
+            // Remote
+            [serverSearchController setServer:self.server];
+            [self setCurrentView:(SBAnimatedView *)[serverSearchController view]];
+            [self.server searchWithQuery:query];
+        } else {
+            // Local
+            [self setCurrentView:(SBAnimatedView *)[musicSearchController view]];
+            [musicSearchController searchString:query];
+        }
     }
 }
 
