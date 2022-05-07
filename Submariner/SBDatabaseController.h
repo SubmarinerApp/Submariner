@@ -36,6 +36,11 @@
 #import <Quartz/Quartz.h>
 #import "SBWindowController.h"
 #import "SBMusicSearchController.h"
+#import "SBServerLibraryController.h"
+#import "SBServerHomeController.h"
+#import "SBServerPodcastController.h"
+#import "SBServerUserViewController.h"
+#import "SBServerSearchController.h"
 #import "SBSourceList.h"
 
 @class SBSplitView;
@@ -101,6 +106,12 @@
     SBServerTopbarController *serverTopbarController;
     // additional controllers
     SBMusicSearchController *musicSearchController;
+    SBServerLibraryController *serverLibraryController;
+    SBServerHomeController *serverHomeController;
+    SBServerPodcastController *serverPodcastController;
+    SBServerUserViewController *serverUserController;
+    SBServerSearchController *serverSearchController;
+    
     NSArray *resourceSortDescriptors;
     SBLibrary *library;
     
@@ -113,6 +124,8 @@
 @property (readwrite, retain) IBOutlet SBAnimatedView *currentView;
 @property (readwrite, retain) IBOutlet SBAddServerPlaylistController *addServerPlaylistController;
 @property (readwrite, retain) SBLibrary *library;
+// XXX: Make as part of SBServerController?
+@property (readwrite, retain) SBServer *server;
 
 - (void)setCurrentView:(SBAnimatedView *)newView;
 - (BOOL)openImportAlert:(NSWindow *)sender files:(NSArray *)files;

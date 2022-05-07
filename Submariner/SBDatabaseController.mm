@@ -37,10 +37,8 @@
 #import "SBEditServerController.h"
 #import "SBAddServerPlaylistController.h"
 #import "SBMusicController.h"
-#import "SBMusicTopbarController.h"
 #import "SBTracklistController.h"
 #import "SBPlaylistController.h"
-#import "SBServerTopbarController.h"
 #import "SBDownloadsController.h"
 #import "SBAnimatedView.h"
 #import "SBImportOperation.h"
@@ -93,6 +91,15 @@
 - (void)playerPlayStateNotification:(NSNotification *)notification;
 - (void)playerHaveMovieToPlayNotification:(NSNotification *)notification;
 
+- (void)subsonicConnectionFailed:(NSNotification *)notification;
+- (void)subsonicConnectionSucceeded:(NSNotification *)notification;
+- (void)subsonicIndexesUpdated:(NSNotification *)notification;
+- (void)subsonicAlbumsUpdated:(NSNotification *)notification;
+- (void)subsonicPlaylistsUpdated:(NSNotification *)notification;
+- (void)subsonicPlaylistUpdated:(NSNotification *)notification;
+- (void)subsonicChatMessageAdded:(NSNotification *)notification;
+- (void)subsonicNowPlayingUpdated:(NSNotification *)notification;
+- (void)subsonicUserInfoUpdated:(NSNotification *)notification;
 @end
 
 
@@ -131,13 +138,16 @@
         
         // init view controllers
         musicController = [[SBMusicController alloc] initWithManagedObjectContext:self.managedObjectContext];
-        musicTopbarController = [[SBMusicTopbarController alloc] initWithManagedObjectContext:self.managedObjectContext];
         downloadsController = [[SBDownloadsController alloc] initWithManagedObjectContext:self.managedObjectContext];
         tracklistController = [[SBTracklistController alloc] initWithManagedObjectContext:self.managedObjectContext];
         playlistController = [[SBPlaylistController alloc] initWithManagedObjectContext:self.managedObjectContext];
-        serverTopbarController = [[SBServerTopbarController alloc] initWithManagedObjectContext:self.managedObjectContext];
         // additional VCs
         musicSearchController = [[SBMusicSearchController alloc] initWithManagedObjectContext:self.managedObjectContext];
+        serverLibraryController = [[SBServerLibraryController alloc] initWithManagedObjectContext:self.managedObjectContext];
+        serverHomeController = [[SBServerHomeController alloc] initWithManagedObjectContext:self.managedObjectContext];
+        serverPodcastController = [[SBServerPodcastController alloc] initWithManagedObjectContext:self.managedObjectContext];
+        serverUserController = [[SBServerUserViewController alloc] initWithManagedObjectContext:self.managedObjectContext];
+        serverSearchController = [[SBServerSearchController alloc] initWithManagedObjectContext:self.managedObjectContext];
         
         [tracklistController setDatabaseController:self];
     }
@@ -146,18 +156,24 @@
 
 - (void)dealloc
 {
+    // remove Subsonic observers
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:SBSubsonicConnectionSucceededNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:SBSubsonicConnectionFailedNotification object:nil];
     // remove queue operations observer
     [[NSOperationQueue sharedServerQueue] removeObserver:self forKeyPath:@"operationCount"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     // release all object references
+    [serverLibraryController release];
+    [serverHomeController release];
+    [serverPodcastController release];
+    [serverUserController release];
+    [serverSearchController release];
     [musicSearchController release];
     [musicController release];
-    [musicTopbarController release];
     [downloadsController release];
     [tracklistController release];
     [playlistController release];
-    [serverTopbarController release];
     [resourceSortDescriptors release];
     [library release];
     [progressUpdateTimer release];
@@ -198,14 +214,9 @@
     [editServerController setManagedObjectContext:self.managedObjectContext];
     [addServerPlaylistController setManagedObjectContext:self.managedObjectContext];
     [musicController setDatabaseController:self];
-    [musicTopbarController setDatabaseController:self];
-    [musicTopbarController setMusicController:musicController];
     
     // source list drag and drop
     [sourceList registerForDraggedTypes:[NSArray arrayWithObject:SBLibraryTableViewDataType]];
-    
-    // add the ability to server topbar to change view with animation
-    [serverTopbarController setDatabaseController:self];
     
     // observer number of currently running operations to animate progress
     [[NSOperationQueue sharedServerQueue] addObserver:self
@@ -238,6 +249,17 @@
                                              selector:@selector(playerHaveMovieToPlayNotification:)
                                                  name:SBPlayerMovieToPlayNotification
                                                object:nil];
+    
+    // observe Subsonic connection
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(subsonicConnectionSucceeded:)
+                                                 name:SBSubsonicConnectionSucceededNotification
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(subsonicConnectionFailed:)
+                                                 name:SBSubsonicConnectionFailedNotification
+                                               object:nil];
 
     // setup main box subviews animation 
     [self setCurrentView:(SBAnimatedView *)[musicController view]];
@@ -255,7 +277,6 @@
                                                     forKey:@"subviews"];
     [contentView setAnimations:ani];
     
-    [topbarBox setContentView:[musicTopbarController view]];
     [self setCurrentView:(SBAnimatedView *)[musicController view]];
                 
     
@@ -628,7 +649,6 @@
 
 - (void)showDownloadView {
 	[self setCurrentView:(SBAnimatedView *)[downloadsController view]];
-	[topbarBox setContentView:nil];
 }
 
 
@@ -862,39 +882,26 @@
 
         [self setCurrentView:(SBAnimatedView *)[musicController view]];
         
-        [topbarBox setContentView:nil];
-        [topbarBox setContentView:[musicTopbarController view]];
-        
     }  else if([resource isKindOfClass:[SBDownloads class]]) {
     
         [self setCurrentView:(SBAnimatedView *)[downloadsController view]];
         
-        [topbarBox setContentView:nil];
-        //[topbarBox setContentView:[musicTopbarController view]];
-        
     } else if([resource isKindOfClass:[SBTracklist class]]) {
         
         [self setCurrentView:(SBAnimatedView *)[tracklistController view]];
-        
-        [topbarBox setContentView:nil];
-        //[topbarBox setContentView:[musicTopbarController view]];
         
     } else if([resource isKindOfClass:[SBPlaylist class]]) {
         
         [playlistController setPlaylist:(SBPlaylist *)resource];
         [self setCurrentView:(SBAnimatedView *)[playlistController view]];
         
-        [topbarBox setContentView:nil];
-        //[topbarBox setContentView:[musicTopbarController view]];
-        
     } else if([resource isKindOfClass:[SBServer class]]) {
-    
-        [topbarBox setContentView:nil];
-        [topbarBox setContentView:[serverTopbarController view]];
-        
-        [serverTopbarController setServer:(SBServer *)resource];  
-        [serverTopbarController setViewControllerAtIndex:[(SBServer *)resource selectedTabIndex]];
-
+        // TODO: this
+        SBServer *server = (__bridge SBServer*)resource;
+        [self setServer: server]; // set to nil afterwards?
+        [serverLibraryController setDatabaseController:self];
+        [serverLibraryController setServer: server];
+        [self setCurrentView:(SBAnimatedView *)[serverLibraryController view]];
     }
 }
 
@@ -950,6 +957,32 @@
         [server getServerPlaylists];
 }
 
+
+- (void)subsonicConnectionFailed:(NSNotification *)notification {
+    if([[notification object] isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *attr = [notification object];
+        NSInteger code = [[attr valueForKey:@"code"] intValue];
+        
+        // Even creating the alert on the main thread is a problem
+        dispatch_async(dispatch_get_main_queue(), ^{
+        NSAlert *alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"Subsonic Error (code %ld)", code]
+                                         defaultButton:@"OK"
+                                       alternateButton:nil
+                                           otherButton:nil
+                             informativeTextWithFormat:[attr valueForKey:@"message"]];
+        
+        [alert performSelectorOnMainThread:@selector(runModal) withObject:nil waitUntilDone:NO];
+        });
+    }
+}
+
+
+- (void)subsonicConnectionSucceeded:(NSNotification *)notification {
+    // loading of server content, major !!!
+    [self.server getServerLicense];
+    [self.server getServerIndexes];
+    [self.server getServerPlaylists];
+}
 
 
 
