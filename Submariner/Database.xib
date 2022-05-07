@@ -24,7 +24,6 @@
                 <outlet property="resourcesController" destination="92" id="108"/>
                 <outlet property="rightVC" destination="yws-aa-txV" id="ZRO-sn-Exi"/>
                 <outlet property="sourceList" destination="15" id="96"/>
-                <outlet property="topbarBox" destination="162" id="165"/>
                 <outlet property="tracklistContainmentBox" destination="neC-xR-4bn" id="jLu-00-92L"/>
                 <outlet property="tracklistVC" destination="UU0-Po-5l1" id="I76-My-MNO"/>
                 <outlet property="volumeButton" destination="Sgq-JE-YWM" id="ye3-qO-rO1"/>
@@ -144,21 +143,12 @@
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <box autoresizesSubviews="NO" boxType="custom" borderType="none" title="Box" titlePosition="noTitle" id="187" userLabel="Content Box">
-                                                    <rect key="frame" x="0.0" y="0.0" width="509" height="322"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="509" height="361"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <view key="contentView" id="Yfx-4j-bnf">
-                                                        <rect key="frame" x="0.0" y="0.0" width="509" height="322"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="509" height="361"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     </view>
-                                                </box>
-                                                <box autoresizesSubviews="NO" boxType="custom" borderType="none" title="Box" titlePosition="noTitle" id="162" userLabel="Topbar Box">
-                                                    <rect key="frame" x="0.0" y="321" width="509" height="40"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                    <view key="contentView" id="rbd-DE-0VE">
-                                                        <rect key="frame" x="0.0" y="0.0" width="509" height="40"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    </view>
-                                                    <color key="fillColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </box>
                                             </subviews>
                                         </view>
