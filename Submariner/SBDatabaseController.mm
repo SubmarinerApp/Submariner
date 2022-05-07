@@ -136,6 +136,8 @@
         tracklistController = [[SBTracklistController alloc] initWithManagedObjectContext:self.managedObjectContext];
         playlistController = [[SBPlaylistController alloc] initWithManagedObjectContext:self.managedObjectContext];
         serverTopbarController = [[SBServerTopbarController alloc] initWithManagedObjectContext:self.managedObjectContext];
+        // additional VCs
+        musicSearchController = [[SBMusicSearchController alloc] initWithManagedObjectContext:self.managedObjectContext];
         
         [tracklistController setDatabaseController:self];
     }
@@ -626,6 +628,17 @@
 - (void)showDownloadView {
 	[self setCurrentView:(SBAnimatedView *)[downloadsController view]];
 	[topbarBox setContentView:nil];
+}
+
+
+- (IBAction)search:(id)sender {
+    NSString *query = [sender stringValue];
+    
+    if(query && [query length] > 0) {
+        // Local
+        [self setCurrentView:(SBAnimatedView *)[musicSearchController view]];
+        [musicSearchController searchString:query];
+    }
 }
 
 

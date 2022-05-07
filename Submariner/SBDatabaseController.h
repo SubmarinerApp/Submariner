@@ -35,6 +35,7 @@
 #import <Foundation/Foundation.h>
 #import <Quartz/Quartz.h>
 #import "SBWindowController.h"
+#import "SBMusicSearchController.h"
 #import "SBSourceList.h"
 
 @class SBSplitView;
@@ -49,7 +50,6 @@
 @class SBServerTopbarController;
 @class SBLibrary;
 @class SBAnimatedView;
-@class SBMovieViewController;
 
 
 #define SBLibraryTableViewDataType @"SBLibraryTableViewDataType"
@@ -99,7 +99,8 @@
     SBTracklistController *tracklistController;
     SBPlaylistController *playlistController;
     SBServerTopbarController *serverTopbarController;
-    SBMovieViewController *movieViewController;
+    // additional controllers
+    SBMusicSearchController *musicSearchController;
     NSArray *resourceSortDescriptors;
     SBLibrary *library;
     
@@ -137,6 +138,7 @@
 - (IBAction)openHomePage:(id)sender;
 - (IBAction)shuffle:(id)sender;
 - (IBAction)repeat:(id)sender;
+- (IBAction)search:(id)sender;
 
 // NSUserInterfaceValidations protocol is implemented by AppDelegate, but logic lives here
 - (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item;
