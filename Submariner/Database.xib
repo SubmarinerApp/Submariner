@@ -24,6 +24,7 @@
                 <outlet property="resourcesController" destination="92" id="108"/>
                 <outlet property="rightVC" destination="yws-aa-txV" id="ZRO-sn-Exi"/>
                 <outlet property="searchField" destination="6O8-Ia-yxP" id="sOH-p9-fjy"/>
+                <outlet property="searchToolbarItem" destination="9F1-5u-YOh" id="dBM-nT-lOR"/>
                 <outlet property="sourceList" destination="15" id="96"/>
                 <outlet property="tracklistContainmentBox" destination="neC-xR-4bn" id="jLu-00-92L"/>
                 <outlet property="tracklistVC" destination="UU0-Po-5l1" id="I76-My-MNO"/>

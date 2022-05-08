@@ -693,7 +693,7 @@
             [musicSearchController searchString:query];
         }
     } else {
-        [self.window makeFirstResponder: searchField];
+        [searchToolbarItem beginSearchInteraction];
     }
 }
 

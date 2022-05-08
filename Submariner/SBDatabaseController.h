@@ -98,6 +98,7 @@
     IBOutlet NSButton *volumeButton;
     IBOutlet NSPopover *volumePopover;
     IBOutlet NSSearchField *searchField;
+    IBOutlet NSSearchToolbarItem *searchToolbarItem;
     
     SBMusicController *musicController;
     SBMusicTopbarController *musicTopbarController;
