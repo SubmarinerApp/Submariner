@@ -196,6 +196,11 @@
                                     <action selector="toogleTracklist:" target="494" id="543"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Toggle Server Users" keyEquivalent="u" id="QXo-h3-Ijg">
+                                <connections>
+                                    <action selector="toggleServerUsers:" target="494" id="QuS-kO-6Ep"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="B89-9O-rLZ"/>
                             <menuItem title="Enter Full Screen" keyEquivalent="f" id="DNL-Wr-kE4">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>

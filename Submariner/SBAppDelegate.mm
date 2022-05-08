@@ -272,6 +272,10 @@
     [databaseController toggleTrackList:sender];
 }
 
+- (IBAction)toggleServerUsers:(id)sender {
+    [databaseController toggleServerUsers:sender];
+}
+
 - (IBAction)playPause:(id)sender {
     [databaseController playPause:sender];
 }

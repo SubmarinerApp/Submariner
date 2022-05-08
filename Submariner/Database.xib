@@ -335,6 +335,20 @@ IA
                             <action selector="toggleTrackList:" target="-2" id="cXb-yx-2pH"/>
                         </connections>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="53034325-024B-4CCF-B5FE-A25369E507B3" label="Server Users" paletteLabel="Server Users" image="person.wave.2" catalog="system" sizingBehavior="auto" id="FV9-Yq-wbJ">
+                        <nil key="toolTip"/>
+                        <button key="view" verticalHuggingPriority="750" id="Pbg-ZK-NRU">
+                            <rect key="frame" x="24" y="14" width="27" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="person.wave.2" catalog="system" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="VHb-lF-zLZ">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                                <connections>
+                                    <action selector="toggleServerUsers:" target="-2" id="ECK-Vu-j7j"/>
+                                </connections>
+                            </buttonCell>
+                        </button>
+                    </toolbarItem>
                     <searchToolbarItem implicitItemIdentifier="F50E393F-C4BE-40CE-B71B-1B83BC2EE811" label="Search" paletteLabel="Search" visibilityPriority="1001" id="9F1-5u-YOh">
                         <nil key="toolTip"/>
                         <searchField key="view" verticalHuggingPriority="750" textCompletion="NO" id="6O8-Ia-yxP">
@@ -367,6 +381,7 @@ IA
                     <searchToolbarItem reference="9F1-5u-YOh"/>
                     <toolbarItem reference="otC-h2-Pjt"/>
                     <toolbarItem reference="aAW-If-dJs"/>
+                    <toolbarItem reference="FV9-Yq-wbJ"/>
                 </defaultToolbarItems>
             </toolbar>
             <contentBorderThickness minY="40" maxY="0.0"/>
@@ -758,6 +773,7 @@ Gw
         <image name="music.note.list" catalog="system" width="16" height="15"/>
         <image name="off" width="16" height="16"/>
         <image name="pause" catalog="system" width="9" height="13"/>
+        <image name="person.wave.2" catalog="system" width="17" height="16"/>
         <image name="play" catalog="system" width="12" height="13"/>
         <image name="repeat.circle" catalog="system" width="15" height="15"/>
         <image name="repeat.circle.fill" catalog="system" width="15" height="15"/>

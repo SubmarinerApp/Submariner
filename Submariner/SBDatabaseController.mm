@@ -425,7 +425,28 @@
 
 
 - (IBAction)toggleTrackList:(id)sender {
-    [tracklistSplit.animator setCollapsed: ![tracklistSplit isCollapsed]];
+    // as we can now switch the view
+    if (tracklistContainmentBox.contentView != [tracklistController view]) {
+        tracklistContainmentBox.contentView = [tracklistController view];
+        [tracklistSplit.animator setCollapsed: NO];
+    } else {
+        [tracklistSplit.animator setCollapsed: ![tracklistSplit isCollapsed]];
+    }
+}
+
+
+- (IBAction)toggleServerUsers:(id)sender {
+    if (!self.server) {
+        return;
+    }
+    [serverUserController setServer: self.server];
+    // as we can now switch the view
+    if (tracklistContainmentBox.contentView != [serverUserController view]) {
+        tracklistContainmentBox.contentView = [serverUserController view];
+        [tracklistSplit.animator setCollapsed: NO];
+    } else {
+        [tracklistSplit.animator setCollapsed: ![tracklistSplit isCollapsed]];
+    }
 }
 
 
@@ -1488,7 +1509,10 @@
     }
     
     // only works if we have a server set
-    if (action == @selector(showIndices:) || action == @selector(showAlbums:) || action == @selector(showPodcasts:)) {
+    if (action == @selector(showIndices:)
+        || action == @selector(showAlbums:)
+        || action == @selector(showPodcasts:)
+        || action == @selector(toggleServerUsers:)) {
         return self.server != nil;
     }
     

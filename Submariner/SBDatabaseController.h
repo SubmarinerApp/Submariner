@@ -135,6 +135,7 @@
 
 - (IBAction)openAudioFiles:(id)sender;
 - (IBAction)toggleTrackList:(id)sender;
+- (IBAction)toggleServerUsers:(id)sender;
 - (IBAction)addPlaylist:(id)sender;
 - (IBAction)addRemotePlaylist:(id)sender;
 - (IBAction)addServer:(id)sender;

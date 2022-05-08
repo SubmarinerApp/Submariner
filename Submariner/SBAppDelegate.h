@@ -69,6 +69,7 @@
 - (IBAction)openPreferences:(id)sender;
 - (IBAction)zoomDatabaseWindow:(id)sender;
 - (IBAction)toogleTracklist:(id)sender;
+- (IBAction)toggleServerUsers:(id)sender;
 - (IBAction)newPlaylist:(id)sender;
 - (IBAction)newServer:(id)sender;
 - (IBAction)playPause:(id)sender;
