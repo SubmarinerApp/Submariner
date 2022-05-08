@@ -685,12 +685,14 @@
 
 
 - (IBAction)search:(id)sender {
-    if (![sender respondsToSelector:@selector(stringValue:)]) {
+    NSString *query;
+    if ([sender isMemberOfClass: [NSSearchField class]]) {
+        query = [sender stringValue];
+    } else {
         [searchToolbarItem beginSearchInteraction];
         return;
     }
     
-    NSString *query = [sender stringValue];
     
     if(query && [query length] > 0) {
         if (self.server) {
@@ -704,7 +706,7 @@
             [musicSearchController searchString:query];
         }
     } else {
-        [searchToolbarItem beginSearchInteraction];
+        [searchToolbarItem endSearchInteraction];
     }
 }
 
