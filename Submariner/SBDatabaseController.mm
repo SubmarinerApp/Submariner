@@ -692,6 +692,8 @@
             [self setCurrentView:(SBAnimatedView *)[musicSearchController view]];
             [musicSearchController searchString:query];
         }
+    } else {
+        [self.window makeFirstResponder: searchField];
     }
 }
 
@@ -914,19 +916,27 @@
     if([resource isKindOfClass:[SBLibrary class]]) {
 
         [self setCurrentView:(SBAnimatedView *)[musicController view]];
+        [searchField setEnabled: YES];
+        [searchField setPlaceholderString: @"Local Search"];
         
     }  else if([resource isKindOfClass:[SBDownloads class]]) {
     
         [self setCurrentView:(SBAnimatedView *)[downloadsController view]];
+        [searchField setEnabled: NO];
+        [searchField setPlaceholderString: @""];
         
     } else if([resource isKindOfClass:[SBTracklist class]]) {
         
         [self setCurrentView:(SBAnimatedView *)[tracklistController view]];
+        [searchField setEnabled: NO];
+        [searchField setPlaceholderString: @""];
         
     } else if([resource isKindOfClass:[SBPlaylist class]]) {
         
         [playlistController setPlaylist:(SBPlaylist *)resource];
         [self setCurrentView:(SBAnimatedView *)[playlistController view]];
+        [searchField setEnabled: NO];
+        [searchField setPlaceholderString: @""];
         
     } else if([resource isKindOfClass:[SBServer class]]) {
         // TODO: this
@@ -935,6 +945,8 @@
         [serverLibraryController setDatabaseController:self];
         [serverLibraryController setServer: server];
         [self setCurrentView:(SBAnimatedView *)[serverLibraryController view]];
+        [searchField setEnabled: YES];
+        [searchField setPlaceholderString: @"Server Search"];
     }
 }
 
