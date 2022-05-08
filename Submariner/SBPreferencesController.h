@@ -38,7 +38,6 @@
 @interface SBPreferencesController : SBWindowController <NSToolbarDelegate> {
 
 	IBOutlet NSToolbar  *bar;
-	IBOutlet NSView *generalPreferenceView;
 	IBOutlet NSView *serversPreferenceView;
     IBOutlet NSView *playerPreferenceView;
     IBOutlet NSView *appearancePreferenceView;

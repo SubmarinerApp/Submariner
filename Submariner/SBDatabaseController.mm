@@ -191,22 +191,6 @@
     
     [super windowDidLoad];
     
-    // images templates
-    NSImage *image = [NSImage imageNamed:@"users"];
-    [image setTemplate:YES];
-    
-    image = [NSImage imageNamed:@"search"];
-    [image setTemplate:YES];
-    
-    image = [NSImage imageNamed:@"NSUserAccounts"];
-    [image setTemplate:YES];
-    
-    image = [NSImage imageNamed:@"Podcast"];
-    [image setTemplate:YES];
-    
-    image = [NSImage imageNamed:@"ServerHome"];
-    [image setTemplate:YES];
-    
     // populate default sections
     [self populatedDefaultSections];
     
