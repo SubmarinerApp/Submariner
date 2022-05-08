@@ -8,7 +8,6 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBServerUserViewController">
             <connections>
-                <outlet property="chatSplitView" destination="3" id="85"/>
                 <outlet property="nowPlayingCollectionView" destination="30" id="92"/>
                 <outlet property="nowPlayingController" destination="51" id="52"/>
                 <outlet property="view" destination="1" id="91"/>
@@ -20,67 +19,52 @@
             <rect key="frame" x="0.0" y="0.0" width="550" height="348"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <splitView autosaveName="UserSplitView" dividerStyle="thin" vertical="YES" id="3" customClass="SBSplitView">
-                    <rect key="frame" x="0.0" y="0.0" width="550" height="348"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <customView id="6">
+                    <rect key="frame" x="0.0" y="0.0" width="550" height="41"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <customView fixedFrame="YES" id="5">
-                            <rect key="frame" x="0.0" y="0.0" width="550" height="348"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                            <subviews>
-                                <customView id="6">
-                                    <rect key="frame" x="0.0" y="0.0" width="529" height="40"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <button imageHugsTitle="YES" id="13">
-                                            <rect key="frame" x="8" y="10.5" width="19.5" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                            <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRefreshTemplate" imagePosition="overlaps" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="14">
-                                                <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                            </buttonCell>
-                                            <connections>
-                                                <action selector="refreshNowPlaying:" target="-2" id="64"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                </customView>
-                                <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="27">
-                                    <rect key="frame" x="0.0" y="40" width="529" height="308"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <clipView key="contentView" id="qpe-bx-BwF">
-                                        <rect key="frame" x="0.0" y="0.0" width="529" height="308"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <subviews>
-                                            <collectionView focusRingType="none" maxNumberOfColumns="1" id="30">
-                                                <rect key="frame" x="0.0" y="0.0" width="529" height="308"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="secondaryBackgroundColor" name="controlAlternatingRowColor" catalog="System" colorSpace="catalog"/>
-                                                <connections>
-                                                    <binding destination="51" name="content" keyPath="arrangedObjects" id="55"/>
-                                                    <outlet property="itemPrototype" destination="31" id="33"/>
-                                                </connections>
-                                            </collectionView>
-                                        </subviews>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                    </clipView>
-                                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="29">
-                                        <rect key="frame" x="1" y="144" width="233" height="15"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                    </scroller>
-                                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="28">
-                                        <rect key="frame" x="234" y="1" width="15" height="143"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                    </scroller>
-                                </scrollView>
-                            </subviews>
-                        </customView>
+                        <button imageHugsTitle="YES" id="13">
+                            <rect key="frame" x="29" y="11.5" width="19.5" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSRefreshTemplate" imagePosition="overlaps" alignment="center" state="on" imageScaling="proportionallyDown" inset="2" id="14">
+                                <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="refreshNowPlaying:" target="-2" id="64"/>
+                            </connections>
+                        </button>
                     </subviews>
-                    <holdingPriorities>
-                        <real value="250"/>
-                    </holdingPriorities>
-                </splitView>
+                </customView>
+                <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="27">
+                    <rect key="frame" x="0.0" y="41" width="550" height="307"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <clipView key="contentView" id="qpe-bx-BwF">
+                        <rect key="frame" x="0.0" y="0.0" width="550" height="307"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView focusRingType="none" maxNumberOfColumns="1" id="30">
+                                <rect key="frame" x="0.0" y="0.0" width="550" height="307"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                <color key="secondaryBackgroundColor" name="controlAlternatingRowColor" catalog="System" colorSpace="catalog"/>
+                                <connections>
+                                    <binding destination="51" name="content" keyPath="arrangedObjects" id="55"/>
+                                    <outlet property="itemPrototype" destination="31" id="33"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </clipView>
+                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="29">
+                        <rect key="frame" x="1" y="144" width="233" height="15"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="28">
+                        <rect key="frame" x="534" y="0.0" width="16" height="299"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </scroller>
+                </scrollView>
             </subviews>
             <point key="canvasLocation" x="139" y="136"/>
         </customView>
