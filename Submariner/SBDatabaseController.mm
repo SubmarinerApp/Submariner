@@ -440,6 +440,7 @@
         return;
     }
     [serverUserController setServer: self.server];
+    [serverUserController viewDidLoad];
     // as we can now switch the view
     if (tracklistContainmentBox.contentView != [serverUserController view]) {
         tracklistContainmentBox.contentView = [serverUserController view];
