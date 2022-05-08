@@ -21,7 +21,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="80" customClass="SBAnimatedView">
             <rect key="frame" x="0.0" y="0.0" width="619" height="398"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -60,9 +60,9 @@
                                         <rect key="frame" x="0.0" y="0.0" width="175" height="357"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" id="183">
+                                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" id="183" customClass="SBTableView">
                                                 <rect key="frame" x="0.0" y="0.0" width="175" height="357"/>
-                                                <autoresizingMask key="autoresizingMask"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
@@ -75,7 +75,7 @@
                                                         <textFieldCell key="dataCell" scrollable="YES" lineBreakMode="clipping" alignment="left" title="Text Cell" usesSingleLineMode="YES" id="187">
                                                             <font key="font" metaFont="cellTitle"/>
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                            <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                         <connections>
@@ -124,7 +124,7 @@
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <ikCellsStyle key="cellsStyleMask" shadowed="YES" titled="YES" subtitled="YES"/>
                                                                 <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
-                                                                <size key="cellSize" width="80" height="80"/>
+                                                                <size key="cellSize" width="297" height="297"/>
                                                                 <connections>
                                                                     <binding destination="137" name="content" keyPath="arrangedObjects" id="140"/>
                                                                     <binding destination="137" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="140" id="169"/>
@@ -137,7 +137,7 @@
                                                         <rect key="frame" x="-100" y="-100" width="127" height="15"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
-                                                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="106">
+                                                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="106">
                                                         <rect key="frame" x="428" y="0.0" width="16" height="158"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
@@ -160,7 +160,7 @@
                                                         <subviews>
                                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" headerView="110" id="108" customClass="SBTableView">
                                                                 <rect key="frame" x="0.0" y="0.0" width="692" height="213"/>
-                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
@@ -336,25 +336,25 @@
         </customView>
         <arrayController mode="entity" entityName="Index" automaticallyPreparesContent="YES" id="128" userLabel="Artists Controller">
             <connections>
-                <binding destination="-2" name="contentSet" keyPath="server.indexes" id="130"/>
-                <binding destination="-2" name="managedObjectContext" keyPath="managedObjectContext" id="129"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="artistSortDescriptor" id="136"/>
+                <binding destination="-2" name="managedObjectContext" keyPath="managedObjectContext" id="129"/>
+                <binding destination="-2" name="contentSet" keyPath="server.indexes" id="130"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Album" automaticallyPreparesContent="YES" id="137" userLabel="Albums Controller">
             <connections>
+                <binding destination="-2" name="managedObjectContext" keyPath="managedObjectContext" id="138"/>
                 <binding destination="128" name="contentSet" keyPath="selection.albums" id="141">
                     <dictionary key="options">
                         <integer key="NSRaisesForNotApplicableKeys" value="0"/>
                     </dictionary>
                 </binding>
-                <binding destination="-2" name="managedObjectContext" keyPath="managedObjectContext" id="138"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Track" automaticallyPreparesContent="YES" id="144" userLabel="Tracks Controller">
             <connections>
-                <binding destination="137" name="contentSet" keyPath="selection.tracks" id="146"/>
                 <binding destination="-2" name="managedObjectContext" keyPath="managedObjectContext" id="145"/>
+                <binding destination="137" name="contentSet" keyPath="selection.tracks" id="146"/>
                 <binding destination="-2" name="sortDescriptors" keyPath="trackSortDescriptor" id="157"/>
             </connections>
         </arrayController>
