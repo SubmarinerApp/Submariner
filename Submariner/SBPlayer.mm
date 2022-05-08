@@ -324,23 +324,24 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     // Caching is handled when we request it now, including its file name
     isCaching = NO;
     
-    // play the song remotely (QTMovie from QTKit framework) or locally (AudioPlayer from SFBAudioEngine framework)
     if(self.currentTrack.isVideo) {
         [self showVideoAlert];
         return;
     } else {
-        if([self.currentTrack.isLocal boolValue]) { // should add video exception here
-            [self playLocalWithURL:[self.currentTrack streamURL]];
-            //[self playRemoteWithURL:[self.currentTrack streamURL]];
+        NSURL *url = [self.currentTrack.localTrack streamURL];
+        if (url == nil) {
+            url = [self.currentTrack streamURL];
+        }
+        // SFBAudioEngine has issues with HTTP resources, and doesn't support some of the AVF features,
+        // like spatialized audio. Nowadays, codec support in CoreAudio is better, and where it's weak,
+        // like Vorbis tags, SFB can pick ip the slack. Using AVF is more predictable in general.
+        // XXX: Override somewhere?
+        BOOL useLocalPlayer = NO;
+        if (useLocalPlayer) {
+            [self playLocalWithURL:url];
         } else {
-            if(self.currentTrack.localTrack != nil) {
-                [self playLocalWithURL:[self.currentTrack.localTrack streamURL]];
-                //[self playRemoteWithURL:[self.currentTrack.localTrack streamURL]];
-            } else {
-                //[self playLocalWithURL:[self.currentTrack streamURL]];
-                [self playRemoteWithURL:[self.currentTrack streamURL]];
-            }
-        }   
+            [self playRemoteWithURL:url];
+        }
     }
     
     // setup player for playing
