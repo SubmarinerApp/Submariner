@@ -206,8 +206,11 @@
 }
 
 - (void)subsonicCoversUpdatedNotification:(NSNotification *)notification {
-    [nowPlayingController rearrangeObjects];
-    [nowPlayingCollectionView setNeedsDisplay:YES];
+    // has to be done on UI thread, of course
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [nowPlayingController rearrangeObjects];
+        [nowPlayingCollectionView setNeedsDisplay:YES];
+    });
 }
 
 
