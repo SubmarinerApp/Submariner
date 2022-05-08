@@ -914,25 +914,29 @@
 - (void)displayViewControllerForResource:(SBResource *)resource {
     // swith view relative to a selected resource
     if([resource isKindOfClass:[SBLibrary class]]) {
-
+        
+        [self setServer: nil];
         [self setCurrentView:(SBAnimatedView *)[musicController view]];
         [searchField setEnabled: YES];
         [searchField setPlaceholderString: @"Local Search"];
         
     }  else if([resource isKindOfClass:[SBDownloads class]]) {
-    
+        
+        [self setServer: nil];
         [self setCurrentView:(SBAnimatedView *)[downloadsController view]];
         [searchField setEnabled: NO];
         [searchField setPlaceholderString: @""];
         
     } else if([resource isKindOfClass:[SBTracklist class]]) {
         
+        [self setServer: nil];
         [self setCurrentView:(SBAnimatedView *)[tracklistController view]];
         [searchField setEnabled: NO];
         [searchField setPlaceholderString: @""];
         
     } else if([resource isKindOfClass:[SBPlaylist class]]) {
         
+        [self setServer: nil];
         [playlistController setPlaylist:(SBPlaylist *)resource];
         [self setCurrentView:(SBAnimatedView *)[playlistController view]];
         [searchField setEnabled: NO];
