@@ -48,11 +48,9 @@
 @class SBEditServerController;
 @class SBAddServerPlaylistController;
 @class SBMusicController;
-@class SBMusicTopbarController;
 @class SBDownloadsController;
 @class SBTracklistController;
 @class SBPlaylistController;
-@class SBServerTopbarController;
 @class SBLibrary;
 @class SBAnimatedView;
 
@@ -73,7 +71,6 @@
     IBOutlet SBEditServerController *editServerController;
     SBAddServerPlaylistController *addServerPlaylistController;
     IBOutlet NSBox *mainBox;
-    IBOutlet NSBox *topbarBox;
     IBOutlet SBAnimatedView *currentView;
     IBOutlet NSProgressIndicator *progressIndicator;
     IBOutlet NSButton *toggleButton;
@@ -101,11 +98,9 @@
     IBOutlet NSSearchToolbarItem *searchToolbarItem;
     
     SBMusicController *musicController;
-    SBMusicTopbarController *musicTopbarController;
     SBDownloadsController *downloadsController;
     SBTracklistController *tracklistController;
     SBPlaylistController *playlistController;
-    SBServerTopbarController *serverTopbarController;
     // additional controllers
     SBMusicSearchController *musicSearchController;
     SBServerLibraryController *serverLibraryController;
