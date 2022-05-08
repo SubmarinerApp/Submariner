@@ -39,14 +39,11 @@
 
 @interface SBServerUserViewController : SBServerViewController {
     IBOutlet NSTextView *chatTextView;
-    IBOutlet NSArrayController *chatMessagesController;
     IBOutlet NSArrayController *nowPlayingController;
     IBOutlet NSCollectionView *nowPlayingCollectionView;
-    IBOutlet NSSplitView *chatSplitView;
     
     NSTimer *refreshNowPlayingTimer;
     NSArray *nowPlayingSortDescriptors;
-    SBPrioritySplitViewDelegate *splitViewDelegate;
 }
 
 @property (readwrite, retain) NSArray *nowPlayingSortDescriptors;

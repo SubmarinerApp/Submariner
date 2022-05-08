@@ -93,7 +93,6 @@
                                                   object:nil];
     
     [nowPlayingSortDescriptors release];
-    [splitViewDelegate release];
     [refreshNowPlayingTimer release];
     [super dealloc];
 }
@@ -102,27 +101,6 @@
 - (void)loadView {
     [super loadView];
     
-    
-    // split view
-    splitViewDelegate = [[SBPrioritySplitViewDelegate alloc] init];
-
-    [chatSplitView setPosition:[chatSplitView frame].size.width-MAIN_VIEW_MINIMUM_WIDTH
-              ofDividerAtIndex:0];
-    
-    [splitViewDelegate setPriority:LEFT_VIEW_PRIORITY forViewAtIndex:LEFT_VIEW_INDEX];
-	[splitViewDelegate setMinimumLength:LEFT_VIEW_MINIMUM_WIDTH forViewAtIndex:LEFT_VIEW_INDEX];
-    
-	[splitViewDelegate setPriority:MAIN_VIEW_PRIORITY forViewAtIndex:MAIN_VIEW_INDEX];
-	[splitViewDelegate setMinimumLength:MAIN_VIEW_MINIMUM_WIDTH forViewAtIndex:MAIN_VIEW_INDEX];
-    
-    [chatSplitView setDelegate:splitViewDelegate];
-    
-    
-    // add chat content observer
-    [chatMessagesController addObserver:self
-                             forKeyPath:@"content" 
-                                options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld)
-                                context:nil];
     
     // add add subsonic observers
     [[NSNotificationCenter defaultCenter] addObserver:self
