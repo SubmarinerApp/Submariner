@@ -233,7 +233,7 @@
 			}
 			newError = [NSError errorWithDomain:NSPOSIXErrorDomain code: statusCode userInfo:userInfo];
 			[NSApp presentError: newError];
-			[newError release];
+			//[newError release];
 			return;
 		}
 

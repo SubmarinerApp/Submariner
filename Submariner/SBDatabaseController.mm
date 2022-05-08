@@ -679,6 +679,11 @@
 
 
 - (IBAction)search:(id)sender {
+    if (![sender respondsToSelector:@selector(stringValue:)]) {
+        [searchToolbarItem beginSearchInteraction];
+        return;
+    }
+    
     NSString *query = [sender stringValue];
     
     if(query && [query length] > 0) {
@@ -917,21 +922,21 @@
         
         [self setServer: nil];
         [self setCurrentView:(SBAnimatedView *)[musicController view]];
-        [searchField setEnabled: YES];
+        [searchToolbarItem setEnabled: YES];
         [searchField setPlaceholderString: @"Local Search"];
         
     }  else if([resource isKindOfClass:[SBDownloads class]]) {
         
         [self setServer: nil];
         [self setCurrentView:(SBAnimatedView *)[downloadsController view]];
-        [searchField setEnabled: NO];
+        [searchToolbarItem setEnabled: NO];
         [searchField setPlaceholderString: @""];
         
     } else if([resource isKindOfClass:[SBTracklist class]]) {
         
         [self setServer: nil];
         [self setCurrentView:(SBAnimatedView *)[tracklistController view]];
-        [searchField setEnabled: NO];
+        [searchToolbarItem setEnabled: NO];
         [searchField setPlaceholderString: @""];
         
     } else if([resource isKindOfClass:[SBPlaylist class]]) {
@@ -939,7 +944,7 @@
         [self setServer: nil];
         [playlistController setPlaylist:(SBPlaylist *)resource];
         [self setCurrentView:(SBAnimatedView *)[playlistController view]];
-        [searchField setEnabled: NO];
+        [searchToolbarItem setEnabled: NO];
         [searchField setPlaceholderString: @""];
         
     } else if([resource isKindOfClass:[SBServer class]]) {
@@ -949,7 +954,7 @@
         [serverLibraryController setDatabaseController:self];
         [serverLibraryController setServer: server];
         [self setCurrentView:(SBAnimatedView *)[serverLibraryController view]];
-        [searchField setEnabled: YES];
+        [searchToolbarItem setEnabled: YES];
         [searchField setPlaceholderString: @"Server Search"];
     }
 }
@@ -1485,6 +1490,10 @@
     // only works if we have a server set
     if (action == @selector(showIndices:) || action == @selector(showAlbums:) || action == @selector(showPodcasts:)) {
         return self.server != nil;
+    }
+    
+    if (action == @selector(search:)) {
+        return [searchToolbarItem isEnabled];
     }
     
     return YES;
