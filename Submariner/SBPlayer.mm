@@ -201,7 +201,10 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         [songInfo setObject: [currentTrack itemName] forKey:MPMediaItemPropertyTitle];
         [songInfo setObject: [currentTrack albumString] forKey:MPMediaItemPropertyAlbumTitle];
         [songInfo setObject: [currentTrack artistString] forKey:MPMediaItemPropertyArtist];
-        [songInfo setObject: [currentTrack genre] forKey:MPMediaItemPropertyGenre];
+        NSString *genre = [currentTrack genre];
+        if (genre != nil) {
+            [songInfo setObject: genre forKey:MPMediaItemPropertyGenre];
+        }
         [songInfo setObject: [currentTrack rating] forKey:MPMediaItemPropertyRating];
         // seems the OS can use this to generate waveforms? should it be the download URL?
         [songInfo setObject:[currentTrack streamURL] forKey:MPMediaItemPropertyAssetURL];
