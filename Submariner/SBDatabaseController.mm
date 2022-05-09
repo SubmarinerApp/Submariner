@@ -661,6 +661,7 @@
     if (!self.server) {
         return;
     }
+    [self.server setSelectedTabIndex: 0];
     [serverLibraryController setDatabaseController:self];
     [serverLibraryController setServer:self.server];
     [self setCurrentView:(SBAnimatedView *)[serverLibraryController view]];
@@ -670,6 +671,7 @@
     if (!self.server) {
         return;
     }
+    [self.server setSelectedTabIndex: 1];
     [serverHomeController setDatabaseController:self];
     [serverHomeController setServer:self.server];
     [self setCurrentView:(SBAnimatedView *)[serverHomeController view]];
@@ -679,6 +681,7 @@
     if (!self.server) {
         return;
     }
+    [self.server setSelectedTabIndex: 2];
     [serverPodcastController setServer:self.server];
     [self setCurrentView:(SBAnimatedView *)[serverPodcastController view]];
 }
@@ -923,6 +926,9 @@
     [[self managedObjectContext] save:nil];
 }
 
+//- (void)setServer:(SBServer *)server {
+//    _server = server;
+//}
 
 - (void)displayViewControllerForResource:(SBResource *)resource {
     // swith view relative to a selected resource
@@ -956,12 +962,26 @@
         [searchField setPlaceholderString: @""];
         
     } else if([resource isKindOfClass:[SBServer class]]) {
-        // TODO: this
         SBServer *server = (__bridge SBServer*)resource;
         [self setServer: server]; // set to nil afterwards?
-        [serverLibraryController setDatabaseController:self];
-        [serverLibraryController setServer: server];
-        [self setCurrentView:(SBAnimatedView *)[serverLibraryController view]];
+        switch ([server selectedTabIndex]) {
+            case 0:
+            default:
+                [serverLibraryController setDatabaseController:self];
+                [serverLibraryController setServer: server];
+                [self setCurrentView:(SBAnimatedView *)[serverLibraryController view]];
+                break;
+            case 1:
+                [serverHomeController setDatabaseController:self];
+                [serverHomeController setServer: server];
+                [self setCurrentView:(SBAnimatedView *)[serverHomeController view]];
+                break;
+            case 2:
+                [serverPodcastController setServer: server];
+                [self setCurrentView:(SBAnimatedView *)[serverPodcastController view]];
+                break;
+            // 3 was search and 4 was server users
+        }
         [searchToolbarItem setEnabled: YES];
         [searchField setPlaceholderString: @"Server Search"];
     }
