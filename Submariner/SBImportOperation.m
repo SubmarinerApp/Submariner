@@ -136,7 +136,7 @@
             
             // use SFBAudioEngine
             CFURLRef fileURL = CFURLCreateFromFileSystemRepresentation(kCFAllocatorDefault, 
-                                                                       reinterpret_cast<const UInt8 *>([path UTF8String]), 
+                                                                       (uint8_t*)([path UTF8String]),
                                                                        strlen([path UTF8String]), 
                                                                        FALSE);
             NSError *error = nil;
