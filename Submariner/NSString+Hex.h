@@ -37,6 +37,9 @@
 @interface NSString (Hex) {
     
 }
+
+- (NSString *) md5;
++ (NSString *) stringFromBytes:(NSMutableData *)data;
 + (NSString *) stringFromHex:(NSString *)str;
 + (NSString *) stringToHex:(NSString *)str;
 

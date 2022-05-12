@@ -32,8 +32,35 @@
 //  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import "NSString+Hex.h"
+#import <CommonCrypto/CommonDigest.h>
 
 @implementation NSString (Hex)
+
+// https://stackoverflow.com/a/18409200
+- (NSString *)md5 {
+    const char* str = [self UTF8String];
+    unsigned char result[CC_MD5_DIGEST_LENGTH];
+    CC_MD5(str, (CC_LONG)strlen(str), result);
+
+    NSMutableString *ret = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH*2];
+    for(int i = 0; i<CC_MD5_DIGEST_LENGTH; i++) {
+        [ret appendFormat:@"%02x",result[i]];
+    }
+    return ret;
+}
+
+// https://stackoverflow.com/a/7520655
++ (NSString *) stringFromBytes:(NSMutableData *)data
+{
+    NSUInteger capacity = data.length * 2;
+    NSMutableString *sbuf = [NSMutableString stringWithCapacity:capacity];
+    const unsigned char *buf = data.bytes;
+    NSInteger i;
+    for (i=0; i<data.length; ++i) {
+      [sbuf appendFormat:@"%02X", (NSUInteger)buf[i]];
+    }
+    return sbuf;
+}
 
 + (NSString *) stringFromHex:(NSString *)str 
 {   
