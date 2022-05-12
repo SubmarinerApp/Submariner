@@ -1,0 +1,35 @@
+# Note that builds a not-really-signed executable.
+# OK for testing, not so hot for distribution.
+# Find out a better way.
+name: Git Release
+# XXX: other criteria?
+on: [push]
+jobs:
+  build:
+    runs-on: macos-11
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - name: Install xcpretty
+        run: gem install xcpretty --no-document --quiet
+      - name: Build Audio Frameworks
+        run: |
+          cd SFBAudioEngine
+          make -C XCFrameworks install
+      - name: Build Executable
+        # use build over archive because it seems to work a bit better
+        run: xcodebuild build -configuration Release -project Submariner.xcodeproj -scheme Submariner -derivedDataPath build/XcodeOutput CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY= | xcpretty -c
+      - name: Package Release
+        run: |
+          cd ./build/XcodeOutput/Build/Products/Release
+          ditto -c -k --sequesterRsrc --keepParent "Submariner.app" "Submariner.zip"
+          cd -
+          cp ./build/XcodeOutput/Build/Products/Release/Submariner.zip ./
+      - name: Archive Release
+        # XXX: best action type?
+        uses: actions/upload-artifact@v3
+        with:
+          name: Submariner.zip
+          path: Submariner.zip
