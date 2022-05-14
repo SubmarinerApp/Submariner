@@ -13,6 +13,7 @@
 		3E53DBBC27E41B6400DB4C84 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */; };
 		3E82701827E653F0007E5695 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E82701727E653F0007E5695 /* MediaPlayer.framework */; };
 		3ECF63FA280362BA004F9176 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ECF63F9280362BA004F9176 /* Assets.xcassets */; };
+		3ED5BF1A2830634C000AAB70 /* SBVolumeIconTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5BF192830634C000AAB70 /* SBVolumeIconTransformer.m */; };
 		4C1A69B613A6AC4F0054A3EF /* NSWindow-Zoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A69B513A6AC4F0054A3EF /* NSWindow-Zoom.m */; };
 		4C1A69BB13A6AEE10054A3EF /* SBServerUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A69B913A6AEE10054A3EF /* SBServerUserViewController.m */; };
 		4C1A69BC13A6AEE10054A3EF /* ServerUsers.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C1A69BA13A6AEE10054A3EF /* ServerUsers.xib */; };
@@ -199,6 +200,8 @@
 		3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		3E82701727E653F0007E5695 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		3ECF63F9280362BA004F9176 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3ED5BF182830634C000AAB70 /* SBVolumeIconTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBVolumeIconTransformer.h; sourceTree = "<group>"; };
+		3ED5BF192830634C000AAB70 /* SBVolumeIconTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBVolumeIconTransformer.m; sourceTree = "<group>"; };
 		4C1A69B413A6AC4F0054A3EF /* NSWindow-Zoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindow-Zoom.h"; sourceTree = "<group>"; };
 		4C1A69B513A6AC4F0054A3EF /* NSWindow-Zoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSWindow-Zoom.m"; sourceTree = "<group>"; };
 		4C1A69B813A6AEE10054A3EF /* SBServerUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBServerUserViewController.h; sourceTree = "<group>"; };
@@ -610,6 +613,8 @@
 				4CFAFC7C13A0F7E000E82B57 /* SBAnimatedView.m */,
 				4C56868314050B9A00BE3478 /* SBPodcastItemView.h */,
 				4C56868414050B9A00BE3478 /* SBPodcastItemView.m */,
+				3ED5BF182830634C000AAB70 /* SBVolumeIconTransformer.h */,
+				3ED5BF192830634C000AAB70 /* SBVolumeIconTransformer.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1133,6 +1138,7 @@
 				4C4DE62113A1733D006A1EC1 /* EMKeychainItem.m in Sources */,
 				4C4113AD13A3BD680069CC33 /* SBAddServerPlaylistController.m in Sources */,
 				4CB4D8F713A670BF00F706EC /* SBPrioritySplitViewDelegate.m in Sources */,
+				3ED5BF1A2830634C000AAB70 /* SBVolumeIconTransformer.m in Sources */,
 				4CB4D90313A6A1A300F706EC /* SBControlBarView.m in Sources */,
 				4C1A69B613A6AC4F0054A3EF /* NSWindow-Zoom.m in Sources */,
 				4C1A69BB13A6AEE10054A3EF /* SBServerUserViewController.m in Sources */,
