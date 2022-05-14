@@ -113,7 +113,6 @@
 		4C87EE5E139CE4680064DE2E /* SBServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EE4F139CE4680064DE2E /* SBServer.m */; };
 		4C87EE5F139CE4680064DE2E /* SBTrack.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EE51139CE4680064DE2E /* SBTrack.m */; };
 		4C87EE60139CE4680064DE2E /* SBTracklist.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EE53139CE4680064DE2E /* SBTracklist.m */; };
-		4C90218F142C8AA800EDA210 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C90218E142C8AA800EDA210 /* libz.dylib */; };
 		4CAD75C813AA597E00E7455C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAD75C713AA597E00E7455C /* CoreServices.framework */; };
 		4CB4D8F713A670BF00F706EC /* SBPrioritySplitViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D8F613A670BF00F706EC /* SBPrioritySplitViewDelegate.m */; };
 		4CB4D8F913A69B6600F706EC /* playing_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB4D8F813A69B6600F706EC /* playing_white.png */; };
@@ -129,7 +128,6 @@
 		4CE3B7DF13FA733F006A4F69 /* off.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4CE3B7DD13FA733F006A4F69 /* off.tiff */; };
 		4CE3B7E013FA733F006A4F69 /* on.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4CE3B7DE13FA733F006A4F69 /* on.tiff */; };
 		4CED8E1F144CE2A400332417 /* NSString+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CED8E1E144CE2A400332417 /* NSString+Hex.m */; };
-		4CED9B4913BDD1BF00003152 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CED9B4813BDD1BF00003152 /* OpenGL.framework */; };
 		4CFAFC2C139EF08800E82B57 /* SBServerHomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC2A139EF08800E82B57 /* SBServerHomeController.m */; };
 		4CFAFC2D139EF08800E82B57 /* ServerHome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CFAFC2B139EF08800E82B57 /* ServerHome.xib */; };
 		4CFAFC37139EF20600E82B57 /* MGScopeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC33139EF20500E82B57 /* MGScopeBar.m */; };
@@ -280,8 +278,6 @@
 		4C7AA2A5139D9B440050BE95 /* NSString+Time.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Time.m"; sourceTree = "<group>"; };
 		4C7FFC2613AFC461004F02AB /* SBOperationActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBOperationActivity.m; sourceTree = "<group>"; };
 		4C7FFC2713AFC461004F02AB /* SBOperationActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBOperationActivity.h; sourceTree = "<group>"; };
-		4C7FFC2D13B0C5E4004F02AB /* taglib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = taglib.framework; sourceTree = "<group>"; };
-		4C7FFC3013B0CB7F004F02AB /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
 		4C87ED5F139CD8BE0064DE2E /* Submariner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Submariner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C87ED63139CD8BE0064DE2E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		4C87ED66139CD8BE0064DE2E /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -379,7 +375,6 @@
 		4C87EE51139CE4680064DE2E /* SBTrack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBTrack.m; sourceTree = "<group>"; };
 		4C87EE52139CE4680064DE2E /* SBTracklist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBTracklist.h; sourceTree = "<group>"; };
 		4C87EE53139CE4680064DE2E /* SBTracklist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBTracklist.m; sourceTree = "<group>"; };
-		4C90218E142C8AA800EDA210 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		4C9DE9A91451749D00632936 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		4CAD75C713AA597E00E7455C /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		4CB4D8F513A670BF00F706EC /* SBPrioritySplitViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPrioritySplitViewDelegate.h; sourceTree = "<group>"; };
@@ -405,8 +400,6 @@
 		4CE3B7DE13FA733F006A4F69 /* on.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = on.tiff; sourceTree = "<group>"; };
 		4CED8E1D144CE2A400332417 /* NSString+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hex.h"; sourceTree = "<group>"; };
 		4CED8E1E144CE2A400332417 /* NSString+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hex.m"; sourceTree = "<group>"; };
-		4CED8E20144D6CDC00332417 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
-		4CED9B4813BDD1BF00003152 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		4CFAFC29139EF08800E82B57 /* SBServerHomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBServerHomeController.h; sourceTree = "<group>"; };
 		4CFAFC2A139EF08800E82B57 /* SBServerHomeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBServerHomeController.m; sourceTree = "<group>"; };
 		4CFAFC2B139EF08800E82B57 /* ServerHome.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerHome.xib; sourceTree = "<group>"; };
@@ -466,9 +459,7 @@
 			files = (
 				4C4DE62413A200AD006A1EC1 /* Carbon.framework in Frameworks */,
 				3E53DBBC27E41B6400DB4C84 /* CoreMedia.framework in Frameworks */,
-				4C90218F142C8AA800EDA210 /* libz.dylib in Frameworks */,
 				3E53DBBA27E4192B00DB4C84 /* AVFoundation.framework in Frameworks */,
-				4CED9B4913BDD1BF00003152 /* OpenGL.framework in Frameworks */,
 				4CAD75C813AA597E00E7455C /* CoreServices.framework in Frameworks */,
 				4C4DE62513A200AD006A1EC1 /* Security.framework in Frameworks */,
 				4CFAFC6613A0150300E82B57 /* AudioToolbox.framework in Frameworks */,
@@ -534,10 +525,6 @@
 				3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */,
 				3E53DBB927E4192B00DB4C84 /* AVFoundation.framework */,
 				4C9DE9A91451749D00632936 /* Carbon.framework */,
-				4CED8E20144D6CDC00332417 /* QTKit.framework */,
-				4CED9B4813BDD1BF00003152 /* OpenGL.framework */,
-				4C7FFC3013B0CB7F004F02AB /* QTKit.framework */,
-				4C7FFC2D13B0C5E4004F02AB /* taglib.framework */,
 				4CAD75C713AA597E00E7455C /* CoreServices.framework */,
 				4C4DE62213A200AA006A1EC1 /* Carbon.framework */,
 				4C4DE62313A200AC006A1EC1 /* Security.framework */,
@@ -843,7 +830,6 @@
 		4CD55EC01490CF15002E4774 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				4C90218E142C8AA800EDA210 /* libz.dylib */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
