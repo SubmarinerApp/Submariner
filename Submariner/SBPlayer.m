@@ -458,7 +458,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         @synchronized(self) {
             [self playTrack:next];
         }
-    } else { 
+    } else {
         [self stop];
     }
 }
@@ -566,6 +566,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         // update NPIC
         [self updateSystemNowPlaying];
         [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerPlayStateNotification object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerPlaylistUpdatedNotification object:self];
 	}
 }
 

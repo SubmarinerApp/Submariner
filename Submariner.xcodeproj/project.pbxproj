@@ -420,7 +420,7 @@
 		4CFAFC3D139FFC1200E82B57 /* SBSubsonicParsingOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSubsonicParsingOperation.h; sourceTree = "<group>"; };
 		4CFAFC3E139FFC1300E82B57 /* SBSubsonicParsingOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSubsonicParsingOperation.m; sourceTree = "<group>"; };
 		4CFAFC3F139FFC1300E82B57 /* SBPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPlayer.h; sourceTree = "<group>"; };
-		4CFAFC40139FFC1400E82B57 /* SBPlayer.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = SBPlayer.m; sourceTree = "<group>"; };
+		4CFAFC40139FFC1400E82B57 /* SBPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPlayer.m; sourceTree = "<group>"; };
 		4CFAFC4E139FFDF200E82B57 /* _SBHome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SBHome.h; sourceTree = "<group>"; };
 		4CFAFC4F139FFDF200E82B57 /* _SBHome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SBHome.m; sourceTree = "<group>"; };
 		4CFAFC50139FFDF200E82B57 /* SBHome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBHome.h; sourceTree = "<group>"; };
