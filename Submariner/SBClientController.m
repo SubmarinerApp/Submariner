@@ -275,26 +275,7 @@
 #pragma mark Request Messages
 
 - (void)connectToServer:(SBServer *)aServer {
-    // setup parameters. TODO: make sure this is common everywhere
-    [parameters setValue:server.username forKey:@"u"];
-    // it seems navidrome lets use use tokens even with an old declared API.
-    BOOL usePasswordAuth = NO;
-    if (usePasswordAuth) {
-        [parameters setValue:[@"enc:" stringByAppendingString:[NSString stringToHex:server.password]] forKey:@"p"];
-    } else {
-        NSMutableData *salt_bytes = [NSMutableData dataWithLength: 64];
-        int rc = SecRandomCopyBytes(kSecRandomDefault, 64, [salt_bytes mutableBytes]);
-        if (rc != 0) {
-            // XXX: we are having a bad day
-        }
-        NSString *salt = [NSString stringFromBytes: salt_bytes];
-        [parameters setValue: salt forKey:@"s"];
-        NSString *password = server.password;
-        NSString *token = [[NSString stringWithFormat: @"%@%@", password, salt] md5];
-        [parameters setValue: token forKey:@"t"];
-    }
-    [parameters setValue:[[NSUserDefaults standardUserDefaults] stringForKey:@"apiVersion"] forKey:@"v"];
-    [parameters setValue:[[NSUserDefaults standardUserDefaults] stringForKey:@"clientIdentifier"] forKey:@"c"];
+    [server getBaseParameters: parameters];
     
     NSURL *url = [NSURL URLWithString:server.url command:@"rest/ping.view" parameters:parameters];
     [self requestWithURL:url requestType:SBSubsonicRequestPing];
@@ -365,12 +346,8 @@
 }
 
 - (void)getPlaylist:(SBPlaylist *)playlist {
-    
-    // setup parameters
-    [parameters setValue:server.username forKey:@"u"];
-    [parameters setValue:[@"enc:" stringByAppendingString:[NSString stringToHex:server.password]] forKey:@"p"];
-    [parameters setValue:[[NSUserDefaults standardUserDefaults] stringForKey:@"apiVersion"] forKey:@"v"];
-    [parameters setValue:[[NSUserDefaults standardUserDefaults] stringForKey:@"clientIdentifier"] forKey:@"c"];
+    // XXX: Why is this function different from the others?
+    [server getBaseParameters: parameters];
     
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:parameters];
     [params setValue:playlist.id forKey:@"id"];

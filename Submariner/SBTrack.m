@@ -97,10 +97,7 @@
     
     // the default URL parameters
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setValue:self.server.username forKey:@"u"];
-    [parameters setValue:[@"enc:" stringByAppendingString:[NSString stringToHex:self.server.password]] forKey:@"p"];
-    [parameters setValue:[[NSUserDefaults standardUserDefaults] stringForKey:@"apiVersion"] forKey:@"v"];
-    [parameters setValue:[[NSUserDefaults standardUserDefaults] stringForKey:@"clientIdentifier"] forKey:@"c"];
+    [self.server getBaseParameters: parameters];
     [parameters setValue:[[NSUserDefaults standardUserDefaults] stringForKey:@"maxBitRate"] forKey:@"maxBitRate"];
     [parameters setValue:self.id forKey:@"id"];
     
@@ -151,10 +148,7 @@
     
     // the default URL parameters
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setValue:self.server.username forKey:@"u"];
-    [parameters setValue:[@"enc:" stringByAppendingString:[NSString stringToHex:self.server.password]] forKey:@"p"];
-    [parameters setValue:[[NSUserDefaults standardUserDefaults] stringForKey:@"apiVersion"] forKey:@"v"];
-    [parameters setValue:[[NSUserDefaults standardUserDefaults] stringForKey:@"clientIdentifier"] forKey:@"c"];
+    [self.server getBaseParameters: parameters];
     [parameters setValue:self.id forKey:@"id"];
     
     finalURL = [NSURL URLWithString:[self.server.url stringByAppendingPathComponent:@"rest/download.view"]];

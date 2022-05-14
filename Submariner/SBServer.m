@@ -244,6 +244,29 @@
     [[self clientController] getLicense];
 }
 
+- (void)getBaseParameters: (NSMutableDictionary*)parameters
+{
+    [parameters setValue: self.username forKey:@"u"];
+    // it seems navidrome lets use use tokens even with an old declared API.
+    BOOL usePasswordAuth = NO;
+    if (usePasswordAuth) {
+        [parameters setValue:[@"enc:" stringByAppendingString:[NSString stringToHex: self.password]] forKey:@"p"];
+    } else {
+        NSMutableData *salt_bytes = [NSMutableData dataWithLength: 64];
+        int rc = SecRandomCopyBytes(kSecRandomDefault, 64, [salt_bytes mutableBytes]);
+        if (rc != 0) {
+            // XXX: we are having a bad day
+        }
+        NSString *salt = [NSString stringFromBytes: salt_bytes];
+        [parameters setValue: salt forKey:@"s"];
+        NSString *password = self.password;
+        NSString *token = [[NSString stringWithFormat: @"%@%@", password, salt] md5];
+        [parameters setValue: token forKey:@"t"];
+    }
+    [parameters setValue:[[NSUserDefaults standardUserDefaults] stringForKey:@"apiVersion"] forKey:@"v"];
+    [parameters setValue:[[NSUserDefaults standardUserDefaults] stringForKey:@"clientIdentifier"] forKey:@"c"];
+}
+
 
 
 

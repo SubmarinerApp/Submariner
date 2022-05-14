@@ -55,7 +55,7 @@
 // login management
 - (void)connect;
 - (void)getServerLicense;
-
+- (void)getBaseParameters: (NSMutableDictionary*)parameters;
 
 // retrieve server data
 - (void)getServerIndexes;

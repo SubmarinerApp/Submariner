@@ -118,10 +118,7 @@ NSString *SBSubsonicDownloadFinished    = @"SBSubsonicDownloadFinished";
     
     // prepare download URL
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [parameters setValue:track.server.username forKey:@"u"];
-    [parameters setValue:[@"enc:" stringByAppendingString:[NSString stringToHex:track.server.password]] forKey:@"p"];
-    [parameters setValue:[[NSUserDefaults standardUserDefaults] stringForKey:@"apiVersion"] forKey:@"v"];
-    [parameters setValue:[[NSUserDefaults standardUserDefaults] stringForKey:@"clientIdentifier"] forKey:@"c"];
+    [track.server getBaseParameters: parameters];
     [parameters setValue:track.id forKey:@"id"];
     
     NSURL *url = [NSURL URLWithString:track.server.url command:@"rest/download.view" parameters:parameters];
