@@ -244,6 +244,7 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="repeatNone:" target="494" id="RQa-UM-ZMj"/>
+                                                <binding destination="s2r-9F-vP5" name="value" keyPath="values.repeatMode" id="izH-9z-JjO"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Repeat One" id="EGF-cy-QSn">
@@ -270,7 +271,7 @@
                             <menuItem title="Shuffle" id="azN-bG-LL1">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="toggleShuffle:" target="494" id="hbq-vh-v1s"/>
+                                    <binding destination="s2r-9F-vP5" name="value" keyPath="values.shuffle" id="hud-gw-zmG"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -331,5 +332,6 @@
         </menu>
         <customObject id="494" customClass="SBAppDelegate"/>
         <customObject id="420" customClass="NSFontManager"/>
+        <userDefaultsController representsSharedInstance="YES" id="s2r-9F-vP5"/>
     </objects>
 </document>

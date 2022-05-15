@@ -617,12 +617,9 @@
 }
 
 - (IBAction)shuffle:(id)sender {
-    if([sender state] == NSOnState) {
-        [[SBPlayer sharedInstance] setIsShuffle:YES];
-        
-    } else if([sender state] == NSOffState) {
-        [[SBPlayer sharedInstance] setIsShuffle:YES];
-    }
+    // Don't call this from a bound control, or you'll have a bad time
+    BOOL isShuffle = [[SBPlayer sharedInstance] isShuffle];
+    [[SBPlayer sharedInstance] setIsShuffle:!isShuffle];
 }
 
 - (IBAction)repeatNone:(id)sender {

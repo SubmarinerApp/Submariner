@@ -747,6 +747,17 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 }
 
 
+- (BOOL)isShuffle {
+    return (BOOL)[[NSUserDefaults standardUserDefaults] integerForKey:@"shuffle"];
+}
+
+// XXX: clumsy name, change in the
+- (void)setIsShuffle:(BOOL)newShuffle {
+    [[NSUserDefaults standardUserDefaults] setInteger:newShuffle forKey:@"shuffle"];
+    isShuffle = newShuffle;
+}
+
+
 
 
 #pragma mark -

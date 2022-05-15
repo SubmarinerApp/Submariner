@@ -304,11 +304,11 @@ IA
                             <rect key="frame" x="9" y="14" width="27" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="shuffle.circle" catalog="system" imagePosition="only" alignment="center" alternateImage="shuffle.circle.fill" borderStyle="border" inset="2" id="303">
-                                <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <action selector="shuffle:" target="-2" id="311"/>
+                                <binding destination="297" name="value" keyPath="values.shuffle" id="aIV-pe-xLS"/>
                             </connections>
                         </button>
                     </toolbarItem>
