@@ -256,7 +256,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 }
 
 - (MPRemoteCommandHandlerStatus)clickSeek: (MPChangePlaybackPositionCommandEvent*)event {
-    auto newTime = [event positionTime];
+    NSTimeInterval newTime = [event positionTime];
     [self seekToTime: newTime];
     return MPRemoteCommandHandlerStatusSuccess;
 }
