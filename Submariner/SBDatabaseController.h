@@ -148,6 +148,9 @@
 - (IBAction)setMuteOff:(id)sender;
 - (IBAction)openHomePage:(id)sender;
 - (IBAction)shuffle:(id)sender;
+- (IBAction)repeatNone:(id)sender;
+- (IBAction)repeatOne:(id)sender;
+- (IBAction)repeatAll:(id)sender;
 - (IBAction)repeat:(id)sender;
 - (IBAction)search:(id)sender;
 - (IBAction)showIndices:(id)sender;

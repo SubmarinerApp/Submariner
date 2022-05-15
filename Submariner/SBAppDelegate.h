@@ -48,10 +48,6 @@
     // Controllers
     SBPreferencesController *preferencesController;   
     SBDatabaseController *databaseController;
-        
-    // Status Menu
-    NSStatusItem *statusItem;
-    IBOutlet NSMenu *statusMenu;
 }
 
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
@@ -76,6 +72,11 @@
 - (IBAction)stop:(id)sender;
 - (IBAction)nextTrack:(id)sender;
 - (IBAction)previousTrack:(id)sender;
+- (IBAction)repeatNone:(id)sender;
+- (IBAction)repeatOne:(id)sender;
+- (IBAction)repeatAll:(id)sender;
+- (IBAction)repeatModeCycle:(id)sender;
+- (IBAction)toggleShuffle:(id)sender;
 - (IBAction)showWebsite:(id)sender;
 - (IBAction)playTrackForMenuItem:(id)sender;
 - (IBAction)search:(id)sender;

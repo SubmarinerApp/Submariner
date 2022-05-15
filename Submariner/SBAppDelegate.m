@@ -75,7 +75,6 @@
 
 
 - (void)dealloc {
-    [statusItem release];
     [super dealloc];
 }
 
@@ -290,6 +289,26 @@
 
 - (IBAction)previousTrack:(id)sender {
     [databaseController previousTrack:sender];
+}
+
+- (IBAction)repeatNone:(id)sender {
+    [databaseController repeatNone: sender];
+}
+
+- (IBAction)repeatOne:(id)sender {
+    [databaseController repeatOne: sender];
+}
+
+- (IBAction)repeatAll:(id)sender {
+    [databaseController repeatAll: sender];
+}
+
+- (IBAction)repeatModeCycle:(id)sender {
+    [databaseController repeat: sender];
+}
+
+- (IBAction)toggleShuffle:(id)sender {
+    [databaseController shuffle: sender];
 }
 
 - (IBAction)search:(id)sender {

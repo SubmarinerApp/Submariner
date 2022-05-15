@@ -225,16 +225,52 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="A3a-PO-UZ7"/>
-                            <menuItem title="Previous Track" id="6eK-AW-rbn">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="Previous Track" keyEquivalent="" id="6eK-AW-rbn">
                                 <connections>
                                     <action selector="previousTrack:" target="494" id="sPC-Wy-T9s"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Next Track" id="h3W-7c-F1g">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="Next Track" keyEquivalent="" id="h3W-7c-F1g">
                                 <connections>
                                     <action selector="nextTrack:" target="494" id="L1E-pv-H7N"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="2Ub-yA-g4d"/>
+                            <menuItem title="Repeat" id="Zk9-yP-Xl7">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Repeat" id="zuJ-it-Eo9">
+                                    <items>
+                                        <menuItem title="Repeat None" id="VMA-cT-ax3">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="repeatNone:" target="494" id="RQa-UM-ZMj"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Repeat One" id="EGF-cy-QSn">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="repeatOne:" target="494" id="jm9-8L-KSD"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Repeat All" id="aNQ-jY-0Pn">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="repeatAll:" target="494" id="udm-SQ-0IP"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="RTB-Oy-hhE"/>
+                                        <menuItem title="Cycle Repeat Mode" keyEquivalent="R" id="rF1-TS-55x">
+                                            <connections>
+                                                <action selector="repeatModeCycle:" target="494" id="fD4-h0-pYe"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Shuffle" id="azN-bG-LL1">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="toggleShuffle:" target="494" id="hbq-vh-v1s"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -293,17 +329,7 @@
             </items>
             <point key="canvasLocation" x="140" y="135"/>
         </menu>
-        <customObject id="494" customClass="SBAppDelegate">
-            <connections>
-                <outlet property="statusMenu" destination="548" id="554"/>
-            </connections>
-        </customObject>
+        <customObject id="494" customClass="SBAppDelegate"/>
         <customObject id="420" customClass="NSFontManager"/>
-        <menu id="548" userLabel="Status Menu">
-            <connections>
-                <outlet property="delegate" destination="494" id="555"/>
-            </connections>
-            <point key="canvasLocation" x="131" y="347"/>
-        </menu>
     </objects>
 </document>

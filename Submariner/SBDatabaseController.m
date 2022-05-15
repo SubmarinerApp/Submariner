@@ -625,6 +625,18 @@
     }
 }
 
+- (IBAction)repeatNone:(id)sender {
+    [[SBPlayer sharedInstance] setRepeatMode: SBPlayerRepeatNo];
+}
+
+- (IBAction)repeatOne:(id)sender {
+    [[SBPlayer sharedInstance] setRepeatMode: SBPlayerRepeatOne];
+}
+
+- (IBAction)repeatAll:(id)sender {
+    [[SBPlayer sharedInstance] setRepeatMode: SBPlayerRepeatAll];
+}
+
 - (IBAction)repeat:(id)sender {
     SBPlayerRepeatMode repeatMode = [[SBPlayer sharedInstance] repeatMode];
     if (repeatMode == SBPlayerRepeatNo) {
