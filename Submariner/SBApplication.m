@@ -34,6 +34,7 @@
 
 #import "SBApplication.h"
 #import "SBAppDelegate.h"
+#import "SBPlayer.h"
 
 
 
@@ -55,6 +56,7 @@
     
     [defaults setObject:[NSNumber numberWithInt:1]              forKey:@"playerBehavior"];
 	[defaults setObject:[NSNumber numberWithFloat:0.5f]         forKey:@"playerVolume"];
+	[defaults setObject:[NSNumber numberWithInt:SBPlayerRepeatNo]         forKey:@"repeatMode"];
     [defaults setObject:[NSNumber numberWithInt:30]             forKey:@"requestTimeout"];
     [defaults setObject:[NSNumber numberWithInt:YES]            forKey:@"jumpInDock"];
     [defaults setObject:[NSNumber numberWithInt:YES]            forKey:@"dockBadges"];

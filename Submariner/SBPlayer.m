@@ -86,7 +86,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 @synthesize isShuffle;
 @synthesize isPlaying;
 @synthesize isPaused;
-@synthesize repeatMode;
+//@synthesize repeatMode;
 
 
 
@@ -734,6 +734,16 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     }
     
     return percentLoaded;
+}
+
+
+- (SBPlayerRepeatMode)repeatMode {
+    return (SBPlayerRepeatMode)[[NSUserDefaults standardUserDefaults] integerForKey:@"repeatMode"];
+}
+
+- (void)setRepeatMode:(SBPlayerRepeatMode)newRepeatMode {
+    [[NSUserDefaults standardUserDefaults] setInteger:newRepeatMode forKey:@"repeatMode"];
+    repeatMode = newRepeatMode;
 }
 
 

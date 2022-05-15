@@ -14,6 +14,7 @@
 		3E82701827E653F0007E5695 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E82701727E653F0007E5695 /* MediaPlayer.framework */; };
 		3ECF63FA280362BA004F9176 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ECF63F9280362BA004F9176 /* Assets.xcassets */; };
 		3ED5BF1A2830634C000AAB70 /* SBVolumeIconTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5BF192830634C000AAB70 /* SBVolumeIconTransformer.m */; };
+		3ED5BF1D283197AE000AAB70 /* SBRepeatIconTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5BF1C283197AE000AAB70 /* SBRepeatIconTransformer.m */; };
 		4C1A69B613A6AC4F0054A3EF /* NSWindow-Zoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A69B513A6AC4F0054A3EF /* NSWindow-Zoom.m */; };
 		4C1A69BB13A6AEE10054A3EF /* SBServerUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A69B913A6AEE10054A3EF /* SBServerUserViewController.m */; };
 		4C1A69BC13A6AEE10054A3EF /* ServerUsers.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C1A69BA13A6AEE10054A3EF /* ServerUsers.xib */; };
@@ -202,6 +203,8 @@
 		3ECF63F9280362BA004F9176 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3ED5BF182830634C000AAB70 /* SBVolumeIconTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBVolumeIconTransformer.h; sourceTree = "<group>"; };
 		3ED5BF192830634C000AAB70 /* SBVolumeIconTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBVolumeIconTransformer.m; sourceTree = "<group>"; };
+		3ED5BF1B283197AE000AAB70 /* SBRepeatIconTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBRepeatIconTransformer.h; sourceTree = "<group>"; };
+		3ED5BF1C283197AE000AAB70 /* SBRepeatIconTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBRepeatIconTransformer.m; sourceTree = "<group>"; };
 		4C1A69B413A6AC4F0054A3EF /* NSWindow-Zoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindow-Zoom.h"; sourceTree = "<group>"; };
 		4C1A69B513A6AC4F0054A3EF /* NSWindow-Zoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSWindow-Zoom.m"; sourceTree = "<group>"; };
 		4C1A69B813A6AEE10054A3EF /* SBServerUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBServerUserViewController.h; sourceTree = "<group>"; };
@@ -615,6 +618,8 @@
 				4C56868414050B9A00BE3478 /* SBPodcastItemView.m */,
 				3ED5BF182830634C000AAB70 /* SBVolumeIconTransformer.h */,
 				3ED5BF192830634C000AAB70 /* SBVolumeIconTransformer.m */,
+				3ED5BF1B283197AE000AAB70 /* SBRepeatIconTransformer.h */,
+				3ED5BF1C283197AE000AAB70 /* SBRepeatIconTransformer.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1132,6 +1137,7 @@
 				4CFAFC53139FFDF200E82B57 /* SBHome.m in Sources */,
 				4CFAFC56139FFE1700E82B57 /* NSURL+Parameters.m in Sources */,
 				4CFAFC60139FFED000E82B57 /* _SBNowPlaying.m in Sources */,
+				3ED5BF1D283197AE000AAB70 /* SBRepeatIconTransformer.m in Sources */,
 				4CFAFC62139FFED000E82B57 /* SBNowPlaying.m in Sources */,
 				4CFAFC7D13A0F7E000E82B57 /* SBAnimatedView.m in Sources */,
 				4CFAFC8113A1110700E82B57 /* NSOperationQueue+Shared.m in Sources */,

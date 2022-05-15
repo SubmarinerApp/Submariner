@@ -626,17 +626,13 @@
 }
 
 - (IBAction)repeat:(id)sender {
-    
-    if([sender state] == NSOnState) {
-        [[SBPlayer sharedInstance] setRepeatMode:SBPlayerRepeatAll];
-        [sender setAlternateImage:[NSImage imageWithSystemSymbolName: @"repeat.circle.fill" accessibilityDescription: @"Repeat On"]];
-    } 
-    if([sender state] == NSOffState) {
-        [[SBPlayer sharedInstance] setRepeatMode:SBPlayerRepeatNo];
-    } 
-    if([sender state] == NSMixedState) {
-        [[SBPlayer sharedInstance] setRepeatMode:SBPlayerRepeatOne];
-        [sender setAlternateImage:[NSImage imageWithSystemSymbolName: @"repeat.1.circle.fill" accessibilityDescription: @"Repeat One"]];
+    SBPlayerRepeatMode repeatMode = [[SBPlayer sharedInstance] repeatMode];
+    if (repeatMode == SBPlayerRepeatNo) {
+        [[SBPlayer sharedInstance] setRepeatMode: SBPlayerRepeatOne];
+    } else if (repeatMode == SBPlayerRepeatOne) {
+        [[SBPlayer sharedInstance] setRepeatMode: SBPlayerRepeatAll];
+    } else if (repeatMode == SBPlayerRepeatAll) {
+        [[SBPlayer sharedInstance] setRepeatMode: SBPlayerRepeatNo];
     }
 }
 
