@@ -118,7 +118,6 @@
 		4CAD75C813AA597E00E7455C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAD75C713AA597E00E7455C /* CoreServices.framework */; };
 		4CB4D8F713A670BF00F706EC /* SBPrioritySplitViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D8F613A670BF00F706EC /* SBPrioritySplitViewDelegate.m */; };
 		4CB4D8F913A69B6600F706EC /* playing_white.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CB4D8F813A69B6600F706EC /* playing_white.png */; };
-		4CB4D90313A6A1A300F706EC /* SBControlBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D90213A6A1A100F706EC /* SBControlBarView.m */; };
 		4CC0478513AC0F970004099E /* SBNowPlayingViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC0478413AC0F970004099E /* SBNowPlayingViewItem.m */; };
 		4CC18E8013B9145400AA4FDB /* SBImageBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC18E7D13B9145400AA4FDB /* SBImageBrowserCell.m */; };
 		4CC18E8113B9145400AA4FDB /* SBImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC18E7F13B9145400AA4FDB /* SBImageBrowserView.m */; };
@@ -386,8 +385,6 @@
 		4CB4D8F513A670BF00F706EC /* SBPrioritySplitViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPrioritySplitViewDelegate.h; sourceTree = "<group>"; };
 		4CB4D8F613A670BF00F706EC /* SBPrioritySplitViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPrioritySplitViewDelegate.m; sourceTree = "<group>"; };
 		4CB4D8F813A69B6600F706EC /* playing_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playing_white.png; sourceTree = "<group>"; };
-		4CB4D90113A6A19E00F706EC /* SBControlBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBControlBarView.h; sourceTree = "<group>"; };
-		4CB4D90213A6A1A100F706EC /* SBControlBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBControlBarView.m; sourceTree = "<group>"; };
 		4CC0478313AC0F960004099E /* SBNowPlayingViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBNowPlayingViewItem.h; sourceTree = "<group>"; };
 		4CC0478413AC0F970004099E /* SBNowPlayingViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBNowPlayingViewItem.m; sourceTree = "<group>"; };
 		4CC18E7C13B9145400AA4FDB /* SBImageBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBImageBrowserCell.h; sourceTree = "<group>"; };
@@ -606,8 +603,6 @@
 				4C7AA220139D530B0050BE95 /* RWCornerView.m */,
 				4C87ED93139CD97B0064DE2E /* SBSplitView.h */,
 				4C87ED94139CD97B0064DE2E /* SBSplitView.m */,
-				4CB4D90113A6A19E00F706EC /* SBControlBarView.h */,
-				4CB4D90213A6A1A100F706EC /* SBControlBarView.m */,
 				4C87EDBD139CDC250064DE2E /* SBSourceList.h */,
 				4C87EDBE139CDC250064DE2E /* SBSourceList.m */,
 				4C87EDBF139CDC250064DE2E /* SBSourceListDataSource.h */,
@@ -1145,7 +1140,6 @@
 				4C4113AD13A3BD680069CC33 /* SBAddServerPlaylistController.m in Sources */,
 				4CB4D8F713A670BF00F706EC /* SBPrioritySplitViewDelegate.m in Sources */,
 				3ED5BF1A2830634C000AAB70 /* SBVolumeIconTransformer.m in Sources */,
-				4CB4D90313A6A1A300F706EC /* SBControlBarView.m in Sources */,
 				4C1A69B613A6AC4F0054A3EF /* NSWindow-Zoom.m in Sources */,
 				4C1A69BB13A6AEE10054A3EF /* SBServerUserViewController.m in Sources */,
 				4C1D412D13A8F2CE002D77F3 /* SBApplication.m in Sources */,
