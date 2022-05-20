@@ -164,27 +164,6 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="CjL-a2-UBJ"/>
-                            <menuItem title="Artists" keyEquivalent="1" id="55g-AS-KKB">
-                                <connections>
-                                    <action selector="showIndices:" target="494" id="uZu-1b-wpM"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Albums" keyEquivalent="2" id="vwP-t7-5am">
-                                <connections>
-                                    <action selector="showAlbums:" target="494" id="RdI-cS-9fM"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Podcasts" keyEquivalent="3" id="q8o-ph-bkR">
-                                <connections>
-                                    <action selector="showPodcasts:" target="494" id="hjt-sE-qFb"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Search" keyEquivalent="f" id="Zla-FM-zx5">
-                                <connections>
-                                    <action selector="search:" target="494" id="LyJ-ab-5mN"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="QJS-St-0Uh"/>
                             <menuItem title="Show Sidebar" keyEquivalent="s" id="4oR-GM-6rE">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
@@ -206,6 +185,34 @@
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
                                     <action selector="toggleFullScreen:" target="-1" id="Mtb-Vf-twe"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Go" id="YCl-TQ-Xrf">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Go" id="wz4-X7-wEp">
+                        <items>
+                            <menuItem title="By Artists" keyEquivalent="1" id="55g-AS-KKB">
+                                <connections>
+                                    <action selector="showIndices:" target="494" id="uZu-1b-wpM"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="By Albums" keyEquivalent="2" id="vwP-t7-5am">
+                                <connections>
+                                    <action selector="showAlbums:" target="494" id="RdI-cS-9fM"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Podcasts" keyEquivalent="3" id="q8o-ph-bkR">
+                                <connections>
+                                    <action selector="showPodcasts:" target="494" id="hjt-sE-qFb"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="QJS-St-0Uh"/>
+                            <menuItem title="Search" keyEquivalent="f" id="Zla-FM-zx5">
+                                <connections>
+                                    <action selector="search:" target="494" id="LyJ-ab-5mN"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -236,6 +243,23 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="2Ub-yA-g4d"/>
+                            <menuItem title="Increase Volume" keyEquivalent="" id="eoq-8d-aSq">
+                                <connections>
+                                    <action selector="volumeUp:" target="494" id="bL7-Vi-zEf"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Decrease Volume" keyEquivalent="" id="U2j-GV-7Ou">
+                                <connections>
+                                    <action selector="volumeDown:" target="494" id="eC4-kT-mX0"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Mute" keyEquivalent="" id="jWK-cF-ext">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="setMuteOn:" target="494" id="vWZ-WD-KWZ"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="6aq-Nk-B0c"/>
                             <menuItem title="Repeat" id="Zk9-yP-Xl7">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Repeat" id="zuJ-it-Eo9">

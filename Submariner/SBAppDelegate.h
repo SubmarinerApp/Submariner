@@ -77,6 +77,9 @@
 - (IBAction)repeatAll:(id)sender;
 - (IBAction)repeatModeCycle:(id)sender;
 - (IBAction)toggleShuffle:(id)sender;
+- (IBAction)setMuteOn:(id)sender;
+- (IBAction)volumeUp:(id)sender;
+- (IBAction)volumeDown:(id)sender;
 - (IBAction)showWebsite:(id)sender;
 - (IBAction)playTrackForMenuItem:(id)sender;
 - (IBAction)search:(id)sender;

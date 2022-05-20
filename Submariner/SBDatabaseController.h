@@ -146,6 +146,8 @@
 - (IBAction)setVolume:(id)sender;
 - (IBAction)setMuteOn:(id)sender;
 - (IBAction)setMuteOff:(id)sender;
+- (IBAction)volumeUp:(id)sender;
+- (IBAction)volumeDown:(id)sender;
 - (IBAction)openHomePage:(id)sender;
 - (IBAction)shuffle:(id)sender;
 - (IBAction)repeatNone:(id)sender;

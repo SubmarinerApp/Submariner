@@ -311,6 +311,18 @@
     [databaseController shuffle: sender];
 }
 
+- (IBAction)setMuteOn:(id)sender {
+    [databaseController setMuteOn: sender];
+}
+
+- (IBAction)volumeUp:(id)sender {
+    [databaseController volumeUp: sender];
+}
+
+- (IBAction)volumeDown:(id)sender {
+    [databaseController volumeDown: sender];
+}
+
 - (IBAction)search:(id)sender {
     [databaseController search:sender];
 }

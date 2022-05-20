@@ -616,6 +616,17 @@
     [[SBPlayer sharedInstance] setVolume:1.0f];
 }
 
+- (IBAction)volumeUp:(id)sender {
+    // XXX: Controllable increment
+    float newVolume = MIN(1.0f, [[SBPlayer sharedInstance] volume] + 0.1f);
+    [[SBPlayer sharedInstance] setVolume: newVolume];
+}
+
+- (IBAction)volumeDown:(id)sender {
+    float newVolume = MAX(0.0f, [[SBPlayer sharedInstance] volume] - 0.1f);
+    [[SBPlayer sharedInstance] setVolume: newVolume];
+}
+
 - (IBAction)shuffle:(id)sender {
     // Don't call this from a bound control, or you'll have a bad time
     BOOL isShuffle = [[SBPlayer sharedInstance] isShuffle];
