@@ -37,8 +37,6 @@
 #import "SBWindowController.h"
 #import "SBServer.h"
 
-#import "EMKeychainItem.h"
-
 
 @implementation SBEditServerController
 
@@ -80,32 +78,7 @@
         port = [anUrl port];
     }
     
-    EMInternetKeychainItem *keychainItem = [EMInternetKeychainItem internetKeychainItemForServer:[anUrl host]
-                                                                                    withUsername:[passwordTextField stringValue]
-                                                                                            path:@"/"
-                                                                                            port:[port integerValue] 
-                                                                                        protocol:protocol];
-    
-    if(keychainItem == nil) {
-        // add internet keychain
-        NSLog(@"add internet keychain");
-        [EMInternetKeychainItem addInternetKeychainItemForServer:[anUrl host] 
-                                                    withUsername:[usernameTextField stringValue]
-                                                        password:[passwordTextField stringValue]
-                                                            path:@"/"
-                                                            port:[port integerValue] 
-                                                        protocol:protocol];   
-    } else {
-        NSLog(@"edit internet keychain");
-        if([obj object] == usernameTextField) {
-            keychainItem.username = [usernameTextField stringValue];
-        } else if([obj object] == passwordTextField) {
-            keychainItem.password = [passwordTextField stringValue];
-        } else if([obj object] == urlTextField) {
-            keychainItem.server = [anUrl host];
-        }
-    }
-    
+    // TODO: This is where we put Keychain support again
 }
 
 @end

@@ -36,8 +36,6 @@
 #import "SBAlbum.h"
 #import "SBPlaylist.h"
 
-#import "EMKeychainItem.h"
-
 
 @implementation SBServer
 
@@ -168,70 +166,7 @@
 #pragma mark -
 #pragma mark Custom Accessors (Keychain Support)
 
-//- (NSString *)password {
-//    
-//    NSString *string = nil;
-//    [self willAccessValueForKey: @"password"];
-//    
-//    // decompose URL
-//    if(self.url && self.username) {
-//
-//        NSURL *anUrl = [NSURL URLWithString:self.url];
-//        // protocol scheme
-//        uint protocol = kSecProtocolTypeHTTP;
-//        if([[anUrl scheme] rangeOfString:@"s"].location != NSNotFound) {
-//            protocol = kSecProtocolTypeHTTPS;
-//        }
-//        // url port
-//        NSNumber *port = [NSNumber numberWithInteger:80];
-//        if([anUrl port] != nil) {
-//            port = [anUrl port];
-//        }
-//        
-//        // get internet keycahin
-//        EMInternetKeychainItem *keychainItem = [EMInternetKeychainItem internetKeychainItemForServer:[anUrl host] 
-//                                                                                        withUsername:self.username 
-//                                                                                                path:@"/"
-//                                                                                                port:[port integerValue] 
-//                                                                                            protocol:protocol];
-//        string = keychainItem.password;
-//    }
-//    [self didAccessValueForKey: @"password"];
-//    return string;
-//}
-
-//- (void)setPassword:(NSString *) x {
-//    [self willChangeValueForKey: @"password"];
-//    
-//    // decompose URL
-//    if(self.url && self.username) {
-//        NSURL *anUrl = [NSURL URLWithString:self.url];
-//        // protocol scheme
-//        uint protocol = kSecProtocolTypeHTTP;
-//        if([[anUrl scheme] rangeOfString:@"s"].location != NSNotFound) {
-//            protocol = kSecProtocolTypeHTTPS;
-//        }
-//        // url port
-//        NSNumber *port = [NSNumber numberWithInteger:80];
-//        if([anUrl port] != nil) {
-//            port = [anUrl port];
-//        }
-//        
-//        // add internet keychain
-//        NSLog(@"add internet keychain");
-//        [EMInternetKeychainItem addInternetKeychainItemForServer:[anUrl host] 
-//                                                    withUsername:self.username
-//                                                        password:x
-//                                                            path:@"/"
-//                                                            port:[port integerValue] 
-//                                                        protocol:protocol];
-//    }
-//    [self didChangeValueForKey: @"password"];
-//}
-
-
-
-
+// TODO: Put Keychain support here by overriding the password property
 
 #pragma mark -
 #pragma mark Subsonic Client (Login)
