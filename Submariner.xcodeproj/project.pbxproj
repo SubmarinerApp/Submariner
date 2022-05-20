@@ -43,7 +43,6 @@
 		4C56868814050C1100BE3478 /* SBPodcastViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56868714050C1100BE3478 /* SBPodcastViewItem.m */; };
 		4C69DBD5140655DE00F016A7 /* pending.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C69DBD4140655DE00F016A7 /* pending.tiff */; };
 		4C7AA221139D530B0050BE95 /* RWTableHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA21E139D530B0050BE95 /* RWTableHeaderCell.m */; };
-		4C7AA222139D530B0050BE95 /* RWCornerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA220139D530B0050BE95 /* RWCornerView.m */; };
 		4C7AA229139D53A50050BE95 /* SBTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA228139D53A50050BE95 /* SBTableView.m */; };
 		4C7AA22D139D563A0050BE95 /* SBPlaylistController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA22B139D563A0050BE95 /* SBPlaylistController.m */; };
 		4C7AA22E139D563A0050BE95 /* Playlist.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C7AA22C139D563A0050BE95 /* Playlist.xib */; };
@@ -56,7 +55,6 @@
 		4C7AA24D139D64930050BE95 /* SBServerLibraryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA24B139D64920050BE95 /* SBServerLibraryController.m */; };
 		4C7AA24E139D64930050BE95 /* ServerLibrary.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C7AA24C139D64920050BE95 /* ServerLibrary.xib */; };
 		4C7AA26F139D66200050BE95 /* NSBezierPath+MCAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA26C139D66200050BE95 /* NSBezierPath+MCAdditions.m */; };
-		4C7AA270139D66200050BE95 /* NSShadow+MCAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA26E139D66200050BE95 /* NSShadow+MCAdditions.m */; };
 		4C7AA289139D70390050BE95 /* SBCoverImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA288139D70390050BE95 /* SBCoverImageView.m */; };
 		4C7AA2A6139D9B440050BE95 /* NSString+Time.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA2A5139D9B440050BE95 /* NSString+Time.m */; };
 		4C7FFC2813AFC461004F02AB /* SBOperationActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7FFC2613AFC461004F02AB /* SBOperationActivity.m */; };
@@ -250,8 +248,6 @@
 		4C7A3EAE148F083E009C6EE6 /* SFBAudioEngine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFBAudioEngine.xcodeproj; path = SFBAudioEngine/SFBAudioEngine.xcodeproj; sourceTree = "<group>"; };
 		4C7AA21D139D530B0050BE95 /* RWTableHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWTableHeaderCell.h; sourceTree = "<group>"; };
 		4C7AA21E139D530B0050BE95 /* RWTableHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWTableHeaderCell.m; sourceTree = "<group>"; };
-		4C7AA21F139D530B0050BE95 /* RWCornerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWCornerView.h; sourceTree = "<group>"; };
-		4C7AA220139D530B0050BE95 /* RWCornerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWCornerView.m; sourceTree = "<group>"; };
 		4C7AA227139D53A40050BE95 /* SBTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBTableView.h; sourceTree = "<group>"; };
 		4C7AA228139D53A50050BE95 /* SBTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBTableView.m; sourceTree = "<group>"; };
 		4C7AA22A139D563A0050BE95 /* SBPlaylistController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPlaylistController.h; sourceTree = "<group>"; };
@@ -272,8 +268,6 @@
 		4C7AA24C139D64920050BE95 /* ServerLibrary.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerLibrary.xib; sourceTree = "<group>"; };
 		4C7AA26B139D66200050BE95 /* NSBezierPath+MCAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBezierPath+MCAdditions.h"; sourceTree = "<group>"; };
 		4C7AA26C139D66200050BE95 /* NSBezierPath+MCAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+MCAdditions.m"; sourceTree = "<group>"; };
-		4C7AA26D139D66200050BE95 /* NSShadow+MCAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSShadow+MCAdditions.h"; sourceTree = "<group>"; };
-		4C7AA26E139D66200050BE95 /* NSShadow+MCAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSShadow+MCAdditions.m"; sourceTree = "<group>"; };
 		4C7AA287139D70390050BE95 /* SBCoverImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCoverImageView.h; sourceTree = "<group>"; };
 		4C7AA288139D70390050BE95 /* SBCoverImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCoverImageView.m; sourceTree = "<group>"; };
 		4C7AA2A4139D9B440050BE95 /* NSString+Time.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Time.h"; sourceTree = "<group>"; };
@@ -596,8 +590,6 @@
 				4C7AA228139D53A50050BE95 /* SBTableView.m */,
 				4C7AA21D139D530B0050BE95 /* RWTableHeaderCell.h */,
 				4C7AA21E139D530B0050BE95 /* RWTableHeaderCell.m */,
-				4C7AA21F139D530B0050BE95 /* RWCornerView.h */,
-				4C7AA220139D530B0050BE95 /* RWCornerView.m */,
 				4C87ED93139CD97B0064DE2E /* SBSplitView.h */,
 				4C87ED94139CD97B0064DE2E /* SBSplitView.m */,
 				4C87EDBD139CDC250064DE2E /* SBSourceList.h */,
@@ -680,8 +672,6 @@
 				4CED8E1E144CE2A400332417 /* NSString+Hex.m */,
 				4C7AA26B139D66200050BE95 /* NSBezierPath+MCAdditions.h */,
 				4C7AA26C139D66200050BE95 /* NSBezierPath+MCAdditions.m */,
-				4C7AA26D139D66200050BE95 /* NSShadow+MCAdditions.h */,
-				4C7AA26E139D66200050BE95 /* NSShadow+MCAdditions.m */,
 				4C7AA234139D59500050BE95 /* NSImage-NoodleExtensions.h */,
 				4C7AA235139D59500050BE95 /* NSImage-NoodleExtensions.m */,
 				4C7AA236139D59500050BE95 /* NSIndexSet-NoodleExtensions.h */,
@@ -1105,7 +1095,6 @@
 				4CFB3EF2139D4693008DC01A /* SBTracklistController.m in Sources */,
 				4CFB3EF8139D47EA008DC01A /* SBViewController.m in Sources */,
 				4C7AA221139D530B0050BE95 /* RWTableHeaderCell.m in Sources */,
-				4C7AA222139D530B0050BE95 /* RWCornerView.m in Sources */,
 				4C7AA229139D53A50050BE95 /* SBTableView.m in Sources */,
 				4C7AA22D139D563A0050BE95 /* SBPlaylistController.m in Sources */,
 				4C7AA232139D57A00050BE95 /* SBMusicController.m in Sources */,
@@ -1114,7 +1103,6 @@
 				4C7AA23C139D59500050BE95 /* NSTableView-NoodleExtensions.m in Sources */,
 				4C7AA24D139D64930050BE95 /* SBServerLibraryController.m in Sources */,
 				4C7AA26F139D66200050BE95 /* NSBezierPath+MCAdditions.m in Sources */,
-				4C7AA270139D66200050BE95 /* NSShadow+MCAdditions.m in Sources */,
 				4C7AA289139D70390050BE95 /* SBCoverImageView.m in Sources */,
 				4C7AA2A6139D9B440050BE95 /* NSString+Time.m in Sources */,
 				4CFAFC2C139EF08800E82B57 /* SBServerHomeController.m in Sources */,

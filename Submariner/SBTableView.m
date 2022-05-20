@@ -34,7 +34,6 @@
 
 #import "SBTableView.h"
 #import "RWTableHeaderCell.h"
-#import "RWCornerView.h"
 
 
 NSString *SBDeleteKeyPressedOnRowsNotification = @"SBDeleteKeyPressedOnRowsNotification";
@@ -73,9 +72,6 @@ NSString *SBEnterKeyPressedOnRowsNotification = @"SBEnterKeyPressedOnRowsNotific
 	
 	if (self) {
 		[self _setupHeaderCell];
-		
-		RWCornerView *cornerView = [[[RWCornerView alloc] init] autorelease];
-		[self setCornerView:cornerView];
 	}
 	return self;
 }
