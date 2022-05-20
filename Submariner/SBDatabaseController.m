@@ -604,6 +604,22 @@
     }
 }
 
+- (IBAction)rewind:(id)sender {
+    // XXX: Controllable increment
+    if([[SBPlayer sharedInstance] isPlaying]) {
+        double newTime = MAX([[SBPlayer sharedInstance] currentTime] - 5, 0);
+        [[SBPlayer sharedInstance] seekToTime: newTime];
+    }
+}
+
+- (IBAction)fastForward:(id)sender {
+    if([[SBPlayer sharedInstance] isPlaying]) {
+        double maxTime = [[SBPlayer sharedInstance] durationTime];
+        double newTime = MIN([[SBPlayer sharedInstance] currentTime] + 5, maxTime);
+        [[SBPlayer sharedInstance] seekToTime: newTime];
+    }
+}
+
 - (IBAction)setVolume:(id)sender {
     [[SBPlayer sharedInstance] setVolume:[sender floatValue]];
 }
@@ -1523,7 +1539,8 @@
     
     BOOL isPlaying = [[SBPlayer sharedInstance] isPlaying];
     
-    if (action == @selector(playPause:) || action == @selector(stop:)) {
+    if (action == @selector(playPause:) || action == @selector(stop:)
+        || action == @selector(rewind:) || action == @selector(fastForward:)) {
         return isPlaying;
     }
     // Similar, but could use if prv/next track exist

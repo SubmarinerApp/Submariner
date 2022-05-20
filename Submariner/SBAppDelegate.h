@@ -77,6 +77,8 @@
 - (IBAction)repeatAll:(id)sender;
 - (IBAction)repeatModeCycle:(id)sender;
 - (IBAction)toggleShuffle:(id)sender;
+- (IBAction)rewind:(id)sender;
+- (IBAction)fastForward:(id)sender;
 - (IBAction)setMuteOn:(id)sender;
 - (IBAction)volumeUp:(id)sender;
 - (IBAction)volumeDown:(id)sender;

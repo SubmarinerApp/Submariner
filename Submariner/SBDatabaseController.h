@@ -143,6 +143,8 @@
 - (IBAction)nextTrack:(id)sender;
 - (IBAction)previousTrack:(id)sender;
 - (IBAction)seekTime:(id)sender;
+- (IBAction)rewind:(id)sender;
+- (IBAction)fastForward:(id)sender;
 - (IBAction)setVolume:(id)sender;
 - (IBAction)setMuteOn:(id)sender;
 - (IBAction)setMuteOff:(id)sender;

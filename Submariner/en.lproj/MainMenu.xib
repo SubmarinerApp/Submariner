@@ -243,6 +243,19 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="2Ub-yA-g4d"/>
+                            <menuItem title="Rewind" keyEquivalent="" id="fLe-NG-hf5">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                <connections>
+                                    <action selector="rewind:" target="494" id="8cz-Qi-5ZK"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Fast Forward" keyEquivalent="" id="cci-d6-B42">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES"/>
+                                <connections>
+                                    <action selector="fastForward:" target="494" id="uO1-eC-qfv"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="bLI-cD-qZv"/>
                             <menuItem title="Increase Volume" keyEquivalent="" id="eoq-8d-aSq">
                                 <connections>
                                     <action selector="volumeUp:" target="494" id="bL7-Vi-zEf"/>
@@ -253,7 +266,7 @@
                                     <action selector="volumeDown:" target="494" id="eC4-kT-mX0"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Mute" keyEquivalent="" id="jWK-cF-ext">
+                            <menuItem title="Mute" alternate="YES" keyEquivalent="" id="jWK-cF-ext">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="setMuteOn:" target="494" id="vWZ-WD-KWZ"/>
@@ -284,7 +297,8 @@
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="RTB-Oy-hhE"/>
-                                        <menuItem title="Cycle Repeat Mode" keyEquivalent="R" id="rF1-TS-55x">
+                                        <menuItem title="Cycle Repeat Mode" keyEquivalent="r" id="rF1-TS-55x">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                             <connections>
                                                 <action selector="repeatModeCycle:" target="494" id="fD4-h0-pYe"/>
                                             </connections>
@@ -292,8 +306,8 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Shuffle" id="azN-bG-LL1">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="Shuffle" keyEquivalent="s" id="azN-bG-LL1">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <binding destination="s2r-9F-vP5" name="value" keyPath="values.shuffle" id="hud-gw-zmG"/>
                                 </connections>

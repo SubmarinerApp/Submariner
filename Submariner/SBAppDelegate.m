@@ -311,6 +311,14 @@
     [databaseController shuffle: sender];
 }
 
+- (IBAction)rewind:(id)sender {
+    [databaseController rewind: sender];
+}
+
+- (IBAction)fastForward:(id)sender {
+    [databaseController fastForward: sender];
+}
+
 - (IBAction)setMuteOn:(id)sender {
     [databaseController setMuteOn: sender];
 }
