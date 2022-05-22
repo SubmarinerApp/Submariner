@@ -179,6 +179,9 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
             [songInfo setObject: [NSNumber numberWithDouble: [self currentTime]] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
             [songInfo setObject: [NSNumber numberWithDouble: duration] forKey:MPMediaItemPropertyPlaybackDuration];
         }
+    } else {
+        [songInfo removeObjectForKey: MPNowPlayingInfoPropertyElapsedPlaybackTime];
+        [songInfo removeObjectForKey: MPMediaItemPropertyPlaybackDuration];
     }
     
     if (![self isPaused] && [self isPlaying]) {
@@ -221,6 +224,16 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
             }];
             [songInfo setObject: mpArtwork forKey:MPMediaItemPropertyArtwork];
         }
+    } else {
+        [songInfo removeObjectForKey: MPMediaItemPropertyMediaType];
+        [songInfo removeObjectForKey: MPMediaItemPropertyTitle];
+        [songInfo removeObjectForKey: MPMediaItemPropertyAlbumTitle];
+        [songInfo removeObjectForKey: MPMediaItemPropertyArtist];
+        [songInfo removeObjectForKey: MPMediaItemPropertyGenre];
+        [songInfo removeObjectForKey: MPMediaItemPropertyRating];
+        [songInfo removeObjectForKey: MPMediaItemPropertyAssetURL];
+        [songInfo removeObjectForKey: MPMediaItemPropertyReleaseDate];
+        [songInfo removeObjectForKey: MPMediaItemPropertyArtwork];
     }
 }
 
