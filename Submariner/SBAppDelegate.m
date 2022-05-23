@@ -40,6 +40,7 @@
 #import "SBArtist.h"
 #import "SBLibrary.h"
 #import "SBAlbum.h"
+#import "SBRepeatModeTransformer.h"
 // Additions
 #import "NSManagedObjectContext+Fetch.h"
 #import "NSWindow-Zoom.h"
@@ -70,6 +71,13 @@
 
 - (id)init {
     self = [super init];
+    // XXX: Best place to initialize value transformers?
+    SBRepeatModeTransformer *noneTrans = [[SBRepeatModeTransformer alloc] initWithMode: SBPlayerRepeatNo];
+    [NSValueTransformer setValueTransformer: noneTrans forName: @"SBRepeatModeNoneTransformer"];
+    SBRepeatModeTransformer *oneTrans = [[SBRepeatModeTransformer alloc] initWithMode: SBPlayerRepeatOne];
+    [NSValueTransformer setValueTransformer: oneTrans forName: @"SBRepeatModeOneTransformer"];
+    SBRepeatModeTransformer *allTrans = [[SBRepeatModeTransformer alloc] initWithMode: SBPlayerRepeatAll];
+    [NSValueTransformer setValueTransformer: allTrans forName: @"SBRepeatModeAllTransformer"];
     return self;
 }
 

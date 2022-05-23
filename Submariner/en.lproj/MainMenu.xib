@@ -275,25 +275,42 @@
                             <menuItem isSeparatorItem="YES" id="6aq-Nk-B0c"/>
                             <menuItem title="Repeat" id="Zk9-yP-Xl7">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Repeat" id="zuJ-it-Eo9">
+                                <menu key="submenu" title="Repeat" autoenablesItems="NO" id="zuJ-it-Eo9">
                                     <items>
                                         <menuItem title="Repeat None" id="VMA-cT-ax3">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="repeatNone:" target="494" id="RQa-UM-ZMj"/>
-                                                <binding destination="s2r-9F-vP5" name="value" keyPath="values.repeatMode" id="izH-9z-JjO"/>
+                                                <binding destination="s2r-9F-vP5" name="value" keyPath="values.repeatMode" id="UDH-v4-0XX">
+                                                    <dictionary key="options">
+                                                        <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                                        <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                        <string key="NSValueTransformerName">SBRepeatModeNoneTransformer</string>
+                                                    </dictionary>
+                                                </binding>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Repeat One" id="EGF-cy-QSn">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="repeatOne:" target="494" id="jm9-8L-KSD"/>
+                                                <binding destination="s2r-9F-vP5" name="value" keyPath="values.repeatMode" id="hqZ-Mq-1v9">
+                                                    <dictionary key="options">
+                                                        <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                                        <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                        <string key="NSValueTransformerName">SBRepeatModeOneTransformer</string>
+                                                    </dictionary>
+                                                </binding>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Repeat All" id="aNQ-jY-0Pn">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="repeatAll:" target="494" id="udm-SQ-0IP"/>
+                                                <binding destination="s2r-9F-vP5" name="value" keyPath="values.repeatMode" id="8rb-sp-bEP">
+                                                    <dictionary key="options">
+                                                        <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                                        <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                        <string key="NSValueTransformerName">SBRepeatModeAllTransformer</string>
+                                                    </dictionary>
+                                                </binding>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="RTB-Oy-hhE"/>
