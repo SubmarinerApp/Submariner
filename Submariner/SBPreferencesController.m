@@ -137,7 +137,7 @@
 	[NSAnimationContext beginGrouping];
 	[[NSAnimationContext currentContext] setDuration:0.1];
 	
-	if ([[NSApp currentEvent] modifierFlags] & NSShiftKeyMask)
+    if ([[NSApp currentEvent] modifierFlags] & NSEventModifierFlagShift)
 	    [[NSAnimationContext currentContext] setDuration:1.0];
 	
 	[[[self.window contentView] animator] replaceSubview:previousView with:view];
@@ -153,45 +153,5 @@
     [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithInteger:selectedBehavior] 
                                              forKey:@"playerBehavior"];
 }
-
-
-- (IBAction)chooseDownloadLocation:(id)sender {
-    NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-    NSString *downloadLocation = [[[NSUserDefaults standardUserDefaults] valueForKey:@"downloadLocation"] stringByResolvingSymlinksInPath];
-    
-    [openPanel setCanChooseFiles:NO];
-    [openPanel setCanChooseDirectories:YES];
-    [openPanel setCanCreateDirectories:YES];
-    
-    [openPanel beginSheetForDirectory:downloadLocation
-                                file:nil
-                                types:nil
-                       modalForWindow:[self window]
-                        modalDelegate:self
-                       didEndSelector:@selector(downloadPanelDidEnd:returnCode:contextInfo:)
-                          contextInfo:nil];
-}
-
-
-- (void)downloadPanelDidEnd: (NSOpenPanel *)panel returnCode: (NSInteger)returnCode contextInfo: (void *)contextInfo {
-    
-    if(returnCode == NSAlertDefaultReturn) {
-        NSString *newLocation = [panel directory];
-        [[NSUserDefaults standardUserDefaults] setObject:newLocation forKey:@"downloadLocation"];
-        
-        [downloadLocationPopUp removeItemAtIndex:0];
-        
-        NSString *downloadLocation = [[[NSUserDefaults standardUserDefaults] valueForKey:@"downloadLocation"] stringByResolvingSymlinksInPath];
-        NSImage *fileIcon = [[NSWorkspace sharedWorkspace] iconForFile:downloadLocation];
-        NSString *downloadLocationName = [downloadLocation lastPathComponent];
-        
-        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:downloadLocationName action:nil keyEquivalent:@""];
-        [item setOnStateImage:fileIcon];
-        
-        [downloadLocationPopUp insertItemWithTitle:downloadLocationName atIndex:0];
-        [downloadLocationPopUp selectItemAtIndex:0];
-    }
-}
-
 
 @end

@@ -50,7 +50,6 @@
 }
 
 - (IBAction)switchView:(id)sender;
-- (IBAction)chooseDownloadLocation:(id)sender;
 - (IBAction)setPlayerBehavior:(id)sender;
 - (NSView *)viewForTag:(NSInteger)tag;
 - (NSRect)newFrameForNewContentView:(NSView *)view;
