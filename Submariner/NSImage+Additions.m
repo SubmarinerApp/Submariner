@@ -48,7 +48,7 @@
     [copiedImage lockFocus];
     
     [tint set];
-    NSRectFillUsingOperation(imageBounds, NSCompositeSourceAtop);
+    NSRectFillUsingOperation(imageBounds, NSCompositingOperationSourceAtop);
     
     [copiedImage unlockFocus];
     
