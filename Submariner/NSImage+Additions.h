@@ -37,6 +37,5 @@
 @interface NSImage (Additions)
 
 - (NSImage *)imageTintedWithColor:(NSColor *)tint;
-- (NSImage*)imageCroppedToRect:(NSRect)rect;
 
 @end
