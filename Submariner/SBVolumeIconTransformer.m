@@ -20,7 +20,7 @@
 }
 
 - (id)transformedValue:(id)value {
-    float f = [(__bridge NSNumber*)value floatValue];
+    float f = [value floatValue];
     NSString *name = @"speaker.badge.exclamationmark", *desc;
     if (f <= 0.0) {
         name = @"speaker.slash";

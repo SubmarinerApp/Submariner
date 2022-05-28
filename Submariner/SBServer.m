@@ -36,6 +36,7 @@
 #import "SBAlbum.h"
 #import "SBPlaylist.h"
 
+#include "NSString+Hex.h"
 
 @implementation SBServer
 

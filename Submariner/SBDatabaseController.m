@@ -994,7 +994,7 @@
         [searchField setPlaceholderString: @""];
         
     } else if([resource isKindOfClass:[SBServer class]]) {
-        SBServer *server = (__bridge SBServer*)resource;
+        SBServer *server = (SBServer*)resource;
         [self setServer: server]; // set to nil afterwards?
         switch ([server selectedTabIndex]) {
             case 0:

@@ -20,7 +20,7 @@
 }
 
 - (id)transformedValue:(id)value {
-    SBPlayerRepeatMode repeatMode = (SBPlayerRepeatMode)[(__bridge NSNumber*)value integerValue];
+    SBPlayerRepeatMode repeatMode = (SBPlayerRepeatMode)[value integerValue];
     NSString *name, *desc;
     if (repeatMode == SBPlayerRepeatNo) {
         // XXX: Make it tinted instead

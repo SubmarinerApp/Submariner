@@ -28,12 +28,12 @@
 }
 
 - (id)transformedValue:(id)value {
-    SBPlayerRepeatMode passedMode = (SBPlayerRepeatMode)[(__bridge NSNumber*)value integerValue];
+    SBPlayerRepeatMode passedMode = (SBPlayerRepeatMode)[value integerValue];
     return @(mode == passedMode);
 }
 
 - (id)reverseTransformedValue:(id)value {
-    BOOL enabled = [(__bridge NSNumber*)value boolValue];
+    BOOL enabled = [value boolValue];
     NSLog(@"Enabled? %d; Transformer Mode? %d", enabled, mode);
     return enabled ? @(mode) : @(SBPlayerRepeatNo);
 }
