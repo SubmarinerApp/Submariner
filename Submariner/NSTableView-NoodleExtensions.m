@@ -269,7 +269,7 @@ void NoodleClearRect(NSRect rect)
 		[image lockFocus];
 		
 		NoodleClearRect(imageRect);
-		[rowImage drawAdjustedAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:alpha];
+        [rowImage drawAdjustedAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:alpha];
 		
 		[image unlockFocus];
 	}
