@@ -43,7 +43,6 @@
 #import "SBRepeatModeTransformer.h"
 // Additions
 #import "NSManagedObjectContext+Fetch.h"
-#import "NSWindow-Zoom.h"
 
 
 @implementation SBAppDelegate

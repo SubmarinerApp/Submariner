@@ -49,12 +49,10 @@
 		4C7AA232139D57A00050BE95 /* SBMusicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA230139D57A00050BE95 /* SBMusicController.m */; };
 		4C7AA233139D57A00050BE95 /* Music.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C7AA231139D57A00050BE95 /* Music.xib */; };
 		4C7AA23A139D59500050BE95 /* NSImage-NoodleExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA235139D59500050BE95 /* NSImage-NoodleExtensions.m */; };
-		4C7AA23B139D59500050BE95 /* NSIndexSet-NoodleExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA237139D59500050BE95 /* NSIndexSet-NoodleExtensions.m */; };
 		4C7AA23C139D59500050BE95 /* NSTableView-NoodleExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA239139D59500050BE95 /* NSTableView-NoodleExtensions.m */; };
 		4C7AA247139D619F0050BE95 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C7AA246139D619F0050BE95 /* Quartz.framework */; };
 		4C7AA24D139D64930050BE95 /* SBServerLibraryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA24B139D64920050BE95 /* SBServerLibraryController.m */; };
 		4C7AA24E139D64930050BE95 /* ServerLibrary.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C7AA24C139D64920050BE95 /* ServerLibrary.xib */; };
-		4C7AA26F139D66200050BE95 /* NSBezierPath+MCAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA26C139D66200050BE95 /* NSBezierPath+MCAdditions.m */; };
 		4C7AA289139D70390050BE95 /* SBCoverImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA288139D70390050BE95 /* SBCoverImageView.m */; };
 		4C7AA2A6139D9B440050BE95 /* NSString+Time.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA2A5139D9B440050BE95 /* NSString+Time.m */; };
 		4C7FFC2813AFC461004F02AB /* SBOperationActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7FFC2613AFC461004F02AB /* SBOperationActivity.m */; };
@@ -258,16 +256,12 @@
 		4C7AA231139D57A00050BE95 /* Music.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Music.xib; sourceTree = "<group>"; };
 		4C7AA234139D59500050BE95 /* NSImage-NoodleExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage-NoodleExtensions.h"; sourceTree = "<group>"; };
 		4C7AA235139D59500050BE95 /* NSImage-NoodleExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage-NoodleExtensions.m"; sourceTree = "<group>"; };
-		4C7AA236139D59500050BE95 /* NSIndexSet-NoodleExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexSet-NoodleExtensions.h"; sourceTree = "<group>"; };
-		4C7AA237139D59500050BE95 /* NSIndexSet-NoodleExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexSet-NoodleExtensions.m"; sourceTree = "<group>"; };
 		4C7AA238139D59500050BE95 /* NSTableView-NoodleExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTableView-NoodleExtensions.h"; sourceTree = "<group>"; };
 		4C7AA239139D59500050BE95 /* NSTableView-NoodleExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTableView-NoodleExtensions.m"; sourceTree = "<group>"; };
 		4C7AA246139D619F0050BE95 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		4C7AA24A139D64920050BE95 /* SBServerLibraryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBServerLibraryController.h; sourceTree = "<group>"; };
 		4C7AA24B139D64920050BE95 /* SBServerLibraryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBServerLibraryController.m; sourceTree = "<group>"; };
 		4C7AA24C139D64920050BE95 /* ServerLibrary.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerLibrary.xib; sourceTree = "<group>"; };
-		4C7AA26B139D66200050BE95 /* NSBezierPath+MCAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBezierPath+MCAdditions.h"; sourceTree = "<group>"; };
-		4C7AA26C139D66200050BE95 /* NSBezierPath+MCAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+MCAdditions.m"; sourceTree = "<group>"; };
 		4C7AA287139D70390050BE95 /* SBCoverImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCoverImageView.h; sourceTree = "<group>"; };
 		4C7AA288139D70390050BE95 /* SBCoverImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCoverImageView.m; sourceTree = "<group>"; };
 		4C7AA2A4139D9B440050BE95 /* NSString+Time.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Time.h"; sourceTree = "<group>"; };
@@ -670,12 +664,8 @@
 				4C7AA2A5139D9B440050BE95 /* NSString+Time.m */,
 				4CED8E1D144CE2A400332417 /* NSString+Hex.h */,
 				4CED8E1E144CE2A400332417 /* NSString+Hex.m */,
-				4C7AA26B139D66200050BE95 /* NSBezierPath+MCAdditions.h */,
-				4C7AA26C139D66200050BE95 /* NSBezierPath+MCAdditions.m */,
 				4C7AA234139D59500050BE95 /* NSImage-NoodleExtensions.h */,
 				4C7AA235139D59500050BE95 /* NSImage-NoodleExtensions.m */,
-				4C7AA236139D59500050BE95 /* NSIndexSet-NoodleExtensions.h */,
-				4C7AA237139D59500050BE95 /* NSIndexSet-NoodleExtensions.m */,
 				4C7AA238139D59500050BE95 /* NSTableView-NoodleExtensions.h */,
 				4C7AA239139D59500050BE95 /* NSTableView-NoodleExtensions.m */,
 				4CFB3E16139D02A0008DC01A /* NSWindow-NSTimeMachineSupport.h */,
@@ -1100,10 +1090,8 @@
 				4C7AA22D139D563A0050BE95 /* SBPlaylistController.m in Sources */,
 				4C7AA232139D57A00050BE95 /* SBMusicController.m in Sources */,
 				4C7AA23A139D59500050BE95 /* NSImage-NoodleExtensions.m in Sources */,
-				4C7AA23B139D59500050BE95 /* NSIndexSet-NoodleExtensions.m in Sources */,
 				4C7AA23C139D59500050BE95 /* NSTableView-NoodleExtensions.m in Sources */,
 				4C7AA24D139D64930050BE95 /* SBServerLibraryController.m in Sources */,
-				4C7AA26F139D66200050BE95 /* NSBezierPath+MCAdditions.m in Sources */,
 				4C7AA289139D70390050BE95 /* SBCoverImageView.m in Sources */,
 				4C7AA2A6139D9B440050BE95 /* NSString+Time.m in Sources */,
 				4CFAFC2C139EF08800E82B57 /* SBServerHomeController.m in Sources */,
