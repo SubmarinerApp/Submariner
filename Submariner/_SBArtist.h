@@ -20,12 +20,12 @@
 
 
 
-@property (nonatomic, retain) SBLibrary* library;
+@property (nonatomic, strong) SBLibrary* library;
 //- (BOOL)validateLibrary:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSSet* albums;
+@property (nonatomic, strong) NSSet* albums;
 - (NSMutableSet*)albumsSet;
 
 

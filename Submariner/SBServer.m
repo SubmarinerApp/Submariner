@@ -68,10 +68,6 @@
 #pragma mark -
 #pragma mark LifeCycle
 
-- (void)dealloc {
-    [clientController release];
-    [super dealloc];
-}
 
 - (void)awakeFromInsert {
     [super awakeFromInsert];

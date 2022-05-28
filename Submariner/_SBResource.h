@@ -20,7 +20,7 @@
 
 
 
-@property (nonatomic, retain) NSNumber *index;
+@property (nonatomic, strong) NSNumber *index;
 
 @property int indexValue;
 - (int)indexValue;
@@ -30,14 +30,14 @@
 
 
 
-@property (nonatomic, retain) NSString *resourceName;
+@property (nonatomic, strong) NSString *resourceName;
 
 //- (BOOL)validateResourceName:(id*)value_ error:(NSError**)error_;
 
 
 
 
-@property (nonatomic, retain) SBSection* section;
+@property (nonatomic, strong) SBSection* section;
 //- (BOOL)validateSection:(id*)value_ error:(NSError**)error_;
 
 

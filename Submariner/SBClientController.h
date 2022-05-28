@@ -70,17 +70,17 @@
     NSInteger numberOfElements;
 }
 
-@property (readwrite, retain) NSManagedObjectContext *managedObjectContext;
-@property (readwrite, retain) id<SBClientDelegate> delegate;
-@property (readwrite, retain) NSOperationQueue *queue;
-@property (readwrite, retain) SBServer *server;
-@property (readwrite, retain) SBSection *librarySection;
-@property (readwrite, retain) SBSection *remotePlaylistsSection;
-@property (readwrite, retain) SBSection *podcastsSection;
-@property (readwrite, retain) SBSection *radiosSection;
-@property (readwrite, retain) SBSection *searchsSection;
-@property (readwrite, retain) SBLibrary *library;
-@property (readwrite, retain) SBHome *home;
+@property (readwrite, strong) NSManagedObjectContext *managedObjectContext;
+@property (readwrite, strong) id<SBClientDelegate> delegate;
+@property (readwrite, strong) NSOperationQueue *queue;
+@property (readwrite, strong) SBServer *server;
+@property (readwrite, strong) SBSection *librarySection;
+@property (readwrite, strong) SBSection *remotePlaylistsSection;
+@property (readwrite, strong) SBSection *podcastsSection;
+@property (readwrite, strong) SBSection *radiosSection;
+@property (readwrite, strong) SBSection *searchsSection;
+@property (readwrite, strong) SBLibrary *library;
+@property (readwrite, strong) SBHome *home;
 
 
 @property (readwrite) BOOL connected;

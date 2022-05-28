@@ -53,10 +53,6 @@
 }
 
 
-- (void)dealloc {
-    [trackIDs release];
-    [super dealloc];
-}
 
 - (void)closeSheet:(id)sender {
     

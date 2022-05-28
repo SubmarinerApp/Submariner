@@ -32,22 +32,22 @@
 #import "_SBTrack.h"
 
 @interface SBTrack : _SBTrack {
-    NSString *durationString;
-    NSString *artistString;
-    NSString *albumString;
-    NSImage *playingImage;
-    NSImage *coverImage;
-    NSImage *onlineImage;
+    NSString *__weak durationString;
+    NSString *__weak artistString;
+    NSString *__weak albumString;
+    NSImage *__weak playingImage;
+    NSImage *__weak coverImage;
+    NSImage *__weak onlineImage;
     NSDictionary *movieAttributes;
 }
 
-@property (readonly) NSString *durationString;
-@property (readonly) NSString *artistString;
-@property (readonly) NSString *albumString;
-@property (readonly) NSImage *playingImage;
-@property (readonly) NSImage *coverImage;
-@property (readonly) NSImage *onlineImage;
-@property (readonly) NSDictionary *movieAttributes;
+@property (weak, readonly) NSString *durationString;
+@property (weak, readonly) NSString *artistString;
+@property (weak, readonly) NSString *albumString;
+@property (weak, readonly) NSImage *playingImage;
+@property (weak, readonly) NSImage *coverImage;
+@property (weak, readonly) NSImage *onlineImage;
+@property (weak, readonly) NSDictionary *movieAttributes;
 
 - (NSURL *)streamURL;
 - (NSURL *)downloadURL;

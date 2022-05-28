@@ -55,18 +55,13 @@
 {
     self = [self init];
     if (self) {
-        query = [aQuery retain];
+        query = aQuery;
     }
     
     return self;
 }
 
 
-- (void)dealloc {
-    [tracks release];
-    [query release];
-    [super dealloc];
-}
 
 
 @end

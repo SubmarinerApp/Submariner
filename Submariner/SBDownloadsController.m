@@ -80,10 +80,6 @@
 }
 
 
-- (void)dealloc {
-    [downloadActivities release];
-    [super dealloc];
-}
 
 
 - (void)loadView {

@@ -44,7 +44,7 @@
     IBOutlet NSArrayController *tracksController;
 }
 
-@property (readwrite, retain) SBSearchResult *searchResult;
+@property (readwrite, strong) SBSearchResult *searchResult;
 
 - (IBAction)trackDoubleClick:(id)sender;
 - (IBAction)addTrackToTracklist:(id)sender;

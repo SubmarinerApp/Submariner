@@ -58,7 +58,7 @@
     
     
     CFUUIDRef uuid = CFUUIDCreate(nil);
-    NSString *uuidString = [(NSString *)CFUUIDCreateString(nil, uuid) autorelease];
+    NSString *uuidString = (NSString *)CFBridgingRelease(CFUUIDCreateString(nil, uuid));
     CFRelease(uuid);
     
     NSString *finalPath = [temporaryDirectory stringByAppendingPathComponent:uuidString];    
@@ -80,7 +80,7 @@
         for (id key in parameters)
         {
             NSString *encodedKey = [key stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            CFStringRef value = (CFStringRef)[[parameters objectForKey:key] copy];
+            CFStringRef value = (CFStringRef)CFBridgingRetain([[parameters objectForKey:key] copy]);
             // Escape even the "reserved" characters for URLs 
             // as defined in http://www.ietf.org/rfc/rfc2396.txt
             CFStringRef encodedValue = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, 
@@ -108,7 +108,6 @@
     }
     
     if(params) {
-        [params release];
         params = nil;
     }
     
@@ -132,7 +131,7 @@
         for (id key in parameters)
         {
             NSString *encodedKey = [key stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            CFStringRef value = (CFStringRef)[[parameters objectForKey:key] copy];
+            CFStringRef value = (CFStringRef)CFBridgingRetain([[parameters objectForKey:key] copy]);
             // Escape even the "reserved" characters for URLs 
             // as defined in http://www.ietf.org/rfc/rfc2396.txt
             CFStringRef encodedValue = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, 
@@ -159,7 +158,6 @@
     
     // clean
     if(params) {
-        [params release];
         params = nil;
     }
     

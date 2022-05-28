@@ -85,7 +85,7 @@
         scopeGroups = [[NSMutableArray alloc] init];
         
         NSSortDescriptor *trackDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"trackNumber" ascending:YES];
-        trackSortDescriptor = [[NSArray arrayWithObject:trackDescriptor] retain];
+        trackSortDescriptor = [NSArray arrayWithObject:trackDescriptor];
     }
     return self;
 }
@@ -93,10 +93,6 @@
 
 - (void)dealloc {
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"coverSize"];
-    [trackSortDescriptor release];
-    [databaseController release];
-    [scopeGroups release];
-    [super dealloc];
 }
 
 
@@ -224,7 +220,7 @@
 
 - (IBAction)addTrackToTracklist:(id)sender {
     NSIndexSet *indexSet = [tracksTableView selectedRowIndexes];
-    __block NSMutableArray *tracks = [NSMutableArray array];
+    __weak NSMutableArray *tracks = [NSMutableArray array];
     
     [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         [tracks addObject:[[tracksController arrangedObjects] objectAtIndex:idx]];
@@ -370,23 +366,22 @@
     menu = [[NSMenu alloc] initWithTitle:@"albumsMenu"];
     [menu setAutoenablesItems:NO];
     
-    item = [[[NSMenuItem alloc] initWithTitle:@"Play Album" action:@selector(albumDoubleClick:) keyEquivalent:@""] autorelease];
+    item = [[NSMenuItem alloc] initWithTitle:@"Play Album" action:@selector(albumDoubleClick:) keyEquivalent:@""];
     [item setTarget:self];
     [menu addItem:item];
     
-    item = [[[NSMenuItem alloc] initWithTitle:@"Add to Tracklist" action:@selector(addAlbumToTracklist:) keyEquivalent:@""] autorelease];
+    item = [[NSMenuItem alloc] initWithTitle:@"Add to Tracklist" action:@selector(addAlbumToTracklist:) keyEquivalent:@""];
     [item setTarget:self];
     [menu addItem:item];
     
     [menu addItem:[NSMenuItem separatorItem]];
     
-    item = [[[NSMenuItem alloc] initWithTitle:@"Download Album" action:@selector(downloadAlbum:) keyEquivalent:@""] autorelease];
+    item = [[NSMenuItem alloc] initWithTitle:@"Download Album" action:@selector(downloadAlbum:) keyEquivalent:@""];
     [item setTarget:self];
     [menu addItem:item];
     
     [NSMenu popUpContextMenu:menu withEvent:event forView:aBrowser];
     
-    [menu release];
 }
 
 
@@ -403,21 +398,21 @@
         menu = [[NSMenu alloc] initWithTitle:@"trackMenu"];
         [menu setAutoenablesItems:NO];
         
-        item = [[[NSMenuItem alloc] initWithTitle:@"Play Track" action:@selector(trackDoubleClick:) keyEquivalent:@""] autorelease];
+        item = [[NSMenuItem alloc] initWithTitle:@"Play Track" action:@selector(trackDoubleClick:) keyEquivalent:@""];
         [item setTarget:self];
         [menu addItem:item];
         
-        item = [[[NSMenuItem alloc] initWithTitle:@"Add to Tracklist" action:@selector(addTrackToTracklist:) keyEquivalent:@""] autorelease];
+        item = [[NSMenuItem alloc] initWithTitle:@"Add to Tracklist" action:@selector(addTrackToTracklist:) keyEquivalent:@""];
         [item setTarget:self];
         [menu addItem:item];
         
-        item = [[[NSMenuItem alloc] initWithTitle:@"New Playlist with Selected Track(s)" action:@selector(createNewPlaylistWithSelectedTracks:) keyEquivalent:@""] autorelease];
+        item = [[NSMenuItem alloc] initWithTitle:@"New Playlist with Selected Track(s)" action:@selector(createNewPlaylistWithSelectedTracks:) keyEquivalent:@""];
         [item setTarget:self];
         [menu addItem:item];
         
         [menu addItem:[NSMenuItem separatorItem]];
         
-        item = [[[NSMenuItem alloc] initWithTitle:@"Download Track" action:@selector(downloadTrack:) keyEquivalent:@""] autorelease];
+        item = [[NSMenuItem alloc] initWithTitle:@"Download Track" action:@selector(downloadTrack:) keyEquivalent:@""];
         [item setTarget:self];
         [menu addItem:item];
         

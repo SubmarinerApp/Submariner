@@ -47,23 +47,15 @@
 - (id)init {
     self = [super init];
     if (self) {
-        operationPercent   = [[NSNumber numberWithInt:0] retain];
-        operationTotal      = [[NSNumber numberWithInt:0] retain];
-        operationCurrent    = [[NSNumber numberWithInt:0] retain];
+        operationPercent   = [NSNumber numberWithInt:0];
+        operationTotal      = [NSNumber numberWithInt:0];
+        operationCurrent    = [NSNumber numberWithInt:0];
         indeterminated      = NO;
     }
     return self;
 }
 
 
-- (void)dealloc {
-    [operationName release];
-    [operationInfo release];
-    [operationTotal release];
-    [operationCurrent release];
-    [operationPercent release];
-    [super dealloc];
-}
 
 
 @end

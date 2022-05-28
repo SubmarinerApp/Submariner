@@ -46,7 +46,7 @@
     NSArray *nowPlayingSortDescriptors;
 }
 
-@property (readwrite, retain) NSArray *nowPlayingSortDescriptors;
+@property (readwrite, strong) NSArray *nowPlayingSortDescriptors;
 
 - (void)viewDidLoad;
 - (IBAction)refreshNowPlaying:(id)sender;

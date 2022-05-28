@@ -45,7 +45,7 @@
     IBOutlet NSTextField *playlistNameField;
 }
 
-@property (readwrite, retain) NSArray *trackIDs;
-@property (readwrite, retain) SBServer *server;
+@property (readwrite, strong) NSArray *trackIDs;
+@property (readwrite, strong) SBServer *server;
 
 @end

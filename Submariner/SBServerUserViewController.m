@@ -75,7 +75,7 @@
     self = [super initWithManagedObjectContext:context];
     if (self) {
         NSSortDescriptor *descr = [NSSortDescriptor sortDescriptorWithKey:@"minutesAgo" ascending:YES];
-        nowPlayingSortDescriptors = [[NSArray arrayWithObject:descr] retain];
+        nowPlayingSortDescriptors = [NSArray arrayWithObject:descr];
         
         
         // timers
@@ -92,9 +92,6 @@
                                                     name:SBSubsonicNowPlayingUpdatedNotification 
                                                   object:nil];
     
-    [nowPlayingSortDescriptors release];
-    [refreshNowPlayingTimer release];
-    [super dealloc];
 }
 
 
@@ -142,7 +139,6 @@
     
     NSError * error = nil;
     NSArray * cars = [self.managedObjectContext executeFetchRequest:allCars error:&error];
-    [allCars release];
     //error handling goes here
     for (NSManagedObject * car in cars) {
         [self.managedObjectContext deleteObject:car];

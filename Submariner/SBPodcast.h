@@ -34,6 +34,6 @@
     NSImage *statusImage;
 }
 
-@property (readonly, retain) NSImage *statusImage;
+@property (readonly, strong) NSImage *statusImage;
 
 @end

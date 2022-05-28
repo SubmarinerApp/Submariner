@@ -77,8 +77,8 @@ enum SBPlayerRepeatMode {
     BOOL isCaching;
 }
 
-@property (readwrite, retain) NSMutableArray *playlist;
-@property (readwrite, retain) SBTrack *currentTrack;
+@property (readwrite, strong) NSMutableArray *playlist;
+@property (readwrite, strong) SBTrack *currentTrack;
 @property (readwrite) BOOL isShuffle;
 @property (readwrite) BOOL isPlaying;
 @property (readwrite) BOOL isPaused;

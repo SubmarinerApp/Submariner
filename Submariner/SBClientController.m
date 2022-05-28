@@ -92,7 +92,7 @@
         parameters = [[NSMutableDictionary alloc] init];
         queue = [[NSOperationQueue alloc] init];
         [queue setMaxConcurrentOperationCount:1];
-        managedObjectContext = [context retain];
+        managedObjectContext = context;
         connected = NO;
         isConnecting = NO;
         numberOfElements = 0;
@@ -102,20 +102,6 @@
     return self;
 }
 
-- (void)dealloc {
-    
-    [managedObjectContext release];
-    [queue release];
-    [server release];
-    [librarySection release];
-    [podcastsSection release];
-    [radiosSection release];
-    [home release];
-    [library release];
-    [parameters release];
-    
-    [super dealloc];
-}
 
 
 
@@ -135,32 +121,32 @@
     predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@) && (server == %@)", @"MUSIC", server];
     entities = [self.managedObjectContext fetchEntitiesNammed:@"Section" withPredicate:predicate error:&error];
     if(entities && [entities count] > 0) {
-        librarySection = [[entities objectAtIndex:0] retain];
+        librarySection = [entities objectAtIndex:0];
     }
     
     predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@) && (server == %@)", @"PLAYLISTS", server];
     entities = [self.managedObjectContext fetchEntitiesNammed:@"Section" withPredicate:predicate error:&error];
     if(entities && [entities count] > 0) {
-        remotePlaylistsSection = [[entities objectAtIndex:0] retain];
+        remotePlaylistsSection = [entities objectAtIndex:0];
     }
     
     predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@) && (server == %@)", @"SEARCHS", server];
     entities = [self.managedObjectContext fetchEntitiesNammed:@"Section" withPredicate:predicate error:&error];
     if(entities && [entities count] > 0) {
-        searchsSection = [[entities objectAtIndex:0] retain];
+        searchsSection = [entities objectAtIndex:0];
     }
     
     // check default resources
     predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@) && (server == %@)", @"Library", server];
     entities = [self.managedObjectContext fetchEntitiesNammed:@"Library" withPredicate:predicate error:&error];
     if(entities && [entities count] > 0) {
-        library = [[entities objectAtIndex:0] retain];
+        library = [entities objectAtIndex:0];
     }
     
     predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@) && (server == %@)", @"Home", server];
     entities = [self.managedObjectContext fetchEntitiesNammed:@"Home" withPredicate:predicate error:&error];
     if(entities && [entities count] > 0) {
-        home = [[entities objectAtIndex:0] retain];
+        home = [entities objectAtIndex:0];
     }
 
 }
@@ -251,7 +237,6 @@
 			[[NSOperationQueue sharedServerQueue] cancelAllOperations];
 		}
 		[[NSOperationQueue sharedServerQueue] addOperation:operation];
-		[operation release];
 		});
 	}];
 	[httpTask resume];
@@ -448,7 +433,7 @@
     [params setValue:@"100" forKey:@"songCount"];
     
     NSURL *url = [NSURL URLWithString:server.url command:@"rest/search2.view" parameters:params];
-    SBSearchResult *searchResult = [[[SBSearchResult alloc] initWithQuery:query] autorelease];
+    SBSearchResult *searchResult = [[SBSearchResult alloc] initWithQuery:query];
     [self requestWithURL:url requestType: SBSubsonicRequestSearch searchResult:searchResult];
 }
 

@@ -31,9 +31,9 @@
 #import "_SBPlaylist.h"
 
 @interface SBPlaylist : _SBPlaylist {
-    NSSet *resources;
+    NSSet *__weak resources;
 }
 
-@property (assign) NSSet *resources;
+@property (weak) NSSet *resources;
 
 @end

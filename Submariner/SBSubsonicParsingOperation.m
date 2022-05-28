@@ -152,10 +152,10 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     self = [super initWithManagedObjectContext:mainContext];
     if (self) {
         // Initialization code here.
-        clientController    = [client retain];
-        serverID            = [objectID retain];
-        xmlData             = [xml retain];
-        nc                  = [[NSNotificationCenter defaultCenter] retain];
+        clientController    = client;
+        serverID            = objectID;
+        xmlData             = xml;
+        nc                  = [NSNotificationCenter defaultCenter];
 
         requestType         = type;
         numberOfChildrens   = 0;
@@ -165,99 +165,83 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     return self;
 }
 
-- (void)dealloc
-{
-    [clientController release];
-    [nc release];
-    [serverID release];
-    [xmlData release];
-    [currentArtist release];
-    [currentAlbum release];
-    [currentCoverID release];
-    [currentPlaylist release];
-    [currentSearch release];
-    [currentPodcast release];
-    [server release];
-    [super dealloc];
-}
 
 
 #pragma mark -
 #pragma mark NSOperation
 
 - (void)main {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    @autoreleasepool {
     
-    @try {
-        
-        NSString *xmlString = [[[NSString alloc] initWithData:xmlData encoding:NSUTF8StringEncoding] autorelease];
-        server = [(SBServer *)[[self threadedContext] objectWithID:serverID] retain];
-        
-        @synchronized(server) {   
+        @try {
             
-            // if xml, parse
-            if(xmlString && [xmlString rangeOfString:@"xml"].location != NSNotFound) {
-                NSXMLParser *parser = [[NSXMLParser alloc] initWithData:xmlData];
-                [parser setDelegate:self];
-                [parser parse];
-                [parser release];
+            NSString *xmlString = [[NSString alloc] initWithData:xmlData encoding:NSUTF8StringEncoding];
+            server = (SBServer *)[[self threadedContext] objectWithID:serverID];
+            
+            @synchronized(server) {   
                 
-                // if data, cover, stream...
-            } else {
-                if(requestType == SBSubsonicRequestGetCoverArt) {
-                    // build paths
-                    NSString *coversDir = [[[SBAppDelegate sharedInstance] coverDirectory] stringByAppendingPathComponent:server.resourceName];
+                // if xml, parse
+                if(xmlString && [xmlString rangeOfString:@"xml"].location != NSNotFound) {
+                    NSXMLParser *parser = [[NSXMLParser alloc] initWithData:xmlData];
+                    [parser setDelegate:self];
+                    [parser parse];
                     
-                    // check cover dir
-                    if(![[NSFileManager defaultManager] fileExistsAtPath:coversDir])
-                        [[NSFileManager defaultManager] createDirectoryAtPath:coversDir 
-                                                  withIntermediateDirectories:YES 
-                                                                   attributes:nil 
-                                                                        error:nil];
+                    // if data, cover, stream...
+                } else {
+                    if(requestType == SBSubsonicRequestGetCoverArt) {
+                        // build paths
+                        NSString *coversDir = [[[SBAppDelegate sharedInstance] coverDirectory] stringByAppendingPathComponent:server.resourceName];
+                        
+                        // check cover dir
+                        if(![[NSFileManager defaultManager] fileExistsAtPath:coversDir])
+                            [[NSFileManager defaultManager] createDirectoryAtPath:coversDir 
+                                                      withIntermediateDirectories:YES 
+                                                                       attributes:nil 
+                                                                            error:nil];
+                        
+                        // write cover image on the disk
+                        NSString *filePath = nil;
+                        
+                        if([[SBSubsonicParsingOperation contentTypeForImageData:xmlData] isEqualToString:@"image/png"]) {
+                            filePath = [coversDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", currentCoverID]];
+                            [xmlData writeToFile:filePath atomically:YES];
+                        } else if([[SBSubsonicParsingOperation contentTypeForImageData:xmlData] isEqualToString:@"image/jpeg"]) {
+                            filePath = [coversDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.jpeg", currentCoverID]];
+                            [xmlData writeToFile:filePath atomically:YES];
+                        } else if([[SBSubsonicParsingOperation contentTypeForImageData:xmlData] isEqualToString:@"image/gif"]) {
+                            filePath = [coversDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.gif", currentCoverID]];
+                            [xmlData writeToFile:filePath atomically:YES];
+                        } else if([[SBSubsonicParsingOperation contentTypeForImageData:xmlData] isEqualToString:@"image/tiff"]) {
+                            filePath = [coversDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.tiff", currentCoverID]];
+                            [xmlData writeToFile:filePath atomically:YES];
+                        }
+                        
+                        // fetch cover
+                        SBCover *cover = [self fetchCoverWithName:currentCoverID];
+                        
+                        // add image path to cover object
+                        if(cover != nil) {  
+                            [cover setImagePath:filePath]; 
+                        }
+                        
+                        [self saveThreadedContext];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:SBSubsonicCoversUpdatedNotification object:nil];
                     
-                    // write cover image on the disk
-                    NSString *filePath = nil;
-                    
-                    if([[SBSubsonicParsingOperation contentTypeForImageData:xmlData] isEqualToString:@"image/png"]) {
-                        filePath = [coversDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", currentCoverID]];
-                        [xmlData writeToFile:filePath atomically:YES];
-                    } else if([[SBSubsonicParsingOperation contentTypeForImageData:xmlData] isEqualToString:@"image/jpeg"]) {
-                        filePath = [coversDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.jpeg", currentCoverID]];
-                        [xmlData writeToFile:filePath atomically:YES];
-                    } else if([[SBSubsonicParsingOperation contentTypeForImageData:xmlData] isEqualToString:@"image/gif"]) {
-                        filePath = [coversDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.gif", currentCoverID]];
-                        [xmlData writeToFile:filePath atomically:YES];
-                    } else if([[SBSubsonicParsingOperation contentTypeForImageData:xmlData] isEqualToString:@"image/tiff"]) {
-                        filePath = [coversDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.tiff", currentCoverID]];
-                        [xmlData writeToFile:filePath atomically:YES];
                     }
-                    
-                    // fetch cover
-                    SBCover *cover = [self fetchCoverWithName:currentCoverID];
-                    
-                    // add image path to cover object
-                    if(cover != nil) {  
-                        [cover setImagePath:filePath]; 
-                    }
-                    
-                    [self saveThreadedContext];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:SBSubsonicCoversUpdatedNotification object:nil];
-                
                 }
             }
+            
         }
-        
-    }
-    @catch (NSException *exception) {
-        NSLog(@"EXCEPTION : %@ in %s, %@, %@", exception, __PRETTY_FUNCTION__, [exception reason], [exception userInfo]);
-    }
-    @finally {
-        [self finish];
-        [self saveThreadedContext];
-    }
+        @catch (NSException *exception) {
+            NSLog(@"EXCEPTION : %@ in %s, %@, %@", exception, __PRETTY_FUNCTION__, [exception reason], [exception userInfo]);
+        }
+        @finally {
+            [self finish];
+            [self saveThreadedContext];
+        }
     
     
-    [pool release];
+    }
 }
 
 
@@ -353,7 +337,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
             SBArtist *parentArtist = [self fetchArtistWithID:[attributeDict valueForKey:@"id"] orName:nil];
             // try to fetch artist of album
             if(parentArtist != nil)
-                currentArtist = [parentArtist retain];
+                currentArtist = parentArtist;
             
             return;
             
@@ -363,7 +347,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
             SBAlbum *parentAlbum = [self fetchAlbumWithID:[attributeDict valueForKey:@"id"] orName:nil forArtist:currentArtist];
             // try to fetch artist of album
             if(parentAlbum != nil)
-                currentAlbum = [parentAlbum retain];
+                currentAlbum = parentAlbum;
             
             return;
         }
@@ -549,7 +533,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
             
             return;
         } else if(requestType == SBSubsonicRequestGetPlaylist) {
-            currentPlaylist = [[self fetchPlaylistWithID:[attributeDict valueForKey:@"id"] orName:nil] retain];
+            currentPlaylist = [self fetchPlaylistWithID:[attributeDict valueForKey:@"id"] orName:nil];
 //            if(currentPlaylist)
 //                [currentPlaylist setTracks:nil];
         }
@@ -805,7 +789,6 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     
     if([elementName isEqualToString:@"channel"]) {
         if(currentPodcast) {
-            [currentPodcast release];
             currentPodcast = nil;
         }
     }
@@ -860,7 +843,6 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     } else if(requestType == SBSubsonicRequestGetPlaylist) {
 
         if(currentPlaylist) {
-            [currentPlaylist release];
             currentPlaylist = nil;
         }
     } else if (requestType == SBSubsonicRequestGetNowPlaying) {

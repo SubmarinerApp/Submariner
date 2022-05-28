@@ -40,8 +40,8 @@
 - (void)drawRect:(NSRect)dirtyRect {
         
     NSRect rect = [self bounds];
-    NSGradient *gradient = [[[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedRed:0.2853 green:0.2853 blue:0.2853 alpha:1.0000] 
-                                                          endingColor:[NSColor colorWithCalibratedRed:0.0514 green:0.0514 blue:0.0514 alpha:1.0000]] autorelease];
+    NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedRed:0.2853 green:0.2853 blue:0.2853 alpha:1.0000] 
+                                                          endingColor:[NSColor colorWithCalibratedRed:0.0514 green:0.0514 blue:0.0514 alpha:1.0000]];
     
     [gradient drawInRect:rect angle:-90];
     

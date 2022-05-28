@@ -49,7 +49,7 @@
 }
 @property (readwrite) BOOL copy;
 @property (readwrite) BOOL remove;
-@property (readwrite, retain) NSArray *filePaths;
-@property (readwrite, retain) SBLibraryID *libraryID;
-@property (readwrite, retain) SBTrackID *remoteTrackID;
+@property (readwrite, strong) NSArray *filePaths;
+@property (readwrite, strong) SBLibraryID *libraryID;
+@property (readwrite, strong) SBTrackID *remoteTrackID;
 @end

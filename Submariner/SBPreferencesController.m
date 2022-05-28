@@ -71,7 +71,6 @@
 
 - (void)dealloc {
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"maxBitRate"];
-    [super dealloc];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

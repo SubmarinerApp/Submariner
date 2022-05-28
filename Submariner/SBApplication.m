@@ -49,7 +49,7 @@
 // init NSUserDefaults defaults settings (first launch)
 + (void)initialize {
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	NSMutableDictionary *defaults = [[[NSMutableDictionary alloc] init] autorelease];
+	NSMutableDictionary *defaults = [[NSMutableDictionary alloc] init];
 	
 	[defaults setObject:@"submariner" forKey:@"clientIdentifier"];
     [defaults setObject:@"1.5.0" forKey:@"apiVersion"];

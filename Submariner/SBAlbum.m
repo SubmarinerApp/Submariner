@@ -70,7 +70,7 @@
     NSImage *image = [NSImage imageNamed:@"NoArtwork"];
     
     if(self.cover && self.cover.imagePath) {
-        image = [[[NSImage alloc] initByReferencingFile:self.cover.imagePath] autorelease];
+        image = [[NSImage alloc] initByReferencingFile:self.cover.imagePath];
     } 
     return image;
 }
@@ -87,7 +87,7 @@
     NSInteger length = 0;
     
     if(self.cover && self.cover.imagePath) {
-        image = [[[NSImage alloc] initByReferencingFile:self.cover.imagePath] autorelease];
+        image = [[NSImage alloc] initByReferencingFile:self.cover.imagePath];
     } 
     
     length = [[image TIFFRepresentation] length];

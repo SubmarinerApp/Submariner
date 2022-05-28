@@ -42,8 +42,8 @@
     NSInteger selectedTabIndex;
 }
 
-@property (assign) NSSet *resources;
-@property (readonly, retain) SBClientController *clientController;
+@property (weak) NSSet *resources;
+@property (readonly, strong) SBClientController *clientController;
 
 @property (readwrite) NSInteger selectedTabIndex;
 

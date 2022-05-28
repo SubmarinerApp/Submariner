@@ -23,37 +23,37 @@
 
 
 
-@property (nonatomic, retain) NSDate *publishDate;
+@property (nonatomic, strong) NSDate *publishDate;
 
 //- (BOOL)validatePublishDate:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSString *episodeDescription;
+@property (nonatomic, strong) NSString *episodeDescription;
 
 //- (BOOL)validateEpisodeDescription:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSString *streamID;
+@property (nonatomic, strong) NSString *streamID;
 
 //- (BOOL)validateStreamID:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSString *episodeStatus;
+@property (nonatomic, strong) NSString *episodeStatus;
 
 //- (BOOL)validateEpisodeStatus:(id*)value_ error:(NSError**)error_;
 
 
 
 
-@property (nonatomic, retain) SBTrack* track;
+@property (nonatomic, strong) SBTrack* track;
 //- (BOOL)validateTrack:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) SBPodcast* podcast;
+@property (nonatomic, strong) SBPodcast* podcast;
 //- (BOOL)validatePodcast:(id*)value_ error:(NSError**)error_;
 
 

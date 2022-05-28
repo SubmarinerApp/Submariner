@@ -22,7 +22,7 @@
 
 
 
-@property (nonatomic, retain) NSNumber *isLocal;
+@property (nonatomic, strong) NSNumber *isLocal;
 
 @property BOOL isLocalValue;
 - (BOOL)isLocalValue;
@@ -32,25 +32,25 @@
 
 
 
-@property (nonatomic, retain) NSString *id;
+@property (nonatomic, strong) NSString *id;
 
 //- (BOOL)validateId:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSString *itemName;
+@property (nonatomic, strong) NSString *itemName;
 
 //- (BOOL)validateItemName:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSString *path;
+@property (nonatomic, strong) NSString *path;
 
 //- (BOOL)validatePath:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSNumber *isLinked;
+@property (nonatomic, strong) NSNumber *isLinked;
 
 @property BOOL isLinkedValue;
 - (BOOL)isLinkedValue;

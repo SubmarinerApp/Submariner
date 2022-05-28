@@ -41,7 +41,7 @@
     NSManagedObjectContext *managedObjectContext;
     NSView *blankingView;
 }
-@property (nonatomic, retain, readwrite) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong, readwrite) NSManagedObjectContext *managedObjectContext;
 
 + (NSString *)nibName;
 

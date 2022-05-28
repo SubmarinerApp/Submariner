@@ -61,8 +61,6 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:SBSubsonicSearchResultUpdatedNotification object:nil];
-    [searchResult release];
-    [super dealloc];
 }
 
 - (void)loadView {
@@ -121,7 +119,7 @@
 
 - (IBAction)addTrackToTracklist:(id)sender {
     NSIndexSet *indexSet = [tracksTableView selectedRowIndexes];
-    __block NSMutableArray *tracks = [NSMutableArray array];
+    __weak NSMutableArray *tracks = [NSMutableArray array];
     
     [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         [tracks addObject:[[tracksController arrangedObjects] objectAtIndex:idx]];
@@ -187,17 +185,17 @@
         menu = [[NSMenu alloc] initWithTitle:@"trackMenu"];
         [menu setAutoenablesItems:NO];
         
-        item = [[[NSMenuItem alloc] initWithTitle:@"Play Track" action:@selector(trackDoubleClick:) keyEquivalent:@""] autorelease];
+        item = [[NSMenuItem alloc] initWithTitle:@"Play Track" action:@selector(trackDoubleClick:) keyEquivalent:@""];
         [item setTarget:self];
         [menu addItem:item];
         
-        item = [[[NSMenuItem alloc] initWithTitle:@"Add to Tracklist" action:@selector(addTrackToTracklist:) keyEquivalent:@""] autorelease];
+        item = [[NSMenuItem alloc] initWithTitle:@"Add to Tracklist" action:@selector(addTrackToTracklist:) keyEquivalent:@""];
         [item setTarget:self];
         [menu addItem:item];
         
         [menu addItem:[NSMenuItem separatorItem]];
         
-        item = [[[NSMenuItem alloc] initWithTitle:@"Download Track" action:@selector(downloadTrack:) keyEquivalent:@""] autorelease];
+        item = [[NSMenuItem alloc] initWithTitle:@"Download Track" action:@selector(downloadTrack:) keyEquivalent:@""];
         [item setTarget:self];
         [menu addItem:item];
         

@@ -30,9 +30,9 @@
 #import "_SBDownloads.h"
 
 @interface SBDownloads : _SBDownloads {    
-    NSSet *resources;
+    NSSet *__weak resources;
 }
 
-@property (assign) NSSet *resources;
+@property (weak) NSSet *resources;
 
 @end

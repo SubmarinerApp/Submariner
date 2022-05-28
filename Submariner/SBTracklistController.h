@@ -47,7 +47,7 @@
     SBDatabaseController *databaseController;
 }
 
-@property (readwrite, retain) SBDatabaseController *databaseController;
+@property (readwrite, strong) SBDatabaseController *databaseController;
 
 - (IBAction)playPause:(id)sender;
 - (IBAction)nextTrack:(id)sender;

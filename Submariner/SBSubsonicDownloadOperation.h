@@ -55,7 +55,7 @@ extern NSString *SBSubsonicDownloadFinished;
     NSInteger bytesReceived;
 }
 
-@property (retain, readwrite) SBOperationActivity * activity;
-@property (readwrite, retain) SBTrackID *trackID;
+@property (strong, readwrite) SBOperationActivity * activity;
+@property (readwrite, strong) SBTrackID *trackID;
 
 @end

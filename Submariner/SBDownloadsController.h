@@ -37,11 +37,11 @@
 
 
 @interface SBDownloadsController : SBViewController {
-    NSArrayController *activitiesController; 
+    NSArrayController *__weak activitiesController; 
     NSMutableArray *downloadActivities;
 }
 
-@property (assign) IBOutlet NSArrayController *activitiesController; 
-@property (readwrite, retain) NSMutableArray *downloadActivities;
+@property (weak) IBOutlet NSArrayController *activitiesController; 
+@property (readwrite, strong) NSMutableArray *downloadActivities;
 
 @end

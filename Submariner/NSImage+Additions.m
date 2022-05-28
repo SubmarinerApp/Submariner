@@ -52,7 +52,7 @@
     
     [copiedImage unlockFocus];
     
-    return [copiedImage autorelease];
+    return copiedImage;
     
 //    if (tint != nil) {
 //        NSSize size = [self size];
@@ -105,7 +105,7 @@
     }
     [croppedImage unlockFocus];
     
-    return [croppedImage autorelease];
+    return croppedImage;
 }
 
 @end

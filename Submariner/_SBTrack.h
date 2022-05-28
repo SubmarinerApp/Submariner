@@ -41,13 +41,13 @@
 
 
 
-@property (nonatomic, retain) NSString *albumName;
+@property (nonatomic, strong) NSString *albumName;
 
 //- (BOOL)validateAlbumName:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSNumber *isPlaying;
+@property (nonatomic, strong) NSNumber *isPlaying;
 
 @property BOOL isPlayingValue;
 - (BOOL)isPlayingValue;
@@ -57,7 +57,7 @@
 
 
 
-@property (nonatomic, retain) NSNumber *size;
+@property (nonatomic, strong) NSNumber *size;
 
 @property int sizeValue;
 - (int)sizeValue;
@@ -67,13 +67,13 @@
 
 
 
-@property (nonatomic, retain) NSString *contentSuffix;
+@property (nonatomic, strong) NSString *contentSuffix;
 
 //- (BOOL)validateContentSuffix:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSNumber *year;
+@property (nonatomic, strong) NSNumber *year;
 
 @property int yearValue;
 - (int)yearValue;
@@ -83,13 +83,13 @@
 
 
 
-@property (nonatomic, retain) NSString *contentType;
+@property (nonatomic, strong) NSString *contentType;
 
 //- (BOOL)validateContentType:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSNumber *bitRate;
+@property (nonatomic, strong) NSNumber *bitRate;
 
 @property int bitRateValue;
 - (int)bitRateValue;
@@ -99,13 +99,13 @@
 
 
 
-@property (nonatomic, retain) NSString *coverID;
+@property (nonatomic, strong) NSString *coverID;
 
 //- (BOOL)validateCoverID:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSNumber *playlistIndex;
+@property (nonatomic, strong) NSNumber *playlistIndex;
 
 @property int playlistIndexValue;
 - (int)playlistIndexValue;
@@ -115,7 +115,7 @@
 
 
 
-@property (nonatomic, retain) NSNumber *rating;
+@property (nonatomic, strong) NSNumber *rating;
 
 @property int ratingValue;
 - (int)ratingValue;
@@ -125,25 +125,25 @@
 
 
 
-@property (nonatomic, retain) NSString *transcodedType;
+@property (nonatomic, strong) NSString *transcodedType;
 
 //- (BOOL)validateTranscodedType:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSString *transcodeSuffix;
+@property (nonatomic, strong) NSString *transcodeSuffix;
 
 //- (BOOL)validateTranscodeSuffix:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSString *artistName;
+@property (nonatomic, strong) NSString *artistName;
 
 //- (BOOL)validateArtistName:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSNumber *trackNumber;
+@property (nonatomic, strong) NSNumber *trackNumber;
 
 @property int trackNumberValue;
 - (int)trackNumberValue;
@@ -153,7 +153,7 @@
 
 
 
-@property (nonatomic, retain) NSNumber *duration;
+@property (nonatomic, strong) NSNumber *duration;
 
 @property int durationValue;
 - (int)durationValue;
@@ -163,49 +163,49 @@
 
 
 
-@property (nonatomic, retain) NSString *genre;
+@property (nonatomic, strong) NSString *genre;
 
 //- (BOOL)validateGenre:(id*)value_ error:(NSError**)error_;
 
 
 
 
-@property (nonatomic, retain) SBNowPlaying* nowPlaying;
+@property (nonatomic, strong) SBNowPlaying* nowPlaying;
 //- (BOOL)validateNowPlaying:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) SBAlbum* album;
+@property (nonatomic, strong) SBAlbum* album;
 //- (BOOL)validateAlbum:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) SBCover* cover;
+@property (nonatomic, strong) SBCover* cover;
 //- (BOOL)validateCover:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) SBEpisode* episode;
+@property (nonatomic, strong) SBEpisode* episode;
 //- (BOOL)validateEpisode:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) SBServer* server;
+@property (nonatomic, strong) SBServer* server;
 //- (BOOL)validateServer:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) SBPlaylist* playlist;
+@property (nonatomic, strong) SBPlaylist* playlist;
 //- (BOOL)validatePlaylist:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) SBTrack* remoteTrack;
+@property (nonatomic, strong) SBTrack* remoteTrack;
 //- (BOOL)validateRemoteTrack:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) SBTrack* localTrack;
+@property (nonatomic, strong) SBTrack* localTrack;
 //- (BOOL)validateLocalTrack:(id*)value_ error:(NSError**)error_;
 
 

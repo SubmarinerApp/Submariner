@@ -94,9 +94,6 @@
 - (void)dealloc {
     [self removeObserver:self forKeyPath:@"server"];
     
-    [podcastsSortDescriptors release];
-    [episodesSortDescriptors release];
-    [super dealloc];
 }
 
 

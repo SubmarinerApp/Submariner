@@ -52,8 +52,8 @@
     SBDatabaseController *databaseController;
 }
 
-@property (readwrite, retain) NSArray *trackSortDescriptor;
-@property (readwrite, retain) SBDatabaseController *databaseController;
+@property (readwrite, strong) NSArray *trackSortDescriptor;
+@property (readwrite, strong) SBDatabaseController *databaseController;
 
 - (IBAction)trackDoubleClick:(id)sender;
 - (IBAction)albumDoubleClick:(id)sender;

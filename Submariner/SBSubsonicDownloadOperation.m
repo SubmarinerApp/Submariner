@@ -77,7 +77,7 @@ NSString *SBSubsonicDownloadFinished    = @"SBSubsonicDownloadFinished";
     if (self) {
         // Initialization code here.
         SBLibrary *library = (SBLibrary *)[[self mainContext] fetchEntityNammed:@"Library" withPredicate:nil error:nil];
-        libraryID = [[library objectID] retain];
+        libraryID = [library objectID];
         
         activity = [[SBOperationActivity alloc] init];
         [self.activity setIndeterminated:YES];
@@ -90,13 +90,6 @@ NSString *SBSubsonicDownloadFinished    = @"SBSubsonicDownloadFinished";
 }
 
 
-- (void)dealloc {
-    [trackID release];
-    [libraryID release];
-    [activity release];
-    [tmpDestinationPath release];
-    [super dealloc];
-}
 
 
 - (void)finish {
@@ -108,26 +101,26 @@ NSString *SBSubsonicDownloadFinished    = @"SBSubsonicDownloadFinished";
 
 
 - (void)main {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    @autoreleasepool {
     
-    SBTrack *track = (SBTrack *)[[self threadedContext] objectWithID:trackID];
-    
-    // prepare activity stack
-    [self.activity setOperationName:[NSString stringWithFormat:@"Download « %@ »", track.itemName]];
-    [self.activity setOperationInfo:@"Pending Request..."];
-    
-    // prepare download URL
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    [track.server getBaseParameters: parameters];
-    [parameters setValue:track.id forKey:@"id"];
-    
-    NSURL *url = [NSURL URLWithString:track.server.url command:@"rest/download.view" parameters:parameters];
+        SBTrack *track = (SBTrack *)[[self threadedContext] objectWithID:trackID];
+        
+        // prepare activity stack
+        [self.activity setOperationName:[NSString stringWithFormat:@"Download « %@ »", track.itemName]];
+        [self.activity setOperationInfo:@"Pending Request..."];
+        
+        // prepare download URL
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        [track.server getBaseParameters: parameters];
+        [parameters setValue:track.id forKey:@"id"];
+        
+        NSURL *url = [NSURL URLWithString:track.server.url command:@"rest/download.view" parameters:parameters];
    
-    // Hey !!! NSURLDownload seems to not working in a separated thread !?
-    // Ok, so call it on the main thread, weird...
-    [self performSelectorOnMainThread:@selector(startDownloadingURL:) withObject:url waitUntilDone:YES];
+        // Hey !!! NSURLDownload seems to not working in a separated thread !?
+        // Ok, so call it on the main thread, weird...
+        [self performSelectorOnMainThread:@selector(startDownloadingURL:) withObject:url waitUntilDone:YES];
     
-    [pool release];
+    }
 }
 
 
@@ -157,7 +150,7 @@ NSString *SBSubsonicDownloadFinished    = @"SBSubsonicDownloadFinished";
 {    
     // get a temporaty path
     NSURL *tempURL = [NSURL temporaryFileURL];
-    tmpDestinationPath = [[[tempURL absoluteString] stringByAppendingPathExtension:@"mp3"] retain];
+    tmpDestinationPath = [[tempURL absoluteString] stringByAppendingPathExtension:@"mp3"];
         
     [download setDestination:tmpDestinationPath allowOverwrite:NO];
 }
@@ -206,7 +199,6 @@ NSString *SBSubsonicDownloadFinished    = @"SBSubsonicDownloadFinished";
 - (void)download:(NSURLDownload *)download didFailWithError:(NSError *)error
 {    
     // Release the connection.
-    [download release];
     
     // Inform the user.
     [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
@@ -216,7 +208,6 @@ NSString *SBSubsonicDownloadFinished    = @"SBSubsonicDownloadFinished";
 - (void)downloadDidFinish:(NSURLDownload *)download
 {    
     // Release the connection.
-    [download release];
 
     // Do something with the data.
     [self.activity setOperationInfo:@"Importing Track..."];
@@ -241,13 +232,11 @@ NSString *SBSubsonicDownloadFinished    = @"SBSubsonicDownloadFinished";
 
 - (void)setDownloadResponse:(NSURLResponse *)aDownloadResponse
 {
-    [aDownloadResponse retain];
     
     long long expectedLength = [downloadResponse expectedContentLength];
     [self.activity setOperationTotal:[NSNumber numberWithLongLong:expectedLength]];
     
     // downloadResponse is an instance variable defined elsewhere.
-    [downloadResponse release];
     downloadResponse = aDownloadResponse;
 }
 

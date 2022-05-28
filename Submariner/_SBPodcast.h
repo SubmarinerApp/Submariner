@@ -23,37 +23,37 @@
 
 
 
-@property (nonatomic, retain) NSString *channelDescription;
+@property (nonatomic, strong) NSString *channelDescription;
 
 //- (BOOL)validateChannelDescription:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSString *channelURL;
+@property (nonatomic, strong) NSString *channelURL;
 
 //- (BOOL)validateChannelURL:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSString *channelStatus;
+@property (nonatomic, strong) NSString *channelStatus;
 
 //- (BOOL)validateChannelStatus:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSString *errorMessage;
+@property (nonatomic, strong) NSString *errorMessage;
 
 //- (BOOL)validateErrorMessage:(id*)value_ error:(NSError**)error_;
 
 
 
 
-@property (nonatomic, retain) NSSet* episodes;
+@property (nonatomic, strong) NSSet* episodes;
 - (NSMutableSet*)episodesSet;
 
 
 
-@property (nonatomic, retain) SBServer* server;
+@property (nonatomic, strong) SBServer* server;
 //- (BOOL)validateServer:(id*)value_ error:(NSError**)error_;
 
 

@@ -49,8 +49,8 @@
     NSArray *playlistSortDescriptors;
 }
 
-@property (readwrite, retain) SBPlaylist *playlist; 
-@property (readwrite, retain) NSArray *playlistSortDescriptors;
+@property (readwrite, strong) SBPlaylist *playlist; 
+@property (readwrite, strong) NSArray *playlistSortDescriptors;
 
 - (void)clearPlaylist;
 - (IBAction)removeTrack:(id)sender;

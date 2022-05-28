@@ -134,7 +134,7 @@
     if (self) {
         // init sort descriptors
         NSSortDescriptor *sd1 = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
-        resourceSortDescriptors = [[NSMutableArray arrayWithObject:sd1] retain];
+        resourceSortDescriptors = [NSMutableArray arrayWithObject:sd1];
         
         // init view controllers
         musicController = [[SBMusicController alloc] initWithManagedObjectContext:self.managedObjectContext];
@@ -164,21 +164,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     // release all object references
-    [serverLibraryController release];
-    [serverHomeController release];
-    [serverPodcastController release];
-    [serverUserController release];
-    [serverSearchController release];
-    [musicSearchController release];
-    [musicController release];
-    [downloadsController release];
-    [tracklistController release];
-    [playlistController release];
-    [resourceSortDescriptors release];
-    [library release];
-    [progressUpdateTimer release];
     
-    [super dealloc];
 }
 
 
@@ -265,11 +251,11 @@
                 
     
     // player timer
-    progressUpdateTimer = [[NSTimer scheduledTimerWithTimeInterval:0.01
+    progressUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:0.01
                                                            target:self
                                                          selector:@selector(updateProgress:)
                                                          userInfo:nil
-                                                          repeats:YES] retain];
+                                                          repeats:YES];
     
     [resourcesController addObserver:self 
                           forKeyPath:@"content" 
@@ -481,7 +467,7 @@
         SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
         if(resource && [resource isKindOfClass:[SBPlaylist class]]) {
             
-            NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+            NSAlert *alert = [[NSAlert alloc] init];
             [alert addButtonWithTitle:@"OK"];
             [alert addButtonWithTitle:@"Cancel"];
             [alert setMessageText:@"Delete the selected server playlist?"];
@@ -504,10 +490,10 @@
     NSInteger selectedRow = [sourceList selectedRow];
     
     if (selectedRow != -1) {
-        SBResource *resource = [[[sourceList itemAtRow:selectedRow] representedObject] retain];
+        SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
         if(resource && ([resource isKindOfClass:[SBPlaylist class]] || [resource isKindOfClass:[SBServer class]])) {
             
-            NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+            NSAlert *alert = [[NSAlert alloc] init];
             [alert addButtonWithTitle:@"OK"];
             [alert addButtonWithTitle:@"Cancel"];
             [alert setMessageText:@"Delete the selected item?"];
@@ -796,7 +782,7 @@
             [panel orderOut:self];
             [NSApp endSheet:panel];
             
-            [self openImportAlert:[self window] files:[files retain]];
+            [self openImportAlert:[self window] files:files];
         }
     } else {
         [super hideVisualCue];
@@ -839,10 +825,9 @@
         NSInteger selectedRow = [sourceList selectedRow];
         
         if (selectedRow != -1) {
-            SBResource *resource = [[[sourceList itemAtRow:selectedRow] representedObject] retain];
+            SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
             if(resource && ([resource isKindOfClass:[SBPlaylist class]] || [resource isKindOfClass:[SBServer class]])) {
                 [self.managedObjectContext deleteObject:resource];
-                [resource release];
                 [self.managedObjectContext processPendingChanges];
             }
         }
@@ -897,9 +882,9 @@
     // library resource
     SBResource *resource = nil;
     predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@)", @"Music"];
-    library = [[self.managedObjectContext fetchEntityNammed:@"Library" withPredicate:predicate error:&error] retain];
+    library = [self.managedObjectContext fetchEntityNammed:@"Library" withPredicate:predicate error:&error];
     if(!library) {
-        library = [[SBLibrary insertInManagedObjectContext:self.managedObjectContext] retain];
+        library = [SBLibrary insertInManagedObjectContext:self.managedObjectContext];
         [library setResourceName:@"Music"];
         [library setIndex:[NSNumber numberWithInteger:0]];
         [library setSection:section];
@@ -908,9 +893,9 @@
     
     // DOWNLOADS resource
     predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@)", @"Downloads"];
-    resource = [[self.managedObjectContext fetchEntityNammed:@"Downloads" withPredicate:predicate error:&error] retain];
+    resource = [self.managedObjectContext fetchEntityNammed:@"Downloads" withPredicate:predicate error:&error];
     if(!resource) {
-        resource = [[SBDownloads insertInManagedObjectContext:self.managedObjectContext] retain];
+        resource = [SBDownloads insertInManagedObjectContext:self.managedObjectContext];
         [resource setResourceName:@"Downloads"];
         [resource setIndex:[NSNumber numberWithInteger:1]];
         [resource setSection:section];
@@ -1113,7 +1098,7 @@
         NSImage *coverImage = nil;
         
         if(cover && cover.imagePath) {
-            coverImage = [[[NSImage alloc] initWithContentsOfFile:cover.imagePath] autorelease];
+            coverImage = [[NSImage alloc] initWithContentsOfFile:cover.imagePath];
         } else {
             coverImage = [NSImage imageNamed:@"NoArtwork"];
         }
@@ -1455,7 +1440,7 @@
                     [m addItemWithTitle:removeString action:@selector(deleteRemotePlaylist:) keyEquivalent:@""];
                 }
                 
-                return [m autorelease];
+                return m;
                 
             } else if([resource isKindOfClass:[SBServer class]]) {
                 
@@ -1470,7 +1455,7 @@
                 [m addItemWithTitle:@"Remove Server" action:@selector(removeItem:) keyEquivalent:@""];
                 
                 
-                return [m autorelease];
+                return m;
             }
             
         } else {
@@ -1479,7 +1464,7 @@
             [m addItemWithTitle:@"Add Playlist" action:@selector(addPlaylist:) keyEquivalent:@""];
             [m addItemWithTitle:@"Add Server" action:@selector(addServer:) keyEquivalent:@""];
             
-            return [m autorelease];
+            return m;
         }
 	}
 	return nil;

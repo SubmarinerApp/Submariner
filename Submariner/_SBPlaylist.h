@@ -20,19 +20,19 @@
 
 
 
-@property (nonatomic, retain) NSString *id;
+@property (nonatomic, strong) NSString *id;
 
 //- (BOOL)validateId:(id*)value_ error:(NSError**)error_;
 
 
 
 
-@property (nonatomic, retain) SBServer* server;
+@property (nonatomic, strong) SBServer* server;
 //- (BOOL)validateServer:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSSet* tracks;
+@property (nonatomic, strong) NSSet* tracks;
 - (NSMutableSet*)tracksSet;
 
 

@@ -22,22 +22,22 @@
 
 
 
-@property (nonatomic, retain) NSSet* tracks;
+@property (nonatomic, strong) NSSet* tracks;
 - (NSMutableSet*)tracksSet;
 
 
 
-@property (nonatomic, retain) SBHome* home;
+@property (nonatomic, strong) SBHome* home;
 //- (BOOL)validateHome:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) SBCover* cover;
+@property (nonatomic, strong) SBCover* cover;
 //- (BOOL)validateCover:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) SBArtist* artist;
+@property (nonatomic, strong) SBArtist* artist;
 //- (BOOL)validateArtist:(id*)value_ error:(NSError**)error_;
 
 

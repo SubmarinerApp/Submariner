@@ -31,9 +31,9 @@
 #import "_SBLibrary.h"
 
 @interface SBLibrary : _SBLibrary {
-    NSSet *resources;
+    NSSet *__weak resources;
 }
 
-@property (assign) NSSet *resources;
+@property (weak) NSSet *resources;
 
 @end

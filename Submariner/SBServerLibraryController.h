@@ -58,11 +58,11 @@
     NSDictionary *artistCellSelectedAttributes;
     NSDictionary *artistCellUnselectedAttributes;
 }
-@property (readonly, retain) NSDictionary *artistCellSelectedAttributes;
-@property (readonly, retain) NSDictionary *artistCellUnselectedAttributes;
-@property (readwrite, retain) SBDatabaseController *databaseController;
-@property (readwrite, retain) NSArray *artistSortDescriptor;
-@property (readwrite, retain) NSArray *trackSortDescriptor;
+@property (readonly, strong) NSDictionary *artistCellSelectedAttributes;
+@property (readonly, strong) NSDictionary *artistCellUnselectedAttributes;
+@property (readwrite, strong) SBDatabaseController *databaseController;
+@property (readwrite, strong) NSArray *artistSortDescriptor;
+@property (readwrite, strong) NSArray *trackSortDescriptor;
 
 
 - (IBAction)trackDoubleClick:(id)sender;

@@ -47,7 +47,7 @@
     
     if(artists != nil && [artists  count] > 0) {
         for (SBArtist *artist in artists) {
-            NSMenuItem *newItem = [[[NSMenuItem alloc] init] autorelease];
+            NSMenuItem *newItem = [[NSMenuItem alloc] init];
             [newItem setTitle:artist.itemName];
             [newItem setRepresentedObject:artist];
             

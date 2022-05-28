@@ -16,9 +16,9 @@
 	id delegate;
 }
 
-@property (readwrite, retain) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, retain) IBOutlet NSWindow *sheet, *parentWindow;
-@property (nonatomic, retain) IBOutlet id delegate;
+@property (readwrite, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) IBOutlet NSWindow *sheet, *parentWindow;
+@property (nonatomic, strong) IBOutlet id delegate;
 
 - (IBAction)openSheet:(id)sender;
 - (IBAction)closeSheet:(id)sender;

@@ -44,11 +44,11 @@
     BOOL indeterminated;
 }
 
-@property (readwrite, retain) NSString *operationName;
-@property (readwrite, retain) NSString *operationInfo;
-@property (readwrite, retain) NSNumber *operationPercent;
-@property (readwrite, retain) NSNumber *operationCurrent;
-@property (readwrite, retain) NSNumber *operationTotal;
+@property (readwrite, strong) NSString *operationName;
+@property (readwrite, strong) NSString *operationInfo;
+@property (readwrite, strong) NSNumber *operationPercent;
+@property (readwrite, strong) NSNumber *operationCurrent;
+@property (readwrite, strong) NSNumber *operationTotal;
 @property (readwrite) BOOL indeterminated;
 
 

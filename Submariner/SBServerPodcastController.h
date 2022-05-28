@@ -44,6 +44,6 @@
     NSArray *podcastsSortDescriptors;
     NSArray *episodesSortDescriptors;
 }
-@property (readwrite, retain) NSArray *podcastsSortDescriptors;
-@property (readwrite, retain) NSArray *episodesSortDescriptors;
+@property (readwrite, strong) NSArray *podcastsSortDescriptors;
+@property (readwrite, strong) NSArray *episodesSortDescriptors;
 @end

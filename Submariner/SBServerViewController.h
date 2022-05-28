@@ -44,8 +44,8 @@
     SBClientController *clientController;
 }
 
-@property (readwrite, retain) SBClientController *clientController;
-@property (readwrite, retain) SBServer *server;
+@property (readwrite, strong) SBClientController *clientController;
+@property (readwrite, strong) SBServer *server;
 
 - (id)initWithServer:(SBServer *)server context:(NSManagedObjectContext *)context;
 

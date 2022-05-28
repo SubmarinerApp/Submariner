@@ -56,15 +56,10 @@
 {
     self = [super initWithNibName:[[self class] nibName] bundle:nil];
     if (self) {
-        managedObjectContext = [context retain];
+        managedObjectContext = context;
     }
     return self;
 }
 
-- (void)dealloc
-{
-    [managedObjectContext release];
-    [super dealloc];
-}
 
 @end

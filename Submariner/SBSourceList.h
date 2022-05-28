@@ -28,8 +28,8 @@
 	
 @property NSSize iconSize;
 	
-@property (assign) id<SBSourceListDataSource> dataSource;
-@property (assign) id<SBSourceListDelegate> delegate;
+@property (unsafe_unretained) id<SBSourceListDataSource> dataSource;
+@property (unsafe_unretained) id<SBSourceListDelegate> delegate;
 
 - (NSUInteger)numberOfGroups;							//Returns the number of groups in the Source List
 - (BOOL)isGroupItem:(id)item;							//Returns whether `item` is a group

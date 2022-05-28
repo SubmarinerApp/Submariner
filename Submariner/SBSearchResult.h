@@ -39,8 +39,8 @@
     NSMutableArray *tracks;
 }
 
-@property (readwrite, retain) NSString *query;
-@property (readwrite, retain) NSMutableArray *tracks;
+@property (readwrite, strong) NSString *query;
+@property (readwrite, strong) NSMutableArray *tracks;
 
 - (id)initWithQuery:(NSString *)aQuery;
 

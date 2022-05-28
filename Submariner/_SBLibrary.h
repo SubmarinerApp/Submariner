@@ -19,7 +19,7 @@
 
 
 
-@property (nonatomic, retain) NSSet* artists;
+@property (nonatomic, strong) NSSet* artists;
 - (NSMutableSet*)artistsSet;
 
 

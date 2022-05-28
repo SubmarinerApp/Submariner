@@ -119,12 +119,12 @@ enum SBSubsonicRequestType {
     BOOL hasUnread;
 }
 
-@property (readwrite, retain) SBArtist *currentArtist;
-@property (readwrite, retain) SBAlbum  *currentAlbum;
-@property (readwrite, retain) SBPlaylist *currentPlaylist;
-@property (readwrite, retain) SBPodcast *currentPodcast;
-@property (readwrite, retain) NSString *currentCoverID;
-@property (readwrite, retain) SBSearchResult *currentSearch;
+@property (readwrite, strong) SBArtist *currentArtist;
+@property (readwrite, strong) SBAlbum  *currentAlbum;
+@property (readwrite, strong) SBPlaylist *currentPlaylist;
+@property (readwrite, strong) SBPodcast *currentPodcast;
+@property (readwrite, strong) NSString *currentCoverID;
+@property (readwrite, strong) SBSearchResult *currentSearch;
 
 - (id)initWithManagedObjectContext:(NSManagedObjectContext*)mainContext 
                             client:(SBClientController *)client

@@ -13,7 +13,7 @@
 }
 
 - (id) initWithMode: (SBPlayerRepeatMode) newMode {
-    [super init];
+    if (!(self = [super init])) return nil;
     mode = newMode;
     return self;
 }

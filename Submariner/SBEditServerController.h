@@ -49,7 +49,7 @@
     IBOutlet NSTextField *passwordTextField;
 }
 
-@property (readwrite, retain) SBServer *server;
+@property (readwrite, strong) SBServer *server;
 @property (readwrite) BOOL editMode;
 
 @end

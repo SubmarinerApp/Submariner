@@ -146,17 +146,8 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     // remove remote player observers
     [self stop];
     
-    [LOCAL_PLAYER dealloc];
     localPlayer = NULL;
     
-    [songInfo release];
-    [remotePlayer release];
-    [currentTrack release];
-    [playlist release];
-    if (tmpLocation) {
-        [tmpLocation release];
-    }
-    [super dealloc];
 }
 
 #pragma mark -
@@ -396,13 +387,11 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         [decoder openReturningError: &decoderError];
         if (decoderError) {
             NSLog(@"Decoder open error: %@", decoderError);
-            [decoder dealloc];
             return;
         }
         if([LOCAL_PLAYER enqueueDecoder: decoder error: nil]) {
             //[[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:url];
         }else {
-            [decoder dealloc];
         }
     } else {
         NSLog(@"Couldn't decode %@: %@", url, decodeError);
@@ -556,7 +545,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         // stop players
         if(remotePlayer) {
             [remotePlayer replaceCurrentItemWithPlayerItem:nil];
-            [remotePlayer release];
             remotePlayer = nil;
         }
         
@@ -805,11 +793,8 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         NSString *extension = [self extensionForContentType: contentType];
         // create a cache temp file
         NSURL *tempFileURL = [NSURL temporaryFileURL];
-        if (tmpLocation) {
-            [tmpLocation release];
-        }
         // XXX: Should have in this scope?
-        tmpLocation = [[[tempFileURL absoluteString] stringByAppendingPathExtension: extension] retain];
+        tmpLocation = [[tempFileURL absoluteString] stringByAppendingPathExtension: extension];
         // XXX: Move to the ClientController?
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
         NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];

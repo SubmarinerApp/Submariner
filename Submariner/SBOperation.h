@@ -48,8 +48,8 @@
     NSManagedObjectContext *threadedContext_;
 }
 
-@property (readonly, retain) NSManagedObjectContext *threadedContext;
-@property (retain, readonly) NSManagedObjectContext * mainContext;
+@property (readonly, strong) NSManagedObjectContext *threadedContext;
+@property (strong, readonly) NSManagedObjectContext * mainContext;
 
 - (id)initWithManagedObjectContext:(NSManagedObjectContext*)mainContext;
 - (void)saveThreadedContext;

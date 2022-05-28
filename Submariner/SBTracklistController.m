@@ -64,7 +64,6 @@
     // remove player observer
     [[NSNotificationCenter defaultCenter] removeObserver:self name:SBPlayerPlaylistUpdatedNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:@"playlist"];
-    [super dealloc];
 }
 
 

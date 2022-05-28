@@ -60,7 +60,6 @@ NSString *SBEnterKeyPressedOnRowsNotification = @"SBEnterKeyPressedOnRowsNotific
 		NSTableHeaderCell* cell = [column headerCell];
 		RWTableHeaderCell* newCell = [[RWTableHeaderCell alloc] initWithCell:cell];
 		[column setHeaderCell:newCell];
-		[newCell release];
 	}
 	
 }
@@ -81,7 +80,6 @@ NSString *SBEnterKeyPressedOnRowsNotification = @"SBEnterKeyPressedOnRowsNotific
     [[NSNotificationCenter defaultCenter] removeObserver:self name:SBDeleteKeyPressedOnRowsNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:SBEnterKeyPressedOnRowsNotification object:nil];
     
-    [super dealloc];
 }
 
 - (void)awakeFromNib {

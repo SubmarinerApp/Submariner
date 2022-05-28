@@ -19,7 +19,7 @@
 
 
 
-@property (nonatomic, retain) NSSet* resources;
+@property (nonatomic, strong) NSSet* resources;
 - (NSMutableSet*)resourcesSet;
 
 

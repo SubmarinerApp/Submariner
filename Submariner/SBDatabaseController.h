@@ -117,12 +117,12 @@
     NSTimer *progressUpdateTimer;
 }
 
-@property (readwrite, retain) NSArray *resourceSortDescriptors;
-@property (readwrite, retain) IBOutlet SBAnimatedView *currentView;
-@property (readwrite, retain) IBOutlet SBAddServerPlaylistController *addServerPlaylistController;
-@property (readwrite, retain) SBLibrary *library;
+@property (readwrite, strong) NSArray *resourceSortDescriptors;
+@property (readwrite, strong) IBOutlet SBAnimatedView *currentView;
+@property (readwrite, strong) IBOutlet SBAddServerPlaylistController *addServerPlaylistController;
+@property (readwrite, strong) SBLibrary *library;
 // XXX: Make as part of SBServerController?
-@property (readwrite, retain) SBServer *server;
+@property (readwrite, strong) SBServer *server;
 
 - (void)setCurrentView:(SBAnimatedView *)newView;
 - (BOOL)openImportAlert:(NSWindow *)sender files:(NSArray *)files;

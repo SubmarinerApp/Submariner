@@ -86,7 +86,7 @@
 	[animation setType:kCATransitionFade];
 	[[[[self window] contentView] layer] addAnimation:animation forKey:@"layerAnimation"];
     
-	blankingView = [[[NSView alloc] initWithFrame:[[[self window] contentView] frame]] autorelease];
+	blankingView = [[NSView alloc] initWithFrame:[[[self window] contentView] frame]];
 	[[[self window] contentView] addSubview:blankingView];
     
     CIFilter *exposureFilter = [CIFilter filterWithName:@"CIExposureAdjust"];

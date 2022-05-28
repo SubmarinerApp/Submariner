@@ -42,6 +42,6 @@
     IBOutlet NSPopUpButton *artistPopUpButton;
 }
 
-@property (readwrite, retain) NSArray *artists;
+@property (readwrite, strong) NSArray *artists;
 
 @end

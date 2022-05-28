@@ -31,9 +31,9 @@
 #import "_SBTracklist.h"
 
 @interface SBTracklist : _SBTracklist {
-    NSSet *resources;
+    NSSet *__weak resources;
 }
 
-@property (assign) NSSet *resources;
+@property (weak) NSSet *resources;
 
 @end

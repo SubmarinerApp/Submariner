@@ -31,19 +31,19 @@
 
 
 
-@property (nonatomic, retain) NSDate *lastIndexesDate;
+@property (nonatomic, strong) NSDate *lastIndexesDate;
 
 //- (BOOL)validateLastIndexesDate:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSString *url;
+@property (nonatomic, strong) NSString *url;
 
 //- (BOOL)validateUrl:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSNumber *isValidLicense;
+@property (nonatomic, strong) NSNumber *isValidLicense;
 
 @property BOOL isValidLicenseValue;
 - (BOOL)isValidLicenseValue;
@@ -53,68 +53,68 @@
 
 
 
-@property (nonatomic, retain) NSDate *licenseDate;
+@property (nonatomic, strong) NSDate *licenseDate;
 
 //- (BOOL)validateLicenseDate:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSString *password;
+@property (nonatomic, strong) NSString *password;
 
 //- (BOOL)validatePassword:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSString *apiVersion;
+@property (nonatomic, strong) NSString *apiVersion;
 
 //- (BOOL)validateApiVersion:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSString *licenseEmail;
+@property (nonatomic, strong) NSString *licenseEmail;
 
 //- (BOOL)validateLicenseEmail:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSString *username;
+@property (nonatomic, strong) NSString *username;
 
 //- (BOOL)validateUsername:(id*)value_ error:(NSError**)error_;
 
 
 
 
-@property (nonatomic, retain) NSSet* indexes;
+@property (nonatomic, strong) NSSet* indexes;
 - (NSMutableSet*)indexesSet;
 
 
 
-@property (nonatomic, retain) NSSet* messages;
+@property (nonatomic, strong) NSSet* messages;
 - (NSMutableSet*)messagesSet;
 
 
 
-@property (nonatomic, retain) NSSet* podcasts;
+@property (nonatomic, strong) NSSet* podcasts;
 - (NSMutableSet*)podcastsSet;
 
 
 
-@property (nonatomic, retain) NSSet* playlists;
+@property (nonatomic, strong) NSSet* playlists;
 - (NSMutableSet*)playlistsSet;
 
 
 
-@property (nonatomic, retain) NSSet* nowPlayings;
+@property (nonatomic, strong) NSSet* nowPlayings;
 - (NSMutableSet*)nowPlayingsSet;
 
 
 
-@property (nonatomic, retain) NSSet* tracks;
+@property (nonatomic, strong) NSSet* tracks;
 - (NSMutableSet*)tracksSet;
 
 
 
-@property (nonatomic, retain) SBHome* home;
+@property (nonatomic, strong) SBHome* home;
 //- (BOOL)validateHome:(id*)value_ error:(NSError**)error_;
 
 

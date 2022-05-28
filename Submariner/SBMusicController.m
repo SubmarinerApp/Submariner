@@ -75,10 +75,10 @@
     self = [super initWithManagedObjectContext:context];
     if (self) {
         NSSortDescriptor *artistDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"itemName" ascending:YES];
-        artistSortDescriptor = [[NSArray arrayWithObject:artistDescriptor] retain];
+        artistSortDescriptor = [NSArray arrayWithObject:artistDescriptor];
         
         NSSortDescriptor *trackDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"trackNumber" ascending:YES];
-        trackSortDescriptor = [[NSArray arrayWithObject:trackDescriptor] retain];
+        trackSortDescriptor = [NSArray arrayWithObject:trackDescriptor];
         
         splitViewDelegate = [[SBPrioritySplitViewDelegate alloc] init];
     }
@@ -90,10 +90,6 @@
 {
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"coverSize"];
     
-    [artistSortDescriptor release];
-    [trackSortDescriptor release];
-    [splitViewDelegate release];
-    [super dealloc];
 }
 
 - (void)loadView {
@@ -141,7 +137,7 @@
 
 - (NSDictionary *)artistCellSelectedAttributes {
     if(artistCellSelectedAttributes == nil) {
-        artistCellSelectedAttributes = [[NSMutableDictionary dictionary] retain];
+        artistCellSelectedAttributes = [NSMutableDictionary dictionary];
         
         return artistCellSelectedAttributes;
     }
@@ -150,7 +146,7 @@
 
 - (NSDictionary *)artistCellUnselectedAttributes {
     if(artistCellUnselectedAttributes == nil) {
-        artistCellUnselectedAttributes = [[NSMutableDictionary dictionary] retain];
+        artistCellUnselectedAttributes = [NSMutableDictionary dictionary];
         
         return artistCellUnselectedAttributes;
     }
@@ -212,7 +208,7 @@
         SBArtist *selectedArtist = [[artistsController arrangedObjects] objectAtIndex:selectedRow];
         if(selectedArtist != nil) {
             if([selectedArtist.isLinked boolValue] == NO) {
-                NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+                NSAlert *alert = [[NSAlert alloc] init];
                 [alert addButtonWithTitle:@"Remove"];
                 [alert addButtonWithTitle:@"Cancel"];
                 [alert addButtonWithTitle:@"Delete"];
@@ -226,7 +222,7 @@
                                     contextInfo:nil];
                 
             } else {
-                NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+                NSAlert *alert = [[NSAlert alloc] init];
                 [alert addButtonWithTitle:@"OK"];
                 [alert addButtonWithTitle:@"Cancel"];
                 [alert setMessageText:@"Remove the selected artist ?"];
@@ -251,7 +247,7 @@
         if(selectedAlbum != nil) {
             if([selectedAlbum.isLinked boolValue] == NO) {
                 
-                NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+                NSAlert *alert = [[NSAlert alloc] init];
                 [alert addButtonWithTitle:@"Remove"];
                 [alert addButtonWithTitle:@"Cancel"];
                 [alert addButtonWithTitle:@"Delete"];
@@ -265,7 +261,7 @@
                                     contextInfo:nil];
                 
             } else {
-                NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+                NSAlert *alert = [[NSAlert alloc] init];
                 [alert addButtonWithTitle:@"OK"];
                 [alert addButtonWithTitle:@"Cancel"];
                 [alert setMessageText:@"Remove the selected artist ?"];
@@ -288,7 +284,7 @@
         SBTrack *selectedTrack = [[tracksController arrangedObjects] objectAtIndex:selectedRow];
         if(selectedTrack != nil) {
             if([selectedTrack.isLinked boolValue] == NO) {
-                NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+                NSAlert *alert = [[NSAlert alloc] init];
                 [alert addButtonWithTitle:@"Remove"];
                 [alert addButtonWithTitle:@"Cancel"];
                 [alert addButtonWithTitle:@"Delete"];
@@ -302,7 +298,7 @@
                                     contextInfo:nil];
                 
             } else {
-                NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+                NSAlert *alert = [[NSAlert alloc] init];
                 [alert addButtonWithTitle:@"OK"];
                 [alert addButtonWithTitle:@"Cancel"];
                 [alert setMessageText:@"Remove the selected track ?"];
@@ -386,7 +382,7 @@
 - (IBAction)addTrackToTracklist:(id)sender {
 
     NSIndexSet *indexSet = [tracksTableView selectedRowIndexes];
-    __block NSMutableArray *tracks = [NSMutableArray array];
+    __weak NSMutableArray *tracks = [NSMutableArray array];
     
     [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         [tracks addObject:[[tracksController arrangedObjects] objectAtIndex:idx]];
@@ -586,7 +582,6 @@
                 NSAttributedString *newString = [[NSAttributedString alloc] initWithString:index.itemName attributes:attr];
                 
                 [cell setAttributedStringValue:newString];
-                [newString release];
             }
         }
     }
@@ -601,21 +596,21 @@
         menu = [[NSMenu alloc] initWithTitle:@"trackMenu"];
         [menu setAutoenablesItems:NO];
         
-        item = [[[NSMenuItem alloc] initWithTitle:@"Play" action:nil keyEquivalent:@""] autorelease];
+        item = [[NSMenuItem alloc] initWithTitle:@"Play" action:nil keyEquivalent:@""];
         [item setTarget:self];
         [menu addItem:item];
         
-        item = [[[NSMenuItem alloc] initWithTitle:@"Add to Tracklist" action:@selector(addTrackToTracklist:) keyEquivalent:@""] autorelease];
+        item = [[NSMenuItem alloc] initWithTitle:@"Add to Tracklist" action:@selector(addTrackToTracklist:) keyEquivalent:@""];
         [item setTarget:self];
         [menu addItem:item];
         
-        item = [[[NSMenuItem alloc] initWithTitle:@"Show in Finder" action:@selector(showTrackInFinder:) keyEquivalent:@""] autorelease];
+        item = [[NSMenuItem alloc] initWithTitle:@"Show in Finder" action:@selector(showTrackInFinder:) keyEquivalent:@""];
         [item setTarget:self];
         [menu addItem:item];
         
         [menu addItem:[NSMenuItem separatorItem]];
         
-        item = [[[NSMenuItem alloc] initWithTitle:@"Remove Track" action:@selector(removeTrack:) keyEquivalent:@""] autorelease];
+        item = [[NSMenuItem alloc] initWithTitle:@"Remove Track" action:@selector(removeTrack:) keyEquivalent:@""];
         [item setTarget:self];
         [menu addItem:item];
                 
@@ -632,11 +627,11 @@
 //        [item setTarget:self];
 //        [menu addItem:item];
         
-        item = [[[NSMenuItem alloc] initWithTitle:@"Add to Tracklist" action:@selector(addArtistToTracklist:) keyEquivalent:@""] autorelease];
+        item = [[NSMenuItem alloc] initWithTitle:@"Add to Tracklist" action:@selector(addArtistToTracklist:) keyEquivalent:@""];
         [item setTarget:self];
         [menu addItem:item];
         
-        item = [[[NSMenuItem alloc] initWithTitle:@"Show in Finder" action:@selector(showArtistInFinder:) keyEquivalent:@""] autorelease];
+        item = [[NSMenuItem alloc] initWithTitle:@"Show in Finder" action:@selector(showArtistInFinder:) keyEquivalent:@""];
         [item setTarget:self];
         [menu addItem:item];
         
@@ -645,14 +640,14 @@
         if([[artistsTableView selectedRowIndexes] count] > 1) {
             [menu addItem:[NSMenuItem separatorItem]];
             
-            item = [[[NSMenuItem alloc] initWithTitle:@"Merge Artists" action:@selector(mergeArtists:) keyEquivalent:@""] autorelease];
+            item = [[NSMenuItem alloc] initWithTitle:@"Merge Artists" action:@selector(mergeArtists:) keyEquivalent:@""];
             [item setTarget:self];
             [menu addItem:item];
         }
         
         [menu addItem:[NSMenuItem separatorItem]];
         
-        item = [[[NSMenuItem alloc] initWithTitle:@"Remove Artist" action:@selector(removeArtist:) keyEquivalent:@""] autorelease];
+        item = [[NSMenuItem alloc] initWithTitle:@"Remove Artist" action:@selector(removeArtist:) keyEquivalent:@""];
         [item setTarget:self];
         [menu addItem:item];
         
@@ -748,27 +743,26 @@
     menu = [[NSMenu alloc] initWithTitle:@"albumsMenu"];
     [menu setAutoenablesItems:NO];
     
-    item = [[[NSMenuItem alloc] initWithTitle:@"Play" action:nil keyEquivalent:@""] autorelease];
+    item = [[NSMenuItem alloc] initWithTitle:@"Play" action:nil keyEquivalent:@""];
     [item setTarget:self];
     [menu addItem:item];
     
-    item = [[[NSMenuItem alloc] initWithTitle:@"Add to Tracklist" action:@selector(addAlbumToTracklist:) keyEquivalent:@""] autorelease];
+    item = [[NSMenuItem alloc] initWithTitle:@"Add to Tracklist" action:@selector(addAlbumToTracklist:) keyEquivalent:@""];
     [item setTarget:self];
     [menu addItem:item];
     
-    item = [[[NSMenuItem alloc] initWithTitle:@"Show in Finder" action:@selector(showAlbumInFinder:) keyEquivalent:@""] autorelease];
+    item = [[NSMenuItem alloc] initWithTitle:@"Show in Finder" action:@selector(showAlbumInFinder:) keyEquivalent:@""];
     [item setTarget:self];
     [menu addItem:item];
     
     [menu addItem:[NSMenuItem separatorItem]];
     
-    item = [[[NSMenuItem alloc] initWithTitle:@"Remove Album" action:@selector(removeAlbum:) keyEquivalent:@""] autorelease];
+    item = [[NSMenuItem alloc] initWithTitle:@"Remove Album" action:@selector(removeAlbum:) keyEquivalent:@""];
     [item setTarget:self];
     [menu addItem:item];
     
     [NSMenu popUpContextMenu:menu withEvent:event forView:aBrowser];
     
-    [menu release];
 
 }
 

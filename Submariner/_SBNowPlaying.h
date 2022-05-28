@@ -21,13 +21,13 @@
 
 
 
-@property (nonatomic, retain) NSString *username;
+@property (nonatomic, strong) NSString *username;
 
 //- (BOOL)validateUsername:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) NSNumber *minutesAgo;
+@property (nonatomic, strong) NSNumber *minutesAgo;
 
 @property int minutesAgoValue;
 - (int)minutesAgoValue;
@@ -38,12 +38,12 @@
 
 
 
-@property (nonatomic, retain) SBTrack* track;
+@property (nonatomic, strong) SBTrack* track;
 //- (BOOL)validateTrack:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) SBServer* server;
+@property (nonatomic, strong) SBServer* server;
 //- (BOOL)validateServer:(id*)value_ error:(NSError**)error_;
 
 

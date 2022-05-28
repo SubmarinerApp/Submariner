@@ -58,13 +58,13 @@
 
 - (void)awakeFromNib {
     
-    NSMutableDictionary *attributes = [[[NSMutableDictionary alloc] init] autorelease];
+    NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
     [attributes setObject:[NSFont systemFontOfSize:11] forKey:NSFontAttributeName];
     // XXX: Should update these colours when dark mode is toggled on/of
     [attributes setObject:[NSColor textColor] forKey:NSForegroundColorAttributeName];
 	[self setValue:attributes forKey:IKImageBrowserCellsTitleAttributesKey];
 	    
-	attributes = [[[NSMutableDictionary alloc] init] autorelease];	
+	attributes = [[NSMutableDictionary alloc] init];	
 	[attributes setObject:[NSFont boldSystemFontOfSize:11] forKey:NSFontAttributeName];
 	[attributes setObject:[NSColor selectedControlTextColor] forKey:NSForegroundColorAttributeName];
 	

@@ -20,19 +20,19 @@
 
 
 
-@property (nonatomic, retain) NSString *imagePath;
+@property (nonatomic, strong) NSString *imagePath;
 
 //- (BOOL)validateImagePath:(id*)value_ error:(NSError**)error_;
 
 
 
 
-@property (nonatomic, retain) SBTrack* track;
+@property (nonatomic, strong) SBTrack* track;
 //- (BOOL)validateTrack:(id*)value_ error:(NSError**)error_;
 
 
 
-@property (nonatomic, retain) SBAlbum* album;
+@property (nonatomic, strong) SBAlbum* album;
 //- (BOOL)validateAlbum:(id*)value_ error:(NSError**)error_;
 
 

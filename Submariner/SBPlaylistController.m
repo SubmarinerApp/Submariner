@@ -60,17 +60,12 @@
     self = [super initWithManagedObjectContext:context];
     if (self) {
         NSSortDescriptor *desc = [NSSortDescriptor sortDescriptorWithKey:@"playlistIndex" ascending:YES];
-        playlistSortDescriptors = [[NSArray arrayWithObject:desc] retain];
+        playlistSortDescriptors = [NSArray arrayWithObject:desc];
     }
     return self;
 }
 
 
-- (void)dealloc
-{
-    [playlistSortDescriptors release];
-    [super dealloc];
-}
 
 
 - (void)loadView {
@@ -126,7 +121,7 @@
     if(selectedRow != -1) {
         SBTrack *selectedTrack = [[tracksController arrangedObjects] objectAtIndex:selectedRow];
         if(selectedTrack != nil) {
-            NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+            NSAlert *alert = [[NSAlert alloc] init];
             [alert addButtonWithTitle:@"OK"];
             [alert addButtonWithTitle:@"Cancel"];
             [alert setMessageText:@"Remove the selected track ?"];

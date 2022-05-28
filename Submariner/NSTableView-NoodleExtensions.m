@@ -129,7 +129,6 @@ void NoodleClearRect(NSRect rect)
 		[view setAction:@selector(scrollToStickyRow:)];
 		
 		[self addSubview:view];
-		[view release];
 	}
 	return view;
 }
@@ -208,7 +207,6 @@ void NoodleClearRect(NSRect rect)
 		image = [[NSImage alloc] initWithSize:rowRect.size];
 		[image setFlipped:[self isFlipped]];
 		[stickyView setImage:image];
-		[image release];
 	}
 	
 	visibleRect = [self visibleRect];
@@ -251,7 +249,6 @@ void NoodleClearRect(NSRect rect)
 			[rowImage setFlipped:[self isFlipped]];
 			
 			[stickyView setAlternateImage:rowImage];
-			[rowImage release];
 		}
 		
 		// Draw the original image

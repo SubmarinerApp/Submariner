@@ -54,7 +54,6 @@
             [request setPredicate:predicate];
         
         ret = [self executeFetchRequest:request error:error];	
-        [request release];
     }
     return ret;	
 }
@@ -76,7 +75,6 @@
             [request setPredicate:predicate];
         
         entities = [self executeFetchRequest:request error:error];	
-        [request release];
         
         if(entities && [entities count] > 0) {
             ret = [entities objectAtIndex:0];

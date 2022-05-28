@@ -20,12 +20,12 @@
 
 
 
-@property (nonatomic, retain) NSSet* albums;
+@property (nonatomic, strong) NSSet* albums;
 - (NSMutableSet*)albumsSet;
 
 
 
-@property (nonatomic, retain) SBServer* server;
+@property (nonatomic, strong) SBServer* server;
 //- (BOOL)validateServer:(id*)value_ error:(NSError**)error_;
 
 
