@@ -30,23 +30,23 @@
         {
             switch ([self elementAtIndex:i associatedPoints:points])
             {
-                case NSMoveToBezierPathElement:
+                case NSBezierPathElementMoveTo:
                     CGPathMoveToPoint(path, NULL, points[0].x, points[0].y);
                     break;
                     
-                case NSLineToBezierPathElement:
+                case NSBezierPathElementLineTo:
                     CGPathAddLineToPoint(path, NULL, points[0].x, points[0].y);
                     didClosePath = NO;
                     break;
                     
-                case NSCurveToBezierPathElement:
+                case NSBezierPathElementCurveTo:
                     CGPathAddCurveToPoint(path, NULL, points[0].x, points[0].y,
                                           points[1].x, points[1].y,
                                           points[2].x, points[2].y);
                     didClosePath = NO;
                     break;
                     
-                case NSClosePathBezierPathElement:
+                case NSBezierPathElementClosePath:
                     CGPathCloseSubpath(path);
                     didClosePath = YES;
                     break;

@@ -561,7 +561,7 @@
 							buttonFrame.origin.x = buttonX;
 							[button setFrame:buttonFrame];
 							if ([selectedItems containsObject:itemIdentifier]) {
-								[button setState:NSOnState];
+                                [button setState:NSControlStateValueOn];
 							}
 							[self addSubview:button positioned:NSWindowBelow relativeTo:_accessoryView];
 							[menuItems replaceObjectAtIndex:i withObject:button];
@@ -696,8 +696,8 @@
   	[button setFont:[NSFont systemFontOfSize:SCOPE_BAR_FONTSIZE]];
 	[button setTarget:self];
 	[button setAction:@selector(scopeButtonClicked:)];
-	[button setBezelStyle:NSRecessedBezelStyle];
-	[button setButtonType:NSPushOnPushOffButton];
+    [button setBezelStyle:NSBezelStyleRecessed];
+    [button setButtonType:NSButtonTypePushOnPushOff];
 	[[button cell] setHighlightsBy:NSCellIsBordered | NSCellIsInsetButton];
 	[button setShowsBorderOnlyWhileMouseInside:YES];
 	if (image) {
@@ -752,8 +752,8 @@
 	
 	// Configure appearance and behaviour.
 	[popup setFont:[NSFont systemFontOfSize:SCOPE_BAR_FONTSIZE]];
-	[popup setBezelStyle:NSRecessedBezelStyle];
-	[popup setButtonType:NSPushOnPushOffButton];
+    [popup setBezelStyle:NSBezelStyleRecessed];
+    [popup setButtonType:NSButtonTypePushOnPushOff];
 	[[popup cell] setHighlightsBy:NSCellIsBordered | NSCellIsInsetButton];
 	[popup setShowsBorderOnlyWhileMouseInside:NO];
 	[[popup cell] setAltersStateOfSelectedItem:NO];
@@ -910,10 +910,10 @@
 	if (menuMode) {
 		// MenuItem. Ensure item has appropriate state.
 		nowSelected = ![[_selectedItems objectAtIndex:groupNumber] containsObject:identifier];
-		[sender setState:((nowSelected) ? NSOnState : NSOffState)];
+        [sender setState:((nowSelected) ? NSControlStateValueOn : NSControlStateValueOff)];
 	} else {
 		// Button. Item will already have appropriate state.
-		nowSelected = ([button state] != NSOffState);
+        nowSelected = ([button state] != NSControlStateValueOff);
 	}
 	[self setSelected:nowSelected forItem:identifier inGroup:groupNumber];
 }
@@ -986,10 +986,10 @@
 	
 	// Ensure selected status of item's control reflects desired value.
 	NSButton *button = [self getButtonForItem:identifier inGroup:groupNumber];
-	if (selected && [button state] == NSOffState) {
-		[button setState:NSOnState];
-	} else if (!selected && [button state] != NSOffState) {
-		[button setState:NSOffState];
+    if (selected && [button state] == NSControlStateValueOff) {
+        [button setState:NSControlStateValueOn];
+    } else if (!selected && [button state] != NSControlStateValueOff) {
+        [button setState:NSControlStateValueOff];
 	}
 	
 	// Maintain _selectedItems appropriately.

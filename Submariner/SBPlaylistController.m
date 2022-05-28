@@ -131,7 +131,7 @@
             [alert addButtonWithTitle:@"Cancel"];
             [alert setMessageText:@"Remove the selected track ?"];
             [alert setInformativeText:@"The selected track will be removed from this playlist."];
-            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert setAlertStyle:NSAlertStyleWarning];
             
             [alert beginSheetModalForWindow:[[self view] window] 
                               modalDelegate:self 

@@ -486,7 +486,7 @@
             [alert addButtonWithTitle:@"Cancel"];
             [alert setMessageText:@"Delete the selected server playlist?"];
             [alert setInformativeText:@"Deleted server playlists cannot be restored."];
-            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert setAlertStyle:NSAlertStyleWarning];
             
             [super showVisualCue];
             
@@ -512,7 +512,7 @@
             [alert addButtonWithTitle:@"Cancel"];
             [alert setMessageText:@"Delete the selected item?"];
             [alert setInformativeText:@"Deleted items cannot be restored."];
-            [alert setAlertStyle:NSWarningAlertStyle];
+            [alert setAlertStyle:NSAlertStyleWarning];
             
             [super showVisualCue];
             
@@ -789,7 +789,7 @@
 #pragma mark NSOpenPanel Selector
 
 - (void)openAudioFilesPanelDidEnd:(NSOpenPanel *)panel returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    if(returnCode == NSOKButton) {
+    if(returnCode == NSModalResponseOK) {
         NSArray *files = [panel filenames];
         if(files) {
             
@@ -1143,7 +1143,7 @@
         [self.window setSubtitle: @""];
         [onlineImageView setImage:nil];
         [coverImageView setImage:[NSImage imageNamed:@"NoArtwork"]];
-        [playPauseButton setState:NSOnState];
+        [playPauseButton setState:NSControlStateValueOn];
     }
 }
 - (void)playerPlayStateNotification:(NSNotification *)notification {
@@ -1151,15 +1151,15 @@
     
     if(currentTrack != nil) {
         if([[SBPlayer sharedInstance] isPaused]) {
-            [playPauseButton setState:NSOffState];
+            [playPauseButton setState:NSControlStateValueOff];
             NSLog(@"Paused?");
         }
         else {
-            [playPauseButton setState:NSOnState];
+            [playPauseButton setState:NSControlStateValueOn];
             NSLog(@"Playing?");
         }
     } else {
-        [playPauseButton setState:NSOnState];
+        [playPauseButton setState:NSControlStateValueOn];
         NSLog(@"Stopped?");
     }
 }
@@ -1431,7 +1431,7 @@
 
 - (NSMenu*)sourceList:(SBSourceList *)aSourceList menuForEvent:(NSEvent*)theEvent item:(id)item {
     
-	if ([theEvent type] == NSRightMouseDown || ([theEvent type] == NSLeftMouseDown && ([theEvent modifierFlags] & NSControlKeyMask) == NSControlKeyMask)) {
+    if ([theEvent type] == NSEventTypeRightMouseDown || ([theEvent type] == NSEventTypeLeftMouseDown && ([theEvent modifierFlags] & NSControlKeyMask) == NSEventModifierFlagControl)) {
     
         
         if(item != nil) {

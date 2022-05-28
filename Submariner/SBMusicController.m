@@ -218,7 +218,7 @@
                 [alert addButtonWithTitle:@"Delete"];
                 [alert setMessageText:@"Delete the selected artist ?"];
                 [alert setInformativeText:@"This artist has been copied to Submariner database. If you choose Delete, the artist will be removed from the database and deleted from your file system. If you choose Remove, copied files will be preserved."];
-                [alert setAlertStyle:NSWarningAlertStyle];
+                [alert setAlertStyle:NSAlertStyleWarning];
                 
                 [alert beginSheetModalForWindow:[[self view] window] 
                                   modalDelegate:self 
@@ -231,7 +231,7 @@
                 [alert addButtonWithTitle:@"Cancel"];
                 [alert setMessageText:@"Remove the selected artist ?"];
                 [alert setInformativeText:@"Removed artists cannot be restored."];
-                [alert setAlertStyle:NSWarningAlertStyle];
+                [alert setAlertStyle:NSAlertStyleWarning];
                 
                 [alert beginSheetModalForWindow:[[self view] window] 
                                   modalDelegate:self 
@@ -257,7 +257,7 @@
                 [alert addButtonWithTitle:@"Delete"];
                 [alert setMessageText:@"Delete the selected artist ?"];
                 [alert setInformativeText:@"This artist has been copied to Submariner database. If you choose Delete, the artist will be removed from the database and deleted from your file system. If you choose Remove, copied files will be preserved."];
-                [alert setAlertStyle:NSWarningAlertStyle];
+                [alert setAlertStyle:NSAlertStyleWarning];
                 
                 [alert beginSheetModalForWindow:[[self view] window] 
                                   modalDelegate:self 
@@ -270,7 +270,7 @@
                 [alert addButtonWithTitle:@"Cancel"];
                 [alert setMessageText:@"Remove the selected artist ?"];
                 [alert setInformativeText:@"Removed artists cannot be restored."];
-                [alert setAlertStyle:NSWarningAlertStyle];
+                [alert setAlertStyle:NSAlertStyleWarning];
                 
                 [alert beginSheetModalForWindow:[[self view] window] 
                                   modalDelegate:self 
@@ -294,7 +294,7 @@
                 [alert addButtonWithTitle:@"Delete"];
                 [alert setMessageText:@"Delete the selected track ?"];
                 [alert setInformativeText:@"This track has been copied to Submariner database. If you choose Delete, the track will be removed from the database and deleted from your file system. If you choose Remove, copied files will be preserved."];
-                [alert setAlertStyle:NSWarningAlertStyle];
+                [alert setAlertStyle:NSAlertStyleWarning];
                 
                 [alert beginSheetModalForWindow:[[self view] window] 
                                   modalDelegate:self 
@@ -307,7 +307,7 @@
                 [alert addButtonWithTitle:@"Cancel"];
                 [alert setMessageText:@"Remove the selected track ?"];
                 [alert setInformativeText:@"Removed tracks cannot be restored."];
-                [alert setAlertStyle:NSWarningAlertStyle];
+                [alert setAlertStyle:NSAlertStyleWarning];
                 
                 [alert beginSheetModalForWindow:[[self view] window] 
                                   modalDelegate:self 

@@ -17,11 +17,11 @@
 	if ((self = [super initTextCell:title pullsDown:pullsDown])) {
 		recessedButton = [[NSButton alloc] initWithFrame:NSMakeRect(0, 0, 30, 20)]; // arbitrary frame.
 		[recessedButton setTitle:@""];
-		[recessedButton setBezelStyle:NSRecessedBezelStyle];
-		[recessedButton setButtonType:NSPushOnPushOffButton];
+        [recessedButton setBezelStyle:NSBezelStyleRecessed];
+        [recessedButton setButtonType:NSButtonTypePushOnPushOff];
 		[[recessedButton cell] setHighlightsBy:NSCellIsBordered | NSCellIsInsetButton];
 		[recessedButton setShowsBorderOnlyWhileMouseInside:NO];
-		[recessedButton setState:NSOnState]; // ensures it looks pushed-in.
+        [recessedButton setState:NSControlStateValueOn]; // ensures it looks pushed-in.
 	}
 	return self;
 }

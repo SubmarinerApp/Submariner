@@ -602,7 +602,7 @@ NSString * const PXSLDeleteKeyPressedOnRowsNotification = @"PXSourceListDeleteKe
 			if(firstKey==NSUpArrowFunctionKey||firstKey==NSDownArrowFunctionKey)
 			{
 				//Handle keyboard navigation across groups
-				if([selectedIndexes count]==1&&!([theEvent modifierFlags] & NSShiftKeyMask))
+                if([selectedIndexes count]==1&&!([theEvent modifierFlags] & NSEventModifierFlagShift))
 				{
 					int delta = firstKey==NSDownArrowFunctionKey?1:-1;	//Search "backwards" if up arrow, "forwards" if down
 					NSInteger newRow = [selectedIndexes firstIndex];

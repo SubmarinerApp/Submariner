@@ -101,7 +101,7 @@
     
     [croppedImage lockFocus];
     {
-        [self compositeToPoint:point operation:NSCompositeCopy];
+        [self compositeToPoint:point operation:NSCompositingOperationCopy];
     }
     [croppedImage unlockFocus];
     

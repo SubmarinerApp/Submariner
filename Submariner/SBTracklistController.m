@@ -124,24 +124,24 @@
 }
 
 - (IBAction)shuffle:(id)sender {
-    if([sender state] == NSOnState) {
+    if([sender state] == NSControlStateValueOn) {
         [[SBPlayer sharedInstance] setIsShuffle:YES];
         
-    } else if([sender state] == NSOffState) {
+    } else if([sender state] == NSControlStateValueOff) {
         [[SBPlayer sharedInstance] setIsShuffle:YES];
     }
 }
 
 - (IBAction)repeat:(id)sender {
     
-    if([sender state] == NSOnState) {
+    if([sender state] == NSControlStateValueOn) {
         [[SBPlayer sharedInstance] setRepeatMode:SBPlayerRepeatAll];
         [sender setAlternateImage:[NSImage imageNamed:@"repeat_on"]];
     } 
-    if([sender state] == NSOffState) {
+    if([sender state] == NSControlStateValueOff) {
         [[SBPlayer sharedInstance] setRepeatMode:SBPlayerRepeatNo];
     } 
-    if([sender state] == NSMixedState) {
+    if([sender state] == NSControlStateValueMixed) {
         [[SBPlayer sharedInstance] setRepeatMode:SBPlayerRepeatOne];
         [sender setAlternateImage:[NSImage imageNamed:@"repeat_one_on"]];
     }

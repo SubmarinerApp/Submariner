@@ -84,7 +84,7 @@
                                                otherButton:nil
                                  informativeTextWithFormat:@"Submariner is not able to caculate the progression time below 320 kbit/s bitrate efficiently depending of the transcoded source bitrate. You could not seek into the timeline and time information will be unreliable. However, Subamriner will stream, play and cache download your track properly with the desired bitrate."];
             
-            [alert setAlertStyle:NSInformationalAlertStyle];
+            [alert setAlertStyle:NSAlertStyleInformational];
             [alert runModal];
         }
     }
