@@ -173,7 +173,7 @@
 #pragma mark -
 #pragma mark Window Controller
 
-- (void)windowDidLoad {  
+- (void)windowDidLoad {
     
     [super windowDidLoad];
     
@@ -190,7 +190,7 @@
     
     // observer number of currently running operations to animate progress
     [[NSOperationQueue sharedServerQueue] addObserver:self
-                                                  forKeyPath:@"operationCount" 
+                                                  forKeyPath:@"operationCount"
                                                      options:NSKeyValueObservingOptionNew
                                                      context:nil];
     
@@ -231,7 +231,7 @@
                                                  name:SBSubsonicConnectionFailedNotification
                                                object:nil];
 
-    // setup main box subviews animation 
+    // setup main box subviews animation
     [self setCurrentView:(SBAnimatedView *)[musicController view]];
     [self.currentView setFrameSize:[mainBox frame].size];
     
@@ -243,7 +243,7 @@
     [transition setType:kCATransitionFade];
     [transition setDuration:0.05f];
     
-    NSDictionary *ani = [NSDictionary dictionaryWithObject:transition 
+    NSDictionary *ani = [NSDictionary dictionaryWithObject:transition
                                                     forKey:@"subviews"];
     [contentView setAnimations:ani];
     
@@ -257,8 +257,8 @@
                                                          userInfo:nil
                                                           repeats:YES];
     
-    [resourcesController addObserver:self 
-                          forKeyPath:@"content" 
+    [resourcesController addObserver:self
+                          forKeyPath:@"content"
                              options:NSKeyValueObservingOptionNew
                              context:nil];
     
@@ -383,12 +383,12 @@
 
     [super showVisualCue];
     
-    [openPanel beginSheetForDirectory:nil 
-                                 file:nil 
-                                types:types 
-                       modalForWindow:[self window] 
-                        modalDelegate:self 
-                       didEndSelector:@selector(openAudioFilesPanelDidEnd:returnCode:contextInfo:) 
+    [openPanel beginSheetForDirectory:nil
+                                 file:nil
+                                types:types
+                       modalForWindow:[self window]
+                        modalDelegate:self
+                       didEndSelector:@selector(openAudioFilesPanelDidEnd:returnCode:contextInfo:)
                           contextInfo:nil];
 
 }
@@ -476,9 +476,9 @@
             
             [super showVisualCue];
             
-            [alert beginSheetModalForWindow:[self window] 
-                              modalDelegate:self 
-                             didEndSelector:@selector(deleteServerPlaylistAlertDidEnd:returnCode:contextInfo:) 
+            [alert beginSheetModalForWindow:[self window]
+                              modalDelegate:self
+                             didEndSelector:@selector(deleteServerPlaylistAlertDidEnd:returnCode:contextInfo:)
                                 contextInfo:nil];
             
         }
@@ -502,9 +502,9 @@
             
             [super showVisualCue];
             
-            [alert beginSheetModalForWindow:[self window] 
-                              modalDelegate:self 
-                             didEndSelector:@selector(removeItemAlertDidEnd:returnCode:contextInfo:) 
+            [alert beginSheetModalForWindow:[self window]
+                              modalDelegate:self
+                             didEndSelector:@selector(removeItemAlertDidEnd:returnCode:contextInfo:)
                                 contextInfo:nil];
         }
     }
@@ -577,11 +577,11 @@
 }
 
 - (IBAction)nextTrack:(id)sender {
-    [[SBPlayer sharedInstance] next];   
+    [[SBPlayer sharedInstance] next];
 }
 
 - (IBAction)previousTrack:(id)sender {
-    [[SBPlayer sharedInstance] previous];   
+    [[SBPlayer sharedInstance] previous];
 }
 
 - (IBAction)seekTime:(id)sender {
@@ -909,7 +909,7 @@
 //        resource = [SBTracklist insertInManagedObjectContext:self.managedObjectContext];
 //        [resource setResourceName:@"Tracklist"];
 //        [resource setIndex:[NSNumber numberWithInteger:1]];
-//        
+//
 //        // expand LIBRARY section
 //        //[sourceList expandAllItems];
 //    }
@@ -937,7 +937,7 @@
     
     //[sourceList expandAllItems];
     
-    //[outlineView expandURIs:]; 
+    //[outlineView expandURIs:];
     
     [[self managedObjectContext] processPendingChanges];
     [[self managedObjectContext] save:nil];
@@ -1043,7 +1043,7 @@
     //[resourcesController rearrangeObjects];
     [sourceList performSelector:@selector(reloadData) withObject:nil afterDelay:0.0f];
     
-    NSArray *URIs = [NSArray arrayWithObject:[[[notification object] URIRepresentation] absoluteString]];    
+    NSArray *URIs = [NSArray arrayWithObject:[[[notification object] URIRepresentation] absoluteString]];
     [sourceList performSelectorOnMainThread:@selector(reloadURIs:) withObject:URIs waitUntilDone:YES];
     //[sourceList performSelectorOnMainThread:@selector(expandURIs:) withObject:URIs waitUntilDone:YES];
 }
@@ -1179,7 +1179,7 @@
 }
 
 - (BOOL)sourceList:(SBSourceList*)aSourceList itemHasIcon:(id)item {
-    return YES;   
+    return YES;
 }
 
 - (NSImage*)sourceList:(SBSourceList*)aSourceList iconForItem:(id)item {
@@ -1212,7 +1212,7 @@
     if([[item representedObject] isKindOfClass:[SBPlaylist class]]) {
         if([[[info draggingPasteboard] types] containsObject:SBLibraryTableViewDataType]) {
             NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
-            NSArray *tracksURIs = [NSKeyedUnarchiver unarchiveObjectWithData:data]; 
+            NSArray *tracksURIs = [NSKeyedUnarchiver unarchiveObjectWithData:data];
             
             SBTrack *firstTrack = (SBTrack *)[self.managedObjectContext objectWithID:[self.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[tracksURIs objectAtIndex:0]]];
             SBPlaylist *targetPlaylist = [item representedObject];
@@ -1225,7 +1225,7 @@
         }
     } else if([[item representedObject] isKindOfClass:[SBDownloads class]] || [[item representedObject] isKindOfClass:[SBLibrary class]]) {
         NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
-        NSArray *tracksURIs = [NSKeyedUnarchiver unarchiveObjectWithData:data]; 
+        NSArray *tracksURIs = [NSKeyedUnarchiver unarchiveObjectWithData:data];
         
         SBTrack *firstTrack = (SBTrack *)[self.managedObjectContext objectWithID:[self.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[tracksURIs objectAtIndex:0]]];
         
@@ -1248,11 +1248,11 @@
            
             if(playlist.server == nil) {
                 NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
-                NSArray *tracksURIs = [NSKeyedUnarchiver unarchiveObjectWithData:data]; 
+                NSArray *tracksURIs = [NSKeyedUnarchiver unarchiveObjectWithData:data];
                 
                 // also add new track IDs to the array
                 [tracksURIs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    SBTrack *track = (SBTrack *)[self.managedObjectContext objectWithID:[[self.managedObjectContext persistentStoreCoordinator] managedObjectIDForURIRepresentation:obj]]; 
+                    SBTrack *track = (SBTrack *)[self.managedObjectContext objectWithID:[[self.managedObjectContext persistentStoreCoordinator] managedObjectIDForURIRepresentation:obj]];
                     
                     [track setPlaylistIndex:[NSNumber numberWithInteger:[playlist.tracks count]]];
                     [playlist addTracksObject:track];
@@ -1260,7 +1260,7 @@
             } else {
                 
                 NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
-                NSArray *tracksURIs = [NSKeyedUnarchiver unarchiveObjectWithData:data]; 
+                NSArray *tracksURIs = [NSKeyedUnarchiver unarchiveObjectWithData:data];
                 NSMutableArray *trackIDs = [NSMutableArray array];
                 NSString *playlistID = playlist.id;
                 
@@ -1271,7 +1271,7 @@
                 
                 // also add new track IDs to the array
                 [tracksURIs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    SBTrack *track = (SBTrack *)[self.managedObjectContext objectWithID:[[self.managedObjectContext persistentStoreCoordinator] managedObjectIDForURIRepresentation:obj]]; 
+                    SBTrack *track = (SBTrack *)[self.managedObjectContext objectWithID:[[self.managedObjectContext persistentStoreCoordinator] managedObjectIDForURIRepresentation:obj]];
                     [trackIDs addObject:track.id];
                 }];
                 
@@ -1285,11 +1285,11 @@
 		[self displayViewControllerForResource:[item representedObject]];
 		
         NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
-        NSArray *tracksURIs = [NSKeyedUnarchiver unarchiveObjectWithData:data]; 
+        NSArray *tracksURIs = [NSKeyedUnarchiver unarchiveObjectWithData:data];
         
         // also add new track IDs to the array
         [tracksURIs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            SBTrack *track = (SBTrack *)[self.managedObjectContext objectWithID:[[self.managedObjectContext persistentStoreCoordinator] managedObjectIDForURIRepresentation:obj]]; 
+            SBTrack *track = (SBTrack *)[self.managedObjectContext objectWithID:[[self.managedObjectContext persistentStoreCoordinator] managedObjectIDForURIRepresentation:obj]];
 
             // download track
             SBSubsonicDownloadOperation *op = [[SBSubsonicDownloadOperation alloc] initWithManagedObjectContext:self.managedObjectContext];
@@ -1416,7 +1416,7 @@
 
 - (NSMenu*)sourceList:(SBSourceList *)aSourceList menuForEvent:(NSEvent*)theEvent item:(id)item {
     
-    if ([theEvent type] == NSEventTypeRightMouseDown || ([theEvent type] == NSEventTypeLeftMouseDown && ([theEvent modifierFlags] & NSControlKeyMask) == NSEventModifierFlagControl)) {
+    if ([theEvent type] == NSEventTypeRightMouseDown || ([theEvent type] == NSEventTypeLeftMouseDown && ([theEvent modifierFlags] & NSEventModifierFlagControl) == NSEventModifierFlagControl)) {
     
         
         if(item != nil) {
@@ -1436,7 +1436,7 @@
                     
                 } else {
                     // if playlist is a remote playlist
-                    NSString *removeString = [NSString stringWithFormat:@"Delete \"%@\"", [[item representedObject] resourceName]];                    
+                    NSString *removeString = [NSString stringWithFormat:@"Delete \"%@\"", [[item representedObject] resourceName]];
                     [m addItemWithTitle:removeString action:@selector(deleteRemotePlaylist:) keyEquivalent:@""];
                 }
                 
@@ -1481,8 +1481,8 @@
     
     if(selectedRow != -1) {
         SBResource *res = [[sourceList itemAtRow:selectedRow] representedObject];
-        if(![res isKindOfClass:[SBSection class]] && 
-           (![res.resourceName isEqualToString:@"Music"] || 
+        if(![res isKindOfClass:[SBSection class]] &&
+           (![res.resourceName isEqualToString:@"Music"] ||
             ![res.resourceName isEqualToString:@"Tracklist"])) {
                if([res isKindOfClass:[SBPlaylist class]] && ((SBPlaylist *)res).server != nil) {
                    [self deleteRemotePlaylist:self];
