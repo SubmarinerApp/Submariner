@@ -1041,8 +1041,10 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     if([attributeDict valueForKey:@"status"])
         [newEpisode setEpisodeStatus:[attributeDict valueForKey:@"status"]];
     
-    if([attributeDict valueForKey:@"publishDate"])
-        [newEpisode setPublishDate:[NSDate dateWithNaturalLanguageString:[attributeDict valueForKey:@"publishDate"]]];
+    if([attributeDict valueForKey:@"publishDate"]) {
+        NSISO8601DateFormatter *formatter = [[NSISO8601DateFormatter alloc] init];
+        [newEpisode setPublishDate:[formatter dateFromString:[attributeDict valueForKey:@"publishDate"]]];
+    }
     
     if([attributeDict valueForKey:@"year"])
         [newEpisode setYear:[NSNumber numberWithInt:[[attributeDict valueForKey:@"year"] intValue]]];
