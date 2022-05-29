@@ -933,11 +933,11 @@
 			};
 			buildConfigurationList = 4C87ED59139CD8BE0064DE2E /* Build configuration list for PBXProject "Submariner" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 4C87ED54139CD8BE0064DE2E;
 			productRefGroup = 4C87ED60139CD8BE0064DE2E /* Products */;
