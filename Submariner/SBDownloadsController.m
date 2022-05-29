@@ -54,6 +54,11 @@
 }
 
 
+- (NSString*)title {
+    return @"Downloads";
+}
+
+
 
 @synthesize downloadActivities;
 @synthesize activitiesController;

@@ -45,6 +45,11 @@
 }
 
 
+- (NSString*)title {
+    return @"Search Results";
+}
+
+
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context {
     self = [super initWithManagedObjectContext:context];
     if (self) {

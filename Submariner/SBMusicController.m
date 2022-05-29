@@ -64,6 +64,10 @@
 }
 
 
+- (NSString*)title {
+    return @"Local Library";
+}
+
 @synthesize artistSortDescriptor;
 @synthesize trackSortDescriptor;
 @synthesize databaseController;

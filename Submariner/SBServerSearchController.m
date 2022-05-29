@@ -56,6 +56,11 @@
 }
 
 
+- (NSString*)title {
+    return @"Search Results on Server";
+}
+
+
 @synthesize searchResult;
 
 

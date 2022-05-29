@@ -56,6 +56,11 @@
 }
 
 
+- (NSString*)title {
+    return @"Playlist for %s";
+}
+
+
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context {
     self = [super initWithManagedObjectContext:context];
     if (self) {

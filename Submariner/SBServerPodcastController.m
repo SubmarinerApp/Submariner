@@ -57,6 +57,11 @@
 }
 
 
+- (NSString*)title {
+    return @"Podcasts on Server";
+}
+
+
 
 @synthesize podcastsSortDescriptors;
 @synthesize episodesSortDescriptors;

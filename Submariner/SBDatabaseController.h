@@ -74,8 +74,6 @@
     IBOutlet SBViewController *currentViewController;
     IBOutlet NSProgressIndicator *progressIndicator;
     IBOutlet NSButton *toggleButton;
-    IBOutlet NSTextField *trackTitleTextField;
-    IBOutlet NSTextField *trackInfosTextField;
     IBOutlet NSTextField *durationTextField;
     IBOutlet NSTextField *progressTextField;
     IBOutlet NSSlider *progressSlider;

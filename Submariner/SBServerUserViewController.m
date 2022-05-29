@@ -71,6 +71,11 @@
 }
 
 
+- (NSString*)title {
+    return @"Now Playing on Server";
+}
+
+
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context {
     self = [super initWithManagedObjectContext:context];
     if (self) {

@@ -80,6 +80,11 @@
 }
 
 
+- (NSString*)title {
+    return @"Artists on Server";
+}
+
+
 @synthesize databaseController;
 @synthesize artistSortDescriptor;
 @synthesize trackSortDescriptor;

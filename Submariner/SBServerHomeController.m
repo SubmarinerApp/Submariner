@@ -73,6 +73,11 @@
 }
 
 
+- (NSString*)title {
+    return @"Albums on Server";
+}
+
+
 
 @synthesize trackSortDescriptor;
 @synthesize databaseController;

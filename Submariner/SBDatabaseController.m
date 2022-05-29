@@ -865,6 +865,15 @@
 #pragma mark -
 #pragma mark Private Methods
 
+- (void)updateTitle {
+    if ([[SBPlayer sharedInstance] isPlaying]) {
+        // Let the notification handle it for us, for now
+        return;
+    }
+    [self.window setTitle: currentViewController.title ?: @""];
+    [self.window setSubtitle: @""];
+}
+
 - (void)populatedDefaultSections {
     NSPredicate *predicate = nil;
     SBSection *section = nil;
@@ -1014,6 +1023,7 @@
     [[contentView animator] replaceSubview:currentViewController.view with:newViewController.view];
     [newViewController.view setFrameSize:[mainBox frame].size];
     currentViewController = newViewController;
+    [self updateTitle];
 }
 
 
@@ -1103,8 +1113,6 @@
             coverImage = [NSImage imageNamed:@"NoArtwork"];
         }
         
-        [trackTitleTextField setStringValue:currentTrack.itemName];
-        [trackInfosTextField setStringValue:trackInfos];
         [self.window setTitle:currentTrack.itemName];
         [self.window setSubtitle:trackInfos];
         [coverImageView setImage:coverImage];
@@ -1122,8 +1130,6 @@
 //        else [playPauseButton setState:NSOnState];
         
     } else {
-        [trackTitleTextField setStringValue:@""];
-        [trackInfosTextField setStringValue:@""];
         [self.window setTitle: currentViewController.title ?: @""];
         [self.window setSubtitle: @""];
         [onlineImageView setImage:nil];

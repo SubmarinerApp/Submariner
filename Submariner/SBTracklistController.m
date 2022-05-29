@@ -56,6 +56,11 @@
 }
 
 
+- (NSString*)title {
+    return @"Tracklist for %s";
+}
+
+
 @synthesize databaseController;
 
 
