@@ -110,7 +110,7 @@
 
 @synthesize resourceSortDescriptors;
 @synthesize addServerPlaylistController;
-@synthesize currentView;
+@synthesize currentViewController;
 @synthesize library;
 
 
@@ -232,12 +232,12 @@
                                                object:nil];
 
     // setup main box subviews animation
-    [self setCurrentView:(SBAnimatedView *)[musicController view]];
-    [self.currentView setFrameSize:[mainBox frame].size];
+    [self setCurrentViewController: musicController];
+    [self.currentViewController.view setFrameSize:[mainBox frame].size];
     
     NSView *contentView = [mainBox contentView];
     //[contentView setWantsLayer:YES];
-    [contentView addSubview:[self currentView]];
+    [contentView addSubview: [self currentViewController].view];
     
     transition = [CATransition animation];
     [transition setType:kCATransitionFade];
@@ -247,7 +247,7 @@
                                                     forKey:@"subviews"];
     [contentView setAnimations:ani];
     
-    [self setCurrentView:(SBAnimatedView *)[musicController view]];
+    [self setCurrentViewController: musicController];
                 
     
     // player timer
@@ -672,7 +672,7 @@
 
 
 - (void)showDownloadView {
-	[self setCurrentView:(SBAnimatedView *)[downloadsController view]];
+	[self setCurrentViewController: downloadsController];
 }
 
 - (IBAction)showIndices:(id)sender {
@@ -682,7 +682,7 @@
     [self.server setSelectedTabIndex: 0];
     [serverLibraryController setDatabaseController:self];
     [serverLibraryController setServer:self.server];
-    [self setCurrentView:(SBAnimatedView *)[serverLibraryController view]];
+    [self setCurrentViewController: serverLibraryController];
 }
 
 - (IBAction)showAlbums:(id)sender {
@@ -692,7 +692,7 @@
     [self.server setSelectedTabIndex: 1];
     [serverHomeController setDatabaseController:self];
     [serverHomeController setServer:self.server];
-    [self setCurrentView:(SBAnimatedView *)[serverHomeController view]];
+    [self setCurrentViewController: serverHomeController];
 }
 
 - (IBAction)showPodcasts:(id)sender {
@@ -701,7 +701,7 @@
     }
     [self.server setSelectedTabIndex: 2];
     [serverPodcastController setServer:self.server];
-    [self setCurrentView:(SBAnimatedView *)[serverPodcastController view]];
+    [self setCurrentViewController: serverPodcastController];
 }
 
 
@@ -719,11 +719,11 @@
         if (self.server) {
             // Remote
             [serverSearchController setServer:self.server];
-            [self setCurrentView:(SBAnimatedView *)[serverSearchController view]];
+            [self setCurrentViewController: serverSearchController];
             [self.server searchWithQuery:query];
         } else {
             // Local
-            [self setCurrentView:(SBAnimatedView *)[musicSearchController view]];
+            [self setCurrentViewController: musicSearchController];
             [musicSearchController searchString:query];
         }
     } else {
@@ -952,21 +952,21 @@
     if([resource isKindOfClass:[SBLibrary class]]) {
         
         [self setServer: nil];
-        [self setCurrentView:(SBAnimatedView *)[musicController view]];
+        [self setCurrentViewController: musicController];
         [searchToolbarItem setEnabled: YES];
         [searchField setPlaceholderString: @"Local Search"];
         
     }  else if([resource isKindOfClass:[SBDownloads class]]) {
         
         [self setServer: nil];
-        [self setCurrentView:(SBAnimatedView *)[downloadsController view]];
+        [self setCurrentViewController: downloadsController];
         [searchToolbarItem setEnabled: NO];
         [searchField setPlaceholderString: @""];
         
     } else if([resource isKindOfClass:[SBTracklist class]]) {
         
         [self setServer: nil];
-        [self setCurrentView:(SBAnimatedView *)[tracklistController view]];
+        [self setCurrentViewController: tracklistController];
         [searchToolbarItem setEnabled: NO];
         [searchField setPlaceholderString: @""];
         
@@ -974,7 +974,7 @@
         
         [self setServer: nil];
         [playlistController setPlaylist:(SBPlaylist *)resource];
-        [self setCurrentView:(SBAnimatedView *)[playlistController view]];
+        [self setCurrentViewController: playlistController];
         [searchToolbarItem setEnabled: NO];
         [searchField setPlaceholderString: @""];
         
@@ -986,16 +986,16 @@
             default:
                 [serverLibraryController setDatabaseController:self];
                 [serverLibraryController setServer: server];
-                [self setCurrentView:(SBAnimatedView *)[serverLibraryController view]];
+                [self setCurrentViewController: serverLibraryController];
                 break;
             case 1:
                 [serverHomeController setDatabaseController:self];
                 [serverHomeController setServer: server];
-                [self setCurrentView:(SBAnimatedView *)[serverHomeController view]];
+                [self setCurrentViewController: serverHomeController];
                 break;
             case 2:
                 [serverPodcastController setServer: server];
-                [self setCurrentView:(SBAnimatedView *)[serverPodcastController view]];
+                [self setCurrentViewController: serverPodcastController];
                 break;
             // 3 was search and 4 was server users
         }
@@ -1005,15 +1005,15 @@
 }
 
 
-- (void)setCurrentView:(SBAnimatedView *)newView {
-    if (!currentView) {
-        currentView = newView;
+- (void)setCurrentViewController:(SBViewController *)newViewController {
+    if (!currentViewController) {
+        currentViewController = newViewController;
         return;
     }
     NSView *contentView = [mainBox contentView];
-    [[contentView animator] replaceSubview:currentView with:newView];
-    [newView setFrameSize:[mainBox frame].size];
-    currentView = newView;
+    [[contentView animator] replaceSubview:currentViewController.view with:newViewController.view];
+    [newViewController.view setFrameSize:[mainBox frame].size];
+    currentViewController = newViewController;
 }
 
 
@@ -1124,7 +1124,7 @@
     } else {
         [trackTitleTextField setStringValue:@""];
         [trackInfosTextField setStringValue:@""];
-        [self.window setTitle: @""];
+        [self.window setTitle: currentViewController.title ?: @""];
         [self.window setSubtitle: @""];
         [onlineImageView setImage:nil];
         [coverImageView setImage:[NSImage imageNamed:@"NoArtwork"]];

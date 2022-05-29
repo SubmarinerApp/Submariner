@@ -71,7 +71,7 @@
     IBOutlet SBEditServerController *editServerController;
     SBAddServerPlaylistController *addServerPlaylistController;
     IBOutlet NSBox *mainBox;
-    IBOutlet SBAnimatedView *currentView;
+    IBOutlet SBViewController *currentViewController;
     IBOutlet NSProgressIndicator *progressIndicator;
     IBOutlet NSButton *toggleButton;
     IBOutlet NSTextField *trackTitleTextField;
@@ -118,13 +118,13 @@
 }
 
 @property (readwrite, strong) NSArray *resourceSortDescriptors;
-@property (readwrite, strong) IBOutlet SBAnimatedView *currentView;
+@property (readwrite, strong) IBOutlet SBViewController *currentViewController;
 @property (readwrite, strong) IBOutlet SBAddServerPlaylistController *addServerPlaylistController;
 @property (readwrite, strong) SBLibrary *library;
 // XXX: Make as part of SBServerController?
 @property (readwrite, strong) SBServer *server;
 
-- (void)setCurrentView:(SBAnimatedView *)newView;
+- (void)setCurrentViewController:(SBViewController *)newView;
 - (BOOL)openImportAlert:(NSWindow *)sender files:(NSArray *)files;
 - (void)showDownloadView;
 
