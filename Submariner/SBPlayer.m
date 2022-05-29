@@ -912,14 +912,16 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
             if(repeatMode == SBPlayerRepeatOne)
                 return self.currentTrack;
             
-            // if repeat all, broken...
-             if(repeatMode == SBPlayerRepeatAll)
-                 if([self.currentTrack isEqualTo:[self.playlist lastObject]] && index > 0)
+            // if repeat all
+            if(repeatMode == SBPlayerRepeatAll) {
+                if([self.currentTrack isEqualTo:[self.playlist lastObject]] && index > 0) {
                      return [self.playlist objectAtIndex:0];
-				else
+                } else {
 					if(index > -1 && [self.playlist count]-1 >= index+1) {
 						return [self.playlist objectAtIndex:index+1];
 					}
+                }
+            }
             
         } else {
             // if repeat one, get the piority
