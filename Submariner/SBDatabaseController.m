@@ -732,6 +732,12 @@
 }
 
 
+- (IBAction)cleanTracklist:(id)sender {
+    [self stop: sender];
+    [tracklistController cleanTracklist: sender];
+}
+
+
 
 #pragma mark -
 #pragma mark NSTimer

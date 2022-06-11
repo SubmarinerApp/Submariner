@@ -88,5 +88,6 @@
 - (IBAction)showIndices:(id)sender;
 - (IBAction)showAlbums:(id)sender;
 - (IBAction)showPodcasts:(id)sender;
+- (IBAction)cleanTracklist:(id)sender;
 
 @end

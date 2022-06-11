@@ -351,6 +351,10 @@
     [databaseController showPodcasts:sender];
 }
 
+- (IBAction)cleanTracklist:(id)sender {
+    [databaseController cleanTracklist:sender];
+}
+
 - (IBAction)showWebsite:(id)sender {
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://www.read-write.fr/"]];
 }

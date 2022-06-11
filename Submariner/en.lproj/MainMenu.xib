@@ -231,6 +231,14 @@
                                     <action selector="stop:" target="494" id="frx-OT-8Cb"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Stop and Clear Tracklist" id="9xb-Uz-4pg">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+CA
+</string>
+                                <connections>
+                                    <action selector="cleanTracklist:" target="494" id="9dy-oR-1pJ"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="A3a-PO-UZ7"/>
                             <menuItem title="Previous Track" keyEquivalent="" id="6eK-AW-rbn">
                                 <connections>
