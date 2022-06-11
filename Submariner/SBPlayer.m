@@ -790,6 +790,11 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         // AVAssetExportSession doesn't work on remote files, download the stream ourself
         // XXX: Should we use the transcode type? The download URL?
         NSString *contentType = [self currentTrack].contentType;
+        if (contentType == nil) {
+            // XXX: Display an alert?
+            NSLog(@"Huh, the content type is nil. Bailing, because we don't know enough");
+            return;
+        }
         NSString *extension = [self extensionForContentType: contentType];
         // create a cache temp file
         NSURL *tempFileURL = [NSURL temporaryFileURL];
