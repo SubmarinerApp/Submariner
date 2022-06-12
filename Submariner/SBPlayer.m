@@ -36,6 +36,7 @@
 #import <SFBAudioEngine/SFBAudioPlayer.h>
 #import <SFBAudioEngine/SFBAudioDecoder.h>
 
+#import "SBClientController.h"
 #import "SBAppDelegate.h"
 #import "SBPlayer.h"
 #import "SBTrack.h"
@@ -323,7 +324,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     }
     
     // set the new current track
-    [self setCurrentTrack:track];    
+    [self setCurrentTrack:track];
     
     // Caching is handled when we request it now, including its file name
     isCaching = NO;
@@ -357,6 +358,11 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     
     // update NPIC
     [self updateSystemNowPlaying];
+
+    // tell the server we're playing it, if applicable
+    if (self.currentTrack.server != nil && [self.currentTrack.localTrack streamURL] != nil) {
+        [self.currentTrack.server.clientController scrobble: self.currentTrack.id];
+    }
 }
 
 

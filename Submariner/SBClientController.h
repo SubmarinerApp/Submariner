@@ -112,6 +112,7 @@
 
 - (void)search:(NSString *)query;
 - (void)setRating:(NSInteger)rating forID:(NSString *)anID;
+- (void)scrobble:(NSString *)anID;
 
 @end
 

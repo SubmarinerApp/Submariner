@@ -448,5 +448,17 @@
 }
 
 
+- (void)scrobble:(NSString *)anID {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:parameters];
+    [params setValue:anID forKey:@"id"];
+    unsigned long long currentTimeMS = (unsigned long long)([[NSDate date] timeIntervalSince1970] * 1000);
+    [params setValue: [NSString stringWithFormat:@"%lld", currentTimeMS] forKey:@"time"];
+    // XXX: Set submissions?
+    
+    NSURL *url = [NSURL URLWithString:server.url command:@"rest/scrobble.view" parameters:params];
+    [self requestWithURL:url requestType:SBSubsonicRequestScrobble];
+}
+
+
 
 @end

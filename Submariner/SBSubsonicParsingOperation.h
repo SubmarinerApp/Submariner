@@ -79,7 +79,8 @@ enum SBSubsonicRequestType {
     SBSubsonicRequestSearch                 = 22,
     SBSubsonicRequestSetRating              = 23,
     SBSubsonicRequestGetLicense             = 24,
-    SBSubsonicRequestGetPodcasts            = 25
+    SBSubsonicRequestGetPodcasts            = 25,
+    SBSubsonicRequestScrobble               = 26,
 } typedef SBSubsonicRequestType;
 
 
