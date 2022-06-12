@@ -314,7 +314,7 @@ IA
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="7BB2B735-54FA-4211-874E-DC54D248F3E5" label="Volume" paletteLabel="Volume" image="volume" catalog="system" sizingBehavior="auto" id="Yk7-oS-omj">
                         <nil key="toolTip"/>
-                        <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="Sgq-JE-YWM">
+                        <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="Sgq-JE-YWM" customClass="SBVolumeButton">
                             <rect key="frame" x="10" y="14" width="26" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="volume" catalog="system" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="Ofy-se-eTz">
