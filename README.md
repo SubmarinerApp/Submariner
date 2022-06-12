@@ -20,9 +20,11 @@ According to the direction this project will take, I will be glad to continue to
 
 ## Third-Party
 
-This project includes the following libraries via a submodule
+This project includes the following libraries via a submodule:
 
 * SFBAudioEngine by Stephen F. Booth ([https://github.com/sbooth/SFBAudioEngine](https://github.com/sbooth/SFBAudioEngine))
+
+More libraries are vendored (...and likely outdated), see copyright headers on files.
 
 ## Release Notes:
 
@@ -31,11 +33,18 @@ This project includes the following libraries via a submodule
 Note there is still much to be done before a release.
 
 * Now requires macOS 11.x
-* Overhauled UI to fit modern macOS design and UI conventions, including dark mode
+* Overhauled UI to fit modern macOS design and UI conventionsa
+  * Basic dark mode support
+  * SF Symbols for UI elements
+  * Tracklist and now playing view moved to sidebar
+  * Expanded menu bar
 * Updated to to latest version of SFBAudioEngine, and uses AVFoundation instead of QuickTime
 * Use MPNowPlayingInformationCenter instead instead of a menu applet and hooking system media keys
 * Now uses built-in NSURLSession instead of library for HTTP connections
 * Uses NSPopover instead of MAAttachedWindow
+* Informs the local server about playing cached tracks
+* Uses Subsonic token auth
+* Refactored to use ARC instead of GC
 
 ### Version 1.1:
 
