@@ -1412,6 +1412,9 @@
 - (BOOL)sourceList:(SBSourceList*)aSourceList shouldEditItem:(id)item {
     if([[item representedObject] isKindOfClass:[SBLibrary class]])
         return NO;
+
+    if([[item representedObject] isKindOfClass:[SBDownloads class]])
+        return NO;
     
     if([[item representedObject] isKindOfClass:[SBTracklist class]])
         return NO;
