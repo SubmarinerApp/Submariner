@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E079FB928568EE8000A73E7 /* SBVolumeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E079FB828568EE8000A73E7 /* SBVolumeButton.m */; };
 		3E53DBA427D6F25500DB4C84 /* SFBAudioEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBA127D6F25500DB4C84 /* SFBAudioEngine.framework */; };
 		3E53DBA527D6F25500DB4C84 /* SFBAudioEngine.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBA127D6F25500DB4C84 /* SFBAudioEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E53DBBA27E4192B00DB4C84 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBB927E4192B00DB4C84 /* AVFoundation.framework */; };
@@ -191,6 +192,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3E079FB728568EE8000A73E7 /* SBVolumeButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBVolumeButton.h; sourceTree = "<group>"; };
+		3E079FB828568EE8000A73E7 /* SBVolumeButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBVolumeButton.m; sourceTree = "<group>"; };
 		3E53DBB927E4192B00DB4C84 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		3E82701727E653F0007E5695 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -600,6 +603,8 @@
 				3ED5BF1C283197AE000AAB70 /* SBRepeatIconTransformer.m */,
 				3ED5BF5C283BEF4F000AAB70 /* SBRepeatModeTransformer.h */,
 				3ED5BF5D283BEF4F000AAB70 /* SBRepeatModeTransformer.m */,
+				3E079FB728568EE8000A73E7 /* SBVolumeButton.h */,
+				3E079FB828568EE8000A73E7 /* SBVolumeButton.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1053,6 +1058,7 @@
 				4C87EE2D139CE44C0064DE2E /* _SBAlbum.m in Sources */,
 				4C87EE2E139CE44C0064DE2E /* _SBArtist.m in Sources */,
 				4C87EE2F139CE44C0064DE2E /* _SBCover.m in Sources */,
+				3E079FB928568EE8000A73E7 /* SBVolumeButton.m in Sources */,
 				4C87EE30139CE44C0064DE2E /* _SBGroup.m in Sources */,
 				4C87EE31139CE44C0064DE2E /* _SBIndex.m in Sources */,
 				3ED5BF5E283BEF4F000AAB70 /* SBRepeatModeTransformer.m in Sources */,
