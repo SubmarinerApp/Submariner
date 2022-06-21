@@ -248,14 +248,6 @@
     [contentView setAnimations:ani];
     
     [self setCurrentViewController: musicController];
-                
-    
-    // player timer
-    progressUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:0.01
-                                                           target:self
-                                                         selector:@selector(updateProgress:)
-                                                         userInfo:nil
-                                                          repeats:YES];
     
     [resourcesController addObserver:self
                           forKeyPath:@"content"
@@ -742,6 +734,33 @@
 #pragma mark -
 #pragma mark NSTimer
 
+- (void)clearPlaybackProgress {
+    [progressSlider setEnabled:NO];
+    [progressTextField setStringValue:@"00:00"];
+    [durationTextField setStringValue:@"-00:00"];
+    [progressSlider setDoubleValue:0];
+}
+
+- (void)installProgressTimer {
+    if (progressUpdateTimer != nil) {
+        return;
+    }
+    progressUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:0.01
+                                                           target:self
+                                                         selector:@selector(updateProgress:)
+                                                         userInfo:nil
+                                                          repeats:YES];
+}
+
+- (void)uninstallProgressTimer {
+    if (progressUpdateTimer == nil) {
+        return;
+    }
+    [progressUpdateTimer invalidate];
+    progressUpdateTimer = nil;
+    [self clearPlaybackProgress];
+}
+
 - (void)updateProgress:(NSTimer *)updatedTimer {
     
     if([[SBPlayer sharedInstance] isPlaying]) {
@@ -763,13 +782,8 @@
         // If buffering is useful to know, we could reimplement it better someday.
     
     } else {
-        [progressSlider setEnabled:NO];
-        [progressTextField setStringValue:@"00:00"];
-        [durationTextField setStringValue:@"-00:00"];
-        [progressSlider setDoubleValue:0];
-
+        [self clearPlaybackProgress];
     }
-    
 }
 
 
@@ -1147,6 +1161,8 @@
     SBTrack *currentTrack = [[SBPlayer sharedInstance] currentTrack];
     
     if(currentTrack != nil) {
+        // XXX: Could it be safe to stop the timer when paused?
+        [self installProgressTimer];
         if([[SBPlayer sharedInstance] isPaused]) {
             [playPauseButton setState:NSControlStateValueOff];
             NSLog(@"Paused?");
@@ -1156,6 +1172,7 @@
             NSLog(@"Playing?");
         }
     } else {
+        [self uninstallProgressTimer];
         [playPauseButton setState:NSControlStateValueOn];
         NSLog(@"Stopped?");
     }
