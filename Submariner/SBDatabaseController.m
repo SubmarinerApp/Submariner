@@ -247,7 +247,14 @@
                                                     forKey:@"subviews"];
     [contentView setAnimations:ani];
     
-    [self setCurrentViewController: musicController];
+    NSString *lastViewedURLString = [[NSUserDefaults standardUserDefaults] objectForKey: @"LastViewedResource"];
+    if (lastViewedURLString != nil) {
+        NSURL *lastViewedURL = [NSURL URLWithString: lastViewedURLString];
+        SBResource *lastViewed = (SBResource *)[self.managedObjectContext objectWithID:[self.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation: lastViewedURL]];
+        [self switchToResource: lastViewed];
+    } else {
+        [self setCurrentViewController: musicController];
+    }
     
     [resourcesController addObserver:self
                           forKeyPath:@"content"
@@ -976,7 +983,34 @@
 //    _server = server;
 //}
 
+- (void)switchToResource:(SBResource*)resource {
+    if(resource && [resource isKindOfClass:[SBServer class]]) {
+        SBServer *server = (SBServer *)resource;
+        [server connect];
+    }
+    // Must be after the connection.
+    if(resource) {
+        [self displayViewControllerForResource:resource];
+    }
+    
+    if([resource isKindOfClass:[SBPlaylist class]]) {
+        SBPlaylist *playlist = (SBPlaylist *)resource;
+        
+        if(playlist.server != nil) { // is remote playlist
+            // clear playlist
+            [playlistController clearPlaylist];
+            
+            // update playlist
+            [playlist.server getPlaylistTracks:playlist];
+        }
+        
+    }
+}
+
 - (void)displayViewControllerForResource:(SBResource *)resource {
+    // NSURLs dont go to plists
+    NSString *urlString = resource.objectID.URIRepresentation.absoluteString;
+    [[NSUserDefaults standardUserDefaults] setObject: urlString forKey: @"LastViewedResource"];
     // swith view relative to a selected resource
     if([resource isKindOfClass:[SBLibrary class]]) {
         
@@ -1375,27 +1409,7 @@
     if (selectedRow != -1) {
         SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
         
-        if(resource && [resource isKindOfClass:[SBServer class]]) {
-            SBServer *server = (SBServer *)resource;
-            [server connect];
-        }
-        // Must be after the connection.
-        if(resource) {
-            [self displayViewControllerForResource:resource];
-        }
-        
-        if([resource isKindOfClass:[SBPlaylist class]]) {
-            SBPlaylist *playlist = (SBPlaylist *)resource;
-            
-            if(playlist.server != nil) { // is remote playlist
-                // clear playlist
-                [playlistController clearPlaylist];
-                
-                // update playlist
-                [playlist.server getPlaylistTracks:playlist];
-            }
-            
-        }
+        [self switchToResource: resource];
     }
 }
 
