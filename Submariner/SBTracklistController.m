@@ -57,7 +57,7 @@
 
 
 - (NSString*)title {
-    return @"Tracklist for %s";
+    return @"Tracklist";
 }
 
 
