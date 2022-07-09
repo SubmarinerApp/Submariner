@@ -1009,6 +1009,10 @@
 
 - (void)displayViewControllerForResource:(SBResource *)resource {
     // NSURLs dont go to plists
+    if (![resource isKindOfClass: [SBResource class]]) {
+        NSLog(@"Hey, \"%@\" isn't a resource", resource);
+        return;
+    }
     NSString *urlString = resource.objectID.URIRepresentation.absoluteString;
     [[NSUserDefaults standardUserDefaults] setObject: urlString forKey: @"LastViewedResource"];
     // swith view relative to a selected resource
@@ -1040,7 +1044,7 @@
         [self setCurrentViewController: playlistController];
         [searchToolbarItem setEnabled: NO];
         [searchField setPlaceholderString: @""];
-        
+         
     } else if([resource isKindOfClass:[SBServer class]]) {
         SBServer *server = (SBServer*)resource;
         [self setServer: server]; // set to nil afterwards?
@@ -1213,6 +1217,7 @@
 }
 
 - (void)playerHaveMovieToPlayNotification:(NSNotification *)notification {
+    // XXX: We get SBPlayer here, does that ever make sense?
     [self displayViewControllerForResource:[notification object]];
 }
 
