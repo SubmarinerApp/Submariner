@@ -727,6 +727,24 @@
         }
     } else {
         [searchToolbarItem endSearchInteraction];
+        // reset view for local/remote
+        if (self.server) {
+            switch ([self.server selectedTabIndex]) {
+                case 0:
+                default:
+                    [self setCurrentViewController: serverLibraryController];
+                    break;
+                case 1:
+                    [self setCurrentViewController: serverHomeController];
+                    break;
+                case 2:
+                    [self setCurrentViewController: serverPodcastController];
+                    break;
+                // 3 was search and 4 was server users
+            }
+        } else {
+            [self setCurrentViewController: musicController];
+        }
     }
 }
 
