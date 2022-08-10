@@ -678,7 +678,8 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
             //NSLog(@"bitrate : %f", bitrate);
             
             if(progress == 100) { // movie is at end
-                [self next];
+                // let item finished playing handle this guy
+                //[self next];
             }
             
             return progress;
@@ -699,7 +700,8 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
             //NSLog(@"bitrate : %f", bitrate);
             
             if(progress == 100) { // movie is at end
-                [self next];
+                // let item finished playing handle this guy
+                //[self next];
             }
             
             return progress;
