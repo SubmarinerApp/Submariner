@@ -163,7 +163,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     if (currentTrack != nil) {
         // times are in sec; trust the SBTrack if the player isn't ready
         // as passing NaNs here will crash the menu bar (!)
-        auto duration = [self durationTime];
+        NSTimeInterval duration = [self durationTime];
         if (isnan(duration) || duration == 0) {
             [songInfo setObject: [NSNumber numberWithDouble: 0] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
             [songInfo setObject: [currentTrack duration] forKey:MPMediaItemPropertyPlaybackDuration];
