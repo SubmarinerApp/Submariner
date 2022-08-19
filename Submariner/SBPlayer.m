@@ -56,6 +56,8 @@
 #import <MediaPlayer/MPRemoteCommandEvent.h>
 #import <MediaPlayer/MPRemoteCommand.h>
 
+#import <UserNotifications/UserNotifications.h>
+
 #define LOCAL_PLAYER localPlayer
 
 
@@ -140,6 +142,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         repeatMode = SBPlayerRepeatNo;
     }
     [self initializeSystemMediaControls];
+    [self initNotifications];
     return self;
 }
 
@@ -267,6 +270,63 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 }
 
 #pragma mark -
+#pragma mark User Notifications
+
+- (void)initNotifications {
+    UNUserNotificationCenter *centre = [UNUserNotificationCenter currentNotificationCenter];
+    // We'd want this if we wanted to override the default behaviour.
+    // However, the default (suppress notifications if we're the foreground app)
+    // makes sense, and we don't actually need to provide an action yet.
+    //centre.delegate = self;
+    // XXX: Make it so we store if we can post a notification instead of blindly firing.
+    [centre getNotificationSettingsWithCompletionHandler: ^(UNNotificationSettings *settings) {
+        switch (settings.authorizationStatus) {
+            case UNAuthorizationStatusNotDetermined:
+                [self requestNotificationPermissions];
+                return;
+            case UNAuthorizationStatusAuthorized:
+                // we're good
+                return;
+            case UNAuthorizationStatusProvisional:
+                return;
+            case UNAuthorizationStatusDenied:
+                return;
+        }
+    }];
+}
+
+- (void)requestNotificationPermissions {
+    UNUserNotificationCenter *centre = [UNUserNotificationCenter currentNotificationCenter];
+    // Requesting sound is unwanted when we're playing music.
+    // Badge permissions might be useful, but we use badges for other things.
+    [centre requestAuthorizationWithOptions: (UNAuthorizationOptionAlert) completionHandler: ^(BOOL granted, NSError * _Nullable error) {
+        if (!granted) {
+            NSLog(@"The user denied us permission. Oh well.");
+            return;
+        }
+    }];
+}
+
+- (void)postNowPlayingNotification {
+    SBTrack *currentTrack = [self currentTrack];
+    if (currentTrack == nil) {
+        return;
+    }
+    UNUserNotificationCenter *centre = [UNUserNotificationCenter currentNotificationCenter];
+    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+    content.title = [NSString stringWithFormat: @"%@", currentTrack.itemName];
+    content.body = [NSString stringWithFormat: @"%@ - %@", currentTrack.artistString, currentTrack.albumString];
+    // an interval of 0 faults
+    UNNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval: 0.1 repeats: false];
+    UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier: @"SubmarinerNowPlayingNotification" content: content trigger: trigger];
+    [centre addNotificationRequest: request withCompletionHandler: ^(NSError * _Nullable error) {
+        if (error != nil) {
+            NSLog(@"Error posting now playing notification: %@", error);
+        }
+    }];
+}
+
+#pragma mark -
 #pragma mark Playlist Management
 
 - (void)addTrack:(SBTrack *)track replace:(BOOL)replace {
@@ -358,6 +418,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     
     // update NPIC
     [self updateSystemNowPlaying];
+    [self postNowPlayingNotification];
 
     // tell the server we're playing it, if applicable
     if (self.currentTrack.server != nil && [self.currentTrack.localTrack streamURL] != nil) {
