@@ -445,7 +445,9 @@
     
     NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:@"Submariner.storedata"];
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
-    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options:nil error:&error]) {
+    // XXX: Convert to SQLite someday. Flag day?
+    NSDictionary *storeOpts = @{ NSInferMappingModelAutomaticallyOption: @YES, NSMigratePersistentStoresAutomaticallyOption: @YES };
+    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options: storeOpts error:&error]) {
         [[NSApplication sharedApplication] presentError:error];
         __persistentStoreCoordinator, __persistentStoreCoordinator = nil;
         return nil;
