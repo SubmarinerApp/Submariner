@@ -43,6 +43,8 @@
 #import "SBServer.h"
 #import "SBLibrary.h"
 #import "SBImportOperation.h"
+#import "SBCover.h"
+#import "SBAlbum.h"
 
 #import "NSURL+Parameters.h"
 #import "NSManagedObjectContext+Fetch.h"
@@ -314,10 +316,29 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     }
     UNUserNotificationCenter *centre = [UNUserNotificationCenter currentNotificationCenter];
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+    // Apple Music uses this format as well; we don't need to indicate it's a now playing thing.
     content.title = [NSString stringWithFormat: @"%@", currentTrack.itemName];
-    content.body = [NSString stringWithFormat: @"%@ - %@", currentTrack.artistString, currentTrack.albumString];
+    // Use an em dash like Apple Music
+    content.body = [NSString stringWithFormat: @"%@ — %@", currentTrack.artistString, currentTrack.albumString];
+    // Add a cover image, fetch from our local cache since this API won't take an NSImage
+    // XXX: Fetch from SBAlbum. The cover in SBTrack is seemingly only used for requests.
+    // This means there's also a bunch of empty dupe cover objects in the DB...
+    SBCover *newCover = [[[SBAppDelegate sharedInstance] managedObjectContext] objectWithID: [currentTrack.album.cover objectID]];
+    NSString *coverPath = newCover.imagePath;
+    if (coverPath != nil && [[NSFileManager defaultManager] fileExistsAtPath:coverPath]) {
+        NSURL *coverUrl = [NSURL fileURLWithPath: coverPath];
+        NSError *error = nil;
+        // XXX: Should we use a persistent identifier? Manage a cache of attachments?
+        UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier: @"" URL: coverUrl options: @{} error: &error];
+        if (attachment != nil) {
+            content.attachments = @[ attachment ];
+        } else if (error != nil) {
+            NSLog(@"Error making attachment: %@", error);
+        }
+    }
     // an interval of 0 faults
     UNNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger triggerWithTimeInterval: 0.1 repeats: false];
+    // The identifier being the same will coalesce all the now playing notifications.
     UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier: @"SubmarinerNowPlayingNotification" content: content trigger: trigger];
     [centre addNotificationRequest: request withCompletionHandler: ^(NSError * _Nullable error) {
         if (error != nil) {
