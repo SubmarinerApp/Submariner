@@ -120,6 +120,7 @@
                 NSString *genreString       = nil;  
                 NSString *contentType       = nil;   
                 NSNumber *trackNumber       = nil;   
+                NSNumber *discNumber       = nil;   
                 NSNumber *durationNumber    = nil;
                 NSNumber *bitRateNumber     = nil;
                 NSData   *coverData         = nil;   
@@ -159,6 +160,7 @@
                         albumString       = [metadata albumTitle];
                         genreString       = [metadata genre];
                         trackNumber       = [metadata trackNumber];
+                        discNumber        = [metadata discNumber];
                         durationNumber    = [properties duration];
                         bitRateNumber     = [properties bitrate];
 // XXX
@@ -174,6 +176,7 @@
                         albumString       = remoteTrack.albumString;
                         genreString       = remoteTrack.genre;
                         trackNumber       = remoteTrack.trackNumber;
+                        discNumber        = remoteTrack.discNumber;
                         durationNumber    = remoteTrack.duration;
                         bitRateNumber     = remoteTrack.bitRate;
                         contentType       = remoteTrack.contentType;
@@ -226,6 +229,9 @@
                     
                     if(trackNumber)
                         [newTrack setTrackNumber:trackNumber];
+                    
+                    if(discNumber)
+                        [newTrack setDiscNumber:discNumber];
                     
                     if(genreString)
                         [newTrack setGenre:genreString];

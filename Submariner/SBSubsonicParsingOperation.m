@@ -931,6 +931,8 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
         [newTrack setAlbumName:[attributeDict valueForKey:@"album"]];
     if([attributeDict valueForKey:@"track"])
         [newTrack setTrackNumber:[NSNumber numberWithInt:[[attributeDict valueForKey:@"track"] intValue]]];
+    if([attributeDict valueForKey:@"discNumber"])
+        [newTrack setDiscNumber:[NSNumber numberWithInt:[[attributeDict valueForKey:@"discNumber"] intValue]]];
     if([attributeDict valueForKey:@"year"])
         [newTrack setYear:[NSNumber numberWithInt:[[attributeDict valueForKey:@"year"] intValue]]];
     if([attributeDict valueForKey:@"genre"])

@@ -100,8 +100,9 @@
         NSSortDescriptor *artistDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"itemName" ascending:YES];
         artistSortDescriptor = [NSArray arrayWithObject:artistDescriptor];
         
-        NSSortDescriptor *trackDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"trackNumber" ascending:YES];
-        trackSortDescriptor = [NSArray arrayWithObject:trackDescriptor];
+        NSSortDescriptor *trackNumberDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"trackNumber" ascending:YES];
+        NSSortDescriptor *discNumberDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"discNumber" ascending:YES];
+        trackSortDescriptor = @[discNumberDescriptor, trackNumberDescriptor];
         
         splitViewDelegate = [[SBPrioritySplitViewDelegate alloc] init];
         

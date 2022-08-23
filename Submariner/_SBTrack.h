@@ -153,6 +153,16 @@
 
 
 
+@property (nonatomic, strong) NSNumber *discNumber;
+
+@property int discNumberValue;
+- (int)discNumberValue;
+- (void)setDiscNumberValue:(int)value_;
+
+//- (BOOL)validateDiscNumber:(id*)value_ error:(NSError**)error_;
+
+
+
 @property (nonatomic, strong) NSNumber *duration;
 
 @property int durationValue;
@@ -321,6 +331,15 @@
 
 - (int)primitiveTrackNumberValue;
 - (void)setPrimitiveTrackNumberValue:(int)value_;
+
+
+
+
+- (NSNumber*)primitiveDiscNumber;
+- (void)setPrimitiveDiscNumber:(NSNumber*)value;
+
+- (int)primitiveTrackNumberValue;
+- (void)setPrimitiveDiscNumberValue:(int)value_;
 
 
 
