@@ -409,6 +409,13 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
                     newTrack = [self createTrackWithAttribute:attributeDict];
                     [newTrack setAlbum:currentAlbum];
                     [currentAlbum addTracksObject:newTrack];
+                } else {
+#if DEBUG
+                    NSLog(@"Update existing track %@ to %@", [attributeDict valueForKey:@"path"], currentAlbum.itemName);
+#endif
+                    // XXX: What else to set?
+                    // XXX: Do we need to update the local track too?
+                    [self updateTrackWithAttributes: newTrack attributes: attributeDict];
                 }
             }
         }
@@ -916,13 +923,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     return newAlbum;
 }
 
-- (SBTrack *)createTrackWithAttribute:(NSDictionary *)attributeDict {
-    SBTrack *newTrack = [SBTrack insertInManagedObjectContext:[self threadedContext]];
-    [newTrack setId:[attributeDict valueForKey:@"id"]];
-    [newTrack setIsLocal:[NSNumber numberWithBool:NO]];
-    [newTrack setServer:server];
-    [server addTracksObject:newTrack];
-    
+- (void) updateTrackWithAttributes:(SBTrack*)newTrack attributes:(NSDictionary*)attributeDict {
     if([attributeDict valueForKey:@"title"])
         [newTrack setItemName:[attributeDict valueForKey:@"title"]];
     if([attributeDict valueForKey:@"artist"])
@@ -953,7 +954,16 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
         [newTrack setBitRate:[NSNumber numberWithInt:[[attributeDict valueForKey:@"bitRate"] intValue]]];
     if([attributeDict valueForKey:@"path"])
         [newTrack setPath:[attributeDict valueForKey:@"path"]];
+}
+
+- (SBTrack *)createTrackWithAttribute:(NSDictionary *)attributeDict {
+    SBTrack *newTrack = [SBTrack insertInManagedObjectContext:[self threadedContext]];
+    [newTrack setId:[attributeDict valueForKey:@"id"]];
+    [newTrack setIsLocal:[NSNumber numberWithBool:NO]];
+    [newTrack setServer:server];
+    [server addTracksObject:newTrack];
     
+    [self updateTrackWithAttributes: newTrack attributes: attributeDict];
         
     return newTrack;
 }
