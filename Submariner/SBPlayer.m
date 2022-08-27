@@ -323,7 +323,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     // Add a cover image, fetch from our local cache since this API won't take an NSImage
     // XXX: Fetch from SBAlbum. The cover in SBTrack is seemingly only used for requests.
     // This means there's also a bunch of empty dupe cover objects in the DB...
-    SBCover *newCover = [[[SBAppDelegate sharedInstance] managedObjectContext] objectWithID: [currentTrack.album.cover objectID]];
+    SBCover *newCover = currentTrack.album.cover;
     NSString *coverPath = newCover.imagePath;
     if (coverPath != nil && [[NSFileManager defaultManager] fileExistsAtPath:coverPath]) {
         NSURL *coverUrl = [NSURL fileURLWithPath: coverPath];
