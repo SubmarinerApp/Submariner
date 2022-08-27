@@ -311,6 +311,10 @@
     [splitVC.view.bottomAnchor constraintEqualToAnchor:((NSLayoutGuide*)self.window.contentLayoutGuide).bottomAnchor].active=YES;
     [splitVC.view.leftAnchor constraintEqualToAnchor:((NSLayoutGuide*)self.window.contentLayoutGuide).leftAnchor].active=YES;
     [splitVC.view.rightAnchor constraintEqualToAnchor:((NSLayoutGuide*)self.window.contentLayoutGuide).rightAnchor].active=YES;
+    
+    // Need to set both for some reason? And after assignment to the parent?
+    splitVC.splitView.autosaveName = @"DatabaseWindowSplitViewController";
+    splitVC.splitView.identifier = @"SBDatabaseWindowSplitViewController";
 }
 
 #pragma mark -
