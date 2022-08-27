@@ -200,6 +200,7 @@
 		3E69A2FD28B02D86009800D8 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		3E82701727E653F0007E5695 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		3EA06A4E28B2C04B0091A75F /* Submariner v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Submariner v2.xcdatamodel"; sourceTree = "<group>"; };
+		3EA06A5028B9AD220091A75F /* Submariner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Submariner.entitlements; sourceTree = "<group>"; };
 		3ECF63F9280362BA004F9176 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3ED5BF182830634C000AAB70 /* SBVolumeIconTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBVolumeIconTransformer.h; sourceTree = "<group>"; };
 		3ED5BF192830634C000AAB70 /* SBVolumeIconTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBVolumeIconTransformer.m; sourceTree = "<group>"; };
@@ -545,6 +546,7 @@
 		4C87ED69139CD8BE0064DE2E /* Submariner */ = {
 			isa = PBXGroup;
 			children = (
+				3EA06A5028B9AD220091A75F /* Submariner.entitlements */,
 				4CEF83261449059A005E28EE /* Application */,
 				4C87EDB7139CDAAA0064DE2E /* Controllers */,
 				4C87EDA8139CD9BF0064DE2E /* Nibs */,
@@ -1287,8 +1289,10 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = Submariner/Submariner.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_HARDENED_RUNTIME = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1323,9 +1327,11 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = Submariner/Submariner.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
