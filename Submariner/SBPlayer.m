@@ -388,7 +388,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         }
         return isCurrentTrack;
     }];
-    if (playingTrackIndex != -1) {
+    if (playingTrackIndex != NSNotFound) {
         [self stop];
     }
     [playlist removeObjectsInArray:tracks];
@@ -405,7 +405,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         }
         return isCurrentTrack;
     }];
-    if (playingTrackIndex != -1) {
+    if (playingTrackIndex != NSNotFound) {
         [self stop];
     }
     [playlist removeObjectsAtIndexes: tracks];
