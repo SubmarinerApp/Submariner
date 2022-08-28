@@ -387,12 +387,12 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 
 
 - (void)removeTrackIndexSet: (NSIndexSet*)tracks {
-    for (NSUInteger i = tracks.count; i--; i >= 0) {
+    for (NSUInteger i = tracks.count; i >= 0; i--) {
         SBTrack *track = [playlist objectAtIndex: i];
         if([track isEqualTo:self.currentTrack]) {
             [self stop];
         }
-        [playlist removeObject: track];
+        [playlist removeObjectAtIndex: i];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerPlaylistUpdatedNotification object:self];
 }
