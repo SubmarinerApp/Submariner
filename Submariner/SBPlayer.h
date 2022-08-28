@@ -91,6 +91,7 @@ enum SBPlayerRepeatMode {
 - (void)addTrackArray:(NSArray *)array replace:(BOOL)replace;
 - (void)removeTrack:(SBTrack *)track;
 - (void)removeTrackArray:(NSArray *)tracks;
+- (void)removeTrackIndexSet:(NSIndexSet *)tracks;
 - (void)clear;
 
 // player controls

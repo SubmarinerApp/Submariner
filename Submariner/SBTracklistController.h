@@ -41,7 +41,7 @@
 
 @class SBDatabaseController;
 
-@interface SBTracklistController : SBViewController <SBTableViewDelegate> {
+@interface SBTracklistController : SBViewController <SBTableViewDelegate, NSUserInterfaceValidations> {
 @private
     IBOutlet NSTableView *playlistTableView;
     SBDatabaseController *databaseController;
@@ -59,5 +59,7 @@
 - (IBAction)cleanTracklist:(id)sender;
 - (IBAction)removeTrack:(id)sender;
 - (IBAction)closeTracklist:(id)sender;
+
+
 
 @end

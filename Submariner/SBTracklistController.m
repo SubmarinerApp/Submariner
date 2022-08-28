@@ -173,11 +173,8 @@
     NSInteger selectedRow = [playlistTableView selectedRow];
     
     if(selectedRow != -1) {
-        SBTrack *track = [[[SBPlayer sharedInstance] playlist] objectAtIndex:selectedRow];
-        if(track) {
-            [[SBPlayer sharedInstance] removeTrack:track];
-            [playlistTableView reloadData];
-        }
+        [[SBPlayer sharedInstance] removeTrackIndexSet: [playlistTableView selectedRowIndexes]];
+        [playlistTableView reloadData];
     }
 }
 
@@ -193,7 +190,9 @@
 }
 
 
-
+- (IBAction)delete: (id)sender {
+    [self removeTrack: sender];
+}
 
 #pragma mark -
 #pragma mark Player Notifications
@@ -337,6 +336,21 @@
     }
     
     return YES;
+}
+
+#pragma mark -
+#pragma mark UI Validation
+
+
+- (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item {
+    SEL action = item.action;
+    
+    BOOL tracksSelected = playlistTableView.selectedRow != -1;
+    if (action == @selector(delete:)) {
+        return tracksSelected;
+    }
+    
+    return true;
 }
 
 @end
