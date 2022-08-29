@@ -338,7 +338,7 @@
 - (NSNumber*)primitiveDiscNumber;
 - (void)setPrimitiveDiscNumber:(NSNumber*)value;
 
-- (int)primitiveTrackNumberValue;
+- (int)primitiveDiscNumberValue;
 - (void)setPrimitiveDiscNumberValue:(int)value_;
 
 
