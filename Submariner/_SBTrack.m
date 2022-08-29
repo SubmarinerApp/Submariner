@@ -57,6 +57,10 @@
 		NSSet *affectingKey = [NSSet setWithObject:@"trackNumber"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
 	}
+    if ([key isEqualToString:@"discNumber"]) {
+        NSSet *affectingKey = [NSSet setWithObject:@"discNumber"];
+        keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
+    }
 	if ([key isEqualToString:@"durationValue"]) {
 		NSSet *affectingKey = [NSSet setWithObject:@"duration"];
 		keyPaths = [keyPaths setByAddingObjectsFromSet:affectingKey];
@@ -293,6 +297,33 @@
 
 - (void)setPrimitiveTrackNumberValue:(int)value_ {
 	[self setPrimitiveTrackNumber:[NSNumber numberWithInt:value_]];
+}
+
+
+
+
+
+
+@dynamic discNumber;
+
+
+
+- (int)discNumberValue {
+    NSNumber *result = [self discNumber];
+    return [result intValue];
+}
+
+- (void)setDiscNumberValue:(int)value_ {
+    [self setDiscNumber:[NSNumber numberWithInt:value_]];
+}
+
+- (int)primitiveDiscNumberValue {
+    NSNumber *result = [self primitiveDiscNumber];
+    return [result intValue];
+}
+
+- (void)setPrimitiveDiscNumberValue:(int)value_ {
+    [self setPrimitiveDiscNumber:[NSNumber numberWithInt:value_]];
 }
 
 
