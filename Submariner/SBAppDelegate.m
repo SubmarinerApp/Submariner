@@ -449,7 +449,7 @@
     NSDictionary *storeOpts = @{ NSInferMappingModelAutomaticallyOption: @YES, NSMigratePersistentStoresAutomaticallyOption: @YES };
     if (![__persistentStoreCoordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options: storeOpts error:&error]) {
         [[NSApplication sharedApplication] presentError:error];
-        __persistentStoreCoordinator, __persistentStoreCoordinator = nil;
+        __persistentStoreCoordinator = nil;
         return nil;
     }
 
