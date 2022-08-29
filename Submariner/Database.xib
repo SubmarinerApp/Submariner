@@ -312,12 +312,12 @@ IA
                             </connections>
                         </button>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="7BB2B735-54FA-4211-874E-DC54D248F3E5" label="Volume" paletteLabel="Volume" image="volume" catalog="system" sizingBehavior="auto" id="Yk7-oS-omj">
+                    <toolbarItem implicitItemIdentifier="7BB2B735-54FA-4211-874E-DC54D248F3E5" label="Volume" paletteLabel="Volume" image="speaker" catalog="system" sizingBehavior="auto" id="Yk7-oS-omj">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="Sgq-JE-YWM" customClass="SBVolumeButton">
                             <rect key="frame" x="10" y="14" width="26" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="volume" catalog="system" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="Ofy-se-eTz">
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="speaker" catalog="system" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="Ofy-se-eTz">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
@@ -412,7 +412,7 @@ IA
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" id="115">
-                        <rect key="frame" x="61" y="197" width="41" height="17"/>
+                        <rect key="frame" x="65" y="197" width="37" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="URL :" id="134">
                             <font key="font" metaFont="system"/>
@@ -421,7 +421,7 @@ IA
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="116">
-                        <rect key="frame" x="107" y="194" width="273" height="22"/>
+                        <rect key="frame" x="107" y="194" width="273" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="133">
                             <font key="font" metaFont="system"/>
@@ -438,7 +438,7 @@ IA
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" id="117">
-                        <rect key="frame" x="26" y="167" width="76" height="17"/>
+                        <rect key="frame" x="28" y="167" width="74" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Username :" id="132">
                             <font key="font" metaFont="system"/>
@@ -447,7 +447,7 @@ IA
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="118">
-                        <rect key="frame" x="107" y="164" width="273" height="22"/>
+                        <rect key="frame" x="107" y="164" width="273" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="131">
                             <font key="font" metaFont="system"/>
@@ -464,7 +464,7 @@ IA
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" id="119">
-                        <rect key="frame" x="30" y="137" width="72" height="17"/>
+                        <rect key="frame" x="32" y="137" width="70" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Password :" id="130">
                             <font key="font" metaFont="system"/>
@@ -473,7 +473,7 @@ IA
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="120" customClass="NSSecureTextField">
-                        <rect key="frame" x="107" y="134" width="273" height="22"/>
+                        <rect key="frame" x="107" y="134" width="273" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="129">
                             <font key="font" metaFont="system"/>
@@ -518,7 +518,7 @@ Gw
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" id="123">
-                        <rect key="frame" x="17" y="227" width="85" height="17"/>
+                        <rect key="frame" x="21" y="227" width="81" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Description :" id="126">
                             <font key="font" metaFont="system"/>
@@ -527,7 +527,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="124">
-                        <rect key="frame" x="107" y="224" width="273" height="22"/>
+                        <rect key="frame" x="107" y="224" width="273" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="125">
                             <font key="font" metaFont="system"/>
@@ -578,7 +578,7 @@ Gw
                         </connections>
                     </datePicker>
                     <textField verticalHuggingPriority="750" id="336">
-                        <rect key="frame" x="18" y="72" width="84" height="17"/>
+                        <rect key="frame" x="21" y="72" width="81" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="API Version :" id="337">
                             <font key="font" metaFont="system"/>
@@ -599,7 +599,7 @@ Gw
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" id="340">
-                        <rect key="frame" x="43" y="95" width="59" height="17"/>
+                        <rect key="frame" x="44" y="95" width="58" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="License :" id="341">
                             <font key="font" metaFont="system"/>
@@ -645,7 +645,7 @@ Gw
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" id="205">
-                        <rect key="frame" x="17" y="75" width="97" height="17"/>
+                        <rect key="frame" x="17" y="75" width="94" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Playlist Name :" id="206">
                             <font key="font" metaFont="system"/>
@@ -654,7 +654,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" id="207">
-                        <rect key="frame" x="119" y="72" width="273" height="22"/>
+                        <rect key="frame" x="119" y="72" width="273" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="208">
                             <font key="font" metaFont="system"/>
@@ -744,7 +744,7 @@ Gw
                 <button verticalHuggingPriority="750" imageHugsTitle="YES" id="RQW-nU-T8g">
                     <rect key="frame" x="19" y="4" width="26" height="23"/>
                     <autoresizingMask key="autoresizingMask"/>
-                    <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="volume" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="tbS-r3-CVa">
+                    <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="speaker" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="tbS-r3-CVa">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -755,7 +755,7 @@ Gw
                 <button verticalHuggingPriority="750" imageHugsTitle="YES" id="uWd-YM-CxM">
                     <rect key="frame" x="236" y="4" width="31" height="23"/>
                     <autoresizingMask key="autoresizingMask"/>
-                    <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="volume.2" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="2Se-ec-wf1">
+                    <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="speaker.wave.2" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="2Se-ec-wf1">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
@@ -793,7 +793,7 @@ Gw
         <image name="shuffle.circle" catalog="system" width="15" height="15"/>
         <image name="shuffle.circle.fill" catalog="system" width="15" height="15"/>
         <image name="sidebar.left" catalog="system" width="18" height="14"/>
-        <image name="volume" catalog="system" width="14" height="14"/>
-        <image name="volume.2" catalog="system" width="19" height="14"/>
+        <image name="speaker" catalog="system" width="14" height="14"/>
+        <image name="speaker.wave.2" catalog="system" width="19" height="14"/>
     </resources>
 </document>
