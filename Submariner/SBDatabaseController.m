@@ -1298,11 +1298,16 @@
 #pragma mark SourceList DataSource (Drag & Drop)
 
 - (NSDragOperation)sourceList:(SBSourceList *)sourceList validateDrop:(id<NSDraggingInfo>)info proposedItem:(id)item proposedChildIndex:(NSInteger)index {
-    
+    NSSet *allowedClasses = [NSSet setWithObjects: NSIndexSet.class, NSArray.class, NSURL.class, nil];
+    NSError *error = nil;
     if([[item representedObject] isKindOfClass:[SBPlaylist class]]) {
         if([[[info draggingPasteboard] types] containsObject:SBLibraryTableViewDataType]) {
             NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
-            NSArray *tracksURIs = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            NSArray *tracksURIs = [NSKeyedUnarchiver unarchivedObjectOfClasses: allowedClasses fromData: data error: &error];
+            if (error != nil) {
+                NSLog(@"Error unserializing array %@", error);
+                return NSDragOperationNone;
+            }
             
             SBTrack *firstTrack = (SBTrack *)[self.managedObjectContext objectWithID:[self.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[tracksURIs objectAtIndex:0]]];
             SBPlaylist *targetPlaylist = [item representedObject];
@@ -1315,7 +1320,11 @@
         }
     } else if([[item representedObject] isKindOfClass:[SBDownloads class]] || [[item representedObject] isKindOfClass:[SBLibrary class]]) {
         NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
-        NSArray *tracksURIs = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        NSArray *tracksURIs = [NSKeyedUnarchiver unarchivedObjectOfClasses: allowedClasses fromData: data error: &error];
+        if (error != nil) {
+            NSLog(@"Error unserializing array %@", error);
+            return NSDragOperationNone;
+        }
         
         SBTrack *firstTrack = (SBTrack *)[self.managedObjectContext objectWithID:[self.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[tracksURIs objectAtIndex:0]]];
         
@@ -1330,7 +1339,8 @@
 
 
 - (BOOL)sourceList:(SBSourceList *)aSourceList acceptDrop:(id<NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index {
-    
+    NSSet *allowedClasses = [NSSet setWithObjects: NSIndexSet.class, NSArray.class, NSURL.class, nil];
+    NSError *error = nil;
     if([[item representedObject] isKindOfClass:[SBPlaylist class]]) {
         SBPlaylist *playlist = (SBPlaylist *)[item representedObject];
         
@@ -1338,7 +1348,11 @@
            
             if(playlist.server == nil) {
                 NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
-                NSArray *tracksURIs = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                NSArray *tracksURIs = [NSKeyedUnarchiver unarchivedObjectOfClasses: allowedClasses fromData: data error: &error];
+                if (error != nil) {
+                    NSLog(@"Error unserializing array %@", error);
+                    return NO;
+                }
                 
                 // also add new track IDs to the array
                 [tracksURIs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -1350,7 +1364,11 @@
             } else {
                 
                 NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
-                NSArray *tracksURIs = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+                NSArray *tracksURIs = [NSKeyedUnarchiver unarchivedObjectOfClasses: allowedClasses fromData: data error: &error];
+                if (error != nil) {
+                    NSLog(@"Error unserializing array %@", error);
+                    return NO;
+                }
                 NSMutableArray *trackIDs = [NSMutableArray array];
                 NSString *playlistID = playlist.id;
                 
@@ -1375,7 +1393,11 @@
 		[self displayViewControllerForResource:[item representedObject]];
 		
         NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
-        NSArray *tracksURIs = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        NSArray *tracksURIs = [NSKeyedUnarchiver unarchivedObjectOfClasses: allowedClasses fromData: data error: &error];
+        if (error != nil) {
+            NSLog(@"Error unserializing array %@", error);
+            return NO;
+        }
         
         // also add new track IDs to the array
         [tracksURIs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {

@@ -176,7 +176,12 @@
         }];
         
         // encode to data
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:trackURIs];
+        NSError *error = nil;
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:trackURIs requiringSecureCoding: YES error: &error];
+        if (error != nil) {
+            NSLog(@"Error archiving track URIs: %@", error);
+            return NO;
+        }
         
         // register data to pastboard
         [pboard declareTypes:[NSArray arrayWithObject:SBLibraryTableViewDataType] owner:self];
@@ -206,13 +211,18 @@
 - (BOOL)tableView:(NSTableView *)aTableView acceptDrop:(id <NSDraggingInfo>)info
               row:(NSInteger)row dropOperation:(NSTableViewDropOperation)operation
 {
-    
+    NSSet *allowedClasses = [NSSet setWithObjects: NSIndexSet.class, NSArray.class, NSURL.class, nil];
+    NSError *error = nil;
     NSPasteboard* pboard = [info draggingPasteboard];
     
     // internal drop track
     if ([[pboard types] containsObject:SBLibraryTableViewDataType] ) {
         NSData* rowData = [pboard dataForType:SBLibraryTableViewDataType];
-        NSArray *trackURIs = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
+        NSArray *trackURIs = [NSKeyedUnarchiver unarchivedObjectOfClasses: allowedClasses fromData: rowData error: &error];
+        if (error != nil) {
+            NSLog(@"Error unserializing array %@", error);
+            return NO;
+        }
         NSMutableArray *tracks = [NSMutableArray array];
         NSArray *reversedArray  = nil;
         NSInteger sourceRow = 0;    

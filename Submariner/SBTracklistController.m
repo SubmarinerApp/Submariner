@@ -261,7 +261,12 @@
 - (BOOL)tableView:(NSTableView *)tv writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard*)pboard
 {
     // internal drop track
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes];
+    NSError *error = nil;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes requiringSecureCoding: YES error: &error];
+    if (error != nil) {
+        NSLog(@"Error archiving track URIs: %@", error);
+        return NO;
+    }
     [pboard declareTypes:[NSArray arrayWithObject:SBTracklistTableViewDataType] owner:self];
     [pboard setData:data forType:SBTracklistTableViewDataType];
     
@@ -289,13 +294,17 @@
 - (BOOL)tableView:(NSTableView *)aTableView acceptDrop:(id <NSDraggingInfo>)info
               row:(NSInteger)row dropOperation:(NSTableViewDropOperation)operation
 {
-    
     NSPasteboard* pboard = [info draggingPasteboard];
-    
+    NSSet *allowedClasses = [NSSet setWithObjects: NSIndexSet.class, NSArray.class, NSURL.class, nil];
+    NSError *error = nil;
     // internal drop track
     if ([[pboard types] containsObject:SBTracklistTableViewDataType] ) {
         NSData* rowData = [pboard dataForType:SBTracklistTableViewDataType];
-        NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];    
+        NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchivedObjectOfClasses: allowedClasses fromData: rowData error: &error];
+        if (error != nil) {
+            NSLog(@"Error unserializing index set %@", error);
+            return NO;
+        }
         NSMutableArray *tracks = [NSMutableArray array];
         NSArray *reversedArray  = nil;
         
@@ -322,7 +331,11 @@
     } else if([[pboard types] containsObject:SBLibraryTableViewDataType]) {
         
         NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
-        NSArray *tracksURIs = [NSKeyedUnarchiver unarchiveObjectWithData:data]; 
+        NSArray *tracksURIs = [NSKeyedUnarchiver unarchivedObjectOfClasses: allowedClasses fromData: data error: &error];
+        if (error != nil) {
+            NSLog(@"Error unserializing array %@", error);
+            return NO;
+        }
         
         // also add new track IDs to the array
         [tracksURIs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {

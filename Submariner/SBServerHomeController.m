@@ -450,7 +450,12 @@
         }];
         
         // encode to data
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:trackURIs];
+        NSError *error = nil;
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:trackURIs requiringSecureCoding: YES error: &error];
+        if (error != nil) {
+            NSLog(@"Error archiving track URIs: %@", error);
+            return NO;
+        }
         
         // register data to pastboard
         [pboard declareTypes:[NSArray arrayWithObject:SBLibraryTableViewDataType] owner:self];
