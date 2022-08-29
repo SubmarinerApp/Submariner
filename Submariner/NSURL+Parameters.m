@@ -45,7 +45,7 @@
 	if (tempDir == nil)
 		tempDir = @"/tmp";
 	
-	NSString *temDirName = [NSString stringWithFormat:@"fr.read-write.Sub-%d", [NSDate timeIntervalSinceReferenceDate]];
+    NSString *temDirName = [NSString stringWithFormat:@"fr.read-write.Sub-%f", [NSDate timeIntervalSinceReferenceDate]];
 	NSString * aTemplate = [tempDir stringByAppendingPathComponent:temDirName];
 	const char * fsTemplate = [aTemplate fileSystemRepresentation];
 	NSMutableData * bufferData = [NSMutableData dataWithBytes: fsTemplate
@@ -79,7 +79,7 @@
         params = [[NSMutableString alloc] init];
         for (id key in parameters)
         {
-            NSString *encodedKey = [key stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSString *encodedKey = [key stringByAddingPercentEncodingWithAllowedCharacters: [NSCharacterSet URLQueryAllowedCharacterSet]];
             CFStringRef value = (CFStringRef)CFBridgingRetain([[parameters objectForKey:key] copy]);
             // Escape even the "reserved" characters for URLs 
             // as defined in http://www.ietf.org/rfc/rfc2396.txt
@@ -98,7 +98,7 @@
     if (parameters != nil)
     {
         NSString *urlWithParams = [[url absoluteString] stringByAppendingFormat:@"?%@", params];
-        url = [NSURL URLWithString:[urlWithParams stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
+        url = [NSURL URLWithString:[urlWithParams stringByAddingPercentEncodingWithAllowedCharacters: [NSCharacterSet URLQueryAllowedCharacterSet]]];
     }
     
     if(self != nil) {
@@ -130,7 +130,7 @@
         params = [[NSMutableString alloc] init];
         for (id key in parameters)
         {
-            NSString *encodedKey = [key stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSString *encodedKey = [key stringByAddingPercentEncodingWithAllowedCharacters: [NSCharacterSet URLQueryAllowedCharacterSet]];
             CFStringRef value = (CFStringRef)CFBridgingRetain([[parameters objectForKey:key] copy]);
             // Escape even the "reserved" characters for URLs 
             // as defined in http://www.ietf.org/rfc/rfc2396.txt
@@ -162,7 +162,7 @@
     }
     
     
-    return [NSURL URLWithString:[string stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
+    return [NSURL URLWithString:[string stringByAddingPercentEncodingWithAllowedCharacters: [NSCharacterSet URLQueryAllowedCharacterSet]]];
 }
 
 
