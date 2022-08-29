@@ -205,7 +205,6 @@ void NoodleClearRect(NSRect rect)
 	if ((image == nil) || !NSEqualSizes(rowRect.size, [image size]))
 	{
 		image = [[NSImage alloc] initWithSize:rowRect.size];
-		[image setFlipped:[self isFlipped]];
 		[stickyView setImage:image];
 	}
 	
@@ -246,7 +245,6 @@ void NoodleClearRect(NSRect rect)
 		if ((rowImage == nil) || !NSEqualSizes(rowRect.size, [rowImage size]))
 		{
 			rowImage = [[NSImage alloc] initWithSize:rowRect.size];
-			[rowImage setFlipped:[self isFlipped]];
 			
 			[stickyView setAlternateImage:rowImage];
 		}

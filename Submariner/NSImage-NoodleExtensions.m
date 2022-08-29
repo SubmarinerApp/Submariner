@@ -70,20 +70,4 @@
 	}
 }
 
-- (NSImage *)unflippedImage
-{
-	if ([self isFlipped])
-	{
-		NSImage		*newImage;
-		
-		newImage = [[NSImage alloc] initWithSize:[self size]];
-		[newImage lockFocus];
-        [self drawAtPoint:NSZeroPoint fromRect:NSZeroRect operation:NSCompositingOperationCopy fraction:1.0];
-		[newImage unlockFocus];
-		
-		return newImage;
-	}
-	return self;
-}
-
 @end
