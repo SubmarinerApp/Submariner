@@ -35,8 +35,8 @@
 #import <Foundation/Foundation.h>
 
 
-extern NSString *SBDeleteKeyPressedOnRowsNotification;
-extern NSString *SBEnterKeyPressedOnRowsNotification;
+extern NSString * _Nonnull SBDeleteKeyPressedOnRowsNotification;
+extern NSString * _Nonnull SBEnterKeyPressedOnRowsNotification;
 
 // forward declare to break chicken/egg
 @protocol SBTableViewDelegate;
