@@ -57,7 +57,7 @@
     const unsigned char *buf = data.bytes;
     NSInteger i;
     for (i=0; i<data.length; ++i) {
-      [sbuf appendFormat:@"%02X", (NSUInteger)buf[i]];
+      [sbuf appendFormat:@"%02lX", (unsigned long)buf[i]];
     }
     return sbuf;
 }
