@@ -1093,12 +1093,11 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 
 
 - (void)showVideoAlert {
-    NSAlert *alert = [NSAlert alertWithMessageText:@"Video streaming" 
-                                     defaultButton:@"OK" 
-                                   alternateButton:nil
-                                       otherButton:nil
-                         informativeTextWithFormat:@"This file appears to be a video file. Submariner is not able to streaming movie yet."];
-    
+    NSAlert *alert = [[NSAlert alloc] init];
+    [alert setAlertStyle: NSAlertStyleInformational];
+    [alert setInformativeText: @"Submariner doesn't support video."];
+    [alert setMessageText: @"No Video"];
+    [alert addButtonWithTitle: @"OK"];
     [alert runModal];
 }
 

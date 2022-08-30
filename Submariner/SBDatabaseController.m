@@ -1154,13 +1154,12 @@
         
         // Even creating the alert on the main thread is a problem
         dispatch_async(dispatch_get_main_queue(), ^{
-        NSAlert *alert = [NSAlert alertWithMessageText:[NSString stringWithFormat:@"Subsonic Error (code %ld)", code]
-                                         defaultButton:@"OK"
-                                       alternateButton:nil
-                                           otherButton:nil
-                             informativeTextWithFormat:[attr valueForKey:@"message"]];
-        
-        [alert performSelectorOnMainThread:@selector(runModal) withObject:nil waitUntilDone:NO];
+            NSAlert *alert = [[NSAlert alloc] init];
+            [alert setAlertStyle: NSAlertStyleCritical];
+            [alert setMessageText: [NSString stringWithFormat:@"Subsonic Error (code %ld)", code]];
+            [alert setInformativeText: [attr valueForKey:@"message"]];
+            [alert addButtonWithTitle: @"OK"];
+            [alert runModal];
         });
     }
 }

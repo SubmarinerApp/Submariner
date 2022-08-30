@@ -77,13 +77,11 @@
     if(object == [NSUserDefaults standardUserDefaults] && [keyPath isEqualToString:@"maxBitRate"]) {
         NSInteger newTag = [[change valueForKey:NSKeyValueChangeNewKey] integerValue];
         if(newTag < 320 && newTag > 0) {
-            NSAlert *alert = [NSAlert alertWithMessageText:@"Submariner limitation"
-                                             defaultButton:@"OK"
-                                           alternateButton:nil
-                                               otherButton:nil
-                                 informativeTextWithFormat:@"Submariner is not able to caculate the progression time below 320 kbit/s bitrate efficiently depending of the transcoded source bitrate. You could not seek into the timeline and time information will be unreliable. However, Subamriner will stream, play and cache download your track properly with the desired bitrate."];
-            
+            NSAlert *alert = [[NSAlert alloc] init];
             [alert setAlertStyle:NSAlertStyleInformational];
+            [alert setMessageText: @"Submariner Limitation"];
+            [alert setInformativeText: @"Submariner is not able to caculate the progression time below 320 kbit/s bitrate efficiently depending of the transcoded source bitrate. You could not seek into the timeline and time information will be unreliable. However, Subamriner will stream, play and cache download your track properly with the desired bitrate."];
+            [alert addButtonWithTitle: @"OK"];
             [alert runModal];
         }
     }

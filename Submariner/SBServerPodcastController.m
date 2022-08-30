@@ -138,12 +138,11 @@
                     [[SBPlayer sharedInstance] playTrack:clickedTrack];
                 }
             } else {
-                NSAlert *alert = [NSAlert alertWithMessageText:@"Unavailable Podcast" 
-                                                 defaultButton:@"OK" 
-                                               alternateButton:nil 
-                                                   otherButton:nil 
-                                     informativeTextWithFormat:@"This podcast episode does not appear online. Please, check availability status."];
-                
+                NSAlert *alert = [[NSAlert alloc] init];
+                [alert setAlertStyle: NSAlertStyleWarning];
+                [alert setMessageText: @"Unavailable Podcast"];
+                [alert setInformativeText: @"This podcast episode does not appear online. Please, check availability status."];
+                [alert addButtonWithTitle: @"OK"];
                 [alert runModal];
             }
         }
