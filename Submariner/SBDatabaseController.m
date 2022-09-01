@@ -386,13 +386,10 @@
 
     [super showVisualCue];
     
-    [openPanel beginSheetForDirectory:nil
-                                 file:nil
-                                types:types
-                       modalForWindow:[self window]
-                        modalDelegate:self
-                       didEndSelector:@selector(openAudioFilesPanelDidEnd:returnCode:contextInfo:)
-                          contextInfo:nil];
+    [openPanel setAllowedFileTypes: types];
+    [openPanel beginSheetModalForWindow: [self window] completionHandler:^(NSModalResponse result) {
+        [self openAudioFilesPanelDidEnd: openPanel returnCode: result contextInfo: nil];
+    }];
 
 }
 
@@ -479,11 +476,9 @@
             
             [super showVisualCue];
             
-            [alert beginSheetModalForWindow:[self window]
-                              modalDelegate:self
-                             didEndSelector:@selector(deleteServerPlaylistAlertDidEnd:returnCode:contextInfo:)
-                                contextInfo:nil];
-            
+            [alert beginSheetModalForWindow: [self window] completionHandler:^(NSModalResponse returnCode) {
+                [self deleteServerPlaylistAlertDidEnd: alert returnCode: returnCode contextInfo: nil];
+            }];
         }
     }
 }
@@ -505,10 +500,9 @@
             
             [super showVisualCue];
             
-            [alert beginSheetModalForWindow:[self window]
-                              modalDelegate:self
-                             didEndSelector:@selector(removeItemAlertDidEnd:returnCode:contextInfo:)
-                                contextInfo:nil];
+            [alert beginSheetModalForWindow: [self window] completionHandler:^(NSModalResponse returnCode) {
+                [self removeItemAlertDidEnd: alert returnCode: returnCode contextInfo: nil];
+            }];
         }
     }
 }

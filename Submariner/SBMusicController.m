@@ -221,10 +221,9 @@
                 [alert setInformativeText:@"This artist has been copied to Submariner database. If you choose Delete, the artist will be removed from the database and deleted from your file system. If you choose Remove, copied files will be preserved."];
                 [alert setAlertStyle:NSAlertStyleWarning];
                 
-                [alert beginSheetModalForWindow:[[self view] window] 
-                                  modalDelegate:self 
-                                 didEndSelector:@selector(removeArtistAlertDidEnd:returnCode:contextInfo:) 
-                                    contextInfo:nil];
+                [alert beginSheetModalForWindow: [[self view] window] completionHandler:^(NSModalResponse returnCode) {
+                    [self removeArtistAlertDidEnd: alert returnCode: returnCode contextInfo: nil];
+                }];
                 
             } else {
                 NSAlert *alert = [[NSAlert alloc] init];
@@ -234,10 +233,9 @@
                 [alert setInformativeText:@"Removed artists cannot be restored."];
                 [alert setAlertStyle:NSAlertStyleWarning];
                 
-                [alert beginSheetModalForWindow:[[self view] window] 
-                                  modalDelegate:self 
-                                 didEndSelector:@selector(removeArtistAlertDidEnd:returnCode:contextInfo:) 
-                                    contextInfo:nil];
+                [alert beginSheetModalForWindow: [[self view] window] completionHandler:^(NSModalResponse returnCode) {
+                    [self removeArtistAlertDidEnd: alert returnCode: returnCode contextInfo: nil];
+                }];
             }
         }
     }
@@ -260,10 +258,9 @@
                 [alert setInformativeText:@"This artist has been copied to Submariner database. If you choose Delete, the artist will be removed from the database and deleted from your file system. If you choose Remove, copied files will be preserved."];
                 [alert setAlertStyle:NSAlertStyleWarning];
                 
-                [alert beginSheetModalForWindow:[[self view] window] 
-                                  modalDelegate:self 
-                                 didEndSelector:@selector(removeAlbumAlertDidEnd:returnCode:contextInfo:) 
-                                    contextInfo:nil];
+                [alert beginSheetModalForWindow: [[self view] window] completionHandler:^(NSModalResponse returnCode) {
+                    [self removeAlbumAlertDidEnd: alert returnCode: returnCode contextInfo: nil];
+                }];
                 
             } else {
                 NSAlert *alert = [[NSAlert alloc] init];
@@ -273,10 +270,9 @@
                 [alert setInformativeText:@"Removed artists cannot be restored."];
                 [alert setAlertStyle:NSAlertStyleWarning];
                 
-                [alert beginSheetModalForWindow:[[self view] window] 
-                                  modalDelegate:self 
-                                 didEndSelector:@selector(removeAlbumAlertDidEnd:returnCode:contextInfo:) 
-                                    contextInfo:nil];
+                [alert beginSheetModalForWindow: [[self view] window] completionHandler:^(NSModalResponse returnCode) {
+                    [self removeAlbumAlertDidEnd: alert returnCode: returnCode contextInfo: nil];
+                }];
             }
         }
     }
@@ -297,10 +293,9 @@
                 [alert setInformativeText:@"This track has been copied to Submariner database. If you choose Delete, the track will be removed from the database and deleted from your file system. If you choose Remove, copied files will be preserved."];
                 [alert setAlertStyle:NSAlertStyleWarning];
                 
-                [alert beginSheetModalForWindow:[[self view] window] 
-                                  modalDelegate:self 
-                                 didEndSelector:@selector(removeTrackAlertDidEnd:returnCode:contextInfo:) 
-                                    contextInfo:nil];
+                [alert beginSheetModalForWindow: [[self view] window] completionHandler:^(NSModalResponse returnCode) {
+                    [self removeTrackAlertDidEnd: alert returnCode: returnCode contextInfo: nil];
+                }];
                 
             } else {
                 NSAlert *alert = [[NSAlert alloc] init];
@@ -310,10 +305,9 @@
                 [alert setInformativeText:@"Removed tracks cannot be restored."];
                 [alert setAlertStyle:NSAlertStyleWarning];
                 
-                [alert beginSheetModalForWindow:[[self view] window] 
-                                  modalDelegate:self 
-                                 didEndSelector:@selector(removeTrackAlertDidEnd:returnCode:contextInfo:) 
-                                    contextInfo:nil];
+                [alert beginSheetModalForWindow: [[self view] window] completionHandler:^(NSModalResponse returnCode) {
+                    [self removeTrackAlertDidEnd: alert returnCode: returnCode contextInfo: nil];
+                }];
             }
         }
     }

@@ -134,10 +134,9 @@
             [alert setInformativeText:@"The selected track will be removed from this playlist."];
             [alert setAlertStyle:NSAlertStyleWarning];
             
-            [alert beginSheetModalForWindow:[[self view] window] 
-                              modalDelegate:self 
-                             didEndSelector:@selector(removeTrackAlertDidEnd:returnCode:contextInfo:) 
-                                contextInfo:nil];
+            [alert beginSheetModalForWindow: [[self view] window] completionHandler:^(NSModalResponse returnCode) {
+                [self removeTrackAlertDidEnd: alert returnCode: returnCode contextInfo: nil];
+            }];
         }
     }
 }
