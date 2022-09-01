@@ -132,7 +132,7 @@
 
 - (NSManagedObjectContext*)threadedContext {
     if (!threadedContext_) {
-        threadedContext_ = [[NSManagedObjectContext alloc] init];
+        threadedContext_ = [[NSManagedObjectContext alloc] initWithConcurrencyType: NSPrivateQueueConcurrencyType];
         [threadedContext_ setPersistentStoreCoordinator:[mainContext_ persistentStoreCoordinator]];
         [threadedContext_ setMergePolicy:[mainContext_ mergePolicy]];
         [threadedContext_ setRetainsRegisteredObjects:YES];
