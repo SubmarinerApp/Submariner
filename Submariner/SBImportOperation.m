@@ -136,20 +136,15 @@
                 NSString *trackPath = nil;
                 
                 // use SFBAudioEngine
-                CFURLRef fileURL = CFURLCreateFromFileSystemRepresentation(kCFAllocatorDefault, 
-                                                                           (uint8_t*)([path UTF8String]),
-                                                                           strlen([path UTF8String]), 
-                                                                           FALSE);
+                NSURL *fileURL = [NSURL fileURLWithPath: path];
                 NSError *error = nil;
-                SFBAudioFile *audioFile = [SFBAudioFile audioFileWithURL: (__bridge NSURL*)fileURL error: &error];
+                SFBAudioFile *audioFile = [SFBAudioFile audioFileWithURL: fileURL error: &error];
                 if (error) {
                     NSLog(@"Error loading audio file for import: %@", error);
-                    CFRelease(fileURL), fileURL = NULL;
                     continue;
                 }
                 SFBAudioMetadata *metadata = [audioFile metadata];
                 SFBAudioProperties *properties = [audioFile properties];
-                CFRelease(fileURL), fileURL = NULL;
                 
                 if(NULL != metadata && NULL != properties) {
                     if(!remoteTrackID) {
