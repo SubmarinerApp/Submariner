@@ -1296,9 +1296,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/LRResty/build/Release\"",
-					"\"$(SRCROOT)/SoundCloudAPI/DerivedData/SoundCloudAPI/Build/Products/Release\"",
-					"\"$(SRCROOT)/ShortcutRecorder/DerivedData/ShortcutRecorder/Build/Products/Debug\"",
 				);
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1335,9 +1332,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/LRResty/build/Release\"",
-					"\"$(SRCROOT)/SoundCloudAPI/DerivedData/SoundCloudAPI/Build/Products/Release\"",
-					"\"$(SRCROOT)/ShortcutRecorder/DerivedData/ShortcutRecorder/Build/Products/Debug\"",
 				);
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
