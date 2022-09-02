@@ -1063,11 +1063,17 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
             if(repeatMode == SBPlayerRepeatOne)
                 return self.currentTrack;
             
-            if(index == 0)
-                if(repeatMode == SBPlayerRepeatAll)
+            if(index == 0) {
+                if(repeatMode == SBPlayerRepeatAll) {
                     return [self.playlist lastObject];
-                        if(index != -1)
+                } else {
+                    // objectAtIndex for 0 - 1 is gonna throw, so don't
+                    return nil;
+                }
+            }
+            if(index != -1) {
                 return [self.playlist objectAtIndex:index-1];
+            }
         } else {
             // if repeat one, get the piority
             if(repeatMode == SBPlayerRepeatOne)
