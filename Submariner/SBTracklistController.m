@@ -338,10 +338,11 @@
         }
         
         // also add new track IDs to the array
-        [tracksURIs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        NSArray *reversedArray = [[tracksURIs reverseObjectEnumerator] allObjects];
+        [reversedArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             SBTrack *track = (SBTrack *)[self.managedObjectContext objectWithID:[[self.managedObjectContext persistentStoreCoordinator] managedObjectIDForURIRepresentation:obj]]; 
             
-            [[[SBPlayer sharedInstance] playlist] addObject:track];
+            [[[SBPlayer sharedInstance] playlist] insertObject:track atIndex:row];
         }];
         
         
