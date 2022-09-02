@@ -1611,10 +1611,14 @@
     SEL action = [item action];
     
     BOOL isPlaying = [[SBPlayer sharedInstance] isPlaying];
+    BOOL tracklistHasItems = [[[SBPlayer sharedInstance] playlist] count] > 0;
     
     if (action == @selector(playPause:) || action == @selector(stop:)
         || action == @selector(rewind:) || action == @selector(fastForward:)) {
         return isPlaying;
+    }
+    if (action == @selector(cleanTracklist:)) {
+        return tracklistHasItems;
     }
     // Similar, but could use if prv/next track exist
     if (action == @selector(previousTrack:) || action == @selector(nextTrack:)) {
