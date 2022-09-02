@@ -321,7 +321,7 @@
     if(selectedRow != -1) {
         SBArtist *artist = [[artistsController arrangedObjects] objectAtIndex:selectedRow];
         if(artist != nil && artist.path != nil && ![artist.path isEqualToString:@""]) {
-            [[NSWorkspace sharedWorkspace] selectFile:artist.path inFileViewerRootedAtPath:nil];
+            [[NSWorkspace sharedWorkspace] selectFile:artist.path inFileViewerRootedAtPath:@""];
         }
     }
 }
@@ -333,7 +333,7 @@
     if(selectedRow != -1) {
         SBAlbum *album = [[albumsController arrangedObjects] objectAtIndex:selectedRow];
         if(album != nil && album.path != nil && ![album.path isEqualToString:@""]) {
-            [[NSWorkspace sharedWorkspace] selectFile:album.path inFileViewerRootedAtPath:nil];
+            [[NSWorkspace sharedWorkspace] selectFile:album.path inFileViewerRootedAtPath:@""];
         }
     }
 }
@@ -345,7 +345,7 @@
     if(selectedRow != -1) {
         SBTrack *track = [[tracksController arrangedObjects] objectAtIndex:selectedRow];
         if(track != nil) {
-            [[NSWorkspace sharedWorkspace] selectFile:track.path inFileViewerRootedAtPath:nil];
+            [[NSWorkspace sharedWorkspace] selectFile:track.path inFileViewerRootedAtPath:@""];
         }
     }
 }
