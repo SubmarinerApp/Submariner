@@ -58,7 +58,7 @@
 
 - (NSString*)title {
     // XXX: Title here
-    return @"Playlist for %s";
+    return [NSString stringWithFormat: @"Playlist \"%@\"", self.playlist.resourceName];
 }
 
 
@@ -139,6 +139,11 @@
             }];
         }
     }
+}
+
+
+- (IBAction)delete:(id)sender {
+    [self removeTrack: sender];
 }
 
 
