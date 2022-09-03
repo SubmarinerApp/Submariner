@@ -57,7 +57,6 @@
 
 
 - (NSString*)title {
-    // XXX: Title here
     return [NSString stringWithFormat: @"Playlist \"%@\"", self.playlist.resourceName];
 }
 
