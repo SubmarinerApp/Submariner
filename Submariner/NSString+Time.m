@@ -37,6 +37,15 @@
 
 @implementation NSString (Time)
 
+- (NSDate*) dateTimeFromISO {
+    static NSISO8601DateFormatter *formatter;
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+        formatter = [[NSISO8601DateFormatter alloc] init];
+    });
+    return [formatter dateFromString: self];
+}
+
 + (NSString *)stringWithTime:(double)time {
 	
 	if(time == 0)

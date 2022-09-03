@@ -54,6 +54,7 @@
 
 #import "NSManagedObjectContext+Fetch.h"
 #import "NSURL+Parameters.h"
+#import "NSString+Time.h"
 
 
 NSString *SBSubsonicConnectionFailedNotification        = @"SBSubsonicConnectionFailedNotification";
@@ -687,7 +688,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
         
         BOOL valid              = ([[attributeDict valueForKey:@"valid"] isEqualToString:@"true"]) ? YES : NO;
         NSString *licenseEmail  = [attributeDict valueForKey:@"email"];
-        NSDate *licenseDate     = [NSDate dateWithNaturalLanguageString:[attributeDict valueForKey:@"date"]];
+        NSDate *licenseDate     = [(NSString*)[attributeDict valueForKey:@"date"] dateTimeFromISO];
         
         [server setIsValidLicense:[NSNumber numberWithBool:valid]];
         [server setLicenseEmail:licenseEmail];
