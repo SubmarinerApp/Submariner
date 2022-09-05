@@ -363,27 +363,6 @@
     [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://www.read-write.fr/"]];
 }
 
-- (IBAction)playTrackForMenuItem:(id)sender {
-    SBTrack *track = [sender representedObject];
-    if(track) {
-        // stop current playing tracks
-        [[SBPlayer sharedInstance] stop];
-        
-        NSArray *descriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"trackNumber" ascending:YES]];
-        NSArray *tracks = [track.album.tracks sortedArrayUsingDescriptors:descriptors];
-        
-        // add track to player
-        if([[NSUserDefaults standardUserDefaults] integerForKey:@"playerBehavior"] == 1) {
-            [[SBPlayer sharedInstance] addTrackArray:tracks replace:YES];
-            // play track
-            [[SBPlayer sharedInstance] playTrack:track];
-        } else {
-            [[SBPlayer sharedInstance] addTrackArray:tracks replace:NO];
-            [[SBPlayer sharedInstance] playTrack:track];
-        }
-    }
-}
-
 - (IBAction)reloadCurrentServer:(id)sender {
     [databaseController reloadCurrentServer:sender];
 }

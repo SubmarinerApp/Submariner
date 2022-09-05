@@ -956,9 +956,6 @@ NSString * const PXSLDeleteKeyPressedOnRowsNotification = @"PXSourceListDeleteKe
         if(selectedRow != -1) {
             SBResource *res = [[self itemAtRow:selectedRow] representedObject];
             return [res isKindOfClass: SBPlaylist.class] || [res isKindOfClass: SBServer.class];
-            return (![res isKindOfClass:[SBSection class]] &&
-               (![res.resourceName isEqualToString:@"Music"] ||
-                ![res.resourceName isEqualToString:@"Tracklist"]));
         }
     }
     

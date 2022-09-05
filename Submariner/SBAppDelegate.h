@@ -84,7 +84,6 @@
 - (IBAction)volumeUp:(id)sender;
 - (IBAction)volumeDown:(id)sender;
 - (IBAction)showWebsite:(id)sender;
-- (IBAction)playTrackForMenuItem:(id)sender;
 - (IBAction)search:(id)sender;
 - (IBAction)showIndices:(id)sender;
 - (IBAction)showAlbums:(id)sender;
