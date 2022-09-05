@@ -934,4 +934,35 @@ NSString * const PXSLDeleteKeyPressedOnRowsNotification = @"PXSourceListDeleteKe
 	}
 }
 
+#pragma mark -
+#pragma mark Submariner Tweaks
+
+// These aren't generic, but this isn't a generic source list anymore, is it?
+
+// So that delete: is handled, and we supress it when not relevant to us.
+-(IBAction)delete:(id)sender {
+    NSIndexSet *selectedIndexes = [self selectedRowIndexes];
+    [[NSNotificationCenter defaultCenter] postNotificationName:PXSLDeleteKeyPressedOnRowsNotification
+                                                        object:self
+                                                      userInfo:[NSDictionary dictionaryWithObject:selectedIndexes forKey:@"rows"]];
+}
+
+// We get this because delete: is handled by first responders, not by AppDelegate.
+- (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item {
+    if (item.action == @selector(delete:)) {
+        // XXX: ugly
+        NSInteger selectedRow = [self selectedRow];
+        
+        if(selectedRow != -1) {
+            SBResource *res = [[self itemAtRow:selectedRow] representedObject];
+            return [res isKindOfClass: SBPlaylist.class] || [res isKindOfClass: SBServer.class];
+            return (![res isKindOfClass:[SBSection class]] &&
+               (![res.resourceName isEqualToString:@"Music"] ||
+                ![res.resourceName isEqualToString:@"Tracklist"]));
+        }
+    }
+    
+    return YES;
+}
+
 @end

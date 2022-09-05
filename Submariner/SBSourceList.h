@@ -13,12 +13,17 @@
 #import "SBSourceListDelegate.h"
 #import "SBSourceListDataSource.h"
 
+#import "SBResource.h"
+#import "SBSection.h"
+#import "SBServer.h"
+#import "SBPlaylist.h"
+
 #ifndef MAC_OS_X_VERSION_10_6
 @protocol NSOutlineViewDelegate <NSObject> @end
 @protocol NSOutlineViewDataSource <NSObject> @end
 #endif
 
-@interface SBSourceList: NSOutlineView <NSOutlineViewDelegate, NSOutlineViewDataSource>
+@interface SBSourceList: NSOutlineView <NSOutlineViewDelegate, NSOutlineViewDataSource, NSUserInterfaceValidations>
 {
 	id <SBSourceListDelegate> _secondaryDelegate;		//Used to store the publicly visible delegate
 	id <SBSourceListDataSource> _secondaryDataSource;	//Used to store the publicly visible data source
@@ -38,5 +43,6 @@
 - (BOOL)itemHasBadge:(id)item;							//Returns whether `item` has a badge
 - (NSInteger)badgeValueForItem:(id)item;				//Returns the badge value for `item`
 
+- (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item;
 @end
 
