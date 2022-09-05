@@ -381,7 +381,7 @@
 - (IBAction)addTrackToTracklist:(id)sender {
 
     NSIndexSet *indexSet = [tracksTableView selectedRowIndexes];
-    __weak NSMutableArray *tracks = [NSMutableArray array];
+    NSMutableArray *tracks = [NSMutableArray array];
     
     [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         [tracks addObject:[[tracksController arrangedObjects] objectAtIndex:idx]];
