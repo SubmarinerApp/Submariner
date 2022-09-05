@@ -67,14 +67,19 @@
 
 - (IBAction)trackDoubleClick:(id)sender;
 - (IBAction)albumDoubleClick:(id)sender;
+- (IBAction)playSelected:(id)sender;
 - (IBAction)filterArtist:(id)sender;
 - (IBAction)createNewPlaylistWithSelectedTracks:(id)sender;
 - (IBAction)addArtistToTracklist:(id)sender;
 - (IBAction)addAlbumToTracklist:(id)sender;
 - (IBAction)addTrackToTracklist:(id)sender;
+- (IBAction)addSelectedToTracklist:(id)sender;
 - (IBAction)downloadTrack:(id)sender;
 - (IBAction)downloadAlbum:(id)sender;
+- (IBAction)downloadSelected:(id)sender;
 
 
+
+- (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item;
 
 @end

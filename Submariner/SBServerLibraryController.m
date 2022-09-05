@@ -246,6 +246,18 @@
 }
 
 
+- (IBAction)addSelectedToTracklist:(id)sender {
+    NSResponder *responder = self.databaseController.window.firstResponder;
+    if (responder == tracksTableView) {
+        [self addTrackToTracklist: self];
+    } else if (responder == albumsBrowserView) {
+        [self addAlbumToTracklist: self];
+    } else if (responder == artistsTableView) {
+        [self addArtistToTracklist: self];
+    }
+}
+
+
 - (IBAction)createNewPlaylistWithSelectedTracks:(id)sender {
     // get selected rows track objects
     NSIndexSet *rowIndexes = [tracksTableView selectedRowIndexes];
@@ -326,6 +338,16 @@
 }
 
 
+- (IBAction)playSelected:(id)sender {
+    NSResponder *responder = self.databaseController.window.firstResponder;
+    if (responder == tracksTableView) {
+        [self trackDoubleClick: self];
+    } else if (responder == albumsBrowserView) {
+        [self albumDoubleClick: self];
+    }
+}
+
+
 - (IBAction)downloadTrack:(id)sender {
     NSInteger selectedRow = [tracksTableView selectedRow];
     
@@ -363,6 +385,16 @@
                 [[NSOperationQueue sharedDownloadQueue] addOperation:op];
             }
         }
+    }
+}
+
+
+- (IBAction)downloadSelected:(id)sender {
+    NSResponder *responder = self.databaseController.window.firstResponder;
+    if (responder == tracksTableView) {
+        [self downloadTrack: self];
+    } else if (responder == albumsBrowserView) {
+        [self downloadAlbum: self];
     }
 }
 
@@ -471,7 +503,7 @@
         [item setTarget:self];
         [menu addItem:item];
         
-        item = [[NSMenuItem alloc] initWithTitle:@"New Playlist with Selected Track(s)" action:@selector(createNewPlaylistWithSelectedTracks:) keyEquivalent:@""];
+        item = [[NSMenuItem alloc] initWithTitle:@"New Server Playlist with Selected Track(s)" action:@selector(createNewPlaylistWithSelectedTracks:) keyEquivalent:@""];
         [item setTarget:self];
         [menu addItem:item];
         
@@ -634,6 +666,36 @@
 
 - (void)imageBrowser:(IKImageBrowserView *)aBrowser cellWasDoubleClickedAtIndex:(NSUInteger)index {
     [self albumDoubleClick:nil];
+}
+
+
+
+#pragma mark -
+#pragma mark UI Validator
+
+- (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item {
+    SEL action = [item action];
+    
+    NSInteger artistsSelected = artistsTableView.selectedRowIndexes.count;
+    NSInteger albumSelected = albumsBrowserView.selectionIndexes.count;
+    NSInteger tracksSelected = tracksTableView.selectedRowIndexes.count;
+    
+    NSResponder *responder = self.databaseController.window.firstResponder;
+    BOOL tracksActive = responder == tracksTableView;
+    BOOL albumsActive = responder == albumsBrowserView;
+    BOOL artistsActive = responder == artistsTableView;
+    
+    if (action == @selector(downloadSelected:)
+        || action == @selector(addSelectedToTracklist:)
+        || action == @selector(playSelected:)) {
+        return (albumSelected > 0 || tracksSelected > 0) && (albumsActive || tracksActive);
+    }
+    
+    if (action == @selector(createNewPlaylistWithSelectedTracks:)) {
+        return tracksSelected > 0 && tracksActive;
+    }
+
+    return YES;
 }
 
 

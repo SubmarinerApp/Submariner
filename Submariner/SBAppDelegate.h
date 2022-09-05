@@ -89,5 +89,6 @@
 - (IBAction)showAlbums:(id)sender;
 - (IBAction)showPodcasts:(id)sender;
 - (IBAction)cleanTracklist:(id)sender;
+- (IBAction)reloadCurrentServer:(id)sender;
 
 @end

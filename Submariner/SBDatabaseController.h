@@ -136,6 +136,7 @@
 - (IBAction)removeItem:(id)sender;
 - (IBAction)deleteRemotePlaylist:(id)sender;
 - (IBAction)reloadServer:(id)sender;
+- (IBAction)reloadCurrentServer:(id)sender;
 - (IBAction)playPause:(id)sender;
 - (IBAction)stop:(id)sender;
 - (IBAction)nextTrack:(id)sender;

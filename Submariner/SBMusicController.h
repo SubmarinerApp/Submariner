@@ -69,19 +69,25 @@
 
 - (IBAction)filterArtist:(id)sender;
 - (IBAction)trackDoubleClick:(id)sender;
+- (IBAction)playSelected:(id)sender;
 
 - (IBAction)addArtistToTracklist:(id)sender;
 - (IBAction)addAlbumToTracklist:(id)sender;
 - (IBAction)addTrackToTracklist:(id)sender;
+- (IBAction)addSelectedToTracklist:(id)sender;
 
 - (IBAction)removeArtist:(id)sender;
 - (IBAction)removeAlbum:(id)sender;
 - (IBAction)removeTrack:(id)sender;
+- (IBAction)delete:(id)sender;
 
 - (IBAction)showArtistInFinder:(in)sender;
 - (IBAction)showAlbumInFinder:(in)sender;
 - (IBAction)showTrackInFinder:(in)sender;
+- (IBAction)showSelectedInFinder:(id)sender;
 
 - (IBAction)mergeArtists:(id)sender;
+
+- (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item;
 
 @end

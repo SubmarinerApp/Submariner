@@ -87,6 +87,32 @@
                                     <action selector="newServer:" target="494" id="541"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="New Server Playlist with Selected" id="5hm-lN-Dc4">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="createNewPlaylistWithSelectedTracks:" target="-1" id="HC6-Lg-Vaz"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="5TQ-08-gf5"/>
+                            <menuItem title="Download" id="eFU-Sh-VoQ">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="downloadSelected:" target="-1" id="eoD-aJ-yzw"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Show in Finder" id="VkS-fR-gtn">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="showSelectedInFinder:" target="-1" id="3X0-r0-rfO"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="fJl-3t-n8T"/>
+                            <menuItem title="Merge Artists" id="3Av-9w-UCN">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="mergeArtists:" target="-1" id="wlU-bg-vgm"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="79">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
@@ -141,6 +167,7 @@
                                     <action selector="delete:" target="-1" id="235"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="Soo-Td-T1J"/>
                             <menuItem title="Select All" keyEquivalent="a" id="198">
                                 <connections>
                                     <action selector="selectAll:" target="-1" id="232"/>
@@ -178,6 +205,13 @@
                             <menuItem title="Toggle Server Users" keyEquivalent="u" id="QXo-h3-Ijg">
                                 <connections>
                                     <action selector="toggleServerUsers:" target="494" id="QuS-kO-6Ep"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="2b6-cD-4uz"/>
+                            <menuItem title="Reload Server" id="nCA-zb-sOF">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="reloadCurrentServer:" target="494" id="RCp-ZJ-v4P"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="B89-9O-rLZ"/>
@@ -240,6 +274,19 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="A3a-PO-UZ7"/>
+                            <menuItem title="Play Selected" id="AHx-gK-1Im">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="playSelected:" target="-1" id="L78-bm-tIL"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Add Selected to Tracklist" id="BRM-Ur-u3g">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="addSelectedToTracklist:" target="-1" id="dEe-Se-OfZ"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="irQ-gk-QUO"/>
                             <menuItem title="Previous Track" keyEquivalent="" id="6eK-AW-rbn">
                                 <connections>
                                     <action selector="previousTrack:" target="494" id="sPC-Wy-T9s"/>

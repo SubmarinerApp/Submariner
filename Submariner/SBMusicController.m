@@ -206,6 +206,18 @@
 }
 
 
+- (IBAction)playSelected:(id)sender {
+    NSResponder *responder = self.databaseController.window.firstResponder;
+    if (responder == tracksTableView) {
+        [self trackDoubleClick: self];
+    } else if (responder == albumsBrowserView) {
+        // XXX
+        //[self albumDoubleClick: self];
+        [self imageBrowser:albumsBrowserView cellWasDoubleClickedAtIndex:-1];
+    }
+}
+
+
 - (IBAction)removeArtist:(id)sender {
     NSInteger selectedRow = [artistsTableView selectedRow];
     
@@ -314,6 +326,18 @@
 }
 
 
+- (IBAction)delete:(id)sender {
+    NSResponder *responder = self.databaseController.window.firstResponder;
+    if (responder == tracksTableView) {
+        [self removeTrack: self];
+    } else if (responder == albumsBrowserView) {
+        [self removeAlbum: self];
+    } else if (responder == artistsTableView) {
+        [self removeArtist: self];
+    }
+}
+
+
 
 - (IBAction)showArtistInFinder:(in)sender {
     NSInteger selectedRow = [artistsTableView selectedRow];
@@ -347,6 +371,18 @@
         if(track != nil) {
             [[NSWorkspace sharedWorkspace] selectFile:track.path inFileViewerRootedAtPath:@""];
         }
+    }
+}
+
+
+- (IBAction)showSelectedInFinder:(id)sender {
+    NSResponder *responder = self.databaseController.window.firstResponder;
+    if (responder == tracksTableView) {
+        [self showTrackInFinder: self];
+    } else if (responder == albumsBrowserView) {
+        [self showAlbumInFinder: self];
+    } else if (responder == artistsTableView) {
+        [self showArtistInFinder: self];
     }
 }
 
@@ -399,6 +435,18 @@
         
         [mergeArtistsController setArtists:artists];
         [mergeArtistsController openSheet:sender];  
+    }
+}
+
+
+- (IBAction)addSelectedToTracklist:(id)sender {
+    NSResponder *responder = self.databaseController.window.firstResponder;
+    if (responder == tracksTableView) {
+        [self addTrackToTracklist: self];
+    } else if (responder == albumsBrowserView) {
+        [self addAlbumToTracklist: self];
+    } else if (responder == artistsTableView) {
+        [self addArtistToTracklist: self];
     }
 }
 
@@ -790,6 +838,40 @@
         }
     }
 }
+
+
+
+#pragma mark -
+#pragma mark UI Validator
+
+- (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item {
+    SEL action = [item action];
+    
+    NSInteger artistsSelected = artistsTableView.selectedRowIndexes.count;
+    NSInteger albumSelected = albumsBrowserView.selectionIndexes.count;
+    NSInteger tracksSelected = tracksTableView.selectedRowIndexes.count;
+    
+    NSResponder *responder = self.databaseController.window.firstResponder;
+    BOOL tracksActive = responder == tracksTableView;
+    BOOL albumsActive = responder == albumsBrowserView;
+    BOOL artistsActive = responder == artistsTableView;
+    
+    if (action == @selector(mergeArtists:)) {
+        return artistsSelected > 1 && artistsActive;
+    }
+    
+    if (action == @selector(showSelectedInFinder:)
+        || action == @selector(addSelectedToTracklist:)) {
+        return artistsSelected > 0 || albumSelected > 0 || tracksSelected > 0;
+    }
+    
+    if (action == @selector(playSelected:)) {
+        return (albumSelected > 0 || tracksSelected > 0) && (albumsActive || tracksActive);
+    }
+
+    return YES;
+}
+
 
 
 @end

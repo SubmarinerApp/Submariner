@@ -545,6 +545,15 @@
     }
 }
 
+- (void)reloadServerInternal: (SBServer*)server {
+    if (server == nil) {
+        return;
+    }
+    [server getServerLicense];
+    [server getServerIndexes];
+    [server getServerPlaylists];
+}
+
 - (IBAction)reloadServer:(id)sender {
     NSInteger selectedRow = [sourceList selectedRow];
     
@@ -556,6 +565,10 @@
             [server getServerPlaylists];
         }
     }
+}
+
+- (IBAction)reloadCurrentServer:(id)sender {
+    [self reloadServerInternal: self.server];
 }
 
 - (IBAction)playPause:(id)sender {
@@ -1629,7 +1642,8 @@
     if (action == @selector(showIndices:)
         || action == @selector(showAlbums:)
         || action == @selector(showPodcasts:)
-        || action == @selector(toggleServerUsers:)) {
+        || action == @selector(toggleServerUsers:)
+        || action == @selector(reloadCurrentServer:)) {
         return self.server != nil;
     }
     

@@ -380,6 +380,9 @@
     }
 }
 
+- (IBAction)reloadCurrentServer:(id)sender {
+    [databaseController reloadCurrentServer:sender];
+}
 
 
 #pragma mark -
