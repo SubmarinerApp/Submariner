@@ -459,6 +459,17 @@
     }
 }
 
+- (IBAction)addPlaylistToCurrentServer:(id)sender {
+    SBServer *server = self.server;
+    if(server != nil) {
+        [super showVisualCue];
+        
+        [addServerPlaylistController setServer:server];
+        [addServerPlaylistController openSheet:sender];
+    }
+    
+}
+
 
 - (IBAction)deleteRemotePlaylist:(id)sender {
     NSInteger selectedRow = [sourceList selectedRow];
@@ -677,6 +688,14 @@
         if(server && [server isKindOfClass:[SBServer class]]) {
             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:server.url]];
         }
+    }
+}
+
+
+- (IBAction)openCurrentServerHomePage:(id)sender {
+    SBServer *server = self.server;
+    if(server && [server isKindOfClass:[SBServer class]]) {
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:server.url]];
     }
 }
 
@@ -1643,7 +1662,9 @@
         || action == @selector(showAlbums:)
         || action == @selector(showPodcasts:)
         || action == @selector(toggleServerUsers:)
-        || action == @selector(reloadCurrentServer:)) {
+        || action == @selector(reloadCurrentServer:)
+        || action == @selector(openCurrentServerHomePage:)
+        || action == @selector(addPlaylistToCurrentServer:)) {
         return self.server != nil;
     }
     

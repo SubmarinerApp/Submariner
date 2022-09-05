@@ -67,6 +67,7 @@
 - (IBAction)toogleTracklist:(id)sender;
 - (IBAction)toggleServerUsers:(id)sender;
 - (IBAction)newPlaylist:(id)sender;
+- (IBAction)addPlaylistToCurrentServer:(id)sender;
 - (IBAction)newServer:(id)sender;
 - (IBAction)playPause:(id)sender;
 - (IBAction)stop:(id)sender;
@@ -90,5 +91,6 @@
 - (IBAction)showPodcasts:(id)sender;
 - (IBAction)cleanTracklist:(id)sender;
 - (IBAction)reloadCurrentServer:(id)sender;
+- (IBAction)openCurrentServerHomePage:(id)sender;
 
 @end

@@ -131,6 +131,7 @@
 - (IBAction)toggleServerUsers:(id)sender;
 - (IBAction)addPlaylist:(id)sender;
 - (IBAction)addRemotePlaylist:(id)sender;
+- (IBAction)addPlaylistToCurrentServer:(id)sender;
 - (IBAction)addServer:(id)sender;
 - (IBAction)editItem:(id)sender;
 - (IBAction)removeItem:(id)sender;
@@ -150,6 +151,7 @@
 - (IBAction)volumeUp:(id)sender;
 - (IBAction)volumeDown:(id)sender;
 - (IBAction)openHomePage:(id)sender;
+- (IBAction)openCurrentServerHomePage:(id)sender;
 - (IBAction)shuffle:(id)sender;
 - (IBAction)repeatNone:(id)sender;
 - (IBAction)repeatOne:(id)sender;

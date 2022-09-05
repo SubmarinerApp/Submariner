@@ -267,6 +267,10 @@
     [databaseController addPlaylist:sender];
 }
 
+- (IBAction)addPlaylistToCurrentServer:(id)sender {
+    [databaseController addPlaylistToCurrentServer:sender];
+}
+
 - (IBAction)newServer:(id)sender {
     [databaseController addServer:sender];
 }
@@ -382,6 +386,10 @@
 
 - (IBAction)reloadCurrentServer:(id)sender {
     [databaseController reloadCurrentServer:sender];
+}
+
+- (IBAction)openCurrentServerHomePage:(id)sender {
+    [databaseController openCurrentServerHomePage:sender];
 }
 
 

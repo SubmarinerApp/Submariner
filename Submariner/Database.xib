@@ -205,9 +205,6 @@
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="play" catalog="system" imagePosition="only" alignment="center" alternateImage="pause" borderStyle="border" inset="2" id="239">
                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
-                                <string key="keyEquivalent" base64-UTF8="YES">
-IA
-</string>
                             </buttonCell>
                             <connections>
                                 <action selector="playPause:" target="-2" id="257"/>
@@ -222,7 +219,6 @@ IA
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="backward" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="238">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
-                                <string key="keyEquivalent"></string>
                             </buttonCell>
                             <connections>
                                 <action selector="previousTrack:" target="-2" id="256"/>
@@ -237,7 +233,6 @@ IA
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="forward" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="241">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
-                                <string key="keyEquivalent"></string>
                             </buttonCell>
                             <connections>
                                 <action selector="nextTrack:" target="-2" id="255"/>

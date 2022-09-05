@@ -81,10 +81,10 @@
                                     <action selector="newPlaylist:" target="494" id="540"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="New Server" keyEquivalent="n" id="539">
-                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                            <menuItem title="New Server Playlist" id="EL4-ww-hvw">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="newServer:" target="494" id="541"/>
+                                    <action selector="addPlaylistToCurrentServer:" target="494" id="KQz-Ch-hBX"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="New Server Playlist with Selected" id="5hm-lN-Dc4">
@@ -94,6 +94,19 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="5TQ-08-gf5"/>
+                            <menuItem title="New Server" id="539">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="newServer:" target="494" id="541"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Open Server in Web Browser" id="i9Q-cn-ygF">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="openCurrentServerHomePage:" target="494" id="mx7-5D-u65"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="dt2-nv-5IQ"/>
                             <menuItem title="Download" id="eFU-Sh-VoQ">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
