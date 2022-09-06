@@ -39,7 +39,7 @@
 
 @class SBPlaylist;
 
-@interface SBPlaylistController : SBViewController <SBTableViewDelegate> {
+@interface SBPlaylistController : SBViewController <SBTableViewDelegate, NSValidatedUserInterfaceItem> {
 @private
     SBPlaylist *playlist;
     
@@ -55,5 +55,8 @@
 - (void)clearPlaylist;
 - (IBAction)removeTrack:(id)sender;
 - (IBAction)trackDoubleClick:(id)sender;
+- (IBAction)playSelected:(id)sender;
+- (IBAction)addSelectedToTracklist:(id)sender;
+- (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item;
 
 @end

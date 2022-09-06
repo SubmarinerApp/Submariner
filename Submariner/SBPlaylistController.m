@@ -38,6 +38,8 @@
 #import "SBTrack.h"
 #import "SBPlayer.h"
 #import "SBPlaylist.h"
+#import "SBSubsonicDownloadOperation.h"
+#import "NSOperationQueue+Shared.h"
 
 
 @implementation SBPlaylistController
@@ -120,6 +122,21 @@
     }
 }
 
+- (IBAction)playSelected:(id)sender {
+    [self trackDoubleClick:sender];
+}
+
+- (IBAction)addSelectedToTracklist:(id)sender {
+    NSIndexSet *indexSet = [tracksTableView selectedRowIndexes];
+    NSMutableArray *tracks = [NSMutableArray array];
+    
+    [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        [tracks addObject:[[tracksController arrangedObjects] objectAtIndex:idx]];
+    }];
+    
+    [[SBPlayer sharedInstance] addTrackArray:tracks replace:NO];
+}
+
 - (IBAction)removeTrack:(id)sender {
     NSInteger selectedRow = [tracksTableView selectedRow];
     
@@ -155,6 +172,40 @@
             if(selectedTrack != nil) {
                 [playlist removeTracksObject:selectedTrack];
             }
+        }
+    }
+}
+
+
+- (IBAction)showSelectedInFinder:(in)sender {
+    NSInteger selectedRow = [tracksTableView selectedRow];
+    
+    if(selectedRow != -1) {
+        SBTrack *track = [[tracksController arrangedObjects] objectAtIndex:selectedRow];
+        // handle both kinds
+        if (track && track.localTrack != nil) {
+            track = track.localTrack;
+        }
+        if(track != nil) {
+            [[NSWorkspace sharedWorkspace] selectFile:track.path inFileViewerRootedAtPath:@""];
+        }
+    }
+}
+
+
+- (IBAction)downloadSelected:(id)sender {
+    NSInteger selectedRow = [tracksTableView selectedRow];
+    
+    if(selectedRow != -1) {
+        SBTrack *track = [[tracksController arrangedObjects] objectAtIndex:selectedRow];
+        if(track != nil) {
+            // XXX
+            //[databaseController showDownloadView];
+            
+            SBSubsonicDownloadOperation *op = [[SBSubsonicDownloadOperation alloc] initWithManagedObjectContext:self.managedObjectContext];
+            [op setTrackID:[track objectID]];
+            
+            [[NSOperationQueue sharedDownloadQueue] addOperation:op];
         }
     }
 }
@@ -324,6 +375,26 @@
 
 - (void)tableViewDeleteKeyPressedNotification:(NSNotification *)notification {
     [self removeTrack:self];
+}
+
+
+
+#pragma mark -
+#pragma mark UI Validator
+
+- (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item {
+    SEL action = [item action];
+    
+    NSInteger tracksSelected = tracksTableView.selectedRowIndexes.count;
+    
+    if (action == @selector(downloadSelected:)
+        || action == @selector(showSelectedInFinder:)
+        || action == @selector(addSelectedToTracklist:)
+        || action == @selector(playSelected:)) {
+        return tracksSelected;
+    }
+
+    return YES;
 }
 
 
