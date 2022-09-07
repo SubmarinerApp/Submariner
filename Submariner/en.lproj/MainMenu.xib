@@ -81,14 +81,14 @@
                                     <action selector="newPlaylist:" target="494" id="540"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="New Server Playlist" id="EL4-ww-hvw">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="New Server Playlist" keyEquivalent="n" id="EL4-ww-hvw">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="addPlaylistToCurrentServer:" target="494" id="KQz-Ch-hBX"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="New Server Playlist with Selected" id="5hm-lN-Dc4">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="New Server Playlist with Selected" alternate="YES" keyEquivalent="N" id="5hm-lN-Dc4">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="createNewPlaylistWithSelectedTracks:" target="-1" id="HC6-Lg-Vaz"/>
                                 </connections>
@@ -100,21 +100,19 @@
                                     <action selector="newServer:" target="494" id="541"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Open Server in Web Browser" id="i9Q-cn-ygF">
+                            <menuItem title="Open Server Home Page" id="i9Q-cn-ygF">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="openCurrentServerHomePage:" target="494" id="mx7-5D-u65"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="dt2-nv-5IQ"/>
-                            <menuItem title="Download" id="eFU-Sh-VoQ">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="Download" keyEquivalent="s" id="eFU-Sh-VoQ">
                                 <connections>
                                     <action selector="downloadSelected:" target="-1" id="eoD-aJ-yzw"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Show in Finder" id="VkS-fR-gtn">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="Show in Finder" keyEquivalent="R" id="VkS-fR-gtn">
                                 <connections>
                                     <action selector="showSelectedInFinder:" target="-1" id="3X0-r0-rfO"/>
                                 </connections>
@@ -221,8 +219,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="2b6-cD-4uz"/>
-                            <menuItem title="Reload Server" id="nCA-zb-sOF">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="Reload Server" keyEquivalent="r" id="nCA-zb-sOF">
                                 <connections>
                                     <action selector="reloadCurrentServer:" target="494" id="RCp-ZJ-v4P"/>
                                 </connections>
