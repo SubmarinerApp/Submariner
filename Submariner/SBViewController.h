@@ -34,6 +34,8 @@
 
 #import <Foundation/Foundation.h>
 
+// forward declare since importing is not good here
+@class SBDatabaseController;
 
 @interface SBViewController : NSViewController {
 @protected
@@ -43,5 +45,9 @@
 
 + (NSString *)nibName;
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context;
+
+// Helper functions for library views (XXX: Is this the best place for them?)
+-(void)showTracksInFinder:(NSArray*)trackList selectedIndices:(NSIndexSet*)indexSet;
+-(void)downloadTracks:(NSArray*)trackList selectedIndices:(NSIndexSet*)indexSet databaseController:(SBDatabaseController*)databaseController;
 
 @end

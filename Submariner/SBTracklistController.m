@@ -194,6 +194,26 @@
     [self removeTrack: sender];
 }
 
+
+- (IBAction)showSelectedInFinder:(in)sender {
+    NSInteger selectedRow = [playlistTableView selectedRow];
+    
+    if(selectedRow == -1) {
+        return;
+    }
+    
+    [self showTracksInFinder: [[SBPlayer sharedInstance] playlist] selectedIndices: playlistTableView.selectedRowIndexes];
+}
+
+
+- (IBAction)downloadSelected:(id)sender {
+    NSInteger selectedRow = [playlistTableView selectedRow];
+    
+    if(selectedRow != -1) {
+        [self downloadTracks: [[SBPlayer sharedInstance] playlist] selectedIndices: playlistTableView.selectedRowIndexes databaseController: databaseController];
+    }
+}
+
 #pragma mark -
 #pragma mark Player Notifications
 
@@ -360,7 +380,9 @@
     SEL action = item.action;
     
     BOOL tracksSelected = playlistTableView.selectedRow != -1;
-    if (action == @selector(delete:)) {
+    if (action == @selector(delete:)
+        || action == @selector(showSelectedInFinder:)
+        || action == @selector(downloadSelected:)) {
         return tracksSelected;
     }
     

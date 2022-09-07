@@ -366,12 +366,11 @@
 - (IBAction)showTrackInFinder:(in)sender {
     NSInteger selectedRow = [tracksTableView selectedRow];
     
-    if(selectedRow != -1) {
-        SBTrack *track = [[tracksController arrangedObjects] objectAtIndex:selectedRow];
-        if(track != nil) {
-            [[NSWorkspace sharedWorkspace] selectFile:track.path inFileViewerRootedAtPath:@""];
-        }
+    if(selectedRow == -1) {
+        return;
     }
+    
+    [self showTracksInFinder: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes];
 }
 
 

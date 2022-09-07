@@ -348,19 +348,22 @@
 }
 
 
+- (IBAction)showSelectedInFinder:(in)sender {
+    NSInteger selectedRow = [tracksTableView selectedRow];
+    
+    if(selectedRow == -1) {
+        return;
+    }
+    
+    [self showTracksInFinder: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes];
+}
+
+
 - (IBAction)downloadTrack:(id)sender {
     NSInteger selectedRow = [tracksTableView selectedRow];
     
     if(selectedRow != -1) {
-        SBTrack *track = [[tracksController arrangedObjects] objectAtIndex:selectedRow];
-        if(track != nil) {
-			[databaseController showDownloadView];
-			
-            SBSubsonicDownloadOperation *op = [[SBSubsonicDownloadOperation alloc] initWithManagedObjectContext:self.managedObjectContext];
-            [op setTrackID:[track objectID]];
-            
-            [[NSOperationQueue sharedDownloadQueue] addOperation:op];
-        }
+        [self downloadTracks: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes databaseController: databaseController];
     }
 }
 
@@ -691,7 +694,8 @@
         return (albumSelected > 0 || tracksSelected > 0) && (albumsActive || tracksActive);
     }
     
-    if (action == @selector(createNewPlaylistWithSelectedTracks:)) {
+    if (action == @selector(createNewPlaylistWithSelectedTracks:)
+        || action == @selector(showSelectedInFinder:)) {
         return tracksSelected > 0 && tracksActive;
     }
 

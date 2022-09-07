@@ -38,8 +38,6 @@
 #import "SBTrack.h"
 #import "SBPlayer.h"
 #import "SBPlaylist.h"
-#import "SBSubsonicDownloadOperation.h"
-#import "NSOperationQueue+Shared.h"
 
 
 @implementation SBPlaylistController
@@ -184,34 +182,7 @@
         return;
     }
     
-    NSIndexSet *indexSet = [tracksTableView selectedRowIndexes];
-    NSMutableArray *tracks = [NSMutableArray array];
-    
-    __block NSInteger remoteOnly = 0;
-    [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        SBTrack *track = [[tracksController arrangedObjects] objectAtIndex:idx];
-        // handle remote but cached tracks
-        if (track.localTrack != nil) {
-            track = track.localTrack;
-        } else if (track.isLocalValue == NO) {
-            remoteOnly++;
-            return;
-        }
-        NSURL *trackURL = [NSURL fileURLWithPath: track.path];
-        [tracks addObject: trackURL];
-    }];
-    
-    if ([tracks count] > 0) {
-        [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs: tracks];
-    }
-    if (remoteOnly > 0) {
-        NSAlert *oops = [[NSAlert alloc] init];
-        oops.messageText = @"Some tracks couldn't be shown in Finder";
-        oops.informativeText = @"If the remote track isn't cached, it only exists on the server, and not the filesystem.";
-        oops.alertStyle = NSAlertStyleInformational;
-        [oops addButtonWithTitle: @"OK"];
-        [oops beginSheetModalForWindow: self.view.window completionHandler: ^(NSModalResponse response) {}];
-    }
+    [self showTracksInFinder: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes];
 }
 
 
@@ -219,16 +190,7 @@
     NSInteger selectedRow = [tracksTableView selectedRow];
     
     if(selectedRow != -1) {
-        SBTrack *track = [[tracksController arrangedObjects] objectAtIndex:selectedRow];
-        if(track != nil) {
-            // XXX
-            //[databaseController showDownloadView];
-            
-            SBSubsonicDownloadOperation *op = [[SBSubsonicDownloadOperation alloc] initWithManagedObjectContext:self.managedObjectContext];
-            [op setTrackID:[track objectID]];
-            
-            [[NSOperationQueue sharedDownloadQueue] addOperation:op];
-        }
+        [self downloadTracks: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes databaseController: nil];
     }
 }
 

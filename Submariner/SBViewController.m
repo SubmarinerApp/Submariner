@@ -34,6 +34,10 @@
 
 #import "SBViewController.h"
 
+#import "SBDatabaseController.h"
+#import "SBTrack.h"
+#import "SBSubsonicDownloadOperation.h"
+#import "NSOperationQueue+Shared.h"
 
 @implementation SBViewController
 
@@ -59,6 +63,59 @@
         managedObjectContext = context;
     }
     return self;
+}
+
+
+#pragma mark -
+#pragma mark Library View Helper Functions
+
+-(void)showTracksInFinder:(NSArray*)trackList selectedIndices:(NSIndexSet*)indexSet
+{
+    NSMutableArray *tracks = [NSMutableArray array];
+    
+    __block NSInteger remoteOnly = 0;
+    [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        SBTrack *track = [trackList objectAtIndex:idx];
+        // handle remote but cached tracks
+        if (track.localTrack != nil) {
+            track = track.localTrack;
+        } else if (track.isLocalValue == NO) {
+            remoteOnly++;
+            return;
+        }
+        NSURL *trackURL = [NSURL fileURLWithPath: track.path];
+        [tracks addObject: trackURL];
+    }];
+    
+    if ([tracks count] > 0) {
+        [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs: tracks];
+    }
+    if (remoteOnly > 0) {
+        NSAlert *oops = [[NSAlert alloc] init];
+        oops.messageText = @"Some tracks couldn't be shown in Finder";
+        oops.informativeText = @"If the remote track isn't cached, it only exists on the server, and not the filesystem.";
+        oops.alertStyle = NSAlertStyleInformational;
+        [oops addButtonWithTitle: @"OK"];
+        [oops beginSheetModalForWindow: self.view.window completionHandler: ^(NSModalResponse response) {}];
+    }
+}
+
+-(void)downloadTracks:(NSArray*)trackList selectedIndices:(NSIndexSet*)indexSet databaseController:(SBDatabaseController*)databaseController
+{
+    __block NSInteger downloaded = 0;
+    [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        SBTrack *track = [trackList objectAtIndex:idx];
+        // XXX: Check if we've already downloaded this track.
+        
+        SBSubsonicDownloadOperation *op = [[SBSubsonicDownloadOperation alloc] initWithManagedObjectContext:self.managedObjectContext];
+        [op setTrackID:[track objectID]];
+        
+        [[NSOperationQueue sharedDownloadQueue] addOperation:op];
+        downloaded++;
+    }];
+    if (databaseController != nil && downloaded > 0) {
+        [databaseController showDownloadView];
+    }
 }
 
 
