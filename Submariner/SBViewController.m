@@ -105,7 +105,10 @@
     __block NSInteger downloaded = 0;
     [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         SBTrack *track = [trackList objectAtIndex:idx];
-        // XXX: Check if we've already downloaded this track.
+        // Check if we've already downloaded this track.
+        if (track.localTrack != nil || track.isLocalValue == YES) {
+            return;
+        }
         
         SBSubsonicDownloadOperation *op = [[SBSubsonicDownloadOperation alloc] initWithManagedObjectContext:self.managedObjectContext];
         [op setTrackID:[track objectID]];
