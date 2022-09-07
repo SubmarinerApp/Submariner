@@ -63,4 +63,7 @@
 - (IBAction)downloadTrack:(id)sender;
 - (IBAction)downloadAlbum:(id)sender;
 
+
+- (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item;
+
 @end

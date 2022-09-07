@@ -213,6 +213,16 @@
     }
 }
 
+
+- (IBAction)playSelected:(id)sender {
+    NSResponder *responder = self.databaseController.window.firstResponder;
+    if (responder == tracksTableView) {
+        [self trackDoubleClick: self];
+    } else if (responder == albumsBrowserView) {
+        [self albumDoubleClick: self];
+    }
+}
+
 - (IBAction)addAlbumToTracklist:(id)sender {
     NSIndexSet *indexSet = [albumsBrowserView selectionIndexes];
     NSInteger selectedRow = [indexSet firstIndex];
@@ -226,13 +236,23 @@
 
 - (IBAction)addTrackToTracklist:(id)sender {
     NSIndexSet *indexSet = [tracksTableView selectedRowIndexes];
-    __weak NSMutableArray *tracks = [NSMutableArray array];
+    NSMutableArray *tracks = [NSMutableArray array];
     
     [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         [tracks addObject:[[tracksController arrangedObjects] objectAtIndex:idx]];
     }];
     
     [[SBPlayer sharedInstance] addTrackArray:tracks replace:NO];
+}
+
+
+- (IBAction)addSelectedToTracklist:(id)sender {
+    NSResponder *responder = self.databaseController.window.firstResponder;
+    if (responder == tracksTableView) {
+        [self addTrackToTracklist: self];
+    } else if (responder == albumsBrowserView) {
+        [self addAlbumToTracklist: self];
+    }
 }
 
 
@@ -255,15 +275,7 @@
     NSInteger selectedRow = [tracksTableView selectedRow];
     
     if(selectedRow != -1) {
-        SBTrack *track = [[tracksController arrangedObjects] objectAtIndex:selectedRow];
-        if(track != nil) {
-			[databaseController showDownloadView];
-			
-            SBSubsonicDownloadOperation *op = [[SBSubsonicDownloadOperation alloc] initWithManagedObjectContext:self.managedObjectContext];
-            [op setTrackID:[track objectID]];
-            
-            [[NSOperationQueue sharedDownloadQueue] addOperation:op];
-        }
+        [self downloadTracks: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes databaseController: databaseController];
     }
 }
 
@@ -288,6 +300,27 @@
             }
         }
     }
+}
+
+
+- (IBAction)downloadSelected:(id)sender {
+    NSResponder *responder = self.databaseController.window.firstResponder;
+    if (responder == tracksTableView) {
+        [self downloadTrack: self];
+    } else if (responder == albumsBrowserView) {
+        [self downloadAlbum: self];
+    }
+}
+
+
+- (IBAction)showSelectedInFinder:(in)sender {
+    NSInteger selectedRow = [tracksTableView selectedRow];
+    
+    if(selectedRow == -1) {
+        return;
+    }
+    
+    [self showTracksInFinder: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes];
 }
 
 
@@ -573,6 +606,35 @@
     } else if([identifier isEqualToString:@"RecentItem"]) {
         [self.server getAlbumListForType:SBSubsonicRequestGetAlbumListRecent];
     }   
+}
+
+
+
+#pragma mark -
+#pragma mark UI Validator
+
+- (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item {
+    SEL action = [item action];
+    
+    NSInteger albumSelected = albumsBrowserView.selectionIndexes.count;
+    NSInteger tracksSelected = tracksTableView.selectedRowIndexes.count;
+    
+    NSResponder *responder = self.databaseController.window.firstResponder;
+    BOOL tracksActive = responder == tracksTableView;
+    BOOL albumsActive = responder == albumsBrowserView;
+    
+    if (action == @selector(downloadSelected:)
+        || action == @selector(addSelectedToTracklist:)
+        || action == @selector(playSelected:)) {
+        return (albumSelected > 0 || tracksSelected > 0) && (albumsActive || tracksActive);
+    }
+    
+    if (action == @selector(createNewPlaylistWithSelectedTracks:)
+        || action == @selector(showSelectedInFinder:)) {
+        return tracksSelected > 0 && tracksActive;
+    }
+
+    return YES;
 }
 
 
