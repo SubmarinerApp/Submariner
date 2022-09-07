@@ -901,6 +901,10 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"enableCacheStreaming"] == YES)
     {
+        // Check if we've already downloaded this track.
+        if (self.currentTrack.localTrack != nil || self.currentTrack.isLocalValue == YES) {
+            return;
+        }
         // AVAssetExportSession doesn't work on remote files, download the stream ourself
         // XXX: Should we use the transcode type? The download URL?
         NSString *contentType = [self currentTrack].contentType;
