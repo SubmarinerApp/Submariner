@@ -44,15 +44,11 @@ extern NSString *SBSubsonicDownloadFinished;
 @class SBLibraryID;
 @class SBOperationActivity;
 
-@interface SBSubsonicDownloadOperation : SBOperation {
+@interface SBSubsonicDownloadOperation : SBOperation <NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDownloadDelegate> {
     SBTrackID *trackID;
     SBLibraryID *libraryID;
     
     SBOperationActivity *activity;
-    NSString *tmpDestinationPath;
-    NSURLResponse *downloadResponse;
-    
-    NSInteger bytesReceived;
 }
 
 @property (strong, readwrite) SBOperationActivity * activity;

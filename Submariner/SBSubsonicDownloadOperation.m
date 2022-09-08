@@ -114,11 +114,10 @@ NSString *SBSubsonicDownloadFinished    = @"SBSubsonicDownloadFinished";
         [track.server getBaseParameters: parameters];
         [parameters setValue:track.id forKey:@"id"];
         
+        // XXX: Stream URL?
         NSURL *url = [NSURL URLWithString:track.server.url command:@"rest/download.view" parameters:parameters];
-   
-        // Hey !!! NSURLDownload seems to not working in a separated thread !?
-        // Ok, so call it on the main thread, weird...
-        [self performSelectorOnMainThread:@selector(startDownloadingURL:) withObject:url waitUntilDone:YES];
+        // No more issues calling this outside of main, I bet
+        [self startDownloadingURL: url];
     
     }
 }
@@ -133,39 +132,26 @@ NSString *SBSubsonicDownloadFinished    = @"SBSubsonicDownloadFinished";
                                             timeoutInterval:30.0];
     
     // Create the connection with the request and start loading the data.
-    NSURLDownload  *theDownload = [[NSURLDownload alloc] initWithRequest:theRequest delegate:self];
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration delegate: self delegateQueue: nil];
+    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest: theRequest];
 
-    if (!theDownload) {
-        // inform the user that the download failed.
-        NSLog(@"ERROR : Download failed.");
-    }
-}
+    // This was on the delegate for the old NSURLDownload begin
+    [self.activity setIndeterminated:NO];
+    [self.activity setOperationInfo:@"Downloading Track..."];
 
-
-
-#pragma mark -
-#pragma mark NSURLDownload delegate (Destination)
-
-- (void)download:(NSURLDownload *)download decideDestinationWithSuggestedFilename:(NSString *)filename
-{    
-    // get a temporaty path
-    NSURL *tempURL = [NSURL temporaryFileURL];
-    tmpDestinationPath = [[tempURL absoluteString] stringByAppendingPathExtension:@"mp3"];
-        
-    [download setDestination:tmpDestinationPath allowOverwrite:NO];
+    [task resume];
 }
 
 
 
 
 #pragma mark -
-#pragma mark NSURLDownload delegate (Authentification)
+#pragma mark NSURLSession delegate (Authentification)
 
-- (BOOL)download:(NSURLDownload *)download canAuthenticateAgainstProtectionSpace:(NSURLProtectionSpace *)protectionSpace {
-    return YES;
-}
-
--(void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+// we don't need to implement the one without task:
+-(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition, NSURLCredential * _Nullable))completionHandler {
+    // XXX: Check the authentication type if it's NSURLAuthenticationMethodHTTPBasic or NSURLAuthenticationMethodServerTrust
     if ([challenge previousFailureCount] == 0) {
         
         SBTrack *track = (SBTrack *)[[self threadedContext] objectWithID:trackID];
@@ -175,46 +161,47 @@ NSString *SBSubsonicDownloadFinished    = @"SBSubsonicDownloadFinished";
                                                    password:track.server.password
                                                 persistence:NSURLCredentialPersistenceNone];
         
-        [[challenge sender] useCredential:newCredential
-               forAuthenticationChallenge:challenge];
+        //[[challenge sender] useCredential:newCredential
+        //       forAuthenticationChallenge:challenge];
+        completionHandler(NSURLSessionAuthChallengeUseCredential, newCredential);
         
     } else {
-        [[challenge sender] cancelAuthenticationChallenge:challenge];
+        // XXX: Better handling here?
+        //[[challenge sender] cancelAuthenticationChallenge:challenge];
+        completionHandler(NSURLSessionAuthChallengeCancelAuthenticationChallenge, nil);
     }
 }
 
 
-
-
 #pragma mark -
-#pragma mark NSURLDownload delegate (State)
+#pragma mark NSURLSession delegate (State)
 
-- (void)downloadDidBegin:(NSURLDownload *)download {
-    
-    [self.activity setIndeterminated:NO];
-    [self.activity setOperationInfo:@"Downloading Track..."];
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
+    // we handle success in the didFinishDownloadingToURL callback
+    if (error != nil) {
+        NSLog(@"Error in NSURLSession: %@", error);
+        [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
+        [self finish];
+        [session invalidateAndCancel];
+    }
 }
 
-
-- (void)download:(NSURLDownload *)download didFailWithError:(NSError *)error
-{    
-    // Release the connection.
-    
-    // Inform the user.
-    [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
-    [self finish];
-}
-
-- (void)downloadDidFinish:(NSURLDownload *)download
-{    
-    // Release the connection.
-
+- (void)URLSession:(nonnull NSURLSession *)session downloadTask:(nonnull NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(nonnull NSURL *)location {
     // Do something with the data.
     [self.activity setOperationInfo:@"Importing Track..."];
+    
+    // We need to give it an audio extension, even if it isn't MP3.
+    NSURL *tempURL = [[NSURL temporaryFileURL] URLByAppendingPathExtension: @"mp3"];
+    NSString *path = [tempURL absoluteString];
+    NSError *moveError = nil;
+    [[NSFileManager defaultManager] moveItemAtPath:location.path toPath:path error:&moveError];
+    if (moveError) {
+        NSLog(@"Error moving %@ to %@: %@", location.path, path, moveError);
+    }
         
     // 3. import to library on write endx
     SBImportOperation *op = [[SBImportOperation alloc] initWithManagedObjectContext:[self mainContext]];
-    [op setFilePaths:[NSArray arrayWithObject:tmpDestinationPath]];
+    [op setFilePaths:[NSArray arrayWithObject: path]];
     [op setLibraryID:libraryID];
     [op setRemoteTrackID:trackID];
     [op setCopy:YES];
@@ -223,52 +210,32 @@ NSString *SBSubsonicDownloadFinished    = @"SBSubsonicDownloadFinished";
     [[NSOperationQueue sharedDownloadQueue] addOperation:op];
     
     [self finish];
+    [session invalidateAndCancel];
 }
-
 
 
 #pragma mark -
-#pragma mark NSURLDownload delegate (Progress)
+#pragma mark NSURLSession delegate (Progress)
 
-- (void)setDownloadResponse:(NSURLResponse *)aDownloadResponse
-{
+- (void)URLSession:(nonnull NSURLSession *)session downloadTask:(nonnull NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
     
-    long long expectedLength = [downloadResponse expectedContentLength];
-    [self.activity setOperationTotal:[NSNumber numberWithLongLong:expectedLength]];
+    [self.activity setOperationCurrent:[NSNumber numberWithLongLong:totalBytesWritten]];
+    [self.activity setOperationTotal:[NSNumber numberWithLongLong:totalBytesExpectedToWrite]];
     
-    // downloadResponse is an instance variable defined elsewhere.
-    downloadResponse = aDownloadResponse;
-}
-
-- (void)download:(NSURLDownload *)download didReceiveResponse:(NSURLResponse *)response
-{
-    // Reset the progress, this might be called multiple times.
-    // bytesReceived is an instance variable defined elsewhere.
-    bytesReceived = 0;
-    
-    // Retain the response to use later.
-    [self setDownloadResponse:response];
-}
-
-- (void)download:(NSURLDownload *)download didReceiveDataOfLength:(unsigned)length
-{
-    long long expectedLength = [downloadResponse expectedContentLength];    
-    bytesReceived = bytesReceived + length;
-    
-    [self.activity setOperationCurrent:[NSNumber numberWithLongLong:bytesReceived]];
-    
-    NSString *sizeProgress = [NSString stringWithFormat:@"%.2f/%.2f MB", (float)bytesReceived/1024/1024, (float)expectedLength/1024/1024];
-    [self.activity setOperationInfo:sizeProgress];
-    
-    if (expectedLength != NSURLResponseUnknownLength) {
+    if (totalBytesExpectedToWrite != NSURLSessionTransferSizeUnknown) {
+        
+        NSString *sizeProgress = [NSString stringWithFormat:@"%.2f/%.2f MB", (float)totalBytesWritten/1024/1024, (float)totalBytesExpectedToWrite/1024/1024];
+        [self.activity setOperationInfo:sizeProgress];
         // If the expected content length is
         // available, display percent complete.
-        float percentComplete = (bytesReceived/(float)expectedLength)*100.0;
+        float percentComplete = (totalBytesExpectedToWrite/(float)totalBytesExpectedToWrite)*100.0;
         [self.activity setOperationPercent:[NSNumber numberWithFloat:percentComplete]];
 
     } else {
         // If the expected content length is
         // unknown, just log the progress.
+        NSString *sizeProgress = [NSString stringWithFormat:@"%.2f MB", (float)totalBytesWritten/1024/1024];
+        [self.activity setOperationInfo:sizeProgress];
         //NSLog(@"Bytes received - %ld", bytesReceived);
     }
 }
