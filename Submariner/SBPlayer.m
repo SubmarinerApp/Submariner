@@ -42,7 +42,7 @@
 #import "SBTrack.h"
 #import "SBServer.h"
 #import "SBLibrary.h"
-#import "SBImportOperation.h"
+#import "SBSubsonicDownloadOperation.h"
 #import "SBCover.h"
 #import "SBAlbum.h"
 
@@ -876,14 +876,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 
 
 #pragma mark -
-#pragma mark Remote Player Notification 
-
-- (NSString*)extensionForContentType: (NSString*)contentType {
-    CFStringRef fileUTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, (__bridge CFStringRef)contentType, NULL);
-    CFStringRef extension = UTTypeCopyPreferredTagWithClass(fileUTI, kUTTagClassFilenameExtension);
-    CFRelease(fileUTI);
-    return (__bridge NSString*)extension;
-}
+#pragma mark Remote Player Notification
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (object == remotePlayer && [keyPath isEqualToString:@"status"]) {
@@ -905,68 +898,11 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         if (self.currentTrack.localTrack != nil || self.currentTrack.isLocalValue == YES) {
             return;
         }
-        // AVAssetExportSession doesn't work on remote files, download the stream ourself
-        // XXX: Should we use the transcode type? The download URL?
-        NSString *contentType = [self currentTrack].contentType;
-        if (contentType == nil) {
-            // XXX: Display an alert?
-            NSLog(@"Huh, the content type is nil. Bailing, because we don't know enough");
-            return;
-        }
-        NSString *extension = [self extensionForContentType: contentType];
-        // create a cache temp file
-        NSURL *tempFileURL = [NSURL temporaryFileURL];
-        // XXX: Should have in this scope?
-        tmpLocation = [[tempFileURL absoluteString] stringByAppendingPathExtension: extension];
-        // XXX: Move to the ClientController?
-        NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL: [self currentTrack].streamURL];
-        // XXX: Seems Navidrome at least doesn't care, but prob sketch
-//        NSString *loginString = [NSString stringWithFormat: @"%@:%@", server.username, server.password];
-//        NSData *loginData = [loginString dataUsingEncoding: NSUTF8StringEncoding];
-//        NSString *base64login = [loginData base64EncodedStringWithOptions: 0];
-//        NSString *authHeader = [NSString stringWithFormat: @"Basic %@", base64login];
-//        configuration.HTTPAdditionalHeaders = @{@"Authorization": authHeader};
-        NSURLSessionDataTask *httpTask = [session dataTaskWithRequest: request completionHandler:
-                ^(NSData *data, NSURLResponse *response, NSError *error) {
-            if (error != nil) {
-                NSLog(@"Error in import stream: %@", error);
-                [NSApp presentError: error];
-                return;
-            }
-            if (response == nil) {
-                NSLog(@"No response in import stream");
-                return;
-            }
-            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-            NSInteger statusCode = [httpResponse statusCode];
-            NSLog(@"Status code is %ld", (long)statusCode);
-            if (statusCode!= 200) {
-                return;
-            }
-            // write the data to the temp file, then go for it
-            if ([[NSFileManager defaultManager] createFileAtPath: tmpLocation contents: data attributes: nil] == NO) {
-                NSLog(@"Failed to write import file %@", tmpLocation);
-                return;
-            }
-            // unsure if we can write, but we're def caching
-            isCaching = YES;
-            NSManagedObjectContext *moc = self.currentTrack.managedObjectContext;
-            SBLibrary *library = [moc fetchEntityNammed:@"Library" withPredicate:nil error:nil];
-            
-            // import audio file
-            SBImportOperation *op = [[SBImportOperation alloc] initWithManagedObjectContext:moc];
-            [op setFilePaths:[NSArray arrayWithObject:tmpLocation]];
-            [op setLibraryID:[library objectID]];
-            [op setRemoteTrackID:[self.currentTrack objectID]];
-            [op setCopy:YES];
-            [op setRemove:YES];
-            
-            [[NSOperationQueue sharedDownloadQueue] addOperation:op];
-            
-        }];
-        [httpTask resume];
+        
+        SBSubsonicDownloadOperation *op = [[SBSubsonicDownloadOperation alloc] initWithManagedObjectContext: [self.currentTrack managedObjectContext]];
+        [op setTrackID:[self.currentTrack objectID]];
+        
+        [[NSOperationQueue sharedDownloadQueue] addOperation:op];
     }
 }
 
