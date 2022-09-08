@@ -186,12 +186,24 @@ NSString *SBSubsonicDownloadFinished    = @"SBSubsonicDownloadFinished";
     }
 }
 
+- (NSString*)extensionForContentType: (NSString*)contentType {
+    CFStringRef fileUTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, (__bridge CFStringRef)contentType, NULL);
+    CFStringRef extension = UTTypeCopyPreferredTagWithClass(fileUTI, kUTTagClassFilenameExtension);
+    CFRelease(fileUTI);
+    if (extension != nil) {
+        return (__bridge NSString*)extension;
+    } else {
+        return @"mp3"; // desperate fallback, but SBImportOperation doesn't care
+    }
+}
+
 - (void)URLSession:(nonnull NSURLSession *)session downloadTask:(nonnull NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(nonnull NSURL *)location {
     // Do something with the data.
     [self.activity setOperationInfo:@"Importing Track..."];
     
-    // We need to give it an audio extension, even if it isn't MP3.
-    NSURL *tempURL = [[NSURL temporaryFileURL] URLByAppendingPathExtension: @"mp3"];
+    // We need to give it an audio extension.
+    NSString *mimeType = downloadTask.response.MIMEType;
+    NSURL *tempURL = [[NSURL temporaryFileURL] URLByAppendingPathExtension: [self extensionForContentType: mimeType]];
     NSString *path = [tempURL absoluteString];
     NSError *moveError = nil;
     [[NSFileManager defaultManager] moveItemAtPath:location.path toPath:path error:&moveError];
