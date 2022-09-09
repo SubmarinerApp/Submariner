@@ -353,7 +353,7 @@
 	}
 	
 	BOOL shouldAdjustPopups = (availableWidth < _totalGroupsWidthForPopups);
-	NSInteger oldFirstCollapsedGroup = _firstCollapsedGroup;
+	__block NSInteger oldFirstCollapsedGroup = _firstCollapsedGroup;
 	
 	// Work out which groups we should now check for collapsibility/expandability.
 	NSEnumerator *groupsEnumerator = nil;
@@ -422,7 +422,7 @@
 	
 	if (proceed) {
 		// Disable screen updates.
-		NSDisableScreenUpdates();
+        [NSAnimationContext runAnimationGroup: ^(NSAnimationContext *context) {
 		
 		// See how many further groups we can expand or contract.
 		float theoreticalOccupiedWidth = currentOccupiedWidth;
@@ -645,7 +645,7 @@
 		}
 		
 		// Re-enable screen updates.
-		NSEnableScreenUpdates();
+        }];
 	}
 	
 	// Take note of our width for comparison next time.
@@ -916,11 +916,11 @@
 	// First we find the appropriate group-info for the item's identifier.
 	if (identifier && groupNumber >= 0 && groupNumber < [_groups count]) {
 		NSDictionary *group = [_groups objectAtIndex:groupNumber];
-		BOOL nowSelected = selected;
-		BOOL informDelegate = YES;
+		__block BOOL nowSelected = selected;
+		__block BOOL informDelegate = YES;
 		
 		if (group) {
-			NSDisableScreenUpdates();
+            [NSAnimationContext runAnimationGroup: ^(NSAnimationContext *context) {
 			
 			// We found the group which this item belongs to. Obtain selection-mode and identifiers.
 			MGScopeBarGroupSelectionMode selMode = [[group objectForKey:GROUP_SELECTION_MODE] intValue];
@@ -953,7 +953,7 @@
 				[self updateMenuTitleForGroupAtIndex:groupNumber];
 			}
 			
-			NSEnableScreenUpdates();
+            }];
 		}
 	}
 }
