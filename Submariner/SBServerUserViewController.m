@@ -72,7 +72,7 @@
 
 
 - (NSString*)title {
-    return @"Now Playing on Server";
+    return [NSString stringWithFormat: @"Now Playing on %@", self.server.resourceName];
 }
 
 

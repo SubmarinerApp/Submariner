@@ -74,7 +74,7 @@
 
 
 - (NSString*)title {
-    return @"Albums on Server";
+    return [NSString stringWithFormat: @"Albums on %@", self.server.resourceName];
 }
 
 

@@ -58,7 +58,7 @@
 
 
 - (NSString*)title {
-    return @"Podcasts on Server";
+    return [NSString stringWithFormat: @"Podcasts on %@", self.server.resourceName];
 }
 
 

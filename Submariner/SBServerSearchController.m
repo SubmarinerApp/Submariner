@@ -57,7 +57,7 @@
 
 
 - (NSString*)title {
-    return @"Search Results on Server";
+    return [NSString stringWithFormat: @"Search Results on %@", self.server.resourceName];
 }
 
 

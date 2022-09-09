@@ -81,7 +81,7 @@
 
 
 - (NSString*)title {
-    return @"Artists on Server";
+    return [NSString stringWithFormat: @"Artists on %@", self.server.resourceName];
 }
 
 
