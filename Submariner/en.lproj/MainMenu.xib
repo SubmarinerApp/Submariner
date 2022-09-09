@@ -184,6 +184,11 @@
                                     <action selector="selectAll:" target="-1" id="232"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Select Playing Track" keyEquivalent="l" id="nRC-GF-yga">
+                                <connections>
+                                    <action selector="goToCurrentTrack:" target="494" id="pKl-tb-ruN"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
@@ -253,7 +258,7 @@
                                     <action selector="showPodcasts:" target="494" id="hjt-sE-qFb"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="QJS-St-0Uh"/>
+                            <menuItem isSeparatorItem="YES" id="AoM-Os-fEu"/>
                             <menuItem title="Search" keyEquivalent="f" id="Zla-FM-zx5">
                                 <connections>
                                     <action selector="search:" target="494" id="LyJ-ab-5mN"/>

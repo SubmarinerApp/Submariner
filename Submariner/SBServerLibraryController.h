@@ -36,6 +36,7 @@
 #import <Quartz/Quartz.h>
 #import "SBServerViewController.h"
 #import "SBTableView.h"
+#import "SBTrack.h"
 
 @class SBDatabaseController;
 @class SBPrioritySplitViewDelegate;
@@ -78,7 +79,7 @@
 - (IBAction)downloadAlbum:(id)sender;
 - (IBAction)downloadSelected:(id)sender;
 
-
+- (void)showTrackInLibrary:(SBTrack*)track;
 
 - (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item;
 

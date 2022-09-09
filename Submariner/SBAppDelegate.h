@@ -91,5 +91,6 @@
 - (IBAction)cleanTracklist:(id)sender;
 - (IBAction)reloadCurrentServer:(id)sender;
 - (IBAction)openCurrentServerHomePage:(id)sender;
+- (IBAction)goToCurrentTrack:(id)sender;
 
 @end

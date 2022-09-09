@@ -785,6 +785,25 @@
 }
 
 
+- (IBAction)goToCurrentTrack:(id)sender {
+    SBTrack *track = [SBPlayer sharedInstance].currentTrack;
+    if (track == nil) {
+        return;
+    } else if (track.isLocalValue == YES) {
+        // Is setServer appropriate here?
+        [self setServer: nil];
+        [self setCurrentViewController: musicController];
+        [musicController showTrackInLibrary: track];
+    } else {
+        [self setServer: track.server];
+        [serverLibraryController setDatabaseController:self];
+        [serverLibraryController setServer: track.server];
+        [self setCurrentViewController: serverLibraryController];
+        [serverLibraryController showTrackInLibrary: track];
+    }
+}
+
+
 
 #pragma mark -
 #pragma mark NSTimer
@@ -1646,7 +1665,8 @@
     BOOL tracklistHasItems = [[[SBPlayer sharedInstance] playlist] count] > 0;
     
     if (action == @selector(playPause:) || action == @selector(stop:)
-        || action == @selector(rewind:) || action == @selector(fastForward:)) {
+        || action == @selector(rewind:) || action == @selector(fastForward:)
+        || action == @selector(goToCurrentTrack:)) {
         return isPlaying;
     }
     if (action == @selector(cleanTracklist:)) {

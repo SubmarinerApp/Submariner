@@ -450,6 +450,13 @@
 }
 
 
+- (void)showTrackInLibrary:(SBTrack*)track {
+    [artistsController setSelectedObjects: @[track.album.artist]];
+    [albumsController setSelectedObjects: @[track.album]];
+    [tracksController setSelectedObjects: @[track]];
+}
+
+
 
 
 #pragma mark -

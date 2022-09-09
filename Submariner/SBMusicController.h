@@ -36,6 +36,7 @@
 #import <Quartz/Quartz.h>
 #import "SBViewController.h"
 #import "SBTableView.h"
+#import "SBTrack.h"
 
 
 @class SBDatabaseController;
@@ -87,6 +88,8 @@
 - (IBAction)showSelectedInFinder:(id)sender;
 
 - (IBAction)mergeArtists:(id)sender;
+
+- (void)showTrackInLibrary:(SBTrack*)track;
 
 - (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item;
 

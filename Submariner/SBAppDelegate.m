@@ -371,6 +371,10 @@
     [databaseController openCurrentServerHomePage:sender];
 }
 
+- (IBAction)goToCurrentTrack:(id)sender {
+    [databaseController goToCurrentTrack:sender];
+}
+
 
 #pragma mark -
 #pragma mark Core Data Support
