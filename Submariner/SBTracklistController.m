@@ -380,10 +380,20 @@
     SEL action = item.action;
     
     BOOL tracksSelected = playlistTableView.selectedRow != -1;
-    if (action == @selector(delete:)
-        || action == @selector(showSelectedInFinder:)
-        || action == @selector(downloadSelected:)) {
+    
+    SBSelectedRowStatus selectedTrackRowStatus = 0;
+    selectedTrackRowStatus = [self selectedRowStatus: [[SBPlayer sharedInstance] playlist] selectedIndices: playlistTableView.selectedRowIndexes];
+    
+    if (action == @selector(delete:)) {
         return tracksSelected;
+    }
+    
+    if (action == @selector(showSelectedInFinder:)) {
+        return selectedTrackRowStatus & SBSelectedRowShowableInFinder;
+    }
+    
+    if (action == @selector(downloadSelected:)) {
+        return selectedTrackRowStatus & SBSelectedRowDownloadable;
     }
     
     return true;

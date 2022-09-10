@@ -862,17 +862,25 @@
     BOOL albumsActive = responder == albumsBrowserView;
     BOOL artistsActive = responder == artistsTableView;
     
+    SBSelectedRowStatus selectedTrackRowStatus = 0;
+    if (tracksActive) {
+        selectedTrackRowStatus = [self selectedRowStatus: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes];
+    }
+    
     if (action == @selector(mergeArtists:)) {
         return artistsSelected > 1 && artistsActive;
     }
     
-    if (action == @selector(showSelectedInFinder:)
-        || action == @selector(addSelectedToTracklist:)) {
+    if (action == @selector(addSelectedToTracklist:)) {
         return artistsSelected > 0 || albumSelected > 0 || tracksSelected > 0;
     }
     
     if (action == @selector(playSelected:)) {
         return (albumSelected > 0 || tracksSelected > 0) && (albumsActive || tracksActive);
+    }
+    
+    if (action == @selector(showSelectedInFinder:)) {
+        return selectedTrackRowStatus & SBSelectedRowShowableInFinder;
     }
 
     return YES;

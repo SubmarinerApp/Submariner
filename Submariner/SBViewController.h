@@ -50,4 +50,13 @@
 -(void)showTracksInFinder:(NSArray*)trackList selectedIndices:(NSIndexSet*)indexSet;
 -(void)downloadTracks:(NSArray*)trackList selectedIndices:(NSIndexSet*)indexSet databaseController:(SBDatabaseController*)databaseController;
 
+typedef enum _SBSelectedRowStatus {
+    SBSelectedRowNone = 0,
+    /* this is a bitfield */
+    SBSelectedRowDownloadable = 1,
+    SBSelectedRowShowableInFinder = 2,
+} SBSelectedRowStatus;
+
+- (SBSelectedRowStatus) selectedRowStatus:(NSArray*)trackList selectedIndices:(NSIndexSet*)indexSet;
+
 @end

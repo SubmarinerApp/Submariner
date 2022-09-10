@@ -695,15 +695,26 @@
     BOOL albumsActive = responder == albumsBrowserView;
     BOOL artistsActive = responder == artistsTableView;
     
-    if (action == @selector(downloadSelected:)
-        || action == @selector(addSelectedToTracklist:)
+    SBSelectedRowStatus selectedTrackRowStatus = 0;
+    if (tracksActive) {
+        selectedTrackRowStatus = [self selectedRowStatus: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes];
+    }
+    
+    if (action == @selector(addSelectedToTracklist:)
         || action == @selector(playSelected:)) {
         return (albumSelected > 0 || tracksSelected > 0) && (albumsActive || tracksActive);
     }
     
-    if (action == @selector(createNewPlaylistWithSelectedTracks:)
-        || action == @selector(showSelectedInFinder:)) {
+    if (action == @selector(createNewPlaylistWithSelectedTracks:)) {
         return tracksSelected > 0 && tracksActive;
+    }
+    
+    if (action == @selector(showSelectedInFinder:)) {
+        return selectedTrackRowStatus & SBSelectedRowShowableInFinder;
+    }
+    
+    if (action == @selector(downloadSelected:)) {
+        return selectedTrackRowStatus & SBSelectedRowDownloadable;
     }
 
     return YES;

@@ -371,11 +371,20 @@
     
     NSInteger tracksSelected = tracksTableView.selectedRowIndexes.count;
     
-    if (action == @selector(downloadSelected:)
-        || action == @selector(showSelectedInFinder:)
-        || action == @selector(addSelectedToTracklist:)
+    SBSelectedRowStatus selectedTrackRowStatus = 0;
+    selectedTrackRowStatus = [self selectedRowStatus: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes];
+    
+    if (action == @selector(addSelectedToTracklist:)
         || action == @selector(playSelected:)) {
         return tracksSelected;
+    }
+    
+    if (action == @selector(showSelectedInFinder:)) {
+        return selectedTrackRowStatus & SBSelectedRowShowableInFinder;
+    }
+    
+    if (action == @selector(downloadSelected:)) {
+        return selectedTrackRowStatus & SBSelectedRowDownloadable;
     }
 
     return YES;

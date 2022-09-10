@@ -121,5 +121,24 @@
     }
 }
 
+- (SBSelectedRowStatus) selectedRowStatus:(NSArray*)trackList selectedIndices:(NSIndexSet*)indexSet
+{
+    __block NSInteger downloadable = 0, showable = 0;
+    [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        SBTrack *track = [trackList objectAtIndex:idx];
+        if (track.isLocalValue == YES || track.localTrack != nil) {
+            showable++;
+        }
+        if (track.isLocalValue == NO && track.localTrack == nil) {
+            downloadable++;
+        }
+    }];
+    SBSelectedRowStatus status = 0;
+    if (downloadable)
+        status |= SBSelectedRowDownloadable;
+    if (showable)
+        status |= SBSelectedRowShowableInFinder;
+    return status;
+}
 
 @end
