@@ -118,4 +118,56 @@
     }
 }
 
+
+- (IBAction)playSelected:(id)sender {
+    [self trackDoubleClick:sender];
+}
+
+
+- (IBAction)addSelectedToTracklist:(id)sender {
+    NSIndexSet *indexSet = [tracksTableView selectedRowIndexes];
+    NSMutableArray *tracks = [NSMutableArray array];
+    
+    [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        [tracks addObject:[[tracksController arrangedObjects] objectAtIndex:idx]];
+    }];
+    
+    [[SBPlayer sharedInstance] addTrackArray:tracks replace:NO];
+}
+
+
+- (IBAction)showSelectedInFinder:(in)sender {
+    NSInteger selectedRow = [tracksTableView selectedRow];
+    
+    if(selectedRow == -1) {
+        return;
+    }
+    
+    [self showTracksInFinder: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes];
+}
+
+
+#pragma mark -
+#pragma mark UI Validator
+
+- (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item {
+    SEL action = [item action];
+    
+    NSInteger tracksSelected = tracksTableView.selectedRowIndexes.count;
+    
+    SBSelectedRowStatus selectedTrackRowStatus = 0;
+    selectedTrackRowStatus = [self selectedRowStatus: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes];
+    
+    if (action == @selector(addSelectedToTracklist:)
+        || action == @selector(playSelected:)) {
+        return tracksSelected;
+    }
+    
+    if (action == @selector(showSelectedInFinder:)) {
+        return selectedTrackRowStatus & SBSelectedRowShowableInFinder;
+    }
+
+    return YES;
+}
+
 @end

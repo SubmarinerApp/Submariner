@@ -134,7 +134,7 @@
 
 - (IBAction)addTrackToTracklist:(id)sender {
     NSIndexSet *indexSet = [tracksTableView selectedRowIndexes];
-    __weak NSMutableArray *tracks = [NSMutableArray array];
+    NSMutableArray *tracks = [NSMutableArray array];
     
     [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         [tracks addObject:[[tracksController arrangedObjects] objectAtIndex:idx]];
@@ -147,14 +147,34 @@
     NSInteger selectedRow = [tracksTableView selectedRow];
     
     if(selectedRow != -1) {
-        SBTrack *track = [[tracksController arrangedObjects] objectAtIndex:selectedRow];
-        if(track != nil) {
-            SBSubsonicDownloadOperation *op = [[SBSubsonicDownloadOperation alloc] initWithManagedObjectContext:self.managedObjectContext];
-            [op setTrackID:(SBTrackID *)[track objectID]];
-            
-            [[NSOperationQueue sharedDownloadQueue] addOperation:op];
-        }
+        [self downloadTracks: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes databaseController: nil];
     }
+}
+
+
+- (IBAction)playSelected:(id)sender {
+    [self trackDoubleClick:sender];
+}
+
+
+- (IBAction)addSelectedToTracklist:(id)sender {
+    [self addTrackToTracklist: sender];
+}
+
+
+- (IBAction)showSelectedInFinder:(in)sender {
+    NSInteger selectedRow = [tracksTableView selectedRow];
+    
+    if(selectedRow == -1) {
+        return;
+    }
+    
+    [self showTracksInFinder: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes];
+}
+
+
+- (IBAction)downloadSelected:(id)sender {
+    [self downloadTrack: sender];
 }
 
 
@@ -234,6 +254,35 @@
 
 - (void)tableViewEnterKeyPressedNotification:(NSNotification *)notification {
     [self trackDoubleClick:self];
+}
+
+
+
+#pragma mark -
+#pragma mark UI Validator
+
+- (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item {
+    SEL action = [item action];
+    
+    NSInteger tracksSelected = tracksTableView.selectedRowIndexes.count;
+    
+    SBSelectedRowStatus selectedTrackRowStatus = 0;
+    selectedTrackRowStatus = [self selectedRowStatus: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes];
+    
+    if (action == @selector(addSelectedToTracklist:)
+        || action == @selector(playSelected:)) {
+        return tracksSelected;
+    }
+    
+    if (action == @selector(showSelectedInFinder:)) {
+        return selectedTrackRowStatus & SBSelectedRowShowableInFinder;
+    }
+    
+    if (action == @selector(downloadSelected:)) {
+        return selectedTrackRowStatus & SBSelectedRowDownloadable;
+    }
+
+    return YES;
 }
 
 
