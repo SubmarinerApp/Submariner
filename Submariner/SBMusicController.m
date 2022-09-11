@@ -364,13 +364,16 @@
 
 
 - (IBAction)showArtistInFinder:(in)sender {
-    NSInteger selectedRow = [artistsTableView selectedRow];
+    NSMutableArray *urls = [NSMutableArray array];
     
-    if(selectedRow != -1) {
-        SBArtist *artist = [[artistsController arrangedObjects] objectAtIndex:selectedRow];
-        if(artist != nil && artist.path != nil && ![artist.path isEqualToString:@""]) {
-            [[NSWorkspace sharedWorkspace] selectFile:artist.path inFileViewerRootedAtPath:@""];
-        }
+    [artistsTableView.selectedRowIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+        SBArtist *artist = [[artistsController arrangedObjects] objectAtIndex:idx];
+        NSURL *trackURL = [NSURL fileURLWithPath: artist.path];
+        [urls addObject: trackURL];
+    }];
+    
+    if ([urls count] > 0) {
+        [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs: urls];
     }
 }
 
