@@ -418,19 +418,25 @@
 
 - (void)showTrackInLibrary:(SBTrack*)track {
     [artistsController setSelectedObjects: @[track.album.artist]];
+    [artistsTableView scrollRowToVisible: [artistsTableView selectedRow]];
     [albumsController setSelectedObjects: @[track.album]];
+    [artistsTableView scrollRowToVisible: [artistsTableView selectedRow]];
     [tracksController setSelectedObjects: @[track]];
+    [tracksTableView scrollRowToVisible: [tracksTableView selectedRow]];
 }
 
 
 - (void)showAlbumInLibrary:(SBAlbum*)album {
     [artistsController setSelectedObjects: @[album.artist]];
+    [artistsTableView scrollRowToVisible: [artistsTableView selectedRow]];
     [albumsController setSelectedObjects: @[album]];
+    [artistsTableView scrollRowToVisible: [artistsTableView selectedRow]];
 }
 
 
 - (void)showArtistInLibrary:(SBArtist*)artist {
     [artistsController setSelectedObjects: @[artist]];
+    [artistsTableView scrollRowToVisible: [artistsTableView selectedRow]];
 }
 
 

@@ -479,8 +479,11 @@
 
 - (void)showTrackInLibrary:(SBTrack*)track {
     [artistsController setSelectedObjects: @[track.album.artist]];
+    [artistsTableView scrollRowToVisible: [artistsTableView selectedRow]];
     [albumsController setSelectedObjects: @[track.album]];
+    [albumsBrowserView scrollIndexToVisible: [[albumsBrowserView selectionIndexes] firstIndex]];
     [tracksController setSelectedObjects: @[track]];
+    [tracksTableView scrollRowToVisible: [tracksTableView selectedRow]];
 }
 
 
@@ -499,12 +502,15 @@
                           context:(void*)CFBridgingRetain(album)];
     }
     [artistsController setSelectedObjects: @[album.artist]];
+    [artistsTableView scrollRowToVisible: [artistsTableView selectedRow]];
     [albumsController setSelectedObjects: @[album]];
+    [albumsBrowserView scrollIndexToVisible: [[albumsBrowserView selectionIndexes] firstIndex]];
 }
 
 
 - (void)showArtistInLibrary:(SBArtist*)artist {
     [artistsController setSelectedObjects: @[artist]];
+    [artistsTableView scrollRowToVisible: [artistsTableView selectedRow]];
 }
 
 
