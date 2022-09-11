@@ -910,11 +910,6 @@
     BOOL albumsActive = responder == albumsBrowserView;
     BOOL artistsActive = responder == artistsTableView;
     
-    SBSelectedRowStatus selectedTrackRowStatus = 0;
-    if (tracksActive) {
-        selectedTrackRowStatus = [self selectedRowStatus: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes];
-    }
-    
     if (action == @selector(mergeArtists:)) {
         return artistsSelected > 1 && artistsActive;
     }
@@ -928,7 +923,7 @@
     }
     
     if (action == @selector(showSelectedInFinder:)) {
-        return selectedTrackRowStatus & SBSelectedRowShowableInFinder;
+        return artistsActive > 0 || albumSelected > 0 || tracksSelected > 0;
     }
 
     return YES;
