@@ -152,6 +152,14 @@
             NSString *urlString = album.objectID.URIRepresentation.absoluteString;
             [[NSUserDefaults standardUserDefaults] setObject: urlString forKey: @"LastViewedResource"];
         }
+    } else if (object == artistsController && [keyPath isEqualToString:@"content"]) {
+        // see reasoning in showAlbumInLibrary
+        [artistsController removeObserver: self forKeyPath: @"content"];
+        SBAlbum *album = (SBAlbum*)CFBridgingRelease(context);
+        // avoid a loop, but do release the refcount we have on a transfer
+        if (((NSArray*)artistsController.content).count > 0) {
+            [self showAlbumInLibrary: album];
+        }
     }
 }
 
@@ -474,6 +482,19 @@
 
 
 - (void)showAlbumInLibrary:(SBAlbum*)album {
+    // HACK: We're called when the content of the controller is empty.
+    // As such, we can't set it until it's loaded.
+    // For some reason, the server library controller is loaded early enough.
+    // I'm guessing that's because the bindings in the nib set content explicitly,
+    // whereas here it's implied through the MOC.
+    // This means we'll just post a notification to set it again until it's ready.
+    if (artistsController.content == nil  || ((NSArray*)artistsController.content).count < 1) {
+        // The observer means we'll have to transfer ownership in ARC. Ugly.
+        [artistsController addObserver:self
+                          forKeyPath:@"content"
+                          options:NSKeyValueObservingOptionNew
+                          context:(void*)CFBridgingRetain(album)];
+    }
     [artistsController setSelectedObjects: @[album.artist]];
     [albumsController setSelectedObjects: @[album]];
 }
