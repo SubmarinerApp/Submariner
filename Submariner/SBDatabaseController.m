@@ -1076,7 +1076,7 @@
 
 - (void)displayViewControllerForResource:(SBResource *)resource {
     // NSURLs dont go to plists
-    if (![resource isKindOfClass: [SBResource class]]) {
+    if (!([resource isKindOfClass: [SBResource class]] || [resource isKindOfClass: [SBMusicItem class]])) {
         NSLog(@"Hey, \"%@\" isn't a resource", resource);
         return;
     }
@@ -1135,6 +1135,28 @@
         }
         [searchToolbarItem setEnabled: YES];
         [searchField setPlaceholderString: @"Server Search"];
+    } else if([resource isKindOfClass:[SBAlbum class]]) {
+        SBAlbum *album = (SBAlbum*)resource;
+        // take advantage of existing logic
+        if (album.artist.server != nil) {
+            [self switchToResource: album.artist.server];
+            [serverLibraryController showAlbumInLibrary: album];
+            // XXX: Make sure we're on the right controller?
+        } else {
+            SBLibrary *library = (SBLibrary *)[self.managedObjectContext fetchEntityNammed:@"Library" withPredicate:nil error:nil];
+            [self switchToResource: library];
+            [musicController showAlbumInLibrary: album];
+        }
+    } else if([resource isKindOfClass:[SBArtist class]]) {
+        SBArtist *artist = (SBArtist*)resource;
+        if (artist.server != nil) {
+            [self switchToResource: artist.server];
+            [serverLibraryController showArtistInLibrary: artist];
+        } else {
+            SBLibrary *library = (SBLibrary *)[self.managedObjectContext fetchEntityNammed:@"Library" withPredicate:nil error:nil];
+            [self switchToResource: library];
+            [musicController showArtistInLibrary: artist];
+        }
     }
 }
 

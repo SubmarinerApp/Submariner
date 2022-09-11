@@ -116,8 +116,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:SBSubsonicCoversUpdatedNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:SBSubsonicTracksUpdatedNotification object:nil];
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"coverSize"];
-    
-    
+    [albumsController removeObserver:self forKeyPath:@"selectedObjects"];
 }
 
 - (void)loadView {
@@ -156,6 +155,12 @@
                                              selector:@selector(subsonicTracksUpdatedNotification:) 
                                                  name:SBSubsonicTracksUpdatedNotification
                                                object:nil];
+    
+    // Observe album for saving. Artist isn't observed because it triggers after for some reason.
+    [albumsController addObserver:self
+                      forKeyPath:@"selectedObjects"
+                      options:NSKeyValueObservingOptionNew
+                      context:nil];
 }
 
 
@@ -167,6 +172,15 @@
     if(object == [NSUserDefaults standardUserDefaults] && [keyPath isEqualToString:@"coverSize"]) {
         [albumsBrowserView setZoomValue:[[NSUserDefaults standardUserDefaults] floatForKey:@"coverSize"]];
         [albumsBrowserView setNeedsDisplay:YES];
+    } else if (object == albumsController && [keyPath isEqualToString:@"selectedObjects"]) {
+        SBAlbum *album = albumsController.selectedObjects.firstObject;
+        if (album == nil) {
+            NSLog(@"Hey: no selection");
+        } else {
+            NSLog(@"Hey: %@", album.itemName);
+            NSString *urlString = album.objectID.URIRepresentation.absoluteString;
+            [[NSUserDefaults standardUserDefaults] setObject: urlString forKey: @"LastViewedResource"];
+        }
     }
 }
 
@@ -406,6 +420,17 @@
     [artistsController setSelectedObjects: @[track.album.artist]];
     [albumsController setSelectedObjects: @[track.album]];
     [tracksController setSelectedObjects: @[track]];
+}
+
+
+- (void)showAlbumInLibrary:(SBAlbum*)album {
+    [artistsController setSelectedObjects: @[album.artist]];
+    [albumsController setSelectedObjects: @[album]];
+}
+
+
+- (void)showArtistInLibrary:(SBArtist*)artist {
+    [artistsController setSelectedObjects: @[artist]];
 }
 
 

@@ -37,6 +37,7 @@
 #import "SBServerViewController.h"
 #import "SBTableView.h"
 #import "SBTrack.h"
+#import "SBArtist.h"
 
 @class SBDatabaseController;
 @class SBPrioritySplitViewDelegate;
@@ -80,6 +81,8 @@
 - (IBAction)downloadSelected:(id)sender;
 
 - (void)showTrackInLibrary:(SBTrack*)track;
+- (void)showAlbumInLibrary:(SBAlbum*)album;
+- (void)showArtistInLibrary:(SBArtist*)artist;
 
 - (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item;
 
