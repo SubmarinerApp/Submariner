@@ -145,10 +145,7 @@
         [albumsBrowserView setNeedsDisplay:YES];
     } else if (object == albumsController && [keyPath isEqualToString:@"selectedObjects"]) {
         SBAlbum *album = albumsController.selectedObjects.firstObject;
-        if (album == nil) {
-            NSLog(@"Hey: no selection");
-        } else {
-            NSLog(@"Hey: %@", album.itemName);
+        if (album != nil) {
             NSString *urlString = album.objectID.URIRepresentation.absoluteString;
             [[NSUserDefaults standardUserDefaults] setObject: urlString forKey: @"LastViewedResource"];
         }
