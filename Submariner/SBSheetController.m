@@ -53,7 +53,7 @@
 - (IBAction)openSheet:(id)sender
 {
 	[sheet setAlphaValue:1];
-	[NSApp beginSheet:sheet modalForWindow:parentWindow modalDelegate:nil didEndSelector:nil contextInfo:nil];
+    [parentWindow beginSheet: sheet completionHandler:^(NSModalResponse returnCode) {}];
 }
 
 - (IBAction)closeSheet:(id)sender
