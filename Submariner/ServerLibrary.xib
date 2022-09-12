@@ -237,7 +237,11 @@
                                                                         </textFieldCell>
                                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                         <connections>
-                                                                            <binding destination="144" name="value" keyPath="arrangedObjects.album.artist.itemName" id="152"/>
+                                                                            <binding destination="144" name="value" keyPath="arrangedObjects.artistName" id="wKu-Ts-Qbt">
+                                                                                <dictionary key="options">
+                                                                                    <bool key="NSConditionallySetsEditable" value="NO"/>
+                                                                                </dictionary>
+                                                                            </binding>
                                                                         </connections>
                                                                     </tableColumn>
                                                                     <tableColumn width="100" minWidth="100" maxWidth="1000" id="114">
