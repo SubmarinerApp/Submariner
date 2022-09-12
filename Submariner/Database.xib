@@ -761,7 +761,7 @@ Gw
                 <slider verticalHuggingPriority="750" id="rNC-wE-QO3">
                     <rect key="frame" x="50" y="0.0" width="181" height="28"/>
                     <autoresizingMask key="autoresizingMask"/>
-                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="eCr-CU-Ykk" customClass="RWVolumeSliderCell"/>
+                    <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="eCr-CU-Ykk"/>
                     <connections>
                         <action selector="setVolume:" target="-2" id="dQr-O0-Dud"/>
                         <binding destination="297" name="value" keyPath="values.playerVolume" id="STs-t8-Kjm">
