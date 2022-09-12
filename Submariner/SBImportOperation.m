@@ -115,7 +115,8 @@
                 NSPredicate *predicate = nil;
                 
                 NSString *titleString       = nil;
-                NSString *artistString      = nil;  
+                NSString *artistString      = nil;
+                NSString *albumArtistString = nil;
                 NSString *albumString       = nil;   
                 NSString *genreString       = nil;  
                 NSString *contentType       = nil;   
@@ -152,6 +153,10 @@
                         // get file metadata
                         titleString       = [metadata title];
                         artistString      = [metadata artist];
+                        albumArtistString = [metadata albumArtist];
+                        if (albumArtistString == nil || [albumArtistString isEqualToString: @""]) {
+                            albumArtistString = artistString;
+                        }
                         albumString       = [metadata albumTitle];
                         genreString       = [metadata genre];
                         trackNumber       = [metadata trackNumber];
@@ -167,7 +172,11 @@
                         SBTrack *remoteTrack = (SBTrack *)[[self threadedContext] objectWithID:remoteTrackID];
                         
                         titleString       = remoteTrack.itemName;
-                        artistString      = remoteTrack.artistString;
+                        artistString      = remoteTrack.artistName;
+                        albumArtistString = remoteTrack.artistString;
+                        if (albumArtistString == nil || [albumArtistString isEqualToString: @""]) {
+                            albumArtistString = artistString;
+                        }
                         albumString       = remoteTrack.albumString;
                         genreString       = remoteTrack.genre;
                         trackNumber       = remoteTrack.trackNumber;
@@ -181,16 +190,16 @@
                 }
                 
                 
-                // create artist object if needed
-                if(!artistString || [artistString isEqualToString:@""])
-                    artistString = @"Unknow Artist";
+                // create artist object if needed; using the album artist's name
+                if(!albumArtistString || [albumArtistString isEqualToString:@""])
+                    albumArtistString = @"Unknown Artist";
                 
-                predicate = [NSPredicate predicateWithFormat:@"(itemName == %@) && (server == nil)", artistString];
+                predicate = [NSPredicate predicateWithFormat:@"(itemName == %@) && (server == nil)", albumArtistString];
                 newArtist = [[self threadedContext] fetchEntityNammed:@"Artist" withPredicate:predicate error:&fetchError];
                 
                 if(newArtist == nil) {
                     newArtist = [SBArtist insertInManagedObjectContext:[self threadedContext]];
-                    [newArtist setItemName:artistString];
+                    [newArtist setItemName:albumArtistString];
                 }
                 
                 // create album if needed
@@ -233,6 +242,10 @@
                     
                     if(contentType)
                         [newTrack setContentType:contentType];
+                    
+                    // not the album artist
+                    if(artistString)
+                        [newTrack setArtistName:artistString];
                 }
                 
                 if(![newAlbum.tracks containsObject:newTrack]) {
@@ -250,7 +263,7 @@
                 
                 // treat copy
                 if(copy == YES) {
-                    artistPath = [[[SBAppDelegate sharedInstance] musicDirectory] stringByAppendingPathComponent:artistString];
+                    artistPath = [[[SBAppDelegate sharedInstance] musicDirectory] stringByAppendingPathComponent:albumArtistString];
                     albumPath = [artistPath stringByAppendingPathComponent:albumString];
                     trackPath = [albumPath stringByAppendingPathComponent:[path lastPathComponent]];
                     
@@ -272,7 +285,7 @@
 //            if (coverData) {
 //                // if file metadata contains the cover art data
 //                NSString *coverDir = [[SBAppDelegate sharedInstance] coverDirectory];
-//                NSString *artistCoverDir = [coverDir stringByAppendingPathComponent:artistString];
+//                NSString *artistCoverDir = [coverDir stringByAppendingPathComponent:albumArtistString];
 //                if(![[NSFileManager defaultManager] fileExistsAtPath:artistCoverDir]) {
 //                    [[NSFileManager defaultManager] createDirectoryAtPath:artistCoverDir withIntermediateDirectories:YES attributes:nil error:nil];
 //                }
@@ -301,7 +314,7 @@
 //                            if([fileName rangeOfString:@"back"].location == NSNotFound) {
 //                                // copy the artwork
 //                                NSString *coverDir = [[SBAppDelegate sharedInstance] coverDirectory];
-//                                NSString *artistCoverDir = [coverDir stringByAppendingPathComponent:artistString];
+//                                NSString *artistCoverDir = [coverDir stringByAppendingPathComponent:albumArtistString];
 //                                if(![[NSFileManager defaultManager] fileExistsAtPath:artistCoverDir]) {
 //                                    [[NSFileManager defaultManager] createDirectoryAtPath:artistCoverDir withIntermediateDirectories:YES attributes:nil error:nil];
 //                                }
