@@ -528,9 +528,9 @@
                 [self.managedObjectContext deleteObject:selectedTrack];
                 [self.managedObjectContext processPendingChanges];
                 [self.managedObjectContext save:nil];
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey: @"LastViewedResource"];
             }
         }
-        
     } else if(returnCode == NSAlertThirdButtonReturn) {
         // remove then delete
         NSInteger selectedRow = [tracksTableView selectedRow];
@@ -550,6 +550,7 @@
                 [self.managedObjectContext deleteObject:selectedTrack];
                 [self.managedObjectContext processPendingChanges];
                 [self.managedObjectContext save:nil];
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey: @"LastViewedResource"];
             }
         }
     }
@@ -567,6 +568,7 @@
                 [self.managedObjectContext deleteObject:selectedAlbum];
                 [self.managedObjectContext processPendingChanges];
                 [self.managedObjectContext save:nil];
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey: @"LastViewedResource"];
             }
         }
         
@@ -590,6 +592,7 @@
                 [self.managedObjectContext deleteObject:selectedAlbum];
                 [self.managedObjectContext processPendingChanges];
                 [self.managedObjectContext save:nil];
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey: @"LastViewedResource"];
             }
         }
     } 
@@ -606,6 +609,7 @@
                 [self.managedObjectContext deleteObject:selectedArtist];
                 [self.managedObjectContext processPendingChanges];
                 [self.managedObjectContext save:nil];
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey: @"LastViewedResource"];
             }
         }
         
@@ -628,6 +632,7 @@
                 [self.managedObjectContext deleteObject:selectedArtist];
                 [self.managedObjectContext processPendingChanges];
                 [self.managedObjectContext save:nil];
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey: @"LastViewedResource"];
             }
         }
     }
