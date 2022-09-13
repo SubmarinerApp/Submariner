@@ -204,7 +204,7 @@
                 
                 // create album if needed
                 if(!albumString || [albumString isEqualToString:@""]) 
-                    albumString = @"Unknow Album";
+                    albumString = @"Unknown Album";
                 
                 predicate = [NSPredicate predicateWithFormat:@"(itemName == %@) && (artist == %@)", albumString, newArtist];
                 newAlbum = [[self threadedContext] fetchEntityNammed:@"Album" withPredicate:predicate error:&fetchError];
@@ -216,7 +216,7 @@
                 
                 // create track if needed
                 if(!titleString || [titleString isEqualToString:@""]) 
-                    titleString = @"Unknow Track";
+                    titleString = @"Unknown Track";
                 
                 predicate = [NSPredicate predicateWithFormat:@"(itemName == %@) && (server == nil)", titleString];
                 newTrack = [[self threadedContext] fetchEntityNammed:@"Track" withPredicate:predicate error:&fetchError];
