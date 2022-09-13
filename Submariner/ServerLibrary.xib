@@ -237,9 +237,10 @@
                                                                         </textFieldCell>
                                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                         <connections>
-                                                                            <binding destination="144" name="value" keyPath="arrangedObjects.artistName" id="wKu-Ts-Qbt">
+                                                                            <binding destination="144" name="value" keyPath="arrangedObjects" id="73I-Ro-zLA">
                                                                                 <dictionary key="options">
                                                                                     <bool key="NSConditionallySetsEditable" value="NO"/>
+                                                                                    <string key="NSValueTransformerName">SBTrackArtistNameTransformer</string>
                                                                                 </dictionary>
                                                                             </binding>
                                                                         </connections>

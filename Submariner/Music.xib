@@ -240,7 +240,12 @@
                                                                         </textFieldCell>
                                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                         <connections>
-                                                                            <binding destination="68" name="value" keyPath="arrangedObjects.album.artist.itemName" id="80"/>
+                                                                            <binding destination="68" name="value" keyPath="arrangedObjects" id="eSs-zn-TLB">
+                                                                                <dictionary key="options">
+                                                                                    <bool key="NSConditionallySetsEditable" value="NO"/>
+                                                                                    <string key="NSValueTransformerName">SBTrackArtistNameTransformer</string>
+                                                                                </dictionary>
+                                                                            </binding>
                                                                         </connections>
                                                                     </tableColumn>
                                                                     <tableColumn width="100" minWidth="100" maxWidth="1000" id="43">
@@ -402,6 +407,7 @@
                     </button>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="139" y="126"/>
         </window>
     </objects>
 </document>

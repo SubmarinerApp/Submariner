@@ -18,6 +18,7 @@
 		3ED5BF1A2830634C000AAB70 /* SBVolumeIconTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5BF192830634C000AAB70 /* SBVolumeIconTransformer.m */; };
 		3ED5BF1D283197AE000AAB70 /* SBRepeatIconTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5BF1C283197AE000AAB70 /* SBRepeatIconTransformer.m */; };
 		3ED5BF5E283BEF4F000AAB70 /* SBRepeatModeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5BF5D283BEF4F000AAB70 /* SBRepeatModeTransformer.m */; };
+		3EFA2C8428D11B9900A1CE46 /* SBTrackArtistNameTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA2C8328D11B9900A1CE46 /* SBTrackArtistNameTransformer.m */; };
 		4C1A69BB13A6AEE10054A3EF /* SBServerUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A69B913A6AEE10054A3EF /* SBServerUserViewController.m */; };
 		4C1A69BC13A6AEE10054A3EF /* ServerUsers.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C1A69BA13A6AEE10054A3EF /* ServerUsers.xib */; };
 		4C1D411413A7BE3E002D77F3 /* online.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C1D411313A7BE3E002D77F3 /* online.png */; };
@@ -208,6 +209,8 @@
 		3ED5BF1C283197AE000AAB70 /* SBRepeatIconTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBRepeatIconTransformer.m; sourceTree = "<group>"; };
 		3ED5BF5C283BEF4F000AAB70 /* SBRepeatModeTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBRepeatModeTransformer.h; sourceTree = "<group>"; };
 		3ED5BF5D283BEF4F000AAB70 /* SBRepeatModeTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBRepeatModeTransformer.m; sourceTree = "<group>"; };
+		3EFA2C8228D11B9900A1CE46 /* SBTrackArtistNameTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBTrackArtistNameTransformer.h; sourceTree = "<group>"; };
+		3EFA2C8328D11B9900A1CE46 /* SBTrackArtistNameTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBTrackArtistNameTransformer.m; sourceTree = "<group>"; };
 		4C1A69B813A6AEE10054A3EF /* SBServerUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBServerUserViewController.h; sourceTree = "<group>"; };
 		4C1A69B913A6AEE10054A3EF /* SBServerUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBServerUserViewController.m; sourceTree = "<group>"; };
 		4C1A69BA13A6AEE10054A3EF /* ServerUsers.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerUsers.xib; sourceTree = "<group>"; };
@@ -612,6 +615,8 @@
 				3ED5BF5D283BEF4F000AAB70 /* SBRepeatModeTransformer.m */,
 				3E079FB728568EE8000A73E7 /* SBVolumeButton.h */,
 				3E079FB828568EE8000A73E7 /* SBVolumeButton.m */,
+				3EFA2C8228D11B9900A1CE46 /* SBTrackArtistNameTransformer.h */,
+				3EFA2C8328D11B9900A1CE46 /* SBTrackArtistNameTransformer.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -1071,6 +1076,7 @@
 				3ED5BF5E283BEF4F000AAB70 /* SBRepeatModeTransformer.m in Sources */,
 				4C87EE32139CE44C0064DE2E /* _SBLibrary.m in Sources */,
 				4C87EE33139CE44C0064DE2E /* _SBMusicItem.m in Sources */,
+				3EFA2C8428D11B9900A1CE46 /* SBTrackArtistNameTransformer.m in Sources */,
 				4C87EE34139CE44C0064DE2E /* _SBPlaylist.m in Sources */,
 				4C87EE35139CE44C0064DE2E /* _SBResource.m in Sources */,
 				4C87EE36139CE44C0064DE2E /* _SBSection.m in Sources */,
