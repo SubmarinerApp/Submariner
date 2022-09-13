@@ -382,7 +382,7 @@
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];
     [openPanel setCanChooseFiles:YES];
-    [openPanel allowsMultipleSelection];
+    [openPanel setAllowsMultipleSelection: YES];
 
     [super showVisualCue];
     
