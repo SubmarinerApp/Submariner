@@ -239,7 +239,7 @@
     if([[tableColumn identifier] isEqualToString:@"isPlaying"]) {
         SBTrack *track = (SBTrack *)[[[SBPlayer sharedInstance] playlist] objectAtIndex:row];
         if([[track isPlaying] boolValue]) {
-            value = [NSImage imageNamed:@"playing_white"];
+            value = [NSImage imageWithSystemSymbolName: @"speaker.fill" accessibilityDescription: @"Playing"];
         }
     }
     if([[tableColumn identifier] isEqualToString:@"title"])
@@ -253,12 +253,10 @@
     
     if([[tableColumn identifier] isEqualToString:@"online"]) {
         SBTrack *track = (SBTrack *)[[[SBPlayer sharedInstance] playlist] objectAtIndex:row];
-        if(![[track isLocal] boolValue]) {
-            if(track.localTrack != nil) {
-                value = [NSImage imageNamed:@"cached_white"];
-            } else {
-                value = [NSImage imageNamed:@"online_white"];
-            }
+        if (track.localTrack != nil || track.isLocalValue == YES) {
+            value = [NSImage imageWithSystemSymbolName: @"bolt.horizontal.fill" accessibilityDescription: @"Cached"];
+        } else {
+            value = [NSImage imageWithSystemSymbolName: @"bolt.horizontal" accessibilityDescription: @"Online"];
         }
     }
     return value;

@@ -190,7 +190,7 @@
 
 - (NSImage *)playingImage {
     if([self.isPlaying boolValue])
-        return [NSImage imageNamed:@"playing"];
+        return [NSImage imageWithSystemSymbolName: @"speaker.fill" accessibilityDescription: @"Playing"];
     
     return nil;
 }
@@ -222,15 +222,11 @@
 
 
 - (NSImage *)onlineImage {
-    if(![self.isLocal boolValue]) {
-        if (self.localTrack != nil) {
-            return [NSImage imageNamed:@"cached"];
-        } else {
-            return [NSImage imageNamed:@"online"];
-        }
+    if (self.localTrack != nil || self.isLocalValue == YES) {
+        return [NSImage imageWithSystemSymbolName: @"bolt.horizontal.fill" accessibilityDescription: @"Cached"];
+    } else {
+        return [NSImage imageWithSystemSymbolName: @"bolt.horizontal" accessibilityDescription: @"Online"];
     }
-    
-    return nil;
 }
 
 - (BOOL)isVideo {
