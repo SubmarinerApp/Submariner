@@ -1256,7 +1256,7 @@
     
     if(currentTrack != nil) {
         
-        NSString *trackInfos = [NSString stringWithFormat:@"%@ - %@", currentTrack.artistString, currentTrack.albumString];
+        NSString *trackInfos = [NSString stringWithFormat:@"%@ - %@", currentTrack.artistName ?: currentTrack.artistString, currentTrack.albumString];
         SBCover *cover = currentTrack.album.cover;
         NSImage *coverImage = nil;
         

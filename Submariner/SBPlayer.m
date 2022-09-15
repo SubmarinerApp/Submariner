@@ -200,7 +200,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         // XXX: podcasts will have different properties on SBTrack
         [songInfo setObject: [currentTrack itemName] forKey:MPMediaItemPropertyTitle];
         [songInfo setObject: [currentTrack albumString] forKey:MPMediaItemPropertyAlbumTitle];
-        [songInfo setObject: [currentTrack artistString] forKey:MPMediaItemPropertyArtist];
+        [songInfo setObject: currentTrack.artistName ?: currentTrack.artistString forKey:MPMediaItemPropertyArtist];
         NSString *genre = [currentTrack genre];
         if (genre != nil) {
             [songInfo setObject: genre forKey:MPMediaItemPropertyGenre];
@@ -319,7 +319,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     // Apple Music uses this format as well; we don't need to indicate it's a now playing thing.
     content.title = [NSString stringWithFormat: @"%@", currentTrack.itemName];
     // Use an em dash like Apple Music
-    content.body = [NSString stringWithFormat: @"%@ — %@", currentTrack.artistString, currentTrack.albumString];
+    content.body = [NSString stringWithFormat: @"%@ — %@", currentTrack.artistName ?: currentTrack.artistString, currentTrack.albumString];
     // Add a cover image, fetch from our local cache since this API won't take an NSImage
     // XXX: Fetch from SBAlbum. The cover in SBTrack is seemingly only used for requests.
     // This means there's also a bunch of empty dupe cover objects in the DB...
