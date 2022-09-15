@@ -149,14 +149,6 @@
             NSString *urlString = album.objectID.URIRepresentation.absoluteString;
             [[NSUserDefaults standardUserDefaults] setObject: urlString forKey: @"LastViewedResource"];
         }
-    } else if (object == artistsController && [keyPath isEqualToString:@"content"]) {
-        // see reasoning in showAlbumInLibrary
-        [artistsController removeObserver: self forKeyPath: @"content"];
-        SBAlbum *album = (SBAlbum*)CFBridgingRelease(context);
-        // avoid a loop, but do release the refcount we have on a transfer
-        if (((NSArray*)artistsController.content).count > 0) {
-            [self showAlbumInLibrary: album];
-        }
     }
 }
 
@@ -490,13 +482,14 @@
     // For some reason, the server library controller is loaded early enough.
     // I'm guessing that's because the bindings in the nib set content explicitly,
     // whereas here it's implied through the MOC.
-    // This means we'll just post a notification to set it again until it's ready.
-    if (artistsController.content == nil  || ((NSArray*)artistsController.content).count < 1) {
-        // The observer means we'll have to transfer ownership in ARC. Ugly.
-        [artistsController addObserver:self
-                          forKeyPath:@"content"
-                          options:NSKeyValueObservingOptionNew
-                          context:(void*)CFBridgingRetain(album)];
+    // This means we'll just keep trying until we give up.
+    // It means the first album will flash for a bit until we're ready.
+    // Avoid getting stuck in a loop. The fact it's static doesn't matter,
+    // as we only care about the initial case.
+    static int tries = 10;
+    if ((artistsController.content == nil  || ((NSArray*)artistsController.content).count < 1) && tries-- > 0) {
+        [self performSelector: @selector(showAlbumInLibrary:) withObject: album afterDelay: 0.1];
+        return;
     }
     [artistsController setSelectedObjects: @[album.artist]];
     [artistsTableView scrollRowToVisible: [artistsTableView selectedRow]];
