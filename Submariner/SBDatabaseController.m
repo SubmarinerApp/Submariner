@@ -1260,7 +1260,7 @@
         SBCover *cover = currentTrack.album.cover;
         NSImage *coverImage = nil;
         
-        if(cover && cover.imagePath) {
+        if(cover && cover.imagePath && [[NSFileManager defaultManager]fileExistsAtPath:cover.imagePath]) {
             coverImage = [[NSImage alloc] initWithContentsOfFile:cover.imagePath];
         } else {
             coverImage = [NSImage imageNamed:@"NoArtwork"];
@@ -1269,23 +1269,9 @@
         [self.window setTitle:currentTrack.itemName];
         [self.window setSubtitle:trackInfos];
         [coverImageView setImage:coverImage];
-        
-        if(![currentTrack.isLocal boolValue])
-            if(currentTrack.localTrack != nil) {
-                [onlineImageView setImage:[NSImage imageWithSystemSymbolName:@"wifi.slash" accessibilityDescription:@"Cached"]];
-            } else {
-                [onlineImageView setImage:[NSImage imageWithSystemSymbolName:@"wifi" accessibilityDescription:@"Online"]];
-            }
-        else [onlineImageView setImage:nil];
-        
-//        if(![currentTrack.isPlaying boolValue])
-//            [playPauseButton setState:NSOffState];
-//        else [playPauseButton setState:NSOnState];
-        
     } else {
         [self.window setTitle: currentViewController.title ?: @""];
         [self.window setSubtitle: @""];
-        [onlineImageView setImage:nil];
         [coverImageView setImage:[NSImage imageNamed:@"NoArtwork"]];
         [playPauseButton setState:NSControlStateValueOn];
     }
