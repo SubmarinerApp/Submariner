@@ -112,45 +112,6 @@
 #pragma mark -
 #pragma mark IBActions
 
-- (IBAction)playPause:(id)sender {
-    if([[SBPlayer sharedInstance] isPlaying] || [[SBPlayer sharedInstance] isPaused]) {
-        // player is already running
-        [[SBPlayer sharedInstance] playPause];
-    }
-}
-
-- (IBAction)nextTrack:(id)sender {
-    [[SBPlayer sharedInstance] next];
-}
-
-- (IBAction)previousTrack:(id)sender {
-    [[SBPlayer sharedInstance] previous];
-}
-
-- (IBAction)shuffle:(id)sender {
-    if([sender state] == NSControlStateValueOn) {
-        [[SBPlayer sharedInstance] setIsShuffle:YES];
-        
-    } else if([sender state] == NSControlStateValueOff) {
-        [[SBPlayer sharedInstance] setIsShuffle:YES];
-    }
-}
-
-- (IBAction)repeat:(id)sender {
-    
-    if([sender state] == NSControlStateValueOn) {
-        [[SBPlayer sharedInstance] setRepeatMode:SBPlayerRepeatAll];
-        [sender setAlternateImage:[NSImage imageNamed:@"repeat_on"]];
-    } 
-    if([sender state] == NSControlStateValueOff) {
-        [[SBPlayer sharedInstance] setRepeatMode:SBPlayerRepeatNo];
-    } 
-    if([sender state] == NSControlStateValueMixed) {
-        [[SBPlayer sharedInstance] setRepeatMode:SBPlayerRepeatOne];
-        [sender setAlternateImage:[NSImage imageNamed:@"repeat_one_on"]];
-    }
-}
-
 - (IBAction)trackDoubleClick:(id)sender {
     NSInteger selectedRow = [playlistTableView selectedRow];
     if(selectedRow != -1) {
