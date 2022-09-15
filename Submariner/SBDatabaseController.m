@@ -247,11 +247,18 @@
                                                     forKey:@"subviews"];
     [contentView setAnimations:ani];
     
+    id lastViewed = nil;
     NSString *lastViewedURLString = [[NSUserDefaults standardUserDefaults] objectForKey: @"LastViewedResource"];
     if (lastViewedURLString != nil) {
         NSURL *lastViewedURL = [NSURL URLWithString: lastViewedURLString];
-        SBResource *lastViewed = (SBResource *)[self.managedObjectContext objectWithID:[self.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation: lastViewedURL]];
-        [self switchToResource: lastViewed];
+        NSError *error = nil;
+        NSManagedObjectID *oid = [self.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation: lastViewedURL];
+        // Use this, or Core Data will happily make a fault of a non-existent object.
+        lastViewed = [self.managedObjectContext existingObjectWithID: oid error: &error];
+    }
+    if (lastViewed != nil){
+        // XXX: should make switchToResource not handle SBMusicItem
+        [self switchToResource: (SBResource*)lastViewed];
     } else {
         [self setCurrentViewController: musicController];
     }
