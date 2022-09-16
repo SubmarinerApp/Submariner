@@ -206,8 +206,14 @@
     if([[tableColumn identifier] isEqualToString:@"title"])
         value = [[[[SBPlayer sharedInstance] playlist] objectAtIndex:row] itemName];
     
-    if([[tableColumn identifier] isEqualToString:@"artist"])
-        value = [[[[SBPlayer sharedInstance] playlist] objectAtIndex:row] artistString];
+    if([[tableColumn identifier] isEqualToString:@"artist"]) {
+        SBTrack *track = [[[SBPlayer sharedInstance] playlist] objectAtIndex:row];
+        if (track.artistName == nil || [track.artistName isEqualToString: @""]) {
+            value = track.album.artist.itemName;
+        } else {
+            value = track.artistName;
+        }
+    }
     
     if([[tableColumn identifier] isEqualToString:@"duration"])
         value = [[[[SBPlayer sharedInstance] playlist] objectAtIndex:row] durationString];
