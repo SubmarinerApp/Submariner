@@ -12,14 +12,7 @@
 
 #define SCOPE_BAR_H_INSET				8.0																		// inset on left and right
 #define SCOPE_BAR_HEIGHT				25.0																	// used in -sizeToFit
-#define SCOPE_BAR_START_COLOR_GRAY		[NSColor colorWithCalibratedWhite:0.75 alpha:1.0]						// bottom color of gray gradient
-#define SCOPE_BAR_END_COLOR_GRAY		[NSColor colorWithCalibratedWhite:0.90 alpha:1.0]						// top color of gray gradient
-#define SCOPE_BAR_START_COLOR_BLUE		[NSColor colorWithCalibratedRed:0.71 green:0.75 blue:0.81 alpha:1.0]	// bottom color of blue gradient
-#define SCOPE_BAR_END_COLOR_BLUE		[NSColor colorWithCalibratedRed:0.80 green:0.82 blue:0.87 alpha:1.0]	// top color of blue gradient
-#define SCOPE_BAR_BORDER_COLOR			[NSColor colorWithCalibratedWhite:0.69 alpha:1.0]						// bottom line's color
 #define SCOPE_BAR_BORDER_WIDTH			1.0																		// bottom line's width
-
-#define SCOPE_BAR_SEPARATOR_COLOR		[NSColor colorWithCalibratedWhite:0.52 alpha:1.0]	// color of vertical-line separators between groups
 #define SCOPE_BAR_SEPARATOR_WIDTH		1.0													// width of vertical-line separators between groups
 #define SCOPE_BAR_SEPARATOR_HEIGHT		16.0												// separators are vertically centered in the bar
 
@@ -859,20 +852,19 @@
 
 - (void)drawRect:(NSRect)rect
 {
-    // Draw gradient background.
-	NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:SCOPE_BAR_START_COLOR_GRAY 
-														  endingColor:SCOPE_BAR_END_COLOR_GRAY];
-	[gradient drawInRect:[self bounds] angle:90.0];
+    [[NSColor controlBackgroundColor] set];
+    NSRectFill(self.bounds);
 	
 	// Draw border.
 	NSRect lineRect = [self bounds];
-	lineRect.size.height = SCOPE_BAR_BORDER_WIDTH;
-	[SCOPE_BAR_BORDER_COLOR set];
+    lineRect.origin.y = lineRect.size.height;
+    lineRect.size.height = SCOPE_BAR_BORDER_WIDTH;
+	[[NSColor separatorColor] set];
 	NSRectFill(lineRect);
 	
 	// Draw separators.
 	if ([_separatorPositions count] > 0) {
-		[SCOPE_BAR_SEPARATOR_COLOR set];
+		[[NSColor separatorColor] set];
 		NSRect sepRect = NSMakeRect(0, 0, SCOPE_BAR_SEPARATOR_WIDTH, SCOPE_BAR_SEPARATOR_HEIGHT);
 		sepRect.origin.y = (([self bounds].size.height - sepRect.size.height) / 2.0);
 		for (NSObject *sepPosn in _separatorPositions) {
