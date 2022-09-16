@@ -125,7 +125,7 @@
 					  nil];
 	
 	[scopeGroups addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                            @"Date :", GROUP_LABEL, 
+                            @"Browse By:", GROUP_LABEL,
                             [NSNumber numberWithBool:NO], GROUP_SEPARATOR, 
                             [NSNumber numberWithInt:MGScopeBarGroupSelectionModeRadio], GROUP_SELECTION_MODE, // single selection group.
                             items, GROUP_ITEMS, 
@@ -580,8 +580,17 @@
 
 
 - (NSImage *)scopeBar:(MGScopeBar *)scopeBar imageForItem:(NSString *)identifier inGroup:(NSInteger)groupNumber {
-    if (groupNumber == 0)
-        return [NSImage imageNamed:@"Star"];
+    if ([identifier isEqualToString: @"RandomItem"]) {
+        return [NSImage imageWithSystemSymbolName: @"shuffle" accessibilityDescription: @"Random"];
+    } else if ([identifier isEqualToString: @"NewestItem"]) {
+        return [NSImage imageWithSystemSymbolName: @"wand.and.stars" accessibilityDescription: @"Random"];
+    } else if ([identifier isEqualToString: @"HighestItem"]) {
+        return [NSImage imageWithSystemSymbolName: @"star.fill" accessibilityDescription: @"Highest"];
+    } else if ([identifier isEqualToString: @"FrequentItem"]) {
+        return [NSImage imageWithSystemSymbolName: @"heart.fill" accessibilityDescription: @"frequent"];
+    } else if ([identifier isEqualToString: @"RecentItem"]) {
+        return [NSImage imageWithSystemSymbolName: @"clock.arrow.circlepath" accessibilityDescription: @"Recent"];
+    }
     
 	return nil;
 }
