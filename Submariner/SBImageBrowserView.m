@@ -56,24 +56,41 @@
 @implementation SBImageBrowserView
 
 
-- (void)awakeFromNib {
+- (void)_updateAppearanceAttributes {
+    // This must be set for NSColor to change values.
+    [NSAppearance setCurrentAppearance: self.effectiveAppearance];
     
     NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
     [attributes setObject:[NSFont systemFontOfSize:11] forKey:NSFontAttributeName];
-    // XXX: Should update these colours when dark mode is toggled on/of
-    [attributes setObject:[NSColor textColor] forKey:NSForegroundColorAttributeName];
+    // The image browser doesn't know to update if it's a regular system value.
+    // It must be caching, as the system colour identity remains.
+    NSColor *foregroundColour = [[NSColor textColor] colorUsingColorSpace: [NSColorSpace deviceRGBColorSpace]];
+    [attributes setObject:foregroundColour forKey:NSForegroundColorAttributeName];
 	[self setValue:attributes forKey:IKImageBrowserCellsTitleAttributesKey];
 	    
-	attributes = [[NSMutableDictionary alloc] init];	
+	attributes = [[NSMutableDictionary alloc] init];
 	[attributes setObject:[NSFont boldSystemFontOfSize:11] forKey:NSFontAttributeName];
-	[attributes setObject:[NSColor selectedControlTextColor] forKey:NSForegroundColorAttributeName];
-	
+    NSColor *selectedForegroundColour = [[NSColor alternateSelectedControlTextColor] colorUsingColorSpace: [NSColorSpace deviceRGBColorSpace]];
+    NSLog(@"%@", selectedForegroundColour);
+	[attributes setObject:selectedForegroundColour forKey:NSForegroundColorAttributeName];
 	[self setValue:attributes forKey:IKImageBrowserCellsHighlightedTitleAttributesKey];
     // No need for linen, let's just pass through the colour under, which works in dark mode.
     [self setValue:[NSColor colorWithDeviceRed:0.0 green:0.0 blue:0.0 alpha:0.0] forKey:IKImageBrowserBackgroundColorKey];
     
+    // XXX: IKImageBrowserSelectionColorKey?
+    
     //change intercell spacing
-	[self setIntercellSpacing:NSMakeSize(20, 20)];
+    [self setIntercellSpacing:NSMakeSize(20, 20)];
+}
+
+- (void)awakeFromNib {
+    [self _updateAppearanceAttributes];
+}
+
+- (void)viewDidChangeEffectiveAppearance {
+    [super viewDidChangeEffectiveAppearance];
+    [self _updateAppearanceAttributes];
+    [self setNeedsDisplay: YES];
 }
 
 //---------------------------------------------------------------------------------
