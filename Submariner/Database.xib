@@ -352,6 +352,13 @@
                                     <action selector="toggleServerUsers:" target="-2" id="ECK-Vu-j7j"/>
                                 </connections>
                             </buttonCell>
+                            <connections>
+                                <binding destination="-2" name="enabled" keyPath="server" id="un8-aV-BbK">
+                                    <dictionary key="options">
+                                        <string key="NSValueTransformerName">NSIsNotNil</string>
+                                    </dictionary>
+                                </binding>
+                            </connections>
                         </button>
                     </toolbarItem>
                     <searchToolbarItem implicitItemIdentifier="F50E393F-C4BE-40CE-B71B-1B83BC2EE811" label="Search" paletteLabel="Search" visibilityPriority="1001" id="9F1-5u-YOh">
