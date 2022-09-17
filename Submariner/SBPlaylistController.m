@@ -175,7 +175,7 @@
 }
 
 
-- (IBAction)showSelectedInFinder:(in)sender {
+- (IBAction)showSelectedInFinder:(id)sender {
     NSInteger selectedRow = [tracksTableView selectedRow];
     
     if(selectedRow == -1) {

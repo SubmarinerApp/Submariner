@@ -88,6 +88,7 @@
                                 <connections>
                                     <outlet property="dataSource" destination="-2" id="39"/>
                                     <outlet property="delegate" destination="-2" id="51"/>
+                                    <outlet property="menu" destination="ZuB-I1-mw4" id="s6t-Zl-XCm"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -109,5 +110,36 @@
             </subviews>
             <point key="canvasLocation" x="139" y="135"/>
         </customView>
+        <menu id="ZuB-I1-mw4">
+            <items>
+                <menuItem title="Play" id="ZxI-hf-xRA">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="trackDoubleClick:" target="-2" id="cWd-NU-QOj"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="8p2-LZ-tRv"/>
+                <menuItem title="Delete" id="G1b-HL-Wxy">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="delete:" target="-2" id="VSV-4A-B2c"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="YFh-Ha-TpX"/>
+                <menuItem title="Download" id="xAQ-Xt-1Xf">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="downloadSelected:" target="-2" id="ISY-Jk-trp"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Show in Finder" id="KLG-0b-Clk">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showSelectedInFinder:" target="-2" id="U7z-Xd-trj"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="104" y="-148"/>
+        </menu>
     </objects>
 </document>

@@ -156,7 +156,7 @@
 }
 
 
-- (IBAction)showSelectedInFinder:(in)sender {
+- (IBAction)showSelectedInFinder:(id)sender {
     NSInteger selectedRow = [playlistTableView selectedRow];
     
     if(selectedRow == -1) {

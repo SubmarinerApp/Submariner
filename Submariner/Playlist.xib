@@ -176,6 +176,7 @@
                                 <connections>
                                     <outlet property="dataSource" destination="-2" id="67"/>
                                     <outlet property="delegate" destination="-2" id="46"/>
+                                    <outlet property="menu" destination="WxC-0g-ovo" id="NAV-wv-2Lx"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -203,5 +204,42 @@
                 <binding destination="-2" name="sortDescriptors" keyPath="playlistSortDescriptors" id="66"/>
             </connections>
         </arrayController>
+        <menu id="WxC-0g-ovo">
+            <items>
+                <menuItem title="Play" id="8ji-Yx-m9r">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="trackDoubleClick:" target="-2" id="7Jc-rM-vFb"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Add to Tracklist" id="fd6-nC-7Te">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addSelectedToTracklist:" target="-2" id="619-km-BeT"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="w1I-lv-OB3"/>
+                <menuItem title="Delete" id="4EA-Jq-HGE">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="delete:" target="-2" id="N9m-2E-qm1"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="Prt-qp-Zoj"/>
+                <menuItem title="Download" id="wZF-7W-byj">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="downloadSelected:" target="-2" id="SdJ-4Y-zve"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Show in Finder" id="Vxr-mm-BgI">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showSelectedInFinder:" target="-2" id="jq4-yR-J1X"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="33" y="-307"/>
+        </menu>
     </objects>
 </document>

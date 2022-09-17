@@ -149,6 +149,9 @@
                                         </connections>
                                     </tableColumn>
                                 </tableColumns>
+                                <connections>
+                                    <outlet property="menu" destination="paR-xu-VXT" id="K9F-dr-6i0"/>
+                                </connections>
                             </tableView>
                         </subviews>
                     </clipView>
@@ -173,5 +176,29 @@
                 <binding destination="-2" name="managedObjectContext" keyPath="managedObjectContext" id="27"/>
             </connections>
         </arrayController>
+        <menu id="paR-xu-VXT">
+            <items>
+                <menuItem title="Play" id="BCR-lr-e1s">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="playSelected:" target="-2" id="sa4-GR-5pD"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Add to Tracklist" id="hUl-rN-4Kf">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addSelectedToTracklist:" target="-2" id="fI2-6q-HHA"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="nNZ-BT-mmp"/>
+                <menuItem title="Show in Finder" id="pg0-RH-d7W">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showSelectedInFinder:" target="-2" id="qkG-Td-dsI"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="-1" y="-148"/>
+        </menu>
     </objects>
 </document>

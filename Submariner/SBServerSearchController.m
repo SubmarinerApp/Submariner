@@ -162,7 +162,7 @@
 }
 
 
-- (IBAction)showSelectedInFinder:(in)sender {
+- (IBAction)showSelectedInFinder:(id)sender {
     NSInteger selectedRow = [tracksTableView selectedRow];
     
     if(selectedRow == -1) {
@@ -211,40 +211,6 @@
     }
     return ret;
 }
-
-
-
-#pragma mark -
-#pragma mark NSTableView (Menu)
-
-- (NSMenu *)tableView:(id)tableView menuForEvent:(NSEvent *)event {
-    if(tableView == tracksTableView) {
-        NSMenu*  menu = nil;
-        NSMenuItem *item = nil;
-        
-        menu = [[NSMenu alloc] initWithTitle:@"trackMenu"];
-        [menu setAutoenablesItems:NO];
-        
-        item = [[NSMenuItem alloc] initWithTitle:@"Play Track" action:@selector(trackDoubleClick:) keyEquivalent:@""];
-        [item setTarget:self];
-        [menu addItem:item];
-        
-        item = [[NSMenuItem alloc] initWithTitle:@"Add to Tracklist" action:@selector(addTrackToTracklist:) keyEquivalent:@""];
-        [item setTarget:self];
-        [menu addItem:item];
-        
-        [menu addItem:[NSMenuItem separatorItem]];
-        
-        item = [[NSMenuItem alloc] initWithTitle:@"Download Track" action:@selector(downloadTrack:) keyEquivalent:@""];
-        [item setTarget:self];
-        [menu addItem:item];
-        
-        return menu;
-        
-    }
-    return nil;
-}
-
 
 
 
