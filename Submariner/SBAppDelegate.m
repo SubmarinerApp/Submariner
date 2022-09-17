@@ -210,7 +210,12 @@
     return path;
 }
 
-
+- (NSString *)storeFileName {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@"Music/Submariner/Submariner Library.sqlite"];
+    if(![fileManager fileExistsAtPath:path]) [fileManager createDirectoryAtPath:@"Music/Submariner/" withIntermediateDirectories:YES attributes:nil error:nil];
+    return path;
+}
 
 
 
@@ -406,45 +411,39 @@
         NSLog(@"%@:%@ No model to generate a store from", [self class], NSStringFromSelector(_cmd));
         return nil;
     }
-
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSURL *applicationFilesDirectory = [self applicationFilesDirectory];
+    
     NSError *error = nil;
     
-    NSDictionary *properties = [applicationFilesDirectory resourceValuesForKeys:[NSArray arrayWithObject:NSURLIsDirectoryKey] error:&error];
-        
-    if (!properties) {
-        BOOL ok = NO;
-        if ([error code] == NSFileReadNoSuchFileError) {
-            ok = [fileManager createDirectoryAtPath:[applicationFilesDirectory path] withIntermediateDirectories:YES attributes:nil error:&error];
-        }
-        if (!ok) {
-            [[NSApplication sharedApplication] presentError:error];
-            return nil;
-        }
-    }
-    else {
-        if ([[properties objectForKey:NSURLIsDirectoryKey] boolValue] != YES) {
-            // Customize and localize this error.
-            NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store application data, found a file (%@).", [applicationFilesDirectory path]]; 
-            
-            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-            [dict setValue:failureDescription forKey:NSLocalizedDescriptionKey];
-            error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:101 userInfo:dict];
-            
-            [[NSApplication sharedApplication] presentError:error];
-            return nil;
-        }
-    }
-    
-    NSURL *url = [applicationFilesDirectory URLByAppendingPathComponent:@"Submariner.storedata"];
+    NSURL *oldUrl = [[self applicationFilesDirectory] URLByAppendingPathComponent:@"Submariner.storedata"];
+    NSURL *url = [NSURL fileURLWithPath: [self storeFileName]];
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
-    // XXX: Convert to SQLite someday. Flag day?
-    NSDictionary *storeOpts = @{ NSInferMappingModelAutomaticallyOption: @YES, NSMigratePersistentStoresAutomaticallyOption: @YES };
-    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:url options: storeOpts error:&error]) {
-        [[NSApplication sharedApplication] presentError:error];
-        __persistentStoreCoordinator = nil;
-        return nil;
+    NSDictionary *storeOpts = @{
+        NSInferMappingModelAutomaticallyOption: @YES,
+        NSMigratePersistentStoresAutomaticallyOption: @YES
+    };
+    if (![[NSFileManager defaultManager] fileExistsAtPath: [url path]] && [[NSFileManager defaultManager] fileExistsAtPath: [oldUrl path]]) {
+        NSPersistentStore *oldStore = [__persistentStoreCoordinator addPersistentStoreWithType:NSXMLStoreType configuration:nil URL:oldUrl options: storeOpts error:&error];
+        if (oldStore == nil) {
+            [[NSApplication sharedApplication] presentError:error];
+            __persistentStoreCoordinator = nil;
+            return nil;
+        }
+        NSPersistentStore *newStore = [__persistentStoreCoordinator migratePersistentStore:oldStore toURL:url options:storeOpts withType:NSSQLiteStoreType error:&error];
+        if (newStore == nil) {
+            [[NSApplication sharedApplication] presentError:error];
+            __persistentStoreCoordinator = nil;
+            return nil;
+        }
+        // old store is removed from coordinator
+        oldStore = nil;
+        // XXX: Remove/rename the old file?
+    } else {
+        // Only use the SQLite store.
+        if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:url options: storeOpts error:&error]) {
+            [[NSApplication sharedApplication] presentError:error];
+            __persistentStoreCoordinator = nil;
+            return nil;
+        }
     }
 
     return __persistentStoreCoordinator;
