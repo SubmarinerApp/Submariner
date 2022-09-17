@@ -94,9 +94,10 @@
                                         </textFieldCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         <connections>
-                                            <binding destination="24" name="value" keyPath="arrangedObjects.artistString" id="43">
+                                            <binding destination="24" name="value" keyPath="arrangedObjects" id="6hH-P4-5Cx">
                                                 <dictionary key="options">
-                                                    <integer key="NSConditionallySetsEditable" value="0"/>
+                                                    <bool key="NSConditionallySetsEditable" value="NO"/>
+                                                    <string key="NSValueTransformerName">SBTrackArtistNameTransformer</string>
                                                 </dictionary>
                                             </binding>
                                         </connections>
