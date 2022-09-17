@@ -507,7 +507,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     
     if([elementName isEqualToString:@"playlists"]) {
         if(requestType == SBSubsonicRequestGetPlaylists) {
-            //SBSection *remotePlaylistsSection = [self fetchSectionWithName:@"PLAYLISTS"];
+            //SBSection *remotePlaylistsSection = [self fetchSectionWithName:@"Playlists"];
             //[remotePlaylistsSection setResources:nil];
             
             return;

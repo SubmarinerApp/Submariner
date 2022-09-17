@@ -54,7 +54,6 @@
 
 
 @interface SBClientController (Private)
-- (void)initServerResources;
 - (void)unplayAllTracks;
 - (void)requestWithURL:(NSURL *)url requestType:(SBSubsonicRequestType)type coverID:(NSString*) coverID searchResult:(SBSearchResult*)searchResult;
 - (void)requestWithURL:(NSURL *)url requestType:(SBSubsonicRequestType)type coverID:(NSString*) coverID;
@@ -109,48 +108,6 @@
 
 #pragma mark -
 #pragma mark Private
-
-
-- (void)initServerResources {
-    NSError *error = nil;
-    NSArray *entities = nil;
-    NSPredicate *predicate = nil;
-    
-
-    // check server sections
-    predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@) && (server == %@)", @"MUSIC", server];
-    entities = [self.managedObjectContext fetchEntitiesNammed:@"Section" withPredicate:predicate error:&error];
-    if(entities && [entities count] > 0) {
-        librarySection = [entities objectAtIndex:0];
-    }
-    
-    predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@) && (server == %@)", @"PLAYLISTS", server];
-    entities = [self.managedObjectContext fetchEntitiesNammed:@"Section" withPredicate:predicate error:&error];
-    if(entities && [entities count] > 0) {
-        remotePlaylistsSection = [entities objectAtIndex:0];
-    }
-    
-    predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@) && (server == %@)", @"SEARCHS", server];
-    entities = [self.managedObjectContext fetchEntitiesNammed:@"Section" withPredicate:predicate error:&error];
-    if(entities && [entities count] > 0) {
-        searchsSection = [entities objectAtIndex:0];
-    }
-    
-    // check default resources
-    predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@) && (server == %@)", @"Library", server];
-    entities = [self.managedObjectContext fetchEntitiesNammed:@"Library" withPredicate:predicate error:&error];
-    if(entities && [entities count] > 0) {
-        library = [entities objectAtIndex:0];
-    }
-    
-    predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@) && (server == %@)", @"Home", server];
-    entities = [self.managedObjectContext fetchEntitiesNammed:@"Home" withPredicate:predicate error:&error];
-    if(entities && [entities count] > 0) {
-        home = [entities objectAtIndex:0];
-    }
-
-}
-
 
 
 
