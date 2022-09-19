@@ -519,7 +519,6 @@
 		4C87ED69139CD8BE0064DE2E /* Submariner */ = {
 			isa = PBXGroup;
 			children = (
-				3EA06A5028B9AD220091A75F /* Submariner.entitlements */,
 				4CEF83261449059A005E28EE /* Application */,
 				4C87EDB7139CDAAA0064DE2E /* Controllers */,
 				4C87EDA8139CD9BF0064DE2E /* Nibs */,
@@ -538,6 +537,7 @@
 			isa = PBXGroup;
 			children = (
 				3ECF63F9280362BA004F9176 /* Assets.xcassets */,
+				3EA06A5028B9AD220091A75F /* Submariner.entitlements */,
 				4C87EDC2139CDCA70064DE2E /* Pictures */,
 				4C87ED6B139CD8BE0064DE2E /* Submariner-Info.plist */,
 				4C87ED6C139CD8BE0064DE2E /* InfoPlist.strings */,
