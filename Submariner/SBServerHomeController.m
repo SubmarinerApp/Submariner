@@ -587,7 +587,7 @@
     } else if ([identifier isEqualToString: @"HighestItem"]) {
         return [NSImage imageWithSystemSymbolName: @"star.fill" accessibilityDescription: @"Highest"];
     } else if ([identifier isEqualToString: @"FrequentItem"]) {
-        return [NSImage imageWithSystemSymbolName: @"heart.fill" accessibilityDescription: @"frequent"];
+        return [NSImage imageWithSystemSymbolName: @"heart.fill" accessibilityDescription: @"Frequent"];
     } else if ([identifier isEqualToString: @"RecentItem"]) {
         return [NSImage imageWithSystemSymbolName: @"clock.arrow.circlepath" accessibilityDescription: @"Recent"];
     }
