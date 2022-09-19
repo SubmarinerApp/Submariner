@@ -294,6 +294,9 @@ CA
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="A3a-PO-UZ7"/>
                             <menuItem title="Play Selected" id="AHx-gK-1Im">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="playSelected:" target="-1" id="L78-bm-tIL"/>

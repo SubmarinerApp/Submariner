@@ -461,22 +461,6 @@
 
 
 
-
-
-
-#pragma mark - 
-#pragma mark NSTableView (enter & delete)
-
-- (void)tableViewEnterKeyPressedNotification:(NSNotification *)notification {
-    [self trackDoubleClick:self];
-}
-
-
-
-
-
-
-
 #pragma mark -
 #pragma mark MGScopeBarDelegate methods
 

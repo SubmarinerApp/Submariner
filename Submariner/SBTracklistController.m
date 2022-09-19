@@ -235,10 +235,6 @@
 #pragma mark -
 #pragma mark NSTableView Delegate
 
-- (void)tableViewEnterKeyPressedNotification:(NSNotification *)notification {
-    [self trackDoubleClick:self];
-}
-
 - (BOOL)tableView:(NSTableView *)tv writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard*)pboard
 {
     // internal drop track

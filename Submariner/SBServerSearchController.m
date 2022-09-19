@@ -214,16 +214,6 @@
 
 
 
-
-#pragma mark - 
-#pragma mark NSTableView delegate
-
-- (void)tableViewEnterKeyPressedNotification:(NSNotification *)notification {
-    [self trackDoubleClick:self];
-}
-
-
-
 #pragma mark -
 #pragma mark UI Validator
 

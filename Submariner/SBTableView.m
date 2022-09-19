@@ -35,21 +35,6 @@
 #import "SBTableView.h"
 #import "RWTableHeaderCell.h"
 
-
-NSString *SBEnterKeyPressedOnRowsNotification = @"SBEnterKeyPressedOnRowsNotification";
-
-
-
-@interface SBTableView (Notifications)
-
-- (void)enterKeyPressedOnRowsNotification:(NSNotification *)notification;
-
-@end
-
-
-
-
-
 @implementation SBTableView
 
 - (void)_setupHeaderCell
@@ -71,53 +56,6 @@ NSString *SBEnterKeyPressedOnRowsNotification = @"SBEnterKeyPressedOnRowsNotific
 		[self _setupHeaderCell];
 	}
 	return self;
-}
-
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:SBEnterKeyPressedOnRowsNotification object:nil];
-    
-}
-
-- (void)awakeFromNib {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(enterKeyPressedOnRowsNotification:) 
-                                                 name:SBEnterKeyPressedOnRowsNotification 
-                                               object:nil];
-}
-
-
-- (void)keyDown:(NSEvent *)theEvent
-{
-	NSIndexSet *selectedIndexes = [self selectedRowIndexes];
-	
-	NSString *keyCharacters = [theEvent characters];
-	
-	//Make sure we have a selection
-	if([selectedIndexes count]>0) {
-		if([keyCharacters length]>0) {
-			unichar firstKey = [keyCharacters characterAtIndex:0];
-            if(firstKey==NSEnterCharacter || firstKey == NSCarriageReturnCharacter || firstKey == NSNewlineCharacter) {	
-				//Post the notification
-				[[NSNotificationCenter defaultCenter] postNotificationName:SBEnterKeyPressedOnRowsNotification
-																	object:self
-																  userInfo:[NSDictionary dictionaryWithObject:selectedIndexes forKey:@"rows"]];
-				
-				return;
-			}
-		}
-	}
-	//We don't care about it
-	[super keyDown:theEvent];
-}
-
-
-- (void)enterKeyPressedOnRowsNotification:(NSNotification *)notification {
-    if([notification object] == self) {
-        if([self delegate] && [[self delegate] respondsToSelector:@selector(tableViewDeleteKeyPressedNotification:)]) {
-            [[self delegate] tableViewEnterKeyPressedNotification:notification];
-        } 
-    }
 }
 
 @end

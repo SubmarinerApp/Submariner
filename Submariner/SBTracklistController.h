@@ -41,7 +41,7 @@
 
 @class SBDatabaseController;
 
-@interface SBTracklistController : SBViewController <SBTableViewDelegate, NSUserInterfaceValidations> {
+@interface SBTracklistController : SBViewController <NSTableViewDelegate, NSUserInterfaceValidations> {
 @private
     IBOutlet NSTableView *playlistTableView;
     SBDatabaseController *databaseController;

@@ -34,23 +34,6 @@
 
 #import <Foundation/Foundation.h>
 
-
-extern NSString * _Nonnull SBEnterKeyPressedOnRowsNotification;
-
-// forward declare to break chicken/egg
-@protocol SBTableViewDelegate;
-
-
 @interface SBTableView : NSTableView
-
-@property (nullable, weak) id<SBTableViewDelegate> delegate;
-
-@end
-
-
-
-@protocol SBTableViewDelegate <NSTableViewDelegate>
-
-- (void)tableViewEnterKeyPressedNotification:(NSNotification *_Nonnull)notification;
 
 @end

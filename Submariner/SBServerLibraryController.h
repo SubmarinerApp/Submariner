@@ -42,7 +42,7 @@
 @class SBDatabaseController;
 @class SBPrioritySplitViewDelegate;
 
-@interface SBServerLibraryController : SBServerViewController <NSTabViewDelegate, SBTableViewDelegate> {
+@interface SBServerLibraryController : SBServerViewController <NSTabViewDelegate, NSTableViewDelegate> {
 @private
     IBOutlet NSTableView        *artistsTableView;
     IBOutlet SBTableView        *tracksTableView;

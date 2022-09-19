@@ -44,7 +44,7 @@
 @class SBPrioritySplitViewDelegate;
 @class SBMergeArtistsController;
 
-@interface SBMusicController : SBViewController <SBTableViewDelegate>  {
+@interface SBMusicController : SBViewController <NSTableViewDelegate>  {
 @private
     IBOutlet SBMergeArtistsController *mergeArtistsController;
     IBOutlet NSTableView        *artistsTableView;
