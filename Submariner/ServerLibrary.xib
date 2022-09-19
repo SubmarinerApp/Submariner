@@ -85,6 +85,7 @@
                                                 </tableColumns>
                                                 <connections>
                                                     <outlet property="delegate" destination="-2" id="190"/>
+                                                    <outlet property="menu" destination="Xh8-Hg-RWg" id="eFI-oz-4Ik"/>
                                                 </connections>
                                             </tableView>
                                         </subviews>
@@ -129,6 +130,7 @@
                                                                     <binding destination="137" name="content" keyPath="arrangedObjects" id="140"/>
                                                                     <binding destination="137" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="140" id="169"/>
                                                                     <outlet property="delegate" destination="-2" id="142"/>
+                                                                    <outlet property="menu" destination="GfF-3d-b7a" id="1pk-QD-Z0f"/>
                                                                 </connections>
                                                             </ikImageBrowserView>
                                                         </subviews>
@@ -303,6 +305,7 @@
                                                                 <connections>
                                                                     <outlet property="dataSource" destination="-2" id="161"/>
                                                                     <outlet property="delegate" destination="-2" id="160"/>
+                                                                    <outlet property="menu" destination="02w-79-D7t" id="eaE-yR-PR7"/>
                                                                 </connections>
                                                             </tableView>
                                                         </subviews>
@@ -363,5 +366,71 @@
                 <binding destination="-2" name="sortDescriptors" keyPath="trackSortDescriptor" id="157"/>
             </connections>
         </arrayController>
+        <menu id="Xh8-Hg-RWg" userLabel="Artist Menu">
+            <items>
+                <menuItem title="Add to Tracklist" id="u3k-IK-aSB">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addArtistToTracklist:" target="-2" id="8WC-C9-moT"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="89" y="-153"/>
+        </menu>
+        <menu id="GfF-3d-b7a" userLabel="Album Menu">
+            <items>
+                <menuItem title="Play" id="bcj-5I-lwR">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="albumDoubleClick:" target="-2" id="YHs-YP-vvZ"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Add to Tracklist" id="T2V-ou-32z">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addAlbumToTracklist:" target="-2" id="O6Y-vp-Tih"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="vpg-ew-I1e"/>
+                <menuItem title="Download" id="0xt-vi-X6m">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="downloadAlbum:" target="-2" id="eNr-1y-iIM"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="274" y="-175"/>
+        </menu>
+        <menu id="02w-79-D7t" userLabel="Track Menu">
+            <items>
+                <menuItem title="Play" id="XyX-cm-0eg">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="trackDoubleClick:" target="-2" id="LnJ-zh-AcC"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Add to Tracklist" id="mEY-dD-hoB">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addTrackToTracklist:" target="-2" id="5Kk-0N-Z0F"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="ERt-AN-76O"/>
+                <menuItem title="New Server Playlist with Selected" id="5Ph-fU-3EU">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="createNewPlaylistWithSelectedTracks:" target="-2" id="hQ6-4m-j6H"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="7xf-Yk-ahf"/>
+                <menuItem title="Download" id="ezP-Ch-dBF">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="downloadTrack:" target="-2" id="51W-zf-2Eq"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="505" y="-162"/>
+        </menu>
     </objects>
 </document>

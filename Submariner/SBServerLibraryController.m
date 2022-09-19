@@ -523,57 +523,6 @@
 
 
 #pragma mark -
-#pragma mark NSTableView (Menu)
-
-- (NSMenu *)tableView:(id)tableView menuForEvent:(NSEvent *)event {
-    if(tableView == tracksTableView) {
-        NSMenu*  menu = nil;
-        NSMenuItem *item = nil;
-        
-        menu = [[NSMenu alloc] initWithTitle:@"trackMenu"];
-        [menu setAutoenablesItems:NO];
-        
-        item = [[NSMenuItem alloc] initWithTitle:@"Play Track" action:@selector(trackDoubleClick:) keyEquivalent:@""];
-        [item setTarget:self];
-        [menu addItem:item];
-                
-        item = [[NSMenuItem alloc] initWithTitle:@"Add to Tracklist" action:@selector(addTrackToTracklist:) keyEquivalent:@""];
-        [item setTarget:self];
-        [menu addItem:item];
-        
-        item = [[NSMenuItem alloc] initWithTitle:@"New Server Playlist with Selected Track(s)" action:@selector(createNewPlaylistWithSelectedTracks:) keyEquivalent:@""];
-        [item setTarget:self];
-        [menu addItem:item];
-        
-        [menu addItem:[NSMenuItem separatorItem]];
-        
-        item = [[NSMenuItem alloc] initWithTitle:@"Download Track" action:@selector(downloadTrack:) keyEquivalent:@""];
-        [item setTarget:self];
-        [menu addItem:item];
-        
-        return menu;
-        
-    } else if(tableView == artistsTableView) {
-        NSMenu*  menu = nil;
-        NSMenuItem *item = nil;
-        
-        menu = [[NSMenu alloc] initWithTitle:@"artistMenu"];
-        [menu setAutoenablesItems:NO];
-        
-        item = [[NSMenuItem alloc] initWithTitle:@"Add to Tracklist" action:@selector(addArtistToTracklist:) keyEquivalent:@""];
-        [item setTarget:self];
-        [menu addItem:item];
-        
-        return menu;
-        
-    }
-    return nil;
-}
-
-
-
-
-#pragma mark -
 #pragma mark NSTableView (Drag & Drop)
 
 - (BOOL)tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
@@ -676,32 +625,6 @@
     }
 }
 
-- (void)imageBrowser:(IKImageBrowserView *)aBrowser cellWasRightClickedAtIndex:(NSUInteger)index withEvent:(NSEvent *)event {
-    //contextual menu for item index
-    NSMenu*  menu = nil;
-    NSMenuItem *item = nil;
-    
-    menu = [[NSMenu alloc] initWithTitle:@"albumsMenu"];
-    [menu setAutoenablesItems:NO];
-    
-    item = [[NSMenuItem alloc] initWithTitle:@"Play Album" action:@selector(albumDoubleClick:) keyEquivalent:@""];
-    [item setTarget:self];
-    [menu addItem:item];
-    
-    item = [[NSMenuItem alloc] initWithTitle:@"Add to Tracklist" action:@selector(addAlbumToTracklist:) keyEquivalent:@""];
-    [item setTarget:self];
-    [menu addItem:item];
-    
-    [menu addItem:[NSMenuItem separatorItem]];
-    
-    item = [[NSMenuItem alloc] initWithTitle:@"Download Album" action:@selector(downloadAlbum:) keyEquivalent:@""];
-    [item setTarget:self];
-    [menu addItem:item];
-    
-    [NSMenu popUpContextMenu:menu withEvent:event forView:aBrowser];
-    
-}
-
 - (void)imageBrowser:(IKImageBrowserView *)aBrowser cellWasDoubleClickedAtIndex:(NSUInteger)index {
     [self albumDoubleClick:nil];
 }
@@ -728,12 +651,18 @@
         selectedTrackRowStatus = [self selectedRowStatus: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes];
     }
     
-    if (action == @selector(addSelectedToTracklist:)
-        || action == @selector(playSelected:)) {
+    if (action == @selector(playSelected:)) {
         return (albumSelected > 0 || tracksSelected > 0) && (albumsActive || tracksActive);
     }
     
-    if (action == @selector(createNewPlaylistWithSelectedTracks:)) {
+    if (action == @selector(addSelectedToTracklist:)) {
+        return (albumSelected > 0 || tracksSelected > 0 || artistsSelected > 0)
+            && (albumsActive || tracksActive || artistsActive);
+    }
+    
+    if (action == @selector(createNewPlaylistWithSelectedTracks:)
+        || action == @selector(trackDoubleClick:)
+        || action == @selector(addTrackToTracklist:)) {
         return tracksSelected > 0 && tracksActive;
     }
     
@@ -741,8 +670,20 @@
         return selectedTrackRowStatus & SBSelectedRowShowableInFinder;
     }
     
-    if (action == @selector(downloadSelected:)) {
+    if (action == @selector(downloadSelected:)
+        || action == @selector(downloadTrack:)) {
         return selectedTrackRowStatus & SBSelectedRowDownloadable;
+    }
+    
+    // for context menus
+    if (action == @selector(albumDoubleClick:)
+        || action == @selector(downloadAlbum:)
+        || action == @selector(addAlbumToTracklist:)) {
+        return albumSelected > 0 && albumsActive;
+    }
+    
+    if (action == @selector(addArtistToTracklist:)) {
+        return artistsSelected > 0 && artistsActive;
     }
 
     return YES;
