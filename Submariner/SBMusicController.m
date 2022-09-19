@@ -783,10 +783,6 @@
     [self trackDoubleClick:self];
 }
 
-- (void)tableViewDeleteKeyPressedNotification:(NSNotification *)notification {
-    [self removeTrack:self];
-}
-
 
 
 

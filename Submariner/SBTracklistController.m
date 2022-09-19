@@ -239,10 +239,6 @@
     [self trackDoubleClick:self];
 }
 
-- (void)tableViewDeleteKeyPressedNotification:(NSNotification *)notification {
-    [self removeTrack:self];
-}
-
 - (BOOL)tableView:(NSTableView *)tv writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard*)pboard
 {
     // internal drop track

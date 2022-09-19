@@ -36,14 +36,12 @@
 #import "RWTableHeaderCell.h"
 
 
-NSString *SBDeleteKeyPressedOnRowsNotification = @"SBDeleteKeyPressedOnRowsNotification";
 NSString *SBEnterKeyPressedOnRowsNotification = @"SBEnterKeyPressedOnRowsNotification";
 
 
 
 @interface SBTableView (Notifications)
 
-- (void)deleteKeyPressedOnRowsNotification:(NSNotification *)notification;
 - (void)enterKeyPressedOnRowsNotification:(NSNotification *)notification;
 
 @end
@@ -77,7 +75,6 @@ NSString *SBEnterKeyPressedOnRowsNotification = @"SBEnterKeyPressedOnRowsNotific
 
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:SBDeleteKeyPressedOnRowsNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:SBEnterKeyPressedOnRowsNotification object:nil];
     
 }
@@ -87,52 +84,6 @@ NSString *SBEnterKeyPressedOnRowsNotification = @"SBEnterKeyPressedOnRowsNotific
                                              selector:@selector(enterKeyPressedOnRowsNotification:) 
                                                  name:SBEnterKeyPressedOnRowsNotification 
                                                object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(deleteKeyPressedOnRowsNotification:) 
-                                                 name:SBDeleteKeyPressedOnRowsNotification 
-                                               object:nil];
-}
-
-
-
-- (NSMenu *)menuForEvent:(NSEvent *)theEvent
-{
-    if ([theEvent type] == NSEventTypeRightMouseDown)
-	{
-		// get the current selections for the outline view. 
-		NSIndexSet *selectedRowIndexes = [self selectedRowIndexes];
-		
-		// select the row that was clicked before showing the menu for the event
-		NSPoint mousePoint = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-		NSInteger row = [self rowAtPoint:mousePoint];
-		
-		// figure out if the row that was just clicked on is currently selected
-		if (row >= 0 && [selectedRowIndexes containsIndex:row] == NO)
-		{
-			//[self selectRow:row byExtendingSelection:NO];
-            [self selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
-            
-            if([self delegate] && [[self delegate] respondsToSelector:@selector(tableView:menuForEvent:)]) {
-                NSMenu *menu = [[self delegate] tableView:self menuForEvent:theEvent];
-                if(menu != nil) {
-                    return menu;
-                }
-            }
-		} else {
-            // you can disable this if you don't want clicking on an empty space to deselect all rows
-            //[self deselectAll:self];
-            if([self delegate] && [[self delegate] respondsToSelector:@selector(tableView:menuForEvent:)]) {
-                NSMenu *menu = [[self delegate] tableView:self menuForEvent:theEvent];
-                if(menu != nil) {
-                    return menu;
-                }
-            }
-        }
-		// else that row is currently selected, so don't change anything.
-	}
-	
-	return [super menuForEvent:theEvent];
 }
 
 
@@ -146,15 +97,6 @@ NSString *SBEnterKeyPressedOnRowsNotification = @"SBEnterKeyPressedOnRowsNotific
 	if([selectedIndexes count]>0) {
 		if([keyCharacters length]>0) {
 			unichar firstKey = [keyCharacters characterAtIndex:0];
-			if(firstKey==NSDeleteCharacter) {	
-				//Post the notification
-				[[NSNotificationCenter defaultCenter] postNotificationName:SBDeleteKeyPressedOnRowsNotification
-																	object:self
-																  userInfo:[NSDictionary dictionaryWithObject:selectedIndexes forKey:@"rows"]];
-				
-				return;
-			}
-            
             if(firstKey==NSEnterCharacter || firstKey == NSCarriageReturnCharacter || firstKey == NSNewlineCharacter) {	
 				//Post the notification
 				[[NSNotificationCenter defaultCenter] postNotificationName:SBEnterKeyPressedOnRowsNotification
@@ -167,16 +109,6 @@ NSString *SBEnterKeyPressedOnRowsNotification = @"SBEnterKeyPressedOnRowsNotific
 	}
 	//We don't care about it
 	[super keyDown:theEvent];
-}
-
-
-
-- (void)deleteKeyPressedOnRowsNotification:(NSNotification *)notification {
-    if([notification object] == self) {
-        if([self delegate] && [[self delegate] respondsToSelector:@selector(tableViewEnterKeyPressedNotification:)]) {
-            [[self delegate] tableViewDeleteKeyPressedNotification:notification];
-        }
-    }
 }
 
 
