@@ -429,6 +429,12 @@
                         <action selector="downloadTrack:" target="-2" id="51W-zf-2Eq"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Show in Finder" id="Dg9-v6-6zC">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showSelectedInFinder:" target="-2" id="T3n-SN-Wso"/>
+                    </connections>
+                </menuItem>
             </items>
             <point key="canvasLocation" x="505" y="-162"/>
         </menu>
