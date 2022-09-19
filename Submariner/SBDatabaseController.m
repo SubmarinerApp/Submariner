@@ -877,8 +877,10 @@
 
 - (void)openAudioFilesPanelDidEnd:(NSOpenPanel *)panel returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
     if(returnCode == NSModalResponseOK) {
-        NSArray *files = [panel filenames];
+        NSArray *files = [panel URLs];
         if(files) {
+            // SBImportOperation takes NSStrings, not URLs, so map
+            files = [files valueForKey: @"path"];
             
             [panel orderOut:self];
             [NSApp endSheet:panel];
