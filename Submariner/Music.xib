@@ -89,6 +89,7 @@
                                                 </tableColumns>
                                                 <connections>
                                                     <outlet property="delegate" destination="-2" id="76"/>
+                                                    <outlet property="menu" destination="cMH-9b-JVT" id="WZF-Cz-F1U"/>
                                                 </connections>
                                             </tableView>
                                         </subviews>
@@ -136,6 +137,7 @@
                                                                     <binding destination="64" name="content" keyPath="arrangedObjects" id="67"/>
                                                                     <binding destination="64" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="67" id="71"/>
                                                                     <outlet property="delegate" destination="-2" id="83"/>
+                                                                    <outlet property="menu" destination="zg5-lV-UJz" id="XYP-Mt-3oH"/>
                                                                 </connections>
                                                             </ikImageBrowserView>
                                                         </subviews>
@@ -295,6 +297,7 @@
                                                                 <connections>
                                                                     <outlet property="dataSource" destination="-2" id="88"/>
                                                                     <outlet property="delegate" destination="-2" id="85"/>
+                                                                    <outlet property="menu" destination="pJB-xm-6Zx" id="FfU-Ek-9F6"/>
                                                                 </connections>
                                                             </tableView>
                                                         </subviews>
@@ -409,5 +412,98 @@
             </view>
             <point key="canvasLocation" x="139" y="126"/>
         </window>
+        <menu title="Artist Menu" id="cMH-9b-JVT" userLabel="Artist Menu">
+            <items>
+                <menuItem title="Add to Tracklist" id="xk2-NS-F40">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addArtistToTracklist:" target="-2" id="a4w-el-Too"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="cRJ-Nb-B9L"/>
+                <menuItem title="Delete" id="Pl6-3L-PSk">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="delete:" target="-2" id="DdO-hl-R4m"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Merge" id="g0J-2g-6I1">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="mergeArtists:" target="-2" id="NYe-0W-TWX"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="tye-Eu-yQ7"/>
+                <menuItem title="Show in Finder" id="xRz-Iy-Ulb">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showSelectedInFinder:" target="-2" id="cuo-IB-gsU"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="-93" y="-284"/>
+        </menu>
+        <menu id="pJB-xm-6Zx" userLabel="Track Menu">
+            <items>
+                <menuItem title="Play" id="yLh-SD-TDh">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="playSelected:" target="-2" id="NWw-Pi-3hn"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Add to Tracklist" id="fMx-ax-sJk">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addSelectedToTracklist:" target="-2" id="IJT-SM-yv5"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="LI5-b6-RPh"/>
+                <menuItem title="Delete" id="Jsb-SA-6w9">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="delete:" target="-2" id="2y6-Me-yKY"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="uSg-G2-baO"/>
+                <menuItem title="Show in Finder" id="GzU-Oy-PJ3">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showSelectedInFinder:" target="-2" id="5aj-pA-pvv"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="410" y="-287"/>
+        </menu>
+        <menu id="zg5-lV-UJz" userLabel="Album Menu">
+            <items>
+                <menuItem title="Play" id="492-GI-TIP">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="albumDoubleClick:" target="-2" id="xts-yJ-Iob"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Add to Tracklist" id="ryy-KZ-cGs">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="addAlbumToTracklist:" target="-2" id="G0o-Zq-P2Z"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="2oY-tZ-Yig"/>
+                <menuItem title="Delete" id="rvh-F0-V4Q">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="removeAlbum:" target="-2" id="jgJ-L7-m7z"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="8t4-dv-IjJ"/>
+                <menuItem title="Show in Finder" id="S3a-RK-ClN">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showSelectedInFinder:" target="-2" id="aJC-Li-PO4"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="175" y="-288"/>
+        </menu>
     </objects>
 </document>

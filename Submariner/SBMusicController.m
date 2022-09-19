@@ -219,14 +219,34 @@
 }
 
 
+- (IBAction)albumDoubleClick:(id)sender {
+    NSIndexSet *indexSet = [albumsBrowserView selectionIndexes];
+    NSInteger selectedRow = [indexSet firstIndex];
+    if(selectedRow != -1) {
+        SBAlbum *doubleClickedAlbum = [[albumsController arrangedObjects] objectAtIndex:selectedRow];
+        if(doubleClickedAlbum) {
+            
+            NSArray *tracks = [doubleClickedAlbum.tracks sortedArrayUsingDescriptors:trackSortDescriptor];
+            
+            // stop current playing tracks
+            [[SBPlayer sharedInstance] stop];
+            
+            // add track to player
+            [[SBPlayer sharedInstance] addTrackArray:tracks replace:YES];
+            
+            // play track
+            [[SBPlayer sharedInstance] playTrack:[tracks objectAtIndex:0]];
+        }
+    }
+}
+
+
 - (IBAction)playSelected:(id)sender {
     NSResponder *responder = self.databaseController.window.firstResponder;
     if (responder == tracksTableView) {
         [self trackDoubleClick: self];
     } else if (responder == albumsBrowserView) {
-        // XXX
-        //[self albumDoubleClick: self];
-        [self imageBrowser:albumsBrowserView cellWasDoubleClickedAtIndex:-1];
+        [self albumDoubleClick: self];
     }
 }
 
@@ -693,77 +713,6 @@
 }
 
 
-- (NSMenu *)tableView:(id)tableView menuForEvent:(NSEvent *)event {
-    if(tableView == tracksTableView) {
-        NSMenu*  menu = nil;
-        NSMenuItem *item = nil;
-        
-        menu = [[NSMenu alloc] initWithTitle:@"trackMenu"];
-        [menu setAutoenablesItems:NO];
-        
-        item = [[NSMenuItem alloc] initWithTitle:@"Play" action:nil keyEquivalent:@""];
-        [item setTarget:self];
-        [menu addItem:item];
-        
-        item = [[NSMenuItem alloc] initWithTitle:@"Add to Tracklist" action:@selector(addTrackToTracklist:) keyEquivalent:@""];
-        [item setTarget:self];
-        [menu addItem:item];
-        
-        item = [[NSMenuItem alloc] initWithTitle:@"Show in Finder" action:@selector(showTrackInFinder:) keyEquivalent:@""];
-        [item setTarget:self];
-        [menu addItem:item];
-        
-        [menu addItem:[NSMenuItem separatorItem]];
-        
-        item = [[NSMenuItem alloc] initWithTitle:@"Remove Track" action:@selector(removeTrack:) keyEquivalent:@""];
-        [item setTarget:self];
-        [menu addItem:item];
-                
-        return menu;
-        
-    } else if(tableView == artistsTableView) {
-        NSMenu*  menu = nil;
-        NSMenuItem *item = nil;
-        
-        menu = [[NSMenu alloc] initWithTitle:@"artistMenu"];
-        [menu setAutoenablesItems:NO];
-        
-//        item = [[[NSMenuItem alloc] initWithTitle:@"Play" action:nil keyEquivalent:@""] autorelease];
-//        [item setTarget:self];
-//        [menu addItem:item];
-        
-        item = [[NSMenuItem alloc] initWithTitle:@"Add to Tracklist" action:@selector(addArtistToTracklist:) keyEquivalent:@""];
-        [item setTarget:self];
-        [menu addItem:item];
-        
-        item = [[NSMenuItem alloc] initWithTitle:@"Show in Finder" action:@selector(showArtistInFinder:) keyEquivalent:@""];
-        [item setTarget:self];
-        [menu addItem:item];
-        
-        
-        // multiple selection ?
-        if([[artistsTableView selectedRowIndexes] count] > 1) {
-            [menu addItem:[NSMenuItem separatorItem]];
-            
-            item = [[NSMenuItem alloc] initWithTitle:@"Merge Artists" action:@selector(mergeArtists:) keyEquivalent:@""];
-            [item setTarget:self];
-            [menu addItem:item];
-        }
-        
-        [menu addItem:[NSMenuItem separatorItem]];
-        
-        item = [[NSMenuItem alloc] initWithTitle:@"Remove Artist" action:@selector(removeArtist:) keyEquivalent:@""];
-        [item setTarget:self];
-        [menu addItem:item];
-        
-        return menu;
-        
-    }
-    return nil;
-}
-
-
-
 
 
 
@@ -845,56 +794,8 @@
 #pragma mark -
 #pragma mark IKImageBrowserView Delegate
 
-- (void)imageBrowser:(IKImageBrowserView *)aBrowser cellWasRightClickedAtIndex:(NSUInteger) index withEvent:(NSEvent *)event {
-    //contextual menu for item index
-    NSMenu*  menu = nil;
-    NSMenuItem *item = nil;
-    
-    menu = [[NSMenu alloc] initWithTitle:@"albumsMenu"];
-    [menu setAutoenablesItems:NO];
-    
-    item = [[NSMenuItem alloc] initWithTitle:@"Play" action:nil keyEquivalent:@""];
-    [item setTarget:self];
-    [menu addItem:item];
-    
-    item = [[NSMenuItem alloc] initWithTitle:@"Add to Tracklist" action:@selector(addAlbumToTracklist:) keyEquivalent:@""];
-    [item setTarget:self];
-    [menu addItem:item];
-    
-    item = [[NSMenuItem alloc] initWithTitle:@"Show in Finder" action:@selector(showAlbumInFinder:) keyEquivalent:@""];
-    [item setTarget:self];
-    [menu addItem:item];
-    
-    [menu addItem:[NSMenuItem separatorItem]];
-    
-    item = [[NSMenuItem alloc] initWithTitle:@"Remove Album" action:@selector(removeAlbum:) keyEquivalent:@""];
-    [item setTarget:self];
-    [menu addItem:item];
-    
-    [NSMenu popUpContextMenu:menu withEvent:event forView:aBrowser];
-    
-
-}
-
 - (void)imageBrowser:(IKImageBrowserView *)aBrowser cellWasDoubleClickedAtIndex:(NSUInteger)index {
-    NSIndexSet *indexSet = [aBrowser selectionIndexes];
-    NSInteger selectedRow = [indexSet firstIndex];
-    if(selectedRow != -1) {
-        SBAlbum *doubleClickedAlbum = [[albumsController arrangedObjects] objectAtIndex:selectedRow];
-        if(doubleClickedAlbum) {
-            
-            NSArray *tracks = [doubleClickedAlbum.tracks sortedArrayUsingDescriptors:trackSortDescriptor];
-            
-            // stop current playing tracks
-            [[SBPlayer sharedInstance] stop];
-            
-            // add track to player
-            [[SBPlayer sharedInstance] addTrackArray:tracks replace:YES];
-            
-            // play track
-            [[SBPlayer sharedInstance] playTrack:[tracks objectAtIndex:0]];
-        }
-    }
+    [self albumDoubleClick:self];
 }
 
 
@@ -926,8 +827,16 @@
         return (albumSelected > 0 || tracksSelected > 0) && (albumsActive || tracksActive);
     }
     
-    if (action == @selector(showSelectedInFinder:)) {
-        return artistsActive > 0 || albumSelected > 0 || tracksSelected > 0;
+    if (action == @selector(showSelectedInFinder:)
+        || action == @selector(delete:)) {
+        return artistsSelected > 0 || albumSelected > 0 || tracksSelected > 0;
+    }
+    
+    // For the sake of context menus; IKImageBrowserView is weird with focus.
+    if (action == @selector(albumDoubleClick:)
+        || action == @selector(removeAlbum:)
+        || action == @selector(addAlbumToTracklist:)) {
+        return albumSelected > 0;
     }
 
     return YES;
