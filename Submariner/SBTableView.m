@@ -58,4 +58,23 @@
 	return self;
 }
 
+
+- (void)replaceSelectionForRightClick {
+    // Try to select the clicked row for a right-click; default AppKit behaviour is weird.
+    // Otherwise, it'll still use what was highlighted.
+    // XXX: Perhaps we shouldn't tie a lot of things to selected, but instead clicked.
+    NSIndexSet *selectedCurrently = [self selectedRowIndexes];
+    NSUInteger clickedRow = [self clickedRow];
+    if (![selectedCurrently containsIndex: clickedRow]) {
+        NSIndexSet *selectedNew = [NSIndexSet indexSetWithIndex: clickedRow];
+        [self selectRowIndexes: selectedNew byExtendingSelection: NO];
+    }
+}
+
+
+- (void)willOpenMenu:(NSMenu *)menu withEvent:(NSEvent *)event {
+    [self replaceSelectionForRightClick];
+    [super willOpenMenu: menu withEvent: event];
+}
+
 @end
