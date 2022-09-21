@@ -545,6 +545,28 @@
     [editServerController openSheet:sender];
 }
 
+- (IBAction)configureCurrentServer:(id)sender {
+    if (self.server == nil) {
+        return;
+    }
+    [super showVisualCue];
+        
+    [editServerController setEditMode:YES];
+    [editServerController setServer:self.server];
+    [editServerController openSheet:sender];
+}
+
+- (IBAction)renameItem:(id)sender {
+    NSInteger selectedRow = [sourceList selectedRow];
+    
+    if (selectedRow != -1) {
+        SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
+        if(resource && (([resource isKindOfClass:[SBPlaylist class]] && ((SBPlaylist *)resource).server == nil) || [resource isKindOfClass:[SBServer class]]) ) {
+            [sourceList editColumn:0 row:selectedRow withEvent:nil select:YES];
+        }
+    }
+}
+
 - (IBAction)editItem:(id)sender {
     NSInteger selectedRow = [sourceList selectedRow];
     
@@ -1704,12 +1726,26 @@
         || action == @selector(toggleServerUsers:)
         || action == @selector(reloadCurrentServer:)
         || action == @selector(openCurrentServerHomePage:)
-        || action == @selector(addPlaylistToCurrentServer:)) {
+        || action == @selector(addPlaylistToCurrentServer:)
+        || action == @selector(configureCurrentServer:)) {
         return self.server != nil;
     }
     
     if (action == @selector(search:)) {
         return [searchToolbarItem isEnabled];
+    }
+    
+    if (action == @selector(renameItem:)) {
+        if (self.window.firstResponder != sourceList) {
+            return NO;
+        }
+        NSInteger selectedRow = [sourceList selectedRow];
+        if (selectedRow != -1) {
+            SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
+            return (([resource isKindOfClass:[SBPlaylist class]] && ((SBPlaylist *)resource).server == nil) || [resource isKindOfClass:[SBServer class]]);
+        } else {
+            return NO;
+        }
     }
     
     return YES;

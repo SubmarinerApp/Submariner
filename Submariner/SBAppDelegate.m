@@ -380,6 +380,14 @@
     [databaseController goToCurrentTrack:sender];
 }
 
+- (IBAction)renameItem:(id)sender {
+    [databaseController renameItem:sender];
+}
+
+- (IBAction)configureCurrentServer:(id)sender {
+    [databaseController configureCurrentServer:sender];
+}
+
 
 #pragma mark -
 #pragma mark Core Data Support

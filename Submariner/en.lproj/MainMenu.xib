@@ -106,6 +106,12 @@
                                     <action selector="openCurrentServerHomePage:" target="494" id="mx7-5D-u65"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Configure Server..." id="ytP-zv-g7G">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="configureCurrentServer:" target="494" id="gI5-O5-FSs"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="dt2-nv-5IQ"/>
                             <menuItem title="Download" keyEquivalent="s" id="eFU-Sh-VoQ">
                                 <connections>
@@ -180,6 +186,13 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="delete:" target="-1" id="235"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="u5W-SQ-wd2"/>
+                            <menuItem title="Rename" id="GYg-ly-FjS">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="renameItem:" target="494" id="6aG-c0-Ccd"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Soo-Td-T1J"/>

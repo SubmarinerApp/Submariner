@@ -151,6 +151,7 @@
 - (IBAction)volumeDown:(id)sender;
 - (IBAction)openHomePage:(id)sender;
 - (IBAction)openCurrentServerHomePage:(id)sender;
+- (IBAction)configureCurrentServer:(id)sender;
 - (IBAction)shuffle:(id)sender;
 - (IBAction)repeatNone:(id)sender;
 - (IBAction)repeatOne:(id)sender;
@@ -162,6 +163,7 @@
 - (IBAction)showPodcasts:(id)sender;
 - (IBAction)cleanTracklist:(id)sender;
 - (IBAction)goToCurrentTrack:(id)sender;
+- (IBAction)renameItem:(id)sender;
 
 // NSUserInterfaceValidations protocol is implemented by AppDelegate, but logic lives here
 - (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item;
