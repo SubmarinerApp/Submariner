@@ -424,7 +424,7 @@
                 <menuItem title="Delete" id="Pl6-3L-PSk">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="delete:" target="-2" id="DdO-hl-R4m"/>
+                        <action selector="removeArtist:" target="-2" id="RVf-Pe-my1"/>
                     </connections>
                 </menuItem>
                 <menuItem title="Merge" id="g0J-2g-6I1">
@@ -461,7 +461,7 @@
                 <menuItem title="Delete" id="Jsb-SA-6w9">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="delete:" target="-2" id="2y6-Me-yKY"/>
+                        <action selector="removeTrack:" target="-2" id="ErY-0a-EBU"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="uSg-G2-baO"/>

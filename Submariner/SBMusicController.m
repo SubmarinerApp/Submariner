@@ -531,124 +531,84 @@
 
 
 - (void)removeTrackAlertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    if (returnCode == NSAlertFirstButtonReturn) {
-        // just remove
-        NSInteger selectedRow = [tracksTableView selectedRow];
-        
-        if(selectedRow != -1) {
-            SBTrack *selectedTrack = [[tracksController arrangedObjects] objectAtIndex:selectedRow];
-            if(selectedTrack != nil) {
-                [self.managedObjectContext deleteObject:selectedTrack];
-                [self.managedObjectContext processPendingChanges];
-                [self.managedObjectContext save:nil];
-                [[NSUserDefaults standardUserDefaults] removeObjectForKey: @"LastViewedResource"];
-            }
-        }
-    } else if(returnCode == NSAlertThirdButtonReturn) {
-        // remove then delete
-        NSInteger selectedRow = [tracksTableView selectedRow];
-        
-        if(selectedRow != -1) {
-            SBTrack *selectedTrack = [[tracksController arrangedObjects] objectAtIndex:selectedRow];
-            if(selectedTrack != nil) {
-                // delete from file system
-                NSError *error = nil;
-                
-                NSString *trackPath = selectedTrack.path;
-                if(![[NSFileManager defaultManager] removeItemAtPath:trackPath error:&error]) {
-                    [NSApp presentError:error];
-                }
-                
-                // remove from context
-                [self.managedObjectContext deleteObject:selectedTrack];
-                [self.managedObjectContext processPendingChanges];
-                [self.managedObjectContext save:nil];
-                [[NSUserDefaults standardUserDefaults] removeObjectForKey: @"LastViewedResource"];
-            }
-        }
+    if (returnCode == NSAlertSecondButtonReturn) {
+        return;
     }
+    NSIndexSet *selectedRows = [tracksTableView selectedRowIndexes];
+    NSMutableArray *tracksToDelete = [NSMutableArray arrayWithCapacity: [selectedRows count]];
+    [selectedRows enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+        SBTrack *selectedTrack = [[tracksController arrangedObjects] objectAtIndex: idx];
+        [tracksToDelete addObject: selectedTrack];
+    }];
+    BOOL deleteFile = returnCode == NSAlertThirdButtonReturn;
+    [tracksToDelete enumerateObjectsUsingBlock:^(SBTrack*  _Nonnull selectedTrack, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSError *error = nil;
+        
+        NSString *trackPath = selectedTrack.path;
+        if (deleteFile && ![[NSFileManager defaultManager] removeItemAtPath:trackPath error:&error]) {
+            [NSApp presentError:error];
+        }
+        
+        // remove from context
+        [self.managedObjectContext deleteObject:selectedTrack];
+    }];
+    [self.managedObjectContext processPendingChanges];
+    [self.managedObjectContext save:nil];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey: @"LastViewedResource"];
 }
 
 - (void)removeAlbumAlertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    if (returnCode == NSAlertFirstButtonReturn) {
-        // just remove
-        NSIndexSet *indexSet = [albumsBrowserView selectionIndexes];
-        NSInteger selectedRow = [indexSet firstIndex];
+    if (returnCode == NSAlertSecondButtonReturn) {
+        return;
+    }
+    NSIndexSet *selectedRows = [albumsBrowserView selectionIndexes];
+    NSMutableArray *albumsToDelete = [NSMutableArray arrayWithCapacity: [selectedRows count]];
+    [selectedRows enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+        SBAlbum *selectedAlbum = [[albumsController arrangedObjects] objectAtIndex: idx];
+        [albumsToDelete addObject: selectedAlbum];
+    }];
+    BOOL deleteFile = returnCode == NSAlertThirdButtonReturn;
+    [albumsToDelete enumerateObjectsUsingBlock:^(SBAlbum*  _Nonnull selectedAlbum, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSError *error = nil;
         
-        if(selectedRow != -1) {
-            SBAlbum *selectedAlbum = [[albumsController arrangedObjects] objectAtIndex:selectedRow];
-            if(selectedAlbum != nil) {
-                [self.managedObjectContext deleteObject:selectedAlbum];
-                [self.managedObjectContext processPendingChanges];
-                [self.managedObjectContext save:nil];
-                [[NSUserDefaults standardUserDefaults] removeObjectForKey: @"LastViewedResource"];
-            }
+        NSString *trackPath = selectedAlbum.path;
+        if (deleteFile && ![[NSFileManager defaultManager] removeItemAtPath:trackPath error:&error]) {
+            [NSApp presentError:error];
         }
         
-    } else if(returnCode == NSAlertThirdButtonReturn) {
-        // remove then delete
-        NSIndexSet *indexSet = [albumsBrowserView selectionIndexes];
-        NSInteger selectedRow = [indexSet firstIndex];
-        
-        if(selectedRow != -1) {
-            SBAlbum *selectedAlbum = [[albumsController arrangedObjects] objectAtIndex:selectedRow];
-            if(selectedAlbum != nil) {
-                // delete from file system
-                NSError *error = nil;
-                
-                NSString *trackPath = selectedAlbum.path;
-                if(![[NSFileManager defaultManager] removeItemAtPath:trackPath error:&error]) {
-                    [NSApp presentError:error];
-                }
-                
-                // remove from context
-                [self.managedObjectContext deleteObject:selectedAlbum];
-                [self.managedObjectContext processPendingChanges];
-                [self.managedObjectContext save:nil];
-                [[NSUserDefaults standardUserDefaults] removeObjectForKey: @"LastViewedResource"];
-            }
-        }
-    } 
+        // XXX: remove children?
+        [self.managedObjectContext deleteObject:selectedAlbum];
+    }];
+    [self.managedObjectContext processPendingChanges];
+    [self.managedObjectContext save:nil];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey: @"LastViewedResource"];
 }
 
-- (void)removeArtistAlertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo { 
-    if (returnCode == NSAlertFirstButtonReturn) {
-        // just remove
-        NSInteger selectedRow = [artistsTableView selectedRow];
-        
-        if(selectedRow != -1) {
-            SBArtist *selectedArtist = [[artistsController arrangedObjects] objectAtIndex:selectedRow];
-            if(selectedArtist != nil) {
-                [self.managedObjectContext deleteObject:selectedArtist];
-                [self.managedObjectContext processPendingChanges];
-                [self.managedObjectContext save:nil];
-                [[NSUserDefaults standardUserDefaults] removeObjectForKey: @"LastViewedResource"];
-            }
-        }
-        
-    } else if(returnCode == NSAlertThirdButtonReturn) {
-        // remove then delete
-        NSInteger selectedRow = [artistsTableView selectedRow];
-        
-        if(selectedRow != -1) {
-            SBArtist *selectedArtist = [[artistsController arrangedObjects] objectAtIndex:selectedRow];
-            if(selectedArtist != nil) {
-                // delete from file system
-                NSError *error = nil;
-                
-                NSString *artistPath = selectedArtist.path;
-                if(![[NSFileManager defaultManager] removeItemAtPath:artistPath error:&error]) {
-                    [NSApp presentError:error];
-                }
-                
-                // remove from context
-                [self.managedObjectContext deleteObject:selectedArtist];
-                [self.managedObjectContext processPendingChanges];
-                [self.managedObjectContext save:nil];
-                [[NSUserDefaults standardUserDefaults] removeObjectForKey: @"LastViewedResource"];
-            }
-        }
+- (void)removeArtistAlertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    if (returnCode == NSAlertSecondButtonReturn) {
+        return;
     }
+    NSIndexSet *selectedRows = [artistsTableView selectedRowIndexes];
+    NSMutableArray *artistsToDelete = [NSMutableArray arrayWithCapacity: [selectedRows count]];
+    [selectedRows enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+        SBArtist *selectedArtist = [[artistsController arrangedObjects] objectAtIndex: idx];
+        [artistsToDelete addObject: selectedArtist];
+    }];
+    BOOL deleteFile = returnCode == NSAlertThirdButtonReturn;
+    [artistsToDelete enumerateObjectsUsingBlock:^(SBArtist*  _Nonnull selectedArtist, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSError *error = nil;
+        
+        NSString *artistPath = selectedArtist.path;
+        if (deleteFile && ![[NSFileManager defaultManager] removeItemAtPath:artistPath error:&error]) {
+            [NSApp presentError:error];
+        }
+        
+        // XXX: remove children?
+        [self.managedObjectContext deleteObject:selectedArtist];
+    }];
+    [self.managedObjectContext processPendingChanges];
+    [self.managedObjectContext save:nil];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey: @"LastViewedResource"];
 }
 
 
