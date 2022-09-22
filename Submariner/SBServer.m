@@ -43,6 +43,7 @@
 @dynamic resources;
 @synthesize clientController;
 @synthesize selectedTabIndex;
+@synthesize cachedPassword;
 
 
 + (NSSet *)keyPathsForValuesAffectingValueForKey:(NSString *)key {
@@ -168,8 +169,13 @@
     NSString *string = nil;
     [self willAccessValueForKey: @"password"];
 
-    // decompose URL
-    if(self.url && self.username) {
+    if (self.primitivePassword && ![self.primitivePassword isEqualToString: @""]) {
+        [self setPassword: self.primitivePassword];
+        // assuming it's successful
+        string = cachedPassword;
+    } else if (self.cachedPassword) {
+        string = cachedPassword;
+    } else if(self.url && self.username) {
 
         NSURL *anUrl = [NSURL URLWithString:self.url];
         // protocol scheme
@@ -184,7 +190,6 @@
         }
 
         // get internet keychain
-        // XXX: Caching?
         NSMutableDictionary *attribs = [NSMutableDictionary dictionary];
         attribs[(__bridge id)kSecClass] = (__bridge id)kSecClassInternetPassword;
         attribs[(__bridge id)kSecAttrServer] = anUrl.host;
@@ -207,6 +212,7 @@
             NSDictionary *resultDict = (__bridge_transfer NSDictionary *)result;
             NSData *passwordData = [resultDict valueForKey: (id)kSecValueData];
             string = [[NSString alloc] initWithData: passwordData encoding: NSUTF8StringEncoding];
+            cachedPassword = string;
         }
     }
     [self didAccessValueForKey: @"password"];
@@ -215,6 +221,8 @@
 
 - (void)setPassword:(NSString *) x {
     [self willChangeValueForKey: @"password"];
+    // XXX: should we invalidate the stored pw?
+    self.cachedPassword = nil;
 
     // decompose URL
     if(self.url && self.username) {
@@ -234,7 +242,7 @@
         NSLog(@"add internet keychain");
         
         // get internet keychain
-        NSData *passwordData = [x dataUsingEncoding: NSUTF8StringEncoding];
+        NSData *passwordData = [x dataUsingEncoding: NSUTF8StringEncoding] ?: [NSData data];
         NSMutableDictionary *attribs = [NSMutableDictionary dictionary];
         attribs[(__bridge id)kSecClass] = (__bridge id)kSecClassInternetPassword;
         attribs[(__bridge id)kSecAttrServer] = anUrl.host;
@@ -256,6 +264,9 @@
             NSError *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:ret userInfo: nil];
             NSLog(@"%@", error);
         }
+        cachedPassword = x;
+        // clear out the remnant of Core Data stored password
+        self.primitivePassword = @"";
     }
     [self didChangeValueForKey: @"password"];
 }

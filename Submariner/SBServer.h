@@ -40,12 +40,14 @@
     NSSet *resources;
     
     NSInteger selectedTabIndex;
+    NSString *cachedPassword;
 }
 
 @property (weak) NSSet *resources;
 @property (readonly, strong) SBClientController *clientController;
 
 @property (readwrite) NSInteger selectedTabIndex;
+@property (readwrite, strong) NSString *cachedPassword;
 
 
 // accessors
