@@ -207,7 +207,7 @@
             string = nil;
         } else if (ret != errSecSuccess) {
             NSError *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:ret userInfo: nil];
-            NSLog(@"%@", error);
+            [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
         } else {
             NSDictionary *resultDict = (__bridge_transfer NSDictionary *)result;
             NSData *passwordData = [resultDict valueForKey: (id)kSecValueData];
@@ -262,7 +262,7 @@
         
         if (ret != errSecSuccess) {
             NSError *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:ret userInfo: nil];
-            NSLog(@"%@", error);
+            [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
         }
         cachedPassword = x;
         // clear out the remnant of Core Data stored password
