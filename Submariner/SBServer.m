@@ -163,7 +163,102 @@
 #pragma mark -
 #pragma mark Custom Accessors (Keychain Support)
 
-// TODO: Put Keychain support here by overriding the password property
+- (NSString *)password {
+
+    NSString *string = nil;
+    [self willAccessValueForKey: @"password"];
+
+    // decompose URL
+    if(self.url && self.username) {
+
+        NSURL *anUrl = [NSURL URLWithString:self.url];
+        // protocol scheme
+        uint protocol = kSecProtocolTypeHTTP;
+        if([[anUrl scheme] rangeOfString:@"s"].location != NSNotFound) {
+            protocol = kSecProtocolTypeHTTPS;
+        }
+        // url port
+        NSNumber *port = [NSNumber numberWithInteger: protocol == kSecProtocolTypeHTTPS ? 443 : 80];
+        if([anUrl port] != nil) {
+            port = [anUrl port];
+        }
+
+        // get internet keychain
+        // XXX: Caching?
+        NSMutableDictionary *attribs = [NSMutableDictionary dictionary];
+        attribs[(__bridge id)kSecClass] = (__bridge id)kSecClassInternetPassword;
+        attribs[(__bridge id)kSecAttrServer] = anUrl.host;
+        attribs[(__bridge id)kSecAttrAccount] = self.username;
+        attribs[(__bridge id)kSecAttrPath] = @"/";
+        attribs[(__bridge id)kSecAttrPort] = anUrl.port;
+        attribs[(__bridge id)kSecAttrProtocol] = [NSNumber numberWithInt: protocol];
+            // query only
+        attribs[(__bridge id)kSecMatchLimit] = (__bridge id)kSecMatchLimitOne;
+        attribs[(__bridge id)kSecReturnData] = [NSNumber numberWithBool: YES];
+        attribs[(__bridge id)kSecReturnAttributes] = [NSNumber numberWithBool: YES];
+        CFDictionaryRef result = nil;
+        OSStatus ret = SecItemCopyMatching((__bridge CFDictionaryRef)attribs, (CFTypeRef *)&result);
+        if (ret == errSecItemNotFound) {
+            string = nil;
+        } else if (ret != errSecSuccess) {
+            NSError *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:ret userInfo: nil];
+            NSLog(@"%@", error);
+        } else {
+            NSDictionary *resultDict = (__bridge_transfer NSDictionary *)result;
+            NSData *passwordData = [resultDict valueForKey: (id)kSecValueData];
+            string = [[NSString alloc] initWithData: passwordData encoding: NSUTF8StringEncoding];
+        }
+    }
+    [self didAccessValueForKey: @"password"];
+    return string;
+}
+
+- (void)setPassword:(NSString *) x {
+    [self willChangeValueForKey: @"password"];
+
+    // decompose URL
+    if(self.url && self.username) {
+        NSURL *anUrl = [NSURL URLWithString:self.url];
+        // protocol scheme
+        uint protocol = kSecProtocolTypeHTTP;
+        if([[anUrl scheme] rangeOfString:@"s"].location != NSNotFound) {
+            protocol = kSecProtocolTypeHTTPS;
+        }
+        // url port
+        NSNumber *port = [NSNumber numberWithInteger: protocol == kSecProtocolTypeHTTPS ? 443 : 80];
+        if([anUrl port] != nil) {
+            port = [anUrl port];
+        }
+
+        // add internet keychain
+        NSLog(@"add internet keychain");
+        
+        // get internet keychain
+        NSData *passwordData = [x dataUsingEncoding: NSUTF8StringEncoding];
+        NSMutableDictionary *attribs = [NSMutableDictionary dictionary];
+        attribs[(__bridge id)kSecClass] = (__bridge id)kSecClassInternetPassword;
+        attribs[(__bridge id)kSecAttrServer] = anUrl.host;
+        attribs[(__bridge id)kSecAttrAccount] = self.username;
+        attribs[(__bridge id)kSecAttrPath] = @"/";
+        attribs[(__bridge id)kSecAttrPort] = anUrl.port;
+        attribs[(__bridge id)kSecAttrProtocol] = [NSNumber numberWithInt: protocol];
+        attribs[(__bridge id)kSecValueData] = passwordData;
+        OSStatus ret = SecItemAdd((__bridge CFDictionaryRef)attribs, NULL);
+        if (ret == errSecDuplicateItem) {
+            [attribs removeObjectForKey: (__bridge id)kSecValueData];
+            NSDictionary *updateAttribs = @{
+                (__bridge id)kSecValueData: passwordData,
+            };
+            ret = SecItemUpdate((__bridge CFDictionaryRef)attribs, (__bridge CFDictionaryRef)updateAttribs);
+        }
+        
+        if (ret != errSecSuccess) {
+            NSError *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:ret userInfo: nil];
+            NSLog(@"%@", error);
+        }
+    }
+    [self didChangeValueForKey: @"password"];
+}
 
 #pragma mark -
 #pragma mark Subsonic Client (Login)
