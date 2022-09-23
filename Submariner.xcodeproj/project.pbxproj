@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3E079FB928568EE8000A73E7 /* SBVolumeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E079FB828568EE8000A73E7 /* SBVolumeButton.m */; };
+		3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */; };
 		3E53DBA427D6F25500DB4C84 /* SFBAudioEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBA127D6F25500DB4C84 /* SFBAudioEngine.framework */; };
 		3E53DBA527D6F25500DB4C84 /* SFBAudioEngine.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBA127D6F25500DB4C84 /* SFBAudioEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E53DBBA27E4192B00DB4C84 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBB927E4192B00DB4C84 /* AVFoundation.framework */; };
@@ -181,6 +182,8 @@
 /* Begin PBXFileReference section */
 		3E079FB728568EE8000A73E7 /* SBVolumeButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBVolumeButton.h; sourceTree = "<group>"; };
 		3E079FB828568EE8000A73E7 /* SBVolumeButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBVolumeButton.m; sourceTree = "<group>"; };
+		3E2F86C928DD36E600C5CE23 /* Submariner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Submariner-Bridging-Header.h"; sourceTree = "<group>"; };
+		3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBMonospaceTextField.swift; sourceTree = "<group>"; };
 		3E53DBB927E4192B00DB4C84 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		3E69A2FD28B02D86009800D8 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -541,6 +544,7 @@
 				4C87EDC2139CDCA70064DE2E /* Pictures */,
 				4C87ED6B139CD8BE0064DE2E /* Submariner-Info.plist */,
 				4C87ED6C139CD8BE0064DE2E /* InfoPlist.strings */,
+				3E2F86C928DD36E600C5CE23 /* Submariner-Bridging-Header.h */,
 				4C87ED6F139CD8BE0064DE2E /* Submariner-Prefix.pch */,
 				4C87ED70139CD8BE0064DE2E /* main.m */,
 				4C87ED72139CD8BE0064DE2E /* Credits.rtf */,
@@ -587,6 +591,7 @@
 				3E079FB828568EE8000A73E7 /* SBVolumeButton.m */,
 				3EFA2C8228D11B9900A1CE46 /* SBTrackArtistNameTransformer.h */,
 				3EFA2C8328D11B9900A1CE46 /* SBTrackArtistNameTransformer.m */,
+				3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -902,6 +907,11 @@
 			attributes = {
 				LastUpgradeCheck = 1340;
 				ORGANIZATIONNAME = OPALE;
+				TargetAttributes = {
+					4C87ED5E139CD8BE0064DE2E = {
+						LastSwiftMigration = 1340;
+					};
+				};
 			};
 			buildConfigurationList = 4C87ED59139CD8BE0064DE2E /* Build configuration list for PBXProject "Submariner" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1056,6 +1066,7 @@
 				4CFAFC2C139EF08800E82B57 /* SBServerHomeController.m in Sources */,
 				4CFAFC37139EF20600E82B57 /* MGScopeBar.m in Sources */,
 				4CFAFC38139EF20600E82B57 /* MGRecessedPopUpButtonCell.m in Sources */,
+				3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */,
 				4CFAFC45139FFC1700E82B57 /* SBClientController.m in Sources */,
 				4CFAFC47139FFC1700E82B57 /* SBSubsonicParsingOperation.m in Sources */,
 				4CFAFC48139FFC1700E82B57 /* SBPlayer.m in Sources */,
@@ -1234,6 +1245,7 @@
 				CLANG_ARC_MIGRATION = donothing;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Submariner/Submariner.entitlements;
 				CODE_SIGN_IDENTITY = "-";
@@ -1257,6 +1269,9 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = all;
+				SWIFT_OBJC_BRIDGING_HEADER = "Submariner/Submariner-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1269,6 +1284,7 @@
 				CLANG_ARC_MIGRATION = donothing;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Submariner/Submariner.entitlements;
 				CODE_SIGN_IDENTITY = "-";
@@ -1292,6 +1308,8 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = NO;
 				STRIP_STYLE = all;
+				SWIFT_OBJC_BRIDGING_HEADER = "Submariner/Submariner-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

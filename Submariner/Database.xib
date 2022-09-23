@@ -241,7 +241,7 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="D49D7AE8-8081-46E9-90F3-09E7640095F2" label="Progress" paletteLabel="Progress" sizingBehavior="auto" id="8J7-oa-JoQ">
                         <nil key="toolTip"/>
-                        <textField key="view" verticalHuggingPriority="750" id="270">
+                        <textField key="view" verticalHuggingPriority="750" id="270" customClass="SBMonospaceTextField">
                             <rect key="frame" x="12" y="14" width="31" height="11"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="00:00" id="278">
@@ -264,7 +264,7 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="0CB85B96-471B-4F16-92B4-C0F067699C04" label="Duration" paletteLabel="Duration" sizingBehavior="auto" id="ulm-c1-CKY">
                         <nil key="toolTip"/>
-                        <textField key="view" verticalHuggingPriority="750" id="269">
+                        <textField key="view" verticalHuggingPriority="750" id="269" customClass="SBMonospaceTextField">
                             <rect key="frame" x="9" y="14" width="35" height="11"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="-00:00" id="279">
