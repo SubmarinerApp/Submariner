@@ -165,5 +165,22 @@
     return [NSURL URLWithString:[string stringByAddingPercentEncodingWithAllowedCharacters: [NSCharacterSet URLQueryAllowedCharacterSet]]];
 }
 
+// XXX: Move to another file?
+
+// We only care about HTTP.
+- (NSNumber *)keychainProtocol {
+    if ([self.scheme isEqualToString: @"https"]) {
+        return [NSNumber numberWithUnsignedInt: kSecProtocolTypeHTTPS];
+    }
+    return [NSNumber numberWithUnsignedInt: kSecProtocolTypeHTTP];
+}
+
+- (NSNumber *)portWithHTTPFallback {
+    if([self port] != nil) {
+        return [self port];
+    }
+    return [NSNumber numberWithInteger: [self.scheme isEqualToString: @"https"] ? 443 : 80];
+}
+
 
 @end

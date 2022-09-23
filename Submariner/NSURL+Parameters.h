@@ -41,4 +41,7 @@
 
 + (NSURL *)temporaryFileURL;
 
+- (NSNumber *)keychainProtocol;
+- (NSNumber *)portWithHTTPFallback;
+
 @end
