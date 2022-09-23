@@ -429,7 +429,9 @@
 
 
 - (IBAction)toggleVolume:(id)sender {
-    NSView *view = volumeButton;
+    BOOL visible = [[self.window.toolbar visibleItems] containsObject: volumeToolbarItem];
+    // [self.window.toolbar performSelector:@selector(_toolbarView)] is better, but undocumented
+    NSView *view = visible ? volumeButton : self.window.contentView;
     NSRect boundary = view.bounds;
     if (volumePopover.shown) {
         [volumePopover close];

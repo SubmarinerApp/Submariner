@@ -89,6 +89,7 @@
     IBOutlet NSViewController *tracklistVC;
     IBOutlet NSBox *tracklistContainmentBox;
     
+    __weak IBOutlet NSToolbarItem *volumeToolbarItem;
     IBOutlet NSButton *volumeButton;
     IBOutlet NSPopover *volumePopover;
     IBOutlet NSSearchField *searchField;

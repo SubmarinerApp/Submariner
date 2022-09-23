@@ -30,6 +30,7 @@
                 <outlet property="tracklistVC" destination="UU0-Po-5l1" id="I76-My-MNO"/>
                 <outlet property="volumeButton" destination="Sgq-JE-YWM" id="ye3-qO-rO1"/>
                 <outlet property="volumePopover" destination="2nc-GS-yTR" id="HHE-dW-G4q"/>
+                <outlet property="volumeToolbarItem" destination="Yk7-oS-omj" id="rJB-Fw-93L"/>
                 <outlet property="window" destination="1" id="350"/>
             </connections>
         </customObject>
