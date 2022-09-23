@@ -63,7 +63,7 @@
             </connections>
         </customObject>
         <window title="Submariner" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="Submariner" animationBehavior="default" tabbingMode="disallowed" id="1" userLabel="Database Window">
-            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES" fullSizeContentView="YES"/>
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="669" y="470" width="691" height="412"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
@@ -396,7 +396,7 @@
                     <toolbarItem reference="FV9-Yq-wbJ"/>
                 </defaultToolbarItems>
             </toolbar>
-            <contentBorderThickness minY="40" maxY="0.0"/>
+            <contentBorderThickness minY="41"/>
             <connections>
                 <outlet property="delegate" destination="-2" id="344"/>
             </connections>
