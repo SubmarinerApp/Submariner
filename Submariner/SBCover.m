@@ -38,6 +38,26 @@
 
 @implementation SBCover
 
+// We don't have a relationship directly with SBServer, but we can ask our relatives
+- (SBServer*) server {
+    if (self.album != nil && self.album.artist != nil) {
+        return self.album.artist.server;
+    } else if (self.track != nil) {
+        return self.track.server;
+    }
+    return nil;
+}
+
+- (NSString*) coversDir {
+    SBServer *server = self.server;
+    if (server == nil) {
+        // give up, we can't know
+        return nil;
+    }
+    NSString *serverName = server.resourceName;
+    return [[[SBAppDelegate sharedInstance] coverDirectory] stringByAppendingPathComponent: serverName];
+}
+
 // This is overriden so that consumers don't need to handle the difference
 // between absolute and relative paths themselves. Ideally, the relative path
 // is stored (for portability), and the absolute path provides for any consumers
@@ -47,20 +67,38 @@
 // XXX: Why is there a difference between MusicItem.path and Cover.imagePath?
 - (NSString*)imagePath {
     NSString *currentPath = self.primitiveImagePath;
-    if (currentPath == nil || [currentPath isAbsolutePath]) {
+    if (currentPath == nil) {
         return currentPath;
-    } else {
-        // Find the resource we belong to, either album through or track
-        NSString *serverName = nil;
-        if (self.album != nil && self.album.artist != nil && self.album.artist.server != nil) {
-            serverName = self.album.artist.server.resourceName;
-        } else if (self.track != nil && self.track.server != nil) {
-            serverName = self.track.server.resourceName;
-        } else {
-            // give up, we can't know
+    } else if ([currentPath isAbsolutePath]) {
+        NSString *coversDir = [self coversDir];
+        if (coversDir == nil) {
             return currentPath;
         }
-        NSString *coversDir = [[[SBAppDelegate sharedInstance] coverDirectory] stringByAppendingPathComponent: serverName];
+        // If the path matches the prefix, do it, otherwise move the file
+        if ([currentPath hasPrefix: coversDir]) {
+            // Prefix matches, just update the DB entry
+            NSString *fileName = [currentPath lastPathComponent];
+            [self setImagePath: fileName];
+            return currentPath;
+        } else {
+            // Prefix doesn't match, move instead
+            NSString *fileName = [currentPath lastPathComponent];
+            NSString *newPath = [coversDir stringByAppendingPathComponent: fileName];
+            NSError *error = nil;
+            // XXX: Synchronization? Only success will update tho
+            if ([[NSFileManager defaultManager] moveItemAtPath: currentPath toPath: newPath error: &error]) {
+                [self setImagePath: fileName];
+                return newPath;
+            } else {
+                NSLog(@"Error when moving file out of dir into dir: %@", error);
+                return currentPath;
+            }
+        }
+    } else {
+        NSString *coversDir = [self coversDir];
+        if (coversDir == nil) {
+            return currentPath;
+        }
         return [coversDir stringByAppendingPathComponent: currentPath];
     }
 }
