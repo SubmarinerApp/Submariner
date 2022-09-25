@@ -117,6 +117,10 @@ NSString * const PXSLDeleteKeyPressedOnRowsNotification = @"PXSourceListDeleteKe
 	[self reloadData];
 }
 
+- (NSSize)iconSize {
+    return _iconSize;
+}
+
 - (void)setIconSize:(NSSize)newIconSize
 {
 	_iconSize = newIconSize;

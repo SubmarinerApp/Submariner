@@ -1227,6 +1227,9 @@
     }
 }
 
+- (SBViewController*)currentViewController {
+    return currentViewController;
+}
 
 - (void)setCurrentViewController:(SBViewController *)newViewController {
     if (!currentViewController) {
