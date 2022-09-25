@@ -210,7 +210,7 @@
     return string;
 }
 
-- (void)updateKeyringPassword {
+- (void)updateKeychainPassword {
     NSURL *anUrl = [NSURL URLWithString:self.url];
     
     // add internet keychain
@@ -236,6 +236,41 @@
     }
     
     if (ret != errSecSuccess) {
+        NSError *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:ret userInfo: nil];
+        [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
+    }
+}
+
+- (void)updateKeychainWithOldURL: (NSURL*)oldURL oldUsername: (NSString*)oldUsername {
+    NSURL *newURL = [NSURL URLWithString: self.url];
+    NSData *passwordData = [self.cachedPassword dataUsingEncoding: NSUTF8StringEncoding] ?: [NSData data];
+    
+    NSLog(@"update internet keychain");
+    
+    // The old values are used since they're what's in the keychain,
+    // but the object has been changed, so it's the source of the new values.
+    // We just need the username and URL, since the old PW doesn't matter in query.
+    NSMutableDictionary *attribs = [NSMutableDictionary dictionary];
+    attribs[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
+    attribs[(__bridge id)kSecAttrServer] = oldURL.host;
+    attribs[(__bridge id)kSecAttrAccount] = oldUsername;
+    attribs[(__bridge id)kSecAttrPath] = @"/";
+    attribs[(__bridge id)kSecAttrPort] = [oldURL portWithHTTPFallback];
+    attribs[(__bridge id)kSecAttrProtocol] = [oldURL keychainProtocol];
+    
+    NSMutableDictionary *newAttributes = [NSMutableDictionary dictionary];
+    newAttributes[(__bridge id)kSecAttrServer] = newURL.host;
+    newAttributes[(__bridge id)kSecAttrAccount] = self.username;
+    newAttributes[(__bridge id)kSecAttrPort] = [newURL portWithHTTPFallback];
+    newAttributes[(__bridge id)kSecAttrProtocol] = [newURL keychainProtocol];
+    newAttributes[(__bridge id)kSecValueData] = passwordData;
+    
+    OSStatus ret = SecItemUpdate((__bridge CFDictionaryRef)attribs, (__bridge CFDictionaryRef)newAttributes);
+    if (ret == errSecItemNotFound) {
+        // Use the old method of having it be updated by the current values,
+        // since we have nothing to update. This will create it in keychain.
+        [self updateKeychainPassword];
+    } if (ret != errSecSuccess) {
         NSError *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:ret userInfo: nil];
         [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
     }

@@ -43,10 +43,29 @@
 @synthesize server;
 @synthesize editMode;
 
+@synthesize oldURL, oldPassword, oldUsername;
+
+- (SBServer*)server {
+    return server;
+}
+
+- (void)setServer:(SBServer *)newServer {
+    server = newServer;
+    if (self.server == nil) {
+        return;
+    }
+    oldURL = server.url;
+    oldUsername = server.username;
+    oldPassword = server.password;
+}
+
 - (void)closeSheet:(id)sender {
     [super closeSheet:sender];
     
-    if([self.managedObjectContext hasChanges]) {
+    // XXX: Not sure if PW updates MOC, since PW is not in Core Data anymore
+    if([self.managedObjectContext hasChanges] || ![self.server.password isEqualToString: oldPassword]) {
+        NSURL *oldURLAsURL = [NSURL URLWithString: oldURL];
+        [self.server updateKeychainWithOldURL: oldURLAsURL oldUsername: oldUsername];
         [self.managedObjectContext commitEditing];
         [self.managedObjectContext save:nil];
     }
@@ -61,14 +80,6 @@
         [self.managedObjectContext processPendingChanges];
     }
     [((SBWindowController *)[parentWindow windowController]) hideVisualCue];
-}
-
-
-- (void)controlTextDidEndEditing:(NSNotification *)obj {
-    if (obj.object == passwordTextField) {
-        // XXX: Should we do this here? Or on save?
-        [self.server updateKeychainPassword];
-    }
 }
 
 @end

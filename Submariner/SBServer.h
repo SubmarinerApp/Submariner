@@ -55,6 +55,7 @@
 
 // keychain
 - (void) updateKeychainPassword;
+- (void)updateKeychainWithOldURL: (NSURL*)oldURL oldUsername: (NSString*)oldUsername;
 
 // login management
 - (void)connect;

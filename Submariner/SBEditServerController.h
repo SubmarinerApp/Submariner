@@ -47,9 +47,15 @@
     IBOutlet NSTextField *urlTextField;
     IBOutlet NSTextField *usernameTextField;
     IBOutlet NSTextField *passwordTextField;
+    
+    NSString *oldURL, *oldUsername, *oldPassword;
 }
 
 @property (readwrite, strong) SBServer *server;
 @property (readwrite) BOOL editMode;
+
+@property (readwrite, strong) NSString *oldUsername;
+@property (readwrite, strong) NSString *oldPassword;
+@property (readwrite, strong) NSString *oldURL;
 
 @end
