@@ -173,6 +173,32 @@
 #pragma mark -
 #pragma mark Window Controller
 
+- (void)maybeShowOnboarding {
+    // The criteria for showing the onboarding dialog is:
+    // 1. No local music
+    // 2. No servers
+    // So, check for both
+    NSError *error;
+    
+    NSPredicate *localMusicPredicate = [NSPredicate predicateWithFormat:@"(server == %@)", nil];
+    NSEntityDescription *artistDescription = [NSEntityDescription entityForName: @"Artist" inManagedObjectContext: self.managedObjectContext];
+    NSFetchRequest *localMusicFetchRequest = [[NSFetchRequest alloc] init];
+    localMusicFetchRequest.predicate = localMusicPredicate;
+    localMusicFetchRequest.entity = artistDescription;
+    NSUInteger localMusicCount = [self.managedObjectContext countForFetchRequest: localMusicFetchRequest error: &error];
+    
+    NSEntityDescription *serverDescription = [NSEntityDescription entityForName: @"Server" inManagedObjectContext: self.managedObjectContext];
+    NSFetchRequest *serverFetchRequest = [[NSFetchRequest alloc] init];
+    serverFetchRequest.entity = serverDescription;
+    NSUInteger serverCount = [self.managedObjectContext countForFetchRequest: serverFetchRequest error: &error];
+    
+    if (localMusicCount < 1 && serverCount < 1) {
+        [onboardingWindow center];
+        // XXX: Should we show as a sheet instead?
+        onboardingWindow.isVisible = YES;
+    }
+}
+
 - (void)windowDidLoad {
     
     [super windowDidLoad];
@@ -270,6 +296,8 @@
     
 
     [hostView setWantsLayer:YES];
+    
+    [self maybeShowOnboarding];
 }
 
 #pragma mark -
@@ -385,6 +413,8 @@
 
 
 - (IBAction)openAudioFiles:(id)sender {
+    onboardingWindow.isVisible = NO;
+    
     NSArray *types = [NSArray arrayWithObjects:@"mp3", @"flac", @"m4a", @"wav", @"aiff", @"aif", @"ogg", @"aac", nil];
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];
@@ -528,6 +558,7 @@
 }
 
 - (IBAction)addServer:(id)sender {
+    onboardingWindow.isVisible = NO;
     
     [sourceList deselectAll:sender];
     

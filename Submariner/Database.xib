@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Search Toolbar Item" minToolsVersion="12.0" minSystemVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,6 +18,7 @@
                 <outlet property="leftVC" destination="kgz-hh-1FR" id="2g7-qJ-078"/>
                 <outlet property="mainBox" destination="187" id="188"/>
                 <outlet property="mainSplitView" destination="7" id="42"/>
+                <outlet property="onboardingWindow" destination="aRg-DL-mvG" id="VCb-6M-ZdE"/>
                 <outlet property="playPauseButton" destination="234" id="258"/>
                 <outlet property="progressIndicator" destination="195" id="246"/>
                 <outlet property="progressSlider" destination="268" id="281"/>
@@ -780,11 +782,97 @@ Gw
             </subviews>
             <point key="canvasLocation" x="778" y="-169"/>
         </customView>
+        <window title="Welcome to Submariner" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="aRg-DL-mvG" userLabel="Onboarding Window" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" fullSizeContentView="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="167" y="106" width="493" height="359"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
+            <view key="contentView" id="A1Y-tO-WiD">
+                <rect key="frame" x="0.0" y="0.0" width="492" height="335"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="edn-LZ-ZFL">
+                        <rect key="frame" x="182" y="187" width="128" height="128"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="edn-LZ-ZFL" secondAttribute="height" multiplier="1:1" id="2Jh-iH-PVF"/>
+                            <constraint firstAttribute="height" constant="128" id="CW0-P8-1ZX"/>
+                            <constraint firstAttribute="width" constant="128" id="QCX-S3-060"/>
+                        </constraints>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="icon" id="P7h-51-e8D"/>
+                    </imageView>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="r42-FW-sh8">
+                        <rect key="frame" x="18" y="135" width="456" height="43"/>
+                        <textFieldCell key="cell" controlSize="large" lineBreakMode="clipping" refusesFirstResponder="YES" alignment="center" title="Welcome to Submariner" id="DPY-0d-wVP">
+                            <font key="font" metaFont="systemLight" size="36"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CLT-8B-WvM">
+                        <rect key="frame" x="122" y="57" width="248" height="39"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="242" id="Boh-e4-wA1"/>
+                            <constraint firstAttribute="height" constant="32" id="ZZs-Jx-Dgg"/>
+                        </constraints>
+                        <buttonCell key="cell" type="bevel" title="Connect to Server" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="JkV-5I-DKb">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <color key="bezelColor" name="AccentColor"/>
+                        <connections>
+                            <action selector="addServer:" target="-2" id="Yii-6V-V3f"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cQH-vF-i7J">
+                        <rect key="frame" x="122" y="16" width="248" height="39"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="32" id="S2r-Vy-6B1"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="242" id="a4I-5a-jn8"/>
+                        </constraints>
+                        <buttonCell key="cell" type="bevel" title="Import Music to Local Library" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pM2-ke-qY0">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="openAudioFiles:" target="-2" id="1vy-3Q-b7R"/>
+                        </connections>
+                    </button>
+                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="hUW-DD-fJl">
+                        <rect key="frame" x="18" y="111" width="456" height="16"/>
+                        <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" alignment="center" title="Get started by connecting to Subsonic, or manage your local music." id="JjU-BN-0qH">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="edn-LZ-ZFL" secondAttribute="trailing" constant="182" id="2oL-za-acT"/>
+                    <constraint firstItem="edn-LZ-ZFL" firstAttribute="top" secondItem="A1Y-tO-WiD" secondAttribute="top" constant="20" symbolic="YES" id="5so-2s-gb3"/>
+                    <constraint firstItem="edn-LZ-ZFL" firstAttribute="leading" secondItem="A1Y-tO-WiD" secondAttribute="leading" constant="182" id="DIq-8r-nrW"/>
+                    <constraint firstAttribute="trailing" secondItem="hUW-DD-fJl" secondAttribute="trailing" constant="20" symbolic="YES" id="Fv7-E5-vvJ"/>
+                    <constraint firstAttribute="trailing" secondItem="cQH-vF-i7J" secondAttribute="trailing" constant="125" id="GgL-eG-yDx"/>
+                    <constraint firstItem="CLT-8B-WvM" firstAttribute="top" secondItem="hUW-DD-fJl" secondAttribute="bottom" constant="18" id="I5f-4w-QiL"/>
+                    <constraint firstItem="r42-FW-sh8" firstAttribute="leading" secondItem="A1Y-tO-WiD" secondAttribute="leading" constant="20" symbolic="YES" id="R24-f9-tOu"/>
+                    <constraint firstItem="hUW-DD-fJl" firstAttribute="top" secondItem="r42-FW-sh8" secondAttribute="bottom" constant="8" symbolic="YES" id="U8E-aC-BQe"/>
+                    <constraint firstAttribute="trailing" secondItem="CLT-8B-WvM" secondAttribute="trailing" constant="125" id="Ya5-d1-2nl"/>
+                    <constraint firstAttribute="trailing" secondItem="r42-FW-sh8" secondAttribute="trailing" constant="20" symbolic="YES" id="b3o-dS-SCS"/>
+                    <constraint firstItem="CLT-8B-WvM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="A1Y-tO-WiD" secondAttribute="leading" constant="20" symbolic="YES" id="cwm-Xz-Hcl"/>
+                    <constraint firstItem="cQH-vF-i7J" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="A1Y-tO-WiD" secondAttribute="leading" constant="20" symbolic="YES" id="eAZ-ie-nIl"/>
+                    <constraint firstItem="r42-FW-sh8" firstAttribute="top" secondItem="edn-LZ-ZFL" secondAttribute="bottom" constant="9" id="nHV-UX-KIY"/>
+                    <constraint firstItem="hUW-DD-fJl" firstAttribute="leading" secondItem="A1Y-tO-WiD" secondAttribute="leading" constant="20" symbolic="YES" id="rLT-io-cqP"/>
+                    <constraint firstAttribute="bottom" secondItem="cQH-vF-i7J" secondAttribute="bottom" constant="20" symbolic="YES" id="usm-3d-Wmc"/>
+                    <constraint firstItem="cQH-vF-i7J" firstAttribute="top" secondItem="CLT-8B-WvM" secondAttribute="bottom" constant="9" id="vHo-ky-hG2"/>
+                </constraints>
+            </view>
+            <point key="canvasLocation" x="563" y="906.5"/>
+        </window>
     </objects>
     <resources>
         <image name="NoArtwork" width="512" height="512"/>
         <image name="backward" catalog="system" width="19" height="12"/>
         <image name="forward" catalog="system" width="19" height="12"/>
+        <image name="icon" width="512" height="512"/>
         <image name="music.note.list" catalog="system" width="16" height="15"/>
         <image name="off" width="16" height="16"/>
         <image name="pause" catalog="system" width="9" height="13"/>
@@ -796,5 +884,8 @@ Gw
         <image name="sidebar.left" catalog="system" width="18" height="14"/>
         <image name="speaker" catalog="system" width="14" height="14"/>
         <image name="speaker.wave.2" catalog="system" width="19" height="14"/>
+        <namedColor name="AccentColor">
+            <color red="0.68599998950958252" green="0.52499997615814209" blue="0.23499999940395355" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
     </resources>
 </document>

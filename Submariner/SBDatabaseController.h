@@ -95,6 +95,8 @@
     IBOutlet NSSearchField *searchField;
     IBOutlet NSSearchToolbarItem *searchToolbarItem;
     
+    IBOutlet NSPanel *onboardingWindow;
+    
     SBMusicController *musicController;
     SBDownloadsController *downloadsController;
     SBTracklistController *tracklistController;
