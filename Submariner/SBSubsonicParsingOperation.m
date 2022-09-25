@@ -202,18 +202,20 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
                         
                         // write cover image on the disk
                         NSString *filePath = nil;
+                        NSString *mimeType = [SBSubsonicParsingOperation contentTypeForImageData:xmlData];
+                        NSString *fileName = nil;
+                        if([mimeType isEqualToString:@"image/png"]) {
+                            fileName = [NSString stringWithFormat:@"%@.png", currentCoverID];
+                        } else if([mimeType isEqualToString:@"image/jpeg"]) {
+                            fileName = [NSString stringWithFormat:@"%@.jpeg", currentCoverID];
+                        } else if([mimeType isEqualToString:@"image/gif"]) {
+                            fileName = [NSString stringWithFormat:@"%@.gif", currentCoverID];
+                        } else if([mimeType isEqualToString:@"image/tiff"]) {
+                            fileName = [NSString stringWithFormat:@"%@.tiff", currentCoverID];
+                        }
                         
-                        if([[SBSubsonicParsingOperation contentTypeForImageData:xmlData] isEqualToString:@"image/png"]) {
-                            filePath = [coversDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.png", currentCoverID]];
-                            [xmlData writeToFile:filePath atomically:YES];
-                        } else if([[SBSubsonicParsingOperation contentTypeForImageData:xmlData] isEqualToString:@"image/jpeg"]) {
-                            filePath = [coversDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.jpeg", currentCoverID]];
-                            [xmlData writeToFile:filePath atomically:YES];
-                        } else if([[SBSubsonicParsingOperation contentTypeForImageData:xmlData] isEqualToString:@"image/gif"]) {
-                            filePath = [coversDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.gif", currentCoverID]];
-                            [xmlData writeToFile:filePath atomically:YES];
-                        } else if([[SBSubsonicParsingOperation contentTypeForImageData:xmlData] isEqualToString:@"image/tiff"]) {
-                            filePath = [coversDir stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.tiff", currentCoverID]];
+                        if (fileName != nil) {
+                            filePath = [coversDir stringByAppendingPathComponent: fileName];
                             [xmlData writeToFile:filePath atomically:YES];
                         }
                         
@@ -221,8 +223,9 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
                         SBCover *cover = [self fetchCoverWithName:currentCoverID];
                         
                         // add image path to cover object
-                        if(cover != nil) {  
-                            [cover setImagePath:filePath]; 
+                        if(cover != nil && fileName != nil) {
+                            // use the relative path when possible
+                            [cover setImagePath: fileName];
                         }
                         
                         [self saveThreadedContext];
