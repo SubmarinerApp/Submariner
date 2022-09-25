@@ -270,7 +270,7 @@
         // Use the old method of having it be updated by the current values,
         // since we have nothing to update. This will create it in keychain.
         [self updateKeychainPassword];
-    } if (ret != errSecSuccess) {
+    } else if (ret != errSecSuccess) {
         NSError *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:ret userInfo: nil];
         [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
     }
