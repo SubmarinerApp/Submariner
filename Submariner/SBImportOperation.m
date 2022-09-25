@@ -394,8 +394,8 @@
         CFStringRef fileExtension = (__bridge CFStringRef) [path pathExtension];
         CFStringRef fileUTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, fileExtension, NULL);
         
-        // if the current file is an image
-        if (UTTypeConformsTo(fileUTI, kUTTypeAudio)) {
+        // if the current file is an image, and make an exception for M4A which gets counted as video instead
+        if (UTTypeConformsTo(fileUTI, kUTTypeAudio) || [path.pathExtension isEqualToString: @"public.mpeg-4"]) {
             [result addObject:path];
         }
     }
