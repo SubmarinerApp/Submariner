@@ -36,16 +36,16 @@
 @synthesize statusImage;
 
 - (NSImage *)statusImage {
-    NSImage *result = [NSImage imageNamed:@"pending"];
+    NSImage *result = [NSImage imageNamed: NSImageNameStatusPartiallyAvailable];
     
     if([self.channelStatus isEqualToString:@"new"] || [self.channelStatus isEqualToString:@"completed"])
-        result = [NSImage imageNamed:@"on"];
+        result = [NSImage imageNamed: NSImageNameStatusAvailable];
     
     if([self.channelStatus isEqualToString:@"downloading"] || [self.channelStatus isEqualToString:@"skipped"])
-        result = [NSImage imageNamed:@"pending"];
+        result = [NSImage imageNamed: NSImageNameStatusPartiallyAvailable];
     
     if([self.channelStatus isEqualToString:@"error"] || [self.channelStatus isEqualToString:@"deleted"])
-        result = [NSImage imageNamed:@"off"];
+        result = [NSImage imageNamed: NSImageNameStatusUnavailable];
     
     return result;
 }

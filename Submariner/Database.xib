@@ -548,7 +548,7 @@ Gw
                     <imageView id="326">
                         <rect key="frame" x="107" y="97" width="10" height="10"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" image="off" id="327"/>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" image="NSStatusUnavailable" id="327"/>
                         <connections>
                             <binding destination="111" name="value" keyPath="server.licenseImage" id="335"/>
                         </connections>
@@ -869,12 +869,12 @@ Gw
         </window>
     </objects>
     <resources>
+        <image name="NSStatusUnavailable" width="16" height="16"/>
         <image name="NoArtwork" width="512" height="512"/>
         <image name="backward" catalog="system" width="19" height="12"/>
         <image name="forward" catalog="system" width="19" height="12"/>
         <image name="icon" width="512" height="512"/>
         <image name="music.note.list" catalog="system" width="16" height="15"/>
-        <image name="off" width="16" height="16"/>
         <image name="pause" catalog="system" width="9" height="13"/>
         <image name="person.wave.2" catalog="system" width="17" height="16"/>
         <image name="play" catalog="system" width="12" height="13"/>

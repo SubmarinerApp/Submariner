@@ -138,10 +138,10 @@
 
 
 - (NSImage *)licenseImage {
-    NSImage *result = [NSImage imageNamed:@"off"];
+    NSImage *result = [NSImage imageNamed: NSImageNameStatusUnavailable];
     
     if([self.isValidLicense boolValue])
-        result = [NSImage imageNamed:@"on"];
+        result = [NSImage imageNamed: NSImageNameStatusAvailable];
     
     return result;
 }

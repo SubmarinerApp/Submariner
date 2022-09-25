@@ -41,7 +41,6 @@
 		4C56868214050AD000BE3478 /* SBCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56868114050AD000BE3478 /* SBCollectionView.m */; };
 		4C56868514050B9A00BE3478 /* SBPodcastItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56868414050B9A00BE3478 /* SBPodcastItemView.m */; };
 		4C56868814050C1100BE3478 /* SBPodcastViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56868714050C1100BE3478 /* SBPodcastViewItem.m */; };
-		4C69DBD5140655DE00F016A7 /* pending.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4C69DBD4140655DE00F016A7 /* pending.tiff */; };
 		4C7AA221139D530B0050BE95 /* RWTableHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA21E139D530B0050BE95 /* RWTableHeaderCell.m */; };
 		4C7AA229139D53A50050BE95 /* SBTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA228139D53A50050BE95 /* SBTableView.m */; };
 		4C7AA22D139D563A0050BE95 /* SBPlaylistController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA22B139D563A0050BE95 /* SBPlaylistController.m */; };
@@ -110,8 +109,6 @@
 		4CCF7FEF13B673CA00954C6E /* SBServerSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCF7FED13B673C900954C6E /* SBServerSearchController.m */; };
 		4CCF7FF013B673CA00954C6E /* ServerSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CCF7FEE13B673C900954C6E /* ServerSearch.xib */; };
 		4CCF7FF413B6762F00954C6E /* SBSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CCF7FF313B6762F00954C6E /* SBSearchResult.m */; };
-		4CE3B7DF13FA733F006A4F69 /* off.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4CE3B7DD13FA733F006A4F69 /* off.tiff */; };
-		4CE3B7E013FA733F006A4F69 /* on.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 4CE3B7DE13FA733F006A4F69 /* on.tiff */; };
 		4CED8E1F144CE2A400332417 /* NSString+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CED8E1E144CE2A400332417 /* NSString+Hex.m */; };
 		4CFAFC2C139EF08800E82B57 /* SBServerHomeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC2A139EF08800E82B57 /* SBServerHomeController.m */; };
 		4CFAFC2D139EF08800E82B57 /* ServerHome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CFAFC2B139EF08800E82B57 /* ServerHome.xib */; };
@@ -236,7 +233,6 @@
 		4C56868414050B9A00BE3478 /* SBPodcastItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPodcastItemView.m; sourceTree = "<group>"; };
 		4C56868614050C1100BE3478 /* SBPodcastViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPodcastViewItem.h; sourceTree = "<group>"; };
 		4C56868714050C1100BE3478 /* SBPodcastViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPodcastViewItem.m; sourceTree = "<group>"; };
-		4C69DBD4140655DE00F016A7 /* pending.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = pending.tiff; sourceTree = "<group>"; };
 		4C7A3EAE148F083E009C6EE6 /* SFBAudioEngine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFBAudioEngine.xcodeproj; path = SFBAudioEngine/SFBAudioEngine.xcodeproj; sourceTree = "<group>"; };
 		4C7AA21D139D530B0050BE95 /* RWTableHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWTableHeaderCell.h; sourceTree = "<group>"; };
 		4C7AA21E139D530B0050BE95 /* RWTableHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWTableHeaderCell.m; sourceTree = "<group>"; };
@@ -367,8 +363,6 @@
 		4CCF7FEE13B673C900954C6E /* ServerSearch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerSearch.xib; sourceTree = "<group>"; };
 		4CCF7FF213B6762F00954C6E /* SBSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSearchResult.h; sourceTree = "<group>"; };
 		4CCF7FF313B6762F00954C6E /* SBSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSearchResult.m; sourceTree = "<group>"; };
-		4CE3B7DD13FA733F006A4F69 /* off.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = off.tiff; sourceTree = "<group>"; };
-		4CE3B7DE13FA733F006A4F69 /* on.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = on.tiff; sourceTree = "<group>"; };
 		4CED8E1D144CE2A400332417 /* NSString+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hex.h"; sourceTree = "<group>"; };
 		4CED8E1E144CE2A400332417 /* NSString+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hex.m"; sourceTree = "<group>"; };
 		4CFAFC29139EF08800E82B57 /* SBServerHomeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBServerHomeController.h; sourceTree = "<group>"; };
@@ -691,9 +685,6 @@
 			children = (
 				4C4A1E6613B287C7000BA93D /* icon.icns */,
 				4C87EDDE139CDCB10064DE2E /* NoArtwork.icns */,
-				4CE3B7DD13FA733F006A4F69 /* off.tiff */,
-				4CE3B7DE13FA733F006A4F69 /* on.tiff */,
-				4C69DBD4140655DE00F016A7 /* pending.tiff */,
 			);
 			name = Pictures;
 			sourceTree = "<group>";
@@ -974,12 +965,9 @@
 				4C42BEF613AA42E800299DBD /* Downloads.xib in Resources */,
 				4C4A1E6713B287C7000BA93D /* icon.icns in Resources */,
 				4CCF7FF013B673CA00954C6E /* ServerSearch.xib in Resources */,
-				4CE3B7DF13FA733F006A4F69 /* off.tiff in Resources */,
 				3ECF63FA280362BA004F9176 /* Assets.xcassets in Resources */,
-				4CE3B7E013FA733F006A4F69 /* on.tiff in Resources */,
 				4CFCE444140257EE00D35770 /* MusicSearch.xib in Resources */,
 				4CC6B56914041F7E003AEAC0 /* ServerPodcasts.xib in Resources */,
-				4C69DBD5140655DE00F016A7 /* pending.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
