@@ -53,6 +53,8 @@
 // accessors
 - (NSImage *)licenseImage;
 
+// keychain
+- (void) updateKeychainPassword;
 
 // login management
 - (void)connect;

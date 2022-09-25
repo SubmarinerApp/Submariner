@@ -210,6 +210,37 @@
     return string;
 }
 
+- (void)updateKeyringPassword {
+    NSURL *anUrl = [NSURL URLWithString:self.url];
+    
+    // add internet keychain
+    NSLog(@"add internet keychain");
+    
+    // This uses the stored password set by setPassword.
+    NSData *passwordData = [self.cachedPassword dataUsingEncoding: NSUTF8StringEncoding] ?: [NSData data];
+    NSMutableDictionary *attribs = [NSMutableDictionary dictionary];
+    attribs[(__bridge id)kSecClass] = (__bridge id)kSecClassInternetPassword;
+    attribs[(__bridge id)kSecAttrServer] = anUrl.host;
+    attribs[(__bridge id)kSecAttrAccount] = self.username;
+    attribs[(__bridge id)kSecAttrPath] = @"/";
+    attribs[(__bridge id)kSecAttrPort] = [anUrl portWithHTTPFallback];
+    attribs[(__bridge id)kSecAttrProtocol] = [anUrl keychainProtocol];
+    attribs[(__bridge id)kSecValueData] = passwordData;
+    OSStatus ret = SecItemAdd((__bridge CFDictionaryRef)attribs, NULL);
+    if (ret == errSecDuplicateItem) {
+        [attribs removeObjectForKey: (__bridge id)kSecValueData];
+        NSDictionary *updateAttribs = @{
+            (__bridge id)kSecValueData: passwordData,
+        };
+        ret = SecItemUpdate((__bridge CFDictionaryRef)attribs, (__bridge CFDictionaryRef)updateAttribs);
+    }
+    
+    if (ret != errSecSuccess) {
+        NSError *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:ret userInfo: nil];
+        [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
+    }
+}
+
 - (void)setPassword:(NSString *) x {
     [self willChangeValueForKey: @"password"];
     // XXX: should we invalidate the stored pw?
@@ -217,34 +248,7 @@
 
     // decompose URL
     if(self.url && self.username) {
-        NSURL *anUrl = [NSURL URLWithString:self.url];
-        
-        // add internet keychain
-        NSLog(@"add internet keychain");
-        
-        // get internet keychain
-        NSData *passwordData = [x dataUsingEncoding: NSUTF8StringEncoding] ?: [NSData data];
-        NSMutableDictionary *attribs = [NSMutableDictionary dictionary];
-        attribs[(__bridge id)kSecClass] = (__bridge id)kSecClassInternetPassword;
-        attribs[(__bridge id)kSecAttrServer] = anUrl.host;
-        attribs[(__bridge id)kSecAttrAccount] = self.username;
-        attribs[(__bridge id)kSecAttrPath] = @"/";
-        attribs[(__bridge id)kSecAttrPort] = [anUrl portWithHTTPFallback];
-        attribs[(__bridge id)kSecAttrProtocol] = [anUrl keychainProtocol];
-        attribs[(__bridge id)kSecValueData] = passwordData;
-        OSStatus ret = SecItemAdd((__bridge CFDictionaryRef)attribs, NULL);
-        if (ret == errSecDuplicateItem) {
-            [attribs removeObjectForKey: (__bridge id)kSecValueData];
-            NSDictionary *updateAttribs = @{
-                (__bridge id)kSecValueData: passwordData,
-            };
-            ret = SecItemUpdate((__bridge CFDictionaryRef)attribs, (__bridge CFDictionaryRef)updateAttribs);
-        }
-        
-        if (ret != errSecSuccess) {
-            NSError *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:ret userInfo: nil];
-            [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
-        }
+        // don't do the keychain update here anymore
         cachedPassword = x;
         // clear out the remnant of Core Data stored password
         self.primitivePassword = @"";

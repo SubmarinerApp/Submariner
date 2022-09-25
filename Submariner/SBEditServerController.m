@@ -65,20 +65,10 @@
 
 
 - (void)controlTextDidEndEditing:(NSNotification *)obj {
-    // decompose URL
-    NSURL *anUrl = [NSURL URLWithString:self.server.url];
-    // protocol scheme
-    uint protocol = kSecProtocolTypeHTTP;
-    if([[anUrl scheme] rangeOfString:@"s"].location != NSNotFound) {
-        protocol = kSecProtocolTypeHTTPS;
+    if (obj.object == passwordTextField) {
+        // XXX: Should we do this here? Or on save?
+        [self.server updateKeychainPassword];
     }
-    // url port
-    NSNumber *port = [NSNumber numberWithInteger:80];
-    if([anUrl port] != nil) {
-        port = [anUrl port];
-    }
-    
-    // TODO: This is where we put Keychain support again
 }
 
 @end
