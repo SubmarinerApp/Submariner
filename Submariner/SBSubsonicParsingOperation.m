@@ -381,8 +381,9 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
                 // get album covers
                 if(newAlbum && [attributeDict valueForKey:@"coverArt"]) {
                     SBCover *newCover = nil;
+                    SBCover *maybeExistingCover = [self fetchCoverWithName:[attributeDict valueForKey:@"coverArt"]];
                     
-                    if(!newAlbum.cover) {
+                    if(!newAlbum.cover && maybeExistingCover == nil) {
 #if DEBUG
                         NSLog(@"Create new cover");
 #endif
@@ -390,10 +391,20 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
                         [newCover setId:[attributeDict valueForKey:@"coverArt"]];
                         [newCover setAlbum:newAlbum];
                         [newAlbum setCover:newCover];
+                    } else if (!newAlbum.cover) {
+                        // assign the existing one to our new album
+                        [maybeExistingCover setAlbum:newAlbum];
+                        [newAlbum setCover:maybeExistingCover];
                     }
                     
                     if(!newAlbum.cover.imagePath || ![[NSFileManager defaultManager] fileExistsAtPath:newAlbum.cover.imagePath]) {
-                        [clientController getCoverWithID:[attributeDict valueForKey:@"coverArt"]];
+                        if (maybeExistingCover != nil && maybeExistingCover.imagePath && [[NSFileManager defaultManager] fileExistsAtPath: maybeExistingCover.imagePath]) {
+                            // this cover object is a weird dupe, patch up instead.
+                            [maybeExistingCover setAlbum:newAlbum];
+                            [newAlbum setCover:maybeExistingCover];
+                        } else {
+                            [clientController getCoverWithID:[attributeDict valueForKey:@"coverArt"]];
+                        }
                     }
                 }
             }
