@@ -42,7 +42,7 @@
 - (NSString *)path {
     [self willAccessValueForKey:@"path"];
     NSString *string = [self primitivePath];
-    if (string && [string isAbsolutePath]) {
+    if (self.isLocalValue && string && [string isAbsolutePath]) {
         // If absolute path is in music dir, correct it.
         NSString *libraryDir = [[SBAppDelegate sharedInstance] musicDirectory];
         if ([string hasPrefix: libraryDir]) {
@@ -50,7 +50,7 @@
             NSString *trimmedPrefix = [string substringFromIndex: offset];
             [self setPrimitivePath: trimmedPrefix];
         }
-    } else if (string) {
+    } else if (self.isLocalValue && string) {
         // Relative, but return the full directory.
         NSString *libraryDir = [[SBAppDelegate sharedInstance] musicDirectory];
         string = [libraryDir stringByAppendingPathComponent: string];
