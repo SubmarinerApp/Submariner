@@ -66,12 +66,15 @@
 // XXX: Migrate absolute resources to relative ones on-demand here
 // XXX: Why is there a difference between MusicItem.path and Cover.imagePath?
 - (NSString*)imagePath {
+    [self willAccessValueForKey: @"imagePath"];
     NSString *currentPath = self.primitiveImagePath;
     if (currentPath == nil) {
+        [self didAccessValueForKey: @"imagePath"];
         return currentPath;
     } else if ([currentPath isAbsolutePath]) {
         NSString *coversDir = [self coversDir];
         if (coversDir == nil) {
+            [self didAccessValueForKey: @"imagePath"];
             return currentPath;
         }
         // If the path matches the prefix, do it, otherwise move the file
@@ -79,6 +82,7 @@
             // Prefix matches, just update the DB entry
             NSString *fileName = [currentPath lastPathComponent];
             [self setImagePath: fileName];
+            [self didAccessValueForKey: @"imagePath"];
             return currentPath;
         } else {
             // Prefix doesn't match, move instead
@@ -88,14 +92,17 @@
             // XXX: Synchronization? Only success will update tho
             if ([[NSFileManager defaultManager] moveItemAtPath: currentPath toPath: newPath error: &error]) {
                 [self setImagePath: fileName];
+                [self didAccessValueForKey: @"imagePath"];
                 return newPath;
             } else {
                 NSLog(@"Error when moving file out of dir into dir: %@", error);
+                [self didAccessValueForKey: @"imagePath"];
                 return currentPath;
             }
         }
     } else {
         NSString *coversDir = [self coversDir];
+        [self didAccessValueForKey: @"imagePath"];
         if (coversDir == nil) {
             return currentPath;
         }
