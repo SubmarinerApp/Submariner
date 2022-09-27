@@ -30,9 +30,33 @@
 
 #import "SBMusicItem.h"
 #import "SBArtist.h"
-
+#import "SBAppDelegate.h"
 
 @implementation SBMusicItem
  
+// Cover overrides imagePath, but this applies to Track/Episode/Artist/Album,
+// which exist when they're a local item. Make relative, but unlike Cover, don't
+// move, since we might not be the owners of it. (It does make the "user moved
+// the path" case more annoying though, but local items can always be destroyed
+// and recreated easily.
+- (NSString *)path {
+    [self willAccessValueForKey:@"path"];
+    NSString *string = [self primitivePath];
+    if (string && [string isAbsolutePath]) {
+        // If absolute path is in music dir, correct it.
+        NSString *libraryDir = [[SBAppDelegate sharedInstance] musicDirectory];
+        if ([string hasPrefix: libraryDir]) {
+            NSUInteger offset = [libraryDir length] + ([libraryDir hasSuffix: @"/"] ? 0 : 1);
+            NSString *trimmedPrefix = [string substringFromIndex: offset];
+            [self setPrimitivePath: trimmedPrefix];
+        }
+    } else if (string) {
+        // Relative, but return the full directory.
+        NSString *libraryDir = [[SBAppDelegate sharedInstance] musicDirectory];
+        string = [libraryDir stringByAppendingPathComponent: string];
+    }
+    [self didAccessValueForKey:@"path"];
+    return string;
+}
 
 @end

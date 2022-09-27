@@ -263,21 +263,25 @@
                 
                 // treat copy
                 if(copy == YES) {
-                    artistPath = [[[SBAppDelegate sharedInstance] musicDirectory] stringByAppendingPathComponent:albumArtistString];
+                    artistPath = albumArtistString;
                     albumPath = [artistPath stringByAppendingPathComponent:albumString];
                     trackPath = [albumPath stringByAppendingPathComponent:[path lastPathComponent]];
+                    NSString *absoluteAlbumPath = [[[SBAppDelegate sharedInstance] musicDirectory] stringByAppendingPathComponent: albumPath];
+                    NSString *absoluteTrackPath = [[[SBAppDelegate sharedInstance] musicDirectory] stringByAppendingPathComponent: trackPath];
                     
                     // create artist and album directory if needed
-                    [[NSFileManager defaultManager] createDirectoryAtPath:albumPath withIntermediateDirectories:YES attributes:nil error:&copyError];
+                    [[NSFileManager defaultManager] createDirectoryAtPath: absoluteAlbumPath withIntermediateDirectories:YES attributes:nil error:&copyError];
                     
                     // copy track to new destination
-                    [[NSFileManager defaultManager] copyItemAtPath:path toPath:trackPath error:&copyError];
+                    [[NSFileManager defaultManager] copyItemAtPath:path toPath:absoluteTrackPath error:&copyError];
                     
+                    // but use the relative paths. remote paths are already relative
                     [newTrack setPath:trackPath];
                     [newAlbum setPath:albumPath];
                     [newArtist setPath:artistPath];
                     
                 } else {
+                    // The absolute path is fine here.
                     [newTrack setPath:aPath];
                 }
                 
