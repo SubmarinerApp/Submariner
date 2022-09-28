@@ -38,6 +38,7 @@
 #import "SBAppDelegate.h"
 
 #include "NSString+Hex.h"
+#include "NSString+File.h"
 #include "NSURL+Parameters.h"
 
 @implementation SBServer
@@ -151,19 +152,6 @@
 #pragma mark -
 #pragma mark Custom Accessors (Rename Directories)
 
-// XXX: move
-- (BOOL) isValidFileName:(NSString*)fileName {
-    if ([fileName isEqualToString: @""]) {
-        return NO;
-    }
-    static NSCharacterSet* illegalFileNameCharacters = nil;
-    if (illegalFileNameCharacters == nil) {
-        illegalFileNameCharacters = [NSCharacterSet characterSetWithCharactersInString:@"/\\?%*|\"<>"];
-    }
-    NSRange range = [fileName rangeOfCharacterFromSet: illegalFileNameCharacters];
-    return range.location == NSNotFound;
-}
-
 - (void) setResourceName:(NSString *)resourceName {
     // The covers directory should be renamed, since it uses resource name.
     [self willChangeValueForKey:@"resourceName"];
@@ -176,8 +164,8 @@
     NSString *oldDir = [coversDir stringByAppendingPathComponent: oldName];
     // If we're renaming a new server that has no content, it won't have a dir yet.
     // If the directory name does make sense though, do try a rename.
-    if ([self isValidFileName: oldName]
-        && [self isValidFileName: resourceName]
+    if ([oldName isValidFileName]
+        && [resourceName isValidFileName]
         && ![oldName isEqualToString: resourceName]
         && [fm fileExistsAtPath: oldDir]) {
         NSString *newDir = [coversDir stringByAppendingPathComponent: resourceName];
@@ -189,7 +177,7 @@
         } else {
             [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
         }
-    } else if ([self isValidFileName: resourceName]) {
+    } else if ([resourceName isValidFileName]) {
         // If we're renaming a new server that has no content, it won't have a dir yet.
         // No directory stuff to try, but do make sure we don't have an invalid name.
         [self setPrimitiveResourceName: resourceName];

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3E079FB928568EE8000A73E7 /* SBVolumeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E079FB828568EE8000A73E7 /* SBVolumeButton.m */; };
 		3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */; };
+		3E2F86D128E3EA9A00C5CE23 /* NSString+File.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D028E3EA9A00C5CE23 /* NSString+File.m */; };
 		3E53DBA427D6F25500DB4C84 /* SFBAudioEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBA127D6F25500DB4C84 /* SFBAudioEngine.framework */; };
 		3E53DBA527D6F25500DB4C84 /* SFBAudioEngine.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBA127D6F25500DB4C84 /* SFBAudioEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E53DBBA27E4192B00DB4C84 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBB927E4192B00DB4C84 /* AVFoundation.framework */; };
@@ -181,6 +182,8 @@
 		3E079FB828568EE8000A73E7 /* SBVolumeButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBVolumeButton.m; sourceTree = "<group>"; };
 		3E2F86C928DD36E600C5CE23 /* Submariner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Submariner-Bridging-Header.h"; sourceTree = "<group>"; };
 		3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBMonospaceTextField.swift; sourceTree = "<group>"; };
+		3E2F86CF28E3EA9A00C5CE23 /* NSString+File.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+File.h"; sourceTree = "<group>"; };
+		3E2F86D028E3EA9A00C5CE23 /* NSString+File.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+File.m"; sourceTree = "<group>"; };
 		3E53DBB927E4192B00DB4C84 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		3E69A2FD28B02D86009800D8 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -667,6 +670,8 @@
 				4CFAFC8013A1110700E82B57 /* NSOperationQueue+Shared.m */,
 				4C1F6B9F1494F3520005B303 /* NSImage+Additions.h */,
 				4C1F6BA01494F3520005B303 /* NSImage+Additions.m */,
+				3E2F86CF28E3EA9A00C5CE23 /* NSString+File.h */,
+				3E2F86D028E3EA9A00C5CE23 /* NSString+File.m */,
 			);
 			name = Additions;
 			sourceTree = "<group>";
@@ -1011,6 +1016,7 @@
 				3E079FB928568EE8000A73E7 /* SBVolumeButton.m in Sources */,
 				4C87EE30139CE44C0064DE2E /* _SBGroup.m in Sources */,
 				4C87EE31139CE44C0064DE2E /* _SBIndex.m in Sources */,
+				3E2F86D128E3EA9A00C5CE23 /* NSString+File.m in Sources */,
 				3ED5BF5E283BEF4F000AAB70 /* SBRepeatModeTransformer.m in Sources */,
 				4C87EE32139CE44C0064DE2E /* _SBLibrary.m in Sources */,
 				4C87EE33139CE44C0064DE2E /* _SBMusicItem.m in Sources */,
