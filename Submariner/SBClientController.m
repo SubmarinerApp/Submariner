@@ -185,7 +185,8 @@
 			client:self
 			requestType:type
 			server:[self.server objectID]
-			xml: data];
+			xml: data
+            mimeType: response.MIMEType];
 		if (type == SBSubsonicRequestGetCoverArt) {
 			[operation setCurrentCoverID:coverID];
 		} else if (type == SBSubsonicRequestSearch) {

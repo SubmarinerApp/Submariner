@@ -55,6 +55,7 @@
 #import "NSManagedObjectContext+Fetch.h"
 #import "NSURL+Parameters.h"
 #import "NSString+Time.h"
+#import "NSString+File.h"
 
 
 NSString *SBSubsonicConnectionFailedNotification        = @"SBSubsonicConnectionFailedNotification";
@@ -105,33 +106,6 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
 
 
 
-
-
-/**
- * Returns the image content-type for image raw data 
- * (JPEG, PNG, GIF or TIFF)
- * NOTE : needs to be move in a better place
- */
-+ (NSString *)contentTypeForImageData:(NSData *)data {
-    uint8_t c;
-    [data getBytes:&c length:1];
-    
-    switch (c) {
-        case 0xFF:
-            return @"image/jpeg";
-        case 0x89:
-            return @"image/png";
-        case 0x47:
-            return @"image/gif";
-        case 0x49:
-        case 0x4D:
-            return @"image/tiff";
-    }
-    return nil;
-}
-
-
-
 @synthesize currentArtist;
 @synthesize currentAlbum;
 @synthesize currentCoverID;
@@ -149,6 +123,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
                        requestType:(SBSubsonicRequestType)type
                             server:(SBServerID *)objectID
                                xml:(NSData *)xml
+                          mimeType:(NSString *)mimeType
 {
     self = [super initWithManagedObjectContext:mainContext];
     if (self) {
@@ -156,6 +131,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
         clientController    = client;
         serverID            = objectID;
         xmlData             = xml;
+        MIMEType            = mimeType;
         nc                  = [NSNotificationCenter defaultCenter];
 
         requestType         = type;
@@ -175,20 +151,19 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     @autoreleasepool {
     
         @try {
-            
-            NSString *xmlString = [[NSString alloc] initWithData:xmlData encoding:NSUTF8StringEncoding];
             server = (SBServer *)[[self threadedContext] objectWithID:serverID];
             
             @synchronized(server) {   
                 
                 // if xml, parse
-                if(xmlString && [xmlString rangeOfString:@"xml"].location != NSNotFound) {
+                // Navidrome uses application/xml, Subsonic uses text/xml
+                if([MIMEType containsString: @"xml"]) {
                     NSXMLParser *parser = [[NSXMLParser alloc] initWithData:xmlData];
                     [parser setDelegate:self];
                     [parser parse];
                     
                     // if data, cover, stream...
-                } else {
+                } else if ([MIMEType hasPrefix: @"image/"]) {
                     if(requestType == SBSubsonicRequestGetCoverArt) {
                         // build paths
                         NSString *coversDir = [[[SBAppDelegate sharedInstance] coverDirectory] stringByAppendingPathComponent:server.resourceName];
@@ -202,17 +177,11 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
                         
                         // write cover image on the disk
                         NSString *filePath = nil;
-                        NSString *mimeType = [SBSubsonicParsingOperation contentTypeForImageData:xmlData];
                         NSString *fileName = nil;
-                        if([mimeType isEqualToString:@"image/png"]) {
-                            fileName = [NSString stringWithFormat:@"%@.png", currentCoverID];
-                        } else if([mimeType isEqualToString:@"image/jpeg"]) {
-                            fileName = [NSString stringWithFormat:@"%@.jpeg", currentCoverID];
-                        } else if([mimeType isEqualToString:@"image/gif"]) {
-                            fileName = [NSString stringWithFormat:@"%@.gif", currentCoverID];
-                        } else if([mimeType isEqualToString:@"image/tiff"]) {
-                            fileName = [NSString stringWithFormat:@"%@.tiff", currentCoverID];
-                        }
+                        // trust what subsonic returns, instead of looking at contents
+                        // but if we don't have any, what usually gets attached in ID3 is JPEG, AFAIK
+                        NSString *fileExtension = [MIMEType extensionForMIMEType] ?: @"jpeg";
+                        fileName = [NSString stringWithFormat:@"%@.%@", currentCoverID, fileExtension];
                         
                         if (fileName != nil) {
                             filePath = [coversDir stringByAppendingPathComponent: fileName];

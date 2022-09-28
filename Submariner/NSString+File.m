@@ -22,4 +22,14 @@
     return range.location == NSNotFound;
 }
 
+- (NSString*)extensionForMIMEType {
+    CFStringRef fileUTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, (__bridge CFStringRef)self, NULL);
+    CFStringRef extension = UTTypeCopyPreferredTagWithClass(fileUTI, kUTTagClassFilenameExtension);
+    CFRelease(fileUTI);
+    if (extension != nil) {
+        return (__bridge NSString*)extension;
+    }
+    return nil;
+}
+
 @end

@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSString (File)
 
 - (BOOL) isValidFileName;
+- (NSString*)extensionForMIMEType;
 
 @end
 

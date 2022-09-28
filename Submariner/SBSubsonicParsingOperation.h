@@ -104,6 +104,7 @@ enum SBSubsonicRequestType {
     SBServerID *serverID;
     SBServer *server;
     NSData *xmlData;
+    NSString *MIMEType;
     
     // parsing support
     SBArtist *currentArtist;
@@ -131,6 +132,7 @@ enum SBSubsonicRequestType {
                             client:(SBClientController *)client
                        requestType:(SBSubsonicRequestType)type
                             server:(SBServerID *)objectID
-                               xml:(NSData *)xml;
+                               xml:(NSData *)xml
+                          mimeType:(NSString *)mimeType;
 
 @end
