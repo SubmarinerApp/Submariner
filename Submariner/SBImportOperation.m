@@ -34,7 +34,7 @@
 
 #import "SBImportOperation.h"
 #import <CoreServices/CoreServices.h>
-//#import <QTKit/QTKit.h>
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 #import <SFBAudioEngine/SFBAttachedPicture.h>
 #import <SFBAudioEngine/SFBAudioDecoder.h>
@@ -395,11 +395,11 @@
         
     } else if(!isDir) {
         
-        CFStringRef fileExtension = (__bridge CFStringRef) [path pathExtension];
-        CFStringRef fileUTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, fileExtension, NULL);
+        NSString *fileExtension = [path pathExtension];
+        UTType *type = [UTType typeWithFilenameExtension: fileExtension];
         
-        // if the current file is an image, and make an exception for M4A which gets counted as video instead
-        if (UTTypeConformsTo(fileUTI, kUTTypeAudio) || [path.pathExtension isEqualToString: @"public.mpeg-4"]) {
+        // make an exception for M4A which gets counted as video instead
+        if (type && ([type conformsToType: UTTypeAudio] || [type.identifier isEqualToString: @"public.mpeg-4"])) {
             [result addObject:path];
         }
     }

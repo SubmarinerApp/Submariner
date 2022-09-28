@@ -7,6 +7,7 @@
 //
 
 #import "NSString+File.h"
+#import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 
 @implementation NSString (File)
 
@@ -23,13 +24,8 @@
 }
 
 - (NSString*)extensionForMIMEType {
-    CFStringRef fileUTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, (__bridge CFStringRef)self, NULL);
-    CFStringRef extension = UTTypeCopyPreferredTagWithClass(fileUTI, kUTTagClassFilenameExtension);
-    CFRelease(fileUTI);
-    if (extension != nil) {
-        return (__bridge NSString*)extension;
-    }
-    return nil;
+    UTType *type = [UTType typeWithMIMEType: self];
+    return [type preferredFilenameExtension];
 }
 
 @end
