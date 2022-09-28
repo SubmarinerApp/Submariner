@@ -35,6 +35,7 @@
 #import "SBArtist.h"
 #import "SBAlbum.h"
 #import "SBPlaylist.h"
+#import "SBAppDelegate.h"
 
 #include "NSString+Hex.h"
 #include "NSURL+Parameters.h"
@@ -144,6 +145,56 @@
         result = [NSImage imageNamed: NSImageNameStatusAvailable];
     
     return result;
+}
+
+
+#pragma mark -
+#pragma mark Custom Accessors (Rename Directories)
+
+// XXX: move
+- (BOOL) isValidFileName:(NSString*)fileName {
+    if ([fileName isEqualToString: @""]) {
+        return NO;
+    }
+    static NSCharacterSet* illegalFileNameCharacters = nil;
+    if (illegalFileNameCharacters == nil) {
+        illegalFileNameCharacters = [NSCharacterSet characterSetWithCharactersInString:@"/\\?%*|\"<>"];
+    }
+    NSRange range = [fileName rangeOfCharacterFromSet: illegalFileNameCharacters];
+    return range.location == NSNotFound;
+}
+
+- (void) setResourceName:(NSString *)resourceName {
+    // The covers directory should be renamed, since it uses resource name.
+    [self willChangeValueForKey:@"resourceName"];
+    // Rename here, since we can get changed by the edit server controller or source list,
+    // so there's no bottleneck where we can place it.
+    // XXX: Refactor to avoid having to keep doing this?
+    NSString *oldName = [self primitiveResourceName];
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSString *coversDir = [[SBAppDelegate sharedInstance] coverDirectory];
+    NSString *oldDir = [coversDir stringByAppendingPathComponent: oldName];
+    // If we're renaming a new server that has no content, it won't have a dir yet.
+    // If the directory name does make sense though, do try a rename.
+    if ([self isValidFileName: oldName]
+        && [self isValidFileName: resourceName]
+        && ![oldName isEqualToString: resourceName]
+        && [fm fileExistsAtPath: oldDir]) {
+        NSString *newDir = [coversDir stringByAppendingPathComponent: resourceName];
+        NSError *error = nil;
+        // Tie our success to if we moved the directory. If we let this get out of sync,
+        // it'll be very annoying for the user, while not fatal.
+        if ([fm moveItemAtPath: oldDir toPath: newDir error: &error]) {
+            [self setPrimitiveResourceName: resourceName];
+        } else {
+            [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
+        }
+    } else if ([self isValidFileName: resourceName]) {
+        // If we're renaming a new server that has no content, it won't have a dir yet.
+        // No directory stuff to try, but do make sure we don't have an invalid name.
+        [self setPrimitiveResourceName: resourceName];
+    }
+    [self didChangeValueForKey:@"resourceName"];
 }
 
 
