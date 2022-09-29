@@ -167,6 +167,7 @@
     if ([oldName isValidFileName]
         && [resourceName isValidFileName]
         && ![oldName isEqualToString: resourceName]
+        && ![resourceName isEqualToString: @"Local Library"] // avoid stepping on local covers
         && [fm fileExistsAtPath: oldDir]) {
         NSString *newDir = [coversDir stringByAppendingPathComponent: resourceName];
         NSError *error = nil;
@@ -177,7 +178,7 @@
         } else {
             [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
         }
-    } else if ([resourceName isValidFileName]) {
+    } else if ([resourceName isValidFileName] && ![resourceName isEqualToString: @"Local Library"]) {
         // If we're renaming a new server that has no content, it won't have a dir yet.
         // No directory stuff to try, but do make sure we don't have an invalid name.
         [self setPrimitiveResourceName: resourceName];

@@ -10,6 +10,7 @@
 		3E079FB928568EE8000A73E7 /* SBVolumeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E079FB828568EE8000A73E7 /* SBVolumeButton.m */; };
 		3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */; };
 		3E2F86D128E3EA9A00C5CE23 /* NSString+File.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D028E3EA9A00C5CE23 /* NSString+File.m */; };
+		3E2F86D428E6328400C5CE23 /* NSData+Type.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D328E6328400C5CE23 /* NSData+Type.m */; };
 		3E53DBA427D6F25500DB4C84 /* SFBAudioEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBA127D6F25500DB4C84 /* SFBAudioEngine.framework */; };
 		3E53DBA527D6F25500DB4C84 /* SFBAudioEngine.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBA127D6F25500DB4C84 /* SFBAudioEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E53DBBA27E4192B00DB4C84 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBB927E4192B00DB4C84 /* AVFoundation.framework */; };
@@ -184,6 +185,8 @@
 		3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBMonospaceTextField.swift; sourceTree = "<group>"; };
 		3E2F86CF28E3EA9A00C5CE23 /* NSString+File.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+File.h"; sourceTree = "<group>"; };
 		3E2F86D028E3EA9A00C5CE23 /* NSString+File.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+File.m"; sourceTree = "<group>"; };
+		3E2F86D228E6328400C5CE23 /* NSData+Type.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+Type.h"; sourceTree = "<group>"; };
+		3E2F86D328E6328400C5CE23 /* NSData+Type.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Type.m"; sourceTree = "<group>"; };
 		3E53DBB927E4192B00DB4C84 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		3E69A2FD28B02D86009800D8 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -672,6 +675,8 @@
 				4C1F6BA01494F3520005B303 /* NSImage+Additions.m */,
 				3E2F86CF28E3EA9A00C5CE23 /* NSString+File.h */,
 				3E2F86D028E3EA9A00C5CE23 /* NSString+File.m */,
+				3E2F86D228E6328400C5CE23 /* NSData+Type.h */,
+				3E2F86D328E6328400C5CE23 /* NSData+Type.m */,
 			);
 			name = Additions;
 			sourceTree = "<group>";
@@ -1091,6 +1096,7 @@
 				4CFCE4471402582400D35770 /* SBMusicSearchController.m in Sources */,
 				4CC6B56814041F7E003AEAC0 /* SBServerPodcastController.m in Sources */,
 				4C56867B140435F200BE3478 /* _SBEpisode.m in Sources */,
+				3E2F86D428E6328400C5CE23 /* NSData+Type.m in Sources */,
 				4C56867C140435F200BE3478 /* _SBPodcast.m in Sources */,
 				4C56867D140435F200BE3478 /* SBEpisode.m in Sources */,
 				4C56867E140435F200BE3478 /* SBPodcast.m in Sources */,

@@ -49,13 +49,22 @@
 }
 
 - (NSString*) coversDir {
+    NSString *coverDir = [[SBAppDelegate sharedInstance] coverDirectory];
     SBServer *server = self.server;
-    if (server == nil) {
-        // give up, we can't know
+    NSString *append = nil;
+    if (server != nil) {
+        append = server.resourceName;
+    } else if (self.isLocalValue == YES
+               || (self.track && self.track.isLocalValue == YES)
+               || (self.album && self.album.isLocalValue == YES)) {
+        // For imported media.
+        // XXX: local import doesn't set local attrib on covers yet,
+        // but not super important if track or album have it
+        append = @"Local Library";
+    } else {
         return nil;
     }
-    NSString *serverName = server.resourceName;
-    return [[[SBAppDelegate sharedInstance] coverDirectory] stringByAppendingPathComponent: serverName];
+    return [coverDir stringByAppendingPathComponent: append];
 }
 
 // This is overriden so that consumers don't need to handle the difference

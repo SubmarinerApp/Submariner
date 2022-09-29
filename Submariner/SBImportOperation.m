@@ -52,7 +52,7 @@
 
 #import "NSURL+Parameters.h"
 #import "NSManagedObjectContext+Fetch.h"
-
+#import "NSData+Type.h"
 
 
 
@@ -163,7 +163,6 @@
                         discNumber        = [metadata discNumber];
                         durationNumber    = [properties duration];
                         bitRateNumber     = [properties bitrate];
-// XXX
                         coverData         = [[[metadata attachedPictures] anyObject] imageData];
                         
                         // if this is a cache or download data importation
@@ -184,8 +183,8 @@
                         durationNumber    = remoteTrack.duration;
                         bitRateNumber     = remoteTrack.bitRate;
                         contentType       = remoteTrack.contentType;
-// XXX
-                        coverData         = [[[metadata attachedPictures] anyObject] imageData];
+                        // don't worry about it, we'll fetch it from the remote track
+                        coverData         = nil;
                     }
                 }
                 
@@ -285,52 +284,64 @@
                     [newTrack setPath:aPath];
                 }
                 
-//            // work with the cover
-//            if (coverData) {
-//                // if file metadata contains the cover art data
-//                NSString *coverDir = [[SBAppDelegate sharedInstance] coverDirectory];
-//                NSString *artistCoverDir = [coverDir stringByAppendingPathComponent:albumArtistString];
-//                if(![[NSFileManager defaultManager] fileExistsAtPath:artistCoverDir]) {
-//                    [[NSFileManager defaultManager] createDirectoryAtPath:artistCoverDir withIntermediateDirectories:YES attributes:nil error:nil];
-//                }
-//                NSString *finalPath = [artistCoverDir stringByAppendingPathComponent:albumString];
-//                [coverData writeToFile:finalPath atomically:YES];
-//            
-//                [newAlbum.cover setImagePath:finalPath];
-//                [newTrack.cover setImagePath:finalPath];
-//            
-//            } else {
-//                // else if track parent directory contains cover file
-//                NSString *originalAlbumFolder = [path stringByDeletingLastPathComponent];
-//                BOOL isDir;
-//        
-//                if([[NSFileManager defaultManager] fileExistsAtPath:originalAlbumFolder isDirectory:&isDir] && isDir) {
-//                    NSArray *albumFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:originalAlbumFolder error:nil];
-//                    for(NSString *fileName in albumFiles) {
-//                        NSString *filePath = [originalAlbumFolder stringByAppendingPathComponent:fileName];
-//                        
-//                        CFStringRef fileExtension = (CFStringRef) [filePath pathExtension];
-//                        CFStringRef fileUTI = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, fileExtension, NULL);
-//                        
-//                        // if the current file is an image
-//                        if (UTTypeConformsTo(fileUTI, kUTTypeImage)) {
-//                            // if it doesn't contain "back" word
-//                            if([fileName rangeOfString:@"back"].location == NSNotFound) {
-//                                // copy the artwork
-//                                NSString *coverDir = [[SBAppDelegate sharedInstance] coverDirectory];
-//                                NSString *artistCoverDir = [coverDir stringByAppendingPathComponent:albumArtistString];
-//                                if(![[NSFileManager defaultManager] fileExistsAtPath:artistCoverDir]) {
-//                                    [[NSFileManager defaultManager] createDirectoryAtPath:artistCoverDir withIntermediateDirectories:YES attributes:nil error:nil];
-//                                }
-//                                NSString *finalPath = [artistCoverDir stringByAppendingPathComponent:fileName];
-//                                [[NSFileManager defaultManager] copyItemAtPath:filePath toPath:finalPath error:nil];
-//                                [newAlbum.cover setImagePath:finalPath];
-//                                [newTrack.cover setImagePath:finalPath];
-//                            }
-//                        }
-//                    }
-//                }
-//            }
+                // work with the cover for a local import
+                // delete the cover someday? or does it matter?
+                NSString *coverDir = [[[SBAppDelegate sharedInstance] coverDirectory] stringByAppendingPathComponent: @"Local Library"];
+                if (coverData) {
+                    // use ext to avoid confusion
+                    NSString *coverUTI = [coverData guessImageUTI] ?: @"public.jpeg"; // fallback
+                    UTType *coverType = [UTType typeWithIdentifier: coverUTI];
+                    // if file metadata contains the cover art data
+                    NSString *artistCoverDir = [coverDir stringByAppendingPathComponent:albumArtistString];
+                    if(![[NSFileManager defaultManager] fileExistsAtPath:artistCoverDir]) {
+                        [[NSFileManager defaultManager] createDirectoryAtPath:artistCoverDir withIntermediateDirectories:YES attributes:nil error:nil];
+                    }
+                    NSString *finalPath = [[artistCoverDir stringByAppendingPathComponent:albumString] stringByAppendingPathExtensionForType: coverType];
+                    [coverData writeToFile:finalPath atomically:YES];
+                    NSString *relativePath = [[albumArtistString stringByAppendingPathComponent: albumString] stringByAppendingPathExtensionForType: coverType];
+                    // HACK: check if cover in album is nil; usually somehow track's isn't
+                    if(newAlbum.cover == nil) {
+                        [newAlbum setCover:[SBCover insertInManagedObjectContext:[self threadedContext]]];
+                    }
+                    [newAlbum.cover setImagePath:relativePath];
+                    [newTrack.cover setImagePath:relativePath];
+                
+                } else {
+                    // else if track parent directory contains cover file
+                    NSString *originalAlbumFolder = [path stringByDeletingLastPathComponent];
+                    BOOL isDir;
+            
+                    if([[NSFileManager defaultManager] fileExistsAtPath:originalAlbumFolder isDirectory:&isDir] && isDir) {
+                        NSArray *albumFiles = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:originalAlbumFolder error:nil];
+                        for(NSString *fileName in albumFiles) {
+                            NSString *filePath = [originalAlbumFolder stringByAppendingPathComponent:fileName];
+                            
+                            NSString *fileExtension = [filePath pathExtension];
+                            UTType *fileUTI = [UTType typeWithFilenameExtension: fileExtension];
+                            
+                            // if the current file is an image
+                            if ([fileUTI conformsToType: UTTypeImage]) {
+                                // if it doesn't contain "back" word
+                                if([fileName rangeOfString:@"back"].location == NSNotFound) {
+                                    // copy the artwork
+                                    NSString *artistCoverDir = [coverDir stringByAppendingPathComponent:albumArtistString];
+                                    if(![[NSFileManager defaultManager] fileExistsAtPath:artistCoverDir]) {
+                                        [[NSFileManager defaultManager] createDirectoryAtPath:artistCoverDir withIntermediateDirectories:YES attributes:nil error:nil];
+                                    }
+                                    NSString *finalPath = [[artistCoverDir stringByAppendingPathComponent:fileName] stringByAppendingPathExtensionForType: fileUTI];
+                                    [[NSFileManager defaultManager] copyItemAtPath:filePath toPath:finalPath error:nil];
+                                    NSString *relativePath = [[albumArtistString stringByAppendingPathComponent: albumString] stringByAppendingPathExtensionForType: fileUTI];
+                                    // same as above
+                                    if(newAlbum.cover == nil) {
+                                        [newAlbum setCover:[SBCover insertInManagedObjectContext:[self threadedContext]]];
+                                    }
+                                    [newAlbum.cover setImagePath:relativePath];
+                                    [newTrack.cover setImagePath:relativePath];
+                                }
+                            }
+                        }
+                    }
+                }
                 
                 // set if items are linked or not
                 [newTrack setIsLinked:[NSNumber numberWithBool:!copy]];
