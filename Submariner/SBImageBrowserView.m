@@ -93,6 +93,18 @@
     [self setNeedsDisplay: YES];
 }
 
+-(void)imageBrowser:(IKImageBrowserView *)aBrowser cellWasRightClickedAtIndex:(NSUInteger)index withEvent:(NSEvent *)event {
+    // Try to select the clicked row for a right-click; default AppKit behaviour is weird.
+    // Otherwise, it'll still use what was highlighted.
+    // XXX: Perhaps we shouldn't tie a lot of things to selected, but instead clicked.
+    NSIndexSet *selectedCurrently = [self selectionIndexes];
+    if (![selectedCurrently containsIndex: index]) {
+        NSIndexSet *selectedNew = [NSIndexSet indexSetWithIndex: index];
+        [self setSelectionIndexes: selectedNew byExtendingSelection: NO];
+    }
+    [super imageBrowser:aBrowser cellWasRightClickedAtIndex:index withEvent:event];
+}
+
 //---------------------------------------------------------------------------------
 // newCellForRepresentedItem:
 //
