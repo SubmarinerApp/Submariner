@@ -68,7 +68,6 @@
 		4C87EDA1139CD97B0064DE2E /* SBSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED94139CD97B0064DE2E /* SBSplitView.m */; };
 		4C87EDAB139CD9DA0064DE2E /* Database.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C87EDAA139CD9DA0064DE2E /* Database.xib */; };
 		4C87EDB0139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDAF139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m */; };
-		4C87EDB3139CDA0D0064DE2E /* NSBezierPath+BezierPathQuartzUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDB2139CDA0D0064DE2E /* NSBezierPath+BezierPathQuartzUtilities.m */; };
 		4C87EDB6139CDAA50064DE2E /* SBPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDB5139CDAA40064DE2E /* SBPreferencesController.m */; };
 		4C87EDBA139CDAB90064DE2E /* SBDatabaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDB9139CDAB90064DE2E /* SBDatabaseController.m */; };
 		4C87EDBC139CDACE0064DE2E /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C87EDBB139CDACE0064DE2E /* Preferences.xib */; };
@@ -285,8 +284,6 @@
 		4C87EDAA139CD9DA0064DE2E /* Database.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Database.xib; sourceTree = "<group>"; };
 		4C87EDAE139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBezierPath+PXRoundedRectangleAdditions.h"; sourceTree = "<group>"; };
 		4C87EDAF139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+PXRoundedRectangleAdditions.m"; sourceTree = "<group>"; };
-		4C87EDB1139CDA0D0064DE2E /* NSBezierPath+BezierPathQuartzUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBezierPath+BezierPathQuartzUtilities.h"; sourceTree = "<group>"; };
-		4C87EDB2139CDA0D0064DE2E /* NSBezierPath+BezierPathQuartzUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+BezierPathQuartzUtilities.m"; sourceTree = "<group>"; };
 		4C87EDB4139CDAA40064DE2E /* SBPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPreferencesController.h; sourceTree = "<group>"; };
 		4C87EDB5139CDAA40064DE2E /* SBPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPreferencesController.m; sourceTree = "<group>"; };
 		4C87EDB8139CDAB90064DE2E /* SBDatabaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDatabaseController.h; sourceTree = "<group>"; };
@@ -665,8 +662,6 @@
 				4C87EE0F139CE33B0064DE2E /* NSManagedObjectContext+Fetch.m */,
 				4C87EDAE139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.h */,
 				4C87EDAF139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m */,
-				4C87EDB1139CDA0D0064DE2E /* NSBezierPath+BezierPathQuartzUtilities.h */,
-				4C87EDB2139CDA0D0064DE2E /* NSBezierPath+BezierPathQuartzUtilities.m */,
 				4CFB3E05139CEA76008DC01A /* NSOutlineView+Expand.h */,
 				4CFB3E06139CEA76008DC01A /* NSOutlineView+Expand.m */,
 				4CFAFC7F13A1110600E82B57 /* NSOperationQueue+Shared.h */,
@@ -1010,7 +1005,6 @@
 				4C87ED8E139CD91B0064DE2E /* SBWindowController.m in Sources */,
 				4C87EDA1139CD97B0064DE2E /* SBSplitView.m in Sources */,
 				4C87EDB0139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m in Sources */,
-				4C87EDB3139CDA0D0064DE2E /* NSBezierPath+BezierPathQuartzUtilities.m in Sources */,
 				4C87EDB6139CDAA50064DE2E /* SBPreferencesController.m in Sources */,
 				4C87EDBA139CDAB90064DE2E /* SBDatabaseController.m in Sources */,
 				4C87EDC1139CDC260064DE2E /* SBSourceList.m in Sources */,
