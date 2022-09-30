@@ -48,15 +48,14 @@
     return nil;
 }
 
-- (NSString*) coversDir {
-    NSString *coverDir = [[SBAppDelegate sharedInstance] coverDirectory];
+- (NSString*) coversDir: (NSString*)coverDir {
     SBServer *server = self.server;
     NSString *append = nil;
     if (server != nil) {
         append = server.resourceName;
     } else if (self.isLocalValue == YES
-               || (self.track && self.track.isLocalValue == YES)
-               || (self.album && self.album.isLocalValue == YES)) {
+               || (self.track && self.track.isLocalValue == YES && self.track.server)
+               || (self.album && self.album.isLocalValue == YES && self.album.artist && self.album.artist.server)) {
         // For imported media.
         // XXX: local import doesn't set local attrib on covers yet,
         // but not super important if track or album have it
@@ -76,12 +75,13 @@
 // XXX: Why is there a difference between MusicItem.path and Cover.imagePath?
 - (NSString*)imagePath {
     [self willAccessValueForKey: @"imagePath"];
+    NSString *baseCoverDir = [[SBAppDelegate sharedInstance] coverDirectory];
     NSString *currentPath = self.primitiveImagePath;
     if (currentPath == nil) {
         [self didAccessValueForKey: @"imagePath"];
         return currentPath;
     } else if ([currentPath isAbsolutePath]) {
-        NSString *coversDir = [self coversDir];
+        NSString *coversDir = [self coversDir: baseCoverDir];
         if (coversDir == nil) {
             [self didAccessValueForKey: @"imagePath"];
             return currentPath;
@@ -91,6 +91,10 @@
             // Prefix matches, just update the DB entry
             NSString *fileName = [currentPath lastPathComponent];
             [self setImagePath: fileName];
+            [self didAccessValueForKey: @"imagePath"];
+            return currentPath;
+        } else if ([currentPath hasPrefix: baseCoverDir]) {
+            // in case it gets horribly lost (XXX: still need after real fix?)
             [self didAccessValueForKey: @"imagePath"];
             return currentPath;
         } else {
@@ -110,7 +114,7 @@
             }
         }
     } else {
-        NSString *coversDir = [self coversDir];
+        NSString *coversDir = [self coversDir: baseCoverDir];
         [self didAccessValueForKey: @"imagePath"];
         if (coversDir == nil) {
             return currentPath;

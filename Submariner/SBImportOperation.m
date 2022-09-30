@@ -304,7 +304,9 @@
                         [newAlbum setCover:[SBCover insertInManagedObjectContext:[self threadedContext]]];
                     }
                     [newAlbum.cover setImagePath:relativePath];
+                    [newAlbum.cover setIsLocal: [NSNumber numberWithBool: YES]];
                     [newTrack.cover setImagePath:relativePath];
+                    [newTrack.cover setIsLocal: [NSNumber numberWithBool: YES]];
                 
                 } else {
                     // else if track parent directory contains cover file
@@ -336,7 +338,9 @@
                                         [newAlbum setCover:[SBCover insertInManagedObjectContext:[self threadedContext]]];
                                     }
                                     [newAlbum.cover setImagePath:relativePath];
+                                    [newAlbum.cover setIsLocal: [NSNumber numberWithBool: YES]];
                                     [newTrack.cover setImagePath:relativePath];
+                                    [newTrack.cover setIsLocal: [NSNumber numberWithBool: YES]];
                                 }
                             }
                         }
