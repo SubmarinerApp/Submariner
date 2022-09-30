@@ -35,6 +35,9 @@ Note there is still much to be done before a release.
   * Tracklist and now playing view moved to sidebar
   * Expanded menu bar
 * Uses App Sandboxing
+* Uses Keychain to store passwords
+* Stores relative paths in database instead of absolute, for easier portability
+* Local library imports properly set covers
 * Remembers last opened view
 * Updates tracks from server
 * Uses disc numbers for sorting
