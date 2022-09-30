@@ -136,6 +136,11 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     self = [super init];
     if (self) {
         localPlayer = [[SFBAudioPlayer alloc] init];
+        remotePlayer = [[AVPlayer alloc] init];
+        
+        // setup observers
+        [remotePlayer addObserver:self forKeyPath:@"status" options:0 context:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemDidFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object: nil];
         
         playlist = [[NSMutableArray alloc] init];
         isShuffle = NO;
@@ -149,6 +154,9 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 }
 
 - (void)dealloc {
+    // remove observers
+    [remotePlayer removeObserver:self forKeyPath:@"status" context:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver: self name:AVPlayerItemDidPlayToEndTimeNotification object: nil];
     // remove remote player observers
     [self stop];
     
@@ -473,17 +481,10 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 
 
 - (void)playRemoteWithURL:(NSURL *)url {
-    remotePlayer = [[AVPlayer alloc] initWithURL:url];
-    
-	if (!remotePlayer)
-		NSLog(@"Couldn't init player");
-    
-	else {
-        [remotePlayer setVolume:[self volume]];
-        [remotePlayer addObserver:self forKeyPath:@"status" options:0 context:nil];
-        AVPlayerItem *currentItem = [remotePlayer currentItem];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemDidFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object:currentItem];
-    }
+    AVPlayerItem *newItem = [AVPlayerItem playerItemWithURL: url];
+    [remotePlayer replaceCurrentItemWithPlayerItem: newItem];
+    [remotePlayer setVolume:[self volume]];
+    [remotePlayer play]; // needs a little help from us for next track
 }
 
 - (void)playLocalWithURL:(NSURL *)url {
@@ -657,7 +658,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         // stop players
         if(remotePlayer) {
             [remotePlayer replaceCurrentItemWithPlayerItem:nil];
-            remotePlayer = nil;
         }
         
         if([LOCAL_PLAYER isPlaying]) {
