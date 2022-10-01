@@ -54,8 +54,8 @@
     if (server != nil) {
         append = server.resourceName;
     } else if (self.isLocalValue == YES
-               || (self.track && self.track.isLocalValue == YES && self.track.server)
-               || (self.album && self.album.isLocalValue == YES && self.album.artist && self.album.artist.server)) {
+               || (self.track && self.track.isLocalValue == YES && !self.track.server)
+               || (self.album && self.album.isLocalValue == YES && self.album.artist && !self.album.artist.server)) {
         // For imported media.
         // XXX: local import doesn't set local attrib on covers yet,
         // but not super important if track or album have it
