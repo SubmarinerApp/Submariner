@@ -12,20 +12,15 @@
 
 
 //Layout constants
-#define MIN_BADGE_WIDTH							22.0		//The minimum badge width for each item (default 22.0)
+#define MIN_BADGE_WIDTH							14.0		//The minimum badge width for each item (default 22.0)
 #define BADGE_HEIGHT							14.0		//The badge height for each item (default 14.0)
 #define BADGE_MARGIN							5.0			//The spacing between the badge and the cell for that row
-#define ROW_RIGHT_MARGIN						10.0			//The spacing between the right edge of the badge and the edge of the table column
+#define ROW_RIGHT_MARGIN						16.0		//The spacing between the right edge of the badge and the edge of the table column
 #define ICON_SPACING							2.0			//The spacing between the icon and it's adjacent cell
 #define DISCLOSURE_TRIANGLE_SPACE				10.0		//The indentation reserved for disclosure triangles for non-group items
 
 //Drawing constants
-#define BADGE_BACKGROUND_COLOR					[NSColor colorWithCalibratedRed:(152/255.0) green:(168/255.0) blue:(202/255.0) alpha:1]
-#define BADGE_HIDDEN_BACKGROUND_COLOR			[NSColor colorWithDeviceWhite:(180/255.0) alpha:1]
-#define BADGE_SELECTED_TEXT_COLOR				[NSColor keyboardFocusIndicatorColor]
-#define BADGE_SELECTED_UNFOCUSED_TEXT_COLOR		[NSColor colorWithCalibratedRed:(153/255.0) green:(169/255.0) blue:(203/255.0) alpha:1]
-#define BADGE_SELECTED_HIDDEN_TEXT_COLOR		[NSColor colorWithCalibratedWhite:(170/255.0) alpha:1]
-#define BADGE_FONT								[NSFont boldSystemFontOfSize:11]
+#define BADGE_FONT								[NSFont systemFontOfSize:11]
 
 //Delegate notification constants
 NSString * const PXSLSelectionIsChangingNotification = @"PXSourceListSelectionIsChanging";
@@ -485,8 +480,19 @@ NSString * const PXSLDeleteKeyPressedOnRowsNotification = @"PXSourceListDeleteKe
 	return [NSColor grayColor];
 }
 
+- (NSColor*)badgeColorForRow: (BOOL)isText whenHighlighted: (BOOL)isHighlighted whenSourceListFocused: (BOOL)isFocused whenWindowIsFocused: (BOOL)isVisible whenRowEdited: (BOOL)rowBeingEdited
+{
+    if (isHighlighted && isFocused && isVisible && !rowBeingEdited) {
+        // Not quite the same as the selected row colour.
+        return isText ? [NSColor selectedMenuItemTextColor] : [NSColor selectedContentBackgroundColor];
+    }
+    return isText ? [NSColor unemphasizedSelectedTextColor] : [NSColor unemphasizedSelectedTextBackgroundColor];
+}
 
-
+// Big Sur changes the way badges are drawn - always using the unemphasized colour.
+// They're also just circles instead of lozenges at their minimum size, but do grow.
+// Note it's not /quite/ right with our current setup - we shouldn't use the highlight
+// for a source list. But that'll probably come after further conversion.
 - (void)drawBadgeForRow:(NSInteger)rowIndex inRect:(NSRect)badgeFrame
 {
 	id rowItem = [self itemAtRow:rowIndex];
@@ -496,66 +502,28 @@ NSString * const PXSLDeleteKeyPressedOnRowsNotification = @"PXSourceListDeleteKe
 															  yRadius:(BADGE_HEIGHT/2.0)];
 	
 	//Get window and control state to determine colours used
-	BOOL isVisible = [[NSApp mainWindow] isVisible];
+	BOOL isVisible = [[NSApp mainWindow] isMainWindow] && [NSApp isActive];
 	BOOL isFocused = [[[self window] firstResponder] isEqual:self];
-	NSInteger rowBeingEdited = [self editedRow];
+	BOOL rowBeingEdited = [self editedRow] == rowIndex;
+    BOOL isHighlighted = [[self selectedRowIndexes] containsIndex:rowIndex];
 	
 	//Set the attributes based on the row state
 	NSDictionary *attributes;
-	NSColor *backgroundColor;
-	
-	if([[self selectedRowIndexes] containsIndex:rowIndex])
-	{
-		backgroundColor = [NSColor whiteColor];
-		
-		//Set the text color based on window and control state
-		NSColor *textColor;
-		
-		if(isVisible && (isFocused || rowBeingEdited==rowIndex)) {
-			textColor = BADGE_SELECTED_TEXT_COLOR;
-		}
-		else if(isVisible && !isFocused) {
-			textColor = BADGE_SELECTED_UNFOCUSED_TEXT_COLOR;
-		}
-		else {
-			textColor = BADGE_SELECTED_HIDDEN_TEXT_COLOR;
-		}
-		
-		attributes = [[NSDictionary alloc] initWithObjectsAndKeys:BADGE_FONT, NSFontAttributeName,
-					  textColor, NSForegroundColorAttributeName, nil];
-	}
-	else
-	{
-		//Set the text colour based on window and control state
-		NSColor *badgeColor = [NSColor whiteColor];
-		
-		if(isVisible) {
-			//If the data source returns a custom colour..
-			if([_secondaryDataSource respondsToSelector:@selector(sourceList:badgeBackgroundColorForItem:)]) {
-				backgroundColor = [_secondaryDataSource sourceList:self badgeBackgroundColorForItem:rowItem];
-				
-				if(backgroundColor==nil)
-					backgroundColor = BADGE_BACKGROUND_COLOR;
-			}
-			else { //Otherwise use the default (purple-blue colour)
-				backgroundColor = BADGE_BACKGROUND_COLOR;
-			}
-			
-			//If the delegate wants a custom badge text colour..
-			if([_secondaryDataSource respondsToSelector:@selector(sourceList:badgeTextColorForItem:)]) {
-				badgeColor = [_secondaryDataSource sourceList:self badgeTextColorForItem:rowItem];
-				
-				if(badgeColor==nil)
-					badgeColor = [NSColor whiteColor];
-			}
-		}
-		else { //Gray colour
-			backgroundColor = BADGE_HIDDEN_BACKGROUND_COLOR;
-		}
-		
-		attributes = [[NSDictionary alloc] initWithObjectsAndKeys:BADGE_FONT, NSFontAttributeName,
-					  badgeColor, NSForegroundColorAttributeName, nil];
-	}
+    NSColor *backgroundColor = [self badgeColorForRow: NO whenHighlighted: isHighlighted whenSourceListFocused: isFocused whenWindowIsFocused: isVisible whenRowEdited: rowBeingEdited];
+    NSColor *textColor = [self badgeColorForRow: YES whenHighlighted: isHighlighted whenSourceListFocused: isFocused whenWindowIsFocused: isVisible whenRowEdited: rowBeingEdited];
+    //If the data source returns a custom colour..
+    if([_secondaryDataSource respondsToSelector:@selector(sourceList:badgeBackgroundColorForItem:)]) {
+        backgroundColor = [_secondaryDataSource sourceList:self badgeBackgroundColorForItem:rowItem];
+    }
+    //If the delegate wants a custom badge text colour..
+    if([_secondaryDataSource respondsToSelector:@selector(sourceList:badgeTextColorForItem:)]) {
+        textColor = [_secondaryDataSource sourceList:self badgeTextColorForItem:rowItem];
+    }
+    
+    attributes = @{
+        NSForegroundColorAttributeName: textColor,
+        NSFontAttributeName: BADGE_FONT
+    };
 	
 	[backgroundColor set];
 	[badgePath fill];
