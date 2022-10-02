@@ -11,6 +11,7 @@
 		3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */; };
 		3E2F86D128E3EA9A00C5CE23 /* NSString+File.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D028E3EA9A00C5CE23 /* NSString+File.m */; };
 		3E2F86D428E6328400C5CE23 /* NSData+Type.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D328E6328400C5CE23 /* NSData+Type.m */; };
+		3E2F86D828E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */; };
 		3E53DBA427D6F25500DB4C84 /* SFBAudioEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBA127D6F25500DB4C84 /* SFBAudioEngine.framework */; };
 		3E53DBA527D6F25500DB4C84 /* SFBAudioEngine.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBA127D6F25500DB4C84 /* SFBAudioEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E53DBBA27E4192B00DB4C84 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBB927E4192B00DB4C84 /* AVFoundation.framework */; };
@@ -184,6 +185,7 @@
 		3E2F86D028E3EA9A00C5CE23 /* NSString+File.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+File.m"; sourceTree = "<group>"; };
 		3E2F86D228E6328400C5CE23 /* NSData+Type.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+Type.h"; sourceTree = "<group>"; };
 		3E2F86D328E6328400C5CE23 /* NSData+Type.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+Type.m"; sourceTree = "<group>"; };
+		3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTreeController+IndexPath.swift"; sourceTree = "<group>"; };
 		3E53DBB927E4192B00DB4C84 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		3E69A2FD28B02D86009800D8 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -662,6 +664,7 @@
 				3E2F86D028E3EA9A00C5CE23 /* NSString+File.m */,
 				3E2F86D228E6328400C5CE23 /* NSData+Type.h */,
 				3E2F86D328E6328400C5CE23 /* NSData+Type.m */,
+				3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */,
 			);
 			name = Additions;
 			sourceTree = "<group>";
@@ -991,6 +994,7 @@
 			files = (
 				4C87ED71139CD8BE0064DE2E /* main.m in Sources */,
 				4C87ED77139CD8BE0064DE2E /* SBAppDelegate.m in Sources */,
+				3E2F86D828E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift in Sources */,
 				4C87ED7D139CD8BE0064DE2E /* Submariner.xcdatamodeld in Sources */,
 				4C87ED8E139CD91B0064DE2E /* SBWindowController.m in Sources */,
 				4C87EDA1139CD97B0064DE2E /* SBSplitView.m in Sources */,

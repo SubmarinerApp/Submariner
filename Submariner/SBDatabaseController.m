@@ -63,7 +63,7 @@
 #import "NSOutlineView+Expand.h"
 #import "NSOperationQueue+Shared.h"
 
-
+#import "Submariner-Swift.h"
 
 // main split view constant
 #define LEFT_VIEW_INDEX 0
@@ -763,7 +763,8 @@
 
 
 - (void)showDownloadView {
-	[self setCurrentViewController: downloadsController];
+    SBDownloads *downloads = (SBDownloads *)[self.managedObjectContext fetchEntityNammed:@"Downloads" withPredicate:nil error:nil];
+    [self switchToResource: downloads];
 }
 
 - (IBAction)showIndices:(id)sender {
@@ -852,14 +853,14 @@
     if (track == nil) {
         return;
     } else if (track.isLocalValue == YES) {
-        // Is setServer appropriate here?
-        [self setServer: nil];
-        [self setCurrentViewController: musicController];
+        SBLibrary *library = (SBLibrary *)[self.managedObjectContext fetchEntityNammed:@"Library" withPredicate:nil error:nil];
+        [self switchToResource: library];
         [musicController showTrackInLibrary: track];
     } else {
-        [self setServer: track.server];
+        [self switchToResource: track.server];
         [serverLibraryController setDatabaseController:self];
         [serverLibraryController setServer: track.server];
+        // as we could be on albums/podcasts
         [self setCurrentViewController: serverLibraryController];
         [serverLibraryController showTrackInLibrary: track];
     }
@@ -1117,7 +1118,7 @@
 //    _server = server;
 //}
 
-- (void)switchToResource:(SBResource*)resource {
+- (void)switchToResource:(SBResource*)resource updateSidebar:(BOOL)updateSidebar {
     if(resource && [resource isKindOfClass:[SBServer class]]) {
         SBServer *server = (SBServer *)resource;
         [server connect];
@@ -1139,6 +1140,23 @@
         }
         
     }
+    
+    // For cases where we get a resource change that didn't come from the source list
+    if (updateSidebar) {
+        SBResource *sidebarResource = resource;
+        if ([sidebarResource isKindOfClass:[SBArtist class]] || [sidebarResource isKindOfClass:[SBAlbum class]]) {
+            sidebarResource = (SBLibrary *)[self.managedObjectContext fetchEntityNammed:@"Library" withPredicate:nil error:nil];
+        }
+        NSIndexPath *newPath = [resourcesController indexPathForObject: resource];
+        NSLog(@"%@: %@", resource, newPath);
+        if (newPath != nil) {
+            [resourcesController setSelectionIndexPath: newPath];
+        }
+    }
+}
+
+- (void)switchToResource:(SBResource*)resource {
+    [self switchToResource: resource updateSidebar: YES];
 }
 
 - (void)displayViewControllerForResource:(SBResource *)resource {
@@ -1512,7 +1530,7 @@
         }
     } else if([[item representedObject] isKindOfClass:[SBDownloads class]] || [[item representedObject] isKindOfClass:[SBLibrary class]]) {
 		
-		[self displayViewControllerForResource:[item representedObject]];
+		[self switchToResource:[item representedObject]];
 		
         NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
         NSArray *tracksURIs = [NSKeyedUnarchiver unarchivedObjectOfClasses: allowedClasses fromData: data error: &error];
@@ -1580,7 +1598,7 @@
     if (selectedRow != -1) {
         SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
         
-        [self switchToResource: resource];
+        [self switchToResource: resource updateSidebar: NO];
     }
 }
 
