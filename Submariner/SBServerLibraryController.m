@@ -386,7 +386,7 @@
         SBAlbum *doubleClickedAlbum = [[albumsController arrangedObjects] objectAtIndex:selectedRow];
         if(doubleClickedAlbum) {
             
-			[databaseController showDownloadView];
+            [databaseController showDownloadView: self];
 			
             NSArray *tracks = [doubleClickedAlbum.tracks sortedArrayUsingDescriptors:trackSortDescriptor];
             

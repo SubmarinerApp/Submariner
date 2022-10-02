@@ -117,7 +117,7 @@
         downloaded++;
     }];
     if (databaseController != nil && downloaded > 0) {
-        [databaseController showDownloadView];
+        [databaseController showDownloadView: self];
     }
 }
 

@@ -126,7 +126,9 @@
 
 - (void)setCurrentViewController:(SBViewController *)newView;
 - (BOOL)openImportAlert:(NSWindow *)sender files:(NSArray *)files;
-- (void)showDownloadView;
+
+- (IBAction)showDownloadView:(id)sender;
+- (IBAction)showLibraryView:(id)sender;
 
 - (IBAction)openAudioFiles:(id)sender;
 - (IBAction)toggleTrackList:(id)sender;

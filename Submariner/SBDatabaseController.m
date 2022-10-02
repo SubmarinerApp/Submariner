@@ -762,9 +762,15 @@
 }
 
 
-- (void)showDownloadView {
+- (IBAction)showDownloadView: (id)sender {
     SBDownloads *downloads = (SBDownloads *)[self.managedObjectContext fetchEntityNammed:@"Downloads" withPredicate:nil error:nil];
     [self switchToResource: downloads];
+}
+
+
+- (IBAction)showLibraryView: (id)sender {
+    SBLibrary *library = (SBLibrary *)[self.managedObjectContext fetchEntityNammed:@"Library" withPredicate:nil error:nil];
+    [self switchToResource: library];
 }
 
 - (IBAction)showIndices:(id)sender {
