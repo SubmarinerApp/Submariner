@@ -365,7 +365,7 @@
 }
 
 - (IBAction)showWebsite:(id)sender {
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://www.read-write.fr/"]];
+    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://submarinerapp.com/"]];
 }
 
 - (IBAction)reloadCurrentServer:(id)sender {

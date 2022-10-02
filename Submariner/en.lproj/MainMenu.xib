@@ -458,12 +458,12 @@ DQ
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Help" systemMenu="help" id="491">
                         <items>
-                            <menuItem title="Submariner Help" keyEquivalent="?" id="492">
+                            <menuItem title="Submariner Help" hidden="YES" keyEquivalent="?" id="492">
                                 <connections>
                                     <action selector="showHelp:" target="-1" id="493"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Read-Write Website" id="545">
+                            <menuItem title="Submariner Website" id="545">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="showWebsite:" target="494" id="546"/>
