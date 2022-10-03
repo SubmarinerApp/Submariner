@@ -853,23 +853,27 @@
     [tracklistController cleanTracklist: sender];
 }
 
+- (void)goToTrack: (SBTrack*)track {
+   if (track == nil) {
+       return;
+   } else if (track.isLocalValue == YES) {
+       SBLibrary *library = (SBLibrary *)[self.managedObjectContext fetchEntityNammed:@"Library" withPredicate:nil error:nil];
+       [self switchToResource: library];
+       [musicController showTrackInLibrary: track];
+   } else {
+       [self switchToResource: track.server];
+       [serverLibraryController setDatabaseController:self];
+       [serverLibraryController setServer: track.server];
+       // as we could be on albums/podcasts
+       [self setCurrentViewController: serverLibraryController];
+       [serverLibraryController showTrackInLibrary: track];
+   }
+}
+
 
 - (IBAction)goToCurrentTrack:(id)sender {
     SBTrack *track = [SBPlayer sharedInstance].currentTrack;
-    if (track == nil) {
-        return;
-    } else if (track.isLocalValue == YES) {
-        SBLibrary *library = (SBLibrary *)[self.managedObjectContext fetchEntityNammed:@"Library" withPredicate:nil error:nil];
-        [self switchToResource: library];
-        [musicController showTrackInLibrary: track];
-    } else {
-        [self switchToResource: track.server];
-        [serverLibraryController setDatabaseController:self];
-        [serverLibraryController setServer: track.server];
-        // as we could be on albums/podcasts
-        [self setCurrentViewController: serverLibraryController];
-        [serverLibraryController showTrackInLibrary: track];
-    }
+    [self goToTrack: track];
 }
 
 
