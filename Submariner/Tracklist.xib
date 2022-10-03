@@ -138,6 +138,12 @@
                         <action selector="showSelectedInFinder:" target="-2" id="U7z-Xd-trj"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Show in Library" id="VVk-do-3fa">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showSelectedInLibrary:" target="-2" id="CsM-sB-Kod"/>
+                    </connections>
+                </menuItem>
             </items>
             <point key="canvasLocation" x="104" y="-148"/>
         </menu>

@@ -167,6 +167,20 @@
 }
 
 
+- (IBAction)showSelectedInLibrary:(id)sender {
+    NSInteger selectedRow = [playlistTableView selectedRow];
+    
+    if(selectedRow == -1) {
+        return;
+    }
+    
+    // only makes sense to have a single track, imho
+    NSUInteger index = playlistTableView.selectedRowIndexes.firstIndex;
+    SBTrack *track = (SBTrack*)[[[SBPlayer sharedInstance] playlist] objectAtIndex: index];
+    [[self databaseController] goToTrack: track];
+}
+
+
 - (IBAction)downloadSelected:(id)sender {
     NSInteger selectedRow = [playlistTableView selectedRow];
     
@@ -337,6 +351,7 @@
     SEL action = item.action;
     
     BOOL tracksSelected = playlistTableView.selectedRow != -1;
+    NSUInteger tracksSelectedCount = playlistTableView.numberOfSelectedRows;
     
     SBSelectedRowStatus selectedTrackRowStatus = 0;
     selectedTrackRowStatus = [self selectedRowStatus: [[SBPlayer sharedInstance] playlist] selectedIndices: playlistTableView.selectedRowIndexes];
@@ -351,6 +366,10 @@
     
     if (action == @selector(downloadSelected:)) {
         return selectedTrackRowStatus & SBSelectedRowDownloadable;
+    }
+    
+    if (action == @selector(showSelectedInLibrary:)) {
+        return tracksSelectedCount == 1;
     }
     
     return true;
