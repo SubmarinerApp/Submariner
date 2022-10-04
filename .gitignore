@@ -23,3 +23,6 @@ build/
 
 # Backup files
 *~.nib
+
+# Team stuff
+Submariner/DEVELOPMENT_TEAM.xcconfig

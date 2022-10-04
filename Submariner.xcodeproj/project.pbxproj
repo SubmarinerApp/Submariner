@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3E079FB928568EE8000A73E7 /* SBVolumeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E079FB828568EE8000A73E7 /* SBVolumeButton.m */; };
+		3E189E3328EBBAC40062ACA0 /* Shared.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3E189E3228EBBAC40062ACA0 /* Shared.xcconfig */; };
 		3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */; };
 		3E2F86D128E3EA9A00C5CE23 /* NSString+File.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D028E3EA9A00C5CE23 /* NSString+File.m */; };
 		3E2F86D428E6328400C5CE23 /* NSData+Type.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D328E6328400C5CE23 /* NSData+Type.m */; };
@@ -179,6 +180,7 @@
 /* Begin PBXFileReference section */
 		3E079FB728568EE8000A73E7 /* SBVolumeButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBVolumeButton.h; sourceTree = "<group>"; };
 		3E079FB828568EE8000A73E7 /* SBVolumeButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBVolumeButton.m; sourceTree = "<group>"; };
+		3E189E3228EBBAC40062ACA0 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		3E2F86C928DD36E600C5CE23 /* Submariner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Submariner-Bridging-Header.h"; sourceTree = "<group>"; };
 		3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBMonospaceTextField.swift; sourceTree = "<group>"; };
 		3E2F86CF28E3EA9A00C5CE23 /* NSString+File.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+File.h"; sourceTree = "<group>"; };
@@ -438,6 +440,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E189E3028EBBAAE0062ACA0 /* Build */ = {
+			isa = PBXGroup;
+			children = (
+				3E189E3228EBBAC40062ACA0 /* Shared.xcconfig */,
+			);
+			name = Build;
+			sourceTree = "<group>";
+		};
 		4C1D412E13A8F367002D77F3 /* SplitView Delegates */ = {
 			isa = PBXGroup;
 			children = (
@@ -515,6 +525,7 @@
 		4C87ED69139CD8BE0064DE2E /* Submariner */ = {
 			isa = PBXGroup;
 			children = (
+				3E189E3028EBBAAE0062ACA0 /* Build */,
 				4CEF83261449059A005E28EE /* Application */,
 				4C87EDB7139CDAAA0064DE2E /* Controllers */,
 				4C87EDA8139CD9BF0064DE2E /* Nibs */,
@@ -956,6 +967,7 @@
 				4C87EE02139CDCB10064DE2E /* NoArtwork.icns in Resources */,
 				4CFB3EF3139D4693008DC01A /* Tracklist.xib in Resources */,
 				4C7AA22E139D563A0050BE95 /* Playlist.xib in Resources */,
+				3E189E3328EBBAC40062ACA0 /* Shared.xcconfig in Resources */,
 				4C7AA233139D57A00050BE95 /* Music.xib in Resources */,
 				4C7AA24E139D64930050BE95 /* ServerLibrary.xib in Resources */,
 				4CFAFC2D139EF08800E82B57 /* ServerHome.xib in Resources */,
@@ -1225,6 +1237,7 @@
 		};
 		4C87ED81139CD8BE0064DE2E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E189E3228EBBAC40062ACA0 /* Shared.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1264,6 +1277,7 @@
 		};
 		4C87ED82139CD8BE0064DE2E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3E189E3228EBBAC40062ACA0 /* Shared.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
