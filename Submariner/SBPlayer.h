@@ -36,8 +36,6 @@
 #include <AVFoundation/AVPlayer.h>
 #include <CoreMedia/CoreMedia.h>
 
-#include <SFBAudioEngine/SFBAudioPlayer.h>
-
 // notifications
 extern NSString *SBPlayerPlaylistUpdatedNotification;
 extern NSString *SBPlayerPlayStateNotification;
@@ -58,10 +56,9 @@ enum SBPlayerRepeatMode {
 @class SBTrack;
 
 
-@interface SBPlayer : NSObject <NSSoundDelegate, SFBAudioPlayerDelegate> {
+@interface SBPlayer : NSObject {
 @private
     AVPlayer      *remotePlayer;
-    SFBAudioPlayer *localPlayer;
     
     NSMutableArray *playlist;
     SBTrack *currentTrack;

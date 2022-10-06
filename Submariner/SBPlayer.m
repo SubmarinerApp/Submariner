@@ -60,8 +60,6 @@
 
 #import <UserNotifications/UserNotifications.h>
 
-#define LOCAL_PLAYER localPlayer
-
 
 // notifications
 NSString *SBPlayerPlaylistUpdatedNotification = @"SBPlayerPlaylistUpdatedNotification";
@@ -135,7 +133,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 - (id)init {
     self = [super init];
     if (self) {
-        localPlayer = [[SFBAudioPlayer alloc] init];
         remotePlayer = [[AVPlayer alloc] init];
         
         // setup observers
@@ -159,8 +156,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     [[NSNotificationCenter defaultCenter] removeObserver: self name:AVPlayerItemDidPlayToEndTimeNotification object: nil];
     // remove remote player observers
     [self stop];
-    
-    localPlayer = NULL;
     
 }
 
@@ -450,16 +445,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         if (url == nil) {
             url = [self.currentTrack streamURL];
         }
-        // SFBAudioEngine has issues with HTTP resources, and doesn't support some of the AVF features,
-        // like spatialized audio. Nowadays, codec support in CoreAudio is better, and where it's weak,
-        // like Vorbis tags, SFB can pick ip the slack. Using AVF is more predictable in general.
-        // XXX: Override somewhere?
-        BOOL useLocalPlayer = NO;
-        if (useLocalPlayer) {
-            [self playLocalWithURL:url];
-        } else {
-            [self playRemoteWithURL:url];
-        }
+        [self playRemoteWithURL:url];
     }
     
     // setup player for playing
@@ -487,43 +473,11 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     [remotePlayer play]; // needs a little help from us for next track
 }
 
-- (void)playLocalWithURL:(NSURL *)url {
-    NSError *decodeError = nil;
-    SFBAudioDecoder *decoder = [[SFBAudioDecoder alloc] initWithURL: url /*decoderName:SFBAudioDecoderNameFLAC*/ error: &decodeError];
-	if(NULL != decoder) {
-        
-        [LOCAL_PLAYER setVolume: [self volume] error: nil];
-        
-        // Register for rendering started/finished notifications so the UI can be updated properly
-        [LOCAL_PLAYER setDelegate:self];
-        NSError *decoderError = nil;
-        [decoder openReturningError: &decoderError];
-        if (decoderError) {
-            NSLog(@"Decoder open error: %@", decoderError);
-            return;
-        }
-        if([LOCAL_PLAYER enqueueDecoder: decoder error: nil]) {
-            //[[NSDocumentController sharedDocumentController] noteNewRecentDocumentURL:url];
-        }else {
-        }
-    } else {
-        NSLog(@"Couldn't decode %@: %@", url, decodeError);
-    }
-}
-
 
 - (void)playOrResume {
     if(remotePlayer != nil) {
         [remotePlayer play];
         self.isPaused = NO;
-    }
-    if(LOCAL_PLAYER && [LOCAL_PLAYER isPaused]) {
-        [LOCAL_PLAYER resume];
-        self.isPaused = NO;
-    } else if (LOCAL_PLAYER) {
-        NSError *error;
-        [LOCAL_PLAYER playReturningError:&error];
-        self.isPaused = [LOCAL_PLAYER isPaused];
     }
     [self updateSystemNowPlaying];
     [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerPlayStateNotification object:self];
@@ -533,10 +487,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 - (void)pause {
     if(remotePlayer != nil) {
         [remotePlayer pause];
-        self.isPaused = YES;
-    }
-    if(LOCAL_PLAYER && [LOCAL_PLAYER engineIsRunning]) {
-        [LOCAL_PLAYER pause];
         self.isPaused = YES;
     }
     [self updateSystemNowPlayingStatus];
@@ -552,11 +502,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     } else {
         [remotePlayer play];
         self.isPaused = NO;
-    }
-    if(LOCAL_PLAYER && [LOCAL_PLAYER engineIsRunning]) {
-        NSError *error;
-        [LOCAL_PLAYER togglePlayPauseReturningError:&error];
-        self.isPaused = [LOCAL_PLAYER isPaused];
     }
     // if we weren't playing, we need to update the metadata
     if (wasPlaying) {
@@ -597,21 +542,12 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         [remotePlayer setVolume:volume];
     
     NSError *error = nil;
-    [LOCAL_PLAYER setVolume:volume error:&error];
 }
 
 - (void)seekToTime:(NSTimeInterval)time {
     if(remotePlayer != nil) {
         CMTime timeCM = CMTimeMakeWithSeconds(time, NSEC_PER_SEC);
         [remotePlayer seekToTime:timeCM];
-    }
-    
-    if(LOCAL_PLAYER && [LOCAL_PLAYER isPlaying]) {
-        if([LOCAL_PLAYER supportsSeeking]) {
-            [LOCAL_PLAYER seekToTime: time];
-        } else {
-            NSLog(@"WARNING : no seek support for this file");
-        }
     }
     
     if(isCaching) {
@@ -631,18 +567,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         [remotePlayer seekToTime:newTime];
     }
     
-    if(LOCAL_PLAYER && [LOCAL_PLAYER isPlaying]) {
-        if([LOCAL_PLAYER supportsSeeking]) {
-            SFBAudioPlayerPlaybackPosition sfbPos;
-            SFBAudioPlayerPlaybackTime sfbTime;
-            [LOCAL_PLAYER getPlaybackPosition:&sfbPos andTime:&sfbTime];
-            NSTimeInterval newTime = sfbTime.totalTime * (time / 100.0);
-            [LOCAL_PLAYER seekToTime:newTime];
-        } else {
-            NSLog(@"WARNING : no seek support for this file");
-        }
-    }
-    
     if(isCaching) {
         isCaching = NO;
     }
@@ -658,11 +582,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         // stop players
         if(remotePlayer) {
             [remotePlayer replaceCurrentItemWithPlayerItem:nil];
-        }
-        
-        if([LOCAL_PLAYER isPlaying]) {
-            [LOCAL_PLAYER stop];
-            [LOCAL_PLAYER clearQueue];
         }
         
         // unplay current track
@@ -703,14 +622,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         return currentTime;
     }
     
-    if([LOCAL_PLAYER isPlaying])
-    {
-        SFBAudioPlayerPlaybackPosition sfbPos;
-        SFBAudioPlayerPlaybackTime sfbTime;
-        [LOCAL_PLAYER getPlaybackPosition:&sfbPos andTime:&sfbTime];
-        return sfbTime.currentTime;
-    }
-    
     return 0;
 }
 
@@ -729,14 +640,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         return duration;
     }
     
-    if([LOCAL_PLAYER isPlaying])
-    {
-        SFBAudioPlayerPlaybackPosition sfbPos;
-        SFBAudioPlayerPlaybackTime sfbTime;
-        [LOCAL_PLAYER getPlaybackPosition:&sfbPos andTime:&sfbTime];
-        return sfbTime.totalTime;
-    }
-    
     return 0;
 }
 
@@ -751,14 +654,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         NSTimeInterval currentTime = CMTimeGetSeconds(currentTimeCM);
         NSTimeInterval remainingTime = duration-currentTime;
         return remainingTime;
-    }
-    
-    if([LOCAL_PLAYER isPlaying])
-    {
-        SFBAudioPlayerPlaybackPosition sfbPos;
-        SFBAudioPlayerPlaybackTime sfbTime;
-        [LOCAL_PLAYER getPlaybackPosition:&sfbPos andTime:&sfbTime];
-        return sfbTime.totalTime - sfbTime.currentTime;
     }
     
     return 0;
@@ -780,28 +675,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         
         if(duration > 0) {
             double progress = ((double)currentTime) / ((double)duration) * 100; // make percent
-            //double bitrate = [[[remotePlayer movieAttributes] valueForKey:QTMovieDataSizeAttribute] doubleValue]/duration * 10;
-            //NSLog(@"bitrate : %f", bitrate);
-            
-            if(progress == 100) { // movie is at end
-                // let item finished playing handle this guy
-                //[self next];
-            }
-            
-            return progress;
-            
-        } else {
-            return 0;
-        }
-    }
-    
-    if([LOCAL_PLAYER isPlaying])
-    {
-        SFBAudioPlayerPlaybackPosition sfbPos;
-        SFBAudioPlayerPlaybackTime sfbTime;
-        [LOCAL_PLAYER getPlaybackPosition:&sfbPos andTime:&sfbTime];
-        if(sfbTime.totalTime > 0) {
-            double progress = ((double)sfbTime.currentTime) / ((double)sfbTime.totalTime) * 100; // make percent
             //double bitrate = [[[remotePlayer movieAttributes] valueForKey:QTMovieDataSizeAttribute] doubleValue]/duration * 10;
             //NSLog(@"bitrate : %f", bitrate);
             
@@ -842,10 +715,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         NSTimeInterval tDuration = CMTimeGetSeconds(durationCM);
         
         percentLoaded = (double) tMaxLoaded/tDuration;
-    }
-    
-    if([LOCAL_PLAYER isPlaying]) {
-        percentLoaded = 1;
     }
     
     return percentLoaded;
@@ -908,26 +777,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 
 -(void)itemDidFinishPlaying:(NSNotification *) notification {
     [self next];
-}
-
-#pragma mark -
-#pragma mark Local Player Delegate
-
-- (void) audioPlayer:(SFBAudioPlayer *)audioPlayer decodingStarted:(id<SFBPCMDecoding>)decoder
-{
-    #pragma unused(decoder)
-    NSError *error = nil;
-    [LOCAL_PLAYER playReturningError:&error];
-}
-
-// This is called from the realtime rendering thread and as such MUST NOT BLOCK!!
-- (void) audioPlayer:(SFBAudioPlayer *)audioPlayer decodingComplete:(id<SFBPCMDecoding>)decoder
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self next];
-        // needed to make it continue?
-        [self playOrResume];
-    });
 }
 
 #pragma mark -
