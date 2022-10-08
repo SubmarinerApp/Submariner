@@ -33,8 +33,7 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <libkern/OSAtomic.h>
-#import <SFBAudioEngine/SFBAudioPlayer.h>
-#import <SFBAudioEngine/SFBAudioDecoder.h>
+#include <AVFoundation/AVFoundation.h>
 
 #import "SBClientController.h"
 #import "SBAppDelegate.h"
@@ -73,7 +72,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 - (void)playRemoteWithURL:(NSURL *)url;
 - (void)playLocalWithURL:(NSURL *)url;
 - (void)unplayAllTracks;
-- (void)decodingStarted:(const SFBAudioDecoder *)decoder;
 - (SBTrack *)getRandomTrackExceptingTrack:(SBTrack *)_track;
 - (SBTrack *)nextTrack;
 - (SBTrack *)prevTrack;
