@@ -44,7 +44,7 @@
     NSArray *filePaths;
     SBLibraryID *libraryID;
     SBTrackID *remoteTrackID;
-    BOOL copy;
+    BOOL copyFile;
     BOOL remove;
 }
 @property (readwrite) BOOL copyFile;
