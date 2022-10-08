@@ -65,6 +65,8 @@
 
 #import "Submariner-Swift.h"
 
+#import "AudioToolbox/AudioToolbox.h"
+
 // main split view constant
 #define LEFT_VIEW_INDEX 0
 #define LEFT_VIEW_PRIORITY 2
@@ -415,7 +417,16 @@
 - (IBAction)openAudioFiles:(id)sender {
     onboardingWindow.isVisible = NO;
     
-    NSArray *types = [NSArray arrayWithObjects:@"mp3", @"flac", @"m4a", @"wav", @"aiff", @"aif", @"ogg", @"aac", nil];
+    static NSArray *types = nil;
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+        UInt32 typesSize = sizeof(NSArray*);
+        OSStatus ret = AudioFileGetGlobalInfo(kAudioFileGlobalInfo_AllUTIs, 0, NULL, &typesSize, &types);
+        if (ret != noErr) {
+            types = [NSArray arrayWithObjects:@"mp3", @"flac", @"m4a", @"wav", @"aiff", @"aif", @"ogg", @"aac", nil];
+        }
+    });
+    
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];
     [openPanel setCanChooseFiles:YES];
