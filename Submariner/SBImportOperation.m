@@ -35,13 +35,6 @@
 #import "SBImportOperation.h"
 #import <CoreServices/CoreServices.h>
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
-
-#import <SFBAudioEngine/SFBAttachedPicture.h>
-#import <SFBAudioEngine/SFBAudioDecoder.h>
-#import <SFBAudioEngine/SFBAudioFile.h>
-#import <SFBAudioEngine/SFBAudioMetadata.h>
-#import <SFBAudioEngine/SFBAudioProperties.h>
-
 #import "SBAppDelegate.h"
 
 #import "SBLibrary.h"
@@ -54,9 +47,7 @@
 #import "NSManagedObjectContext+Fetch.h"
 #import "NSData+Type.h"
 
-
-
-//using namespace TagLib;
+#import "Submariner-Swift.h"
 
 
 
@@ -78,91 +69,6 @@
 
 
 
-- (id)initWithManagedObjectContext:(NSManagedObjectContext *)mainContext {
-    self = [super initWithManagedObjectContext:mainContext];
-    if (self) {
-        copy = NO;
-        remove = NO;
-    }
-    return self;
-}
-
-- (NSDictionary*)getID3:(AudioFileID)af {
-    NSError *error;
-    OSStatus ret;
-    UInt32 proposedSize = 0;
-    ret = AudioFileGetPropertyInfo(af, kAudioFilePropertyID3Tag, &proposedSize, 0);
-    if (ret != noErr) {
-        error = [NSError errorWithDomain:NSOSStatusErrorDomain code:ret userInfo: nil];
-        NSLog(@"%@", error);
-        return nil;
-    }
-    // instead of mallocing, since this is refcounted
-    NSMutableData *id3 = [NSMutableData dataWithLength: proposedSize];
-    ret = AudioFileGetProperty(af, kAudioFilePropertyID3Tag, &proposedSize, [id3 mutableBytes]);
-    if (ret != noErr) {
-        error = [NSError errorWithDomain:NSOSStatusErrorDomain code:ret userInfo: nil];
-        NSLog(@"%@", error);
-        return nil;
-    }
-    // instead of parsing ourself, let AT do it
-    UInt32 id3SizeLength = sizeof(UInt32), id3Size = 0;
-    ret = AudioFormatGetProperty(kAudioFormatProperty_ID3TagSize, proposedSize, [id3 mutableBytes], &id3SizeLength, &id3Size);
-    if (ret != noErr) {
-        error = [NSError errorWithDomain:NSOSStatusErrorDomain code:ret userInfo: nil];
-        NSLog(@"%@", error);
-        return nil;
-    }
-    CFDictionaryRef id3CfDict = NULL;
-    ret = AudioFormatGetProperty(kAudioFormatProperty_ID3TagToDictionary, proposedSize, [id3 mutableBytes], &id3Size, &id3CfDict);
-    if (ret != noErr) {
-        error = [NSError errorWithDomain:NSOSStatusErrorDomain code:ret userInfo: nil];
-        NSLog(@"%@", error);
-        return nil;
-    }
-    NSDictionary *id3Dict = (__bridge_transfer NSDictionary*)id3CfDict;
-    return id3Dict;
-}
-
-- (NSData*)getAlbumArtForMetadata:(AudioFileID)af {
-    NSError *error;
-    OSStatus ret;
-    UInt32 proposedSize = 0;
-    CFDataRef albumArtCfData = NULL;
-    ret = AudioFileGetPropertyInfo(af, kAudioFilePropertyAlbumArtwork, &proposedSize, 0);
-    if (ret == noErr) {
-        ret = AudioFileGetProperty(af, kAudioFilePropertyAlbumArtwork, &proposedSize, &albumArtCfData);
-        if (ret != noErr) {
-            error = [NSError errorWithDomain:NSOSStatusErrorDomain code:ret userInfo: nil];
-            NSLog(@"%@", error);
-            return nil;
-        }
-        return (__bridge_transfer NSData*)albumArtCfData;
-    }
-    // Works for FLAC and M4A, but not MP3.
-    // Fall back to going raw on the ID3 tag (kAudioFilePropertyID3Tag, kAudioFormatProperty_ID3TagToDictionary)
-    NSDictionary *id3Dict = [self getID3:af];
-    NSLog(@"%@", id3Dict);
-    NSData *foundData = nil;
-    NSDictionary *covers = id3Dict[@"APIC"];
-    // Try to find the front cover, otherwise
-    if (covers != nil && covers.count > 0) {
-        for (NSString *key in covers) {
-            NSDictionary *cover = covers[key];
-            NSString *coverType = cover[@"picturetype"];
-            if ([coverType isEqualToString: @"Cover (front)"]) {
-                foundData = cover[@"data"];
-            }
-        }
-        // else try first if not found
-        if (foundData == nil) {
-            NSDictionary *cover = covers.allValues.firstObject;
-            foundData = cover[@"data"];
-        }
-    }
-    // XXX: Make use of the MIME type
-    return foundData;
-}
 
 - (void)main {
     @autoreleasepool {
@@ -215,54 +121,13 @@
                 NSURL *fileURL = [NSURL fileURLWithPath: path];
                 NSError *error = nil;
                 
-                AudioFileID af = NULL;
-                OSStatus ret = AudioFileOpenURL((__bridge CFURLRef _Nonnull)(fileURL), kAudioFileReadPermission, 0, &af);
-                if (ret != 0) {
-                    error = [NSError errorWithDomain:NSOSStatusErrorDomain code:ret userInfo: nil];
-                    NSLog(@"%@", error);
-                    continue;
-                }
-                UInt32 proposedSize = 0;
-                CFDictionaryRef propertyCfDict = NULL;
-                ret = AudioFileGetPropertyInfo(af, kAudioFilePropertyInfoDictionary, &proposedSize, 0);
-                if (ret != 0) {
-                    error = [NSError errorWithDomain:NSOSStatusErrorDomain code:ret userInfo: nil];
-                    NSLog(@"%@", error);
-                    AudioFileClose(af);
-                    continue;
-                }
-                ret = AudioFileGetProperty(af, kAudioFilePropertyInfoDictionary, &proposedSize, &propertyCfDict);
-                if (ret != 0) {
-                    error = [NSError errorWithDomain:NSOSStatusErrorDomain code:ret userInfo: nil];
-                    NSLog(@"%@", error);
-                    AudioFileClose(af);
-                    continue;
-                }
-                proposedSize = 0;
-                NSDictionary *propertyDict = (__bridge_transfer NSDictionary*)propertyCfDict;
-                NSLog(@"%@", propertyDict);
-                NSDictionary *id3Dict = [self getID3:af];
-                NSLog(@"%@", id3Dict);
-                NSData *albumArtData = [self getAlbumArtForMetadata: af];
-                NSImage *albumArtImage = [[NSImage alloc] initWithData: albumArtData];
-                NSLog(@"%@", albumArtImage);
-                AudioFileClose(af);
-                
-                AVAsset *ava = [AVAsset assetWithURL: fileURL];
-                NSLog(@"----");
-                NSLog(@"%@", ava.commonMetadata);
-                NSLog(@"%@", ava.metadata);
-                NSLog(@"%@", ava.availableMetadataFormats);
-                
-                SFBAudioFile *audioFile = [SFBAudioFile audioFileWithURL: fileURL error: &error];
+                SBAudioMetadata *metadata = [[SBAudioMetadata alloc] initWithURL: fileURL error: &error];
                 if (error) {
                     NSLog(@"Error loading audio file for import: %@", error);
                     continue;
                 }
-                SFBAudioMetadata *metadata = [audioFile metadata];
-                SFBAudioProperties *properties = [audioFile properties];
                 
-                if(NULL != metadata && NULL != properties) {
+                if(NULL != metadata) {
                     if(!remoteTrackID) {
                         
                         // get file metadata
@@ -276,9 +141,9 @@
                         genreString       = [metadata genre];
                         trackNumber       = [metadata trackNumber];
                         discNumber        = [metadata discNumber];
-                        durationNumber    = [properties duration];
-                        bitRateNumber     = [properties bitrate];
-                        coverData         = [[[metadata attachedPictures] anyObject] imageData];
+                        durationNumber    = [metadata duration];
+                        bitRateNumber     = [metadata bitrate];
+                        coverData         = [metadata albumArt];
                         
                         // if this is a cache or download data importation
                     } else {
