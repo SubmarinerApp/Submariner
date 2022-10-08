@@ -206,7 +206,7 @@ NSString *SBSubsonicDownloadFinished    = @"SBSubsonicDownloadFinished";
     [op setFilePaths:[NSArray arrayWithObject: path]];
     [op setLibraryID:libraryID];
     [op setRemoteTrackID:trackID];
-    [op setCopy:YES];
+    [op setCopyFile:YES];
     [op setRemove:YES];
     
     [[NSOperationQueue sharedDownloadQueue] addOperation:op];

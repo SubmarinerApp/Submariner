@@ -47,7 +47,7 @@
     BOOL copy;
     BOOL remove;
 }
-@property (readwrite) BOOL copy;
+@property (readwrite) BOOL copyFile;
 @property (readwrite) BOOL remove;
 @property (readwrite, strong) NSArray *filePaths;
 @property (readwrite, strong) SBLibraryID *libraryID;

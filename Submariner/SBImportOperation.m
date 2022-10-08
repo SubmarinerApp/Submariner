@@ -63,7 +63,7 @@
 
 @synthesize filePaths;
 @synthesize libraryID;
-@synthesize copy;
+@synthesize copyFile;
 @synthesize remove;
 @synthesize remoteTrackID;
 
@@ -241,7 +241,7 @@
 
                 
                 // treat copy
-                if(copy == YES) {
+                if(copyFile == YES) {
                     artistPath = albumArtistString;
                     albumPath = [artistPath stringByAppendingPathComponent:albumString];
                     trackPath = [albumPath stringByAppendingPathComponent:[path lastPathComponent]];
@@ -328,9 +328,9 @@
                 }
                 
                 // set if items are linked or not
-                [newTrack setIsLinked:[NSNumber numberWithBool:!copy]];
-                [newAlbum setIsLinked:[NSNumber numberWithBool:!copy]];
-                [newArtist setIsLinked:[NSNumber numberWithBool:!copy]];
+                [newTrack setIsLinked:[NSNumber numberWithBool:!copyFile]];
+                [newAlbum setIsLinked:[NSNumber numberWithBool:!copyFile]];
+                [newArtist setIsLinked:[NSNumber numberWithBool:!copyFile]];
                 
                 // set items are local items
                 [newTrack setIsLocal:[NSNumber numberWithBool:YES]];

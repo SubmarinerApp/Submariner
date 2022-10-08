@@ -978,7 +978,7 @@
             SBImportOperation *op = [[SBImportOperation alloc] initWithManagedObjectContext:self.managedObjectContext];
             [op setFilePaths:choosedFiles];
             [op setLibraryID:[library objectID]];
-            [op setCopy:YES];
+            [op setCopyFile:YES];
             [op setRemove:NO];
             
             [[NSOperationQueue sharedDownloadQueue] addOperation:op];
@@ -990,7 +990,7 @@
             SBImportOperation *op = [[SBImportOperation alloc] initWithManagedObjectContext:self.managedObjectContext];
             [op setFilePaths:choosedFiles];
             [op setLibraryID:[library objectID]];
-            [op setCopy:NO];
+            [op setCopyFile:NO];
             [op setRemove:NO];
             
             [[NSOperationQueue sharedDownloadQueue] addOperation:op];
