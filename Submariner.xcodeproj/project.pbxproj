@@ -851,7 +851,6 @@
 				4C87ED5C139CD8BE0064DE2E /* Frameworks */,
 				4C87ED5D139CD8BE0064DE2E /* Resources */,
 				4CFB3E99139D10E0008DC01A /* Copy Frameworks */,
-				4C8578B114B916970087D7D7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -923,22 +922,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		4C8578B114B916970087D7D7 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-			shellPath = /bin/sh;
-			shellScript = "codesign -f -v -s \"3rd Party Mac Developer Application\" ${TARGET_BUILD_DIR}/Submariner.app/Contents/Frameworks/SFBAudioEngine.framework/Versions/A/Frameworks/dumb.framework/Versions/A/dumb\n\ncodesign -f -v -s \"3rd Party Mac Developer Application\" ${TARGET_BUILD_DIR}/Submariner.app/Contents/Frameworks/SFBAudioEngine.framework/Versions/A/Frameworks/FLAC.framework/Versions/A/FLAC\n\ncodesign -f -v -s \"3rd Party Mac Developer Application\" ${TARGET_BUILD_DIR}/Submariner.app/Contents/Frameworks/SFBAudioEngine.framework/Versions/A/Frameworks/mac.framework/Versions/A/mac\n\ncodesign -f -v -s \"3rd Party Mac Developer Application\" ${TARGET_BUILD_DIR}/Submariner.app/Contents/Frameworks/SFBAudioEngine.framework/Versions/A/Frameworks/mp4v2.framework/Versions/A/mp4v2\n\ncodesign -f -v -s \"3rd Party Mac Developer Application\" ${TARGET_BUILD_DIR}/Submariner.app/Contents/Frameworks/SFBAudioEngine.framework/Versions/A/Frameworks/mpcdec.framework/Versions/A/mpcdec\n\ncodesign -f -v -s \"3rd Party Mac Developer Application\" ${TARGET_BUILD_DIR}/Submariner.app/Contents/Frameworks/SFBAudioEngine.framework/Versions/A/Frameworks/mpg123.framework/Versions/A/mpg123\n\ncodesign -f -v -s \"3rd Party Mac Developer Application\" ${TARGET_BUILD_DIR}/Submariner.app/Contents/Frameworks/SFBAudioEngine.framework/Versions/A/Frameworks/sndfile.framework/Versions/A/sndfile\n\ncodesign -f -v -s \"3rd Party Mac Developer Application\" ${TARGET_BUILD_DIR}/Submariner.app/Contents/Frameworks/SFBAudioEngine.framework/Versions/A/Frameworks/speex.framework/Versions/A/speex\n\ncodesign -f -v -s \"3rd Party Mac Developer Application\" ${TARGET_BUILD_DIR}/Submariner.app/Contents/Frameworks/SFBAudioEngine.framework/Versions/A/Frameworks/taglib.framework/Versions/A/taglib\n\ncodesign -f -v -s \"3rd Party Mac Developer Application\" ${TARGET_BUILD_DIR}/Submariner.app/Contents/Frameworks/SFBAudioEngine.framework/Versions/A/Frameworks/vorbis.framework/Versions/A/vorbis\n\ncodesign -f -v -s \"3rd Party Mac Developer Application\" ${TARGET_BUILD_DIR}/Submariner.app/Contents/Frameworks/SFBAudioEngine.framework/Versions/A/Frameworks/wavpack.framework/Versions/A/wavpack\n\ncodesign -f -v -s \"3rd Party Mac Developer Application\" ${TARGET_BUILD_DIR}/Submariner.app/Contents/Frameworks/SFBAudioEngine.framework/Versions/A/SFBAudioEngine\n\ncodesign -f -v -s \"3rd Party Mac Developer Application\" ${TARGET_BUILD_DIR}/Submariner.app/Contents/Frameworks/LRResty.framework/Versions/A/LRResty\n\ncodesign -f -v -s \"3rd Party Mac Developer Application\" ${TARGET_BUILD_DIR}/Submariner.app/Contents/Frameworks/ShortcutRecorder.framework/Versions/A/ShortcutRecorder";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4C87ED5B139CD8BE0064DE2E /* Sources */ = {
