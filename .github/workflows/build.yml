@@ -14,10 +14,6 @@ jobs:
           submodules: recursive
       - name: Install xcpretty
         run: gem install xcpretty --no-document --quiet
-      - name: Build Audio Frameworks
-        run: |
-          cd SFBAudioEngine
-          make -C XCFrameworks install
       - name: Build Executable
         # use build over archive because it seems to work a bit better
         run: xcodebuild build -configuration Release -project Submariner.xcodeproj -scheme Submariner -derivedDataPath build/XcodeOutput CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY= | xcpretty -c

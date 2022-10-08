@@ -10,17 +10,18 @@ Please see the [old README](https://github.com/Read-Write/Submariner/blob/a1a10e
 
 1. Clone recursively (i.e. `git clone --recursive`). Failing that, initialize submodules recursively (`git submodule update --init --recursive`).
 
-2. You need to build SFBAudioEngine's dependencies first. `cd SFBAudioEngine` and then `make -C XCFrameworks`.
+2. Use Xcode or `xcbuild` to build.
 
-3. Use Xcode or `xcbuild` to build.
+It is recommended you do `git config core.hooksPath .githooks` to avoid commiting your developer ID.
+Doing so isn't fatal (it's not a secret), but it is annoying for other contributors.
 
 ## Third-Party
 
-This project includes the following libraries via a submodule:
+### Vendored
 
-* SFBAudioEngine by Stephen F. Booth ([https://github.com/sbooth/SFBAudioEngine](https://github.com/sbooth/SFBAudioEngine))
-
-More libraries are vendored (...and likely outdated), see copyright headers on files.
+* MGScopeBar by Matt Gemmell
+* PXSourceList by Alex Rozanski, Stefan Vogt
+* ColumnSplitView by Matt Gallagher
 
 ## Release Notes:
 
@@ -41,7 +42,8 @@ Note there is still much to be done before a release.
 * Remembers last opened view
 * Updates tracks from server
 * Uses disc numbers for sorting
-* Updated to to latest version of SFBAudioEngine, and uses AVFoundation instead of QuickTime
+* Uses AVFoundation instead of QuickTime and SFBAudioEngine for playback
+* Uses Audio Toolbox and AVFoundation for metadata instead of SFBAudioEngine
 * Notifications for currently playing track
 * Use MPNowPlayingInformationCenter instead instead of a menu applet and hooking system media keys
 * Now uses built-in NSURLSession instead of library for HTTP connections

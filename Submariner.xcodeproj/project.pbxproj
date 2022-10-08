@@ -14,8 +14,6 @@
 		3E2F86D128E3EA9A00C5CE23 /* NSString+File.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D028E3EA9A00C5CE23 /* NSString+File.m */; };
 		3E2F86D428E6328400C5CE23 /* NSData+Type.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D328E6328400C5CE23 /* NSData+Type.m */; };
 		3E2F86D828E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */; };
-		3E53DBA427D6F25500DB4C84 /* SFBAudioEngine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBA127D6F25500DB4C84 /* SFBAudioEngine.framework */; };
-		3E53DBA527D6F25500DB4C84 /* SFBAudioEngine.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBA127D6F25500DB4C84 /* SFBAudioEngine.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E53DBBA27E4192B00DB4C84 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBB927E4192B00DB4C84 /* AVFoundation.framework */; };
 		3E53DBBC27E41B6400DB4C84 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */; };
 		3E69A2FF28B02D86009800D8 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E69A2FD28B02D86009800D8 /* UserNotifications.framework */; };
@@ -140,30 +138,6 @@
 		4CFCE4471402582400D35770 /* SBMusicSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFCE4461402582400D35770 /* SBMusicSearchController.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		3E53DBA027D6F25500DB4C84 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C7A3EAE148F083E009C6EE6 /* SFBAudioEngine.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 3210AB9017B9C05A00743639;
-			remoteInfo = macOS;
-		};
-		3E53DBA227D6F25500DB4C84 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C7A3EAE148F083E009C6EE6 /* SFBAudioEngine.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 32714C7C2551D4DF00029BD7;
-			remoteInfo = iOS;
-		};
-		4C7A3EC2148F0855009C6EE6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4C7A3EAE148F083E009C6EE6 /* SFBAudioEngine.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 32C212D41091116D00BA2493;
-			remoteInfo = SFBAudioEngine.framework;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		4CFB3E99139D10E0008DC01A /* Copy Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -171,7 +145,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3E53DBA527D6F25500DB4C84 /* SFBAudioEngine.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -242,7 +215,6 @@
 		4C56868414050B9A00BE3478 /* SBPodcastItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPodcastItemView.m; sourceTree = "<group>"; };
 		4C56868614050C1100BE3478 /* SBPodcastViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPodcastViewItem.h; sourceTree = "<group>"; };
 		4C56868714050C1100BE3478 /* SBPodcastViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPodcastViewItem.m; sourceTree = "<group>"; };
-		4C7A3EAE148F083E009C6EE6 /* SFBAudioEngine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFBAudioEngine.xcodeproj; path = SFBAudioEngine/SFBAudioEngine.xcodeproj; sourceTree = "<group>"; };
 		4C7AA21D139D530B0050BE95 /* RWTableHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWTableHeaderCell.h; sourceTree = "<group>"; };
 		4C7AA21E139D530B0050BE95 /* RWTableHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWTableHeaderCell.m; sourceTree = "<group>"; };
 		4C7AA227139D53A40050BE95 /* SBTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBTableView.h; sourceTree = "<group>"; };
@@ -435,7 +407,6 @@
 				4C7AA247139D619F0050BE95 /* Quartz.framework in Frameworks */,
 				4C87ED64139CD8BE0064DE2E /* Cocoa.framework in Frameworks */,
 				3E82701827E653F0007E5695 /* MediaPlayer.framework in Frameworks */,
-				3E53DBA427D6F25500DB4C84 /* SFBAudioEngine.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,18 +433,8 @@
 		4C7A3E97148F07F7009C6EE6 /* Subprojects */ = {
 			isa = PBXGroup;
 			children = (
-				4C7A3EAE148F083E009C6EE6 /* SFBAudioEngine.xcodeproj */,
 			);
 			name = Subprojects;
-			sourceTree = "<group>";
-		};
-		4C7A3EAF148F083E009C6EE6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				3E53DBA127D6F25500DB4C84 /* SFBAudioEngine.framework */,
-				3E53DBA327D6F25500DB4C84 /* SFBAudioEngine.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		4C87ED54139CD8BE0064DE2E = {
@@ -895,7 +856,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				4C7A3EC3148F0855009C6EE6 /* PBXTargetDependency */,
 			);
 			name = Submariner;
 			productName = Submariner;
@@ -928,35 +888,12 @@
 			mainGroup = 4C87ED54139CD8BE0064DE2E;
 			productRefGroup = 4C87ED60139CD8BE0064DE2E /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 4C7A3EAF148F083E009C6EE6 /* Products */;
-					ProjectRef = 4C7A3EAE148F083E009C6EE6 /* SFBAudioEngine.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				4C87ED5E139CD8BE0064DE2E /* Submariner */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		3E53DBA127D6F25500DB4C84 /* SFBAudioEngine.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SFBAudioEngine.framework;
-			remoteRef = 3E53DBA027D6F25500DB4C84 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		3E53DBA327D6F25500DB4C84 /* SFBAudioEngine.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SFBAudioEngine.framework;
-			remoteRef = 3E53DBA227D6F25500DB4C84 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		4C87ED5D139CD8BE0064DE2E /* Resources */ = {
@@ -1112,14 +1049,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		4C7A3EC3148F0855009C6EE6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SFBAudioEngine.framework;
-			targetProxy = 4C7A3EC2148F0855009C6EE6 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4C87ED6C139CD8BE0064DE2E /* InfoPlist.strings */ = {
