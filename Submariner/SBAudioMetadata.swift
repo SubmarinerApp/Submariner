@@ -258,6 +258,9 @@ import AVFoundation
     
     @objc var duration: NSNumber? { // in seconds
         get {
+            if let asset = asset {
+                return NSNumber.init(value: asset.duration.seconds)
+            }
             if let audioFileInfoDict = audioFileInfoDict, let durationString: NSString = audioFileInfoDict["approximate duration in seconds"] as? NSString {
                 // durationString can have , and . - use NumberFormatter
                 let durationString2 = durationString as String
