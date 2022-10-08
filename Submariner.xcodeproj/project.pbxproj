@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3E079FB928568EE8000A73E7 /* SBVolumeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E079FB828568EE8000A73E7 /* SBVolumeButton.m */; };
 		3E189E3328EBBAC40062ACA0 /* Shared.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3E189E3228EBBAC40062ACA0 /* Shared.xcconfig */; };
+		3E189E4028EF5BAB0062ACA0 /* SBAudioMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */; };
 		3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */; };
 		3E2F86D128E3EA9A00C5CE23 /* NSString+File.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D028E3EA9A00C5CE23 /* NSString+File.m */; };
 		3E2F86D428E6328400C5CE23 /* NSData+Type.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D328E6328400C5CE23 /* NSData+Type.m */; };
@@ -181,6 +182,7 @@
 		3E079FB728568EE8000A73E7 /* SBVolumeButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBVolumeButton.h; sourceTree = "<group>"; };
 		3E079FB828568EE8000A73E7 /* SBVolumeButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBVolumeButton.m; sourceTree = "<group>"; };
 		3E189E3228EBBAC40062ACA0 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
+		3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBAudioMetadata.swift; sourceTree = "<group>"; };
 		3E2F86C928DD36E600C5CE23 /* Submariner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Submariner-Bridging-Header.h"; sourceTree = "<group>"; };
 		3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBMonospaceTextField.swift; sourceTree = "<group>"; };
 		3E2F86CF28E3EA9A00C5CE23 /* NSString+File.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+File.h"; sourceTree = "<group>"; };
@@ -610,6 +612,7 @@
 				4C87ED7B139CD8BE0064DE2E /* Submariner.xcdatamodeld */,
 				4C87EE12139CE4380064DE2E /* Abstract */,
 				4C87EE11139CE4370064DE2E /* Concrete */,
+				3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1049,6 +1052,7 @@
 				4CFB3E07139CEA76008DC01A /* NSOutlineView+Expand.m in Sources */,
 				4CFB3E14139D028D008DC01A /* SBSheetController.m in Sources */,
 				4CFB3E15139D028D008DC01A /* SBServerViewController.m in Sources */,
+				3E189E4028EF5BAB0062ACA0 /* SBAudioMetadata.swift in Sources */,
 				4CFB3E19139D052F008DC01A /* SBEditServerController.m in Sources */,
 				4CFB3EA3139D115F008DC01A /* SBOperation.m in Sources */,
 				4CFB3EAE139D11CE008DC01A /* SBImportOperation.m in Sources */,
