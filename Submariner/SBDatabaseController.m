@@ -1400,8 +1400,8 @@
 }
 
 - (void)playerHaveMovieToPlayNotification:(NSNotification *)notification {
-    // XXX: We get SBPlayer here, does that ever make sense?
-    [self displayViewControllerForResource:[notification object]];
+    // We get this on playlist update but in theory, we could get it for specific media in the future
+    //[self displayViewControllerForResource:[notification object]];
 }
 
 
