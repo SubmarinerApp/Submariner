@@ -1169,7 +1169,6 @@
             sidebarResource = (SBLibrary *)[self.managedObjectContext fetchEntityNammed:@"Library" withPredicate:nil error:nil];
         }
         NSIndexPath *newPath = [resourcesController indexPathForObject: resource];
-        NSLog(@"%@: %@", resource, newPath);
         if (newPath != nil) {
             [resourcesController setSelectionIndexPath: newPath];
         }
@@ -1183,7 +1182,6 @@
 - (void)displayViewControllerForResource:(SBResource *)resource {
     // NSURLs dont go to plists
     if (!([resource isKindOfClass: [SBResource class]] || [resource isKindOfClass: [SBMusicItem class]])) {
-        NSLog(@"Hey, \"%@\" isn't a resource", resource);
         return;
     }
     NSString *urlString = resource.objectID.URIRepresentation.absoluteString;
@@ -1386,16 +1384,13 @@
         [self installProgressTimer];
         if([[SBPlayer sharedInstance] isPaused]) {
             [playPauseButton setState:NSControlStateValueOff];
-            NSLog(@"Paused?");
         }
         else {
             [playPauseButton setState:NSControlStateValueOn];
-            NSLog(@"Playing?");
         }
     } else {
         [self uninstallProgressTimer];
         [playPauseButton setState:NSControlStateValueOn];
-        NSLog(@"Stopped?");
     }
 }
 
@@ -1466,7 +1461,7 @@
             NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
             NSArray *tracksURIs = [NSKeyedUnarchiver unarchivedObjectOfClasses: allowedClasses fromData: data error: &error];
             if (error != nil) {
-                NSLog(@"Error unserializing array %@", error);
+                [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
                 return NSDragOperationNone;
             }
             
@@ -1483,7 +1478,7 @@
         NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
         NSArray *tracksURIs = [NSKeyedUnarchiver unarchivedObjectOfClasses: allowedClasses fromData: data error: &error];
         if (error != nil) {
-            NSLog(@"Error unserializing array %@", error);
+            [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
             return NSDragOperationNone;
         }
         
@@ -1511,7 +1506,7 @@
                 NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
                 NSArray *tracksURIs = [NSKeyedUnarchiver unarchivedObjectOfClasses: allowedClasses fromData: data error: &error];
                 if (error != nil) {
-                    NSLog(@"Error unserializing array %@", error);
+                    [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
                     return NO;
                 }
                 
@@ -1527,7 +1522,7 @@
                 NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
                 NSArray *tracksURIs = [NSKeyedUnarchiver unarchivedObjectOfClasses: allowedClasses fromData: data error: &error];
                 if (error != nil) {
-                    NSLog(@"Error unserializing array %@", error);
+                    [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
                     return NO;
                 }
                 NSMutableArray *trackIDs = [NSMutableArray array];
@@ -1556,7 +1551,7 @@
         NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
         NSArray *tracksURIs = [NSKeyedUnarchiver unarchivedObjectOfClasses: allowedClasses fromData: data error: &error];
         if (error != nil) {
-            NSLog(@"Error unserializing array %@", error);
+            [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
             return NO;
         }
         
