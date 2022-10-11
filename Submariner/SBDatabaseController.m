@@ -282,7 +282,11 @@
         NSError *error = nil;
         NSManagedObjectID *oid = [self.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation: lastViewedURL];
         // Use this, or Core Data will happily make a fault of a non-existent object.
-        lastViewed = [self.managedObjectContext existingObjectWithID: oid error: &error];
+        @try {
+            lastViewed = [self.managedObjectContext existingObjectWithID: oid error: &error];
+        } @catch (NSException *exc) {
+            NSLog(@"existingObjectWithID failed, but not fatal: %@", exc);
+        }
     }
     if (lastViewed != nil){
         // XXX: should make switchToResource not handle SBMusicItem
