@@ -397,6 +397,7 @@
 			
 			NSArray *servers = [self.managedObjectContext fetchEntitiesNammed:@"Server" withPredicate:nil error:nil];
 			if(servers && servers.count == 0) {
+                // These are defined in the Core Data model.
 				SBServer *s = [SBServer insertInManagedObjectContext:self.managedObjectContext];
 				[s setResourceName:@"Subsonic Demo"];
 				[serversSection addResourcesObject:s];
