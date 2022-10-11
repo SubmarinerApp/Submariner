@@ -342,12 +342,12 @@
                             <action selector="toggleTrackList:" target="-2" id="cXb-yx-2pH"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="53034325-024B-4CCF-B5FE-A25369E507B3" label="Server Users" paletteLabel="Server Users" image="person.wave.2" catalog="system" sizingBehavior="auto" id="FV9-Yq-wbJ">
+                    <toolbarItem implicitItemIdentifier="53034325-024B-4CCF-B5FE-A25369E507B3" label="Server Users" paletteLabel="Server Users" image="person.wave.2" sizingBehavior="auto" id="FV9-Yq-wbJ">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="Pbg-ZK-NRU">
                             <rect key="frame" x="24" y="14" width="27" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="person.wave.2" catalog="system" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="VHb-lF-zLZ">
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="person.wave.2" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="VHb-lF-zLZ">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="system"/>
                                 <connections>
@@ -874,7 +874,7 @@ Gw
         <image name="icon" width="512" height="512"/>
         <image name="music.note.list" catalog="system" width="16" height="15"/>
         <image name="pause" catalog="system" width="9" height="13"/>
-        <image name="person.wave.2" catalog="system" width="17" height="16"/>
+        <image name="person.wave.2" width="15" height="14"/>
         <image name="play" catalog="system" width="12" height="13"/>
         <image name="repeat.circle" catalog="system" width="15" height="15"/>
         <image name="shuffle.circle" catalog="system" width="15" height="15"/>
