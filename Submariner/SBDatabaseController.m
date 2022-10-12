@@ -1018,6 +1018,11 @@
         
         if (selectedRow != -1) {
             SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
+            if (resource && self.server == resource) {
+                // Clean out any possible state involving this server...
+                self.server = nil;
+                [self showLibraryView: nil];
+            }
             if(resource && ([resource isKindOfClass:[SBPlaylist class]] || [resource isKindOfClass:[SBServer class]])) {
                 [self.managedObjectContext deleteObject:resource];
                 [self.managedObjectContext processPendingChanges];
