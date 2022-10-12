@@ -38,10 +38,8 @@
 @interface SBPreferencesController : SBWindowController <NSToolbarDelegate> {
 
 	IBOutlet NSToolbar  *bar;
-	IBOutlet NSView *serversPreferenceView;
     IBOutlet NSView *playerPreferenceView;
     IBOutlet NSView *appearancePreferenceView;
-	IBOutlet NSView *updatesPreferenceView;
 	IBOutlet NSView *subsonicPreferenceView;
     IBOutlet NSMatrix *playerBehaviorMatrix;
     IBOutlet NSPopUpButton *downloadLocationPopUp;

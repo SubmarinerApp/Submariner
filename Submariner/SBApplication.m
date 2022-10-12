@@ -58,16 +58,11 @@
 	[defaults setObject:[NSNumber numberWithFloat:0.5f]         forKey:@"playerVolume"];
 	[defaults setObject:[NSNumber numberWithInt:SBPlayerRepeatNo]         forKey:@"repeatMode"];
 	[defaults setObject:[NSNumber numberWithInt:NO]         forKey:@"shuffle"];
-    [defaults setObject:[NSNumber numberWithInt:30]             forKey:@"requestTimeout"];
-    [defaults setObject:[NSNumber numberWithInt:YES]            forKey:@"jumpInDock"];
-    [defaults setObject:[NSNumber numberWithInt:YES]            forKey:@"dockBadges"];
     [defaults setObject:[NSNumber numberWithInt:YES]            forKey:@"enableCacheStreaming"];
     [defaults setObject:[NSNumber numberWithInt:NO]             forKey:@"autoRefreshNowPlaying"];
     [defaults setObject:[NSNumber numberWithFloat:0.75]         forKey:@"coverSize"];
     [defaults setObject:[NSNumber numberWithInteger:0]          forKey:@"maxBitRate"];
     [defaults setObject:[NSNumber numberWithInteger:300]        forKey:@"MaxCoverSize"];
-    [defaults setObject:[NSNumber numberWithInteger:67]         forKey:@"PlayerKeyCode"];
-    [defaults setObject:[NSNumber numberWithInteger:1572864]    forKey:@"PlayerKeyFlags"];
 	[userDefaults registerDefaults:defaults];
 }
 
