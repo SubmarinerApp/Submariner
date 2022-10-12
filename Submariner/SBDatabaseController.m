@@ -625,7 +625,7 @@
 }
 
 - (void)reloadServerInternal: (SBServer*)server {
-    if (server == nil) {
+    if (server == nil || ![server isKindOfClass:[SBServer class]]) {
         return;
     }
     [server getServerLicense];
@@ -638,11 +638,7 @@
     
     if (selectedRow != -1) {
         SBServer *server = [[sourceList itemAtRow:selectedRow] representedObject];
-        if(server && [server isKindOfClass:[SBServer class]]) {
-            [server getServerLicense];
-            [server getServerIndexes];
-            [server getServerPlaylists];
-        }
+        [self reloadServerInternal: server];
     }
 }
 
