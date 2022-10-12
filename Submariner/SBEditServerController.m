@@ -69,7 +69,6 @@
         [self.managedObjectContext commitEditing];
         [self.managedObjectContext save:nil];
     }
-    [((SBWindowController *)[parentWindow windowController]) hideVisualCue];
 }
 
 - (void)cancelSheet:(id)sender {
@@ -79,7 +78,6 @@
         [self.managedObjectContext deleteObject:self.server];
         [self.managedObjectContext processPendingChanges];
     }
-    [((SBWindowController *)[parentWindow windowController]) hideVisualCue];
 }
 
 @end

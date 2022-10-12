@@ -39,14 +39,11 @@
 @interface SBWindowController : NSWindowController {
 @protected
     NSManagedObjectContext *managedObjectContext;
-    NSView *blankingView;
 }
 @property (nonatomic, strong, readwrite) NSManagedObjectContext *managedObjectContext;
 
 + (NSString *)nibName;
 
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context;
-- (void)showVisualCue;
-- (void)hideVisualCue;
 
 @end

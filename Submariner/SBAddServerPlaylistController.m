@@ -62,15 +62,8 @@
         
         // create playlist on server 
         [self.server createPlaylistWithName:playlistName tracks:trackIDs];
-        [((SBWindowController *)[parentWindow windowController]) hideVisualCue];
         [super closeSheet:sender];
     }
-}
-
-- (void)cancelSheet:(id)sender {
-    
-    [((SBWindowController *)[parentWindow windowController]) hideVisualCue];
-    [super cancelSheet:sender];
 }
 
 @end

@@ -443,8 +443,6 @@
     [openPanel setCanChooseDirectories:YES];
     [openPanel setCanChooseFiles:YES];
     [openPanel setAllowsMultipleSelection: YES];
-
-    [super showVisualCue];
     
     [openPanel setAllowedFileTypes: types];
     [openPanel beginSheetModalForWindow: [self window] completionHandler:^(NSModalResponse result) {
@@ -513,8 +511,6 @@
         if(resource && [resource isKindOfClass:[SBServer class]]) {
             SBServer *server = (SBServer *)resource;
             
-            [super showVisualCue];
-            
             [addServerPlaylistController setServer:server];
             [addServerPlaylistController openSheet:sender];
         }
@@ -524,8 +520,6 @@
 - (IBAction)addPlaylistToCurrentServer:(id)sender {
     SBServer *server = self.server;
     if(server != nil) {
-        [super showVisualCue];
-        
         [addServerPlaylistController setServer:server];
         [addServerPlaylistController openSheet:sender];
     }
@@ -546,8 +540,6 @@
             [alert setMessageText:@"Delete the selected server playlist?"];
             [alert setInformativeText:@"Deleted server playlists cannot be restored."];
             [alert setAlertStyle:NSAlertStyleWarning];
-            
-            [super showVisualCue];
             
             [alert beginSheetModalForWindow: [self window] completionHandler:^(NSModalResponse returnCode) {
                 [self deleteServerPlaylistAlertDidEnd: alert returnCode: returnCode contextInfo: nil];
@@ -571,8 +563,6 @@
             [alert setInformativeText:@"Deleted items cannot be restored."];
             [alert setAlertStyle:NSAlertStyleWarning];
             
-            [super showVisualCue];
-            
             [alert beginSheetModalForWindow: [self window] completionHandler:^(NSModalResponse returnCode) {
                 [self removeItemAlertDidEnd: alert returnCode: returnCode contextInfo: nil];
             }];
@@ -595,8 +585,6 @@
     
     [sourceList expandURIs:[NSArray arrayWithObject:[[[serversSection objectID] URIRepresentation] absoluteString]]];
     
-    [super showVisualCue];
-    
     [editServerController setServer:newServer];
     [editServerController openSheet:sender];
 }
@@ -605,8 +593,6 @@
     if (self.server == nil) {
         return;
     }
-    [super showVisualCue];
-        
     [editServerController setEditMode:YES];
     [editServerController setServer:self.server];
     [editServerController openSheet:sender];
@@ -631,9 +617,6 @@
         if(resource && [resource isKindOfClass:[SBPlaylist class]] && ((SBPlaylist *)resource).server == nil) {
             [sourceList editColumn:0 row:selectedRow withEvent:nil select:YES];
         } else if(resource && [resource isKindOfClass:[SBServer class]]) {
-            
-            [super showVisualCue];
-            
             [editServerController setEditMode:YES];
             [editServerController setServer:(SBServer *)resource];
             [editServerController openSheet:sender];
@@ -976,8 +959,6 @@
             
             [self openImportAlert:[self window] files:files];
         }
-    } else {
-        [super hideVisualCue];
     }
 }
 
@@ -1008,7 +989,6 @@
             [[NSOperationQueue sharedDownloadQueue] addOperation:op];
         }
     }
-    [super hideVisualCue];
 }
 
 
@@ -1029,7 +1009,6 @@
             }
         }
     }
-    [super hideVisualCue];
 }
 
 
@@ -1050,7 +1029,6 @@
             }
         }
     }
-    [super hideVisualCue];
 }
 
 
