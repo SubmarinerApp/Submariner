@@ -392,16 +392,7 @@
             [resourcesController removeObserver:self forKeyPath:@"content"];
 			
 			// load a pdemo server
-			predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@)", @"Servers"];
 			SBSection *serversSection = [self.managedObjectContext fetchEntityNammed:@"Section" withPredicate:predicate error:nil];
-			
-			NSArray *servers = [self.managedObjectContext fetchEntitiesNammed:@"Server" withPredicate:nil error:nil];
-			if(servers && servers.count == 0) {
-                // These are defined in the Core Data model.
-				SBServer *s = [SBServer insertInManagedObjectContext:self.managedObjectContext];
-				[s setResourceName:@"Subsonic Demo"];
-				[serversSection addResourcesObject:s];
-			}
 			
 			[sourceList expandURIs:[NSArray arrayWithObject:[[[serversSection objectID] URIRepresentation] absoluteString]]];
 			[self.managedObjectContext save:nil];
@@ -417,6 +408,22 @@
 
 #pragma mark -
 #pragma mark IBAction Methods
+
+
+- (IBAction)createDemoServer:(id)sender {
+    onboardingWindow.isVisible = NO;
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@)", @"Servers"];
+    SBSection *serversSection = [self.managedObjectContext fetchEntityNammed:@"Section" withPredicate:predicate error:nil];
+    // These are defined in the Core Data model.
+    SBServer *s = [SBServer insertInManagedObjectContext:self.managedObjectContext];
+    [s setResourceName:@"Subsonic Demo"];
+    [s updateKeychainPassword]; // or it won't work when switched to
+    [serversSection addResourcesObject:s];
+    [self.managedObjectContext save:nil];
+    
+    [self switchToResource: s];
+}
 
 
 - (IBAction)openAudioFiles:(id)sender {

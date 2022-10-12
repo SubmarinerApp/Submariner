@@ -784,14 +784,14 @@ Gw
         <window title="Welcome to Submariner" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" tabbingMode="disallowed" titlebarAppearsTransparent="YES" titleVisibility="hidden" id="aRg-DL-mvG" userLabel="Onboarding Window" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="167" y="106" width="493" height="359"/>
+            <rect key="contentRect" x="167" y="106" width="492" height="376"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
             <view key="contentView" id="A1Y-tO-WiD">
-                <rect key="frame" x="0.0" y="0.0" width="492" height="335"/>
+                <rect key="frame" x="0.0" y="0.0" width="492" height="376"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="edn-LZ-ZFL">
-                        <rect key="frame" x="182" y="187" width="128" height="128"/>
+                        <rect key="frame" x="182" y="228" width="128" height="128"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="edn-LZ-ZFL" secondAttribute="height" multiplier="1:1" id="2Jh-iH-PVF"/>
                             <constraint firstAttribute="height" constant="128" id="CW0-P8-1ZX"/>
@@ -800,7 +800,7 @@ Gw
                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="icon" id="P7h-51-e8D"/>
                     </imageView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="r42-FW-sh8">
-                        <rect key="frame" x="18" y="135" width="456" height="43"/>
+                        <rect key="frame" x="18" y="176" width="456" height="43"/>
                         <textFieldCell key="cell" controlSize="large" lineBreakMode="clipping" refusesFirstResponder="YES" alignment="center" title="Welcome to Submariner" id="DPY-0d-wVP">
                             <font key="font" metaFont="systemLight" size="36"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -808,7 +808,7 @@ Gw
                         </textFieldCell>
                     </textField>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CLT-8B-WvM">
-                        <rect key="frame" x="122" y="57" width="248" height="39"/>
+                        <rect key="frame" x="122" y="98" width="248" height="39"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="242" id="Boh-e4-wA1"/>
                             <constraint firstAttribute="height" constant="32" id="ZZs-Jx-Dgg"/>
@@ -822,32 +822,48 @@ Gw
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cQH-vF-i7J">
-                        <rect key="frame" x="122" y="16" width="248" height="39"/>
+                        <rect key="frame" x="122" y="57" width="248" height="39"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="32" id="S2r-Vy-6B1"/>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="242" id="a4I-5a-jn8"/>
                         </constraints>
-                        <buttonCell key="cell" type="bevel" title="Import Music to Local Library" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pM2-ke-qY0">
+                        <buttonCell key="cell" type="bevel" title="Use Subsonic Demo Server" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="pM2-ke-qY0">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                         <connections>
-                            <action selector="openAudioFiles:" target="-2" id="1vy-3Q-b7R"/>
+                            <action selector="createDemoServer:" target="-2" id="ClJ-Uk-8g0"/>
                         </connections>
                     </button>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="hUW-DD-fJl">
-                        <rect key="frame" x="18" y="111" width="456" height="16"/>
+                        <rect key="frame" x="18" y="152" width="456" height="16"/>
                         <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" alignment="center" title="Get started by connecting to Subsonic, or manage your local music." id="JjU-BN-0qH">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="UT4-sn-PDq">
+                        <rect key="frame" x="122" y="16" width="248" height="39"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="32" id="4WG-a0-QuS"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="242" id="Psj-U3-nNq"/>
+                        </constraints>
+                        <buttonCell key="cell" type="bevel" title="Import Music to Local Library" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IrD-vL-xxy">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="openAudioFiles:" target="-2" id="5U6-L2-wHL"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="edn-LZ-ZFL" secondAttribute="trailing" constant="182" id="2oL-za-acT"/>
                     <constraint firstItem="edn-LZ-ZFL" firstAttribute="top" secondItem="A1Y-tO-WiD" secondAttribute="top" constant="20" symbolic="YES" id="5so-2s-gb3"/>
+                    <constraint firstItem="UT4-sn-PDq" firstAttribute="top" secondItem="cQH-vF-i7J" secondAttribute="bottom" constant="9" id="7Xw-fG-4JS"/>
                     <constraint firstItem="edn-LZ-ZFL" firstAttribute="leading" secondItem="A1Y-tO-WiD" secondAttribute="leading" constant="182" id="DIq-8r-nrW"/>
+                    <constraint firstItem="UT4-sn-PDq" firstAttribute="leading" secondItem="A1Y-tO-WiD" secondAttribute="leading" constant="125" id="Ec3-Y0-VKl"/>
                     <constraint firstAttribute="trailing" secondItem="hUW-DD-fJl" secondAttribute="trailing" constant="20" symbolic="YES" id="Fv7-E5-vvJ"/>
                     <constraint firstAttribute="trailing" secondItem="cQH-vF-i7J" secondAttribute="trailing" constant="125" id="GgL-eG-yDx"/>
                     <constraint firstItem="CLT-8B-WvM" firstAttribute="top" secondItem="hUW-DD-fJl" secondAttribute="bottom" constant="18" id="I5f-4w-QiL"/>
@@ -857,13 +873,13 @@ Gw
                     <constraint firstAttribute="trailing" secondItem="r42-FW-sh8" secondAttribute="trailing" constant="20" symbolic="YES" id="b3o-dS-SCS"/>
                     <constraint firstItem="CLT-8B-WvM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="A1Y-tO-WiD" secondAttribute="leading" constant="20" symbolic="YES" id="cwm-Xz-Hcl"/>
                     <constraint firstItem="cQH-vF-i7J" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="A1Y-tO-WiD" secondAttribute="leading" constant="20" symbolic="YES" id="eAZ-ie-nIl"/>
+                    <constraint firstAttribute="trailing" secondItem="UT4-sn-PDq" secondAttribute="trailing" constant="125" id="inz-Vg-euA"/>
                     <constraint firstItem="r42-FW-sh8" firstAttribute="top" secondItem="edn-LZ-ZFL" secondAttribute="bottom" constant="9" id="nHV-UX-KIY"/>
                     <constraint firstItem="hUW-DD-fJl" firstAttribute="leading" secondItem="A1Y-tO-WiD" secondAttribute="leading" constant="20" symbolic="YES" id="rLT-io-cqP"/>
-                    <constraint firstAttribute="bottom" secondItem="cQH-vF-i7J" secondAttribute="bottom" constant="20" symbolic="YES" id="usm-3d-Wmc"/>
                     <constraint firstItem="cQH-vF-i7J" firstAttribute="top" secondItem="CLT-8B-WvM" secondAttribute="bottom" constant="9" id="vHo-ky-hG2"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="563" y="906.5"/>
+            <point key="canvasLocation" x="563" y="915"/>
         </window>
     </objects>
     <resources>
