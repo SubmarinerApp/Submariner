@@ -997,6 +997,18 @@
             if (resource && self.server == resource) {
                 // Clean out any possible state involving this server...
                 self.server = nil;
+                editServerController.server = nil;
+                addServerPlaylistController.server = nil;
+                serverHomeController.server = nil;
+                serverUserController.server = nil;
+                serverSearchController.server = nil;
+                serverLibraryController.server = nil;
+                serverPodcastController.server = nil;
+                // if it's open, close it
+                if (tracklistContainmentBox.contentView == [serverUserController view]) {
+                    // keeps the sidebar open
+                    [self toggleTrackList: nil];
+                }
                 [self showLibraryView: nil];
             }
             if(resource && ([resource isKindOfClass:[SBPlaylist class]] || [resource isKindOfClass:[SBServer class]])) {
