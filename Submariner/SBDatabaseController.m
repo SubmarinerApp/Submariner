@@ -261,9 +261,9 @@
 
     // setup main box subviews animation
     [self setCurrentViewController: musicController];
-    [self.currentViewController.view setFrameSize:[mainBox frame].size];
+    [self.currentViewController.view setFrameSize:[rightVC.view frame].size];
     
-    NSView *contentView = [mainBox contentView];
+    NSView *contentView = [rightVC view];
     //[contentView setWantsLayer:YES];
     [contentView addSubview: [self currentViewController].view];
     
@@ -1276,9 +1276,9 @@
         currentViewController = newViewController;
         return;
     }
-    NSView *contentView = [mainBox contentView];
+    NSView *contentView = [rightVC view];
     [[contentView animator] replaceSubview:currentViewController.view with:newViewController.view];
-    [newViewController.view setFrameSize:[mainBox frame].size];
+    [newViewController.view setFrameSize:[rightVC.view frame].size];
     currentViewController = newViewController;
     [self updateTitle];
 }
@@ -1745,26 +1745,6 @@
                }
            }
     }
-}
-
-
-
-#pragma mark -
-#pragma mark NSWindow Delegate
-
-- (void)windowWillClose:(NSNotification *)notification {
-}
-
-- (void)windowWillMove:(NSNotification *)notification {
-    containerView.frame = rightVC.view.safeAreaRect;
-}
-
-- (void)windowWillStartLiveResize:(NSNotification *)notification {
-    containerView.frame = rightVC.view.safeAreaRect;
-}
-
-
-- (void)windowWillMiniaturize:(NSNotification *)notification {
 }
 
 

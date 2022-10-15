@@ -70,7 +70,6 @@
     IBOutlet NSTreeController *resourcesController;
     IBOutlet SBEditServerController *editServerController;
     SBAddServerPlaylistController *addServerPlaylistController;
-    IBOutlet NSBox *mainBox;
     IBOutlet SBViewController *currentViewController;
     IBOutlet NSProgressIndicator *progressIndicator;
     IBOutlet NSButton *toggleButton;
@@ -84,7 +83,6 @@
     IBOutlet NSViewController *rightVC;
     NSSplitViewController *splitVC;
     NSSplitViewItem *tracklistSplit;
-    IBOutlet NSBox *containerView;
     
     IBOutlet NSViewController *tracklistVC;
     IBOutlet NSBox *tracklistContainmentBox;

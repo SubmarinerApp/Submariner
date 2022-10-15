@@ -10,12 +10,10 @@
         <customObject id="-2" userLabel="File's Owner" customClass="SBDatabaseController">
             <connections>
                 <outlet property="addServerPlaylistController" destination="197" id="210"/>
-                <outlet property="containerView" destination="qEb-hU-l3O" id="VNk-V9-7Hp"/>
                 <outlet property="coverImageView" destination="215" id="250"/>
                 <outlet property="durationTextField" destination="269" id="288"/>
                 <outlet property="editServerController" destination="111" id="138"/>
                 <outlet property="leftVC" destination="kgz-hh-1FR" id="2g7-qJ-078"/>
-                <outlet property="mainBox" destination="187" id="188"/>
                 <outlet property="mainSplitView" destination="7" id="42"/>
                 <outlet property="onboardingWindow" destination="aRg-DL-mvG" id="VCb-6M-ZdE"/>
                 <outlet property="playPauseButton" destination="234" id="258"/>
@@ -138,26 +136,6 @@
                             <customView fixedFrame="YES" id="9">
                                 <rect key="frame" x="182" y="0.0" width="509" height="412"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <box boxType="custom" borderType="none" cornerRadius="4" title="Box" id="qEb-hU-l3O" userLabel="Containment Box">
-                                        <rect key="frame" x="0.0" y="0.0" width="509" height="361"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <view key="contentView" id="wyZ-6N-Hjp">
-                                            <rect key="frame" x="0.0" y="0.0" width="509" height="361"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <subviews>
-                                                <box autoresizesSubviews="NO" boxType="custom" borderType="none" title="Box" titlePosition="noTitle" id="187" userLabel="Content Box">
-                                                    <rect key="frame" x="0.0" y="0.0" width="509" height="361"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <view key="contentView" id="Yfx-4j-bnf">
-                                                        <rect key="frame" x="0.0" y="0.0" width="509" height="361"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    </view>
-                                                </box>
-                                            </subviews>
-                                        </view>
-                                    </box>
-                                </subviews>
                             </customView>
                         </subviews>
                         <holdingPriorities>
