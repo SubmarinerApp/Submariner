@@ -191,6 +191,20 @@
                             </connections>
                         </button>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="9525B815-9911-44B9-B3EB-03DA4EB073AA" label="Stop" paletteLabel="Stop" image="stop" catalog="system" sizingBehavior="auto" id="mYo-jG-gtG">
+                        <nil key="toolTip"/>
+                        <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="6Fs-XI-yyc">
+                            <rect key="frame" x="3" y="14" width="26" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="stop" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="cri-4Y-hpb">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="stop:" target="-2" id="C5b-tq-ZII"/>
+                            </connections>
+                        </button>
+                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="D8E775C8-9646-4075-89D6-E78C8DB9EA08" label="Previous" paletteLabel="Previous" image="backward" catalog="system" sizingBehavior="auto" id="ub0-ue-gyH">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="235">
@@ -876,5 +890,6 @@ Gw
         <image name="sidebar.left" catalog="system" width="18" height="14"/>
         <image name="speaker" catalog="system" width="14" height="14"/>
         <image name="speaker.wave.2" catalog="system" width="19" height="14"/>
+        <image name="stop" catalog="system" width="14" height="13"/>
     </resources>
 </document>
