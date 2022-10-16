@@ -100,6 +100,9 @@ enum SBPlayerRepeatMode {
 - (void)seekToTime:(NSTimeInterval)time;
 - (void)setVolume:(float)volume; // 0.0 - 1.0
 - (void)stop; // unplay all tracks
+- (void)relativeSeekBy: (double)increment;
+- (void)rewind; // uses defaults system to fetch increment
+- (void)fastForward;
 
 // player data
 - (NSTimeInterval)currentTime;

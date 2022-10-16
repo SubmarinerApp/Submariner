@@ -676,18 +676,14 @@
 }
 
 - (IBAction)rewind:(id)sender {
-    // XXX: Controllable increment
     if([[SBPlayer sharedInstance] isPlaying]) {
-        double newTime = MAX([[SBPlayer sharedInstance] currentTime] - 5, 0);
-        [[SBPlayer sharedInstance] seekToTime: newTime];
+        [[SBPlayer sharedInstance] rewind];
     }
 }
 
 - (IBAction)fastForward:(id)sender {
     if([[SBPlayer sharedInstance] isPlaying]) {
-        double maxTime = [[SBPlayer sharedInstance] durationTime];
-        double newTime = MIN([[SBPlayer sharedInstance] currentTime] + 5, maxTime);
-        [[SBPlayer sharedInstance] seekToTime: newTime];
+        [[SBPlayer sharedInstance] fastForward];
     }
 }
 

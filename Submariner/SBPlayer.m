@@ -575,6 +575,25 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 }
 
 
+- (void)relativeSeekBy: (double)increment {
+    double maxTime = [self durationTime];
+    double newTime = MIN(maxTime, MAX([self currentTime] + increment, 0));
+    [self seekToTime: newTime];
+}
+
+
+- (void)rewind {
+    double increment = -[[NSUserDefaults standardUserDefaults] floatForKey:@"SkipIncrement"];
+    [self relativeSeekBy: increment];
+}
+
+
+- (void)fastForward {
+    double increment = [[NSUserDefaults standardUserDefaults] floatForKey:@"SkipIncrement"];
+    [self relativeSeekBy: increment];
+}
+
+
 - (void)stop {
 
     @synchronized(self) {
