@@ -212,7 +212,7 @@ CA
                 <menuItem title="View" id="295">
                     <menu key="submenu" title="View" id="296">
                         <items>
-                            <menuItem title="Show Toolbar" hidden="YES" enabled="NO" keyEquivalent="t" id="297">
+                            <menuItem title="Show Toolbar" keyEquivalent="t" id="297">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="toggleToolbarShown:" target="-1" id="366"/>

@@ -802,6 +802,19 @@
 
 
 - (IBAction)search:(id)sender {
+    // XXX: Check for
+    if (!self.window.toolbar.visible) {
+        [self.window toggleToolbarShown: sender];
+        // we need to resend w/ delay because it doesn't work immediately
+        [self performSelector: @selector(search:) withObject: sender afterDelay: 0.01];
+        return;
+    }
+    
+    BOOL visible = [[self.window.toolbar visibleItems] containsObject: searchToolbarItem];
+    if (!visible) {
+        return; // we need to focus in it
+    }
+    
     NSString *query;
     if ([sender isMemberOfClass: [NSSearchField class]]) {
         query = [sender stringValue];
@@ -1781,7 +1794,9 @@
     }
     
     if (action == @selector(search:)) {
-        return [searchToolbarItem isEnabled];
+        // Covers toolbar not having search item and visible, covers toolbar having search item and not visible, but not both
+        BOOL canBeVisible = [[self.window.toolbar visibleItems] containsObject: searchToolbarItem] || !self.window.toolbar.visible;
+        return [searchToolbarItem isEnabled] && canBeVisible;
     }
     
     if (action == @selector(renameItem:)) {
