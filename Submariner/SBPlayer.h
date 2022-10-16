@@ -40,7 +40,7 @@
 extern NSString *SBPlayerPlaylistUpdatedNotification;
 extern NSString *SBPlayerPlayStateNotification;
 extern NSString *SBPlayerMovieToPlayNotification;
-
+extern NSString *SBPlayerProgressUpdatedNotification;
 
 
 // repeat modes
@@ -59,6 +59,7 @@ enum SBPlayerRepeatMode {
 @interface SBPlayer : NSObject {
 @private
     AVPlayer      *remotePlayer;
+    id playerObserverToken;
     
     NSMutableArray *playlist;
     SBTrack *currentTrack;

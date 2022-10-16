@@ -111,8 +111,6 @@
     SBLibrary *library;
     
     CATransition *transition;
-    
-    NSTimer *progressUpdateTimer;
 }
 
 @property (readwrite, strong) NSArray *resourceSortDescriptors;
