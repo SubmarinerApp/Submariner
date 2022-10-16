@@ -93,6 +93,13 @@
     [self setNeedsDisplay: YES];
 }
 
+- (void)viewDidEndLiveResize {
+    [super viewDidEndLiveResize];
+    // Do this, or it won't update cover size on resize. Ideally, do it during live resize.
+    [self setZoomValue:[[NSUserDefaults standardUserDefaults] floatForKey:@"coverSize"]];
+    [self setNeedsDisplay:YES];
+}
+
 -(void)imageBrowser:(IKImageBrowserView *)aBrowser cellWasRightClickedAtIndex:(NSUInteger)index withEvent:(NSEvent *)event {
     // Try to select the clicked row for a right-click; default AppKit behaviour is weird.
     // Otherwise, it'll still use what was highlighted.
