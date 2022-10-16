@@ -64,7 +64,6 @@
 NSString *SBPlayerPlaylistUpdatedNotification = @"SBPlayerPlaylistUpdatedNotification";
 NSString *SBPlayerPlayStateNotification = @"SBPlayerPlayStateNotification";
 NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotification";
-NSString *SBPlayerProgressUpdatedNotification = @"SBPlayerProgressUpdatedNotification";
 
 
 
@@ -136,13 +135,7 @@ NSString *SBPlayerProgressUpdatedNotification = @"SBPlayerProgressUpdatedNotific
         
         // setup observers
         [remotePlayer addObserver:self forKeyPath:@"status" options:0 context:nil];
-        // timed one
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemDidFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object: nil];
-        CMTime interval = CMTimeMakeWithSeconds(0.1, NSEC_PER_SEC);
-//        playerObserverToken = [remotePlayer addPeriodicTimeObserverForInterval: interval queue: NULL usingBlock: ^(CMTime time) {
-//            // avoid retain cycle
-//            [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerProgressUpdatedNotification object: nil];
-//        }];
         
         playlist = [[NSMutableArray alloc] init];
         isShuffle = NO;
@@ -157,7 +150,6 @@ NSString *SBPlayerProgressUpdatedNotification = @"SBPlayerProgressUpdatedNotific
 
 - (void)dealloc {
     // remove observers
-    [remotePlayer removeTimeObserver: playerObserverToken];
     [remotePlayer removeObserver:self forKeyPath:@"status" context:nil];
     [[NSNotificationCenter defaultCenter] removeObserver: self name:AVPlayerItemDidPlayToEndTimeNotification object: nil];
     // remove remote player observers

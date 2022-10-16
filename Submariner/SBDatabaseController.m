@@ -84,6 +84,7 @@
 @interface SBDatabaseController (Private)
 - (void)populatedDefaultSections;
 - (void)displayViewControllerForResource:(SBResource *)resource;
+- (void)updateProgress:(NSTimer *)updatedTimer;
 
 // notifications
 - (void)subsonicPlaylistsUpdatedNotification:(NSNotification *)notification;
@@ -245,12 +246,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerHaveMovieToPlayNotification:)
                                                  name:SBPlayerMovieToPlayNotification
-                                               object:nil];
-    
-    // observe playback status
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(updateProgressNotification:)
-                                                 name:SBPlayerProgressUpdatedNotification
                                                object:nil];
     
     // observe Subsonic connection
@@ -895,7 +890,27 @@
     [progressSlider setDoubleValue:0];
 }
 
-- (void)updateProgressNotification:(NSNotification *)notification {
+- (void)installProgressTimer {
+    if (progressUpdateTimer != nil) {
+        return;
+    }
+    progressUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:0.01
+                                                           target:self
+                                                         selector:@selector(updateProgress:)
+                                                         userInfo:nil
+                                                          repeats:YES];
+}
+
+- (void)uninstallProgressTimer {
+    if (progressUpdateTimer == nil) {
+        return;
+    }
+    [progressUpdateTimer invalidate];
+    progressUpdateTimer = nil;
+    [self clearPlaybackProgress];
+}
+
+- (void)updateProgress:(NSTimer *)updatedTimer {
     
     if([[SBPlayer sharedInstance] isPlaying]) {
         [progressSlider setEnabled:YES];
@@ -1368,6 +1383,8 @@
     SBTrack *currentTrack = [[SBPlayer sharedInstance] currentTrack];
     
     if(currentTrack != nil) {
+        // XXX: Could it be safe to stop the timer when paused?
+        [self installProgressTimer];
         if([[SBPlayer sharedInstance] isPaused]) {
             [playPauseButton setState:NSControlStateValueOff];
         }
@@ -1375,7 +1392,7 @@
             [playPauseButton setState:NSControlStateValueOn];
         }
     } else {
-        [self clearPlaybackProgress];
+        [self uninstallProgressTimer];
         [playPauseButton setState:NSControlStateValueOn];
     }
 }
