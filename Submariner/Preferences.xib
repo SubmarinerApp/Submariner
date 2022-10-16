@@ -67,26 +67,11 @@
             <point key="canvasLocation" x="139" y="113"/>
         </window>
         <customView id="1220" userLabel="Player">
-            <rect key="frame" x="0.0" y="0.0" width="393" height="123"/>
+            <rect key="frame" x="0.0" y="0.0" width="393" height="167"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <box autoresizesSubviews="NO" verticalHuggingPriority="750" boxType="separator" id="1641">
-                    <rect key="frame" x="0.0" y="70" width="393" height="5"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                </box>
-                <button imageHugsTitle="YES" id="1631">
-                    <rect key="frame" x="67" y="86" width="256" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Automatically Download Playing Track" bezelStyle="regularSquare" imagePosition="leading" alignment="left" state="on" inset="2" id="1632">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="1097" name="value" keyPath="values.enableCacheStreaming" id="1635"/>
-                    </connections>
-                </button>
                 <textField verticalHuggingPriority="750" id="1556">
-                    <rect key="frame" x="51" y="42" width="138" height="16"/>
+                    <rect key="frame" x="51" y="86" width="138" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="When Playing a Track:" id="1557">
                         <font key="font" metaFont="system"/>
@@ -95,7 +80,7 @@
                     </textFieldCell>
                 </textField>
                 <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" id="1558">
-                    <rect key="frame" x="194" y="20" width="129" height="38"/>
+                    <rect key="frame" x="194" y="64" width="129" height="38"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     <size key="cellSize" width="129" height="18"/>
@@ -120,15 +105,65 @@
                         <action selector="setPlayerBehavior:" target="-2" id="1628"/>
                     </connections>
                 </matrix>
+                <box autoresizesSubviews="NO" verticalHuggingPriority="750" boxType="separator" id="1641">
+                    <rect key="frame" x="0.0" y="114" width="393" height="5"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </box>
+                <button imageHugsTitle="YES" id="1631">
+                    <rect key="frame" x="67" y="130" width="256" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Automatically Download Playing Track" bezelStyle="regularSquare" imagePosition="leading" alignment="left" state="on" inset="2" id="1632">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="1097" name="value" keyPath="values.enableCacheStreaming" id="1635"/>
+                    </connections>
+                </button>
+                <box autoresizesSubviews="NO" verticalHuggingPriority="750" boxType="separator" id="1KU-P2-qFU">
+                    <rect key="frame" x="0.0" y="47" width="393" height="5"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                </box>
+                <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ia4-R8-cbg">
+                    <rect key="frame" x="194" y="20" width="61" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="EM5-gq-QRf">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="YUk-aF-Qd6"/>
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="1097" name="value" keyPath="values.SkipIncrement" id="55f-ug-6yT"/>
+                    </connections>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="STf-XJ-yGf">
+                    <rect key="frame" x="136" y="23" width="53" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="Skip By:" id="fOL-TL-fjh">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gnc-Hd-Pmo">
+                    <rect key="frame" x="263" y="23" width="56" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="seconds" id="DmK-Ou-iMf">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
-            <point key="canvasLocation" x="-441" y="437"/>
+            <point key="canvasLocation" x="-442.5" y="458.5"/>
         </customView>
         <customView id="1551" userLabel="Subsonic">
-            <rect key="frame" x="0.0" y="0.0" width="360" height="109"/>
+            <rect key="frame" x="0.0" y="0.0" width="360" height="154"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <textField verticalHuggingPriority="750" id="1606">
-                    <rect key="frame" x="106" y="20" width="86" height="16"/>
+                    <rect key="frame" x="106" y="65" width="86" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Auto Refresh:" id="1612">
                         <font key="font" metaFont="system"/>
@@ -137,20 +172,15 @@
                     </textFieldCell>
                 </textField>
                 <box autoresizesSubviews="NO" verticalHuggingPriority="750" boxType="separator" id="1643">
-                    <rect key="frame" x="0.0" y="49" width="360" height="5"/>
+                    <rect key="frame" x="0.0" y="94" width="360" height="5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </box>
-                <textField verticalHuggingPriority="750" id="1680">
-                    <rect key="frame" x="40" y="71" width="152" height="16"/>
+                <box autoresizesSubviews="NO" verticalHuggingPriority="750" boxType="separator" id="IK0-Df-sXm">
+                    <rect key="frame" x="0.0" y="48" width="360" height="5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Downloaded Cover Size:" id="1681">
-                        <font key="font" metaFont="system"/>
-                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    </textFieldCell>
-                </textField>
+                </box>
                 <popUpButton verticalHuggingPriority="750" imageHugsTitle="YES" id="1679">
-                    <rect key="frame" x="195" y="65" width="106" height="25"/>
+                    <rect key="frame" x="195" y="110" width="106" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <popUpButtonCell key="cell" type="push" title="300 x 300" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" tag="300" imageScaling="proportionallyDown" inset="2" selectedItem="1697" id="1682">
                         <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -167,8 +197,17 @@
                         <binding destination="1097" name="selectedTag" keyPath="values.MaxCoverSize" id="1699"/>
                     </connections>
                 </popUpButton>
+                <textField verticalHuggingPriority="750" id="1680">
+                    <rect key="frame" x="40" y="116" width="152" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Downloaded Cover Size:" id="1681">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
                 <button imageHugsTitle="YES" id="1638">
-                    <rect key="frame" x="196" y="19" width="101" height="18"/>
+                    <rect key="frame" x="196" y="64" width="101" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Now Playing" bezelStyle="regularSquare" imagePosition="leading" alignment="left" state="on" inset="2" id="1639">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -178,11 +217,22 @@
                         <binding destination="1097" name="value" keyPath="values.autoRefreshNowPlaying" id="1649"/>
                     </connections>
                 </button>
+                <button imageHugsTitle="YES" id="rCH-AN-wRs">
+                    <rect key="frame" x="48" y="19" width="262" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Scrobble Downloaded Tracks to Server" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="CYU-AM-eQp">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="1097" name="value" keyPath="values.scrobbleToServer" id="AlQ-or-wYF"/>
+                    </connections>
+                </button>
             </subviews>
-            <point key="canvasLocation" x="-441" y="236.5"/>
+            <point key="canvasLocation" x="-441" y="259"/>
         </customView>
         <customView id="811" userLabel="Appearance">
-            <rect key="frame" x="0.0" y="0.0" width="364" height="96"/>
+            <rect key="frame" x="0.0" y="0.0" width="360" height="96"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <textField verticalHuggingPriority="750" id="1650">
