@@ -63,6 +63,7 @@
     [defaults setObject:[NSNumber numberWithFloat:0.75]         forKey:@"coverSize"];
     [defaults setObject:[NSNumber numberWithInteger:0]          forKey:@"maxBitRate"];
     [defaults setObject:[NSNumber numberWithInteger:300]        forKey:@"MaxCoverSize"];
+    [defaults setObject:[NSNumber numberWithBool:YES]           forKey:@"scrobbleToServer"];
 	[userDefaults registerDefaults:defaults];
 }
 

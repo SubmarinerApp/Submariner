@@ -458,7 +458,8 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     [self postNowPlayingNotification];
 
     // tell the server we're playing it, if applicable
-    if (self.currentTrack.server != nil && [self.currentTrack.localTrack streamURL] != nil) {
+    if (self.currentTrack.server != nil && [self.currentTrack.localTrack streamURL] != nil
+        && [[NSUserDefaults standardUserDefaults] boolForKey:@"scrobbleToServer"] == YES) {
         [self.currentTrack.server.clientController scrobble: self.currentTrack.id];
     }
 }
