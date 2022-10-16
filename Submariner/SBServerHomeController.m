@@ -572,9 +572,12 @@
         return selectedTrackRowStatus & SBSelectedRowShowableInFinder;
     }
     
-    if (action == @selector(downloadSelected:)
-        || action == @selector(downloadTrack:)) {
+    if (action == @selector(downloadTrack:)) {
         return selectedTrackRowStatus & SBSelectedRowDownloadable;
+    }
+    
+    if (action == @selector(downloadSelected:)) {
+        return (selectedTrackRowStatus & SBSelectedRowDownloadable) || (albumSelected > 0 && albumsActive);
     }
     
     // context menu
