@@ -109,6 +109,9 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 {
     MPRemoteCommandCenter *remoteCommandCenter = [MPRemoteCommandCenter sharedCommandCenter];
     
+    // XXX: Update on new default write
+    NSNumber *interval = [NSNumber numberWithFloat: [[NSUserDefaults standardUserDefaults] floatForKey:@"SkipIncrement"]];
+    
     [remoteCommandCenter.playCommand setEnabled:YES];
     [remoteCommandCenter.pauseCommand setEnabled:YES];
     [remoteCommandCenter.togglePlayPauseCommand setEnabled:YES];
@@ -116,6 +119,16 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     [remoteCommandCenter.changePlaybackPositionCommand setEnabled:YES];
     [remoteCommandCenter.nextTrackCommand setEnabled:YES];
     [remoteCommandCenter.previousTrackCommand setEnabled:YES];
+    // Disable these because they get used instead of prev/next track on macOS, at least in 12.
+    // XXX: Does it make more sense to bind seekForward/Backward?
+    //[remoteCommandCenter.skipForwardCommand setEnabled:YES];
+    //[remoteCommandCenter.skipBackwardCommand setEnabled:YES];
+    remoteCommandCenter.skipForwardCommand.preferredIntervals = @[ interval ];
+    remoteCommandCenter.skipBackwardCommand.preferredIntervals = @[ interval ];
+    [remoteCommandCenter.ratingCommand setEnabled:YES];
+    [remoteCommandCenter.ratingCommand setMinimumRating: 0.0];
+    [remoteCommandCenter.ratingCommand setMaximumRating: 5.0];
+    // XXX: Shuffle, repeat, maybe bookmark
 
     [[remoteCommandCenter playCommand] addTarget:self action:@selector(clickPlay)];
     [[remoteCommandCenter pauseCommand] addTarget:self action:@selector(clickPause)];
@@ -124,6 +137,10 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     [[remoteCommandCenter changePlaybackPositionCommand] addTarget:self action:@selector(clickSeek:)];
     [[remoteCommandCenter nextTrackCommand] addTarget:self action:@selector(clickNext)];
     [[remoteCommandCenter previousTrackCommand] addTarget:self action:@selector(clickPrev)];
+    // Disable at the selector level too.
+    //[[remoteCommandCenter skipForwardCommand] addTarget:self action:@selector(clickSkipForward)];
+    //[[remoteCommandCenter skipBackwardCommand] addTarget:self action:@selector(clickSkipBackward)];
+    [[remoteCommandCenter ratingCommand] addTarget:self action:@selector(clickRating:)];
     
     songInfo = [[NSMutableDictionary alloc] init];
 }
@@ -267,9 +284,30 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 }
 
 - (MPRemoteCommandHandlerStatus)clickSeek: (MPChangePlaybackPositionCommandEvent*)event {
-    NSTimeInterval newTime = [event positionTime];
-    [self seekToTime: newTime];
+    if (self.isPlaying) {
+        NSTimeInterval newTime = [event positionTime];
+        [self seekToTime: newTime];
+        return MPRemoteCommandHandlerStatusSuccess;
+    }
+    return MPRemoteCommandHandlerStatusNoActionableNowPlayingItem;
+}
+
+- (MPRemoteCommandHandlerStatus)clickSkipForward {
+    [self fastForward];
     return MPRemoteCommandHandlerStatusSuccess;
+}
+
+- (MPRemoteCommandHandlerStatus)clickSkipBackward {
+    [self rewind];
+    return MPRemoteCommandHandlerStatusSuccess;
+}
+
+- (MPRemoteCommandHandlerStatus)clickRating: (double)rating {
+    if ([self currentTrack] != nil && [self currentTrack].server != nil) {
+        [[self currentTrack] setRating: [NSNumber numberWithFloat: rating]];
+        return MPRemoteCommandHandlerStatusSuccess;
+    }
+    return MPRemoteCommandHandlerStatusNoActionableNowPlayingItem;
 }
 
 #pragma mark -
