@@ -229,6 +229,12 @@
                         <action selector="showSelectedInFinder:" target="-2" id="Nxg-Q4-HdP"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Show in Library" id="QMr-aY-nOk">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showSelectedInLibrary:" target="-2" id="dJG-2r-ZFC"/>
+                    </connections>
+                </menuItem>
             </items>
             <point key="canvasLocation" x="4" y="-148"/>
         </menu>

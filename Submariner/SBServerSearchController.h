@@ -34,6 +34,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "SBServerViewController.h"
+#import "SBDatabaseController.h"
 
 @class SBSearchResult;
 
@@ -42,8 +43,10 @@
     
     IBOutlet NSTableView *tracksTableView;
     IBOutlet NSArrayController *tracksController;
+    SBDatabaseController *databaseController;
 }
 
+@property (readwrite, strong) SBDatabaseController *databaseController;
 @property (readwrite, strong) SBSearchResult *searchResult;
 
 - (IBAction)trackDoubleClick:(id)sender;

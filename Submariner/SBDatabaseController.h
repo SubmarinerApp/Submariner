@@ -48,6 +48,8 @@
 @class SBEditServerController;
 @class SBAddServerPlaylistController;
 @class SBMusicController;
+@class SBMusicSearchController;
+@class SBServerSearchController;
 @class SBDownloadsController;
 @class SBTracklistController;
 @class SBPlaylistController;

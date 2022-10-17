@@ -151,7 +151,12 @@
         serverUserController = [[SBServerUserViewController alloc] initWithManagedObjectContext:self.managedObjectContext];
         serverSearchController = [[SBServerSearchController alloc] initWithManagedObjectContext:self.managedObjectContext];
         
+        [musicController setDatabaseController:self];
+        [musicSearchController setDatabaseController:self];
         [tracklistController setDatabaseController:self];
+        [serverLibraryController setDatabaseController:self];
+        [serverHomeController setDatabaseController:self];
+        [serverSearchController setDatabaseController:self];
     }
     return self;
 }
@@ -211,7 +216,6 @@
     // edit controllers
     [editServerController setManagedObjectContext:self.managedObjectContext];
     [addServerPlaylistController setManagedObjectContext:self.managedObjectContext];
-    [musicController setDatabaseController:self];
     
     // source list drag and drop
     [sourceList registerForDraggedTypes:[NSArray arrayWithObject:SBLibraryTableViewDataType]];
@@ -776,7 +780,6 @@
         return;
     }
     [self.server setSelectedTabIndex: 0];
-    [serverLibraryController setDatabaseController:self];
     [serverLibraryController setServer:self.server];
     [self setCurrentViewController: serverLibraryController];
 }
@@ -786,7 +789,6 @@
         return;
     }
     [self.server setSelectedTabIndex: 1];
-    [serverHomeController setDatabaseController:self];
     [serverHomeController setServer:self.server];
     [self setCurrentViewController: serverHomeController];
 }
@@ -873,7 +875,6 @@
        [musicController showTrackInLibrary: track];
    } else {
        [self switchToResource: track.server];
-       [serverLibraryController setDatabaseController:self];
        [serverLibraryController setServer: track.server];
        // as we could be on albums/podcasts
        [self setCurrentViewController: serverLibraryController];
@@ -1234,12 +1235,10 @@
         switch ([server selectedTabIndex]) {
             case 0:
             default:
-                [serverLibraryController setDatabaseController:self];
                 [serverLibraryController setServer: server];
                 [self setCurrentViewController: serverLibraryController];
                 break;
             case 1:
-                [serverHomeController setDatabaseController:self];
                 [serverHomeController setServer: server];
                 [self setCurrentViewController: serverHomeController];
                 break;

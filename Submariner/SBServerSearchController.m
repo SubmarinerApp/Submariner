@@ -62,6 +62,7 @@
 
 
 @synthesize searchResult;
+@synthesize databaseController;
 
 
 - (void)dealloc {
@@ -178,6 +179,20 @@
 }
 
 
+- (IBAction)showSelectedInLibrary:(id)sender {
+    NSInteger selectedRow = [tracksTableView selectedRow];
+    
+    if(selectedRow == -1) {
+        return;
+    }
+    
+    // only makes sense to have a single track, imho
+    NSUInteger index = tracksTableView.selectedRowIndexes.firstIndex;
+    SBTrack *track = (SBTrack*)[tracksController.arrangedObjects objectAtIndex: index];
+    [[self databaseController] goToTrack: track];
+}
+
+
 
 
 #pragma mark -
@@ -236,6 +251,10 @@
     
     if (action == @selector(downloadSelected:)) {
         return selectedTrackRowStatus & SBSelectedRowDownloadable;
+    }
+    
+    if (action == @selector(showSelectedInLibrary:)) {
+        return tracksTableView.selectedRowIndexes.count == 1;
     }
 
     return YES;

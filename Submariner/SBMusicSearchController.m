@@ -50,6 +50,9 @@
 }
 
 
+@synthesize databaseController;
+
+
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context {
     self = [super initWithManagedObjectContext:context];
     if (self) {
@@ -147,6 +150,20 @@
 }
 
 
+- (IBAction)showSelectedInLibrary:(id)sender {
+    NSInteger selectedRow = [tracksTableView selectedRow];
+    
+    if(selectedRow == -1) {
+        return;
+    }
+    
+    // only makes sense to have a single track, imho
+    NSUInteger index = tracksTableView.selectedRowIndexes.firstIndex;
+    SBTrack *track = (SBTrack*)[tracksController.arrangedObjects objectAtIndex: index];
+    [[self databaseController] goToTrack: track];
+}
+
+
 #pragma mark -
 #pragma mark UI Validator
 
@@ -165,6 +182,10 @@
     
     if (action == @selector(showSelectedInFinder:)) {
         return selectedTrackRowStatus & SBSelectedRowShowableInFinder;
+    }
+    
+    if (action == @selector(showSelectedInLibrary:)) {
+        return tracksTableView.selectedRowIndexes.count == 1;
     }
 
     return YES;

@@ -34,11 +34,15 @@
 
 #import <Foundation/Foundation.h>
 #import "SBViewController.h"
+#import "SBDatabaseController.h"
 
 @interface SBMusicSearchController : SBViewController {
     IBOutlet NSTableView *tracksTableView;
     IBOutlet NSArrayController *tracksController;
+    SBDatabaseController *databaseController;
 }
+
+@property (readwrite, strong) SBDatabaseController *databaseController;
 
 - (IBAction)trackDoubleClick:(id)sender;
 - (void)searchString:(NSString *)query;
