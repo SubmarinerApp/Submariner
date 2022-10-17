@@ -89,6 +89,9 @@
     if (self) {
         scopeGroups = [[NSMutableArray alloc] init];
         
+        NSSortDescriptor *albumDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"itemName" ascending:YES];
+        albumSortDescriptor = @[albumDescriptor];
+        
         NSSortDescriptor *trackNumberDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"trackNumber" ascending:YES];
         NSSortDescriptor *discNumberDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"discNumber" ascending:YES];
         trackSortDescriptor = @[discNumberDescriptor, trackNumberDescriptor];

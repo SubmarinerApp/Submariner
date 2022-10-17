@@ -357,6 +357,7 @@
                         <integer key="NSRaisesForNotApplicableKeys" value="0"/>
                     </dictionary>
                 </binding>
+                <binding destination="-2" name="sortDescriptors" keyPath="albumSortDescriptor" id="Zz7-n3-FvB"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Track" automaticallyPreparesContent="YES" id="144" userLabel="Tracks Controller">

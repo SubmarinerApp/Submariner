@@ -257,6 +257,7 @@
             <connections>
                 <binding destination="-2" name="managedObjectContext" keyPath="managedObjectContext" id="38"/>
                 <binding destination="-2" name="contentSet" keyPath="server.home.albums" id="39"/>
+                <binding destination="-2" name="sortDescriptors" keyPath="albumSortDescriptor" id="9Co-dQ-fql"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Track" automaticallyPreparesContent="YES" id="44" userLabel="Tracks Controller">

@@ -55,6 +55,7 @@
     SBPrioritySplitViewDelegate *splitViewDelegate;
     SBDatabaseController *databaseController;
     NSArray *artistSortDescriptor;
+    NSArray *albumSortDescriptor;
     NSArray *trackSortDescriptor;
     
     NSDictionary *artistCellSelectedAttributes;

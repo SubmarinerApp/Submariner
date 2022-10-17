@@ -48,6 +48,7 @@
     IBOutlet NSArrayController *albumsController;
     
     NSMutableArray *scopeGroups;
+    NSArray *albumSortDescriptor;
     NSArray *trackSortDescriptor;
     SBDatabaseController *databaseController;
 }
