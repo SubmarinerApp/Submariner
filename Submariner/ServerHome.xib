@@ -243,7 +243,7 @@
                         <real value="250"/>
                     </holdingPriorities>
                 </splitView>
-                <customView id="32" userLabel="Custom View" customClass="MGScopeBar">
+                <customView id="32" customClass="MGScopeBar">
                     <rect key="frame" x="0.0" y="384" width="619" height="25"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <connections>
