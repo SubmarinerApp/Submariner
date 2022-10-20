@@ -644,6 +644,10 @@
     [server getServerLicense];
     [server getServerIndexes];
     [server getServerPlaylists];
+    // XXX: Check if it's the current VC too?
+    if (server != nil && serverHomeController.server == server) {
+        [serverHomeController reloadSelected: nil];
+    }
 }
 
 - (IBAction)reloadServer:(id)sender {

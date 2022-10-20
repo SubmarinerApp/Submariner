@@ -137,6 +137,7 @@
     [scopeBar setSelected:YES forItem:@"RandomItem" inGroup:0];
 
     [scopeBar sizeToFit];
+    // This will call reloadServersWithIdentifier: for us.
     [scopeBar reloadData];
 
     
@@ -163,7 +164,19 @@
 }
 
 
-
+- (void) reloadServersWithIdentifier: (NSString*)identifier {
+    if([identifier isEqualToString:@"RandomItem"]) {
+        [self.server getAlbumListForType:SBSubsonicRequestGetAlbumListRandom];
+    } else if([identifier isEqualToString:@"NewestItem"]) {
+        [self.server getAlbumListForType:SBSubsonicRequestGetAlbumListNewest];
+    } else if([identifier isEqualToString:@"HighestItem"]) {
+        [self.server getAlbumListForType:SBSubsonicRequestGetAlbumListHighest];
+    } else if([identifier isEqualToString:@"FrequentItem"]) {
+        [self.server getAlbumListForType:SBSubsonicRequestGetAlbumListFrequent];
+    } else if([identifier isEqualToString:@"RecentItem"]) {
+        [self.server getAlbumListForType:SBSubsonicRequestGetAlbumListRecent];
+    }
+}
 
 
 #pragma mark - 
@@ -327,7 +340,11 @@
 }
 
 
-
+- (IBAction)reloadSelected: (id)sender {
+    NSArray *nested = scopeBar.selectedItems.firstObject;
+    NSString *identifier = nested.firstObject;
+    [self reloadServersWithIdentifier: identifier];
+}
 
 
 #pragma mark - 
@@ -523,21 +540,7 @@
     
     [albumsBrowserView setSelectionIndexes:nil byExtendingSelection:NO];
     
-    if([identifier isEqualToString:@"RandomItem"]) {
-        [self.server getAlbumListForType:SBSubsonicRequestGetAlbumListRandom];
-        
-    }else if([identifier isEqualToString:@"NewestItem"]) {
-        [self.server getAlbumListForType:SBSubsonicRequestGetAlbumListNewest];
-        
-    } else if([identifier isEqualToString:@"HighestItem"]) {
-        [self.server getAlbumListForType:SBSubsonicRequestGetAlbumListHighest];
-        
-    } else if([identifier isEqualToString:@"FrequentItem"]) {
-        [self.server getAlbumListForType:SBSubsonicRequestGetAlbumListFrequent];
-        
-    } else if([identifier isEqualToString:@"RecentItem"]) {
-        [self.server getAlbumListForType:SBSubsonicRequestGetAlbumListRecent];
-    }   
+    [self reloadServersWithIdentifier: identifier];
 }
 
 
