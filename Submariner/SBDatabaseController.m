@@ -163,6 +163,8 @@
 
 - (void)dealloc
 {
+    // remove window observer
+    [self.window.contentView removeObserver: self forKeyPath: @"safeAreaInsets"];
     // remove Subsonic observers
     [[NSNotificationCenter defaultCenter] removeObserver:self name:SBSubsonicConnectionSucceededNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:SBSubsonicConnectionFailedNotification object:nil];
@@ -219,6 +221,10 @@
     
     // source list drag and drop
     [sourceList registerForDraggedTypes:[NSArray arrayWithObject:SBLibraryTableViewDataType]];
+    
+    // re-layout when visible, so that ServerHome MGScopeBar doesn't get swallowed
+    // the insets are the variable that changes, not the safeAreaRect (which is presumably calculated)
+    [self.window.contentView addObserver: self forKeyPath: @"safeAreaInsets" options: NSKeyValueObservingOptionNew context: nil];
     
     // observer number of currently running operations to animate progress
     [[NSOperationQueue sharedServerQueue] addObserver:self
@@ -401,6 +407,9 @@
 			[sourceList expandURIs:[NSArray arrayWithObject:[[[serversSection objectID] URIRepresentation] absoluteString]]];
 			[self.managedObjectContext save:nil];
         }
+    } else if (object == self.window.contentView && [keyPath isEqualToString: @"safeAreaInsets"]) { // this should be ok main thread wise
+        NSRect targetRect = currentViewController == serverHomeController ? rightVC.view.safeAreaRect : rightVC.view.frame;
+        [currentViewController.view setFrameSize: targetRect.size];
     }
 }
 
@@ -1286,7 +1295,11 @@
     }
     NSView *contentView = [rightVC view];
     [[contentView animator] replaceSubview:currentViewController.view with:newViewController.view];
-    [newViewController.view setFrameSize:[rightVC.view frame].size];
+    // HACK: The scope bar will be under the title bar without using the safe area.
+    // However, using the full rect allows other views to adapt and put vibrance of scrolled over content under title bar.
+    // Thus, use the one that's appropriate for each..
+    NSRect targetRect = newViewController == serverHomeController ? rightVC.view.safeAreaRect : rightVC.view.frame;
+    [newViewController.view setFrameSize: targetRect.size];
     currentViewController = newViewController;
     [self updateTitle];
 }
