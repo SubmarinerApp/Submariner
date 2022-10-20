@@ -516,7 +516,8 @@
             if(index && [index isKindOfClass:[SBArtist class]]) {
 
                 NSDictionary *attr = (row == [tableView selectedRow]) ? self.artistCellSelectedAttributes : self.artistCellUnselectedAttributes;
-                NSAttributedString *newString = [[NSAttributedString alloc] initWithString:index.itemName attributes:attr];
+                NSString *str = index.itemName ?: @"";
+                NSAttributedString *newString = [[NSAttributedString alloc] initWithString: str attributes:attr];
                 
                 [cell setAttributedStringValue:newString];
             }
