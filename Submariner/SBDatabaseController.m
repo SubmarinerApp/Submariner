@@ -1312,9 +1312,9 @@
 - (BOOL)openImportAlert:(NSWindow *)sender files:(NSArray *)files {
     NSAlert *importAlert = [[NSAlert alloc] init];
     [importAlert setMessageText:@"Do you want to copy the imported audio files?"];
-    [importAlert setInformativeText: @"If you click the \"Copy\" button, the imported files will be copied into the database. If you click the \"Link\" button, the files will not be copied, but instead linked into the database."];
-    [importAlert addButtonWithTitle: @"Copy"];
-    [importAlert addButtonWithTitle: @"Link"];
+    [importAlert setInformativeText: @"The files will copied into the library directory, or have the new library items link to the original files."];
+    [importAlert addButtonWithTitle: @"Copy into Library"];
+    [importAlert addButtonWithTitle: @"Link Existing Files"];
     [importAlert addButtonWithTitle: @"Cancel"];
     [importAlert beginSheetModalForWindow: sender completionHandler:^(NSModalResponse alertReturnCode) {
         [self importSheetDidEnd: sender returnCode: alertReturnCode contextInfo: files];
