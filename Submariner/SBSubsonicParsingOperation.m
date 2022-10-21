@@ -332,7 +332,10 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     if([elementName isEqualToString:@"child"]) {
         // the child is an album
         if(requestType == SBSubsonicRequestGetAlbumDirectory) {
-            if(currentArtist) {
+            // Try not to consume an object that doesn't make sense. For now, we assume a hierarchy of
+            // Artist/Album/Track.ext. Navidrome is happy to oblige us and make up a hierarchy, but
+            // Subsonic doesn't guarantee it when it gives you the real FS layout.
+            if (currentArtist && [attributeDict[@"isDir"] isEqualToString: @"true"]) {
                 // try to fetch album
                 SBAlbum *newAlbum = [self fetchAlbumWithID:[attributeDict valueForKey:@"id"] orName:nil forArtist:currentArtist];
                 
@@ -378,8 +381,8 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
                 }
             }
             
-            // the child is a track
-        } else if(requestType == SBSubsonicRequestGetTrackDirectory) {
+            // the child is a track - same check as above
+        } else if (requestType == SBSubsonicRequestGetTrackDirectory && [attributeDict[@"isDir"] isEqualToString: @"false"]) {
             if(currentAlbum) {
                 
                 // check if track exists
