@@ -114,6 +114,7 @@
 @synthesize addServerPlaylistController;
 @synthesize currentViewController;
 @synthesize library;
+@synthesize server;
 
 
 #pragma mark -
@@ -480,7 +481,6 @@
     if (!self.server) {
         return;
     }
-    [serverUserController setServer: self.server];
     [serverUserController viewDidLoad];
     // as we can now switch the view
     if (tracklistContainmentBox.contentView != [serverUserController view]) {
@@ -793,7 +793,6 @@
         return;
     }
     [self.server setSelectedTabIndex: 0];
-    [serverLibraryController setServer:self.server];
     [self setCurrentViewController: serverLibraryController];
 }
 
@@ -802,7 +801,6 @@
         return;
     }
     [self.server setSelectedTabIndex: 1];
-    [serverHomeController setServer:self.server];
     [self setCurrentViewController: serverHomeController];
 }
 
@@ -811,7 +809,6 @@
         return;
     }
     [self.server setSelectedTabIndex: 2];
-    [serverPodcastController setServer:self.server];
     [self setCurrentViewController: serverPodcastController];
 }
 
@@ -842,7 +839,6 @@
     if(query && [query length] > 0) {
         if (self.server) {
             // Remote
-            [serverSearchController setServer:self.server];
             [self setCurrentViewController: serverSearchController];
             [self.server searchWithQuery:query];
         } else {
@@ -888,6 +884,7 @@
        [musicController showTrackInLibrary: track];
    } else {
        [self switchToResource: track.server];
+       // XXX: Should this set self.server so everything matches it?
        [serverLibraryController setServer: track.server];
        // as we could be on albums/podcasts
        [self setCurrentViewController: serverLibraryController];
@@ -1020,13 +1017,6 @@
             if (resource && self.server == resource) {
                 // Clean out any possible state involving this server...
                 self.server = nil;
-                editServerController.server = nil;
-                addServerPlaylistController.server = nil;
-                serverHomeController.server = nil;
-                serverUserController.server = nil;
-                serverSearchController.server = nil;
-                serverLibraryController.server = nil;
-                serverPodcastController.server = nil;
                 // if it's open, close it
                 if (tracklistContainmentBox.contentView == [serverUserController view]) {
                     // keeps the sidebar open
@@ -1161,9 +1151,22 @@
     [[self managedObjectContext] save:nil];
 }
 
-//- (void)setServer:(SBServer *)server {
-//    _server = server;
-//}
+- (SBServer*) server {
+    return server;
+}
+
+- (void)setServer:(SBServer *)newServer {
+    server = newServer;
+    // yes, even if nil
+    editServerController.server = server;
+    addServerPlaylistController.server = server;
+    serverHomeController.server = server;
+    serverUserController.server = server;
+    serverSearchController.server = server;
+    serverLibraryController.server = server;
+    serverPodcastController.server = server;
+    // XXX: Reload anything that's current? i.e. now playing?
+}
 
 - (void)switchToResource:(SBResource*)resource updateSidebar:(BOOL)updateSidebar {
     if(resource && [resource isKindOfClass:[SBServer class]]) {
@@ -1248,15 +1251,12 @@
         switch ([server selectedTabIndex]) {
             case 0:
             default:
-                [serverLibraryController setServer: server];
                 [self setCurrentViewController: serverLibraryController];
                 break;
             case 1:
-                [serverHomeController setServer: server];
                 [self setCurrentViewController: serverHomeController];
                 break;
             case 2:
-                [serverPodcastController setServer: server];
                 [self setCurrentViewController: serverPodcastController];
                 break;
             // 3 was search and 4 was server users
