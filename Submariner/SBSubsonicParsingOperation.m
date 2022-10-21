@@ -1041,8 +1041,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
         [newEpisode setEpisodeStatus:[attributeDict valueForKey:@"status"]];
     
     if([attributeDict valueForKey:@"publishDate"]) {
-        NSISO8601DateFormatter *formatter = [[NSISO8601DateFormatter alloc] init];
-        [newEpisode setPublishDate:[formatter dateFromString:[attributeDict valueForKey:@"publishDate"]]];
+        [newEpisode setPublishDate: [[attributeDict valueForKey:@"publishDate"] dateTimeFromRFC3339]];
     }
     
     if([attributeDict valueForKey:@"year"])

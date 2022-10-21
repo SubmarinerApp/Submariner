@@ -38,6 +38,7 @@
 @interface NSString (Time)
 
 - (NSDate*) dateTimeFromISO;
+- (NSDate*) dateTimeFromRFC3339;
 + (NSString *)stringWithTime:(double)time;
 
 @end

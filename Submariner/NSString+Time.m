@@ -46,6 +46,20 @@
     return [formatter dateFromString: self];
 }
 
+- (NSDate*) dateTimeFromRFC3339 {
+    static NSDateFormatter *rfc3339DateFormatter = nil;
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+        rfc3339DateFormatter = [[NSDateFormatter alloc] init];
+        NSLocale *enUSPOSIXLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+
+        [rfc3339DateFormatter setLocale:enUSPOSIXLocale];
+        [rfc3339DateFormatter setDateFormat: @"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+        [rfc3339DateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    });
+    return [rfc3339DateFormatter dateFromString: self];
+}
+
 + (NSString *)stringWithTime:(double)time {
 	
 	if(time == 0)
