@@ -567,11 +567,17 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
                 return;
             }
         } else if(requestType == SBSubsonicRequestGetNowPlaying) {
+            // Ignore it if it isn't music - podcasts don't return their podcast metadata,
+            // but ID3 as if they were a track in the music library. The resulting track
+            // is weird and malformed.
+            if (![attributeDict[@"type"] isEqualToString: @"music"])
+                return;
+            
             SBNowPlaying *nowPlaying = [self createNowPlayingWithAttribute:attributeDict];
             
             // check track
             SBTrack *attachedTrack = [self fetchTrackWithID:[attributeDict valueForKey:@"id"] orTitle:nil forAlbum:nil];
-            if(attachedTrack == nil) 
+            if(attachedTrack == nil)
                 attachedTrack = [self createTrackWithAttribute:attributeDict];
             
             [nowPlaying setTrack:attachedTrack];
