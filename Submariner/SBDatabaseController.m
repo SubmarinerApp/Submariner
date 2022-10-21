@@ -1384,7 +1384,7 @@
     
     if(currentTrack != nil) {
         
-        NSString *trackInfos = [NSString stringWithFormat:@"%@ - %@", currentTrack.artistName ?: currentTrack.artistString, currentTrack.albumString];
+        NSString *trackInfos = [[SBPlayer sharedInstance] subtitle];
         SBCover *cover = currentTrack.album.cover;
         NSImage *coverImage = nil;
         

@@ -105,6 +105,7 @@ enum SBPlayerRepeatMode {
 - (void)fastForward;
 
 // player data
+- (NSString*)subtitle;
 - (NSTimeInterval)currentTime;
 - (NSTimeInterval)remainingTime;
 - (NSTimeInterval)durationTime;

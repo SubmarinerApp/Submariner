@@ -39,6 +39,8 @@
 #import "SBAppDelegate.h"
 #import "SBPlayer.h"
 #import "SBTrack.h"
+#import "SBEpisode.h"
+#import "SBPodcast.h"
 #import "SBServer.h"
 #import "SBLibrary.h"
 #import "SBSubsonicDownloadOperation.h"
@@ -120,7 +122,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     [remoteCommandCenter.nextTrackCommand setEnabled:YES];
     [remoteCommandCenter.previousTrackCommand setEnabled:YES];
     // Disable these because they get used instead of prev/next track on macOS, at least in 12.
-    // XXX: Does it make more sense to bind seekForward/Backward?
+    // XXX: Does it make more sense to bind seekForward/Backward? For podcasts?
     //[remoteCommandCenter.skipForwardCommand setEnabled:YES];
     //[remoteCommandCenter.skipBackwardCommand setEnabled:YES];
     remoteCommandCenter.skipForwardCommand.preferredIntervals = @[ interval ];
@@ -209,6 +211,40 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     [defaultCenter setNowPlayingInfo: songInfo];
 }
 
+-(void) updateSystemNowPlayingMetadataMusic: (SBTrack*)currentTrack {
+    [songInfo setObject: [currentTrack albumString] forKey:MPMediaItemPropertyAlbumTitle];
+    [songInfo setObject: currentTrack.artistName ?: currentTrack.artistString forKey:MPMediaItemPropertyArtist];
+    NSString *genre = [currentTrack genre];
+    if (genre != nil) {
+        [songInfo setObject: genre forKey:MPMediaItemPropertyGenre];
+    }
+    NSNumber *discNumber = [currentTrack discNumber];
+    if (discNumber != nil) {
+        [songInfo setObject: discNumber forKey: MPMediaItemPropertyDiscNumber];
+    }
+    // do we have enough metadata to fill in?
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDate *releaseYear = [calendar dateWithEra:1 year:[[currentTrack year] intValue] month:0 day:0 hour:0 minute:0 second:0 nanosecond:0];
+    [songInfo setObject:releaseYear forKey:MPMediaItemPropertyReleaseDate];
+    // XXX: movieAttributes is blank and could be filled in with externalMetadata?
+}
+
+-(void) updateSystemNowPlayingMetadataPodcast: (SBEpisode*)currentTrack {
+    // XXX: It seems there's the raw metadata Subsonic doesn't give us (i.e.
+    // "BBC World Service" as underlying artist)
+    [songInfo setObject: currentTrack.podcast.itemName forKey: MPMediaItemPropertyPodcastTitle];
+    [songInfo setObject: currentTrack.artistName ?: currentTrack.artistString forKey:MPMediaItemPropertyArtist];
+    NSDate *publishDate = currentTrack.publishDate;
+    if (publishDate) {
+        [songInfo setObject: publishDate forKey: MPMediaItemPropertyReleaseDate];
+    } else {
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDate *releaseYear = [calendar dateWithEra:1 year:[[currentTrack year] intValue] month:0 day:0 hour:0 minute:0 second:0 nanosecond:0];
+        [songInfo setObject:releaseYear forKey:MPMediaItemPropertyReleaseDate];
+    }
+    return;
+}
+
 -(void) updateSystemNowPlayingMetadata {
     SBTrack *currentTrack = [self currentTrack];
     
@@ -217,20 +253,14 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         [songInfo setObject: [NSNumber numberWithInteger: MPNowPlayingInfoMediaTypeAudio] forKey:MPMediaItemPropertyMediaType];
         // XXX: podcasts will have different properties on SBTrack
         [songInfo setObject: [currentTrack itemName] forKey:MPMediaItemPropertyTitle];
-        [songInfo setObject: [currentTrack albumString] forKey:MPMediaItemPropertyAlbumTitle];
-        [songInfo setObject: currentTrack.artistName ?: currentTrack.artistString forKey:MPMediaItemPropertyArtist];
-        NSString *genre = [currentTrack genre];
-        if (genre != nil) {
-            [songInfo setObject: genre forKey:MPMediaItemPropertyGenre];
-        }
         [songInfo setObject: [currentTrack rating] forKey:MPMediaItemPropertyRating];
         // seems the OS can use this to generate waveforms? should it be the download URL?
         [songInfo setObject:[currentTrack streamURL] forKey:MPMediaItemPropertyAssetURL];
-        // do we have enough metadata to fill in?
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        NSDate *releaseYear = [calendar dateWithEra:1 year:[[currentTrack year] intValue] month:0 day:0 hour:0 minute:0 second:0 nanosecond:0];
-        [songInfo setObject:releaseYear forKey:MPMediaItemPropertyReleaseDate];
-        // XXX: movieAttributes is blank and could be filled in with externalMetadata?
+        if ([currentTrack isKindOfClass: SBEpisode.class]) {
+            [self updateSystemNowPlayingMetadataPodcast: (SBEpisode*)currentTrack];
+        } else {
+            [self updateSystemNowPlayingMetadataMusic: currentTrack];
+        }
         if (@available(macOS 10.13.2, *)) {
             NSImage *artwork = [currentTrack coverImage];
             CGSize artworkSize = [artwork size];
@@ -358,7 +388,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     // Apple Music uses this format as well; we don't need to indicate it's a now playing thing.
     content.title = [NSString stringWithFormat: @"%@", currentTrack.itemName];
     // Use an em dash like Apple Music
-    content.body = [NSString stringWithFormat: @"%@ — %@", currentTrack.artistName ?: currentTrack.artistString, currentTrack.albumString];
+    content.body = [self subtitle];
     // Add a cover image, fetch from our local cache since this API won't take an NSImage
     // XXX: Fetch from SBAlbum. The cover in SBTrack is seemingly only used for requests.
     // This means there's also a bunch of empty dupe cover objects in the DB...
@@ -668,6 +698,18 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 
 #pragma mark -
 #pragma mark Accessors (Player Properties)
+
+/**
+  Intended for player subtitles (i.e. NSWindow, notifications
+ */
+- (NSString*)subtitle {
+    if ([self.currentTrack isKindOfClass: SBEpisode.class]) {
+        SBEpisode *currentEpisode = (SBEpisode*)self.currentTrack;
+        return currentEpisode.podcast.itemName ?: (currentTrack.artistName ?: currentTrack.artistString);
+    }
+    return [NSString stringWithFormat: @"%@ — %@", currentTrack.artistName ?: currentTrack.artistString, currentTrack.albumString];
+}
+
 
 - (NSTimeInterval)currentTime {
     
