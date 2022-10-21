@@ -1220,7 +1220,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     NSPredicate *predicate = nil;
     
     if(channelID)
-        predicate = [NSPredicate predicateWithFormat: @"(id == %@)", channelID];
+        predicate = [NSPredicate predicateWithFormat: @"(id == %@) && (server == %@)", channelID, server];
     
     NSArray *podcasts = [[self threadedContext] fetchEntitiesNammed:@"Podcast" withPredicate:predicate error:&error];
     if(podcasts && [podcasts count] > 0) {
@@ -1236,7 +1236,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     NSPredicate *predicate = nil;
     
     if(episodeID)
-        predicate = [NSPredicate predicateWithFormat: @"(id == %@)", episodeID];
+        predicate = [NSPredicate predicateWithFormat: @"(id == %@) && (server == %@)", episodeID, server];
     
     NSArray *episodes = [[self threadedContext] fetchEntitiesNammed:@"Episode" withPredicate:predicate error:&error];
     if(episodes && [episodes count] > 0) {
