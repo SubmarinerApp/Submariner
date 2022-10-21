@@ -382,8 +382,8 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
             }
             
             // the child is a track - same check as above
-        } else if (requestType == SBSubsonicRequestGetTrackDirectory && [attributeDict[@"isDir"] isEqualToString: @"false"]) {
-            if(currentAlbum) {
+        } else if (requestType == SBSubsonicRequestGetTrackDirectory) {
+            if (currentAlbum && [attributeDict[@"isDir"] isEqualToString: @"false"]) {
                 
                 // check if track exists
                 SBTrack *newTrack = [self fetchTrackWithID:[attributeDict valueForKey:@"id"] orTitle:nil forAlbum:currentAlbum];
