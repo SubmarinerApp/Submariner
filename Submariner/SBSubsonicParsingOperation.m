@@ -221,552 +221,532 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
 
 
 #pragma mark -
-#pragma mark NSXMLParserDelegate
+#pragma mark XML Elements
 
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary<NSString*,NSString*> *)attributeDict {
-    
-    if([[attributeDict objectForKey:@"status"] isEqualToString:@"failed"]) {
-        // connection failed   
-        [nc postNotificationName:SBSubsonicConnectionFailedNotification object:serverID];
-        return;
+- (void)parseElementSubsonicResponse: (NSDictionary<NSString*,NSString*> *)attributeDict {
+    NSString *status = attributeDict[@"status"];
+    if ([status isEqualToString: @"ok"]) {
+        NSString *apiVersion = [attributeDict valueForKey:@"version"];
+        [server setApiVersion:apiVersion];
+        // The end of document method will send the ping notification.
     }
-    
-    // subsonic response handler
-    if([elementName isEqualToString:@"subsonic-response"]) {
-        if(numberOfChildrens == 0) {
-            // connection succeeded
-            NSString *apiVersion = [attributeDict valueForKey:@"version"];
-            [server setApiVersion:apiVersion];
-        }
-        return;
-    }
-    
-    // count number of subsonic-response children
-    numberOfChildrens++;
-    
-    
-    // check subsonic error
-    if([elementName isEqualToString:@"error"]) {
+    // The error element will send the notification instead.
+}
+
+- (void)parseElementError: (NSDictionary<NSString*,NSString*> *)attributeDict {
 #if DEBUG
-        NSLog(@"ERROR : %@", attributeDict);
+    NSLog(@"ERROR : %@", attributeDict);
 #endif
-        [nc postNotificationName:SBSubsonicConnectionFailedNotification object:attributeDict];
-        return;
-    }
-    
-    
-    if([elementName isEqualToString:@"indexes"]) {
-        NSString *timestamp = [attributeDict valueForKey:@"lastModified"];
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[timestamp doubleValue]];
-        [server setLastIndexesDate:date];
-    }
-    
-    
-    // build group index
-    if([elementName isEqualToString:@"index"]) {
-        NSString *indexName = [attributeDict valueForKey:@"name"];
-        if(indexName) {
-            // fetch for existing groups
-            SBGroup *group = [self fetchGroupWithName:indexName];
-            if(group == nil) {
-                group = [self createGroupWithAttribute:attributeDict];
+    [nc postNotificationName:SBSubsonicConnectionFailedNotification object:attributeDict];
+}
+
+- (void)parseElementIndexes: (NSDictionary<NSString*,NSString*> *)attributeDict {
+    NSString *timestamp = [attributeDict valueForKey:@"lastModified"];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[timestamp doubleValue]];
+    [server setLastIndexesDate:date];
+}
+
+- (void)parseElementIndex: (NSDictionary<NSString*,NSString*> *)attributeDict {
+    NSString *indexName = [attributeDict valueForKey:@"name"];
+    if(indexName) {
+        // fetch for existing groups
+        SBGroup *group = [self fetchGroupWithName:indexName];
+        if(group == nil) {
+            group = [self createGroupWithAttribute:attributeDict];
 #if DEBUG
-                NSLog(@"Create new index group : %@", group.itemName);
+            NSLog(@"Create new index group : %@", group.itemName);
 #endif
-                [server addIndexesObject:group];
-                [group setServer:server];
-                return;
-            }
+            [server addIndexesObject:group];
+            [group setServer:server];
         }
     }
+}
+
+- (void)parseElementArtist: (NSDictionary<NSString*,NSString*> *)attributeDict {
+    // fetch for artists
+    SBArtist *newArtist = [self fetchArtistWithID:[attributeDict valueForKey:@"id"] orName:nil];
     
-    // build artist index
-    if([elementName isEqualToString:@"artist"]) {
-        // fetch for artists
-        SBArtist *newArtist = [self fetchArtistWithID:[attributeDict valueForKey:@"id"] orName:nil];
-        
-        if(newArtist == nil) {
+    if(newArtist == nil) {
 #if DEBUG
-            NSLog(@"Create new artist : %@", [attributeDict valueForKey:@"name"]);
+        NSLog(@"Create new artist : %@", [attributeDict valueForKey:@"name"]);
 #endif
-            // if artist doesn't exists create it
-            newArtist = [self createArtistWithAttribute:attributeDict];
-            [newArtist setServer:server];
-            [server addIndexesObject:newArtist];
-            
-            return;
-        }
+        // if artist doesn't exists create it
+        newArtist = [self createArtistWithAttribute:attributeDict];
+        [newArtist setServer:server];
+        [server addIndexesObject:newArtist];
     }
-    
-    // check directory
-    if([elementName isEqualToString:@"directory"]) {
-        // get albums
-        if(requestType == SBSubsonicRequestGetAlbumDirectory) {
-            
-            SBArtist *parentArtist = [self fetchArtistWithID:[attributeDict valueForKey:@"id"] orName:nil];
-            // try to fetch artist of album
-            if(parentArtist != nil)
-                currentArtist = parentArtist;
-            
-            return;
-            
-            // get tracks   
-        } else if(requestType == SBSubsonicRequestGetTrackDirectory) {
-            
-            SBAlbum *parentAlbum = [self fetchAlbumWithID:[attributeDict valueForKey:@"id"] orName:nil forArtist:currentArtist];
-            // try to fetch artist of album
-            if(parentAlbum != nil)
-                currentAlbum = parentAlbum;
-            
-            return;
-        }
-        // theorically, album may exists already...
+}
+
+- (void)parseElementDirectory: (NSDictionary<NSString*,NSString*> *)attributeDict {
+    // get albums
+    if(requestType == SBSubsonicRequestGetAlbumDirectory) {
+        
+        SBArtist *parentArtist = [self fetchArtistWithID:[attributeDict valueForKey:@"id"] orName:nil];
+        // try to fetch artist of album
+        if(parentArtist != nil)
+            currentArtist = parentArtist;
+        
+        // get tracks
+    } else if(requestType == SBSubsonicRequestGetTrackDirectory) {
+        
+        SBAlbum *parentAlbum = [self fetchAlbumWithID:[attributeDict valueForKey:@"id"] orName:nil forArtist:currentArtist];
+        // try to fetch artist of album
+        if(parentAlbum != nil)
+            currentAlbum = parentAlbum;
     }
-    
-    
-    // check child item
-    if([elementName isEqualToString:@"child"]) {
-        // the child is an album
-        if(requestType == SBSubsonicRequestGetAlbumDirectory) {
-            // Try not to consume an object that doesn't make sense. For now, we assume a hierarchy of
-            // Artist/Album/Track.ext. Navidrome is happy to oblige us and make up a hierarchy, but
-            // Subsonic doesn't guarantee it when it gives you the real FS layout.
-            if (currentArtist && [attributeDict[@"isDir"] isEqualToString: @"true"]) {
-                // try to fetch album
-                SBAlbum *newAlbum = [self fetchAlbumWithID:[attributeDict valueForKey:@"id"] orName:nil forArtist:currentArtist];
-                
-                // if album not found, create it
-                if(newAlbum == nil) {
+    // theorically, album may exists already...
+}
+
+- (void)parseElementChildForAlbumDirectory: (NSDictionary<NSString*,NSString*> *)attributeDict {
+    // Try not to consume an object that doesn't make sense. For now, we assume a hierarchy of
+    // Artist/Album/Track.ext. Navidrome is happy to oblige us and make up a hierarchy, but
+    // Subsonic doesn't guarantee it when it gives you the real FS layout.
+    if (currentArtist && [attributeDict[@"isDir"] isEqualToString: @"true"]) {
+        // try to fetch album
+        SBAlbum *newAlbum = [self fetchAlbumWithID:[attributeDict valueForKey:@"id"] orName:nil forArtist:currentArtist];
+        
+        // if album not found, create it
+        if(newAlbum == nil) {
 #if DEBUG
-                    NSLog(@"Create new album : %@", [attributeDict valueForKey:@"title"]);
+            NSLog(@"Create new album : %@", [attributeDict valueForKey:@"title"]);
 #endif
-                    
-                    newAlbum = [self createAlbumWithAttribute:attributeDict];
-                    [newAlbum setArtist:currentArtist];
-                    [currentArtist addAlbumsObject:newAlbum];
-                }
-                
-                // get album covers
-                if(newAlbum && [attributeDict valueForKey:@"coverArt"]) {
-                    SBCover *newCover = nil;
-                    SBCover *maybeExistingCover = [self fetchCoverWithName:[attributeDict valueForKey:@"coverArt"]];
-                    
-                    if(!newAlbum.cover && maybeExistingCover == nil) {
-#if DEBUG
-                        NSLog(@"Create new cover");
-#endif
-                        newCover = [self createCoverWithAttribute:attributeDict];
-                        [newCover setId:[attributeDict valueForKey:@"coverArt"]];
-                        [newCover setAlbum:newAlbum];
-                        [newAlbum setCover:newCover];
-                    } else if (!newAlbum.cover) {
-                        // assign the existing one to our new album
-                        [maybeExistingCover setAlbum:newAlbum];
-                        [newAlbum setCover:maybeExistingCover];
-                    }
-                    
-                    if(!newAlbum.cover.imagePath || ![[NSFileManager defaultManager] fileExistsAtPath:newAlbum.cover.imagePath]) {
-                        if (maybeExistingCover != nil && maybeExistingCover.imagePath && [[NSFileManager defaultManager] fileExistsAtPath: maybeExistingCover.imagePath]) {
-                            // this cover object is a weird dupe, patch up instead.
-                            [maybeExistingCover setAlbum:newAlbum];
-                            [newAlbum setCover:maybeExistingCover];
-                        } else {
-                            [clientController getCoverWithID:[attributeDict valueForKey:@"coverArt"]];
-                        }
-                    }
-                }
-            }
             
-            // the child is a track - same check as above
-        } else if (requestType == SBSubsonicRequestGetTrackDirectory) {
-            if (currentAlbum && [attributeDict[@"isDir"] isEqualToString: @"false"]) {
-                
-                // check if track exists
-                SBTrack *newTrack = [self fetchTrackWithID:[attributeDict valueForKey:@"id"] orTitle:nil forAlbum:currentAlbum];
-                
-                // if track not found, create it
-                if(newTrack == nil) {
-#if DEBUG
-                    NSLog(@"Create new track %@ to %@", [attributeDict valueForKey:@"path"], currentAlbum.itemName);
-#endif
-                    newTrack = [self createTrackWithAttribute:attributeDict];
-                    [newTrack setAlbum:currentAlbum];
-                    [currentAlbum addTracksObject:newTrack];
-                } else {
-#if DEBUG
-                    NSLog(@"Update existing track %@ to %@", [attributeDict valueForKey:@"path"], currentAlbum.itemName);
-#endif
-                    // XXX: What else to set?
-                    // XXX: Do we need to update the local track too?
-                    [self updateTrackWithAttributes: newTrack attributes: attributeDict];
-                }
-            }
-        }
-        return;
-    }
-    
-    
-    // get albums list (Home)
-    if([elementName isEqualToString:@"albumList"]) {
-        
-        // clear current home albums
-        [server.home setAlbums:nil];
-        return;
-    }
-    
-    // get album entries
-    if([elementName isEqualToString:@"album"]) {
-        
-        // XXX: Workaround for albums giving us an album we can't properly represent in the schema.
-        // If we do accept it, it'll just become nil.
-        // This will need adaptation for ID3 based approaches
-        // (if using ID3 endpoint, use currentArtist or artistId attrib instead)
-        if ([attributeDict valueForKey: @"parent"] == nil) {
-            return;
+            newAlbum = [self createAlbumWithAttribute:attributeDict];
+            [newAlbum setArtist:currentArtist];
+            [currentArtist addAlbumsObject:newAlbum];
         }
         
-        // check artist
-        SBArtist *artist = [self fetchArtistWithID:[attributeDict valueForKey:@"parent"] orName:nil];
-        
-        // if no artist, create it
-        if(artist == nil) {
-            artist = [SBArtist insertInManagedObjectContext:[self threadedContext]];
-            [artist setItemName:[attributeDict valueForKey:@"artist"]];
-            [artist setId:[attributeDict valueForKey:@"parent"]];
-            [artist setIsLocal:[NSNumber numberWithBool:NO]];
-            
-            // attach artist to library
-            [server addIndexesObject:artist];
-            [artist setServer:server];
-        }
-        
-        // check albums
-        SBAlbum *album = [self fetchAlbumWithID:[attributeDict valueForKey:@"id"] orName:nil forArtist:nil];
-        if(album != nil) {
-            
-            // attach album to artist
-            if(album.artist == nil) {
-                [artist addAlbumsObject:album];
-                [album setArtist:artist];
-            }
-            
-            // add album to home
-            [server.home addAlbumsObject:album];
-            [album setHome:server.home];
-            
-        } else {
-            // create album and add it to home
-            album = [self createAlbumWithAttribute:attributeDict];
-            
-#if DEBUG
-            NSLog(@"Create new album %@", album.itemName);
-#endif
-            // fetch artist   
-            SBArtist *artist = [self fetchArtistWithID:[attributeDict valueForKey:@"parent"] orName:nil];
-            
-            // attach album to artist
-            if(album.artist == nil) {
-                [artist addAlbumsObject:album];
-                [album setArtist:artist];
-            }
-            
-            [server.home addAlbumsObject:album];
-            [album setHome:server.home];
-        }
-        
-        
-        // album cover
-        if(album && [attributeDict valueForKey:@"coverArt"]) {
+        // get album covers
+        if(newAlbum && [attributeDict valueForKey:@"coverArt"]) {
             SBCover *newCover = nil;
+            SBCover *maybeExistingCover = [self fetchCoverWithName:[attributeDict valueForKey:@"coverArt"]];
             
-            if(!album.cover) {
+            if(!newAlbum.cover && maybeExistingCover == nil) {
+#if DEBUG
+                NSLog(@"Create new cover");
+#endif
                 newCover = [self createCoverWithAttribute:attributeDict];
                 [newCover setId:[attributeDict valueForKey:@"coverArt"]];
-                [newCover setAlbum:album];
-                [album setCover:newCover];
+                [newCover setAlbum:newAlbum];
+                [newAlbum setCover:newCover];
+            } else if (!newAlbum.cover) {
+                // assign the existing one to our new album
+                [maybeExistingCover setAlbum:newAlbum];
+                [newAlbum setCover:maybeExistingCover];
             }
             
-            if(!album.cover.imagePath) {
-                [clientController getCoverWithID:[attributeDict valueForKey:@"coverArt"]];
+            if(!newAlbum.cover.imagePath || ![[NSFileManager defaultManager] fileExistsAtPath:newAlbum.cover.imagePath]) {
+                if (maybeExistingCover != nil && maybeExistingCover.imagePath && [[NSFileManager defaultManager] fileExistsAtPath: maybeExistingCover.imagePath]) {
+                    // this cover object is a weird dupe, patch up instead.
+                    [maybeExistingCover setAlbum:newAlbum];
+                    [newAlbum setCover:maybeExistingCover];
+                } else {
+                    [clientController getCoverWithID:[attributeDict valueForKey:@"coverArt"]];
+                }
             }
         }
+    }
+}
+
+- (void)parseElementChildForTrackDirectory: (NSDictionary<NSString*,NSString*> *)attributeDict {
+    if (currentAlbum && [attributeDict[@"isDir"] isEqualToString: @"false"]) {
         
+        // check if track exists
+        SBTrack *newTrack = [self fetchTrackWithID:[attributeDict valueForKey:@"id"] orTitle:nil forAlbum:currentAlbum];
+        
+        // if track not found, create it
+        if(newTrack == nil) {
+#if DEBUG
+            NSLog(@"Create new track %@ to %@", [attributeDict valueForKey:@"path"], currentAlbum.itemName);
+#endif
+            newTrack = [self createTrackWithAttribute:attributeDict];
+            [newTrack setAlbum:currentAlbum];
+            [currentAlbum addTracksObject:newTrack];
+        } else {
+#if DEBUG
+            NSLog(@"Update existing track %@ to %@", [attributeDict valueForKey:@"path"], currentAlbum.itemName);
+#endif
+            // XXX: What else to set?
+            // XXX: Do we need to update the local track too?
+            [self updateTrackWithAttributes: newTrack attributes: attributeDict];
+        }
+    }
+}
+
+- (void)parseElementChild: (NSDictionary<NSString*,NSString*> *)attributeDict {
+    // is the child for a track, or an album?
+    if(requestType == SBSubsonicRequestGetAlbumDirectory) {
+        [self parseElementChildForAlbumDirectory: attributeDict];
+    } else if (requestType == SBSubsonicRequestGetTrackDirectory) {
+        [self parseElementChildForTrackDirectory: attributeDict];
+    }
+}
+
+- (void)parseElementAlbumList: (NSDictionary<NSString*,NSString*> *)attributeDict {
+    // clear current home albums
+    [server.home setAlbums:nil];
+}
+
+- (void)parseElementAlbum: (NSDictionary<NSString*,NSString*> *)attributeDict {
+    // XXX: Workaround for albums giving us an album we can't properly represent in the schema.
+    // If we do accept it, it'll just become nil.
+    // This will need adaptation for ID3 based approaches
+    // (if using ID3 endpoint, use currentArtist or artistId attrib instead)
+    if ([attributeDict valueForKey: @"parent"] == nil) {
         return;
     }
     
+    // check artist
+    SBArtist *artist = [self fetchArtistWithID:[attributeDict valueForKey:@"parent"] orName:nil];
     
-    if([elementName isEqualToString:@"playlists"]) {
-        if(requestType == SBSubsonicRequestGetPlaylists) {
-            //SBSection *remotePlaylistsSection = [self fetchSectionWithName:@"Playlists"];
-            //[remotePlaylistsSection setResources:nil];
-            
-            return;
-        } else if(requestType == SBSubsonicRequestGetPlaylist) {
-            return;
-        }
+    // if no artist, create it
+    if(artist == nil) {
+        artist = [SBArtist insertInManagedObjectContext:[self threadedContext]];
+        [artist setItemName:[attributeDict valueForKey:@"artist"]];
+        [artist setId:[attributeDict valueForKey:@"parent"]];
+        [artist setIsLocal:[NSNumber numberWithBool:NO]];
+        
+        // attach artist to library
+        [server addIndexesObject:artist];
+        [artist setServer:server];
     }
     
-    
-    if([elementName isEqualToString:@"playlist"]) {
-        if(requestType == SBSubsonicRequestGetPlaylists) {
-            
-            // check if playlist exists
-            SBPlaylist *newPlaylist = [self fetchPlaylistWithID:[attributeDict valueForKey:@"id"] orName:nil];
-            
-            // if playlist not found, create it
-            if(newPlaylist == nil) {
-                
-                // try with name
-                newPlaylist = [self fetchPlaylistWithID:nil orName:[attributeDict valueForKey:@"name"]];
-#if DEBUG
-                NSLog(@"Create new playlist : %@", [attributeDict valueForKey:@"name"]);
-#endif
-                if(!newPlaylist)
-                    newPlaylist = [self createPlaylistWithAttribute:attributeDict];
-            }
-
-            [server willChangeValueForKey:@"playlist"];
-            [[server mutableSetValueForKey: @"resources"] addObject: newPlaylist];
-            [server didChangeValueForKey:@"playlist"];
-            
-            return;
-        } else if(requestType == SBSubsonicRequestGetPlaylist) {
-            currentPlaylist = [self fetchPlaylistWithID:[attributeDict valueForKey:@"id"] orName:nil];
-//            if(currentPlaylist)
-//                [currentPlaylist setTracks:nil];
-        }
-    }
-    
-    
-    // check playlist entries
-    if([elementName isEqualToString:@"entry"]) { 
-        if(requestType == SBSubsonicRequestGetPlaylist) {
-            if(currentPlaylist) {
-                // fetch requested track
-                SBTrack *track = [self fetchTrackWithID:[attributeDict valueForKey:@"id"] orTitle:nil forAlbum:nil];
-                
-                // if track found
-                if(track != nil) {   
-                    BOOL exists = NO;
-                    for(SBTrack *existingTrack in currentPlaylist.tracks) {
-                        if(!exists && [track.id isEqualToString:existingTrack.id]) {
-                            exists = YES;
-                        }
-                    }
-                    
-                    if(!exists) {
-                        [currentPlaylist addTracksObject:track];
-                        [track setPlaylist:currentPlaylist];
-                    }
-                // no track found    
-                } else {
-                    // create it
-                    track = [self createTrackWithAttribute:attributeDict];
-                    [currentPlaylist addTracksObject:track];
-                    [track setServer:server];
-                    [track setPlaylist:currentPlaylist];
-                }
-                
-                // increment playlist index
-                return;
-            }
-        } else if(requestType == SBSubsonicRequestGetNowPlaying) {
-            // Ignore it if it isn't music - podcasts don't return their podcast metadata,
-            // but ID3 as if they were a track in the music library. The resulting track
-            // is weird and malformed.
-            if (![attributeDict[@"type"] isEqualToString: @"music"])
-                return;
-            
-            SBNowPlaying *nowPlaying = [self createNowPlayingWithAttribute:attributeDict];
-            
-            // check track
-            SBTrack *attachedTrack = [self fetchTrackWithID:[attributeDict valueForKey:@"id"] orTitle:nil forAlbum:nil];
-            if(attachedTrack == nil)
-                attachedTrack = [self createTrackWithAttribute:attributeDict];
-            
-            [nowPlaying setTrack:attachedTrack];
-            [attachedTrack setNowPlaying:nowPlaying];
-            
-            
-            // check album
-            SBAlbum *album = [self fetchAlbumWithID:[attributeDict valueForKey:@"parent"] orName:nil forArtist:nil];
-            if(album == nil) {
-                // create album
-                album = [SBAlbum insertInManagedObjectContext:[self threadedContext]];
-                [album setId:[attributeDict valueForKey:@"parent"]];
-                [album setItemName:[attributeDict valueForKey:@"album"]];
-                [album setIsLocal:[NSNumber numberWithBool:NO]];
-                
-                [album addTracksObject:attachedTrack];
-                [attachedTrack setAlbum:album];
-            }
-            
-            // check cover
-            SBCover *cover = [self fetchCoverWithName:[attributeDict valueForKey:@"coverArt"]];
-            
-            if(cover.id == nil || [cover.id isEqualToString:@""]) {
-                if(!album.cover) {
-                    cover = [self createCoverWithAttribute:attributeDict];
-                    [cover setId:[attributeDict valueForKey:@"coverArt"]];
-                    [cover setAlbum:album];
-                    [album setCover:cover];
-                }
-
-                [clientController performSelectorOnMainThread:@selector(getCoverWithID:) withObject:[attributeDict valueForKey:@"coverArt"] waitUntilDone:YES];
-            }
-            
-            // check artist
-            SBArtist *artist = [self fetchArtistWithID:nil orName:[attributeDict valueForKey:@"artist"]];
-            if(artist == nil) {
-                artist = [SBArtist insertInManagedObjectContext:[self threadedContext]];
-                [artist setItemName:[attributeDict valueForKey:@"artist"]];
-                [artist setServer:server];
-                [artist setIsLocal:[NSNumber numberWithBool:NO]];
-                [server addIndexesObject:artist];
-            }
-            
+    // check albums
+    SBAlbum *album = [self fetchAlbumWithID:[attributeDict valueForKey:@"id"] orName:nil forArtist:nil];
+    if(album != nil) {
+        
+        // attach album to artist
+        if(album.artist == nil) {
             [artist addAlbumsObject:album];
             [album setArtist:artist];
-            
-            [nowPlaying setServer:server];
-            [server addNowPlayingsObject:nowPlaying];
-            
-            return;
         }
-    }
-    
-    if([elementName isEqualToString:@"chatMessage"]) {
+        
+        // add album to home
+        [server.home addAlbumsObject:album];
+        [album setHome:server.home];
+        
+    } else {
+        // create album and add it to home
+        album = [self createAlbumWithAttribute:attributeDict];
+        
 #if DEBUG
-        NSLog(@"Create new chat message");
+        NSLog(@"Create new album %@", album.itemName);
 #endif
-        NSLog(@"Chat is no longer supported.");
+        // fetch artist
+        SBArtist *artist = [self fetchArtistWithID:[attributeDict valueForKey:@"parent"] orName:nil];
+        
+        // attach album to artist
+        if(album.artist == nil) {
+            [artist addAlbumsObject:album];
+            [album setArtist:artist];
+        }
+        
+        [server.home addAlbumsObject:album];
+        [album setHome:server.home];
     }
     
-    if([elementName isEqualToString:@"user"]) {
-        [nc postNotificationName:SBSubsonicUserInfoUpdatedNotification object:attributeDict];
-    }
     
-    
-    // check for search2 result (song parsing)
-    if([elementName isEqualToString:@"song"]) { 
-        if(requestType == SBSubsonicRequestSearch) {
-            if(self.currentSearch != nil) {
-                // fetch requested track
-                SBTrack *track = [self fetchTrackWithID:[attributeDict valueForKey:@"id"] orTitle:nil forAlbum:nil];
-                
-                // if track found
-                if(track != nil) {   
-                    BOOL exists = NO;
-                    for(SBTrack *existingTrack in currentPlaylist.tracks) {
-                        if(!exists && [track.id isEqualToString:existingTrack.id]) {
-                            exists = YES;
-                        }
-                    }
-                    
-                    if(!exists) {
-                        [self.currentSearch.tracks addObject:track];
-                    }
-                    // no track found    
-                } else {
-                    // create it
-                    track = [self createTrackWithAttribute:attributeDict];
-                    [self.currentSearch.tracks addObject:track];
-                    [track setServer:server];
-                }
-                return;
-            }
+    // album cover
+    if(album && [attributeDict valueForKey:@"coverArt"]) {
+        SBCover *newCover = nil;
+        
+        if(!album.cover) {
+            newCover = [self createCoverWithAttribute:attributeDict];
+            [newCover setId:[attributeDict valueForKey:@"coverArt"]];
+            [newCover setAlbum:album];
+            [album setCover:newCover];
+        }
+        
+        if(!album.cover.imagePath) {
+            [clientController getCoverWithID:[attributeDict valueForKey:@"coverArt"]];
         }
     }
-    
-    
-    // get license result
-    if([elementName isEqualToString:@"license"]) { 
+}
+
+- (void)parseElementPlaylist: (NSDictionary<NSString*,NSString*> *)attributeDict {
+    if(requestType == SBSubsonicRequestGetPlaylists) {
         
-        BOOL valid              = ([[attributeDict valueForKey:@"valid"] isEqualToString:@"true"]) ? YES : NO;
-        NSString *licenseEmail  = [attributeDict valueForKey:@"email"];
-        NSDate *licenseDate     = [(NSString*)[attributeDict valueForKey:@"date"] dateTimeFromISO];
+        // check if playlist exists
+        SBPlaylist *newPlaylist = [self fetchPlaylistWithID:[attributeDict valueForKey:@"id"] orName:nil];
         
-        [server setIsValidLicense:[NSNumber numberWithBool:valid]];
-        [server setLicenseEmail:licenseEmail];
-        [server setLicenseDate:licenseDate];
-    
+        // if playlist not found, create it
+        if(newPlaylist == nil) {
+            
+            // try with name
+            newPlaylist = [self fetchPlaylistWithID:nil orName:[attributeDict valueForKey:@"name"]];
+#if DEBUG
+            NSLog(@"Create new playlist : %@", [attributeDict valueForKey:@"name"]);
+#endif
+            if(!newPlaylist)
+                newPlaylist = [self createPlaylistWithAttribute:attributeDict];
+        }
+
+        [server willChangeValueForKey:@"playlist"];
+        [[server mutableSetValueForKey: @"resources"] addObject: newPlaylist];
+        [server didChangeValueForKey:@"playlist"];
+    } else if(requestType == SBSubsonicRequestGetPlaylist) {
+        currentPlaylist = [self fetchPlaylistWithID:[attributeDict valueForKey:@"id"] orName:nil];
+//            if(currentPlaylist)
+//                [currentPlaylist setTracks:nil];
+    }
+}
+
+- (void)parseElementEntryForPlaylist: (NSDictionary<NSString*,NSString*> *)attributeDict {
+    if(currentPlaylist) {
+        // fetch requested track
+        SBTrack *track = [self fetchTrackWithID:[attributeDict valueForKey:@"id"] orTitle:nil forAlbum:nil];
+        
+        // if track found
+        if(track != nil) {
+            BOOL exists = NO;
+            for(SBTrack *existingTrack in currentPlaylist.tracks) {
+                if(!exists && [track.id isEqualToString:existingTrack.id]) {
+                    exists = YES;
+                }
+            }
+            
+            if(!exists) {
+                [currentPlaylist addTracksObject:track];
+                [track setPlaylist:currentPlaylist];
+            }
+        // no track found
+        } else {
+            // create it
+            track = [self createTrackWithAttribute:attributeDict];
+            [currentPlaylist addTracksObject:track];
+            [track setServer:server];
+            [track setPlaylist:currentPlaylist];
+        }
+    }
+}
+
+- (void)parseElementEntryForNowPlaying: (NSDictionary<NSString*,NSString*> *)attributeDict {
+    // Ignore it if it isn't music - podcasts don't return their podcast metadata,
+    // but ID3 as if they were a track in the music library. The resulting track
+    // is weird and malformed.
+    if (![attributeDict[@"type"] isEqualToString: @"music"])
         return;
+    
+    SBNowPlaying *nowPlaying = [self createNowPlayingWithAttribute:attributeDict];
+    
+    // check track
+    SBTrack *attachedTrack = [self fetchTrackWithID:[attributeDict valueForKey:@"id"] orTitle:nil forAlbum:nil];
+    if(attachedTrack == nil)
+        attachedTrack = [self createTrackWithAttribute:attributeDict];
+    
+    [nowPlaying setTrack:attachedTrack];
+    [attachedTrack setNowPlaying:nowPlaying];
+    
+    
+    // check album
+    SBAlbum *album = [self fetchAlbumWithID:[attributeDict valueForKey:@"parent"] orName:nil forArtist:nil];
+    if(album == nil) {
+        // create album
+        album = [SBAlbum insertInManagedObjectContext:[self threadedContext]];
+        [album setId:[attributeDict valueForKey:@"parent"]];
+        [album setItemName:[attributeDict valueForKey:@"album"]];
+        [album setIsLocal:[NSNumber numberWithBool:NO]];
+        
+        [album addTracksObject:attachedTrack];
+        [attachedTrack setAlbum:album];
     }
     
-    // podcasts
-    if([elementName isEqualToString:@"channel"]) { 
+    // check cover
+    SBCover *cover = [self fetchCoverWithName:[attributeDict valueForKey:@"coverArt"]];
+    
+    if(cover.id == nil || [cover.id isEqualToString:@""]) {
+        if(!album.cover) {
+            cover = [self createCoverWithAttribute:attributeDict];
+            [cover setId:[attributeDict valueForKey:@"coverArt"]];
+            [cover setAlbum:album];
+            [album setCover:cover];
+        }
+
+        [clientController performSelectorOnMainThread:@selector(getCoverWithID:) withObject:[attributeDict valueForKey:@"coverArt"] waitUntilDone:YES];
+    }
+    
+    // check artist
+    SBArtist *artist = [self fetchArtistWithID:nil orName:[attributeDict valueForKey:@"artist"]];
+    if(artist == nil) {
+        artist = [SBArtist insertInManagedObjectContext:[self threadedContext]];
+        [artist setItemName:[attributeDict valueForKey:@"artist"]];
+        [artist setServer:server];
+        [artist setIsLocal:[NSNumber numberWithBool:NO]];
+        [server addIndexesObject:artist];
+    }
+    
+    [artist addAlbumsObject:album];
+    [album setArtist:artist];
+    
+    [nowPlaying setServer:server];
+    [server addNowPlayingsObject:nowPlaying];
+}
+
+- (void)parseElementEntry: (NSDictionary<NSString*,NSString*> *)attributeDict {
+    if (requestType == SBSubsonicRequestGetPlaylist) {
+        [self parseElementEntryForPlaylist: attributeDict];
+    } else if (requestType == SBSubsonicRequestGetNowPlaying) {
+        [self parseElementEntryForNowPlaying: attributeDict];
+    }
+}
+
+- (void)parseElementSong: (NSDictionary<NSString*,NSString*> *)attributeDict {
+    if(requestType == SBSubsonicRequestSearch) {
+        if(self.currentSearch != nil) {
+            // fetch requested track
+            SBTrack *track = [self fetchTrackWithID:[attributeDict valueForKey:@"id"] orTitle:nil forAlbum:nil];
+            
+            // if track found
+            if(track != nil) {
+                BOOL exists = NO;
+                for(SBTrack *existingTrack in currentPlaylist.tracks) {
+                    if(!exists && [track.id isEqualToString:existingTrack.id]) {
+                        exists = YES;
+                    }
+                }
+                
+                if(!exists) {
+                    [self.currentSearch.tracks addObject:track];
+                }
+                // no track found
+            } else {
+                // create it
+                track = [self createTrackWithAttribute:attributeDict];
+                [self.currentSearch.tracks addObject:track];
+                [track setServer:server];
+            }
+        }
+    }
+}
+
+- (void)parseElementLicense: (NSDictionary<NSString*,NSString*> *)attributeDict {
+    BOOL valid              = ([[attributeDict valueForKey:@"valid"] isEqualToString:@"true"]) ? YES : NO;
+    NSString *licenseEmail  = [attributeDict valueForKey:@"email"];
+    NSDate *licenseDate     = [(NSString*)[attributeDict valueForKey:@"date"] dateTimeFromISO];
+    
+    [server setIsValidLicense:[NSNumber numberWithBool:valid]];
+    [server setLicenseEmail:licenseEmail];
+    [server setLicenseDate:licenseDate];
+}
+
+- (void)parseElementChannel: (NSDictionary<NSString*,NSString*> *)attributeDict {
+    SBPodcast *podcast = nil;
+    
+    // fetch podcast with ID
+    podcast = [self fetchPodcastWithID:[attributeDict valueForKey:@"id"]];
+    if(!podcast) {
+        podcast = [self createPodcastWithAttribute:attributeDict];
+    }
+    
+    [self setCurrentPodcast:podcast];
+}
+
+- (void)parseElementEpisode: (NSDictionary<NSString*,NSString*> *)attributeDict {
+    if(self.currentPodcast) {
+        SBEpisode *episode = nil;
         
-        SBPodcast *podcast = nil;
-        
-        // fetch podcast with ID
-        podcast = [self fetchPodcastWithID:[attributeDict valueForKey:@"id"]];
-        if(!podcast) {
-            podcast = [self createPodcastWithAttribute:attributeDict];
+        // fetch or create episode
+        episode = [self fetchEpisodeWithID:[attributeDict valueForKey:@"id"]];
+        if(!episode) {
+            episode = [self createEpisodeWithAttribute:attributeDict];
         }
         
-        [self setCurrentPodcast:podcast];
-    }
-    
-    // podcast episodes
-    if([elementName isEqualToString:@"episode"]) { 
-        if(self.currentPodcast) {
-            SBEpisode *episode = nil;
+        // add episode if needed
+        if(![self.currentPodcast.episodes containsObject:episode]) {
+            [self.currentPodcast addEpisodesObject:episode];
             
-            // fetch or create episode
-            episode = [self fetchEpisodeWithID:[attributeDict valueForKey:@"id"]];
-            if(!episode) {
-                episode = [self createEpisodeWithAttribute:attributeDict];
-            }
-            
-            // add episode if needed
-            if(![self.currentPodcast.episodes containsObject:episode]) {
-                [self.currentPodcast addEpisodesObject:episode];
+        } else {
+            // if status changed, replace by the new podcast
+            if(![episode.episodeStatus isEqualToString:[attributeDict valueForKey:@"status"]]) {
                 
-            } else {
-                // if status changed, replace by the new podcast                
-                if(![episode.episodeStatus isEqualToString:[attributeDict valueForKey:@"status"]]) {
-                    
-                    [self.currentPodcast removeEpisodesObject:episode];
-                    
-                    episode = [self createEpisodeWithAttribute:attributeDict];
-                    [self.currentPodcast addEpisodesObject:episode];
-                }
+                [self.currentPodcast removeEpisodesObject:episode];
+                
+                episode = [self createEpisodeWithAttribute:attributeDict];
+                [self.currentPodcast addEpisodesObject:episode];
             }
-            
-            // get the attached track
-            NSString *albumID = [attributeDict valueForKey:@"streamId"];
-            SBTrack *track = [self fetchTrackWithID:albumID orTitle:nil forAlbum:nil];
-            if(!track) {
-                [clientController getTracksForAlbumID:[attributeDict valueForKey:@"parent"]];
-            } else {
-                [episode setTrack:track];
-            }
-            
-            // episode cover
+        }
+        
+        // get the attached track
+        NSString *albumID = [attributeDict valueForKey:@"streamId"];
+        SBTrack *track = [self fetchTrackWithID:albumID orTitle:nil forAlbum:nil];
+        if(!track) {
+            [clientController getTracksForAlbumID:[attributeDict valueForKey:@"parent"]];
+        } else {
+            [episode setTrack:track];
+        }
+        
+        // episode cover
 //            if([attributeDict valueForKey:@"coverArt"]) {
 //                SBCover *newCover = nil;
-//                
+//
 //                newCover = [self fetchCoverWithName:[attributeDict valueForKey:@"coverArt"]];
 //                if(!newCover) {
 //                    newCover = [self createCoverWithAttribute:attributeDict];
 //                    [newCover setId:[attributeDict valueForKey:@"coverArt"]];
 //                }
-//                
+//
 //                if(!episode.cover) {
 //                    [newCover setTrack:episode];
 //                    [episode setCover:newCover];
 //                }
-//                
+//
 //                if(!episode.cover.imagePath) {
 //                    [clientController getCoverWithID:[attributeDict valueForKey:@"coverArt"]];
 //                }
 //            }
-            
-            // add track to server
-            [episode setServer:server];
-            
-            return;
-        }
+        
+        // add track to server
+        [episode setServer:server];
+    }
+}
+
+
+#pragma mark -
+#pragma mark NSXMLParserDelegate
+
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary<NSString*,NSString*> *)attributeDict {
+    numberOfChildrens++;
+    // This has been heavily refactored.
+    if ([elementName isEqualToString:@"subsonic-response"]) {
+        // not counting ourself
+        numberOfChildrens--;
+        [self parseElementSubsonicResponse: attributeDict];
+    } else if ([elementName isEqualToString:@"error"]) {
+        [self parseElementError: attributeDict];
+    } else if ([elementName isEqualToString:@"indexes"]) {
+        [self parseElementIndexes: attributeDict];
+    } else if ([elementName isEqualToString:@"index"]) { // build group index
+        [self parseElementIndex: attributeDict];
+    } else if ([elementName isEqualToString:@"artist"]) { // build artist index
+        [self parseElementArtist: attributeDict];
+    } else if ([elementName isEqualToString:@"directory"]) { // check directory
+        [self parseElementDirectory: attributeDict];
+    } else if ([elementName isEqualToString:@"child"]) { // check child item
+        [self parseElementChild: attributeDict];
+    } else if ([elementName isEqualToString:@"albumList"]) { // get albums list (Home)
+        [self parseElementAlbumList: attributeDict];
+    } else if ([elementName isEqualToString:@"album"]) { // get album entries
+        [self parseElementAlbum: attributeDict];
+    } else if ([elementName isEqualToString:@"playlists"]) {
+        // nothing anymore
+    } else if ([elementName isEqualToString:@"playlist"]) {
+        [self parseElementPlaylist: attributeDict];
+    } else if ([elementName isEqualToString:@"entry"]) { // check playlist/now playing entries
+        [self parseElementEntry: attributeDict];
+    } else if ([elementName isEqualToString:@"chatMessage"]) {
+        NSLog(@"Chat is no longer supported.");
+    } else if ([elementName isEqualToString:@"user"]) {
+        [nc postNotificationName:SBSubsonicUserInfoUpdatedNotification object:attributeDict];
+    } else if ([elementName isEqualToString:@"song"]) { // check for search2 result (song parsing)
+        [self parseElementSong: attributeDict];
+    } else if ([elementName isEqualToString:@"license"]) { // get license result
+        [self parseElementLicense: attributeDict];
+    } else if ([elementName isEqualToString:@"channel"]) { // podcasts
+        [self parseElementChannel: attributeDict];
+    } else if ([elementName isEqualToString:@"episode"]) { // podcast episodes
+        [self parseElementEpisode: attributeDict];
+    } else {
+        NSLog(@"An unknown element was encountered parsing, and ignored. <%@ %@>", elementName, attributeDict);
     }
 }
 
