@@ -775,46 +775,15 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-    if([elementName isEqualToString:@"subsonic-response"]) {
-        
-    }
-    
-    // check end of indexes
-    if([elementName isEqualToString:@"indexes"]) {
-
-    }
-    
-    if([elementName isEqualToString:@"directory"]) {
-        
-    }
-    
-    if([elementName isEqualToString:@"albumList"]) {
-    }
-    
-    if([elementName isEqualToString:@"playlists"]) {
-        
-    }
-    
     if([elementName isEqualToString:@"channel"]) {
         if(currentPodcast) {
             currentPodcast = nil;
         }
     }
     
-    if([elementName isEqualToString:@"playlist"]) {
-        // MOVED TO parserDidEndDocument:
-//        if(requestType == SBSubsonicRequestGetPlaylist) {
-//            if(currentPlaylist) {
-//                [currentPlaylist release];
-//                currentPlaylist = nil;
-//            }
-//        }
+    else if([elementName isEqualToString:@"playlist"]) {
         playlistIndex = 0;
     }
-    
-}
-
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
     
 }
 
