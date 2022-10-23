@@ -223,11 +223,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
 #pragma mark -
 #pragma mark NSXMLParserDelegate
 
-- (void)parserDidStartDocument:(NSXMLParser *)parser {
-
-}
-
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary<NSString*,NSString*> *)attributeDict {
     
     if([[attributeDict objectForKey:@"status"] isEqualToString:@"failed"]) {
         // connection failed   
@@ -260,7 +256,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     
     
     if([elementName isEqualToString:@"indexes"]) {
-        NSNumber *timestamp = [attributeDict valueForKey:@"lastModified"];
+        NSString *timestamp = [attributeDict valueForKey:@"lastModified"];
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:[timestamp doubleValue]];
         [server setLastIndexesDate:date];
     }
