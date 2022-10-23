@@ -421,6 +421,14 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     // get album entries
     if([elementName isEqualToString:@"album"]) {
         
+        // XXX: Workaround for albums giving us an album we can't properly represent in the schema.
+        // If we do accept it, it'll just become nil.
+        // This will need adaptation for ID3 based approaches
+        // (if using ID3 endpoint, use currentArtist or artistId attrib instead)
+        if ([attributeDict valueForKey: @"parent"] == nil) {
+            return;
+        }
+        
         // check artist
         SBArtist *artist = [self fetchArtistWithID:[attributeDict valueForKey:@"parent"] orName:nil];
         
