@@ -140,8 +140,9 @@
             } else {
                 NSAlert *alert = [[NSAlert alloc] init];
                 [alert setAlertStyle: NSAlertStyleWarning];
-                [alert setMessageText: @"Unavailable Podcast"];
-                [alert setInformativeText: @"This podcast episode does not appear online. Please, check availability status."];
+                [alert setMessageText: @"Unavailable Episode"];
+                NSString *informativeText = [NSString stringWithFormat: @"This podcast episode isn't available. It might still be downloading. (The current status is \"%@\".)", clickedTrack.episodeStatus];
+                [alert setInformativeText: informativeText];
                 [alert addButtonWithTitle: @"OK"];
                 [alert runModal];
             }

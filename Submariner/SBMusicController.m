@@ -265,8 +265,8 @@
                 [alert addButtonWithTitle:@"Remove"];
                 [alert addButtonWithTitle:@"Cancel"];
                 [alert addButtonWithTitle:@"Delete"];
-                [alert setMessageText:@"Delete the selected artist ?"];
-                [alert setInformativeText:@"This artist has been copied to Submariner database. If you choose Delete, the artist will be removed from the database and deleted from your file system. If you choose Remove, copied files will be preserved."];
+                [alert setMessageText:@"Delete the selected artist?"];
+                [alert setInformativeText:@"This artist has been copied into the Submariner database. If you choose Delete, the artist will be removed from the database and deleted from the file system. If you choose Remove, the copied files will be preserved."];
                 [alert setAlertStyle:NSAlertStyleWarning];
                 
                 [alert beginSheetModalForWindow: [[self view] window] completionHandler:^(NSModalResponse returnCode) {
@@ -277,8 +277,8 @@
                 NSAlert *alert = [[NSAlert alloc] init];
                 [alert addButtonWithTitle:@"OK"];
                 [alert addButtonWithTitle:@"Cancel"];
-                [alert setMessageText:@"Remove the selected artist ?"];
-                [alert setInformativeText:@"Removed artists cannot be restored."];
+                [alert setMessageText:@"Remove the selected artist?"];
+                [alert setInformativeText:@"This can't be undone."];
                 [alert setAlertStyle:NSAlertStyleWarning];
                 
                 [alert beginSheetModalForWindow: [[self view] window] completionHandler:^(NSModalResponse returnCode) {
@@ -302,8 +302,8 @@
                 [alert addButtonWithTitle:@"Remove"];
                 [alert addButtonWithTitle:@"Cancel"];
                 [alert addButtonWithTitle:@"Delete"];
-                [alert setMessageText:@"Delete the selected album ?"];
-                [alert setInformativeText:@"This album has been copied to Submariner database. If you choose Delete, the artist will be removed from the database and deleted from your file system. If you choose Remove, copied files will be preserved."];
+                [alert setMessageText:@"Delete the selected album?"];
+                [alert setInformativeText:@"This album has been copied into the Submariner database. If you choose Delete, the album will be removed from the database and deleted from the file system. If you choose Remove, the copied files will be preserved."];
                 [alert setAlertStyle:NSAlertStyleWarning];
                 
                 [alert beginSheetModalForWindow: [[self view] window] completionHandler:^(NSModalResponse returnCode) {
@@ -314,8 +314,8 @@
                 NSAlert *alert = [[NSAlert alloc] init];
                 [alert addButtonWithTitle:@"OK"];
                 [alert addButtonWithTitle:@"Cancel"];
-                [alert setMessageText:@"Remove the selected album ?"];
-                [alert setInformativeText:@"Removed album cannot be restored."];
+                [alert setMessageText:@"Remove the selected album?"];
+                [alert setInformativeText:@"This can't be undone."];
                 [alert setAlertStyle:NSAlertStyleWarning];
                 
                 [alert beginSheetModalForWindow: [[self view] window] completionHandler:^(NSModalResponse returnCode) {
@@ -337,8 +337,8 @@
                 [alert addButtonWithTitle:@"Remove"];
                 [alert addButtonWithTitle:@"Cancel"];
                 [alert addButtonWithTitle:@"Delete"];
-                [alert setMessageText:@"Delete the selected track ?"];
-                [alert setInformativeText:@"This track has been copied to Submariner database. If you choose Delete, the track will be removed from the database and deleted from your file system. If you choose Remove, copied files will be preserved."];
+                [alert setMessageText:@"Delete the selected track?"];
+                [alert setInformativeText:@"This track has been copied into the Submariner database. If you choose Delete, the track will be removed from the database and deleted from the file system. If you choose Remove, the copied files will be preserved."];
                 [alert setAlertStyle:NSAlertStyleWarning];
                 
                 [alert beginSheetModalForWindow: [[self view] window] completionHandler:^(NSModalResponse returnCode) {
