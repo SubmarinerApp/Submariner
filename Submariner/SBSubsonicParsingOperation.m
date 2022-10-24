@@ -811,6 +811,9 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [NSApp presentError: parseError];
+    });
 }
 
 
