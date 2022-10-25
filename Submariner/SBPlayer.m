@@ -607,8 +607,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     
     if(remotePlayer)
         [remotePlayer setVolume:volume];
-    
-    NSError *error = nil;
 }
 
 - (void)seekToTime:(NSTimeInterval)time {
