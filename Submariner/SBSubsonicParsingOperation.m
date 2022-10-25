@@ -745,6 +745,8 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
         [self parseElementChannel: attributeDict];
     } else if ([elementName isEqualToString:@"episode"]) { // podcast episodes
         [self parseElementEpisode: attributeDict];
+    } else if ([elementName isEqualToString:@"nowPlaying"]) {
+        // nothing
     } else {
         NSLog(@"An unknown element was encountered parsing, and ignored. <%@ %@>", elementName, attributeDict);
     }
