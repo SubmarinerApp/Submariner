@@ -25,9 +25,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes:
 
-### Version x.x (likely, 2.0)
-
-Note there is still much to be done before a release.
+### Version 2.0
 
 * Now requires macOS 11.x
 * Overhauled UI to fit modern macOS design and UI conventionsa
@@ -35,6 +33,7 @@ Note there is still much to be done before a release.
   * SF Symbols for UI elements
   * Tracklist and now playing view moved to sidebar
   * Expanded menu bar
+  * Onboarding dialog for new users
 * Uses App Sandboxing
 * Uses Keychain to store passwords
 * Stores relative paths in database instead of absolute, for easier portability
