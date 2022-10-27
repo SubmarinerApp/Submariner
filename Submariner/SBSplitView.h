@@ -39,6 +39,5 @@
 @private
     
 }
-- (void)toggleViewAtIndex:(NSInteger)index;
 
 @end
