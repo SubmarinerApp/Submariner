@@ -52,6 +52,7 @@
     IBOutlet NSArrayController  *tracksController;
     IBOutlet NSSplitView        *artistSplitView;
     
+    __weak IBOutlet NSSplitView *rightSplitView;
     SBPrioritySplitViewDelegate *splitViewDelegate;
     SBDatabaseController *databaseController;
     NSArray *artistSortDescriptor;

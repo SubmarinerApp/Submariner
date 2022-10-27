@@ -15,6 +15,7 @@
                 <outlet property="artistSplitView" destination="81" id="164"/>
                 <outlet property="artistsController" destination="128" id="134"/>
                 <outlet property="artistsTableView" destination="183" id="191"/>
+                <outlet property="rightSplitView" destination="93" id="sIc-aB-bUr"/>
                 <outlet property="tracksController" destination="144" id="147"/>
                 <outlet property="tracksTableView" destination="108" id="143"/>
                 <outlet property="view" destination="80" id="126"/>
@@ -105,7 +106,7 @@
                             <rect key="frame" x="176" y="0.0" width="443" height="398"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
-                                <splitView autosaveName="ServerAlbumsLibrarySplitView" dividerStyle="thin" id="93">
+                                <splitView autosaveName="ServerAlbumsLibrarySplitView" dividerStyle="thin" id="93" customClass="SBSplitView">
                                     <rect key="frame" x="0.0" y="0.0" width="443" height="398"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -351,13 +352,13 @@
         </arrayController>
         <arrayController mode="entity" entityName="Album" automaticallyPreparesContent="YES" id="137" userLabel="Albums Controller">
             <connections>
+                <binding destination="-2" name="sortDescriptors" keyPath="albumSortDescriptor" id="Zz7-n3-FvB"/>
                 <binding destination="-2" name="managedObjectContext" keyPath="managedObjectContext" id="138"/>
                 <binding destination="128" name="contentSet" keyPath="selection.albums" id="141">
                     <dictionary key="options">
                         <integer key="NSRaisesForNotApplicableKeys" value="0"/>
                     </dictionary>
                 </binding>
-                <binding destination="-2" name="sortDescriptors" keyPath="albumSortDescriptor" id="Zz7-n3-FvB"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Track" automaticallyPreparesContent="YES" id="144" userLabel="Tracks Controller">
