@@ -271,8 +271,10 @@
                                                object:nil];
 
     // setup main box subviews animation
-    [self setCurrentViewController: musicController];
-    [self.currentViewController.view setFrameSize:[rightVC.view frame].size];
+    SBViewController *tempVC = [[SBViewController alloc] init];
+    tempVC.view = [[NSView alloc] initWithFrame: rightVC.view.frame];
+    [self setCurrentViewController: tempVC];
+    //[self.currentViewController.view setFrameSize:[rightVC.view frame].size];
     
     NSView *contentView = [rightVC view];
     //[contentView setWantsLayer:YES];
