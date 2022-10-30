@@ -80,18 +80,15 @@
         if (self->compensatedSplitView.vertical && self->compensatedSplitView.subviews.count != 2) {
             return;
         }
-        NSLog(@"Hey: %@ frame: %@", self->compensatedSplitView.autosaveName, NSStringFromRect(self.view.frame));
+        // Reset the holding priority, since we still want even resize,
+        // we just need to make the previous size stick.
+        NSLayoutPriority otherPriority = [self->compensatedSplitView holdingPriorityForSubviewAtIndex: 1];
+        [self->compensatedSplitView setHoldingPriority: otherPriority forSubviewAtIndex: 0];
         NSView *topItem = [self->compensatedSplitView.subviews objectAtIndex: 0];
-        NSLog(@"Hey: Top item frame: %@", NSStringFromRect(topItem.frame));
-        NSRect safeFrame = self.view.window.contentView.safeAreaRect;
-        NSRect fullFrame = self.view.window.contentView.frame;
-        CGFloat difference = fullFrame.size.height - safeFrame.size.height;
-        // Resize the top frame to account for bug with safe area insets.
-        // It seems to be readjusted in the wrong way by a consistent amount.
+        // For some reason, we don't need to compensate for the safe area,
+        // we just need to resize it even though it's the same size. Weird.
         CGFloat oldSize = topItem.frame.size.height;
-        CGFloat newSize = oldSize + difference;
-        NSLog(@"Hey: Old %f New %f", oldSize, newSize);
-        //[self->compensatedSplitView setPosition: newSize ofDividerAtIndex: 0];
+        [self->compensatedSplitView setPosition: oldSize ofDividerAtIndex: 0];
     });
 }
 
