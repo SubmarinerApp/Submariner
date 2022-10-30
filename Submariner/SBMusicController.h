@@ -54,6 +54,7 @@
     IBOutlet NSArrayController  *albumsController;
     IBOutlet NSArrayController  *tracksController;
     IBOutlet NSSplitView        *artistSplitView;
+    __weak IBOutlet NSSplitView *rightSplitView;
     
     SBDatabaseController *databaseController;
     SBPrioritySplitViewDelegate *splitViewDelegate;

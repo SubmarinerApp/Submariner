@@ -40,6 +40,9 @@
 @interface SBViewController : NSViewController {
 @protected
     NSManagedObjectContext *managedObjectContext;
+    
+    dispatch_once_t compensatedSplitViewToken;
+    __weak NSSplitView *compensatedSplitView;
 }
 @property (nonatomic, strong, readwrite) NSManagedObjectContext *managedObjectContext;
 

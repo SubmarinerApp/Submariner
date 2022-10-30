@@ -109,9 +109,13 @@
         trackSortDescriptor = @[discNumberDescriptor, trackNumberDescriptor];
         
         splitViewDelegate = [[SBPrioritySplitViewDelegate alloc] init];
-        
     }
     return self;
+}
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self->compensatedSplitView = self->rightSplitView;
 }
 
 - (void)dealloc
@@ -165,22 +169,6 @@
                       forKeyPath:@"selectedObjects"
                       options:NSKeyValueObservingOptionNew
                       context:nil];
-}
-
-- (void)viewDidAppear {
-    [super viewDidAppear];
-    static dispatch_once_t token;
-    dispatch_once(&token, ^{
-        if (self->rightSplitView.vertical && self->rightSplitView.subviews.count != 2) {
-            return;
-        }
-        NSRect safeFrame = self.view.window.contentView.safeAreaRect;
-        NSRect fullFrame = self.view.window.contentView.frame;
-        CGFloat difference = fullFrame.size.height - safeFrame.size.height;
-        // Resize the top frame to account for bug with safe area insets
-        CGFloat newSize = [self->rightSplitView.subviews objectAtIndex: 0].frame.size.height + difference;
-        [self->rightSplitView setPosition: newSize ofDividerAtIndex: 0];
-    });
 }
 
 

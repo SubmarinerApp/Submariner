@@ -67,6 +67,42 @@
 
 
 #pragma mark -
+#pragma mark Workaround for split view and safe area
+
+// If we don't do this, the split view autosaves based on the full frame, not the safe area.
+// When restored, it'll shrink a bit based on the safe area height. So, let's compensate for it.
+- (void)viewDidAppear {
+    [super viewDidAppear];
+    if (self->compensatedSplitView == nil) {
+        return;
+    }
+    dispatch_once(&self->compensatedSplitViewToken, ^{
+        if (self->compensatedSplitView.vertical && self->compensatedSplitView.subviews.count != 2) {
+            return;
+        }
+        NSLog(@"Hey: %@ frame: %@", self->compensatedSplitView.autosaveName, NSStringFromRect(self.view.frame));
+        NSView *topItem = [self->compensatedSplitView.subviews objectAtIndex: 0];
+        NSLog(@"Hey: Top item frame: %@", NSStringFromRect(topItem.frame));
+        NSRect safeFrame = self.view.window.contentView.safeAreaRect;
+        NSRect fullFrame = self.view.window.contentView.frame;
+        CGFloat difference = fullFrame.size.height - safeFrame.size.height;
+        // Resize the top frame to account for bug with safe area insets.
+        // It seems to be readjusted in the wrong way by a consistent amount.
+        CGFloat oldSize = topItem.frame.size.height;
+        CGFloat newSize = oldSize + difference;
+        NSLog(@"Hey: Old %f New %f", oldSize, newSize);
+        //[self->compensatedSplitView setPosition: newSize ofDividerAtIndex: 0];
+    });
+}
+
+- (void)viewDidDisappear {
+    [super viewDidDisappear];
+    NSView *topItem = [self->compensatedSplitView.subviews objectAtIndex: 0];
+    NSLog(@"Hey: Top item frame after death: %@", NSStringFromRect(topItem.frame));
+}
+
+
+#pragma mark -
 #pragma mark Library View Helper Functions
 
 -(void)showTracksInFinder:(NSArray*)trackList selectedIndices:(NSIndexSet*)indexSet

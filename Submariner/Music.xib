@@ -15,6 +15,7 @@
                 <outlet property="artistsController" destination="61" id="74"/>
                 <outlet property="artistsTableView" destination="18" id="75"/>
                 <outlet property="mergeArtistsController" destination="95" id="115"/>
+                <outlet property="rightSplitView" destination="24" id="EvK-wC-BQn"/>
                 <outlet property="tracksController" destination="68" id="87"/>
                 <outlet property="tracksTableView" destination="38" id="86"/>
                 <outlet property="view" destination="1" id="2"/>
@@ -112,7 +113,7 @@
                             <rect key="frame" x="175" y="0.0" width="444" height="398"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
-                                <splitView fixedFrame="YES" autosaveName="" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="24">
+                                <splitView fixedFrame="YES" autosaveName="LocalAlbumsLibrarySplitView" dividerStyle="thin" translatesAutoresizingMaskIntoConstraints="NO" id="24" customClass="SBSplitView">
                                     <rect key="frame" x="0.0" y="0.0" width="444" height="398"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
@@ -342,9 +343,9 @@
         </arrayController>
         <arrayController mode="entity" entityName="Album" automaticallyPreparesContent="YES" id="64" userLabel="Albums Controller">
             <connections>
+                <binding destination="-2" name="sortDescriptors" keyPath="albumSortDescriptor" id="BzU-s2-KnQ"/>
                 <binding destination="-2" name="managedObjectContext" keyPath="managedObjectContext" id="65"/>
                 <binding destination="61" name="contentSet" keyPath="selection.albums" id="66"/>
-                <binding destination="-2" name="sortDescriptors" keyPath="albumSortDescriptor" id="BzU-s2-KnQ"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Track" automaticallyPreparesContent="YES" id="68" userLabel="Tracks Controller">

@@ -93,6 +93,10 @@
     return self;
 }
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self->compensatedSplitView = self->rightSplitView;
+}
 
 - (void)dealloc
 {
