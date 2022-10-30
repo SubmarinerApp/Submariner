@@ -104,6 +104,11 @@
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"coverSize"];
 }
 
+- (void)viewDidAppear {
+    // XXX: see -[SBMusicController viewDidAppear]
+    [albumsBrowserView setZoomValue:[[NSUserDefaults standardUserDefaults] floatForKey:@"coverSize"]];
+}
+
 
 - (void)loadView {
     [super loadView];

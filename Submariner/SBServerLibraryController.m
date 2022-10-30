@@ -118,6 +118,11 @@
     self->compensatedSplitView = self->rightSplitView;
 }
 
+- (void)viewDidAppear {
+    // XXX: see -[SBMusicController viewDidAppear]
+    [albumsBrowserView setZoomValue:[[NSUserDefaults standardUserDefaults] floatForKey:@"coverSize"]];
+}
+
 - (void)dealloc
 {
     // remove subsonic observers
