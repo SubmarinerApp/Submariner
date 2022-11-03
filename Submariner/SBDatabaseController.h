@@ -72,7 +72,6 @@
     IBOutlet NSTreeController *resourcesController;
     IBOutlet SBEditServerController *editServerController;
     SBAddServerPlaylistController *addServerPlaylistController;
-    IBOutlet SBViewController *currentViewController;
     IBOutlet NSProgressIndicator *progressIndicator;
     IBOutlet NSButton *toggleButton;
     IBOutlet NSTextField *durationTextField;
@@ -118,7 +117,6 @@
 }
 
 @property (readwrite, strong) NSArray *resourceSortDescriptors;
-@property (readwrite, strong) IBOutlet SBViewController *currentViewController;
 @property (readwrite, strong) IBOutlet SBAddServerPlaylistController *addServerPlaylistController;
 @property (readwrite, strong) SBLibrary *library;
 // XXX: Make as part of SBServerController?

@@ -260,6 +260,17 @@ CA
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Go" id="wz4-X7-wEp">
                         <items>
+                            <menuItem title="Back" keyEquivalent="[" id="XYS-Z8-zMI">
+                                <connections>
+                                    <action selector="navigateBack:" target="-1" id="sxb-23-sna"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Forward" keyEquivalent="]" id="tWM-R6-xbK">
+                                <connections>
+                                    <action selector="navigateForward:" target="-1" id="yXA-kx-JXh"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="HtV-Rh-dJa"/>
                             <menuItem title="By Artists" keyEquivalent="1" id="55g-AS-KKB">
                                 <connections>
                                     <action selector="showIndices:" target="494" id="uZu-1b-wpM"/>

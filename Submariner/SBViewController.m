@@ -92,11 +92,6 @@
     });
 }
 
-- (void)viewDidDisappear {
-    [super viewDidDisappear];
-    NSView *topItem = [self->compensatedSplitView.subviews objectAtIndex: 0];
-}
-
 
 #pragma mark -
 #pragma mark Library View Helper Functions

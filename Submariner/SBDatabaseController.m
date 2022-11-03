@@ -112,7 +112,6 @@
 
 @synthesize resourceSortDescriptors;
 @synthesize addServerPlaylistController;
-@synthesize currentViewController;
 @synthesize library;
 @synthesize server;
 
@@ -271,22 +270,9 @@
                                                object:nil];
 
     // setup main box subviews animation
-    SBViewController *tempVC = [[SBViewController alloc] init];
-    tempVC.view = [[NSView alloc] initWithFrame: rightVC.view.frame];
-    [self setCurrentViewController: tempVC];
-    //[self.currentViewController.view setFrameSize:[rightVC.view frame].size];
-    
-    NSView *contentView = [rightVC view];
-    //[contentView setWantsLayer:YES];
-    [contentView addSubview: [self currentViewController].view];
-    
-    transition = [CATransition animation];
-    [transition setType:kCATransitionFade];
-    [transition setDuration:0.05f];
-    
-    NSDictionary *ani = [NSDictionary dictionaryWithObject:transition
-                                                    forKey:@"subviews"];
-    [contentView setAnimations:ani];
+    // XXX: Creates a null first item
+    SBNavigationItem *navItem = [[SBNavigationItem alloc] init];
+    [rightVC navigateForwardToObject: navItem];
     
     id lastViewed = nil;
     NSString *lastViewedURLString = [[NSUserDefaults standardUserDefaults] objectForKey: @"LastViewedResource"];
@@ -305,7 +291,8 @@
         // XXX: should make switchToResource not handle SBMusicItem
         [self switchToResource: (SBResource*)lastViewed];
     } else {
-        [self setCurrentViewController: musicController];
+        SBNavigationItem *navItem = [[SBLocalMusicNavigationItem alloc] init];
+        [rightVC navigateForwardToObject: navItem];
     }
     
     [resourcesController addObserver:self
@@ -411,8 +398,8 @@
 			[self.managedObjectContext save:nil];
         }
     } else if (object == self.window.contentView && [keyPath isEqualToString: @"safeAreaInsets"]) { // this should be ok main thread wise
-        NSRect targetRect = currentViewController == serverHomeController ? rightVC.view.safeAreaRect : rightVC.view.frame;
-        [currentViewController.view setFrameSize: targetRect.size];
+        NSRect targetRect = rightVC.selectedViewController == serverHomeController ? rightVC.view.safeAreaRect : rightVC.view.frame;
+        [rightVC.selectedViewController.view setFrameSize: targetRect.size];
     }
 }
 
@@ -874,7 +861,8 @@
        // XXX: Should this set self.server so everything matches it?
        [serverLibraryController setServer: track.server];
        // as we could be on albums/podcasts
-       [self setCurrentViewController: serverLibraryController];
+       SBNavigationItem *navItem = [[SBServerLibraryNavigationItem alloc] initWithServer: track.server];
+       [rightVC navigateForwardToObject: navItem];
        [serverLibraryController showTrackInLibrary: track];
    }
 }
@@ -1155,39 +1143,29 @@
     // XXX: Reload anything that's current? i.e. now playing?
 }
 
+- (void) updateSourceListSelection: (SBResource*)resource {
+    SBResource *sidebarResource = resource;
+    if ([sidebarResource isKindOfClass:[SBArtist class]] || [sidebarResource isKindOfClass:[SBAlbum class]]) {
+        sidebarResource = (SBLibrary *)[self.managedObjectContext fetchEntityNammed:@"Library" withPredicate:nil error:nil];
+    }
+    NSIndexPath *newPath = [resourcesController indexPathForObject: resource];
+    if (newPath != nil) {
+        [resourcesController setSelectionIndexPath: newPath];
+    }
+}
+
 - (void)switchToResource:(SBResource*)resource updateSidebar:(BOOL)updateSidebar {
     if(resource && [resource isKindOfClass:[SBServer class]]) {
         SBServer *server = (SBServer *)resource;
         [server connect];
     }
     // Must be after the connection.
-    if(resource) {
+    if (resource) {
         [self displayViewControllerForResource:resource];
     }
-    
-    if([resource isKindOfClass:[SBPlaylist class]]) {
-        SBPlaylist *playlist = (SBPlaylist *)resource;
-        
-        if(playlist.server != nil) { // is remote playlist
-            // clear playlist
-            [playlistController clearPlaylist];
-            
-            // update playlist
-            [playlist.server getPlaylistTracks:playlist];
-        }
-        
-    }
-    
     // For cases where we get a resource change that didn't come from the source list
     if (updateSidebar) {
-        SBResource *sidebarResource = resource;
-        if ([sidebarResource isKindOfClass:[SBArtist class]] || [sidebarResource isKindOfClass:[SBAlbum class]]) {
-            sidebarResource = (SBLibrary *)[self.managedObjectContext fetchEntityNammed:@"Library" withPredicate:nil error:nil];
-        }
-        NSIndexPath *newPath = [resourcesController indexPathForObject: resource];
-        if (newPath != nil) {
-            [resourcesController setSelectionIndexPath: newPath];
-        }
+        [self updateSourceListSelection: resource];
     }
 }
 
@@ -1252,20 +1230,6 @@
     if (navItem) {
         [rightVC navigateForwardToObject: navItem];
     }
-}
-
-- (SBViewController*)currentViewController {
-    return currentViewController;
-}
-
-- (void)setCurrentViewController:(SBViewController *)newViewController {
-    if (!currentViewController) {
-        currentViewController = newViewController;
-        return;
-    }
-    NSView *contentView = [rightVC view];
-    [[contentView animator] replaceSubview:currentViewController.view with:newViewController.view];
-    [self updateTitle];
 }
 
 
@@ -1358,7 +1322,7 @@
         [self.window setSubtitle:trackInfos];
         [coverImageView setImage:coverImage];
     } else {
-        [self.window setTitle: currentViewController.title ?: @""];
+        [self.window setTitle: rightVC.selectedViewController.title ?: @""];
         [self.window setSubtitle: @""];
         [coverImageView setImage:[NSImage imageNamed:@"NoArtwork"]];
         [playPauseButton setState:NSControlStateValueOn];
@@ -1737,6 +1701,17 @@
 #pragma mark -
 #pragma mark NSPageController Delegate
 
+/// Called after a page transition.
+- (void) resetViewAfterTransition {
+    // Title
+    [self updateTitle];
+    // HACK: The scope bar will be under the title bar without using the safe area.
+    // However, using the full rect allows other views to adapt and put vibrance of scrolled over content under title bar.
+    // Thus, use the one that's appropriate for each..
+    NSRect targetRect = rightVC.selectedViewController == serverHomeController ? rightVC.view.safeAreaRect : rightVC.view.frame;
+    [rightVC.selectedViewController.view setFrameSize: targetRect.size];
+}
+
 
 // All view changes like query, server, etc. now occur here, so navigation works properly.
 - (void)pageController:(NSPageController *)pageController didTransitionToObject:(id)object {
@@ -1772,18 +1747,15 @@
         [searchToolbarItem setEnabled: NO];
         [searchField setPlaceholderString: @""];
     }
-    // Title
-    [self updateTitle];
-    // HACK: The scope bar will be under the title bar without using the safe area.
-    // However, using the full rect allows other views to adapt and put vibrance of scrolled over content under title bar.
-    // Thus, use the one that's appropriate for each..
-    NSRect targetRect = rightVC.selectedViewController == serverHomeController ? rightVC.view.safeAreaRect : rightVC.view.frame;
-    [rightVC.selectedViewController.view setFrameSize: targetRect.size];
+    
+    [self resetViewAfterTransition];
 }
 
 
 - (void)pageControllerDidEndLiveTransition:(NSPageController *)pageController {
     [rightVC completeTransition];
+    // Still looks awkward, VC only changes here
+    [self resetViewAfterTransition];
 }
 
 // ~~~~
@@ -1795,16 +1767,24 @@
 
 
 - (NSViewController *)pageController:(NSPageController *)pageController viewControllerForIdentifier:(NSString *)identifier {
-    NSDictionary *mapping = @{
-        @"Music": musicController,
-        @"Downloads": downloadsController,
-        @"ServerLibrary": serverLibraryController,
-        @"ServerHome": serverHomeController,
-        @"ServerPodcasts": serverPodcastController,
-        @"ServerSearch": serverSearchController,
-        @"Search": musicSearchController,
-        @"Playlist": playlistController
-    };
+    static SBViewController *tempVC = nil;
+    static NSDictionary *mapping = nil;
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+        tempVC = [[SBViewController alloc] init];
+        tempVC.view = [[NSView alloc] initWithFrame: rightVC.view.frame];
+        mapping = @{
+            @"Music": musicController,
+            @"Downloads": downloadsController,
+            @"ServerLibrary": serverLibraryController,
+            @"ServerHome": serverHomeController,
+            @"ServerPodcasts": serverPodcastController,
+            @"ServerSearch": serverSearchController,
+            @"Search": musicSearchController,
+            @"Playlist": playlistController,
+            @"": tempVC,
+        };
+    });
     return mapping[identifier];
 }
 
