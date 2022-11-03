@@ -136,6 +136,12 @@
                             <customView fixedFrame="YES" id="9">
                                 <rect key="frame" x="219" y="0.0" width="805" height="600"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ypw-ak-9Is" userLabel="Holding VIew">
+                                        <rect key="frame" x="0.0" y="0.0" width="805" height="600"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </customView>
+                                </subviews>
                             </customView>
                         </subviews>
                         <holdingPriorities>
@@ -392,7 +398,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="344"/>
             </connections>
-            <point key="canvasLocation" x="198.5" y="47.5"/>
+            <point key="canvasLocation" x="198" y="47"/>
         </window>
         <window title="Edit Server Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" frameAutosaveName="Edit Server Window" animationBehavior="default" id="113" userLabel="Edit Server Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
@@ -729,7 +735,7 @@ DQ
         <pagecontroller id="R2x-TI-GGT" userLabel="Main Content View Controller">
             <connections>
                 <outlet property="delegate" destination="-2" id="Qhc-PP-eV9"/>
-                <outlet property="view" destination="9" id="6db-nl-fhp"/>
+                <outlet property="view" destination="Ypw-ak-9Is" id="gUD-Wv-XW8"/>
             </connections>
         </pagecontroller>
         <viewController id="kgz-hh-1FR" userLabel="Left Sidebar View Controller">

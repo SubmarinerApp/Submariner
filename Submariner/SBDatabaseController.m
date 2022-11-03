@@ -271,7 +271,7 @@
 
     // setup main box subviews animation
     // XXX: Creates a null first item
-    SBNavigationItem *navItem = [[SBNavigationItem alloc] init];
+    SBNavigationItem *navItem = [[SBLocalMusicNavigationItem alloc] init];
     [rightVC navigateForwardToObject: navItem];
     
     id lastViewed = nil;
