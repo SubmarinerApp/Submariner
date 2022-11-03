@@ -119,6 +119,7 @@
 }
 
 - (void)viewDidAppear {
+    [super viewDidAppear];
     // XXX: see -[SBMusicController viewDidAppear]
     [albumsBrowserView setZoomValue:[[NSUserDefaults standardUserDefaults] floatForKey:@"coverSize"]];
 }

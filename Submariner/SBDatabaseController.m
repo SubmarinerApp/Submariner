@@ -1747,6 +1747,7 @@
 
 - (void)pageController:(NSPageController *)pageController prepareViewController:(NSViewController *)viewController withObject:(id)object {
     // Unknown what we'd do with this guy, since we finalize changes after transition
+    [viewController viewDidAppear];
 }
 
 

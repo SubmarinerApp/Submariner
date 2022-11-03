@@ -99,6 +99,7 @@
 }
 
 - (void)viewDidAppear {
+    [super viewDidAppear];
     // XXX: It's not accounting for the safe area on initial appearance.
     // It *will* correct itself when redisplayed (i.e. view controller switch).
     [albumsBrowserView setZoomValue:[[NSUserDefaults standardUserDefaults] floatForKey:@"coverSize"]];
