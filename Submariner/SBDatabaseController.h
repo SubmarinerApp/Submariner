@@ -60,7 +60,7 @@
 #define SBLibraryTableViewDataType @"SBLibraryTableViewDataType"
 
 
-@interface SBDatabaseController : SBWindowController <NSWindowDelegate, SBSourceListDelegate, SBSourceListDataSource> {
+@interface SBDatabaseController : SBWindowController <NSWindowDelegate, SBSourceListDelegate, SBSourceListDataSource, NSPageControllerDelegate> {
 @private
     IBOutlet NSView *titleView;
     IBOutlet NSView *hostView;
@@ -82,7 +82,7 @@
     IBOutlet NSButton *playPauseButton;
     
     IBOutlet NSViewController *leftVC;
-    IBOutlet NSViewController *rightVC;
+    IBOutlet NSPageController *rightVC;
     NSSplitViewController *splitVC;
     NSSplitViewItem *tracklistSplit;
     

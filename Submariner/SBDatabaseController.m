@@ -795,7 +795,8 @@
         return;
     }
     [self.server setSelectedTabIndex: 0];
-    [self setCurrentViewController: serverLibraryController];
+    SBNavigationItem *navItem = [[SBServerLibraryNavigationItem alloc] initWithServer: self.server];
+    [rightVC navigateForwardToObject: navItem];
 }
 
 - (IBAction)showAlbums:(id)sender {
@@ -803,7 +804,8 @@
         return;
     }
     [self.server setSelectedTabIndex: 1];
-    [self setCurrentViewController: serverHomeController];
+    SBNavigationItem *navItem = [[SBServerHomeNavigationItem alloc] initWithServer: self.server];
+    [rightVC navigateForwardToObject: navItem];
 }
 
 - (IBAction)showPodcasts:(id)sender {
@@ -811,7 +813,8 @@
         return;
     }
     [self.server setSelectedTabIndex: 2];
-    [self setCurrentViewController: serverPodcastController];
+    SBNavigationItem *navItem = [[SBServerHomeNavigationItem alloc] initWithServer: self.server];
+    [rightVC navigateForwardToObject: navItem];
 }
 
 
@@ -839,35 +842,17 @@
     
     
     if(query && [query length] > 0) {
+        SBNavigationItem *navItem = nil;
         if (self.server) {
-            // Remote
-            [self setCurrentViewController: serverSearchController];
-            [self.server searchWithQuery:query];
+            navItem = [[SBServerSearchNavigationItem alloc] initWithServer: self.server query: query];
         } else {
-            // Local
-            [self setCurrentViewController: musicSearchController];
-            [musicSearchController searchString:query];
+            navItem = [[SBLocalSearchNavigationItem alloc] initWithQuery: query];
         }
+        [rightVC navigateForwardToObject: navItem];
     } else {
         [searchToolbarItem endSearchInteraction];
-        // reset view for local/remote
-        if (self.server) {
-            switch ([self.server selectedTabIndex]) {
-                case 0:
-                default:
-                    [self setCurrentViewController: serverLibraryController];
-                    break;
-                case 1:
-                    [self setCurrentViewController: serverHomeController];
-                    break;
-                case 2:
-                    [self setCurrentViewController: serverPodcastController];
-                    break;
-                // 3 was search and 4 was server users
-            }
-        } else {
-            [self setCurrentViewController: musicController];
-        }
+        // XXX: Until we hit a non-search item
+        [rightVC navigateBack: sender];
     }
 }
 
@@ -1068,7 +1053,7 @@
         // Let the notification handle it for us, for now
         return;
     }
-    [self.window setTitle: currentViewController.title ?: @""];
+    [self.window setTitle: rightVC.selectedViewController.title ?: @""];
     [self.window setSubtitle: @""];
 }
 
@@ -1218,53 +1203,28 @@
     NSString *urlString = resource.objectID.URIRepresentation.absoluteString;
     [[NSUserDefaults standardUserDefaults] setObject: urlString forKey: @"LastViewedResource"];
     // swith view relative to a selected resource
+    SBNavigationItem *navItem = nil;
     if([resource isKindOfClass:[SBLibrary class]]) {
-        
-        [self setServer: nil];
-        [self setCurrentViewController: musicController];
-        [searchToolbarItem setEnabled: YES];
-        [searchField setPlaceholderString: @"Local Search"];
-        
+        navItem = [[SBLocalMusicNavigationItem alloc] init];
     }  else if([resource isKindOfClass:[SBDownloads class]]) {
-        
-        [self setServer: nil];
-        [self setCurrentViewController: downloadsController];
-        [searchToolbarItem setEnabled: NO];
-        [searchField setPlaceholderString: @""];
-        
-    } else if([resource isKindOfClass:[SBTracklist class]]) {
-        
-        [self setServer: nil];
-        [self setCurrentViewController: tracklistController];
-        [searchToolbarItem setEnabled: NO];
-        [searchField setPlaceholderString: @""];
-        
+        navItem = [[SBDownloadsNavigationItem alloc] init];
     } else if([resource isKindOfClass:[SBPlaylist class]]) {
-        
-        [self setServer: nil];
-        [playlistController setPlaylist:(SBPlaylist *)resource];
-        [self setCurrentViewController: playlistController];
-        [searchToolbarItem setEnabled: NO];
-        [searchField setPlaceholderString: @""];
-         
+        navItem = [[SBPlaylistNavigationItem alloc] initWithPlaylist: (SBPlaylist*)resource];
     } else if([resource isKindOfClass:[SBServer class]]) {
         SBServer *server = (SBServer*)resource;
-        [self setServer: server]; // set to nil afterwards?
         switch ([server selectedTabIndex]) {
             case 0:
             default:
-                [self setCurrentViewController: serverLibraryController];
+                navItem = [[SBServerLibraryNavigationItem alloc] initWithServer: server];
                 break;
             case 1:
-                [self setCurrentViewController: serverHomeController];
+                navItem = [[SBServerHomeNavigationItem alloc] initWithServer: server];
                 break;
             case 2:
-                [self setCurrentViewController: serverPodcastController];
+                navItem = [[SBServerPodcastsNavigationItem alloc] initWithServer: server];
                 break;
             // 3 was search and 4 was server users
         }
-        [searchToolbarItem setEnabled: YES];
-        [searchField setPlaceholderString: @"Server Search"];
     } else if([resource isKindOfClass:[SBAlbum class]]) {
         SBAlbum *album = (SBAlbum*)resource;
         // take advantage of existing logic
@@ -1288,6 +1248,10 @@
             [musicController showArtistInLibrary: artist];
         }
     }
+    
+    if (navItem) {
+        [rightVC navigateForwardToObject: navItem];
+    }
 }
 
 - (SBViewController*)currentViewController {
@@ -1301,12 +1265,6 @@
     }
     NSView *contentView = [rightVC view];
     [[contentView animator] replaceSubview:currentViewController.view with:newViewController.view];
-    // HACK: The scope bar will be under the title bar without using the safe area.
-    // However, using the full rect allows other views to adapt and put vibrance of scrolled over content under title bar.
-    // Thus, use the one that's appropriate for each..
-    NSRect targetRect = newViewController == serverHomeController ? rightVC.view.safeAreaRect : rightVC.view.frame;
-    [newViewController.view setFrameSize: targetRect.size];
-    currentViewController = newViewController;
     [self updateTitle];
 }
 
@@ -1775,6 +1733,80 @@
 }
 
 
+
+#pragma mark -
+#pragma mark NSPageController Delegate
+
+
+// All view changes like query, server, etc. now occur here, so navigation works properly.
+- (void)pageController:(NSPageController *)pageController didTransitionToObject:(id)object {
+    SBNavigationItem *navItem = (SBNavigationItem*)object;
+    // Server
+    if ([navItem isKindOfClass: SBServerNavigationItem.class]) {
+        SBServerNavigationItem *serverNavItem = (SBServerNavigationItem*)navItem;
+        self.server = serverNavItem.server;
+    } else {
+        self.server = nil;
+    }
+    // Playlist
+    if ([navItem isKindOfClass: SBPlaylistNavigationItem.class]) {
+        SBPlaylistNavigationItem *playlistNavItem = (SBPlaylistNavigationItem*)navItem;
+        SBPlaylist *playlist = playlistNavItem.playlist;
+        [playlistController setPlaylist: playlist];
+        if (playlist.server != nil) { // is remote playlist
+            // clear playlist
+            [playlistController clearPlaylist];
+            
+            // update playlist
+            [playlist.server getPlaylistTracks:playlist];
+        }
+    }
+    // Search bar
+    if ([navItem isKindOfClass: SBLocalMusicNavigationItem.class]) {
+        [searchToolbarItem setEnabled: YES];
+        [searchField setPlaceholderString: @"Local Search"];
+    } else if ([navItem isKindOfClass: SBServerNavigationItem.class]) {
+        [searchToolbarItem setEnabled: YES];
+        [searchField setPlaceholderString: @"Server Search"];
+    } else {
+        [searchToolbarItem setEnabled: NO];
+        [searchField setPlaceholderString: @""];
+    }
+    // Title
+    [self updateTitle];
+    // HACK: The scope bar will be under the title bar without using the safe area.
+    // However, using the full rect allows other views to adapt and put vibrance of scrolled over content under title bar.
+    // Thus, use the one that's appropriate for each..
+    NSRect targetRect = rightVC.selectedViewController == serverHomeController ? rightVC.view.safeAreaRect : rightVC.view.frame;
+    [rightVC.selectedViewController.view setFrameSize: targetRect.size];
+}
+
+
+- (void)pageControllerDidEndLiveTransition:(NSPageController *)pageController {
+    [rightVC completeTransition];
+}
+
+// ~~~~
+
+- (NSString *)pageController:(NSPageController *)pageController identifierForObject:(id)object {
+    SBNavigationItem *navItem = (SBNavigationItem*)object;
+    return navItem.identifier;
+}
+
+
+- (NSViewController *)pageController:(NSPageController *)pageController viewControllerForIdentifier:(NSString *)identifier {
+    NSDictionary *mapping = @{
+        @"Music": musicController,
+        @"Downloads": downloadsController,
+        @"ServerLibrary": serverLibraryController,
+        @"ServerHome": serverHomeController,
+        @"ServerPodcasts": serverPodcastController,
+        @"ServerSearch": serverSearchController,
+        @"Search": musicSearchController,
+        @"Playlist": playlistController
+    };
+    return mapping[identifier];
+}
 
 #pragma mark -
 #pragma mark UI Validator

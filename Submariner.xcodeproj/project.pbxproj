@@ -18,6 +18,7 @@
 		3E53DBBC27E41B6400DB4C84 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */; };
 		3E69A2FF28B02D86009800D8 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E69A2FD28B02D86009800D8 /* UserNotifications.framework */; };
 		3E82701827E653F0007E5695 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E82701727E653F0007E5695 /* MediaPlayer.framework */; };
+		3E94E5F62912EEC40080FDF6 /* SBNavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E5F52912EEC40080FDF6 /* SBNavigationItem.swift */; };
 		3ECF63FA280362BA004F9176 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ECF63F9280362BA004F9176 /* Assets.xcassets */; };
 		3ED5BF1A2830634C000AAB70 /* SBVolumeIconTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5BF192830634C000AAB70 /* SBVolumeIconTransformer.m */; };
 		3ED5BF1D283197AE000AAB70 /* SBRepeatIconTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5BF1C283197AE000AAB70 /* SBRepeatIconTransformer.m */; };
@@ -167,6 +168,7 @@
 		3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		3E69A2FD28B02D86009800D8 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		3E82701727E653F0007E5695 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		3E94E5F52912EEC40080FDF6 /* SBNavigationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBNavigationItem.swift; sourceTree = "<group>"; };
 		3EA06A4E28B2C04B0091A75F /* Submariner v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Submariner v2.xcdatamodel"; sourceTree = "<group>"; };
 		3EA06A5028B9AD220091A75F /* Submariner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Submariner.entitlements; sourceTree = "<group>"; };
 		3ECF63F9280362BA004F9176 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -574,6 +576,7 @@
 				4C87EE12139CE4380064DE2E /* Abstract */,
 				4C87EE11139CE4370064DE2E /* Concrete */,
 				3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */,
+				3E94E5F52912EEC40080FDF6 /* SBNavigationItem.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -947,6 +950,7 @@
 				4C87EE31139CE44C0064DE2E /* _SBIndex.m in Sources */,
 				3E2F86D128E3EA9A00C5CE23 /* NSString+File.m in Sources */,
 				3ED5BF5E283BEF4F000AAB70 /* SBRepeatModeTransformer.m in Sources */,
+				3E94E5F62912EEC40080FDF6 /* SBNavigationItem.swift in Sources */,
 				4C87EE32139CE44C0064DE2E /* _SBLibrary.m in Sources */,
 				4C87EE33139CE44C0064DE2E /* _SBMusicItem.m in Sources */,
 				3EFA2C8428D11B9900A1CE46 /* SBTrackArtistNameTransformer.m in Sources */,

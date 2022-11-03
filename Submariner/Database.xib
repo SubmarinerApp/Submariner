@@ -21,7 +21,7 @@
                 <outlet property="progressSlider" destination="268" id="281"/>
                 <outlet property="progressTextField" destination="270" id="287"/>
                 <outlet property="resourcesController" destination="92" id="108"/>
-                <outlet property="rightVC" destination="yws-aa-txV" id="ZRO-sn-Exi"/>
+                <outlet property="rightVC" destination="R2x-TI-GGT" id="emx-IX-8TQ"/>
                 <outlet property="searchField" destination="6O8-Ia-yxP" id="sOH-p9-fjy"/>
                 <outlet property="searchToolbarItem" destination="9F1-5u-YOh" id="dBM-nT-lOR"/>
                 <outlet property="sourceList" destination="15" id="96"/>
@@ -726,14 +726,15 @@ DQ
             </subviews>
             <point key="canvasLocation" x="742" y="201.5"/>
         </customView>
+        <pagecontroller id="R2x-TI-GGT" userLabel="Main Content View Controller">
+            <connections>
+                <outlet property="delegate" destination="-2" id="Qhc-PP-eV9"/>
+                <outlet property="view" destination="9" id="6db-nl-fhp"/>
+            </connections>
+        </pagecontroller>
         <viewController id="kgz-hh-1FR" userLabel="Left Sidebar View Controller">
             <connections>
                 <outlet property="view" destination="8" id="PLV-j2-QRw"/>
-            </connections>
-        </viewController>
-        <viewController id="yws-aa-txV" userLabel="Main Content View Controller">
-            <connections>
-                <outlet property="view" destination="9" id="RSo-UR-GCC"/>
             </connections>
         </viewController>
         <viewController id="UU0-Po-5l1" userLabel="Tracklist Sidebar View Controller">
