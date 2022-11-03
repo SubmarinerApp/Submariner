@@ -95,7 +95,6 @@
 - (void)viewDidDisappear {
     [super viewDidDisappear];
     NSView *topItem = [self->compensatedSplitView.subviews objectAtIndex: 0];
-    NSLog(@"Hey: Top item frame after death: %@", NSStringFromRect(topItem.frame));
 }
 
 
