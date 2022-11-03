@@ -71,6 +71,8 @@
 @property (readwrite, strong) NSArray *trackSortDescriptor;
 
 
+- (SBMusicItem*) selectedItem;
+
 - (IBAction)filterArtist:(id)sender;
 - (IBAction)trackDoubleClick:(id)sender;
 - (IBAction)playSelected:(id)sender;

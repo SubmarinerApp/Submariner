@@ -213,7 +213,22 @@
 }
 
 
-
+/// Gets the selected track, album, or artist, in that order. Used mostly for saving state.
+- (SBMusicItem*) selectedItem {
+    NSInteger selectedTracks = [tracksTableView selectedRow];
+    if (selectedTracks != -1) {
+        return [tracksController.arrangedObjects objectAtIndex: selectedTracks];
+    }
+    NSIndexSet *selectedAlbums = [albumsBrowserView selectionIndexes];
+    if ([selectedAlbums count] > 0) {
+        return [albumsController.arrangedObjects objectAtIndex: [selectedAlbums firstIndex]];
+    }
+    NSInteger selectedArtists = [artistsTableView selectedRow];
+    if (selectedArtists != -1) {
+        return [artistsController.arrangedObjects objectAtIndex: selectedArtists];
+    }
+    return nil;
+}
 
 
 #pragma mark - 

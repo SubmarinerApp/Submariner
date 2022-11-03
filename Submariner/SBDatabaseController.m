@@ -272,7 +272,7 @@
     // setup main box subviews animation
     // XXX: Creates a null first item
     SBNavigationItem *navItem = [[SBLocalMusicNavigationItem alloc] init];
-    [rightVC navigateForwardToObject: navItem];
+    [self navigateForwardToNavItem: navItem];
     
     id lastViewed = nil;
     NSString *lastViewedURLString = [[NSUserDefaults standardUserDefaults] objectForKey: @"LastViewedResource"];
@@ -292,7 +292,7 @@
         [self switchToResource: (SBResource*)lastViewed];
     } else {
         SBNavigationItem *navItem = [[SBLocalMusicNavigationItem alloc] init];
-        [rightVC navigateForwardToObject: navItem];
+        [self navigateForwardToNavItem: navItem];
     }
     
     [resourcesController addObserver:self
@@ -783,7 +783,7 @@
     }
     [self.server setSelectedTabIndex: 0];
     SBNavigationItem *navItem = [[SBServerLibraryNavigationItem alloc] initWithServer: self.server];
-    [rightVC navigateForwardToObject: navItem];
+    [self navigateForwardToNavItem: navItem];
 }
 
 - (IBAction)showAlbums:(id)sender {
@@ -792,7 +792,7 @@
     }
     [self.server setSelectedTabIndex: 1];
     SBNavigationItem *navItem = [[SBServerHomeNavigationItem alloc] initWithServer: self.server];
-    [rightVC navigateForwardToObject: navItem];
+    [self navigateForwardToNavItem: navItem];
 }
 
 - (IBAction)showPodcasts:(id)sender {
@@ -801,7 +801,7 @@
     }
     [self.server setSelectedTabIndex: 2];
     SBNavigationItem *navItem = [[SBServerHomeNavigationItem alloc] initWithServer: self.server];
-    [rightVC navigateForwardToObject: navItem];
+    [self navigateForwardToNavItem: navItem];
 }
 
 
@@ -835,7 +835,7 @@
         } else {
             navItem = [[SBLocalSearchNavigationItem alloc] initWithQuery: query];
         }
-        [rightVC navigateForwardToObject: navItem];
+        [self navigateForwardToNavItem: navItem];
     } else {
         [searchToolbarItem endSearchInteraction];
         // XXX: Until we hit a non-search item
@@ -853,17 +853,17 @@
    if (track == nil) {
        return;
    } else if (track.isLocalValue == YES) {
-       SBLibrary *library = (SBLibrary *)[self.managedObjectContext fetchEntityNammed:@"Library" withPredicate:nil error:nil];
-       [self switchToResource: library];
-       [musicController showTrackInLibrary: track];
+       SBLocalMusicNavigationItem *navItem = [[SBLocalMusicNavigationItem alloc] init];
+       navItem.selectedMusicItem = track;
+       [self navigateForwardToNavItem: navItem];
    } else {
        [self switchToResource: track.server];
        // XXX: Should this set self.server so everything matches it?
        [serverLibraryController setServer: track.server];
        // as we could be on albums/podcasts
-       SBNavigationItem *navItem = [[SBServerLibraryNavigationItem alloc] initWithServer: track.server];
-       [rightVC navigateForwardToObject: navItem];
-       [serverLibraryController showTrackInLibrary: track];
+       SBServerLibraryNavigationItem *navItem = [[SBServerLibraryNavigationItem alloc] initWithServer: track.server];
+       navItem.selectedMusicItem = track;
+       [self navigateForwardToNavItem: navItem];
    }
 }
 
@@ -1228,7 +1228,7 @@
     }
     
     if (navItem) {
-        [rightVC navigateForwardToObject: navItem];
+        [self navigateForwardToNavItem: navItem];
     }
 }
 
@@ -1713,6 +1713,43 @@
 }
 
 
+- (void)saveNavItemState {
+    if ([rightVC selectedIndex] == -1 || [rightVC.arrangedObjects count] == 0) {
+        return;
+    }
+    SBNavigationItem *navItem = [rightVC.arrangedObjects objectAtIndex: [rightVC selectedIndex]];
+    if ([navItem isKindOfClass: SBLocalMusicNavigationItem.class]) {
+        SBLocalMusicNavigationItem *musicNavItem = (SBLocalMusicNavigationItem*)navItem;
+        musicNavItem.selectedMusicItem = [musicController selectedItem];
+    } else if ([navItem isKindOfClass: SBServerLibraryNavigationItem.class]) {
+        SBServerLibraryNavigationItem *musicNavItem = (SBServerLibraryNavigationItem*)navItem;
+        musicNavItem.selectedMusicItem = [serverLibraryController selectedItem];
+    }
+}
+
+
+- (void)navigateForwardToNavItem: (SBNavigationItem*)navItem {
+    // We have to bottleneck the the navigation, so it'll properly save state.
+    // Back/forward gets handled in beginning live transition.
+    [self saveNavItemState];
+    [rightVC navigateForwardToObject: navItem];
+}
+
+
+- (NSRect)pageController:(NSPageController *)pageController frameForObject:(id)object {
+    // Otherwise, the albums view will look weird in a transition.
+    if ([object isKindOfClass: SBServerHomeNavigationItem.class]) {
+        return rightVC.view.safeAreaRect;
+    }
+    return rightVC.view.frame;
+}
+
+
+- (void)pageController:(NSPageController *)pageController prepareViewController:(NSViewController *)viewController withObject:(id)object {
+    // Unknown what we'd do with this guy, since we finalize changes after transition
+}
+
+
 // All view changes like query, server, etc. now occur here, so navigation works properly.
 - (void)pageController:(NSPageController *)pageController didTransitionToObject:(id)object {
     SBNavigationItem *navItem = (SBNavigationItem*)object;
@@ -1736,6 +1773,27 @@
             [playlist.server getPlaylistTracks:playlist];
         }
     }
+    // Selected item
+    // XXX: Kinda messed up by the fact the controllers and nav item don't have a common ancestor for music item
+    if ([navItem isKindOfClass: SBLocalMusicNavigationItem.class]) {
+        SBLocalMusicNavigationItem *musicNavItem = (SBLocalMusicNavigationItem*)navItem;
+        if ([musicNavItem.selectedMusicItem isKindOfClass: SBTrack.class]) {
+            [musicController showTrackInLibrary: (SBTrack*)musicNavItem.selectedMusicItem];
+        } else if ([musicNavItem.selectedMusicItem isKindOfClass: SBAlbum.class]) {
+            [musicController showAlbumInLibrary: (SBAlbum*)musicNavItem.selectedMusicItem];
+        } else if ([musicNavItem.selectedMusicItem isKindOfClass: SBArtist.class]) {
+            [musicController showArtistInLibrary: (SBArtist*)musicNavItem.selectedMusicItem];
+        }
+    } else if ([navItem isKindOfClass: SBServerLibraryNavigationItem.class]) {
+        SBServerLibraryNavigationItem *musicNavItem = (SBServerLibraryNavigationItem*)navItem;
+        if ([musicNavItem.selectedMusicItem isKindOfClass: SBTrack.class]) {
+            [serverLibraryController showTrackInLibrary: (SBTrack*)musicNavItem.selectedMusicItem];
+        } else if ([musicNavItem.selectedMusicItem isKindOfClass: SBAlbum.class]) {
+            [serverLibraryController showAlbumInLibrary: (SBAlbum*)musicNavItem.selectedMusicItem];
+        } else if ([musicNavItem.selectedMusicItem isKindOfClass: SBArtist.class]) {
+            [serverLibraryController showArtistInLibrary: (SBArtist*)musicNavItem.selectedMusicItem];
+        }
+    }
     // Search bar
     if ([navItem isKindOfClass: SBLocalMusicNavigationItem.class]) {
         [searchToolbarItem setEnabled: YES];
@@ -1749,6 +1807,12 @@
     }
     
     [self resetViewAfterTransition];
+}
+
+
+- (void)pageControllerWillStartLiveTransition:(NSPageController *)pageController {
+    // Save the state into our current one. Only triggered for back/forward though.
+    [self saveNavItemState];
 }
 
 
