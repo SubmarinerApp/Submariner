@@ -43,6 +43,8 @@
 #import "SBServerSearchController.h"
 #import "SBSourceList.h"
 
+#import "Submariner-Swift.h"
+
 @class SBSplitView;
 @class SBSourceList;
 @class SBEditServerController;
@@ -88,6 +90,8 @@
     IBOutlet NSViewController *tracklistVC;
     IBOutlet NSBox *tracklistContainmentBox;
     
+    IBOutlet SBRoutePickerView *routePicker;
+    IBOutlet NSToolbarItem *routePickerToolbarItem;
     __weak IBOutlet NSToolbarItem *volumeToolbarItem;
     IBOutlet NSButton *volumeButton;
     IBOutlet NSPopover *volumePopover;

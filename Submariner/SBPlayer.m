@@ -90,6 +90,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 @synthesize isPlaying;
 @synthesize isPaused;
 //@synthesize repeatMode;
+@synthesize remotePlayer;
 
 
 

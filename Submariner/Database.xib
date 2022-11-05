@@ -22,6 +22,8 @@
                 <outlet property="progressTextField" destination="270" id="287"/>
                 <outlet property="resourcesController" destination="92" id="108"/>
                 <outlet property="rightVC" destination="R2x-TI-GGT" id="emx-IX-8TQ"/>
+                <outlet property="routePicker" destination="QTs-3m-dC6" id="7Vy-Wh-e8r"/>
+                <outlet property="routePickerToolbarItem" destination="nvk-gb-iuf" id="OBd-cm-cRG"/>
                 <outlet property="searchField" destination="6O8-Ia-yxP" id="sOH-p9-fjy"/>
                 <outlet property="searchToolbarItem" destination="9F1-5u-YOh" id="dBM-nT-lOR"/>
                 <outlet property="sourceList" destination="15" id="96"/>
@@ -376,6 +378,13 @@
                             </searchFieldCell>
                         </searchField>
                     </searchToolbarItem>
+                    <toolbarItem implicitItemIdentifier="23EF07BA-560F-4224-899F-A74C5930D026" explicitItemIdentifier="SBTBAirPlay" label="AirPlay" paletteLabel="AirPlay" tag="-1" sizingBehavior="auto" id="nvk-gb-iuf">
+                        <nil key="toolTip"/>
+                        <customView key="view" id="QTs-3m-dC6" customClass="SBRoutePickerView" customModule="Submariner" customModuleProvider="target">
+                            <rect key="frame" x="9" y="14" width="27" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                        </customView>
+                    </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
                     <toolbarItem reference="ub0-ue-gyH"/>
@@ -389,6 +398,7 @@
                     <toolbarItem reference="S62-qJ-fzK"/>
                     <toolbarItem reference="4vs-eG-BJh"/>
                     <toolbarItem reference="Yk7-oS-omj"/>
+                    <toolbarItem reference="nvk-gb-iuf"/>
                     <searchToolbarItem reference="9F1-5u-YOh"/>
                     <toolbarItem reference="aAW-If-dJs"/>
                     <toolbarItem reference="FV9-Yq-wbJ"/>

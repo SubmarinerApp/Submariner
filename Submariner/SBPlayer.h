@@ -81,6 +81,9 @@ enum SBPlayerRepeatMode {
 @property (readwrite) BOOL isPaused;
 @property (readwrite) SBPlayerRepeatMode repeatMode;
 
+// Exposed for AirPlay
+@property (readonly) AVPlayer *remotePlayer;
+
 + (SBPlayer*)sharedInstance;
 
 // manage player tracklist

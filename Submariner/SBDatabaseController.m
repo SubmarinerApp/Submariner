@@ -356,6 +356,11 @@
     // Need to set both for some reason? And after assignment to the parent?
     splitVC.splitView.autosaveName = @"DatabaseWindowSplitViewController";
     splitVC.splitView.identifier = @"SBDatabaseWindowSplitViewController";
+    
+    // HACK: AppKit bug, for some reason, the RPV doesn't get assigned to the NSToolBarItem subview
+    // We have to hold a strong reference onto the RPV and slap it in, otherwise it gets dealloc'd.
+    routePickerToolbarItem.view = routePicker;
+    
 }
 
 #pragma mark -

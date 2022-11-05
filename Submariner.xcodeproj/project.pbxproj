@@ -19,6 +19,8 @@
 		3E69A2FF28B02D86009800D8 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E69A2FD28B02D86009800D8 /* UserNotifications.framework */; };
 		3E82701827E653F0007E5695 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E82701727E653F0007E5695 /* MediaPlayer.framework */; };
 		3E94E5F62912EEC40080FDF6 /* SBNavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E5F52912EEC40080FDF6 /* SBNavigationItem.swift */; };
+		3E94E5F82915AAB80080FDF6 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E94E5F72915AAB80080FDF6 /* AVKit.framework */; };
+		3E94E5FA2915AB130080FDF6 /* SBRoutePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E5F92915AB130080FDF6 /* SBRoutePickerView.swift */; };
 		3ECF63FA280362BA004F9176 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ECF63F9280362BA004F9176 /* Assets.xcassets */; };
 		3ED5BF1A2830634C000AAB70 /* SBVolumeIconTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5BF192830634C000AAB70 /* SBVolumeIconTransformer.m */; };
 		3ED5BF1D283197AE000AAB70 /* SBRepeatIconTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5BF1C283197AE000AAB70 /* SBRepeatIconTransformer.m */; };
@@ -169,6 +171,8 @@
 		3E69A2FD28B02D86009800D8 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		3E82701727E653F0007E5695 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		3E94E5F52912EEC40080FDF6 /* SBNavigationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBNavigationItem.swift; sourceTree = "<group>"; };
+		3E94E5F72915AAB80080FDF6 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		3E94E5F92915AB130080FDF6 /* SBRoutePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBRoutePickerView.swift; sourceTree = "<group>"; };
 		3EA06A4E28B2C04B0091A75F /* Submariner v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Submariner v2.xcdatamodel"; sourceTree = "<group>"; };
 		3EA06A5028B9AD220091A75F /* Submariner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Submariner.entitlements; sourceTree = "<group>"; };
 		3ECF63F9280362BA004F9176 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -407,6 +411,7 @@
 				4C4DE62513A200AD006A1EC1 /* Security.framework in Frameworks */,
 				4CFAFC6613A0150300E82B57 /* AudioToolbox.framework in Frameworks */,
 				4C7AA247139D619F0050BE95 /* Quartz.framework in Frameworks */,
+				3E94E5F82915AAB80080FDF6 /* AVKit.framework in Frameworks */,
 				4C87ED64139CD8BE0064DE2E /* Cocoa.framework in Frameworks */,
 				3E82701827E653F0007E5695 /* MediaPlayer.framework in Frameworks */,
 			);
@@ -461,6 +466,7 @@
 		4C87ED62139CD8BE0064DE2E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3E94E5F72915AAB80080FDF6 /* AVKit.framework */,
 				3E69A2FD28B02D86009800D8 /* UserNotifications.framework */,
 				3E82701727E653F0007E5695 /* MediaPlayer.framework */,
 				3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */,
@@ -561,6 +567,7 @@
 				3EFA2C8228D11B9900A1CE46 /* SBTrackArtistNameTransformer.h */,
 				3EFA2C8328D11B9900A1CE46 /* SBTrackArtistNameTransformer.m */,
 				3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */,
+				3E94E5F92915AB130080FDF6 /* SBRoutePickerView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -992,6 +999,7 @@
 				4CFAFC2C139EF08800E82B57 /* SBServerHomeController.m in Sources */,
 				4CFAFC37139EF20600E82B57 /* MGScopeBar.m in Sources */,
 				4CFAFC38139EF20600E82B57 /* MGRecessedPopUpButtonCell.m in Sources */,
+				3E94E5FA2915AB130080FDF6 /* SBRoutePickerView.swift in Sources */,
 				3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */,
 				4CFAFC45139FFC1700E82B57 /* SBClientController.m in Sources */,
 				4CFAFC47139FFC1700E82B57 /* SBSubsonicParsingOperation.m in Sources */,
