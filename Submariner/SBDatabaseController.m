@@ -843,8 +843,10 @@
         [self navigateForwardToNavItem: navItem];
     } else {
         [searchToolbarItem endSearchInteraction];
-        // XXX: Until we hit a non-search item
-        [rightVC navigateBack: sender];
+        while ([rightVC.selectedViewController isKindOfClass: SBMusicSearchController.class]
+               || [rightVC.selectedViewController isKindOfClass: SBServerSearchController.class]) {
+            [rightVC navigateBack: sender];
+        }
     }
 }
 
@@ -1766,6 +1768,19 @@
     } else {
         self.server = nil;
     }
+    // Search (search bar enablement is below)
+    if ([navItem isKindOfClass: SBLocalSearchNavigationItem.class]) {
+        SBLocalSearchNavigationItem *searchNavItem = (SBLocalSearchNavigationItem*)navItem;
+        [musicSearchController searchString: searchNavItem.query];
+        [searchField setStringValue: searchNavItem.query];
+    } else if ([navItem isKindOfClass: SBServerSearchNavigationItem.class]) {
+        SBServerSearchNavigationItem *searchNavItem = (SBServerSearchNavigationItem*)navItem;
+        [self.server searchWithQuery: searchNavItem.query];
+        [searchField setStringValue: searchNavItem.query];
+    } else {
+        [searchField setStringValue: @""];
+        [searchToolbarItem endSearchInteraction];
+    }
     // Playlist
     if ([navItem isKindOfClass: SBPlaylistNavigationItem.class]) {
         SBPlaylistNavigationItem *playlistNavItem = (SBPlaylistNavigationItem*)navItem;
@@ -1801,10 +1816,10 @@
         }
     }
     // Search bar
-    if ([navItem isKindOfClass: SBLocalMusicNavigationItem.class]) {
+    if ([navItem isKindOfClass: SBLocalMusicNavigationItem.class] || [navItem isKindOfClass: SBLocalSearchNavigationItem.class]) {
         [searchToolbarItem setEnabled: YES];
         [searchField setPlaceholderString: @"Local Search"];
-    } else if ([navItem isKindOfClass: SBServerNavigationItem.class]) {
+    } else if ([navItem isKindOfClass: SBServerNavigationItem.class] || [navItem isKindOfClass: SBServerSearchNavigationItem.class]) {
         [searchToolbarItem setEnabled: YES];
         [searchField setPlaceholderString: @"Server Search"];
     } else {
@@ -1850,7 +1865,7 @@
             @"ServerHome": serverHomeController,
             @"ServerPodcasts": serverPodcastController,
             @"ServerSearch": serverSearchController,
-            @"Search": musicSearchController,
+            @"MusicSearch": musicSearchController,
             @"Playlist": playlistController,
             @"": tempVC,
         };
