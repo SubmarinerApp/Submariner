@@ -294,6 +294,9 @@
         SBNavigationItem *navItem = [[SBLocalMusicNavigationItem alloc] init];
         [self navigateForwardToNavItem: navItem];
     }
+    // Reset history
+    [rightVC setArrangedObjects: @[ [rightVC.arrangedObjects objectAtIndex: 1] ]];
+    [rightVC setSelectedIndex: 0];
     
     [resourcesController addObserver:self
                           forKeyPath:@"content"
@@ -1955,7 +1958,7 @@
     if (action == @selector(navigateBack:)) {
         return rightVC.selectedIndex > 0;
     } else if (action == @selector(navigateForward:)) {
-        return rightVC.selectedIndex <= rightVC.arrangedObjects.count;
+        return rightVC.selectedIndex < rightVC.arrangedObjects.count - 1;
     }
     
     return YES;
