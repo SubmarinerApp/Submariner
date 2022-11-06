@@ -378,12 +378,37 @@
                             </searchFieldCell>
                         </searchField>
                     </searchToolbarItem>
-                    <toolbarItem implicitItemIdentifier="23EF07BA-560F-4224-899F-A74C5930D026" explicitItemIdentifier="SBTBAirPlay" label="AirPlay" paletteLabel="AirPlay" tag="-1" sizingBehavior="auto" id="nvk-gb-iuf">
+                    <toolbarItem implicitItemIdentifier="23EF07BA-560F-4224-899F-A74C5930D026" explicitItemIdentifier="SBTBAirPlay" label="AirPlay" paletteLabel="AirPlay" tag="-1" image="airplayaudio" catalog="system" sizingBehavior="auto" id="nvk-gb-iuf">
                         <nil key="toolTip"/>
                         <customView key="view" id="QTs-3m-dC6" customClass="SBRoutePickerView" customModule="Submariner" customModuleProvider="target">
                             <rect key="frame" x="9" y="14" width="27" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </customView>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="42C96FA8-AA57-435D-B5D8-CF2B743B709F" label="Back" paletteLabel="Back" image="chevron.backward" catalog="system" sizingBehavior="auto" id="BDR-wj-tYE">
+                        <nil key="toolTip"/>
+                        <button key="view" verticalHuggingPriority="750" id="0vt-rE-rmb">
+                            <rect key="frame" x="3" y="14" width="27" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="chevron.backward" catalog="system" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="rdP-Vg-jtq">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="navigateBack:" target="-2" id="42k-Aq-suY"/>
+                            </connections>
+                        </button>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="E59E769E-0FEE-48FE-82D8-CA785CCA0119" label="Forward" paletteLabel="Forward" image="chevron.forward" catalog="system" sizingBehavior="auto" id="vQt-W9-gYb">
+                        <nil key="toolTip"/>
+                        <button key="view" verticalHuggingPriority="750" id="J08-7i-Eo9">
+                            <rect key="frame" x="12" y="14" width="27" height="25"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="chevron.forward" catalog="system" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="Qvi-3K-iCz">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                        </button>
                     </toolbarItem>
                 </allowedToolbarItems>
                 <defaultToolbarItems>
@@ -914,7 +939,10 @@ DQ
     <resources>
         <image name="NSStatusUnavailable" width="16" height="16"/>
         <image name="NoArtwork" width="512" height="512"/>
+        <image name="airplayaudio" catalog="system" width="15" height="15"/>
         <image name="backward" catalog="system" width="19" height="12"/>
+        <image name="chevron.backward" catalog="system" width="10" height="14"/>
+        <image name="chevron.forward" catalog="system" width="10" height="14"/>
         <image name="forward" catalog="system" width="19" height="12"/>
         <image name="icon" width="512" height="512"/>
         <image name="music.note.list" catalog="system" width="16" height="15"/>
