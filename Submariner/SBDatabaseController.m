@@ -1156,7 +1156,8 @@
         sidebarResource = (SBLibrary *)[self.managedObjectContext fetchEntityNammed:@"Library" withPredicate:nil error:nil];
     }
     NSIndexPath *newPath = [resourcesController indexPathForObject: resource];
-    if (newPath != nil) {
+    if (newPath != nil && ![newPath isEqualTo: resourcesController.selectionIndexPath]) {
+        ignoreNextSelection = YES;
         [resourcesController setSelectionIndexPath: newPath];
     }
 }
@@ -1568,6 +1569,10 @@
 #pragma mark SourceList Delegate
 
 - (void)sourceListSelectionDidChange:(NSNotification *)notification {
+    if (ignoreNextSelection) {
+        ignoreNextSelection = NO;
+        return;
+    }
     NSInteger selectedRow = [sourceList selectedRow];
     
     if (selectedRow != -1) {
@@ -1765,6 +1770,7 @@
     if ([navItem isKindOfClass: SBServerNavigationItem.class]) {
         SBServerNavigationItem *serverNavItem = (SBServerNavigationItem*)navItem;
         self.server = serverNavItem.server;
+        [self updateSourceListSelection: serverNavItem.server];
     } else {
         self.server = nil;
     }
@@ -1793,6 +1799,7 @@
             // update playlist
             [playlist.server getPlaylistTracks:playlist];
         }
+        [self updateSourceListSelection: playlistNavItem.playlist];
     }
     // Selected item
     // XXX: Kinda messed up by the fact the controllers and nav item don't have a common ancestor for music item
@@ -1825,6 +1832,14 @@
     } else {
         [searchToolbarItem setEnabled: NO];
         [searchField setPlaceholderString: @""];
+    }
+    // Sidebar for downloads/library cases
+    if ([navItem isKindOfClass: SBDownloadsNavigationItem.class]) {
+        SBDownloads *downloads = (SBDownloads *)[self.managedObjectContext fetchEntityNammed:@"Downloads" withPredicate:nil error:nil];
+        [self updateSourceListSelection: downloads];
+    } else if ([navItem isKindOfClass: SBLocalMusicNavigationItem.class]) {
+        SBLibrary *library = (SBLibrary *)[self.managedObjectContext fetchEntityNammed:@"Library" withPredicate:nil error:nil];
+        [self updateSourceListSelection: library];
     }
     
     [self resetViewAfterTransition];

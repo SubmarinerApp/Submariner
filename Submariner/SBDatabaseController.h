@@ -118,6 +118,9 @@
     CATransition *transition;
     
     NSTimer *progressUpdateTimer;
+    
+    /// Used for changing the source list selection without updating the view state, for when the view state update needs to sync its changes to the source list.
+    BOOL ignoreNextSelection;
 }
 
 @property (readwrite, strong) NSArray *resourceSortDescriptors;
