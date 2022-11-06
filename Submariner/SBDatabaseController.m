@@ -881,6 +881,16 @@
 }
 
 
+- (IBAction)navigateBack:(id)sender {
+    [rightVC navigateBack: sender];
+}
+
+
+- (IBAction)navigateForward:(id)sender {
+    [rightVC navigateForward: sender];
+}
+
+
 
 #pragma mark -
 #pragma mark NSTimer
@@ -1940,6 +1950,12 @@
         } else {
             return NO;
         }
+    }
+    
+    if (action == @selector(navigateBack:)) {
+        return rightVC.selectedIndex > 0;
+    } else if (action == @selector(navigateForward:)) {
+        return rightVC.selectedIndex <= rightVC.arrangedObjects.count;
     }
     
     return YES;
