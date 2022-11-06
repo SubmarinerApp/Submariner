@@ -385,7 +385,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </customView>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="42C96FA8-AA57-435D-B5D8-CF2B743B709F" label="Back" paletteLabel="Back" image="chevron.backward" catalog="system" sizingBehavior="auto" id="BDR-wj-tYE">
+                    <toolbarItem implicitItemIdentifier="42C96FA8-AA57-435D-B5D8-CF2B743B709F" explicitItemIdentifier="SBTBBack" label="Back" paletteLabel="Back" image="chevron.backward" catalog="system" sizingBehavior="auto" navigational="YES" id="BDR-wj-tYE">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="0vt-rE-rmb">
                             <rect key="frame" x="3" y="14" width="27" height="25"/>
@@ -399,7 +399,7 @@
                             </connections>
                         </button>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="E59E769E-0FEE-48FE-82D8-CA785CCA0119" label="Forward" paletteLabel="Forward" image="chevron.forward" catalog="system" sizingBehavior="auto" id="vQt-W9-gYb">
+                    <toolbarItem implicitItemIdentifier="E59E769E-0FEE-48FE-82D8-CA785CCA0119" explicitItemIdentifier="SBTBForward" label="Forward" paletteLabel="Forward" image="chevron.forward" catalog="system" sizingBehavior="auto" navigational="YES" id="vQt-W9-gYb">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="J08-7i-Eo9">
                             <rect key="frame" x="12" y="14" width="27" height="25"/>
