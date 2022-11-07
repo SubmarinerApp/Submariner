@@ -556,6 +556,17 @@
 }
 
 
+- (IBAction)createNewLocalPlaylistWithSelectedTracks:(id)sender {
+    NSInteger selectedRow = [tracksTableView selectedRow];
+    
+    if(selectedRow == -1) {
+        return;
+    }
+    
+    [self createLocalPlaylistWithSelected: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes databaseController: self.databaseController];
+}
+
+
 
 
 #pragma mark -
@@ -814,6 +825,10 @@
         || action == @selector(removeAlbum:)
         || action == @selector(addAlbumToTracklist:)) {
         return albumSelected > 0;
+    }
+    
+    if (action == @selector(createNewLocalPlaylistWithSelectedTracks:)) {
+        return tracksSelected > 0;
     }
 
     return YES;

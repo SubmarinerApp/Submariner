@@ -189,6 +189,18 @@
     }
 }
 
+
+- (IBAction)createNewLocalPlaylistWithSelectedTracks:(id)sender {
+    NSInteger selectedRow = [playlistTableView selectedRow];
+    
+    if(selectedRow == -1) {
+        return;
+    }
+    
+    [self createLocalPlaylistWithSelected: [[SBPlayer sharedInstance] playlist] selectedIndices: playlistTableView.selectedRowIndexes databaseController: self.databaseController];
+}
+
+
 #pragma mark -
 #pragma mark Player Notifications
 
@@ -356,7 +368,8 @@
     SBSelectedRowStatus selectedTrackRowStatus = 0;
     selectedTrackRowStatus = [self selectedRowStatus: [[SBPlayer sharedInstance] playlist] selectedIndices: playlistTableView.selectedRowIndexes];
     
-    if (action == @selector(delete:)) {
+    if (action == @selector(delete:)
+        || action == @selector(createNewLocalPlaylistWithSelectedTracks:)) {
         return tracksSelected;
     }
     

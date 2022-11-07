@@ -53,6 +53,7 @@
 // Helper functions for library views (XXX: Is this the best place for them?)
 -(void)showTracksInFinder:(NSArray*)trackList selectedIndices:(NSIndexSet*)indexSet;
 -(void)downloadTracks:(NSArray*)trackList selectedIndices:(NSIndexSet*)indexSet databaseController:(SBDatabaseController*)databaseController;
+- (void)createLocalPlaylistWithSelected:(NSArray*)trackList selectedIndices:(NSIndexSet*)indexSet databaseController:(SBDatabaseController*)databaseController;
 
 typedef enum _SBSelectedRowStatus {
     SBSelectedRowNone = 0,

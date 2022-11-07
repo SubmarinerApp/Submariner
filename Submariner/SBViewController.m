@@ -38,6 +38,7 @@
 #import "SBTrack.h"
 #import "SBSubsonicDownloadOperation.h"
 #import "NSOperationQueue+Shared.h"
+#import "NSManagedObjectContext+Fetch.h"
 
 @implementation SBViewController
 
@@ -166,6 +167,21 @@
     if (showable)
         status |= SBSelectedRowShowableInFinder;
     return status;
+}
+
+- (void)createLocalPlaylistWithSelected:(NSArray*)trackList selectedIndices:(NSIndexSet*)indexSet databaseController:(SBDatabaseController*)databaseController {
+    NSArray *selectedTracks = [trackList objectsAtIndexes: indexSet];
+    NSSet *selectedTracksAsSet = [NSSet setWithArray: selectedTracks];
+    
+    // create playlist
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@)", @"Playlists"];
+    SBSection *playlistsSection = [self.managedObjectContext fetchEntityNammed:@"Section" withPredicate:predicate error:nil];
+    
+    SBPlaylist *newPlaylist = [SBPlaylist insertInManagedObjectContext:self.managedObjectContext];
+    [newPlaylist setResourceName:@"New Playlist"];
+    [newPlaylist setSection:playlistsSection];
+    [newPlaylist setTracks: selectedTracksAsSet];
+    [playlistsSection addResourcesObject:newPlaylist];
 }
 
 @end

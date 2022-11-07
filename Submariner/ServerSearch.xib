@@ -217,6 +217,13 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="Shq-jh-3GA"/>
+                <menuItem title="New Playlist with Selected" id="dSI-8I-2vC">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="createNewLocalPlaylistWithSelectedTracks:" target="-2" id="PQQ-WX-swL"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="do7-yK-TaQ"/>
                 <menuItem title="Download" id="LQD-Sg-JFK">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>

@@ -81,6 +81,11 @@
                                     <action selector="newPlaylist:" target="494" id="540"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="New Playlist with Selected" alternate="YES" keyEquivalent="N" id="QUg-ox-rpk">
+                                <connections>
+                                    <action selector="createNewLocalPlaylistWithSelectedTracks:" target="-1" id="SRi-wX-ata"/>
+                                </connections>
+                            </menuItem>
                             <menuItem title="New Server Playlist" keyEquivalent="n" id="EL4-ww-hvw">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>

@@ -193,6 +193,17 @@
 }
 
 
+- (IBAction)createNewLocalPlaylistWithSelectedTracks:(id)sender {
+    NSInteger selectedRow = [tracksTableView selectedRow];
+    
+    if(selectedRow == -1) {
+        return;
+    }
+    
+    [self createLocalPlaylistWithSelected: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes databaseController: self.databaseController];
+}
+
+
 
 
 #pragma mark -
@@ -241,7 +252,8 @@
     selectedTrackRowStatus = [self selectedRowStatus: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes];
     
     if (action == @selector(addSelectedToTracklist:)
-        || action == @selector(playSelected:)) {
+        || action == @selector(playSelected:)
+        || action == @selector(createNewLocalPlaylistWithSelectedTracks:)) {
         return tracksSelected;
     }
     

@@ -298,6 +298,17 @@
 }
 
 
+- (IBAction)createNewLocalPlaylistWithSelectedTracks:(id)sender {
+    NSInteger selectedRow = [tracksTableView selectedRow];
+    
+    if(selectedRow == -1) {
+        return;
+    }
+    
+    [self createLocalPlaylistWithSelected: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes databaseController: self.databaseController];
+}
+
+
 - (IBAction)createNewPlaylistWithSelectedTracks:(id)sender {
     // get selected rows track objects
     NSIndexSet *rowIndexes = [tracksTableView selectedRowIndexes];
@@ -683,7 +694,8 @@
     
     if (action == @selector(createNewPlaylistWithSelectedTracks:)
         || action == @selector(trackDoubleClick:)
-        || action == @selector(addTrackToTracklist:)) {
+        || action == @selector(addTrackToTracklist:)
+        || action == @selector(createNewLocalPlaylistWithSelectedTracks:)) {
         return tracksSelected > 0 && tracksActive;
     }
     

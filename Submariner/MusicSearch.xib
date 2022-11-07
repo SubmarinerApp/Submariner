@@ -191,6 +191,13 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="nNZ-BT-mmp"/>
+                <menuItem title="New Playlist with Selected" id="giS-sb-GLV">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="createNewLocalPlaylistWithSelectedTracks:" target="-2" id="rMX-19-Uab"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="t0H-Uc-r4s"/>
                 <menuItem title="Show in Finder" id="pg0-RH-d7W">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>

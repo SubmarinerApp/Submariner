@@ -460,6 +460,13 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="LI5-b6-RPh"/>
+                <menuItem title="New Playlist with Selected" id="YRD-p7-9CJ">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="createNewLocalPlaylistWithSelectedTracks:" target="-2" id="aGb-N3-rhR"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="FZx-OG-5WH"/>
                 <menuItem title="Delete" id="Jsb-SA-6w9">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>

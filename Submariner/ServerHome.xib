@@ -255,9 +255,9 @@
         </customView>
         <arrayController mode="entity" entityName="Album" automaticallyPreparesContent="YES" id="37" userLabel="Albums Controller">
             <connections>
+                <binding destination="-2" name="sortDescriptors" keyPath="albumSortDescriptor" id="9Co-dQ-fql"/>
                 <binding destination="-2" name="managedObjectContext" keyPath="managedObjectContext" id="38"/>
                 <binding destination="-2" name="contentSet" keyPath="server.home.albums" id="39"/>
-                <binding destination="-2" name="sortDescriptors" keyPath="albumSortDescriptor" id="9Co-dQ-fql"/>
             </connections>
         </arrayController>
         <arrayController mode="entity" entityName="Track" automaticallyPreparesContent="YES" id="44" userLabel="Tracks Controller">
@@ -306,6 +306,12 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="1dt-TY-vJz"/>
+                <menuItem title="New Playlist with Selected" id="sjj-kN-3Qi">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="createNewLocalPlaylistWithSelectedTracks:" target="-2" id="9Kk-Fh-pQG"/>
+                    </connections>
+                </menuItem>
                 <menuItem title="New Server Playlist with Selected" id="luL-uO-zYN">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
