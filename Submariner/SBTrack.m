@@ -256,4 +256,12 @@
 */
 }
 
+- (NSString *)macOSCompatibleContentType {
+    if ([self.contentType isEqualToString:@"audio/x-flac"]) {
+        return @"audio/flac";
+    }
+    
+    return self.contentType;
+}
+
 @end

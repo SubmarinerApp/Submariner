@@ -53,5 +53,6 @@
 - (NSURL *)downloadURL;
 
 - (BOOL)isVideo;
+- (NSString *)macOSCompatibleContentType;
 
 @end

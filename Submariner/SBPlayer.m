@@ -71,7 +71,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 
 @interface SBPlayer (Private)
 
-- (void)playRemoteWithURL:(NSURL *)url;
+- (void)playRemoteWithTrack:(SBTrack *)track;
 - (void)playLocalWithURL:(NSURL *)url;
 - (void)unplayAllTracks;
 - (SBTrack *)getRandomTrackExceptingTrack:(SBTrack *)_track;
@@ -508,11 +508,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         [self showVideoAlert];
         return;
     } else {
-        NSURL *url = [self.currentTrack.localTrack streamURL];
-        if (url == nil) {
-            url = [self.currentTrack streamURL];
-        }
-        [self playRemoteWithURL:url];
+        [self playRemoteWithTrack:self.currentTrack];
     }
     
     // setup player for playing
@@ -534,8 +530,22 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 }
 
 
-- (void)playRemoteWithURL:(NSURL *)url {
-    AVPlayerItem *newItem = [AVPlayerItem playerItemWithURL: url];
+- (void)playRemoteWithTrack:(SBTrack *)track {
+    [remotePlayer replaceCurrentItemWithPlayerItem:nil];
+    
+    NSURL *url = [self.currentTrack.localTrack streamURL];
+    if (url == nil) {
+        url = [self.currentTrack streamURL];
+    }
+    
+    AVPlayerItem *newItem = nil;
+    if ([[track macOSCompatibleContentType] length] > 0) {
+        AVURLAsset *asset = [AVURLAsset URLAssetWithURL:url options:@{@"AVURLAssetOutOfBandMIMETypeKey":[track macOSCompatibleContentType]}];
+        newItem = [AVPlayerItem playerItemWithAsset:asset];
+    } else {
+        newItem = [AVPlayerItem playerItemWithURL: url];
+    }
+
     [remotePlayer replaceCurrentItemWithPlayerItem: newItem];
     [remotePlayer setVolume:[self volume]];
     [remotePlayer play]; // needs a little help from us for next track
