@@ -537,6 +537,22 @@
 }
 
 
+- (IBAction)addPlaylistFromTracklist:(id)sender {
+    NSSet *tracklistSet = [NSSet setWithArray: [[SBPlayer sharedInstance] playlist]];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@)", @"Playlists"];
+    SBSection *playlistsSection = [self.managedObjectContext fetchEntityNammed:@"Section" withPredicate:predicate error:nil];
+    
+    SBPlaylist *newPlaylist = [SBPlaylist insertInManagedObjectContext:self.managedObjectContext];
+    [newPlaylist setResourceName:@"New Saved Tracklist"];
+    [newPlaylist setSection:playlistsSection];
+    [newPlaylist setTracks: tracklistSet];
+    [playlistsSection addResourcesObject:newPlaylist];
+    
+    [sourceList expandURIs:[NSArray arrayWithObject:[[[playlistsSection objectID] URIRepresentation] absoluteString]]];
+}
+
+
 - (IBAction)deleteRemotePlaylist:(id)sender {
     NSInteger selectedRow = [sourceList selectedRow];
     
@@ -1959,6 +1975,10 @@
         return rightVC.selectedIndex > 0;
     } else if (action == @selector(navigateForward:)) {
         return rightVC.selectedIndex < rightVC.arrangedObjects.count - 1;
+    }
+    
+    if (action == @selector(addPlaylistFromTracklist:)) {
+        return [[SBPlayer sharedInstance] playlist].count > 0;
     }
     
     return YES;

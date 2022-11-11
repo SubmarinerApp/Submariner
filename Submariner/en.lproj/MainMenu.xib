@@ -98,6 +98,12 @@
                                     <action selector="createNewPlaylistWithSelectedTracks:" target="-1" id="HC6-Lg-Vaz"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Save Tracklist as Playlist" id="h7R-fW-jfE">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="addPlaylistFromTracklist:" target="-1" id="lVX-3d-A60"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="5TQ-08-gf5"/>
                             <menuItem title="New Server" id="539">
                                 <modifierMask key="keyEquivalentModifierMask"/>
