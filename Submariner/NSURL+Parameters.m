@@ -57,9 +57,8 @@
                           length: strlen(buffer)];
     
     
-    CFUUIDRef uuid = CFUUIDCreate(nil);
-    NSString *uuidString = (NSString *)CFBridgingRelease(CFUUIDCreateString(nil, uuid));
-    CFRelease(uuid);
+    NSUUID *uuid = [NSUUID UUID];
+    NSString *uuidString = [uuid UUIDString];
     
     NSString *finalPath = [temporaryDirectory stringByAppendingPathComponent:uuidString];    
     
