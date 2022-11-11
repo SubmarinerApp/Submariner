@@ -90,9 +90,6 @@
             
             for(NSString *aPath in audioFiles) {
                 
-                NSString *path = [[[NSURL temporaryFileURL] absoluteString] stringByAppendingPathExtension:[aPath pathExtension]];
-                [[NSFileManager defaultManager] copyItemAtPath:aPath toPath:path error:nil];
-                
                 NSPredicate *predicate = nil;
                 
                 NSString *titleString       = nil;
@@ -117,8 +114,7 @@
                 NSString *albumPath = nil;
                 NSString *trackPath = nil;
                 
-                // use SFBAudioEngine
-                NSURL *fileURL = [NSURL fileURLWithPath: path];
+                NSURL *fileURL = [NSURL fileURLWithPath: aPath];
                 NSError *error = nil;
                 
                 SBAudioMetadata *metadata = [[SBAudioMetadata alloc] initWithURL: fileURL error: &error];
@@ -244,7 +240,12 @@
                 if(copyFile == YES) {
                     artistPath = albumArtistString;
                     albumPath = [artistPath stringByAppendingPathComponent:albumString];
-                    trackPath = [albumPath stringByAppendingPathComponent:[path lastPathComponent]];
+                    // Before the refactor, temporaryFileURL provided us a random filename.
+                    // Let's try to keep the same semantics to avoid i.e. clobbering with
+                    // re-imports? (Is this needed?)
+                    NSString *fileName = [aPath lastPathComponent];
+                    fileName = [[[NSUUID UUID] UUIDString] stringByAppendingPathExtension: [fileName pathExtension]];
+                    trackPath = [albumPath stringByAppendingPathComponent: fileName];
                     NSString *absoluteAlbumPath = [[[SBAppDelegate sharedInstance] musicDirectory] stringByAppendingPathComponent: albumPath];
                     NSString *absoluteTrackPath = [[[SBAppDelegate sharedInstance] musicDirectory] stringByAppendingPathComponent: trackPath];
                     
@@ -252,7 +253,7 @@
                     [[NSFileManager defaultManager] createDirectoryAtPath: absoluteAlbumPath withIntermediateDirectories:YES attributes:nil error:&copyError];
                     
                     // copy track to new destination
-                    [[NSFileManager defaultManager] copyItemAtPath:path toPath:absoluteTrackPath error:&copyError];
+                    [[NSFileManager defaultManager] copyItemAtPath:aPath toPath:absoluteTrackPath error:&copyError];
                     
                     // but use the relative paths. remote paths are already relative
                     [newTrack setPath:trackPath];
@@ -290,7 +291,7 @@
                 
                 } else {
                     // else if track parent directory contains cover file
-                    NSString *originalAlbumFolder = [path stringByDeletingLastPathComponent];
+                    NSString *originalAlbumFolder = [aPath stringByDeletingLastPathComponent];
                     BOOL isDir;
             
                     if([[NSFileManager defaultManager] fileExistsAtPath:originalAlbumFolder isDirectory:&isDir] && isDir) {
@@ -339,7 +340,7 @@
                 
                 // check remove
                 if(remove) {
-                    [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+                    [[NSFileManager defaultManager] removeItemAtPath: aPath error:nil];
                 }
                 
                 // check if this import op comes from a stream
@@ -355,9 +356,6 @@
                         
                     [newAlbum.cover setImagePath:remoteTrack.album.cover.imagePath];
                 }
-                
-                // remove temp file
-                [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
             }
         }
         @catch (NSException *exception) {
