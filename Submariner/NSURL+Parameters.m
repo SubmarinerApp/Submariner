@@ -39,30 +39,9 @@
 
 
 + (NSURL *)temporaryFileURL {
-    
-    NSString * temporaryDirectory = nil;
-	NSString * tempDir = NSTemporaryDirectory();
-	if (tempDir == nil)
-		tempDir = @"/tmp";
-	
-    NSString *temDirName = [NSString stringWithFormat:@"fr.read-write.Sub-%f", [NSDate timeIntervalSinceReferenceDate]];
-	NSString * aTemplate = [tempDir stringByAppendingPathComponent:temDirName];
-	const char * fsTemplate = [aTemplate fileSystemRepresentation];
-	NSMutableData * bufferData = [NSMutableData dataWithBytes: fsTemplate
-													   length: strlen(fsTemplate)+1];
-	char * buffer = (char *)[bufferData mutableBytes];
-	mkdtemp(buffer);
-	temporaryDirectory = [[NSFileManager defaultManager]
-                          stringWithFileSystemRepresentation: buffer
-                          length: strlen(buffer)];
-    
-    
-    NSUUID *uuid = [NSUUID UUID];
-    NSString *uuidString = [uuid UUIDString];
-    
-    NSString *finalPath = [temporaryDirectory stringByAppendingPathComponent:uuidString];    
-    
-    return [NSURL URLWithString:finalPath];
+    NSURL *tempDir = [[NSFileManager defaultManager] temporaryDirectory];
+    NSString *randomName = [[NSUUID UUID] UUIDString];
+    return [tempDir URLByAppendingPathComponent: randomName];
 }
 
 + (id)URLWithString:(NSString *)string command:(NSString *)command parameters:(NSDictionary *)parameters {

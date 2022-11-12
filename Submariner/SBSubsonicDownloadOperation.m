@@ -194,16 +194,16 @@ NSString *SBSubsonicDownloadFinished    = @"SBSubsonicDownloadFinished";
     NSString *mimeType = downloadTask.response.MIMEType;
     NSString *extension = [mimeType extensionForMIMEType] ?: @"mp3"; // fallback
     NSURL *tempURL = [[NSURL temporaryFileURL] URLByAppendingPathExtension: extension];
-    NSString *path = [tempURL absoluteString];
+    NSString *newTempPath = [tempURL path];
     NSError *moveError = nil;
-    [[NSFileManager defaultManager] moveItemAtPath:location.path toPath:path error:&moveError];
+    [[NSFileManager defaultManager] moveItemAtPath:location.path toPath: newTempPath error:&moveError];
     if (moveError) {
-        NSLog(@"Error moving %@ to %@: %@", location.path, path, moveError);
+        NSLog(@"Error moving %@ to %@: %@", location.path, newTempPath, moveError);
     }
         
     // 3. import to library on write endx
     SBImportOperation *op = [[SBImportOperation alloc] initWithManagedObjectContext:[self mainContext]];
-    [op setFilePaths:[NSArray arrayWithObject: path]];
+    [op setFilePaths:[NSArray arrayWithObject: newTempPath]];
     [op setLibraryID:libraryID];
     [op setRemoteTrackID:trackID];
     [op setCopyFile:YES];
