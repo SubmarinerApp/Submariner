@@ -580,8 +580,19 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerPlayStateNotification object:self];
 }
 
+
+- (void)maybeDeleteCurrentTrack {
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"deleteAfterPlay"]) {
+        return;
+    }
+    SBTrack *current = [self currentTrack];
+    [self removeTrack: current];
+}
+
+
 - (void)next {
     SBTrack *next = [self nextTrack];
+    [self maybeDeleteCurrentTrack];
     if(next != nil) {
         @synchronized(self) {
             [self playTrack:next];
@@ -593,6 +604,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 
 - (void)previous {
     SBTrack *prev = [self prevTrack];
+    [self maybeDeleteCurrentTrack];
     if(prev != nil) {
         @synchronized(self) {
             //[self stop];

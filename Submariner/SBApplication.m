@@ -64,6 +64,7 @@
     [defaults setObject:[NSNumber numberWithInteger:0]          forKey:@"maxBitRate"];
     [defaults setObject:[NSNumber numberWithInteger:300]        forKey:@"MaxCoverSize"];
     [defaults setObject:[NSNumber numberWithBool:YES]           forKey:@"scrobbleToServer"];
+    [defaults setObject:[NSNumber numberWithBool:NO]            forKey:@"deleteAfterPlay"];
     [defaults setObject:[NSNumber numberWithFloat:5.0]          forKey:@"SkipIncrement"];
 	[userDefaults registerDefaults:defaults];
 }

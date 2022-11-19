@@ -67,13 +67,13 @@
             <point key="canvasLocation" x="139" y="113"/>
         </window>
         <customView id="1220" userLabel="Player">
-            <rect key="frame" x="0.0" y="0.0" width="393" height="167"/>
+            <rect key="frame" x="0.0" y="0.0" width="393" height="191"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <textField verticalHuggingPriority="750" id="1556">
-                    <rect key="frame" x="51" y="86" width="138" height="16"/>
+                    <rect key="frame" x="36" y="86" width="153" height="16"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="When Playing a Track:" id="1557">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="When Queueing a Track:" id="1557">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -109,17 +109,6 @@
                     <rect key="frame" x="0.0" y="114" width="393" height="5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                 </box>
-                <button imageHugsTitle="YES" id="1631">
-                    <rect key="frame" x="67" y="130" width="256" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <buttonCell key="cell" type="check" title="Automatically Download Playing Track" bezelStyle="regularSquare" imagePosition="leading" alignment="left" state="on" inset="2" id="1632">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="1097" name="value" keyPath="values.enableCacheStreaming" id="1635"/>
-                    </connections>
-                </button>
                 <box autoresizesSubviews="NO" verticalHuggingPriority="750" boxType="separator" id="1KU-P2-qFU">
                     <rect key="frame" x="0.0" y="47" width="393" height="5"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -155,8 +144,30 @@
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UMn-DN-o1h">
+                    <rect key="frame" x="34" y="132" width="322" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Delete Track From Tracklist When Playback Ends" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="TvD-A9-OHc">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="1097" name="value" keyPath="values.deleteAfterPlay" id="Byb-mY-MI5"/>
+                    </connections>
+                </button>
+                <button imageHugsTitle="YES" id="1631">
+                    <rect key="frame" x="36" y="154" width="256" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="Automatically Download Playing Track" bezelStyle="regularSquare" imagePosition="leading" alignment="left" state="on" inset="2" id="1632">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="1097" name="value" keyPath="values.enableCacheStreaming" id="1635"/>
+                    </connections>
+                </button>
             </subviews>
-            <point key="canvasLocation" x="-442.5" y="458.5"/>
+            <point key="canvasLocation" x="-442.5" y="465.5"/>
         </customView>
         <customView id="1551" userLabel="Subsonic">
             <rect key="frame" x="0.0" y="0.0" width="360" height="154"/>
