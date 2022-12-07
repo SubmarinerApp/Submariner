@@ -129,7 +129,6 @@
 // XXX: Make as part of SBServerController?
 @property (readwrite, strong) SBServer *server;
 
-- (void)setCurrentViewController:(SBViewController *)newView;
 - (BOOL)openImportAlert:(NSWindow *)sender files:(NSArray *)files;
 
 - (void)goToTrack: (SBTrack*)track;
