@@ -65,6 +65,24 @@
 }
 
 
+- (void)windowDidLoad {
+    [super windowDidLoad];
+    
+    // default on load is 2
+    self.window.title = [self titleForTag: 2];
+}
+
+
+- (NSString*) titleForTag:(NSInteger)tag {
+    for (NSToolbarItem *item in self.window.toolbar.items) {
+        if (item.tag == tag) {
+            return item.label;
+        }
+    }
+    return @"";
+}
+
+
 -(NSView *)viewForTag:(NSInteger)tag {
     NSView *view = nil;
 	switch(tag) {
@@ -92,12 +110,6 @@
 }
 
 
-
--(NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar {
-	return [[toolbar items] valueForKey:@"itemIdentifier"];
-}
-
-
 -(IBAction)switchView:(id)sender {
 	
 	NSInteger tag = [sender tag];
@@ -117,6 +129,8 @@
 	[[self.window animator] setFrame:newFrame display:YES];
 	
 	[NSAnimationContext endGrouping];
+    
+    self.window.title = [self titleForTag: tag];
 	
 }
 
