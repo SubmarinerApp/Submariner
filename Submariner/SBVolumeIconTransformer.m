@@ -21,19 +21,24 @@
 
 - (id)transformedValue:(id)value {
     float f = [value floatValue];
-    NSString *name = @"speaker.badge.exclamationmark", *desc;
     if (f <= 0.0) {
-        name = @"speaker.slash";
-    } else if (f >= 0.66) {
-        name = @"speaker.wave.3";
-    } else if (f >= 0.33) {
-        name = @"speaker.wave.2";
-    } else if (f > 0.0) {
-        name = @"speaker.wave.1";
+        return [NSImage imageWithSystemSymbolName: @"speaker.slash" accessibilityDescription: @"Muted"];
     }
-    // XXX: Percentage format?
+    NSString *name = @"speaker.badge.exclamationmark", *desc;
     desc = f == 0.0 ? @"Muted" : [NSString stringWithFormat: @"%f",f];
-    return [NSImage imageWithSystemSymbolName: name accessibilityDescription: desc];
+    if (@available(macOS 13.0.0, *)) {
+        return [NSImage imageWithSystemSymbolName: @"speaker.wave.3" variableValue: f accessibilityDescription: desc];
+    } else {
+        if (f >= 0.66) {
+            name = @"speaker.wave.3";
+        } else if (f >= 0.33) {
+            name = @"speaker.wave.2";
+        } else if (f > 0.0) {
+            name = @"speaker.wave.1";
+        }
+        // XXX: Percentage format?
+        return [NSImage imageWithSystemSymbolName: name accessibilityDescription: desc];
+    }
 }
 
 
