@@ -35,6 +35,7 @@
 #import <Foundation/Foundation.h>
 #include <AVFoundation/AVPlayer.h>
 #include <CoreMedia/CoreMedia.h>
+#import <UserNotifications/UserNotifications.h>
 
 // notifications
 extern NSString *SBPlayerPlaylistUpdatedNotification;
@@ -56,7 +57,7 @@ enum SBPlayerRepeatMode {
 @class SBTrack;
 
 
-@interface SBPlayer : NSObject {
+@interface SBPlayer : NSObject<UNUserNotificationCenterDelegate> {
 @private
     AVPlayer      *remotePlayer;
     

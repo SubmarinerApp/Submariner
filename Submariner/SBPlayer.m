@@ -59,8 +59,6 @@
 #import <MediaPlayer/MPRemoteCommandEvent.h>
 #import <MediaPlayer/MPRemoteCommand.h>
 
-#import <UserNotifications/UserNotifications.h>
-
 
 // notifications
 NSString *SBPlayerPlaylistUpdatedNotification = @"SBPlayerPlaylistUpdatedNotification";
@@ -346,6 +344,13 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 
 - (void)initNotifications {
     UNUserNotificationCenter *centre = [UNUserNotificationCenter currentNotificationCenter];
+    centre.delegate = self;
+    // XXX: Do we need to do this after authorization?
+    // Add a skip action, like AM
+    UNNotificationAction *skipAction = [UNNotificationAction actionWithIdentifier: @"SubmarinerSkipAction" title: @"Skip" options: UNNotificationActionOptionNone];
+    // This is the same as the notification identifier, because there's only one of those for now.
+    UNNotificationCategory *nowPlayingCategory = [UNNotificationCategory categoryWithIdentifier: @"SubmarinerNowPlayingNotification" actions: @[skipAction] intentIdentifiers: @[] options: UNNotificationCategoryOptionNone];
+    [centre setNotificationCategories: [NSSet setWithArray: @[nowPlayingCategory]]];
     // We'd want this if we wanted to override the default behaviour.
     // However, the default (suppress notifications if we're the foreground app)
     // makes sense, and we don't actually need to provide an action yet.
@@ -386,6 +391,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     }
     UNUserNotificationCenter *centre = [UNUserNotificationCenter currentNotificationCenter];
     UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+    content.categoryIdentifier = @"SubmarinerNowPlayingNotification";
     // Apple Music uses this format as well; we don't need to indicate it's a now playing thing.
     content.title = [NSString stringWithFormat: @"%@", currentTrack.itemName];
     // Use an em dash like Apple Music
@@ -415,6 +421,34 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
             NSLog(@"Error posting now playing notification: %@", error);
         }
     }];
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+    // We have to do this if we implement the delegate.
+    // If we didn't assign a delegate, we basically get this behaviour,
+    // but if we did assign the delegate and didn't implement this method,
+    // it would always supress the notification (UNNotificationPresentationOptionNone).
+    UNNotificationPresentationOptions opts = NSApplication.sharedApplication.isActive
+        ? UNNotificationPresentationOptionList
+        : UNNotificationPresentationOptionBanner;
+    completionHandler(opts);
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
+    // Select the currently playing track if it's a SubmarinerNowPlayingNotification.
+    // We don't need to know the track, because the coalescing means we only current is relevant.
+    if ([response.notification.request.identifier isEqualTo: @"SubmarinerNowPlayingNotification"]) {
+        // Default, so not one of the buttons (if we have them or not)
+        if ([response.actionIdentifier isEqualTo: UNNotificationDefaultActionIdentifier]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[SBAppDelegate sharedInstance] zoomDatabaseWindow: self];
+                [[SBAppDelegate sharedInstance] goToCurrentTrack: self];
+            });
+        } else if ([response.actionIdentifier isEqualTo: @"SubmarinerSkipAction"]) {
+            [self next];
+        }
+    }
+    completionHandler();
 }
 
 #pragma mark -
