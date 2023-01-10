@@ -52,14 +52,7 @@
 #pragma mark Singlton
 
 + (id)sharedInstance {
-    static SBAppDelegate *sharedInstance;
-    static dispatch_once_t predicate;
-    dispatch_once(&predicate, ^{
-        //sharedInstance = [[MyClass alloc] init];
-        sharedInstance = [SBAppDelegate alloc];
-        sharedInstance = [sharedInstance init];
-    });
-    return sharedInstance;
+    return (SBAppDelegate*)NSApplication.sharedApplication.delegate;
 }
 
 
