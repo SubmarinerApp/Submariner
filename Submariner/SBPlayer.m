@@ -351,10 +351,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     // This is the same as the notification identifier, because there's only one of those for now.
     UNNotificationCategory *nowPlayingCategory = [UNNotificationCategory categoryWithIdentifier: @"SubmarinerNowPlayingNotification" actions: @[skipAction] intentIdentifiers: @[] options: UNNotificationCategoryOptionNone];
     [centre setNotificationCategories: [NSSet setWithArray: @[nowPlayingCategory]]];
-    // We'd want this if we wanted to override the default behaviour.
-    // However, the default (suppress notifications if we're the foreground app)
-    // makes sense, and we don't actually need to provide an action yet.
-    //centre.delegate = self;
     // XXX: Make it so we store if we can post a notification instead of blindly firing.
     [centre getNotificationSettingsWithCompletionHandler: ^(UNNotificationSettings *settings) {
         switch (settings.authorizationStatus) {
