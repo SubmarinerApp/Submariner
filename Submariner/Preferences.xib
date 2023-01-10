@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -30,7 +30,7 @@
             </view>
             <toolbar key="toolbar" implicitIdentifier="469AD196-E6B5-4070-90FC-7FCA441B81C5" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconAndLabel" sizeMode="regular" id="994">
                 <allowedToolbarItems>
-                    <toolbarItem implicitItemIdentifier="ED688FF4-72C1-44FA-9009-E37728F12632" explicitItemIdentifier="Player" label="Player" paletteLabel="Player" tag="2" image="hifispeaker" catalog="system" id="1542">
+                    <toolbarItem implicitItemIdentifier="ED688FF4-72C1-44FA-9009-E37728F12632" explicitItemIdentifier="Player" label="Player" paletteLabel="Player" tag="2" image="hifispeaker" catalog="system" selectable="YES" id="1542">
                         <nil key="toolTip"/>
                         <size key="minSize" width="22" height="22"/>
                         <size key="maxSize" width="22" height="22"/>
@@ -38,7 +38,7 @@
                             <action selector="switchView:" target="-2" id="1543"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="49AB7DFE-9F5E-432F-A8A7-0B87491840A2" label="Appearance" paletteLabel="Appearance" tag="3" image="macwindow" catalog="system" id="1546">
+                    <toolbarItem implicitItemIdentifier="49AB7DFE-9F5E-432F-A8A7-0B87491840A2" label="Appearance" paletteLabel="Appearance" tag="3" image="macwindow" catalog="system" selectable="YES" id="1546">
                         <nil key="toolTip"/>
                         <size key="minSize" width="22" height="22"/>
                         <size key="maxSize" width="22" height="22"/>
@@ -46,7 +46,7 @@
                             <action selector="switchView:" target="-2" id="1548"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="EF6C247A-6310-4F85-9E03-B429F02B154A" label="Subsonic" paletteLabel="Subsonic" tag="5" image="network" catalog="system" id="1547">
+                    <toolbarItem implicitItemIdentifier="EF6C247A-6310-4F85-9E03-B429F02B154A" label="Subsonic" paletteLabel="Subsonic" tag="5" image="network" catalog="system" selectable="YES" id="1547">
                         <nil key="toolTip"/>
                         <size key="minSize" width="22" height="22"/>
                         <size key="maxSize" width="22" height="22"/>
