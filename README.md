@@ -25,6 +25,20 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes:
 
+### Version 2.1 (not yet released)
+
+* Basic AirPlay support
+* Improvements for macOS 13
+  * Settings instead of Preferences when on macOS 13
+  * Variable SF Symbols for the toolbar volume icon
+* Notifications are now interactable
+  * Skip button, default action shows current track in database window
+* Option to delete track from tracklist after finishing
+* Can navigate back and forth between views with NSPageController
+  * Trackpad navigation gestures are supported
+* Tweaks to split view, to try remember state better
+* Clean up path handling
+
 ### Version 2.0
 
 * Now requires macOS 11.x
