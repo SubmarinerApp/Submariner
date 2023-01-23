@@ -52,7 +52,14 @@
 #pragma mark Singlton
 
 + (id)sharedInstance {
-    return (SBAppDelegate*)NSApplication.sharedApplication.delegate;
+    // Cache since this can be called off main thread.
+    // We get called by the main thread first, so this is OK.
+    static SBAppDelegate *sharedApplication = nil;
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+        sharedApplication = (SBAppDelegate*)NSApplication.sharedApplication.delegate;
+    });
+    return sharedApplication;
 }
 
 
