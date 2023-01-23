@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3E079FB928568EE8000A73E7 /* SBVolumeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E079FB828568EE8000A73E7 /* SBVolumeButton.m */; };
-		3E189E3328EBBAC40062ACA0 /* Shared.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3E189E3228EBBAC40062ACA0 /* Shared.xcconfig */; };
 		3E189E4028EF5BAB0062ACA0 /* SBAudioMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */; };
 		3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */; };
 		3E2F86D128E3EA9A00C5CE23 /* NSString+File.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D028E3EA9A00C5CE23 /* NSString+File.m */; };
@@ -878,7 +877,7 @@
 		4C87ED56139CD8BE0064DE2E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1410;
 				ORGANIZATIONNAME = OPALE;
 				TargetAttributes = {
 					4C87ED5E139CD8BE0064DE2E = {
@@ -918,7 +917,6 @@
 				4C87EE02139CDCB10064DE2E /* NoArtwork.icns in Resources */,
 				4CFB3EF3139D4693008DC01A /* Tracklist.xib in Resources */,
 				4C7AA22E139D563A0050BE95 /* Playlist.xib in Resources */,
-				3E189E3328EBBAC40062ACA0 /* Shared.xcconfig in Resources */,
 				4C7AA233139D57A00050BE95 /* Music.xib in Resources */,
 				4C7AA24E139D64930050BE95 /* ServerLibrary.xib in Resources */,
 				4CFAFC2D139EF08800E82B57 /* ServerHome.xib in Resources */,
@@ -1100,6 +1098,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1148,6 +1147,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1162,6 +1162,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
 		};
@@ -1180,6 +1181,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1222,6 +1224,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = (
