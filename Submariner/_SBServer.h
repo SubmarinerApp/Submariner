@@ -53,6 +53,16 @@
 
 
 
+@property (nonatomic, strong) NSNumber *useTokenAuth;
+
+@property BOOL useTokenAuthValue;
+- (BOOL)useTokenAuthValue;
+- (void)setUseTokenAuthValue:(BOOL)value_;
+
+//- (BOOL)validateIsValidLicense:(id*)value_ error:(NSError**)error_;
+
+
+
 @property (nonatomic, strong) NSDate *licenseDate;
 
 //- (BOOL)validateLicenseDate:(id*)value_ error:(NSError**)error_;
@@ -171,6 +181,15 @@
 
 - (BOOL)primitiveIsValidLicenseValue;
 - (void)setPrimitiveIsValidLicenseValue:(BOOL)value_;
+
+
+
+
+- (NSNumber*)primitiveUseTokenAuth;
+- (void)setPrimitiveUseTokenAuth:(NSNumber*)value;
+
+- (BOOL)primitiveUseTokenAuthValue;
+- (void)setPrimitiveUseTokenAuthValue:(BOOL)value_;
 
 
 

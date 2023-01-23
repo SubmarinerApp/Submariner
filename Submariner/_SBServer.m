@@ -80,6 +80,33 @@
 
 
 
+
+@dynamic useTokenAuth;
+
+
+
+- (BOOL)useTokenAuthValue {
+    NSNumber *result = [self useTokenAuth];
+    return [result boolValue];
+}
+
+- (void)setUseTokenAuthValue:(BOOL)value_ {
+    [self setUseTokenAuth:[NSNumber numberWithBool:value_]];
+}
+
+- (BOOL)primitiveUseTokenAuthValue {
+    NSNumber *result = [self primitiveUseTokenAuth];
+    return [result boolValue];
+}
+
+- (void)setPrimitiveUseTokenAuthValue:(BOOL)value_ {
+    [self setPrimitiveUseTokenAuth:[NSNumber numberWithBool:value_]];
+}
+
+
+
+
+
 @dynamic licenseDate;
 
 
