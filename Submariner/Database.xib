@@ -436,11 +436,11 @@
             <point key="canvasLocation" x="198" y="47"/>
         </window>
         <window title="Edit Server Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" frameAutosaveName="Edit Server Window" animationBehavior="default" id="113" userLabel="Edit Server Window">
+            <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="294" y="363" width="400" height="292"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
             <value key="minSize" type="size" width="400" height="266"/>
-            <value key="maxSize" type="size" width="600" height="266"/>
             <view key="contentView" id="114">
                 <rect key="frame" x="0.0" y="0.0" width="400" height="292"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -617,7 +617,7 @@ Gw
                                 <datePicker verticalHuggingPriority="750" id="330">
                                     <rect key="frame" x="281" y="26" width="73" height="27"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                    <datePickerCell key="cell" controlSize="small" alignment="left" drawsBackground="NO" datePickerStyle="textField" id="331">
+                                    <datePickerCell key="cell" controlSize="small" refusesFirstResponder="YES" alignment="left" drawsBackground="NO" datePickerStyle="textField" id="331">
                                         <font key="font" metaFont="smallSystem"/>
                                         <date key="date" timeIntervalSinceReferenceDate="687562280.00719404">
                                             <!--2022-10-15 21:31:20 +0000-->
