@@ -346,10 +346,13 @@
 {
     [parameters setValue: self.username forKey:@"u"];
     // it seems navidrome lets use use tokens even with an old declared API.
-    BOOL usePasswordAuth = !self.useTokenAuth;
+    BOOL usePasswordAuth = !self.useTokenAuthValue;
     if (usePasswordAuth) {
+        [parameters removeObjectForKey: @"t"];
+        [parameters removeObjectForKey: @"s"];
         [parameters setValue:[@"enc:" stringByAppendingString:[NSString stringToHex: self.password]] forKey:@"p"];
     } else {
+        [parameters removeObjectForKey: @"p"];
         NSMutableData *salt_bytes = [NSMutableData dataWithLength: 64];
         int rc = SecRandomCopyBytes(kSecRandomDefault, 64, [salt_bytes mutableBytes]);
         if (rc != 0) {

@@ -36,6 +36,7 @@
 #import "SBEditServerController.h"
 #import "SBWindowController.h"
 #import "SBServer.h"
+#import "SBClientController.h"
 
 
 @implementation SBEditServerController
@@ -69,6 +70,11 @@
         [self.managedObjectContext commitEditing];
         [self.managedObjectContext save:nil];
     }
+    
+    // Invalidate the server's parameters since it could have changed (i.e. token)
+    // ...which is held by the client controller owned by the server.
+    // easiest way to do that is to force a reconnect
+    [server connect];
 }
 
 - (void)cancelSheet:(id)sender {
