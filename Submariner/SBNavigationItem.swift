@@ -57,6 +57,10 @@ import Cocoa
     override var identifier: NSString { "Downloads" }
 }
 
+@objc class SBOnboardingNavigationItem: SBNavigationItem {
+    override var identifier: NSString { "Onboarding" }
+}
+
 @objc class SBLocalMusicNavigationItem: SBNavigationItem {
     override var identifier: NSString { "Music" }
     

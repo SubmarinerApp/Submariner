@@ -139,6 +139,7 @@
         resourceSortDescriptors = [NSMutableArray arrayWithObject:sd1];
         
         // init view controllers
+        onboardingController = [[SBOnboardingController alloc] initWithManagedObjectContext:self.managedObjectContext];
         musicController = [[SBMusicController alloc] initWithManagedObjectContext:self.managedObjectContext];
         downloadsController = [[SBDownloadsController alloc] initWithManagedObjectContext:self.managedObjectContext];
         tracklistController = [[SBTracklistController alloc] initWithManagedObjectContext:self.managedObjectContext];
@@ -151,6 +152,7 @@
         serverUserController = [[SBServerUserViewController alloc] initWithManagedObjectContext:self.managedObjectContext];
         serverSearchController = [[SBServerSearchController alloc] initWithManagedObjectContext:self.managedObjectContext];
         
+        [onboardingController setDatabaseController:self];
         [musicController setDatabaseController:self];
         [musicSearchController setDatabaseController:self];
         [tracklistController setDatabaseController:self];
@@ -182,7 +184,7 @@
 #pragma mark -
 #pragma mark Window Controller
 
-- (void)maybeShowOnboarding {
+- (BOOL)shouldShowOnboarding {
     // The criteria for showing the onboarding dialog is:
     // 1. No local music
     // 2. No servers
@@ -201,11 +203,7 @@
     serverFetchRequest.entity = serverDescription;
     NSUInteger serverCount = [self.managedObjectContext countForFetchRequest: serverFetchRequest error: &error];
     
-    if (localMusicCount < 1 && serverCount < 1) {
-        [onboardingWindow center];
-        // XXX: Should we show as a sheet instead?
-        onboardingWindow.isVisible = YES;
-    }
+    return (localMusicCount < 1 && serverCount < 1);
 }
 
 - (void)windowDidLoad {
@@ -276,7 +274,7 @@
     
     id lastViewed = nil;
     NSString *lastViewedURLString = [[NSUserDefaults standardUserDefaults] objectForKey: @"LastViewedResource"];
-    if (lastViewedURLString != nil) {
+    if (lastViewedURLString != nil && NO) {
         NSURL *lastViewedURL = [NSURL URLWithString: lastViewedURLString];
         NSError *error = nil;
         NSManagedObjectID *oid = [self.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation: lastViewedURL];
@@ -290,6 +288,9 @@
     if (lastViewed != nil){
         // XXX: should make switchToResource not handle SBMusicItem
         [self switchToResource: (SBResource*)lastViewed];
+    } else if ([self shouldShowOnboarding]) {
+        SBNavigationItem *navItem = [[SBOnboardingNavigationItem alloc] init];
+        [self navigateForwardToNavItem: navItem];
     } else {
         SBNavigationItem *navItem = [[SBLocalMusicNavigationItem alloc] init];
         [self navigateForwardToNavItem: navItem];
@@ -305,8 +306,6 @@
     
 
     [hostView setWantsLayer:YES];
-    
-    [self maybeShowOnboarding];
 }
 
 #pragma mark -
@@ -422,8 +421,6 @@
 
 
 - (IBAction)createDemoServer:(id)sender {
-    onboardingWindow.isVisible = NO;
-    
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@)", @"Servers"];
     SBSection *serversSection = [self.managedObjectContext fetchEntityNammed:@"Section" withPredicate:predicate error:nil];
     // These are defined in the Core Data model.
@@ -438,8 +435,6 @@
 
 
 - (IBAction)openAudioFiles:(id)sender {
-    onboardingWindow.isVisible = NO;
-    
     static NSArray *types = nil;
     static dispatch_once_t token;
     dispatch_once(&token, ^{
@@ -597,8 +592,6 @@
 }
 
 - (IBAction)addServer:(id)sender {
-    onboardingWindow.isVisible = NO;
-    
     [sourceList deselectAll:sender];
     
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@)", @"Servers"];
@@ -613,6 +606,9 @@
     
     [editServerController setServer:newServer];
     [editServerController openSheet:sender];
+    
+    // XXX: A notification from EditServerController for switching to it, if created
+    // (motiviation is onboarding)
 }
 
 - (IBAction)configureCurrentServer:(id)sender {
@@ -985,6 +981,10 @@
             [NSApp endSheet:panel];
             
             [self openImportAlert:[self window] files:files];
+            
+            if (rightVC.selectedViewController != musicController) {
+                [self showLibraryView: self];
+            }
         }
     }
 }
@@ -1904,6 +1904,7 @@
         tempVC.view = [[NSView alloc] initWithFrame: rightVC.view.frame];
         mapping = @{
             @"Music": musicController,
+            @"Onboarding": onboardingController,
             @"Downloads": downloadsController,
             @"ServerLibrary": serverLibraryController,
             @"ServerHome": serverHomeController,

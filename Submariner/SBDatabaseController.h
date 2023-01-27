@@ -43,8 +43,6 @@
 #import "SBServerSearchController.h"
 #import "SBSourceList.h"
 
-#import "Submariner-Swift.h"
-
 @class SBSplitView;
 @class SBSourceList;
 @class SBEditServerController;
@@ -60,6 +58,10 @@
 
 
 #define SBLibraryTableViewDataType @"SBLibraryTableViewDataType"
+
+// forward declarations for Swift classes (otherwise it's painful to reference,
+// the swift bridging header can only be included in the impl)
+@class SBRoutePickerView, SBOnboardingController;
 
 
 @interface SBDatabaseController : SBWindowController <NSWindowDelegate, SBSourceListDelegate, SBSourceListDataSource, NSPageControllerDelegate> {
@@ -98,8 +100,7 @@
     IBOutlet NSSearchField *searchField;
     IBOutlet NSSearchToolbarItem *searchToolbarItem;
     
-    IBOutlet NSPanel *onboardingWindow;
-    
+    SBOnboardingController *onboardingController;
     SBMusicController *musicController;
     SBDownloadsController *downloadsController;
     SBTracklistController *tracklistController;
@@ -175,6 +176,7 @@
 - (IBAction)cleanTracklist:(id)sender;
 - (IBAction)goToCurrentTrack:(id)sender;
 - (IBAction)renameItem:(id)sender;
+- (IBAction)createDemoServer:(id)sender;
 
 // NSUserInterfaceValidations protocol is implemented by AppDelegate, but logic lives here
 - (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item;
