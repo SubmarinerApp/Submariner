@@ -150,6 +150,10 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     self = [super init];
     if (self) {
         remotePlayer = [[AVPlayer alloc] init];
+        // This is counter-intuitive, but this has to be *off* for AirPlay from the app to work
+        // per https://stackoverflow.com/a/29324777 - seems to cause problem for video, but
+        // we don't care about video
+        remotePlayer.allowsExternalPlayback = NO;
         
         // setup observers
         [remotePlayer addObserver:self forKeyPath:@"status" options:0 context:nil];
