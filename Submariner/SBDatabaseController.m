@@ -274,7 +274,7 @@
     
     id lastViewed = nil;
     NSString *lastViewedURLString = [[NSUserDefaults standardUserDefaults] objectForKey: @"LastViewedResource"];
-    if (lastViewedURLString != nil && NO) {
+    if (lastViewedURLString != nil) {
         NSURL *lastViewedURL = [NSURL URLWithString: lastViewedURLString];
         NSError *error = nil;
         NSManagedObjectID *oid = [self.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation: lastViewedURL];
