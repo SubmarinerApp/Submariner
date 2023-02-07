@@ -43,8 +43,8 @@
 #import "NSURL+Parameters.h"
 #import "NSOperationQueue+Shared.h"
 #import "NSManagedObjectContext+Fetch.h"
-#import "NSString+Hex.h"
-#import "NSString+File.h"
+
+#import "Submariner-Swift.h"
 
 
 

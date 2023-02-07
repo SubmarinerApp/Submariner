@@ -34,8 +34,8 @@
 #import "SBCover.h"
 #import "SBAlbum.h"
 #import "NSURL+Parameters.h"
-#import "NSString+Time.h"
-#import "NSString+Hex.h"
+
+#import "Submariner-Swift.h"
 
 
 @implementation SBTrack

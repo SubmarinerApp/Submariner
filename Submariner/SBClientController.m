@@ -49,7 +49,6 @@
 
 #import "NSManagedObjectContext+Fetch.h"
 #import "NSURL+Parameters.h"
-#import "NSString+Hex.h"
 #import "NSOperationQueue+Shared.h"
 
 

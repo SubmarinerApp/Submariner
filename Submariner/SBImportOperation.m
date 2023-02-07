@@ -45,7 +45,6 @@
 
 #import "NSURL+Parameters.h"
 #import "NSManagedObjectContext+Fetch.h"
-#import "NSData+Type.h"
 
 #import "Submariner-Swift.h"
 

@@ -37,9 +37,9 @@
 #import "SBPlaylist.h"
 #import "SBAppDelegate.h"
 
-#include "NSString+Hex.h"
-#include "NSString+File.h"
 #include "NSURL+Parameters.h"
+
+#import "Submariner-Swift.h"
 
 @implementation SBServer
 
@@ -350,7 +350,7 @@
     if (usePasswordAuth) {
         [parameters removeObjectForKey: @"t"];
         [parameters removeObjectForKey: @"s"];
-        [parameters setValue:[@"enc:" stringByAppendingString:[NSString stringToHex: self.password]] forKey:@"p"];
+        [parameters setValue:[@"enc:" stringByAppendingString:[self.password toHex]] forKey:@"p"];
     } else {
         [parameters removeObjectForKey: @"p"];
         NSMutableData *salt_bytes = [NSMutableData dataWithLength: 64];
@@ -358,7 +358,7 @@
         if (rc != 0) {
             // XXX: we are having a bad day
         }
-        NSString *salt = [NSString stringFromBytes: salt_bytes];
+        NSString *salt = [NSString hexStringFromBytes: salt_bytes];
         [parameters setValue: salt forKey:@"s"];
         NSString *password = self.password;
         NSString *token = [[NSString stringWithFormat: @"%@%@", password, salt] md5];

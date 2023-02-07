@@ -54,8 +54,8 @@
 
 #import "NSManagedObjectContext+Fetch.h"
 #import "NSURL+Parameters.h"
-#import "NSString+Time.h"
-#import "NSString+File.h"
+
+#import "Submariner-Swift.h"
 
 
 NSString *SBSubsonicConnectionFailedNotification        = @"SBSubsonicConnectionFailedNotification";
@@ -1052,7 +1052,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     if(groupName)
         predicate = [NSPredicate predicateWithFormat: @"(itemName == %@) && (server == %@)", groupName, server];
     
-    NSArray *groups = [[self threadedContext] fetchEntitiesNammed:@"Group" withPredicate:predicate error:&error];
+    NSArray<SBGroup*> *groups = [[self threadedContext] fetchEntitiesNammed:@"Group" withPredicate:predicate error:&error];
     if(groups && [groups count] > 0) {
         return (SBGroup *)[[self threadedContext] objectWithID:[[groups objectAtIndex:0] objectID]];
     }
@@ -1070,7 +1070,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
         predicate = [NSPredicate predicateWithFormat: @"(itemName == %@) && (server == %@)", artistName, server];
     }
     
-    NSArray *artists = [[self threadedContext] fetchEntitiesNammed:@"Artist" withPredicate:predicate error:&error];
+    NSArray<SBArtist*> *artists = [[self threadedContext] fetchEntitiesNammed:@"Artist" withPredicate:predicate error:&error];
     if(artists && [artists count] > 0) {
         return (SBArtist *)[[self threadedContext] objectWithID:[[artists objectAtIndex:0] objectID]];
     }
@@ -1095,7 +1095,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
         predicate = [NSPredicate predicateWithFormat: @"(itemName == %@)", albumName];
     }
     
-    NSArray *albums = [[self threadedContext] fetchEntitiesNammed:@"Album" withPredicate:predicate error:&error];
+    NSArray<SBAlbum*> *albums = [[self threadedContext] fetchEntitiesNammed:@"Album" withPredicate:predicate error:&error];
     if(albums && [albums count] > 0) {
         return (SBAlbum *)[[self threadedContext] objectWithID:[[albums objectAtIndex:0] objectID]];
     }
@@ -1120,7 +1120,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
         predicate = [NSPredicate predicateWithFormat: @"(itemName == %@)", trackTitle];
     }
     
-    NSArray *tracks = [[self threadedContext] fetchEntitiesNammed:@"Track" withPredicate:predicate error:&error];
+    NSArray<SBTrack*> *tracks = [[self threadedContext] fetchEntitiesNammed:@"Track" withPredicate:predicate error:&error];
     if(tracks && [tracks count] > 0) {
         return (SBTrack *)[[self threadedContext] objectWithID:[[tracks objectAtIndex:0] objectID]];
     }
@@ -1138,7 +1138,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
         predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@) && (server == %@)", playlistName, server];
     }
     
-    NSArray *playlists = [[self threadedContext] fetchEntitiesNammed:@"Playlist" withPredicate:predicate error:&error];
+    NSArray<SBPlaylist*> *playlists = [[self threadedContext] fetchEntitiesNammed:@"Playlist" withPredicate:predicate error:&error];
     if(playlists && [playlists count] > 0) {
         return (SBPlaylist *)[[self threadedContext] objectWithID:[[playlists objectAtIndex:0] objectID]];
     }
@@ -1155,7 +1155,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     if(coverID)
         predicate = [NSPredicate predicateWithFormat: @"(id == %@)", coverID];
     
-    NSArray *covers = [[self threadedContext] fetchEntitiesNammed:@"Cover" withPredicate:predicate error:&error];
+    NSArray<SBCover*> *covers = [[self threadedContext] fetchEntitiesNammed:@"Cover" withPredicate:predicate error:&error];
     if(covers && [covers count] > 0) {
         return (SBCover *)[[self threadedContext] objectWithID:[[covers objectAtIndex:0] objectID]];
     }
@@ -1170,7 +1170,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     if(sectionName)
         predicate = [NSPredicate predicateWithFormat: @"(resourceName == %@) && (server == %@)", sectionName, server];
     
-    NSArray *sections = [[self threadedContext] fetchEntitiesNammed:@"Section" withPredicate:predicate error:&error];
+    NSArray<SBSection*> *sections = [[self threadedContext] fetchEntitiesNammed:@"Section" withPredicate:predicate error:&error];
     if(sections && [sections count] > 0) {
         return (SBSection *)[[self threadedContext] objectWithID:[[sections objectAtIndex:0] objectID]];
     }
@@ -1185,7 +1185,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     if(channelID)
         predicate = [NSPredicate predicateWithFormat: @"(id == %@) && (server == %@)", channelID, server];
     
-    NSArray *podcasts = [[self threadedContext] fetchEntitiesNammed:@"Podcast" withPredicate:predicate error:&error];
+    NSArray<SBPodcast*> *podcasts = [[self threadedContext] fetchEntitiesNammed:@"Podcast" withPredicate:predicate error:&error];
     if(podcasts && [podcasts count] > 0) {
         return (SBPodcast *)[[self threadedContext] objectWithID:[[podcasts objectAtIndex:0] objectID]];
     }
@@ -1201,7 +1201,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     if(episodeID)
         predicate = [NSPredicate predicateWithFormat: @"(id == %@) && (server == %@)", episodeID, server];
     
-    NSArray *episodes = [[self threadedContext] fetchEntitiesNammed:@"Episode" withPredicate:predicate error:&error];
+    NSArray<SBEpisode*> *episodes = [[self threadedContext] fetchEntitiesNammed:@"Episode" withPredicate:predicate error:&error];
     if(episodes && [episodes count] > 0) {
         return (SBEpisode *)[[self threadedContext] objectWithID:[[episodes objectAtIndex:0] objectID]];
     }

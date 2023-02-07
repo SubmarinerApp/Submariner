@@ -50,7 +50,8 @@
 #import "NSURL+Parameters.h"
 #import "NSManagedObjectContext+Fetch.h"
 #import "NSOperationQueue+Shared.h"
-#import "NSString+Time.h"
+
+#import "Submariner-Swift.h"
 
 #import <MediaPlayer/MPNowPlayingInfoCenter.h>
 #import <MediaPlayer/MPMediaItem.h>

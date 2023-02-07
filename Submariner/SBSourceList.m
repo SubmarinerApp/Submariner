@@ -10,6 +10,7 @@
 
 #import "SBSourceList.h"
 
+#import "Submariner-Swift.h"
 
 //Layout constants
 #define MIN_BADGE_WIDTH							14.0		//The minimum badge width for each item (default 22.0)

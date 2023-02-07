@@ -29,11 +29,10 @@
 
 
 #import "SBEpisode.h"
-#import "NSString+Time.h"
-#import "NSString+Hex.h"
 #import "SBServer.h"
 #import "SBPodcast.h"
 
+#import "Submariner-Swift.h"
 
 @implementation SBEpisode
 
