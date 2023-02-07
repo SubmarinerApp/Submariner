@@ -7,7 +7,6 @@
 //
 
 #import "SBSheetController.h"
-#import "NSWindow-NSTimeMachineSupport.h"
 
 @implementation SBSheetController
 
@@ -24,8 +23,7 @@
 	[sheet performSelector:@selector(orderOut:) withObject:nil afterDelay:0];
 	
 	// If the sheet has a toolbar or a bottom bar, make sure those elements can't move the window (private API)
-	if ([sheet respondsToSelector:@selector(setMovable:)])
-		[sheet setMovable:NO];
+	[sheet setMovable:NO];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder;

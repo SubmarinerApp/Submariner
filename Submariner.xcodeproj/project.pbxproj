@@ -385,7 +385,6 @@
 		4CFB3E11139D028D008DC01A /* SBSheetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSheetController.m; sourceTree = "<group>"; };
 		4CFB3E12139D028D008DC01A /* SBServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBServerViewController.h; sourceTree = "<group>"; };
 		4CFB3E13139D028D008DC01A /* SBServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBServerViewController.m; sourceTree = "<group>"; };
-		4CFB3E16139D02A0008DC01A /* NSWindow-NSTimeMachineSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSWindow-NSTimeMachineSupport.h"; sourceTree = "<group>"; };
 		4CFB3E17139D052F008DC01A /* SBEditServerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBEditServerController.h; sourceTree = "<group>"; };
 		4CFB3E18139D052F008DC01A /* SBEditServerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBEditServerController.m; sourceTree = "<group>"; };
 		4CFB3EA1139D115F008DC01A /* SBOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBOperation.h; sourceTree = "<group>"; };
@@ -639,7 +638,6 @@
 				4C7AA2A5139D9B440050BE95 /* NSString+Time.m */,
 				4CED8E1D144CE2A400332417 /* NSString+Hex.h */,
 				4CED8E1E144CE2A400332417 /* NSString+Hex.m */,
-				4CFB3E16139D02A0008DC01A /* NSWindow-NSTimeMachineSupport.h */,
 				4C87EE0E139CE33B0064DE2E /* NSManagedObjectContext+Fetch.h */,
 				4C87EE0F139CE33B0064DE2E /* NSManagedObjectContext+Fetch.m */,
 				4C87EDAE139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.h */,
