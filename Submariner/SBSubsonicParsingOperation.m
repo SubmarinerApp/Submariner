@@ -47,7 +47,6 @@
 #import "SBAlbum.h"
 #import "SBCover.h"
 #import "SBNowPlaying.h"
-#import "SBSearchResult.h"
 #import "SBPodcast.h"
 #import "SBEpisode.h"
 

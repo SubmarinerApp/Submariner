@@ -310,7 +310,7 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="7BB2B735-54FA-4211-874E-DC54D248F3E5" explicitItemIdentifier="SBTBShowVolume" label="Volume" paletteLabel="Volume" image="speaker" catalog="system" sizingBehavior="auto" id="Yk7-oS-omj">
                         <nil key="toolTip"/>
-                        <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="Sgq-JE-YWM" customClass="SBVolumeButton">
+                        <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="Sgq-JE-YWM" customClass="SBVolumeButton" customModule="Submariner" customModuleProvider="target">
                             <rect key="frame" x="10" y="14" width="26" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="speaker" catalog="system" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="Ofy-se-eTz">
@@ -387,7 +387,7 @@
                     <toolbarItem implicitItemIdentifier="42C96FA8-AA57-435D-B5D8-CF2B743B709F" explicitItemIdentifier="SBTBBack" label="Back" paletteLabel="Back" image="chevron.backward" catalog="system" sizingBehavior="auto" navigational="YES" id="BDR-wj-tYE">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="0vt-rE-rmb">
-                            <rect key="frame" x="3" y="14" width="27" height="25"/>
+                            <rect key="frame" x="6" y="14" width="22" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="chevron.backward" catalog="system" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="rdP-Vg-jtq">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -401,7 +401,7 @@
                     <toolbarItem implicitItemIdentifier="E59E769E-0FEE-48FE-82D8-CA785CCA0119" explicitItemIdentifier="SBTBForward" label="Forward" paletteLabel="Forward" image="chevron.forward" catalog="system" sizingBehavior="auto" navigational="YES" id="vQt-W9-gYb">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="J08-7i-Eo9">
-                            <rect key="frame" x="12" y="14" width="27" height="25"/>
+                            <rect key="frame" x="14" y="14" width="22" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="chevron.forward" catalog="system" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="Qvi-3K-iCz">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

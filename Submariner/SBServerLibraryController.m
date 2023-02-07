@@ -45,9 +45,10 @@
 #import "SBArtist.h"
 #import "SBAlbum.h"
 #import "SBTrack.h"
-#import "SBOperationActivity.h"
 #import "SBPrioritySplitViewDelegate.h"
 #import "NSOperationQueue+Shared.h"
+
+#import "Submariner-Swift.h"
 
 
 // main split view constant

@@ -45,11 +45,12 @@
 #import "SBArtist.h"
 #import "SBAlbum.h"
 #import "SBCover.h"
-#import "SBSearchResult.h"
 
 #import "NSManagedObjectContext+Fetch.h"
 #import "NSURL+Parameters.h"
 #import "NSOperationQueue+Shared.h"
+
+#import "Submariner-Swift.h"
 
 
 @interface SBClientController (Private)

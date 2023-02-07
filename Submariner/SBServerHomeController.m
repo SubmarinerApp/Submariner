@@ -40,8 +40,9 @@
 #import "SBServer.h"
 #import "SBPlayer.h"
 #import "SBSubsonicDownloadOperation.h"
-#import "SBOperationActivity.h"
 #import "NSOperationQueue+Shared.h"
+
+#import "Submariner-Swift.h"
 
 
 

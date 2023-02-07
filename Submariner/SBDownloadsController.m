@@ -34,7 +34,8 @@
 
 #import "SBDownloadsController.h"
 #import "SBSubsonicDownloadOperation.h"
-#import "SBOperationActivity.h"
+
+#import "Submariner-Swift.h"
 
 
 
