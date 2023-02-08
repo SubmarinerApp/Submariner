@@ -583,7 +583,7 @@
     
     if (action == @selector(addSelectedToTracklist:)
         || action == @selector(playSelected:)) {
-        return (albumSelected > 0 || tracksSelected > 0) && (albumsActive || tracksActive);
+        return (albumSelected > 0 && albumsActive) || (tracksSelected > 0 && tracksActive);
     }
     
     if (action == @selector(createNewPlaylistWithSelectedTracks:)

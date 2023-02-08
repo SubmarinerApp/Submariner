@@ -808,11 +808,11 @@
     }
     
     if (action == @selector(addSelectedToTracklist:)) {
-        return artistsSelected > 0 || albumSelected > 0 || tracksSelected > 0;
+        return (albumSelected > 0 && albumsActive) || (tracksSelected > 0 && tracksActive) || (artistsSelected > 0 && artistsActive);
     }
     
     if (action == @selector(playSelected:)) {
-        return (albumSelected > 0 || tracksSelected > 0) && (albumsActive || tracksActive);
+        return (albumSelected > 0 && albumsActive) || (tracksSelected > 0 && tracksActive);
     }
     
     if (action == @selector(showSelectedInFinder:)

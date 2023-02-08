@@ -685,12 +685,11 @@
     }
     
     if (action == @selector(playSelected:)) {
-        return (albumSelected > 0 || tracksSelected > 0) && (albumsActive || tracksActive);
+        return (albumSelected > 0 && albumsActive) || (tracksSelected > 0 && tracksActive);
     }
     
     if (action == @selector(addSelectedToTracklist:)) {
-        return (albumSelected > 0 || tracksSelected > 0 || artistsSelected > 0)
-            && (albumsActive || tracksActive || artistsActive);
+        return (albumSelected > 0 && albumsActive) || (tracksSelected > 0 && tracksActive) || (artistsSelected > 0 && artistsActive);
     }
     
     if (action == @selector(createNewPlaylistWithSelectedTracks:)
