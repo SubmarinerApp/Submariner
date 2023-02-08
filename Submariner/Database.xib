@@ -26,6 +26,7 @@
                 <outlet property="searchField" destination="6O8-Ia-yxP" id="sOH-p9-fjy"/>
                 <outlet property="searchToolbarItem" destination="9F1-5u-YOh" id="dBM-nT-lOR"/>
                 <outlet property="sourceList" destination="15" id="96"/>
+                <outlet property="tracklistButton" destination="5fD-bB-Du9" id="K9l-6e-lAO"/>
                 <outlet property="tracklistContainmentBox" destination="neC-xR-4bn" id="jLu-00-92L"/>
                 <outlet property="tracklistVC" destination="UU0-Po-5l1" id="I76-My-MNO"/>
                 <outlet property="volumeButton" destination="Sgq-JE-YWM" id="ye3-qO-rO1"/>
@@ -329,7 +330,7 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="7F4AA384-9A44-4EB0-8789-7EEF116D73AF" explicitItemIdentifier="SBTBToggleTacklist" label="Tracklist" paletteLabel="Tracklist" image="music.note.list" catalog="system" sizingBehavior="auto" id="aAW-If-dJs">
                         <nil key="toolTip"/>
-                        <button key="view" verticalHuggingPriority="750" id="5fD-bB-Du9">
+                        <button key="view" verticalHuggingPriority="750" id="5fD-bB-Du9" customClass="SBTracklistButton" customModule="Submariner" customModuleProvider="target">
                             <rect key="frame" x="12" y="14" width="28" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="music.note.list" catalog="system" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="XuZ-5I-yef">

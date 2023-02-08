@@ -465,7 +465,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerPlaylistUpdatedNotification object:self];
 }
 
-- (void)addTrackArray:(NSArray *)array replace:(BOOL)replace {
+- (void)addTrackArray:(NSArray<SBTrack*> *)array replace:(BOOL)replace {
     
     if(replace) {
         [playlist removeAllObjects];
@@ -485,7 +485,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     [[NSNotificationCenter defaultCenter] postNotificationName:SBPlayerPlaylistUpdatedNotification object:self];
 }
 
-- (void)removeTrackArray:(NSArray *)tracks {
+- (void)removeTrackArray:(NSArray<SBTrack*> *)tracks {
     NSUInteger playingTrackIndex = [tracks indexOfObjectPassingTest: ^BOOL (SBTrack *track, NSUInteger i, BOOL *stop) {
         BOOL isCurrentTrack = [track isEqualTo:self.currentTrack];
         if (isCurrentTrack) {

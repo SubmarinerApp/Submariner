@@ -363,6 +363,8 @@
     // We have to hold a strong reference onto the RPV and slap it in, otherwise it gets dealloc'd.
     routePickerToolbarItem.view = routePicker;
     
+    // The tracklist button needs an MOC
+    tracklistButton.managedObjectContext = self.managedObjectContext;
 }
 
 #pragma mark -

@@ -61,7 +61,7 @@
 
 // forward declarations for Swift classes (otherwise it's painful to reference,
 // the swift bridging header can only be included in the impl)
-@class SBRoutePickerView, SBOnboardingController;
+@class SBRoutePickerView, SBOnboardingController, SBTracklistButton;
 
 
 @interface SBDatabaseController : SBWindowController <NSWindowDelegate, SBSourceListDelegate, SBSourceListDataSource, NSPageControllerDelegate> {
@@ -97,6 +97,7 @@
     __weak IBOutlet NSToolbarItem *volumeToolbarItem;
     IBOutlet NSButton *volumeButton;
     IBOutlet NSPopover *volumePopover;
+    IBOutlet SBTracklistButton *tracklistButton;
     IBOutlet NSSearchField *searchField;
     IBOutlet NSSearchToolbarItem *searchToolbarItem;
     

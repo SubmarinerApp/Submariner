@@ -27,6 +27,7 @@
 		3EB2BCCB2992F03A00DC5056 /* SBSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCCA2992F03A00DC5056 /* SBSearchResult.swift */; };
 		3EB2BCCD2992F1B800DC5056 /* SBOperationActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCCC2992F1B800DC5056 /* SBOperationActivity.swift */; };
 		3EB2BCCF2992F3CA00DC5056 /* SBVolumeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCCE2992F3CA00DC5056 /* SBVolumeButton.swift */; };
+		3EB2BCD12992FD5A00DC5056 /* SBTracklistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCD02992FD5A00DC5056 /* SBTracklistButton.swift */; };
 		3ECF63FA280362BA004F9176 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ECF63F9280362BA004F9176 /* Assets.xcassets */; };
 		3ED5BF1A2830634C000AAB70 /* SBVolumeIconTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5BF192830634C000AAB70 /* SBVolumeIconTransformer.m */; };
 		3ED5BF1D283197AE000AAB70 /* SBRepeatIconTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5BF1C283197AE000AAB70 /* SBRepeatIconTransformer.m */; };
@@ -181,6 +182,7 @@
 		3EB2BCCA2992F03A00DC5056 /* SBSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBSearchResult.swift; sourceTree = "<group>"; };
 		3EB2BCCC2992F1B800DC5056 /* SBOperationActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBOperationActivity.swift; sourceTree = "<group>"; };
 		3EB2BCCE2992F3CA00DC5056 /* SBVolumeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBVolumeButton.swift; sourceTree = "<group>"; };
+		3EB2BCD02992FD5A00DC5056 /* SBTracklistButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTracklistButton.swift; sourceTree = "<group>"; };
 		3ECF63F9280362BA004F9176 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3ED5BF182830634C000AAB70 /* SBVolumeIconTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBVolumeIconTransformer.h; sourceTree = "<group>"; };
 		3ED5BF192830634C000AAB70 /* SBVolumeIconTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBVolumeIconTransformer.m; sourceTree = "<group>"; };
@@ -562,6 +564,7 @@
 				3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */,
 				3E94E5F92915AB130080FDF6 /* SBRoutePickerView.swift */,
 				3EB2BCCE2992F3CA00DC5056 /* SBVolumeButton.swift */,
+				3EB2BCD02992FD5A00DC5056 /* SBTracklistButton.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -970,6 +973,7 @@
 				4C87EE5F139CE4680064DE2E /* SBTrack.m in Sources */,
 				4C87EE60139CE4680064DE2E /* SBTracklist.m in Sources */,
 				4CFB3E07139CEA76008DC01A /* NSOutlineView+Expand.m in Sources */,
+				3EB2BCD12992FD5A00DC5056 /* SBTracklistButton.swift in Sources */,
 				4CFB3E14139D028D008DC01A /* SBSheetController.m in Sources */,
 				4CFB3E15139D028D008DC01A /* SBServerViewController.m in Sources */,
 				3E189E4028EF5BAB0062ACA0 /* SBAudioMetadata.swift in Sources */,
