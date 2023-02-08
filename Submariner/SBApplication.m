@@ -79,4 +79,38 @@
     
     return self;
 }
+
+
+// https://stackoverflow.com/a/32246600
+- (void)sendEvent:(NSEvent *)anEvent
+{
+    [super sendEvent:anEvent];
+    switch ([anEvent type]) {
+        case NSEventTypeKeyDown:
+        if (([anEvent keyCode] == 49) && (![anEvent isARepeat])) {
+            // only trigger if we're not in something editing shaped,
+            // where space does something the user expects
+            if ([anEvent.window.firstResponder isKindOfClass: NSText.class]) {
+                break;
+            }
+            NSPoint pt; pt.x = pt.y = 0;
+            NSEvent *fakeEvent = [NSEvent keyEventWithType:NSEventTypeKeyDown
+                                                  location:pt
+                                             modifierFlags:0
+                                                 timestamp:[[NSProcessInfo processInfo] systemUptime]
+                                              windowNumber: 0 // self.windowNumber
+                                                   context:[NSGraphicsContext currentContext]
+                                                characters:@" "
+                               charactersIgnoringModifiers:@" "
+                                                 isARepeat:NO
+                                                   keyCode:49];
+            [[NSApp mainMenu] performKeyEquivalent:fakeEvent];
+        }
+        break;
+
+    default:
+        break;
+    }
+}
+
 @end

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="20037" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="20037"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -124,7 +124,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="dt2-nv-5IQ"/>
-                            <menuItem title="Download" keyEquivalent="s" id="eFU-Sh-VoQ">
+                            <menuItem title="Download" keyEquivalent="S" id="eFU-Sh-VoQ">
                                 <connections>
                                     <action selector="downloadSelected:" target="-1" id="eoD-aJ-yzw"/>
                                 </connections>
@@ -132,13 +132,6 @@
                             <menuItem title="Show in Finder" keyEquivalent="R" id="VkS-fR-gtn">
                                 <connections>
                                     <action selector="showSelectedInFinder:" target="-1" id="3X0-r0-rfO"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="fJl-3t-n8T"/>
-                            <menuItem title="Merge Artists" id="3Av-9w-UCN">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="mergeArtists:" target="-1" id="wlU-bg-vgm"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="79">
@@ -204,6 +197,12 @@ CA
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="renameItem:" target="494" id="6aG-c0-Ccd"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Merge Artists" id="3Av-9w-UCN">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="mergeArtists:" target="-1" id="wlU-bg-vgm"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Soo-Td-T1J"/>
@@ -298,6 +297,19 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="AoM-Os-fEu"/>
+                            <menuItem title="Local Library" id="Nkt-9e-gbI">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="showLibraryView:" target="-1" id="sNq-j3-urf"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Downloads" id="EDi-sv-Xur">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="showDownloadView:" target="-1" id="7dN-Ad-G28"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="DVs-nI-fnl"/>
                             <menuItem title="Search" keyEquivalent="f" id="Zla-FM-zx5">
                                 <connections>
                                     <action selector="search:" target="494" id="LyJ-ab-5mN"/>
@@ -309,7 +321,8 @@ CA
                 <menuItem title="Playback" id="HuP-mc-qyh">
                     <menu key="submenu" title="Playback" id="kxK-gs-7Pd">
                         <items>
-                            <menuItem title="Play/Pause" keyEquivalent="p" id="wrD-S0-rVT">
+                            <menuItem title="Play/Pause" keyEquivalent=" " id="wrD-S0-rVT">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="playPause:" target="494" id="Uxw-R3-d3b"/>
                                 </connections>
