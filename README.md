@@ -28,6 +28,9 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 ### Version 2.1 (not yet released)
 
 * Basic AirPlay support
+* Spacebar now toggles playback
+* Token authentication can now be toggled
+* Onboarding is now inline with the window
 * Improvements for macOS 13
   * Settings instead of Preferences when on macOS 13
   * Variable SF Symbols for the toolbar volume icon
@@ -36,8 +39,10 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Option to delete track from tracklist after finishing
 * Can navigate back and forth between views with NSPageController
   * Trackpad navigation gestures are supported
+* Tracklist button is a drop target for library items
 * Tweaks to split view, to try remember state better
 * Clean up path handling
+* Slowly rewriting things in Swift
 
 ### Version 2.0
 
