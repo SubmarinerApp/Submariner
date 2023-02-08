@@ -680,8 +680,8 @@
         // player is already running
         [[SBPlayer sharedInstance] playPause];
     } else {
-        // player hasn't run
-        NSLog(@"player hasn't run");
+        // isn't playing; start playback
+        [[SBPlayer sharedInstance] playTracklistAtBeginning];
     }
 }
 
@@ -1930,7 +1930,10 @@
     BOOL isPlaying = [[SBPlayer sharedInstance] isPlaying];
     BOOL tracklistHasItems = [[[SBPlayer sharedInstance] playlist] count] > 0;
     
-    if (action == @selector(playPause:) || action == @selector(stop:)
+    if (action == @selector(playPause:)) {
+        return isPlaying || tracklistHasItems;
+    }
+    if (action == @selector(stop:)
         || action == @selector(rewind:) || action == @selector(fastForward:)
         || action == @selector(goToCurrentTrack:)) {
         return isPlaying;

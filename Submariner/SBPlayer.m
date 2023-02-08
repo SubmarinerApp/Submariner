@@ -587,6 +587,15 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 }
 
 
+- (void) playTracklistAtBeginning {
+    if ([playlist count] < 1) {
+        return;
+    }
+    SBTrack *first = [playlist firstObject];
+    [self playTrack: first];
+}
+
+
 - (void)playOrResume {
     if(remotePlayer != nil) {
         [remotePlayer play];

@@ -97,6 +97,7 @@ enum SBPlayerRepeatMode {
 
 // player controls
 - (void)playTrack:(SBTrack *)track;
+- (void)playTracklistAtBeginning;
 - (void)playPause;
 - (void)next;
 - (void)previous;
