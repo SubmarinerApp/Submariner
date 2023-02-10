@@ -134,9 +134,11 @@
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context {
     self = [super initWithManagedObjectContext:context];
     if (self) {
-        // init sort descriptors
+        // init sort descriptors; index comes first, followed by alphabetical if no index override
+        // (if we just use name, then it messes up the library section)
         NSSortDescriptor *sd1 = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
-        resourceSortDescriptors = [NSMutableArray arrayWithObject:sd1];
+        NSSortDescriptor *sd2 = [NSSortDescriptor sortDescriptorWithKey:@"resourceName" ascending:YES];
+        resourceSortDescriptors = @[sd1, sd2];
         
         // init view controllers
         onboardingController = [[SBOnboardingController alloc] initWithManagedObjectContext:self.managedObjectContext];
