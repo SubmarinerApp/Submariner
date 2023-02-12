@@ -34,6 +34,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SBTableView : NSTableView
+@interface SBTableView : NSTableView<NSMenuDelegate> {
+    NSMenu *headerMenu;
+}
 
 @end

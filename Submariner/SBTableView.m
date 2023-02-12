@@ -59,6 +59,15 @@
 }
 
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    // don't override an existing menu
+    if (self.autosaveName != nil && self.headerView.menu == nil) {
+        [self createViewHeaderMenu];
+    }
+}
+
+
 - (void)replaceSelectionForRightClick {
     // Try to select the clicked row for a right-click; default AppKit behaviour is weird.
     // Otherwise, it'll still use what was highlighted.
@@ -75,6 +84,78 @@
 - (void)willOpenMenu:(NSMenu *)menu withEvent:(NSEvent *)event {
     [self replaceSelectionForRightClick];
     [super willOpenMenu: menu withEvent: event];
+}
+
+#pragma mark -
+#pragma mark Header Menu Toggles
+
+// synthesis of various answers in https://stackoverflow.com/questions/13553935/nstableview-to-allow-user-to-choose-which-columns-to-display
+
+- (NSString*)columnsAutosaveKeyName {
+    return [NSString stringWithFormat: @"SBTableView %@ Columns", self.autosaveName];
+}
+
+- (void)toggleColumn:(NSMenuItem *)menu {
+    NSTableColumn *col = menu.representedObject;
+
+    BOOL shouldHide = !col.isHidden;
+    [col setHidden:shouldHide];
+
+    menu.state = (col.isHidden ? NSControlStateValueOff: NSControlStateValueOn);
+
+    NSMutableDictionary *cols = @{}.mutableCopy;
+    for (NSTableColumn *column in self.tableColumns) {
+        cols[column.identifier] = @(!column.isHidden);
+    }
+
+    NSString *keyName = [self columnsAutosaveKeyName];
+    [[NSUserDefaults standardUserDefaults] setObject:cols forKey: keyName];
+    if (shouldHide) {
+        [self sizeLastColumnToFit];
+    } else {
+        [self sizeToFit];
+    }
+}
+
+- (void)createViewHeaderMenu {
+    NSString *keyName = [self columnsAutosaveKeyName];
+    headerMenu = [[NSMenu alloc] initWithTitle: keyName];
+    headerMenu.delegate = self;
+    self.headerView.menu = headerMenu;
+    
+    NSDictionary *savedCols = [[NSUserDefaults standardUserDefaults] dictionaryForKey: keyName];
+    
+    for (NSTableColumn *col in self.tableColumns) {
+        //NSLog(@"Adding column ID %@ with name %@ tooltip %@", col.identifier, col.headerCell.stringValue, col.headerToolTip);
+
+        NSString *miName = [col.headerCell stringValue]; // does not return nil
+        if ([miName isEqual: @""] && col.headerToolTip != nil && ![col.headerToolTip isEqual: @""]) {
+            miName = col.headerToolTip;
+        } else if ([miName isEqual: @""] && ![col.identifier hasPrefix: @"AutomaticTableColumnIdentifier."]) {
+            // if identifier is nil we're screwed anyways
+            miName = col.identifier;
+        }
+        NSMenuItem *mi = [[NSMenuItem alloc] initWithTitle:miName
+                                                    action:@selector(toggleColumn:)
+                                             keyEquivalent:@""];
+        mi.target = self;
+
+        if (savedCols) {
+            BOOL isVisible = [savedCols[col.identifier] boolValue];
+            [col setHidden:!isVisible];
+        }
+
+        mi.state = (col.isHidden ? NSControlStateValueOff: NSControlStateValueOn);
+        mi.representedObject = col;
+        [headerMenu addItem:mi];
+    }
+}
+
+-(void)menuNeedsUpdate:(NSMenu *)menu {
+    for (NSMenuItem *mi in menu.itemArray) {
+        NSTableColumn *col = [mi representedObject];
+        [mi setState:col.isHidden ? NSControlStateValueOff : NSControlStateValueOn];
+    }
 }
 
 @end
