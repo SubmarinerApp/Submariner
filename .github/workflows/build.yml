@@ -6,7 +6,9 @@ name: Git Release
 on: [push]
 jobs:
   build:
-    runs-on: macos-11
+    runs-on: macos-12
+    env:
+      XCODE_DERIVEDDATA_PATH: build
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -15,17 +17,12 @@ jobs:
       - name: Install xcpretty
         run: gem install xcpretty --no-document --quiet
       - name: Build Executable
-        # use build over archive because it seems to work a bit better
-        run: xcodebuild build -configuration Release -project Submariner.xcodeproj -scheme Submariner -derivedDataPath build/XcodeOutput CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY= | xcpretty -c
+        run: xcodebuild build -configuration Release -project Submariner.xcodeproj -scheme Submariner -arch x86_64 -arch arm64 -derivedDataPath $XCODE_DERIVEDDATA_PATH CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY= | xcpretty -c
       - name: Package Release
-        run: |
-          cd ./build/XcodeOutput/Build/Products/Release
-          ditto -c -k --sequesterRsrc --keepParent "Submariner.app" "Submariner.zip"
-          cd -
-          cp ./build/XcodeOutput/Build/Products/Release/Submariner.zip ./
+        run: ditto -c -k --sequesterRsrc --keepParent "$XCODE_DERIVEDDATA_PATH/Build/Products/Release/Submariner.app" "$XCODE_DERIVEDDATA_PATH/Submariner.zip"
       - name: Archive Release
         # XXX: best action type?
         uses: actions/upload-artifact@v3
         with:
-          name: Submariner.zip
-          path: Submariner.zip
+          name: Submariner
+          path: ${{ env.XCODE_DERIVEDDATA_PATH }}/Submariner.zip
