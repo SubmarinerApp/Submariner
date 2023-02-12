@@ -40,7 +40,9 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Can navigate back and forth between views with NSPageController
   * Trackpad navigation gestures are supported
 * Tracklist button is a drop target for library items
+* Table columns can now be hidden
 * Tweaks to split view, to try remember state better
+* Fixes sort order
 * Clean up path handling
 * Slowly rewriting things in Swift
 
