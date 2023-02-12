@@ -53,7 +53,6 @@
 		4C56868214050AD000BE3478 /* SBCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56868114050AD000BE3478 /* SBCollectionView.m */; };
 		4C56868514050B9A00BE3478 /* SBPodcastItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56868414050B9A00BE3478 /* SBPodcastItemView.m */; };
 		4C56868814050C1100BE3478 /* SBPodcastViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56868714050C1100BE3478 /* SBPodcastViewItem.m */; };
-		4C7AA221139D530B0050BE95 /* RWTableHeaderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA21E139D530B0050BE95 /* RWTableHeaderCell.m */; };
 		4C7AA229139D53A50050BE95 /* SBTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA228139D53A50050BE95 /* SBTableView.m */; };
 		4C7AA22D139D563A0050BE95 /* SBPlaylistController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA22B139D563A0050BE95 /* SBPlaylistController.m */; };
 		4C7AA22E139D563A0050BE95 /* Playlist.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C7AA22C139D563A0050BE95 /* Playlist.xib */; };
@@ -227,8 +226,6 @@
 		4C56868414050B9A00BE3478 /* SBPodcastItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPodcastItemView.m; sourceTree = "<group>"; };
 		4C56868614050C1100BE3478 /* SBPodcastViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPodcastViewItem.h; sourceTree = "<group>"; };
 		4C56868714050C1100BE3478 /* SBPodcastViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPodcastViewItem.m; sourceTree = "<group>"; };
-		4C7AA21D139D530B0050BE95 /* RWTableHeaderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWTableHeaderCell.h; sourceTree = "<group>"; };
-		4C7AA21E139D530B0050BE95 /* RWTableHeaderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWTableHeaderCell.m; sourceTree = "<group>"; };
 		4C7AA227139D53A40050BE95 /* SBTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBTableView.h; sourceTree = "<group>"; };
 		4C7AA228139D53A50050BE95 /* SBTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBTableView.m; sourceTree = "<group>"; };
 		4C7AA22A139D563A0050BE95 /* SBPlaylistController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPlaylistController.h; sourceTree = "<group>"; };
@@ -541,8 +538,6 @@
 				4CFAFC36139EF20500E82B57 /* MGRecessedPopUpButtonCell.m */,
 				4C7AA227139D53A40050BE95 /* SBTableView.h */,
 				4C7AA228139D53A50050BE95 /* SBTableView.m */,
-				4C7AA21D139D530B0050BE95 /* RWTableHeaderCell.h */,
-				4C7AA21E139D530B0050BE95 /* RWTableHeaderCell.m */,
 				4C87ED93139CD97B0064DE2E /* SBSplitView.h */,
 				4C87ED94139CD97B0064DE2E /* SBSplitView.m */,
 				4C87EDBD139CDC250064DE2E /* SBSourceList.h */,
@@ -983,7 +978,6 @@
 				4CFB3EAE139D11CE008DC01A /* SBImportOperation.m in Sources */,
 				4CFB3EF2139D4693008DC01A /* SBTracklistController.m in Sources */,
 				4CFB3EF8139D47EA008DC01A /* SBViewController.m in Sources */,
-				4C7AA221139D530B0050BE95 /* RWTableHeaderCell.m in Sources */,
 				3EB2BCCD2992F1B800DC5056 /* SBOperationActivity.swift in Sources */,
 				4C7AA229139D53A50050BE95 /* SBTableView.m in Sources */,
 				4C7AA22D139D563A0050BE95 /* SBPlaylistController.m in Sources */,

@@ -33,30 +33,8 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "SBTableView.h"
-#import "RWTableHeaderCell.h"
 
 @implementation SBTableView
-
-- (void)_setupHeaderCell
-{
-	for (NSTableColumn* column in [self tableColumns]) {
-		NSTableHeaderCell* cell = [column headerCell];
-		RWTableHeaderCell* newCell = [[RWTableHeaderCell alloc] initWithCell:cell];
-		[column setHeaderCell:newCell];
-	}
-	
-}
-
-
-- (id)initWithCoder:(NSCoder *)aDecoder
-{	
-	self = [super initWithCoder:aDecoder];
-	
-	if (self) {
-		[self _setupHeaderCell];
-	}
-	return self;
-}
 
 
 - (void)awakeFromNib {
