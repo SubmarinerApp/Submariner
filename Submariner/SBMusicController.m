@@ -752,6 +752,21 @@
 }
 
 
+#pragma mark -
+#pragma mark NSTableView Sort Descriptor Override
+
+
+- (void)tableView:(NSTableView *)tableView didClickTableColumn:(NSTableColumn *)tableColumn {
+    if (tableView == tracksTableView && tableColumn == tableView.tableColumns[0]) {
+        // Make sure we're using the sort order for disc then track for track column
+        // We have to build a new array because NSTableView appends.
+        BOOL asc = (tracksController.sortDescriptors[0].ascending);
+        NSSortDescriptor *trackNumberDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"trackNumber" ascending: !asc];
+        NSSortDescriptor *discNumberDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"discNumber" ascending: !asc];
+        tracksController.sortDescriptors = @[discNumberDescriptor, trackNumberDescriptor];
+    }
+}
+
 // No server side command to send, it's local
 //#pragma mark -
 //#pragma mark Tracks NSTableView DataSource (Rating)
