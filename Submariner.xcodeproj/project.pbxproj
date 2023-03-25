@@ -875,7 +875,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1410;
-				ORGANIZATIONNAME = OPALE;
+				ORGANIZATIONNAME = "Submariner Developers";
 				TargetAttributes = {
 					4C87ED5E139CD8BE0064DE2E = {
 						LastSwiftMigration = 1340;
