@@ -44,6 +44,7 @@
 // Additions
 #import "NSManagedObjectContext+Fetch.h"
 
+#import "Submariner-Swift.h"
 
 @implementation SBAppDelegate
 
@@ -77,6 +78,10 @@
     [NSValueTransformer setValueTransformer: oneTrans forName: @"SBRepeatModeOneTransformer"];
     SBRepeatModeTransformer *allTrans = [[SBRepeatModeTransformer alloc] initWithMode: SBPlayerRepeatAll];
     [NSValueTransformer setValueTransformer: allTrans forName: @"SBRepeatModeAllTransformer"];
+    
+    // we have to do this because Swift
+    SBTrackListLengthTransformer *lengthTrans = [[SBTrackListLengthTransformer alloc] init];
+    [NSValueTransformer setValueTransformer: lengthTrans forName: @"SBTrackListLengthTransformer"];
     return self;
 }
 

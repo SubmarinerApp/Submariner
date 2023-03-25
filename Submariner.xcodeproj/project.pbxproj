@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E0DAD5C29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */; };
 		3E189E4028EF5BAB0062ACA0 /* SBAudioMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */; };
 		3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */; };
 		3E2F86D828E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */; };
@@ -156,6 +157,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTrackListLengthTransformer.swift; sourceTree = "<group>"; };
 		3E189E3228EBBAC40062ACA0 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBAudioMetadata.swift; sourceTree = "<group>"; };
 		3E2F86C928DD36E600C5CE23 /* Submariner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Submariner-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -414,6 +416,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E0DAD5D29CA3EAD00D895E2 /* Value Transformers */ = {
+			isa = PBXGroup;
+			children = (
+				3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */,
+				3ED5BF182830634C000AAB70 /* SBVolumeIconTransformer.h */,
+				3ED5BF192830634C000AAB70 /* SBVolumeIconTransformer.m */,
+				3ED5BF1B283197AE000AAB70 /* SBRepeatIconTransformer.h */,
+				3ED5BF1C283197AE000AAB70 /* SBRepeatIconTransformer.m */,
+				3ED5BF5C283BEF4F000AAB70 /* SBRepeatModeTransformer.h */,
+				3ED5BF5D283BEF4F000AAB70 /* SBRepeatModeTransformer.m */,
+				3EFA2C8228D11B9900A1CE46 /* SBTrackArtistNameTransformer.h */,
+				3EFA2C8328D11B9900A1CE46 /* SBTrackArtistNameTransformer.m */,
+			);
+			name = "Value Transformers";
+			sourceTree = "<group>";
+		};
 		3E189E3028EBBAAE0062ACA0 /* Build */ = {
 			isa = PBXGroup;
 			children = (
@@ -524,6 +542,7 @@
 		4C87ED83139CD8CD0064DE2E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3E0DAD5D29CA3EAD00D895E2 /* Value Transformers */,
 				4C1D412E13A8F367002D77F3 /* SplitView Delegates */,
 				4C7AA287139D70390050BE95 /* SBCoverImageView.h */,
 				4C7AA288139D70390050BE95 /* SBCoverImageView.m */,
@@ -548,14 +567,6 @@
 				4CFAFC7C13A0F7E000E82B57 /* SBAnimatedView.m */,
 				4C56868314050B9A00BE3478 /* SBPodcastItemView.h */,
 				4C56868414050B9A00BE3478 /* SBPodcastItemView.m */,
-				3ED5BF182830634C000AAB70 /* SBVolumeIconTransformer.h */,
-				3ED5BF192830634C000AAB70 /* SBVolumeIconTransformer.m */,
-				3ED5BF1B283197AE000AAB70 /* SBRepeatIconTransformer.h */,
-				3ED5BF1C283197AE000AAB70 /* SBRepeatIconTransformer.m */,
-				3ED5BF5C283BEF4F000AAB70 /* SBRepeatModeTransformer.h */,
-				3ED5BF5D283BEF4F000AAB70 /* SBRepeatModeTransformer.m */,
-				3EFA2C8228D11B9900A1CE46 /* SBTrackArtistNameTransformer.h */,
-				3EFA2C8328D11B9900A1CE46 /* SBTrackArtistNameTransformer.m */,
 				3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */,
 				3E94E5F92915AB130080FDF6 /* SBRoutePickerView.swift */,
 				3EB2BCCE2992F3CA00DC5056 /* SBVolumeButton.swift */,
@@ -948,6 +959,7 @@
 				4C87EE33139CE44C0064DE2E /* _SBMusicItem.m in Sources */,
 				3EFA2C8428D11B9900A1CE46 /* SBTrackArtistNameTransformer.m in Sources */,
 				4C87EE34139CE44C0064DE2E /* _SBPlaylist.m in Sources */,
+				3E0DAD5C29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift in Sources */,
 				4C87EE35139CE44C0064DE2E /* _SBResource.m in Sources */,
 				4C87EE36139CE44C0064DE2E /* _SBSection.m in Sources */,
 				4C87EE37139CE44C0064DE2E /* _SBServer.m in Sources */,

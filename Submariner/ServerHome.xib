@@ -70,14 +70,14 @@
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="12">
-                                    <rect key="frame" x="-2" y="0.0" width="622" height="199"/>
+                                    <rect key="frame" x="-2" y="41" width="622" height="158"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <clipView key="contentView" id="SWK-O6-Z3Q">
-                                        <rect key="frame" x="0.0" y="0.0" width="622" height="199"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="622" height="158"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveName="ServerAlbumsTable" headerView="15" id="13" customClass="SBTableView">
-                                                <rect key="frame" x="0.0" y="0.0" width="688" height="171"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="688" height="130"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -223,7 +223,7 @@
                                         </subviews>
                                     </clipView>
                                     <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="14">
-                                        <rect key="frame" x="0.0" y="183" width="622" height="16"/>
+                                        <rect key="frame" x="0.0" y="142" width="622" height="16"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                     <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="16">
@@ -235,6 +235,23 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                     </tableHeaderView>
                                 </scrollView>
+                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="92A-f6-kBb">
+                                    <rect key="frame" x="6" y="13" width="606" height="16"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" title="Track length" id="yE1-MS-WI1">
+                                        <font key="font" usesAppearanceFont="YES"/>
+                                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                    </textFieldCell>
+                                    <connections>
+                                        <binding destination="44" name="value" keyPath="arrangedObjects" id="48K-bu-vYd">
+                                            <dictionary key="options">
+                                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                                <string key="NSValueTransformerName">SBTrackListLengthTransformer</string>
+                                            </dictionary>
+                                        </binding>
+                                    </connections>
+                                </textField>
                             </subviews>
                         </customView>
                     </subviews>
@@ -251,7 +268,7 @@
                     </connections>
                 </customView>
             </subviews>
-            <point key="canvasLocation" x="139" y="136"/>
+            <point key="canvasLocation" x="138.5" y="135.5"/>
         </customView>
         <arrayController mode="entity" entityName="Album" automaticallyPreparesContent="YES" id="37" userLabel="Albums Controller">
             <connections>

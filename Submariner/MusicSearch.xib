@@ -20,14 +20,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="3">
-                    <rect key="frame" x="0.0" y="0.0" width="642" height="361"/>
+                    <rect key="frame" x="0.0" y="41" width="642" height="320"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="jOd-4L-Jn1">
-                        <rect key="frame" x="0.0" y="0.0" width="642" height="361"/>
+                        <rect key="frame" x="0.0" y="0.0" width="642" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveName="LocalMusicSearchTable" headerView="6" id="4" customClass="SBTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="642" height="333"/>
+                                <rect key="frame" x="0.0" y="0.0" width="642" height="292"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -171,8 +171,25 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o3e-Kv-DpN">
+                    <rect key="frame" x="18" y="13" width="606" height="16"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" title="Track length" id="gKj-iU-7qy">
+                        <font key="font" usesAppearanceFont="YES"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <connections>
+                        <binding destination="25" name="value" keyPath="arrangedObjects" id="OPK-9W-KHO">
+                            <dictionary key="options">
+                                <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                <string key="NSValueTransformerName">SBTrackListLengthTransformer</string>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </textField>
             </subviews>
-            <point key="canvasLocation" x="139" y="136"/>
+            <point key="canvasLocation" x="139" y="135.5"/>
         </customView>
         <arrayController mode="entity" entityName="Track" fetchPredicateFormat="isLocal == 1" automaticallyPreparesContent="YES" id="25" userLabel="Tracks Controller">
             <connections>
