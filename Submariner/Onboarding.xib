@@ -8,6 +8,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBOnboardingController" customModule="Submariner" customModuleProvider="target">
             <connections>
+                <outlet property="addServerButton" destination="zR2-iy-uQj" id="Aqo-V6-srf"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>

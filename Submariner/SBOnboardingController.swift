@@ -12,6 +12,16 @@ import Cocoa
     // annoyingly an optional because of the stupid coder ctor
     @objc var databaseController: SBDatabaseController? = nil
     
+    @IBOutlet private weak var addServerButton: NSButton?
+    
+    override func awakeFromNib() {
+        // bezel colour is not available on buttons before monterrey, contrary to API docs
+        if #available(macOS 12.0, *) {
+            let accent = NSColor.init(named: "AccentColor")
+            self.addServerButton?.bezelColor = accent
+        }
+    }
+    
     @objc override init(managedObjectContext: NSManagedObjectContext) {
         super.init(managedObjectContext: managedObjectContext)
     }
