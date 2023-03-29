@@ -24,7 +24,7 @@
                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T7r-ex-BtZ">
                             <rect key="frame" x="229" y="217" width="128" height="128"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="icon" id="I5i-Bz-Hnw"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="AppIconImage" id="I5i-Bz-Hnw"/>
                         </imageView>
                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qsD-Nv-QcU">
                             <rect key="frame" x="65" y="165" width="456" height="43"/>
@@ -58,9 +58,9 @@
                             </connections>
                         </button>
                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DwU-OF-gH8">
-                            <rect key="frame" x="65" y="141" width="456" height="16"/>
+                            <rect key="frame" x="18" y="141" width="550" height="16"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" alignment="center" title="Get started by connecting to Subsonic, or manage your local music." id="Jfc-gl-5fX">
+                            <textFieldCell key="cell" selectable="YES" refusesFirstResponder="YES" alignment="center" title="Get started by connecting to a Subsonic server, or manage your local music." id="Jfc-gl-5fX">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -84,6 +84,6 @@
         </customView>
     </objects>
     <resources>
-        <image name="icon" width="512" height="512"/>
+        <image name="AppIconImage" width="256" height="256"/>
     </resources>
 </document>

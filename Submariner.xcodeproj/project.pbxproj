@@ -43,7 +43,6 @@
 		4C42BEF113AA411300299DBD /* SBDownloads.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C42BEEF13AA411300299DBD /* SBDownloads.m */; };
 		4C42BEF513AA42E800299DBD /* SBDownloadsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C42BEF313AA42E800299DBD /* SBDownloadsController.m */; };
 		4C42BEF613AA42E800299DBD /* Downloads.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C42BEF413AA42E800299DBD /* Downloads.xib */; };
-		4C4A1E6713B287C7000BA93D /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4C4A1E6613B287C7000BA93D /* icon.icns */; };
 		4C4A1E8713B4E6A0000BA93D /* SBMergeArtistsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A1E8613B4E6A0000BA93D /* SBMergeArtistsController.m */; };
 		4C4DE62413A200AD006A1EC1 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4DE62213A200AA006A1EC1 /* Carbon.framework */; };
 		4C4DE62513A200AD006A1EC1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4DE62313A200AC006A1EC1 /* Security.framework */; };
@@ -209,7 +208,6 @@
 		4C42BEF213AA42E800299DBD /* SBDownloadsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDownloadsController.h; sourceTree = "<group>"; };
 		4C42BEF313AA42E800299DBD /* SBDownloadsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDownloadsController.m; sourceTree = "<group>"; };
 		4C42BEF413AA42E800299DBD /* Downloads.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Downloads.xib; sourceTree = "<group>"; };
-		4C4A1E6613B287C7000BA93D /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		4C4A1E8513B4E6A0000BA93D /* SBMergeArtistsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBMergeArtistsController.h; sourceTree = "<group>"; };
 		4C4A1E8613B4E6A0000BA93D /* SBMergeArtistsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBMergeArtistsController.m; sourceTree = "<group>"; };
 		4C4DE62213A200AA006A1EC1 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
@@ -662,7 +660,6 @@
 		4C87EDC2139CDCA70064DE2E /* Pictures */ = {
 			isa = PBXGroup;
 			children = (
-				4C4A1E6613B287C7000BA93D /* icon.icns */,
 				4C87EDDE139CDCB10064DE2E /* NoArtwork.icns */,
 			);
 			name = Pictures;
@@ -919,7 +916,6 @@
 				4CFAFC2D139EF08800E82B57 /* ServerHome.xib in Resources */,
 				4C1A69BC13A6AEE10054A3EF /* ServerUsers.xib in Resources */,
 				4C42BEF613AA42E800299DBD /* Downloads.xib in Resources */,
-				4C4A1E6713B287C7000BA93D /* icon.icns in Resources */,
 				4CCF7FF013B673CA00954C6E /* ServerSearch.xib in Resources */,
 				3ECF63FA280362BA004F9176 /* Assets.xcassets in Resources */,
 				3E5C42E129846E25009B9699 /* Onboarding.xib in Resources */,
@@ -1171,7 +1167,9 @@
 			baseConfigurationReference = 3E189E3228EBBAC40062ACA0 /* Shared.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ARC_MIGRATION = donothing;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
@@ -1194,6 +1192,7 @@
 				GCC_PREFIX_HEADER = "Submariner/Submariner-Prefix.pch";
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "Submariner/Submariner-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.read-write.Submariner";
@@ -1214,7 +1213,9 @@
 			baseConfigurationReference = 3E189E3228EBBAC40062ACA0 /* Shared.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CLANG_ARC_MIGRATION = donothing;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
@@ -1237,6 +1238,7 @@
 				GCC_PREFIX_HEADER = "Submariner/Submariner-Prefix.pch";
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "Submariner/Submariner-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.read-write.Submariner";
