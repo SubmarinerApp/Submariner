@@ -27,8 +27,10 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ### Version 2.1 (not yet released)
 
+* Updated icon
 * Basic AirPlay support
 * Spacebar now toggles playback
+* Number of tracks and length is shown
 * Token authentication can now be toggled
 * Onboarding is now inline with the window
 * Improvements for macOS 13
