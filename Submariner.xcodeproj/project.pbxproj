@@ -11,6 +11,7 @@
 		3E189E4028EF5BAB0062ACA0 /* SBAudioMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */; };
 		3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */; };
 		3E2F86D828E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */; };
+		3E352ED629D602BE002C84CB /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3E352ED529D602BE002C84CB /* AppIcon.icns */; };
 		3E53DBBA27E4192B00DB4C84 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBB927E4192B00DB4C84 /* AVFoundation.framework */; };
 		3E53DBBC27E41B6400DB4C84 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */; };
 		3E5C42E029846E25009B9699 /* SBOnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5C42DE29846E25009B9699 /* SBOnboardingController.swift */; };
@@ -162,6 +163,7 @@
 		3E2F86C928DD36E600C5CE23 /* Submariner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Submariner-Bridging-Header.h"; sourceTree = "<group>"; };
 		3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBMonospaceTextField.swift; sourceTree = "<group>"; };
 		3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTreeController+IndexPath.swift"; sourceTree = "<group>"; };
+		3E352ED529D602BE002C84CB /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 		3E53DBB927E4192B00DB4C84 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		3E5C41DB297F2E15009B9699 /* Submariner v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Submariner v3.xcdatamodel"; sourceTree = "<group>"; };
@@ -524,6 +526,7 @@
 		4C87ED6A139CD8BE0064DE2E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3E352ED529D602BE002C84CB /* AppIcon.icns */,
 				3ECF63F9280362BA004F9176 /* Assets.xcassets */,
 				3EA06A5028B9AD220091A75F /* Submariner.entitlements */,
 				4C87EDC2139CDCA70064DE2E /* Pictures */,
@@ -920,6 +923,7 @@
 				3ECF63FA280362BA004F9176 /* Assets.xcassets in Resources */,
 				3E5C42E129846E25009B9699 /* Onboarding.xib in Resources */,
 				4CFCE444140257EE00D35770 /* MusicSearch.xib in Resources */,
+				3E352ED629D602BE002C84CB /* AppIcon.icns in Resources */,
 				4CC6B56914041F7E003AEAC0 /* ServerPodcasts.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
