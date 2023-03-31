@@ -25,7 +25,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes:
 
-### Version 2.1 (not yet released)
+### Version 2.1
 
 * Updated icon
 * Basic AirPlay support
