@@ -504,7 +504,10 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
                 }
             }
             
-            if(!exists) {
+            // limitation if the same track exists twice
+            track.playlistIndex = [NSNumber numberWithInteger: playlistIndex++];
+            
+            if (!exists) {
                 [currentPlaylist addTracksObject:track];
                 [track setPlaylist:currentPlaylist];
             }
@@ -512,6 +515,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
         } else {
             // create it
             track = [self createTrackWithAttribute:attributeDict];
+            track.playlistIndex = [NSNumber numberWithInteger: playlistIndex++];
             [currentPlaylist addTracksObject:track];
             [track setServer:server];
             [track setPlaylist:currentPlaylist];
