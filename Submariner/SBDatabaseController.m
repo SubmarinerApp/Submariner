@@ -287,12 +287,13 @@
             NSLog(@"existingObjectWithID failed, but not fatal: %@", exc);
         }
     }
-    if (lastViewed != nil){
-        // XXX: should make switchToResource not handle SBMusicItem
-        [self switchToResource: (SBResource*)lastViewed];
-    } else if ([self shouldShowOnboarding]) {
+    
+    if ([self shouldShowOnboarding]) {
         SBNavigationItem *navItem = [[SBOnboardingNavigationItem alloc] init];
         [self navigateForwardToNavItem: navItem];
+    } else if (lastViewed != nil) {
+        // XXX: should make switchToResource not handle SBMusicItem
+        [self switchToResource: (SBResource*)lastViewed];
     } else {
         SBNavigationItem *navItem = [[SBLocalMusicNavigationItem alloc] init];
         [self navigateForwardToNavItem: navItem];
