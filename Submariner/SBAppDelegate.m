@@ -40,7 +40,6 @@
 #import "SBArtist.h"
 #import "SBLibrary.h"
 #import "SBAlbum.h"
-#import "SBRepeatModeTransformer.h"
 // Additions
 #import "NSManagedObjectContext+Fetch.h"
 
@@ -82,6 +81,10 @@
     // we have to do this because Swift
     SBTrackListLengthTransformer *lengthTrans = [[SBTrackListLengthTransformer alloc] init];
     [NSValueTransformer setValueTransformer: lengthTrans forName: @"SBTrackListLengthTransformer"];
+    SBVolumeIconTransformer *volumeTrans = [[SBVolumeIconTransformer alloc] init];
+    [NSValueTransformer setValueTransformer: volumeTrans forName: @"SBVolumeIconTransformer"];
+    SBRepeatIconTransformer *repeatTrans = [[SBRepeatIconTransformer alloc] init];
+    [NSValueTransformer setValueTransformer: repeatTrans forName: @"SBRepeatIconTransformer"];
     return self;
 }
 

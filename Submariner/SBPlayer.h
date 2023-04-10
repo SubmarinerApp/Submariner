@@ -45,11 +45,11 @@ extern NSString *SBPlayerMovieToPlayNotification;
 
 
 // repeat modes
-enum SBPlayerRepeatMode {
+typedef NS_ENUM(NSInteger, SBPlayerRepeatMode) {
     SBPlayerRepeatNo    = 0, // no repeat
     SBPlayerRepeatOne   = 1, // repeat the current track 
     SBPlayerRepeatAll   = 2  // repeat the current playlist
-} typedef SBPlayerRepeatMode;
+};
 
 
 

@@ -21,6 +21,9 @@
 		3E94E5F62912EEC40080FDF6 /* SBNavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E5F52912EEC40080FDF6 /* SBNavigationItem.swift */; };
 		3E94E5F82915AAB80080FDF6 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E94E5F72915AAB80080FDF6 /* AVKit.framework */; };
 		3E94E5FA2915AB130080FDF6 /* SBRoutePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E5F92915AB130080FDF6 /* SBRoutePickerView.swift */; };
+		3EA929B729E4745600938582 /* SBRepeatIconTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA929B629E4745600938582 /* SBRepeatIconTransformer.swift */; };
+		3EA929B929E4766900938582 /* SBVolumeIconTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA929B829E4766900938582 /* SBVolumeIconTransformer.swift */; };
+		3EA929BB29E4785F00938582 /* SBRepeatModeTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA929BA29E4785F00938582 /* SBRepeatModeTransformer.swift */; };
 		3EB2BCC12992D28A00DC5056 /* NSString+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCC02992D28A00DC5056 /* NSString+Hex.swift */; };
 		3EB2BCC32992D94E00DC5056 /* NSData+Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCC22992D94E00DC5056 /* NSData+Type.swift */; };
 		3EB2BCC52992DA8E00DC5056 /* NSString+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCC42992DA8E00DC5056 /* NSString+File.swift */; };
@@ -31,9 +34,6 @@
 		3EB2BCCF2992F3CA00DC5056 /* SBVolumeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCCE2992F3CA00DC5056 /* SBVolumeButton.swift */; };
 		3EB2BCD12992FD5A00DC5056 /* SBTracklistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCD02992FD5A00DC5056 /* SBTracklistButton.swift */; };
 		3ECF63FA280362BA004F9176 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ECF63F9280362BA004F9176 /* Assets.xcassets */; };
-		3ED5BF1A2830634C000AAB70 /* SBVolumeIconTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5BF192830634C000AAB70 /* SBVolumeIconTransformer.m */; };
-		3ED5BF1D283197AE000AAB70 /* SBRepeatIconTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5BF1C283197AE000AAB70 /* SBRepeatIconTransformer.m */; };
-		3ED5BF5E283BEF4F000AAB70 /* SBRepeatModeTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3ED5BF5D283BEF4F000AAB70 /* SBRepeatModeTransformer.m */; };
 		3EFA2C8428D11B9900A1CE46 /* SBTrackArtistNameTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA2C8328D11B9900A1CE46 /* SBTrackArtistNameTransformer.m */; };
 		4C1A69BB13A6AEE10054A3EF /* SBServerUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A69B913A6AEE10054A3EF /* SBServerUserViewController.m */; };
 		4C1A69BC13A6AEE10054A3EF /* ServerUsers.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C1A69BA13A6AEE10054A3EF /* ServerUsers.xib */; };
@@ -176,6 +176,9 @@
 		3E94E5F92915AB130080FDF6 /* SBRoutePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBRoutePickerView.swift; sourceTree = "<group>"; };
 		3EA06A4E28B2C04B0091A75F /* Submariner v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Submariner v2.xcdatamodel"; sourceTree = "<group>"; };
 		3EA06A5028B9AD220091A75F /* Submariner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Submariner.entitlements; sourceTree = "<group>"; };
+		3EA929B629E4745600938582 /* SBRepeatIconTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBRepeatIconTransformer.swift; sourceTree = "<group>"; };
+		3EA929B829E4766900938582 /* SBVolumeIconTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBVolumeIconTransformer.swift; sourceTree = "<group>"; };
+		3EA929BA29E4785F00938582 /* SBRepeatModeTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBRepeatModeTransformer.swift; sourceTree = "<group>"; };
 		3EB2BCC02992D28A00DC5056 /* NSString+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+Hex.swift"; sourceTree = "<group>"; };
 		3EB2BCC22992D94E00DC5056 /* NSData+Type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSData+Type.swift"; sourceTree = "<group>"; };
 		3EB2BCC42992DA8E00DC5056 /* NSString+File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+File.swift"; sourceTree = "<group>"; };
@@ -186,12 +189,6 @@
 		3EB2BCCE2992F3CA00DC5056 /* SBVolumeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBVolumeButton.swift; sourceTree = "<group>"; };
 		3EB2BCD02992FD5A00DC5056 /* SBTracklistButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTracklistButton.swift; sourceTree = "<group>"; };
 		3ECF63F9280362BA004F9176 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3ED5BF182830634C000AAB70 /* SBVolumeIconTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBVolumeIconTransformer.h; sourceTree = "<group>"; };
-		3ED5BF192830634C000AAB70 /* SBVolumeIconTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBVolumeIconTransformer.m; sourceTree = "<group>"; };
-		3ED5BF1B283197AE000AAB70 /* SBRepeatIconTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBRepeatIconTransformer.h; sourceTree = "<group>"; };
-		3ED5BF1C283197AE000AAB70 /* SBRepeatIconTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBRepeatIconTransformer.m; sourceTree = "<group>"; };
-		3ED5BF5C283BEF4F000AAB70 /* SBRepeatModeTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBRepeatModeTransformer.h; sourceTree = "<group>"; };
-		3ED5BF5D283BEF4F000AAB70 /* SBRepeatModeTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBRepeatModeTransformer.m; sourceTree = "<group>"; };
 		3EFA2C8228D11B9900A1CE46 /* SBTrackArtistNameTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBTrackArtistNameTransformer.h; sourceTree = "<group>"; };
 		3EFA2C8328D11B9900A1CE46 /* SBTrackArtistNameTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBTrackArtistNameTransformer.m; sourceTree = "<group>"; };
 		4C1A69B813A6AEE10054A3EF /* SBServerUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBServerUserViewController.h; sourceTree = "<group>"; };
@@ -419,15 +416,12 @@
 		3E0DAD5D29CA3EAD00D895E2 /* Value Transformers */ = {
 			isa = PBXGroup;
 			children = (
-				3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */,
-				3ED5BF182830634C000AAB70 /* SBVolumeIconTransformer.h */,
-				3ED5BF192830634C000AAB70 /* SBVolumeIconTransformer.m */,
-				3ED5BF1B283197AE000AAB70 /* SBRepeatIconTransformer.h */,
-				3ED5BF1C283197AE000AAB70 /* SBRepeatIconTransformer.m */,
-				3ED5BF5C283BEF4F000AAB70 /* SBRepeatModeTransformer.h */,
-				3ED5BF5D283BEF4F000AAB70 /* SBRepeatModeTransformer.m */,
 				3EFA2C8228D11B9900A1CE46 /* SBTrackArtistNameTransformer.h */,
 				3EFA2C8328D11B9900A1CE46 /* SBTrackArtistNameTransformer.m */,
+				3EA929BA29E4785F00938582 /* SBRepeatModeTransformer.swift */,
+				3EA929B629E4745600938582 /* SBRepeatIconTransformer.swift */,
+				3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */,
+				3EA929B829E4766900938582 /* SBVolumeIconTransformer.swift */,
 			);
 			name = "Value Transformers";
 			sourceTree = "<group>";
@@ -952,7 +946,6 @@
 				4C87EE2F139CE44C0064DE2E /* _SBCover.m in Sources */,
 				4C87EE30139CE44C0064DE2E /* _SBGroup.m in Sources */,
 				4C87EE31139CE44C0064DE2E /* _SBIndex.m in Sources */,
-				3ED5BF5E283BEF4F000AAB70 /* SBRepeatModeTransformer.m in Sources */,
 				3E94E5F62912EEC40080FDF6 /* SBNavigationItem.swift in Sources */,
 				4C87EE32139CE44C0064DE2E /* _SBLibrary.m in Sources */,
 				3EB2BCC12992D28A00DC5056 /* NSString+Hex.swift in Sources */,
@@ -979,6 +972,7 @@
 				4C87EE5E139CE4680064DE2E /* SBServer.m in Sources */,
 				4C87EE5F139CE4680064DE2E /* SBTrack.m in Sources */,
 				4C87EE60139CE4680064DE2E /* SBTracklist.m in Sources */,
+				3EA929B729E4745600938582 /* SBRepeatIconTransformer.swift in Sources */,
 				4CFB3E07139CEA76008DC01A /* NSOutlineView+Expand.m in Sources */,
 				3EB2BCD12992FD5A00DC5056 /* SBTracklistButton.swift in Sources */,
 				4CFB3E14139D028D008DC01A /* SBSheetController.m in Sources */,
@@ -991,6 +985,7 @@
 				4CFB3EF2139D4693008DC01A /* SBTracklistController.m in Sources */,
 				4CFB3EF8139D47EA008DC01A /* SBViewController.m in Sources */,
 				3EB2BCCD2992F1B800DC5056 /* SBOperationActivity.swift in Sources */,
+				3EA929B929E4766900938582 /* SBVolumeIconTransformer.swift in Sources */,
 				4C7AA229139D53A50050BE95 /* SBTableView.m in Sources */,
 				4C7AA22D139D563A0050BE95 /* SBPlaylistController.m in Sources */,
 				4C7AA232139D57A00050BE95 /* SBMusicController.m in Sources */,
@@ -1010,14 +1005,13 @@
 				3EB2BCCF2992F3CA00DC5056 /* SBVolumeButton.swift in Sources */,
 				4CFAFC53139FFDF200E82B57 /* SBHome.m in Sources */,
 				4CFAFC56139FFE1700E82B57 /* NSURL+Parameters.m in Sources */,
+				3EA929BB29E4785F00938582 /* SBRepeatModeTransformer.swift in Sources */,
 				4CFAFC60139FFED000E82B57 /* _SBNowPlaying.m in Sources */,
-				3ED5BF1D283197AE000AAB70 /* SBRepeatIconTransformer.m in Sources */,
 				4CFAFC62139FFED000E82B57 /* SBNowPlaying.m in Sources */,
 				4CFAFC7D13A0F7E000E82B57 /* SBAnimatedView.m in Sources */,
 				4CFAFC8113A1110700E82B57 /* NSOperationQueue+Shared.m in Sources */,
 				4C4113AD13A3BD680069CC33 /* SBAddServerPlaylistController.m in Sources */,
 				4CB4D8F713A670BF00F706EC /* SBPrioritySplitViewDelegate.m in Sources */,
-				3ED5BF1A2830634C000AAB70 /* SBVolumeIconTransformer.m in Sources */,
 				4C1A69BB13A6AEE10054A3EF /* SBServerUserViewController.m in Sources */,
 				4C1D412D13A8F2CE002D77F3 /* SBApplication.m in Sources */,
 				4C42BEE813AA15CD00299DBD /* SBSubsonicDownloadOperation.m in Sources */,
