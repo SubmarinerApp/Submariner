@@ -35,7 +35,7 @@
 #import "SBApplication.h"
 #import "SBAppDelegate.h"
 #import "SBPlayer.h"
-
+#import "SBImageBrowserView.h"
 
 
 @interface SBApplication ()
@@ -90,7 +90,9 @@
         if (([anEvent keyCode] == 49) && (![anEvent isARepeat])) {
             // only trigger if we're not in something editing shaped,
             // where space does something the user expects
-            if ([anEvent.window.firstResponder isKindOfClass: NSText.class]) {
+            NSResponder *firstResponder = anEvent.window.firstResponder;
+            // oddly IKImageBrowserViews trigger here too
+            if ([firstResponder isKindOfClass: NSText.class] || [firstResponder isKindOfClass: SBImageBrowserView.class]) {
                 break;
             }
             NSPoint pt; pt.x = pt.y = 0;
