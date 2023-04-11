@@ -573,13 +573,13 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         url = [self.currentTrack streamURL];
     }
     
-    AVPlayerItem *newItem = nil;
-    if ([[track macOSCompatibleContentType] length] > 0) {
-        AVURLAsset *asset = [AVURLAsset URLAssetWithURL:url options:@{@"AVURLAssetOutOfBandMIMETypeKey":[track macOSCompatibleContentType]}];
-        newItem = [AVPlayerItem playerItemWithAsset:asset];
-    } else {
-        newItem = [AVPlayerItem playerItemWithURL: url];
-    }
+    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:url options:@{
+        // Work around macOS not recognizing the right FLAC MIME type.
+        @"AVURLAssetOutOfBandMIMETypeKey": [track macOSCompatibleContentType],
+        // Fix inaccurate seeks for FLAC.
+        AVURLAssetPreferPreciseDurationAndTimingKey: [NSNumber numberWithBool: YES]
+    }];
+    AVPlayerItem *newItem = [AVPlayerItem playerItemWithAsset:asset];
 
     [remotePlayer replaceCurrentItemWithPlayerItem: newItem];
     [remotePlayer setVolume:[self volume]];
