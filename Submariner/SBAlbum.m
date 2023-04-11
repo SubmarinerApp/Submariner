@@ -34,13 +34,8 @@
 
 @implementation SBAlbum
 
-
-- (void)awakeFromInsert {
-//    if(self.cover == nil) {
-//        [self setCover:[SBCover insertInManagedObjectContext:self.managedObjectContext]];
-//    }
-}
-
+#pragma mark -
+#pragma mark IKImageBrowserItem
 
 - (NSString *) imageTitle {
     NSString *result = nil;
@@ -63,16 +58,22 @@
 }
 
 - (NSString *) imageRepresentationType {
+    // XXX: Can't use IKImageBrowserPathRepresentationType because [SBTrack coverImage] calls imageRepresentation.
     return IKImageBrowserNSImageRepresentationType;
 }
 
 - (id) imageRepresentation {
-    NSImage *image = [NSImage imageNamed:@"NoArtwork"];
-    
-    if(self.cover && self.cover.imagePath) {
-        image = [[NSImage alloc] initByReferencingFile:self.cover.imagePath];
-    } 
-    return image;
+    // XXX: Cache.
+    if (self.cover && self.cover.imagePath) {
+        return [[NSImage alloc] initByReferencingFile:self.cover.imagePath];
+    }
+    // For the no artwork case, avoid having to constantly spawn it in.
+    static NSImage *nullImage = nil;
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+        nullImage = [NSImage imageNamed:@"NoArtwork"];
+    });
+    return nullImage;
 }
 
 - (void)setImageRepresentation:(id)image {
@@ -83,16 +84,15 @@
 }
 
 - (NSUInteger) imageVersion {
-    NSImage *image = [NSImage imageNamed:@"NoArtwork"];
-    NSInteger length = 0;
-    
-    if(self.cover && self.cover.imagePath) {
-        image = [[NSImage alloc] initByReferencingFile:self.cover.imagePath];
-    } 
-    
-    length = [[image TIFFRepresentation] length];
-    
-    return length;
+    // Avoid constructing an image. I think this is only really used to check if it's loaded,
+    // since the album artwork shouldn't change normally (and if it does, rare it'll be the same size).
+    // XXX: Better method.
+    NSString *path = self.cover.imagePath;
+    NSDictionary<NSFileAttributeKey, id>* attribs = [[NSFileManager defaultManager] attributesOfItemAtPath: path error: nil];
+    if (attribs == nil) {
+        return 0;
+    }
+    return [attribs fileSize];
 }
 
 
