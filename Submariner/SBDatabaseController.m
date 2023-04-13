@@ -428,9 +428,13 @@
 - (IBAction)createDemoServer:(id)sender {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@)", @"Servers"];
     SBSection *serversSection = [self.managedObjectContext fetchEntityNammed:@"Section" withPredicate:predicate error:nil];
-    // These are defined in the Core Data model.
+    // These values aren't defined in the Core Data model.
     SBServer *s = [SBServer insertInManagedObjectContext:self.managedObjectContext];
     [s setResourceName:@"Subsonic Demo"];
+    s.url = @"http://demo.subsonic.org/";
+    // Change this in case it gets rotated? It can go up to guest4.
+    s.username = @"guest1";
+    s.password = @"guest";
     [s updateKeychainPassword]; // or it won't work when switched to
     [serversSection addResourcesObject:s];
     [self.managedObjectContext save:nil];
