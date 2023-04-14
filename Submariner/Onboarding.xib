@@ -42,17 +42,6 @@
                                 <action selector="addServer:" target="-2" id="FOO-kJ-pqo"/>
                             </connections>
                         </button>
-                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hm0-Ft-W7U">
-                            <rect key="frame" x="169" y="46" width="248" height="39"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                            <buttonCell key="cell" type="bevel" title="Use Subsonic Demo Server" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GsM-4w-1iY">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="createDemoServer:" target="-2" id="6f0-dC-QVK"/>
-                            </connections>
-                        </button>
                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DwU-OF-gH8">
                             <rect key="frame" x="18" y="141" width="550" height="16"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -62,22 +51,22 @@
                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                             </textFieldCell>
                         </textField>
-                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o6h-fS-SO1">
-                            <rect key="frame" x="169" y="5" width="248" height="39"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                            <buttonCell key="cell" type="bevel" title="Import Music to Local Library" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="887-rK-pAs">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                <font key="font" metaFont="system"/>
-                            </buttonCell>
-                            <connections>
-                                <action selector="openAudioFiles:" target="-2" id="Jnv-jq-Qqh"/>
-                            </connections>
-                        </button>
                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T7r-ex-BtZ">
                             <rect key="frame" x="229" y="216" width="128" height="128"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="axesIndependently" image="AppIcon" id="I5i-Bz-Hnw"/>
                         </imageView>
+                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o6h-fS-SO1">
+                            <rect key="frame" x="169" y="47" width="248" height="39"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <buttonCell key="cell" type="bevel" title="Import Music to Local Library" bezelStyle="regularSquare" alignment="center" controlSize="small" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="887-rK-pAs">
+                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                <font key="font" metaFont="smallSystem"/>
+                            </buttonCell>
+                            <connections>
+                                <action selector="openAudioFiles:" target="-2" id="Jnv-jq-Qqh"/>
+                            </connections>
+                        </button>
                     </subviews>
                 </customView>
             </subviews>
