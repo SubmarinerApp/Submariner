@@ -25,6 +25,15 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes:
 
+### Version 2.1.1 (not yet released)
+
+* Fix server playlists being loaded out of order
+* Fix the spacebar not toggling pause if the album selection was focused
+* Optimize performance with album listing
+* Fix seeking in FLAC files
+* Revise onboarding window (fix resizing, show more consistently)
+  * The button to add the Subsonic demo server has been removed for now (see GH-118)
+
 ### Version 2.1
 
 * Updated icon
