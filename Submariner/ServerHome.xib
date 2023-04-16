@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
-        <plugIn identifier="com.apple.imagekit.ibplugin" version="21507"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
+        <plugIn identifier="com.apple.imagekit.ibplugin" version="21701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -35,11 +35,11 @@
                                     <rect key="frame" x="0.0" y="0.0" width="620" height="184"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <clipView key="contentView" copiesOnScroll="NO" id="0Bx-3S-W0O">
-                                        <rect key="frame" x="0.0" y="0.0" width="620" height="184"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="605" height="184"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <ikImageBrowserView autoresizesSubviews="NO" focusRingType="none" zoomValue="0.43588989973068237" allowsMultipleSelection="NO" id="9" customClass="SBImageBrowserView">
-                                                <rect key="frame" x="0.0" y="0.0" width="620" height="1566"/>
+                                            <ikImageBrowserView autoresizesSubviews="NO" focusRingType="none" zoomValue="1.0246950387954712" allowsMultipleSelection="NO" id="9" customClass="SBImageBrowserView">
+                                                <rect key="frame" x="0.0" y="0.0" width="605" height="1566"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <ikCellsStyle key="cellsStyleMask" shadowed="YES" titled="YES"/>
                                                 <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
@@ -59,7 +59,7 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="11">
-                                        <rect key="frame" x="604" y="0.0" width="16" height="184"/>
+                                        <rect key="frame" x="605" y="0.0" width="15" height="184"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                 </scrollView>
@@ -73,11 +73,11 @@
                                     <rect key="frame" x="-2" y="41" width="622" height="158"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <clipView key="contentView" id="SWK-O6-Z3Q">
-                                        <rect key="frame" x="0.0" y="0.0" width="622" height="158"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="622" height="143"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveName="ServerAlbumsTable" headerView="15" id="13" customClass="SBTableView">
-                                                <rect key="frame" x="0.0" y="0.0" width="688" height="130"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="688" height="115"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -223,7 +223,7 @@
                                         </subviews>
                                     </clipView>
                                     <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="14">
-                                        <rect key="frame" x="0.0" y="142" width="622" height="16"/>
+                                        <rect key="frame" x="0.0" y="143" width="622" height="15"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                     <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="16">

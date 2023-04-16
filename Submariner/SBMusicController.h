@@ -87,9 +87,9 @@
 - (IBAction)removeTrack:(id)sender;
 - (IBAction)delete:(id)sender;
 
-- (IBAction)showArtistInFinder:(in)sender;
-- (IBAction)showAlbumInFinder:(in)sender;
-- (IBAction)showTrackInFinder:(in)sender;
+- (IBAction)showArtistInFinder:(id)sender;
+- (IBAction)showAlbumInFinder:(id)sender;
+- (IBAction)showTrackInFinder:(id)sender;
 - (IBAction)showSelectedInFinder:(id)sender;
 
 - (IBAction)mergeArtists:(id)sender;

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
-        <plugIn identifier="com.apple.imagekit.ibplugin" version="21507"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
+        <plugIn identifier="com.apple.imagekit.ibplugin" version="21701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -125,11 +125,11 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="445" height="157"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <clipView key="contentView" copiesOnScroll="NO" id="T16-YV-nfh">
-                                                        <rect key="frame" x="0.0" y="0.0" width="445" height="157"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="430" height="157"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
-                                                            <ikImageBrowserView autoresizesSubviews="NO" zoomValue="0.82416337728500366" allowsMultipleSelection="NO" id="27" customClass="SBImageBrowserView">
-                                                                <rect key="frame" x="0.0" y="0.0" width="445" height="2533"/>
+                                                            <ikImageBrowserView autoresizesSubviews="NO" zoomValue="2.2063374519348145" allowsMultipleSelection="NO" id="27" customClass="SBImageBrowserView">
+                                                                <rect key="frame" x="0.0" y="0.0" width="430" height="2533"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <ikCellsStyle key="cellsStyleMask" shadowed="YES" outlined="YES" titled="YES" subtitled="YES"/>
                                                                 <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
@@ -148,7 +148,7 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="29">
-                                                        <rect key="frame" x="429" y="0.0" width="16" height="157"/>
+                                                        <rect key="frame" x="430" y="0.0" width="15" height="157"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                     <connections>
@@ -165,11 +165,11 @@
                                                     <rect key="frame" x="-1" y="41" width="446" height="199"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <clipView key="contentView" id="oeS-uH-lBG">
-                                                        <rect key="frame" x="0.0" y="0.0" width="446" height="199"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="446" height="184"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveName="LocalMusicTable" headerView="36" id="38" customClass="SBTableView">
-                                                                <rect key="frame" x="0.0" y="0.0" width="673" height="171"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="673" height="156"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -304,7 +304,7 @@
                                                         </subviews>
                                                     </clipView>
                                                     <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="37">
-                                                        <rect key="frame" x="0.0" y="183" width="446" height="16"/>
+                                                        <rect key="frame" x="0.0" y="184" width="446" height="15"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                     <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="35">
@@ -382,7 +382,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="404" height="120"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
             <view key="contentView" id="97">
                 <rect key="frame" x="0.0" y="0.0" width="404" height="120"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -456,7 +456,7 @@
                 <menuItem title="Show in Finder" id="xRz-Iy-Ulb">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="showSelectedInFinder:" target="-2" id="cuo-IB-gsU"/>
+                        <action selector="showArtistInFinder:" target="-2" id="Vtq-B5-FES"/>
                     </connections>
                 </menuItem>
             </items>
@@ -467,13 +467,13 @@
                 <menuItem title="Play" id="yLh-SD-TDh">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="playSelected:" target="-2" id="NWw-Pi-3hn"/>
+                        <action selector="trackDoubleClick:" target="-2" id="nPE-ii-XEY"/>
                     </connections>
                 </menuItem>
                 <menuItem title="Add to Tracklist" id="fMx-ax-sJk">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="addSelectedToTracklist:" target="-2" id="IJT-SM-yv5"/>
+                        <action selector="addTrackToTracklist:" target="-2" id="L0a-2I-BKs"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="LI5-b6-RPh"/>
@@ -494,7 +494,7 @@
                 <menuItem title="Show in Finder" id="GzU-Oy-PJ3">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="showSelectedInFinder:" target="-2" id="5aj-pA-pvv"/>
+                        <action selector="showTrackInFinder:" target="-2" id="hDL-E3-NSt"/>
                     </connections>
                 </menuItem>
             </items>
@@ -525,7 +525,7 @@
                 <menuItem title="Show in Finder" id="S3a-RK-ClN">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="showSelectedInFinder:" target="-2" id="aJC-Li-PO4"/>
+                        <action selector="showAlbumInFinder:" target="-2" id="u56-2J-IqI"/>
                     </connections>
                 </menuItem>
             </items>

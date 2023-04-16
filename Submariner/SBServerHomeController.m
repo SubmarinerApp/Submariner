@@ -606,7 +606,7 @@
         || action == @selector(trackDoubleClick:)
         || action == @selector(addTrackToTracklist:)
         || action == @selector(createNewLocalPlaylistWithSelectedTracks:)) {
-        return tracksSelected > 0 && tracksActive;
+        return tracksSelected > 0;
     }
     
     if (action == @selector(showSelectedInFinder:)) {
@@ -625,7 +625,7 @@
     if (action == @selector(downloadAlbum:)
         || action == @selector(addAlbumToTracklist:)
         || action == @selector(albumDoubleClick:)) {
-        return albumsActive && albumSelected > 0;
+        return albumSelected > 0;
     }
 
     return YES;
