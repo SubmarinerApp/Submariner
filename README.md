@@ -25,7 +25,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes:
 
-### Version 2.1.1 (not yet released)
+### Version 2.1.1
 
 * Fix server playlists being loaded out of order
 * Fix the spacebar not toggling pause if the album selection was focused
