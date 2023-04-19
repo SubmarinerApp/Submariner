@@ -43,7 +43,6 @@
 #import "SBPodcast.h"
 #import "SBServer.h"
 #import "SBLibrary.h"
-#import "SBSubsonicDownloadOperation.h"
 #import "SBCover.h"
 #import "SBAlbum.h"
 

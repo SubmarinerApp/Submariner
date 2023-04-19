@@ -36,9 +36,10 @@
 
 #import "SBDatabaseController.h"
 #import "SBTrack.h"
-#import "SBSubsonicDownloadOperation.h"
 #import "NSOperationQueue+Shared.h"
 #import "NSManagedObjectContext+Fetch.h"
+
+#import "Submariner-Swift.h"
 
 @implementation SBViewController
 

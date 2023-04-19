@@ -36,7 +36,6 @@
 #import "SBDatabaseController.h"
 #import "SBAddServerPlaylistController.h"
 #import "SBSubsonicParsingOperation.h"
-#import "SBSubsonicDownloadOperation.h"
 #import "SBPlayer.h"
 #import "SBTableView.h"
 #import "SBServer.h"

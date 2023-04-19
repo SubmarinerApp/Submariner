@@ -33,7 +33,6 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "SBDownloadsController.h"
-#import "SBSubsonicDownloadOperation.h"
 
 #import "Submariner-Swift.h"
 
@@ -74,12 +73,12 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(subsonicDownloadStarted:) 
-                                                     name:SBSubsonicDownloadStarted 
+                                                     name:@"SBSubsonicDownloadStarted"
                                                    object:nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(subsonicDownloadFinished:) 
-                                                     name:SBSubsonicDownloadFinished
+                                                     name:@"SBSubsonicDownloadFinished"
                                                    object:nil];
     }
     return self;

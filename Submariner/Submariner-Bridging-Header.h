@@ -8,3 +8,7 @@
 #import "SBPlaylist.h"
 #import "SBMusicItem.h"
 #import "SBPlayer.h"
+#import "SBLibrary.h"
+#import "NSURL+Parameters.h"
+#import "NSOperationQueue+Shared.h"
+#import "SBImportOperation.h"

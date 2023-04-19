@@ -33,13 +33,13 @@
 		3EB2BCCD2992F1B800DC5056 /* SBOperationActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCCC2992F1B800DC5056 /* SBOperationActivity.swift */; };
 		3EB2BCCF2992F3CA00DC5056 /* SBVolumeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCCE2992F3CA00DC5056 /* SBVolumeButton.swift */; };
 		3EB2BCD12992FD5A00DC5056 /* SBTracklistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCD02992FD5A00DC5056 /* SBTracklistButton.swift */; };
+		3EC039C529EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC039C429EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift */; };
 		3ECF63FA280362BA004F9176 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ECF63F9280362BA004F9176 /* Assets.xcassets */; };
 		3EFA2C8428D11B9900A1CE46 /* SBTrackArtistNameTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA2C8328D11B9900A1CE46 /* SBTrackArtistNameTransformer.m */; };
 		4C1A69BB13A6AEE10054A3EF /* SBServerUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A69B913A6AEE10054A3EF /* SBServerUserViewController.m */; };
 		4C1A69BC13A6AEE10054A3EF /* ServerUsers.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C1A69BA13A6AEE10054A3EF /* ServerUsers.xib */; };
 		4C1D412D13A8F2CE002D77F3 /* SBApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1D412C13A8F2CE002D77F3 /* SBApplication.m */; };
 		4C4113AD13A3BD680069CC33 /* SBAddServerPlaylistController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4113AC13A3BD680069CC33 /* SBAddServerPlaylistController.m */; };
-		4C42BEE813AA15CD00299DBD /* SBSubsonicDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C42BEE713AA15CD00299DBD /* SBSubsonicDownloadOperation.m */; };
 		4C42BEF013AA411300299DBD /* _SBDownloads.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C42BEED13AA411300299DBD /* _SBDownloads.m */; };
 		4C42BEF113AA411300299DBD /* SBDownloads.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C42BEEF13AA411300299DBD /* SBDownloads.m */; };
 		4C42BEF513AA42E800299DBD /* SBDownloadsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C42BEF313AA42E800299DBD /* SBDownloadsController.m */; };
@@ -188,6 +188,7 @@
 		3EB2BCCC2992F1B800DC5056 /* SBOperationActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBOperationActivity.swift; sourceTree = "<group>"; };
 		3EB2BCCE2992F3CA00DC5056 /* SBVolumeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBVolumeButton.swift; sourceTree = "<group>"; };
 		3EB2BCD02992FD5A00DC5056 /* SBTracklistButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTracklistButton.swift; sourceTree = "<group>"; };
+		3EC039C429EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBSubsonicDownloadOperation.swift; sourceTree = "<group>"; };
 		3ECF63F9280362BA004F9176 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3EFA2C8228D11B9900A1CE46 /* SBTrackArtistNameTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBTrackArtistNameTransformer.h; sourceTree = "<group>"; };
 		3EFA2C8328D11B9900A1CE46 /* SBTrackArtistNameTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBTrackArtistNameTransformer.m; sourceTree = "<group>"; };
@@ -198,8 +199,6 @@
 		4C1D412C13A8F2CE002D77F3 /* SBApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBApplication.m; sourceTree = "<group>"; };
 		4C4113AB13A3BD680069CC33 /* SBAddServerPlaylistController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAddServerPlaylistController.h; sourceTree = "<group>"; };
 		4C4113AC13A3BD680069CC33 /* SBAddServerPlaylistController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAddServerPlaylistController.m; sourceTree = "<group>"; };
-		4C42BEE613AA15CD00299DBD /* SBSubsonicDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSubsonicDownloadOperation.h; sourceTree = "<group>"; };
-		4C42BEE713AA15CD00299DBD /* SBSubsonicDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSubsonicDownloadOperation.m; sourceTree = "<group>"; };
 		4C42BEEC13AA411300299DBD /* _SBDownloads.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = _SBDownloads.h; sourceTree = "<group>"; };
 		4C42BEED13AA411300299DBD /* _SBDownloads.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = _SBDownloads.m; sourceTree = "<group>"; };
 		4C42BEEE13AA411300299DBD /* SBDownloads.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDownloads.h; sourceTree = "<group>"; };
@@ -786,8 +785,7 @@
 				4CFB3EAD139D11CE008DC01A /* SBImportOperation.m */,
 				4CFAFC3D139FFC1200E82B57 /* SBSubsonicParsingOperation.h */,
 				4CFAFC3E139FFC1300E82B57 /* SBSubsonicParsingOperation.m */,
-				4C42BEE613AA15CD00299DBD /* SBSubsonicDownloadOperation.h */,
-				4C42BEE713AA15CD00299DBD /* SBSubsonicDownloadOperation.m */,
+				3EC039C429EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift */,
 			);
 			name = Operations;
 			sourceTree = "<group>";
@@ -939,6 +937,7 @@
 				4C87EDB6139CDAA50064DE2E /* SBPreferencesController.m in Sources */,
 				3EB2BCC72992E13700DC5056 /* NSString+Time.swift in Sources */,
 				4C87EDBA139CDAB90064DE2E /* SBDatabaseController.m in Sources */,
+				3EC039C529EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift in Sources */,
 				4C87EDC1139CDC260064DE2E /* SBSourceList.m in Sources */,
 				4C87EE10139CE33B0064DE2E /* NSManagedObjectContext+Fetch.m in Sources */,
 				4C87EE2D139CE44C0064DE2E /* _SBAlbum.m in Sources */,
@@ -1014,7 +1013,6 @@
 				4CB4D8F713A670BF00F706EC /* SBPrioritySplitViewDelegate.m in Sources */,
 				4C1A69BB13A6AEE10054A3EF /* SBServerUserViewController.m in Sources */,
 				4C1D412D13A8F2CE002D77F3 /* SBApplication.m in Sources */,
-				4C42BEE813AA15CD00299DBD /* SBSubsonicDownloadOperation.m in Sources */,
 				4C42BEF013AA411300299DBD /* _SBDownloads.m in Sources */,
 				4C42BEF113AA411300299DBD /* SBDownloads.m in Sources */,
 				4C42BEF513AA42E800299DBD /* SBDownloadsController.m in Sources */,
