@@ -930,8 +930,9 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
             return;
         }
         
-        SBSubsonicDownloadOperation *op = [[SBSubsonicDownloadOperation alloc] initWithManagedObjectContext: [self.currentTrack managedObjectContext]];
-        [op setTrackID:[self.currentTrack objectID]];
+        SBSubsonicDownloadOperation *op = [[SBSubsonicDownloadOperation alloc]
+                                           initWithManagedObjectContext: [self.currentTrack managedObjectContext]
+                                           trackID: [self.currentTrack objectID]];
         
         [[NSOperationQueue sharedDownloadQueue] addOperation:op];
     }

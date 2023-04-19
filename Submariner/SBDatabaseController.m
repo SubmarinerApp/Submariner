@@ -1557,8 +1557,9 @@
             SBTrack *track = (SBTrack *)[self.managedObjectContext objectWithID:[[self.managedObjectContext persistentStoreCoordinator] managedObjectIDForURIRepresentation:obj]];
 
             // download track
-            SBSubsonicDownloadOperation *op = [[SBSubsonicDownloadOperation alloc] initWithManagedObjectContext:self.managedObjectContext];
-            [op setTrackID:[track objectID]];
+            SBSubsonicDownloadOperation *op = [[SBSubsonicDownloadOperation alloc]
+                                               initWithManagedObjectContext: self.managedObjectContext
+                                               trackID: [track objectID]];
             
             [[NSOperationQueue sharedDownloadQueue] addOperation:op];
         }];

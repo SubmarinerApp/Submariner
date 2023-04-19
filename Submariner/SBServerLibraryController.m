@@ -431,10 +431,9 @@
             NSArray *tracks = [doubleClickedAlbum.tracks sortedArrayUsingDescriptors:trackSortDescriptor];
             
             for(SBTrack *track in tracks) {
-                SBSubsonicDownloadOperation *op = [[SBSubsonicDownloadOperation alloc] initWithManagedObjectContext:self.managedObjectContext];
-                [op setTrackID:[track objectID]];
-                [op.activity setOperationName:[NSString stringWithFormat:@"Downloading %@", track.itemName]];
-                [op.activity setOperationInfo:@"Pending Request..."];
+                SBSubsonicDownloadOperation *op = [[SBSubsonicDownloadOperation alloc]
+                                                   initWithManagedObjectContext: self.managedObjectContext
+                                                   trackID: [track objectID]];
                 
                 [[NSOperationQueue sharedDownloadQueue] addOperation:op];
             }

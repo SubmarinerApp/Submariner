@@ -10,29 +10,33 @@ import Cocoa
 import UniformTypeIdentifiers
 
 @objc class SBSubsonicDownloadOperation: SBOperation, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDownloadDelegate {
-    // ugh, forced to make this nullable var instead of leteven if it can't be because of swift ctor order rules
-    private var libraryID: SBLibraryID?
+    private let libraryID: SBLibraryID
+    private let track: SBTrack
     
-    @objc var trackID: SBTrackID?
     @objc let activity = SBOperationActivity()
     
-    override init!(managedObjectContext mainContext: NSManagedObjectContext!) {
-        super.init(managedObjectContext: mainContext)
+    @objc init!(managedObjectContext mainContext: NSManagedObjectContext!, trackID: SBTrackID) {
+        // Reconstitute the track because Core Data objects can't cross thread boundaries.
+        track = mainContext.object(with: trackID) as! SBTrack
+        
+        activity.operationName = String.init(format: "Downloading %@%@%@",
+                                             Locale.current.quotationBeginDelimiter ?? "\"",
+                                             track.itemName,
+                                             Locale.current.quotationEndDelimiter ?? "\"")
+        activity.operationInfo = "Pending Request..."
+        activity.indeterminated = true
+        
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SBSubsonicDownloadStarted"), object: activity)
         // get the handle to the library ID
         let libraryRequest = NSFetchRequest<SBLibrary>(entityName: "Library")
         let library = try! mainContext.fetch(libraryRequest).first
         libraryID = library!.objectID()
+        
+        super.init(managedObjectContext: mainContext)
     }
     
     override func main() {
         autoreleasepool {
-            let track = self.threadedContext.object(with: trackID!) as! SBTrack
-            
-            activity.operationName = String.init(format: "Downloading \"%@\"", track.itemName)
-            activity.operationInfo = "Pending Request..."
-            activity.indeterminated = true
-            
             // We don't need to do any transformation here,
             // as downloadURL will get the auth params from SBServer.
             let url = track.downloadURL()!
@@ -54,9 +58,6 @@ import UniformTypeIdentifiers
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         if (challenge.previousFailureCount == 0) {
-            // snarf the server from here
-            let track = self.threadedContext.object(with: trackID!) as! SBTrack
-            
             let credential = URLCredential(user: track.server.username,
                                            password: track.server.password,
                                            persistence: .none)
@@ -96,7 +97,7 @@ import UniformTypeIdentifiers
             importOperation.copyFile = true
             importOperation.remove = true
             importOperation.libraryID = libraryID
-            importOperation.remoteTrackID = trackID
+            importOperation.remoteTrackID = track.objectID()
             OperationQueue.sharedDownload().addOperation(importOperation)
         }
         
