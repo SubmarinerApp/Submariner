@@ -10,29 +10,35 @@ import Cocoa
 import UniformTypeIdentifiers
 
 @objc class SBSubsonicDownloadOperation: SBOperation, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDownloadDelegate {
+    static let DownloadStartedNotification = NSNotification.Name("SBSubsonicDownloadStarted")
+    static let DownloadFinishedNotification = NSNotification.Name("SBSubsonicDownloadFinished")
+    
     private let libraryID: SBLibraryID
     private let track: SBTrack
     
-    @objc let activity = SBOperationActivity()
+    let activity: SBOperationActivity
     
     @objc init!(managedObjectContext mainContext: NSManagedObjectContext!, trackID: SBTrackID) {
         // Reconstitute the track because Core Data objects can't cross thread boundaries.
         track = mainContext.object(with: trackID) as! SBTrack
         
-        activity.operationName = String.init(format: "Downloading %@%@%@",
-                                             Locale.current.quotationBeginDelimiter ?? "\"",
-                                             track.itemName,
-                                             Locale.current.quotationEndDelimiter ?? "\"")
+        let activityName = String.init(format: "Downloading %@%@%@",
+                                       Locale.current.quotationBeginDelimiter ?? "\"",
+                                       track.itemName,
+                                       Locale.current.quotationEndDelimiter ?? "\"")
+        activity = SBOperationActivity(name: activityName)
         activity.operationInfo = "Pending Request..."
-        activity.indeterminated = true
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SBSubsonicDownloadStarted"), object: activity)
+        activity.progress = .none
         // get the handle to the library ID
         let libraryRequest = NSFetchRequest<SBLibrary>(entityName: "Library")
         let library = try! mainContext.fetch(libraryRequest).first
         libraryID = library!.objectID()
         
         super.init(managedObjectContext: mainContext)
+        
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: SBSubsonicDownloadOperation.DownloadStartedNotification, object: self.activity)
+        }
     }
     
     override func main() {
@@ -49,7 +55,9 @@ import UniformTypeIdentifiers
     }
     
     override func finish() {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "SBSubsonicDownloadFinished"), object: activity)
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: SBSubsonicDownloadOperation.DownloadFinishedNotification, object: self.activity)
+        }
         super.finish()
     }
     
@@ -83,7 +91,9 @@ import UniformTypeIdentifiers
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         // Success
-        activity.operationInfo = "Importing track..."
+        DispatchQueue.main.async {
+            self.activity.operationInfo = "Importing track..."
+        }
         
         // SBImportOperation needs an audio file extension. Rename the file.
         let fileType = UTType(mimeType: downloadTask.response?.mimeType ?? "audio/mp3") ?? UTType.mp3
@@ -111,29 +121,23 @@ import UniformTypeIdentifiers
     private let byteCountFormatter = MeasurementFormatter()
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-        activity.operationCurrent = NSNumber(value: bytesWritten)
-        
         let totalWritten = Measurement<UnitInformationStorage>(value: Double(totalBytesWritten), unit: .bytes).converted(to: .megabytes)
         
         if totalBytesExpectedToWrite != NSURLSessionTransferSizeUnknown {
-            // If the expected content length is available, display percent complete.
-            activity.indeterminated = false
-            activity.operationTotal = NSNumber(value: totalBytesExpectedToWrite)
-            
-            let percentComplete = (Float(totalBytesExpectedToWrite) / Float(totalBytesExpectedToWrite)) * 100.0;
-            activity.operationPercent = NSNumber(value: percentComplete)
-            
             let totalToWrite = Measurement<UnitInformationStorage>(value: Double(totalBytesExpectedToWrite), unit: .bytes)
                 .converted(to: .megabytes)
-            activity.operationInfo = String.init(format: "Downloaded %@/%@",
-                                                 byteCountFormatter.string(from: totalWritten),
-                                                 byteCountFormatter.string(from: totalToWrite))
+            DispatchQueue.main.async {
+                self.activity.progress = .determinate(n: Float(totalBytesWritten), outOf: Float(totalBytesExpectedToWrite))
+                self.activity.operationInfo = String.init(format: "Downloaded %@/%@",
+                                                          self.byteCountFormatter.string(from: totalWritten),
+                                                          self.byteCountFormatter.string(from: totalToWrite))
+            }
         } else {
-            // If the expected content length is unknown, just log the progress.
-            activity.indeterminated = true
-            
-            activity.operationInfo = String.init(format: "Downloaded %@",
-                                                 byteCountFormatter.string(from: totalWritten))
+            DispatchQueue.main.async {
+                self.activity.progress = .indeterminate(n: Float(totalBytesWritten))
+                self.activity.operationInfo = String.init(format: "Downloaded %@",
+                                                          self.byteCountFormatter.string(from: totalWritten))
+            }
         }
     }
 }

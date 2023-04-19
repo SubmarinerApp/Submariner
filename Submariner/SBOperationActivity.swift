@@ -8,14 +8,23 @@
 
 import Cocoa
 
-@objc class SBOperationActivity: NSObject {
-    @objc var operationName = ""
-    @objc var operationInfo = ""
+class SBOperationActivity: ObservableObject, Identifiable, Equatable {
+    static func == (lhs: SBOperationActivity, rhs: SBOperationActivity) -> Bool {
+        lhs.id == rhs.id
+    }
     
-    // TODO: Convert to non-ObjC int/float types
-    @objc var operationPercent = NSNumber(value: 0)
-    @objc var operationCurrent = NSNumber(value: 0)
-    @objc var operationTotal = NSNumber(value: 0)
+    let id = UUID()
+    let operationName: String
+    @Published var operationInfo: String = ""
+    @Published var progress: Progress = .none
     
-    @objc var indeterminated = false
+    init(name: String) {
+        operationName = name
+    }
+    
+    enum Progress {
+        case none
+        case indeterminate(n: Float)
+        case determinate(n: Float, outOf: Float)
+    }
 }

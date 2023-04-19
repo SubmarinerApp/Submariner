@@ -39,7 +39,6 @@
 #import "SBMusicController.h"
 #import "SBTracklistController.h"
 #import "SBPlaylistController.h"
-#import "SBDownloadsController.h"
 #import "SBAnimatedView.h"
 #import "SBImportOperation.h"
 #import "SBSubsonicParsingOperation.h"
@@ -1579,7 +1578,7 @@
     BOOL result = NO;
     
     if([[item representedObject] isKindOfClass:[SBDownloads class]]) {
-        if(downloadsController.downloadActivities.count > 0)
+        if(downloadsController.itemCount > 0)
             result = YES;
     }
     
@@ -1589,11 +1588,9 @@
 - (NSInteger)sourceList:(SBSourceList*)aSourceList badgeValueForItem:(id)item {
     NSInteger result = 0;
     
-    if([[item representedObject] isKindOfClass:[SBServer class]]) {
-                [[NSApp dockTile] setBadgeLabel:nil]; // XXX: Needed?
-    } else if([[item representedObject] isKindOfClass:[SBDownloads class]]) {
-        if(downloadsController.downloadActivities.count > 0)
-            result = downloadsController.downloadActivities.count;
+    if ([[item representedObject] isKindOfClass:[SBDownloads class]]) {
+        if(downloadsController.itemCount > 0)
+            result = downloadsController.itemCount;
     }
     
     return result;
