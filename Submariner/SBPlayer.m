@@ -156,7 +156,8 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         remotePlayer.allowsExternalPlayback = NO;
         
         // setup observers
-        [remotePlayer addObserver:self forKeyPath:@"status" options:0 context:nil];
+        [remotePlayer addObserver:self forKeyPath: @"status" options: NSKeyValueObservingOptionNew context: nil];
+        [remotePlayer addObserver:self forKeyPath: @"currentItem" options: NSKeyValueObservingOptionNew context: nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemDidFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object: nil];
         
         playlist = [[NSMutableArray alloc] init];
@@ -173,6 +174,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 - (void)dealloc {
     // remove observers
     [remotePlayer removeObserver:self forKeyPath:@"status" context:nil];
+    [remotePlayer removeObserver:self forKeyPath:@"currentItem" context:nil];
     [[NSNotificationCenter defaultCenter] removeObserver: self name:AVPlayerItemDidPlayToEndTimeNotification object: nil];
     // remove remote player observers
     [self stop];
@@ -923,10 +925,12 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         }
     }
     
-    if([[NSUserDefaults standardUserDefaults] boolForKey:@"enableCacheStreaming"] == YES)
+    if (object == remotePlayer && [keyPath isEqualToString: @"currentItem"]
+        && [[NSUserDefaults standardUserDefaults] boolForKey:@"enableCacheStreaming"] == YES)
     {
         // Check if we've already downloaded this track.
-        if (self.currentTrack.localTrack != nil || self.currentTrack.isLocalValue == YES) {
+        if (self.currentTrack != nil
+            && (self.currentTrack.localTrack != nil || self.currentTrack.isLocalValue == YES)) {
             return;
         }
         
