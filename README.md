@@ -9,8 +9,8 @@ Please see the [old README](https://github.com/Read-Write/Submariner/blob/a1a10e
 ## Building
 
 1. Clone recursively (i.e. `git clone --recursive`). Failing that, initialize submodules recursively (`git submodule update --init --recursive`).
-
-2. Use Xcode or `xcbuild` to build.
+2. Create `Submariner/DEVELOPMENT_TEAM.xcconfig` with contents like `DEVELOPMENT_TEAM = AAAAAAAAAA`, substituting that string with your development ID. If you don't, you'll have a bad day setting up signing.
+3. Use Xcode or `xcbuild` to build.
 
 It is recommended you do `git config core.hooksPath .githooks` to avoid commiting your developer ID.
 Doing so isn't fatal (it's not a secret), but it is annoying for other contributors.
