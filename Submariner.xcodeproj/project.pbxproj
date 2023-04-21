@@ -36,6 +36,7 @@
 		3EC039C529EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC039C429EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift */; };
 		3EC039C729EFB867001FDE50 /* SBDownloadsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC039C629EFB867001FDE50 /* SBDownloadsController.swift */; };
 		3EC039C929EFC259001FDE50 /* View+Modify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC039C829EFC259001FDE50 /* View+Modify.swift */; };
+		3EC03AC329F33C68001FDE50 /* NSOperationQueue+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC03AC229F33C68001FDE50 /* NSOperationQueue+Shared.swift */; };
 		3ECF63FA280362BA004F9176 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ECF63F9280362BA004F9176 /* Assets.xcassets */; };
 		3EFA2C8428D11B9900A1CE46 /* SBTrackArtistNameTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA2C8328D11B9900A1CE46 /* SBTrackArtistNameTransformer.m */; };
 		4C1A69BB13A6AEE10054A3EF /* SBServerUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A69B913A6AEE10054A3EF /* SBServerUserViewController.m */; };
@@ -129,7 +130,6 @@
 		4CFAFC62139FFED000E82B57 /* SBNowPlaying.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC5E139FFED000E82B57 /* SBNowPlaying.m */; };
 		4CFAFC6613A0150300E82B57 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CFAFC6513A0150300E82B57 /* AudioToolbox.framework */; };
 		4CFAFC7D13A0F7E000E82B57 /* SBAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC7C13A0F7E000E82B57 /* SBAnimatedView.m */; };
-		4CFAFC8113A1110700E82B57 /* NSOperationQueue+Shared.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC8013A1110700E82B57 /* NSOperationQueue+Shared.m */; };
 		4CFB3E07139CEA76008DC01A /* NSOutlineView+Expand.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB3E06139CEA76008DC01A /* NSOutlineView+Expand.m */; };
 		4CFB3E14139D028D008DC01A /* SBSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB3E11139D028D008DC01A /* SBSheetController.m */; };
 		4CFB3E15139D028D008DC01A /* SBServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB3E13139D028D008DC01A /* SBServerViewController.m */; };
@@ -191,6 +191,7 @@
 		3EC039C429EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBSubsonicDownloadOperation.swift; sourceTree = "<group>"; };
 		3EC039C629EFB867001FDE50 /* SBDownloadsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBDownloadsController.swift; sourceTree = "<group>"; };
 		3EC039C829EFC259001FDE50 /* View+Modify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Modify.swift"; sourceTree = "<group>"; };
+		3EC03AC229F33C68001FDE50 /* NSOperationQueue+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSOperationQueue+Shared.swift"; sourceTree = "<group>"; };
 		3ECF63F9280362BA004F9176 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3EFA2C8228D11B9900A1CE46 /* SBTrackArtistNameTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBTrackArtistNameTransformer.h; sourceTree = "<group>"; };
 		3EFA2C8328D11B9900A1CE46 /* SBTrackArtistNameTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBTrackArtistNameTransformer.m; sourceTree = "<group>"; };
@@ -365,8 +366,6 @@
 		4CFAFC6513A0150300E82B57 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		4CFAFC7B13A0F7E000E82B57 /* SBAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAnimatedView.h; sourceTree = "<group>"; };
 		4CFAFC7C13A0F7E000E82B57 /* SBAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAnimatedView.m; sourceTree = "<group>"; };
-		4CFAFC7F13A1110600E82B57 /* NSOperationQueue+Shared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOperationQueue+Shared.h"; sourceTree = "<group>"; };
-		4CFAFC8013A1110700E82B57 /* NSOperationQueue+Shared.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOperationQueue+Shared.m"; sourceTree = "<group>"; };
 		4CFB3E05139CEA76008DC01A /* NSOutlineView+Expand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOutlineView+Expand.h"; sourceTree = "<group>"; };
 		4CFB3E06139CEA76008DC01A /* NSOutlineView+Expand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOutlineView+Expand.m"; sourceTree = "<group>"; };
 		4CFB3E10139D028D008DC01A /* SBSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSheetController.h; sourceTree = "<group>"; };
@@ -630,8 +629,7 @@
 				4C87EDAF139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m */,
 				4CFB3E05139CEA76008DC01A /* NSOutlineView+Expand.h */,
 				4CFB3E06139CEA76008DC01A /* NSOutlineView+Expand.m */,
-				4CFAFC7F13A1110600E82B57 /* NSOperationQueue+Shared.h */,
-				4CFAFC8013A1110700E82B57 /* NSOperationQueue+Shared.m */,
+				3EC03AC229F33C68001FDE50 /* NSOperationQueue+Shared.swift */,
 				3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */,
 				3EB2BCC02992D28A00DC5056 /* NSString+Hex.swift */,
 				3EB2BCC22992D94E00DC5056 /* NSData+Type.swift */,
@@ -925,6 +923,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C87ED71139CD8BE0064DE2E /* main.m in Sources */,
+				3EC03AC329F33C68001FDE50 /* NSOperationQueue+Shared.swift in Sources */,
 				4C87ED77139CD8BE0064DE2E /* SBAppDelegate.m in Sources */,
 				3E2F86D828E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift in Sources */,
 				4C87ED7D139CD8BE0064DE2E /* Submariner.xcdatamodeld in Sources */,
@@ -1007,7 +1006,6 @@
 				4CFAFC60139FFED000E82B57 /* _SBNowPlaying.m in Sources */,
 				4CFAFC62139FFED000E82B57 /* SBNowPlaying.m in Sources */,
 				4CFAFC7D13A0F7E000E82B57 /* SBAnimatedView.m in Sources */,
-				4CFAFC8113A1110700E82B57 /* NSOperationQueue+Shared.m in Sources */,
 				4C4113AD13A3BD680069CC33 /* SBAddServerPlaylistController.m in Sources */,
 				4CB4D8F713A670BF00F706EC /* SBPrioritySplitViewDelegate.m in Sources */,
 				4C1A69BB13A6AEE10054A3EF /* SBServerUserViewController.m in Sources */,

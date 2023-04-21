@@ -39,7 +39,6 @@
 #import "SBAlbum.h"
 #import "SBServer.h"
 #import "SBPlayer.h"
-#import "NSOperationQueue+Shared.h"
 
 #import "Submariner-Swift.h"
 

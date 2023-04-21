@@ -108,7 +108,7 @@ import UniformTypeIdentifiers
             importOperation.remove = true
             importOperation.libraryID = libraryID
             importOperation.remoteTrackID = track.objectID()
-            OperationQueue.sharedDownload().addOperation(importOperation)
+            OperationQueue.sharedDownloadQueue.addOperation(importOperation)
         }
         
         self.finish()

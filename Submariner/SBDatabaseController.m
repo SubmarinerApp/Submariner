@@ -59,7 +59,6 @@
 
 #import "NSManagedObjectContext+Fetch.h"
 #import "NSOutlineView+Expand.h"
-#import "NSOperationQueue+Shared.h"
 
 #import "Submariner-Swift.h"
 
