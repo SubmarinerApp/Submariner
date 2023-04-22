@@ -25,7 +25,7 @@ import Foundation
         // string -> "http://ip:port"; the base URL (which could have its own path components)
         // command -> "rest/ping.view"; the API endpoint
         // so, we get "http://ip:port/rest/ping.view" from appendingPathComponent
-        var baseUrl = URL.init(string: string)!
+        let baseUrl = URL.init(string: string)!
             .appendingPathComponent(command)
         var components = URLComponents(url: baseUrl, resolvingAgainstBaseURL: false)!
         
