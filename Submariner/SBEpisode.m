@@ -55,9 +55,6 @@
 
 
 - (NSURL *)streamURL {
-    NSMutableString *params = nil;
-    NSURL *finalURL = nil;
-    
     // the default URL parameters
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [self.server getBaseParameters: parameters];
@@ -68,9 +65,6 @@
 
 
 - (NSURL *)downloadURL {
-    NSMutableString *params = nil;
-    NSURL *finalURL = nil;
-    
     // the default URL parameters
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [self.server getBaseParameters: parameters];
