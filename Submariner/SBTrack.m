@@ -33,7 +33,6 @@
 #import "SBServer.h"
 #import "SBCover.h"
 #import "SBAlbum.h"
-#import "NSURL+Parameters.h"
 
 #import "Submariner-Swift.h"
 
@@ -101,42 +100,7 @@
     [parameters setValue:[[NSUserDefaults standardUserDefaults] stringForKey:@"maxBitRate"] forKey:@"maxBitRate"];
     [parameters setValue:self.id forKey:@"id"];
     
-    finalURL = [NSURL URLWithString:[self.server.url stringByAppendingPathComponent:@"rest/stream.view"]];
-    
-    if (parameters != nil)
-    {
-        params = [[NSMutableString alloc] init];
-        for (id key in parameters)
-        {
-            NSString *encodedKey = [key stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            CFStringRef value = (CFStringRef)CFBridgingRetain([[parameters objectForKey:key] copy]);
-            // Escape even the "reserved" characters for URLs 
-            // as defined in http://www.ietf.org/rfc/rfc2396.txt
-            CFStringRef encodedValue = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, 
-                                                                               value,
-                                                                               NULL, 
-                                                                               (CFStringRef)@";?:/@&=+$,", 
-                                                                               kCFStringEncodingUTF8);
-            [params appendFormat:@"%@=%@&", encodedKey, value];
-            CFRelease(value);
-            CFRelease(encodedValue);
-        }
-        [params deleteCharactersInRange:NSMakeRange([params length] - 1, 1)];
-    }
-    
-    if (parameters != nil) {
-        NSString *urlWithParams = [[finalURL absoluteString] stringByAppendingFormat:@"?%@", params];
-        finalURL = [NSURL URLWithString:urlWithParams];
-    }
-    
-    // check strange missing slash 
-    if(finalURL != nil) {
-        if([[finalURL absoluteString] rangeOfString:@"://"].location == NSNotFound)
-            finalURL = [NSURL URLWithString:[[finalURL absoluteString] stringByReplacingOccurrencesOfString:@":/" withString:@"://"]];
-    }
-    
-    
-    return finalURL;
+    return [NSURL URLWithString: self.server.url command: @"rest/stream.view" parameters: parameters];
 }
 
 
@@ -149,42 +113,7 @@
     [self.server getBaseParameters: parameters];
     [parameters setValue:self.id forKey:@"id"];
     
-    finalURL = [NSURL URLWithString:[self.server.url stringByAppendingPathComponent:@"rest/download.view"]];
-    
-    if (parameters != nil)
-    {
-        params = [[NSMutableString alloc] init];
-        for (id key in parameters)
-        {
-            NSString *encodedKey = [key stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            CFStringRef value = (CFStringRef)CFBridgingRetain([[parameters objectForKey:key] copy]);
-            // Escape even the "reserved" characters for URLs 
-            // as defined in http://www.ietf.org/rfc/rfc2396.txt
-            CFStringRef encodedValue = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, 
-                                                                               value,
-                                                                               NULL, 
-                                                                               (CFStringRef)@";?:/@&=+$,", 
-                                                                               kCFStringEncodingUTF8);
-            [params appendFormat:@"%@=%@&", encodedKey, value];
-            CFRelease(value);
-            CFRelease(encodedValue);
-        }
-        [params deleteCharactersInRange:NSMakeRange([params length] - 1, 1)];
-    }
-    
-    if (parameters != nil) {
-        NSString *urlWithParams = [[finalURL absoluteString] stringByAppendingFormat:@"?%@", params];
-        finalURL = [NSURL URLWithString:urlWithParams];
-    }
-    
-    // check strange missing slash 
-    if(finalURL != nil) {
-        if([[finalURL absoluteString] rangeOfString:@"://"].location == NSNotFound)
-            finalURL = [NSURL URLWithString:[[finalURL absoluteString] stringByReplacingOccurrencesOfString:@":/" withString:@"://"]];
-    }
-    
-    
-    return finalURL;
+    return [NSURL URLWithString: self.server.url command: @"rest/download.view" parameters: parameters];
 }
 
 

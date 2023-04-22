@@ -47,7 +47,6 @@
 #import "SBCover.h"
 
 #import "NSManagedObjectContext+Fetch.h"
-#import "NSURL+Parameters.h"
 
 #import "Submariner-Swift.h"
 
@@ -218,7 +217,6 @@
 
 - (void)connectToServer:(SBServer *)aServer {
     [server getBaseParameters: parameters];
-    
     NSURL *url = [NSURL URLWithString:server.url command:@"rest/ping.view" parameters:parameters];
     [self requestWithURL:url requestType:SBSubsonicRequestPing];
 }

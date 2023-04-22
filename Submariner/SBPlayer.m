@@ -46,7 +46,6 @@
 #import "SBCover.h"
 #import "SBAlbum.h"
 
-#import "NSURL+Parameters.h"
 #import "NSManagedObjectContext+Fetch.h"
 
 #import "Submariner-Swift.h"
