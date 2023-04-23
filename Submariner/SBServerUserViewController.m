@@ -35,7 +35,8 @@
 #import "SBServerUserViewController.h"
 #import "SBPrioritySplitViewDelegate.h"
 #import "SBSubsonicParsingOperation.h"
-#import "SBServer.h"
+
+#import "Submariner-Swift.h"
 
 
 

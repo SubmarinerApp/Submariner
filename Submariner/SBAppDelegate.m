@@ -35,11 +35,7 @@
 #import "SBAppDelegate.h"
 #import "SBPreferencesController.h"
 #import "SBDatabaseController.h"
-#import "SBTrack.h"
 #import "SBPlayer.h"
-#import "SBArtist.h"
-#import "SBLibrary.h"
-#import "SBAlbum.h"
 // Additions
 #import "NSManagedObjectContext+Fetch.h"
 
@@ -51,7 +47,7 @@
 #pragma mark -
 #pragma mark Singlton
 
-+ (id)sharedInstance {
++ (SBAppDelegate*)sharedInstance {
     // Cache since this can be called off main thread.
     // We get called by the main thread first, so this is OK.
     static SBAppDelegate *sharedApplication = nil;

@@ -46,16 +46,6 @@
 #import "SBTableView.h"
 
 #import "SBSplitView.h"
-#import "SBSection.h"
-#import "SBTracklist.h"
-#import "SBLibrary.h"
-#import "SBServer.h"
-#import "SBPlaylist.h"
-#import "SBArtist.h"
-#import "SBAlbum.h"
-#import "SBTrack.h"
-#import "SBDownloads.h"
-#import "SBCover.h"
 
 #import "NSManagedObjectContext+Fetch.h"
 #import "NSOutlineView+Expand.h"
@@ -880,7 +870,7 @@
 - (void)goToTrack: (SBTrack*)track {
    if (track == nil) {
        return;
-   } else if (track.isLocalValue == YES) {
+   } else if (track.isLocal.boolValue == YES) {
        SBLocalMusicNavigationItem *navItem = [[SBLocalMusicNavigationItem alloc] init];
        navItem.selectedMusicItem = track;
        [self navigateForwardToNavItem: navItem];

@@ -54,7 +54,7 @@
 @property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 
-+ (id)sharedInstance;
++ (SBAppDelegate*)sharedInstance;
 
 - (NSURL *)applicationFilesDirectory;
 - (NSString *)musicDirectory;

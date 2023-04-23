@@ -11,11 +11,6 @@
 #import "SBSourceListDelegate.h"
 #import "SBSourceListDataSource.h"
 
-#import "SBResource.h"
-#import "SBSection.h"
-#import "SBServer.h"
-#import "SBPlaylist.h"
-
 #ifndef MAC_OS_X_VERSION_10_6
 @protocol NSOutlineViewDelegate <NSObject> @end
 @protocol NSOutlineViewDataSource <NSObject> @end

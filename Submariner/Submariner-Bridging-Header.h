@@ -4,9 +4,8 @@
 
 #import "SBViewController.h"
 #import "SBDatabaseController.h"
-#import "SBServer.h"
-#import "SBPlaylist.h"
-#import "SBMusicItem.h"
 #import "SBPlayer.h"
-#import "SBLibrary.h"
+#import "SBAppDelegate.h"
+#import "SBClientController.h"
+#import "SBSubsonicParsingOperation.h"
 #import "SBImportOperation.h"

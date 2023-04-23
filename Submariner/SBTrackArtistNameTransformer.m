@@ -7,9 +7,8 @@
 //
 
 #import "SBTrackArtistNameTransformer.h"
-#import "SBTrack.h"
-#import "SBAlbum.h"
-#import "SBArtist.h"
+
+#import "Submariner-Swift.h"
 
 @implementation SBTrackArtistNameTransformer
 

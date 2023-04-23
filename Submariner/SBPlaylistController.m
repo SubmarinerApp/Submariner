@@ -34,10 +34,9 @@
 
 #import "SBPlaylistController.h"
 #import "SBDatabaseController.h"
-#import "SBServer.h"
-#import "SBTrack.h"
 #import "SBPlayer.h"
-#import "SBPlaylist.h"
+
+#import "Submariner-Swift.h"
 
 
 @implementation SBPlaylistController

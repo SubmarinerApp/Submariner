@@ -35,8 +35,8 @@
 
 #import "SBAddServerPlaylistController.h"
 #import "SBWindowController.h"
-#import "SBServer.h"
-#import "SBPlaylist.h"
+
+#import "Submariner-Swift.h"
 
 @implementation SBAddServerPlaylistController
 
@@ -60,7 +60,7 @@
         
         NSString *playlistName = [playlistNameField stringValue];
         
-        // create playlist on server 
+        // create playlist on server
         [self.server createPlaylistWithName:playlistName tracks:trackIDs];
         [super closeSheet:sender];
     }

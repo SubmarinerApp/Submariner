@@ -35,7 +35,6 @@
 #import "SBViewController.h"
 
 #import "SBDatabaseController.h"
-#import "SBTrack.h"
 #import "NSManagedObjectContext+Fetch.h"
 
 #import "Submariner-Swift.h"
@@ -107,7 +106,7 @@
         // handle remote but cached tracks
         if (track.localTrack != nil) {
             track = track.localTrack;
-        } else if (track.isLocalValue == NO) {
+        } else if (track.isLocal.boolValue == NO) {
             remoteOnly++;
             return;
         }
@@ -134,7 +133,7 @@
     [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         SBTrack *track = [trackList objectAtIndex:idx];
         // Check if we've already downloaded this track.
-        if (track.localTrack != nil || track.isLocalValue == YES) {
+        if (track.localTrack != nil || track.isLocal.boolValue == YES) {
             return;
         }
         
@@ -155,10 +154,10 @@
     __block NSInteger downloadable = 0, showable = 0;
     [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         SBTrack *track = [trackList objectAtIndex:idx];
-        if (track.isLocalValue == YES || track.localTrack != nil) {
+        if (track.isLocal.boolValue == YES || track.localTrack != nil) {
             showable++;
         }
-        if (track.isLocalValue == NO && track.localTrack == nil) {
+        if (track.isLocal.boolValue == NO && track.localTrack == nil) {
             downloadable++;
         }
     }];

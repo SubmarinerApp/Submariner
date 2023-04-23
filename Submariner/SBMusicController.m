@@ -36,12 +36,9 @@
 #import "SBDatabaseController.h"
 #import "SBPrioritySplitViewDelegate.h"
 #import "SBMergeArtistsController.h"
-#import "SBIndex.h"
-#import "SBGroup.h"
-#import "SBArtist.h"
-#import "SBAlbum.h"
-#import "SBTrack.h"
 #import "SBPlayer.h"
+
+#import "Submariner-Swift.h"
 
 
 

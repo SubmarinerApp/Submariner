@@ -34,8 +34,8 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "SBMergeArtistsController.h"
-#import "SBArtist.h"
-#import "SBAlbum.h"
+
+#import "Submariner-Swift.h"
 
 
 @implementation SBMergeArtistsController
