@@ -38,6 +38,7 @@
 		3EC039C929EFC259001FDE50 /* View+Modify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC039C829EFC259001FDE50 /* View+Modify.swift */; };
 		3EC03AC329F33C68001FDE50 /* NSOperationQueue+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC03AC229F33C68001FDE50 /* NSOperationQueue+Shared.swift */; };
 		3EC03AC529F42C95001FDE50 /* NSURL+Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC03AC429F42C95001FDE50 /* NSURL+Parameters.swift */; };
+		3EC03AC729F4D802001FDE50 /* SBPreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC03AC629F4D802001FDE50 /* SBPreferencesController.swift */; };
 		3ECF63FA280362BA004F9176 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ECF63F9280362BA004F9176 /* Assets.xcassets */; };
 		3EFA2C8428D11B9900A1CE46 /* SBTrackArtistNameTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EFA2C8328D11B9900A1CE46 /* SBTrackArtistNameTransformer.m */; };
 		4C1A69BB13A6AEE10054A3EF /* SBServerUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C1A69B913A6AEE10054A3EF /* SBServerUserViewController.m */; };
@@ -76,9 +77,7 @@
 		4C87EDA1139CD97B0064DE2E /* SBSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED94139CD97B0064DE2E /* SBSplitView.m */; };
 		4C87EDAB139CD9DA0064DE2E /* Database.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C87EDAA139CD9DA0064DE2E /* Database.xib */; };
 		4C87EDB0139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDAF139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m */; };
-		4C87EDB6139CDAA50064DE2E /* SBPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDB5139CDAA40064DE2E /* SBPreferencesController.m */; };
 		4C87EDBA139CDAB90064DE2E /* SBDatabaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDB9139CDAB90064DE2E /* SBDatabaseController.m */; };
-		4C87EDBC139CDACE0064DE2E /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C87EDBB139CDACE0064DE2E /* Preferences.xib */; };
 		4C87EDC1139CDC260064DE2E /* SBSourceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDBE139CDC250064DE2E /* SBSourceList.m */; };
 		4C87EE02139CDCB10064DE2E /* NoArtwork.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4C87EDDE139CDCB10064DE2E /* NoArtwork.icns */; };
 		4C87EE10139CE33B0064DE2E /* NSManagedObjectContext+Fetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EE0F139CE33B0064DE2E /* NSManagedObjectContext+Fetch.m */; };
@@ -193,6 +192,7 @@
 		3EC039C829EFC259001FDE50 /* View+Modify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Modify.swift"; sourceTree = "<group>"; };
 		3EC03AC229F33C68001FDE50 /* NSOperationQueue+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSOperationQueue+Shared.swift"; sourceTree = "<group>"; };
 		3EC03AC429F42C95001FDE50 /* NSURL+Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSURL+Parameters.swift"; sourceTree = "<group>"; };
+		3EC03AC629F4D802001FDE50 /* SBPreferencesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPreferencesController.swift; sourceTree = "<group>"; };
 		3ECF63F9280362BA004F9176 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3EFA2C8228D11B9900A1CE46 /* SBTrackArtistNameTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBTrackArtistNameTransformer.h; sourceTree = "<group>"; };
 		3EFA2C8328D11B9900A1CE46 /* SBTrackArtistNameTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SBTrackArtistNameTransformer.m; sourceTree = "<group>"; };
@@ -260,11 +260,8 @@
 		4C87EDAA139CD9DA0064DE2E /* Database.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Database.xib; sourceTree = "<group>"; };
 		4C87EDAE139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBezierPath+PXRoundedRectangleAdditions.h"; sourceTree = "<group>"; };
 		4C87EDAF139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+PXRoundedRectangleAdditions.m"; sourceTree = "<group>"; };
-		4C87EDB4139CDAA40064DE2E /* SBPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPreferencesController.h; sourceTree = "<group>"; };
-		4C87EDB5139CDAA40064DE2E /* SBPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPreferencesController.m; sourceTree = "<group>"; };
 		4C87EDB8139CDAB90064DE2E /* SBDatabaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDatabaseController.h; sourceTree = "<group>"; };
 		4C87EDB9139CDAB90064DE2E /* SBDatabaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDatabaseController.m; sourceTree = "<group>"; };
-		4C87EDBB139CDACE0064DE2E /* Preferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
 		4C87EDBD139CDC250064DE2E /* SBSourceList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSourceList.h; sourceTree = "<group>"; };
 		4C87EDBE139CDC250064DE2E /* SBSourceList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSourceList.m; sourceTree = "<group>"; };
 		4C87EDBF139CDC250064DE2E /* SBSourceListDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSourceListDataSource.h; sourceTree = "<group>"; };
@@ -585,7 +582,6 @@
 			children = (
 				4C87ED78139CD8BE0064DE2E /* MainMenu.xib */,
 				4C87EDAA139CD9DA0064DE2E /* Database.xib */,
-				4C87EDBB139CDACE0064DE2E /* Preferences.xib */,
 				4C7AA231139D57A00050BE95 /* Music.xib */,
 				4CFCE443140257EE00D35770 /* MusicSearch.xib */,
 				4CFB3EF1139D4693008DC01A /* Tracklist.xib */,
@@ -790,14 +786,13 @@
 			children = (
 				4C87EDB8139CDAB90064DE2E /* SBDatabaseController.h */,
 				4C87EDB9139CDAB90064DE2E /* SBDatabaseController.m */,
-				4C87EDB4139CDAA40064DE2E /* SBPreferencesController.h */,
-				4C87EDB5139CDAA40064DE2E /* SBPreferencesController.m */,
 				4CFB3E17139D052F008DC01A /* SBEditServerController.h */,
 				4CFB3E18139D052F008DC01A /* SBEditServerController.m */,
 				4C4113AB13A3BD680069CC33 /* SBAddServerPlaylistController.h */,
 				4C4113AC13A3BD680069CC33 /* SBAddServerPlaylistController.m */,
 				4C4A1E8513B4E6A0000BA93D /* SBMergeArtistsController.h */,
 				4C4A1E8613B4E6A0000BA93D /* SBMergeArtistsController.m */,
+				3EC03AC629F4D802001FDE50 /* SBPreferencesController.swift */,
 			);
 			name = "Window Controllers";
 			sourceTree = "<group>";
@@ -896,7 +891,6 @@
 				4C87ED74139CD8BE0064DE2E /* Credits.rtf in Resources */,
 				4C87ED7A139CD8BE0064DE2E /* MainMenu.xib in Resources */,
 				4C87EDAB139CD9DA0064DE2E /* Database.xib in Resources */,
-				4C87EDBC139CDACE0064DE2E /* Preferences.xib in Resources */,
 				4C87EE02139CDCB10064DE2E /* NoArtwork.icns in Resources */,
 				4CFB3EF3139D4693008DC01A /* Tracklist.xib in Resources */,
 				4C7AA22E139D563A0050BE95 /* Playlist.xib in Resources */,
@@ -928,7 +922,6 @@
 				4C87ED8E139CD91B0064DE2E /* SBWindowController.m in Sources */,
 				4C87EDA1139CD97B0064DE2E /* SBSplitView.m in Sources */,
 				4C87EDB0139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m in Sources */,
-				4C87EDB6139CDAA50064DE2E /* SBPreferencesController.m in Sources */,
 				3EB2BCC72992E13700DC5056 /* NSString+Time.swift in Sources */,
 				4C87EDBA139CDAB90064DE2E /* SBDatabaseController.m in Sources */,
 				3EC039C529EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift in Sources */,
@@ -1013,6 +1006,7 @@
 				4CC0478513AC0F970004099E /* SBNowPlayingViewItem.m in Sources */,
 				4C4A1E8713B4E6A0000BA93D /* SBMergeArtistsController.m in Sources */,
 				4CCF7FEF13B673CA00954C6E /* SBServerSearchController.m in Sources */,
+				3EC03AC729F4D802001FDE50 /* SBPreferencesController.swift in Sources */,
 				4CC18E8013B9145400AA4FDB /* SBImageBrowserCell.m in Sources */,
 				4CC18E8113B9145400AA4FDB /* SBImageBrowserView.m in Sources */,
 				3EB2BCC32992D94E00DC5056 /* NSData+Type.swift in Sources */,

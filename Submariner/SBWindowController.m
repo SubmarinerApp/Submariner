@@ -53,7 +53,10 @@
 #pragma mark Instance Methods
 
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context {
-    self = [super initWithWindowNibName:[[self class] nibName]];
+    NSString *nibName = [[self class] nibName];
+    self = nibName != nil
+        ? [super initWithWindowNibName: nibName]
+        : [super initWithWindow: nil];
     if (self) {
         managedObjectContext = context;
     }

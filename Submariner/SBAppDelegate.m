@@ -33,7 +33,6 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "SBAppDelegate.h"
-#import "SBPreferencesController.h"
 #import "SBDatabaseController.h"
 #import "SBTrack.h"
 #import "SBPlayer.h"
