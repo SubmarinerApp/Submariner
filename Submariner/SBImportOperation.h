@@ -42,14 +42,14 @@
 @interface SBImportOperation : SBOperation {
 @private
     NSArray<NSString*> *filePaths;
-    SBLibraryID *libraryID;
-    SBTrackID *remoteTrackID;
+    NSManagedObjectID *libraryID;
+    NSManagedObjectID *remoteTrackID;
     BOOL copyFile;
     BOOL remove;
 }
 @property (readwrite) BOOL copyFile;
 @property (readwrite) BOOL remove;
 @property (readwrite, strong) NSArray<NSString*> *filePaths;
-@property (readwrite, strong) SBLibraryID *libraryID;
-@property (readwrite, strong) SBTrackID *remoteTrackID;
+@property (readwrite, strong) NSManagedObjectID *libraryID;
+@property (readwrite, strong) NSManagedObjectID *remoteTrackID;
 @end

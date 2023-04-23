@@ -52,17 +52,19 @@ import Foundation
     @objc static func URLWith(string: String, command: String, parameters:  [String: String]?) -> URL? {
         return URLWith(string: string, command: command, parameters: parameters, andParameterString: nil)
     }
-    
+}
+
+extension URL {
     // #MARK: -
     // #MARK: Keychain
     
-    @objc func keychainProtocol() -> NSNumber {
+    var keychainProtocol: NSNumber {
         return NSNumber(value: (self.scheme == "https" ? SecProtocolType.HTTPS : SecProtocolType.HTTP).rawValue)
     }
     
-    @objc func portWithHTTPFallback() -> NSNumber {
+    var portWithHTTPFallback: NSNumber {
         if let port = self.port {
-            return port
+            return NSNumber(value: port)
         }
         return NSNumber(value: self.scheme == "https" ? 443 : 80)
     }

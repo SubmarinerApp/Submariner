@@ -13,26 +13,25 @@ import UniformTypeIdentifiers
     static let DownloadStartedNotification = NSNotification.Name("SBSubsonicDownloadStarted")
     static let DownloadFinishedNotification = NSNotification.Name("SBSubsonicDownloadFinished")
     
-    private let libraryID: SBLibraryID
+    private let library: SBLibrary
     private let track: SBTrack
     
     let activity: SBOperationActivity
     
-    @objc init!(managedObjectContext mainContext: NSManagedObjectContext!, trackID: SBTrackID) {
+    @objc init!(managedObjectContext mainContext: NSManagedObjectContext!, trackID: NSManagedObjectID) {
         // Reconstitute the track because Core Data objects can't cross thread boundaries.
         track = mainContext.object(with: trackID) as! SBTrack
         
         let activityName = String.init(format: "Downloading %@%@%@",
                                        Locale.current.quotationBeginDelimiter ?? "\"",
-                                       track.itemName,
+                                       track.itemName!,
                                        Locale.current.quotationEndDelimiter ?? "\"")
         activity = SBOperationActivity(name: activityName)
         activity.operationInfo = "Pending Request..."
         activity.progress = .none
         // get the handle to the library ID
         let libraryRequest = NSFetchRequest<SBLibrary>(entityName: "Library")
-        let library = try! mainContext.fetch(libraryRequest).first
-        libraryID = library!.objectID()
+        library = try! mainContext.fetch(libraryRequest).first!
         
         super.init(managedObjectContext: mainContext)
         
@@ -66,14 +65,15 @@ import UniformTypeIdentifiers
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         if (challenge.previousFailureCount == 0) {
-            let credential = URLCredential(user: track.server.username,
-                                           password: track.server.password,
-                                           persistence: .none)
-            
-            completionHandler(.useCredential, credential)
-        } else {
-            completionHandler(.cancelAuthenticationChallenge, nil)
+            if let server = track.server, let username = server.username, let password = server.password {
+                let credential = URLCredential(user: username,
+                                               password: password,
+                                               persistence: .none)
+                
+                completionHandler(.useCredential, credential)
+            }
         }
+        completionHandler(.cancelAuthenticationChallenge, nil)
     }
     
     // #MARK: -
@@ -106,8 +106,8 @@ import UniformTypeIdentifiers
             importOperation.filePaths = [temporaryFilePath]
             importOperation.copyFile = true
             importOperation.remove = true
-            importOperation.libraryID = libraryID
-            importOperation.remoteTrackID = track.objectID()
+            importOperation.libraryID = library.objectID
+            importOperation.remoteTrackID = track.objectID
             OperationQueue.sharedDownloadQueue.addOperation(importOperation)
         }
         

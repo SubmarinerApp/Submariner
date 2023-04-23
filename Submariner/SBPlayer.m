@@ -38,13 +38,6 @@
 #import "SBClientController.h"
 #import "SBAppDelegate.h"
 #import "SBPlayer.h"
-#import "SBTrack.h"
-#import "SBEpisode.h"
-#import "SBPodcast.h"
-#import "SBServer.h"
-#import "SBLibrary.h"
-#import "SBCover.h"
-#import "SBAlbum.h"
 
 #import "NSManagedObjectContext+Fetch.h"
 
@@ -928,7 +921,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     {
         // Check if we've already downloaded this track.
         if (self.currentTrack != nil
-            && (self.currentTrack.localTrack != nil || self.currentTrack.isLocalValue == YES)) {
+            && (self.currentTrack.localTrack != nil || self.currentTrack.isLocal.boolValue == YES)) {
             return;
         }
         

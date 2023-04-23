@@ -36,9 +36,11 @@
 #import <Quartz/Quartz.h>
 #import "SBServerViewController.h"
 #import "SBTableView.h"
-#import "SBTrack.h"
-#import "SBArtist.h"
 
+@class SBMusicItem;
+@class SBTrack;
+@class SBAlbum;
+@class SBArtist;
 @class SBDatabaseController;
 @class SBPrioritySplitViewDelegate;
 

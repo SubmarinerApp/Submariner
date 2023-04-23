@@ -35,10 +35,8 @@
 #import "SBTracklistController.h"
 #import "SBDatabaseController.h"
 #import "SBPlayer.h"
-#import "SBMusicItem.h"
-#import "SBTrack.h"
-#import "SBAlbum.h"
-#import "SBArtist.h"
+
+#import "Submariner-Swift.h"
 
 
 
@@ -246,7 +244,7 @@
     
     if([[tableColumn identifier] isEqualToString:@"online"]) {
         SBTrack *track = (SBTrack *)[[[SBPlayer sharedInstance] playlist] objectAtIndex:row];
-        if (track.localTrack != nil || track.isLocalValue == YES) {
+        if (track.localTrack != nil || track.isLocal.boolValue == YES) {
             value = [NSImage imageWithSystemSymbolName: @"bolt.horizontal.fill" accessibilityDescription: @"Cached"];
         } else {
             value = [NSImage imageWithSystemSymbolName: @"bolt.horizontal" accessibilityDescription: @"Online"];

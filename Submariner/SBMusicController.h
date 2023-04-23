@@ -36,8 +36,8 @@
 #import <Quartz/Quartz.h>
 #import "SBViewController.h"
 #import "SBTableView.h"
-#import "SBTrack.h"
-#import "SBArtist.h"
+
+#import "Submariner-Swift.h"
 
 
 @class SBDatabaseController;

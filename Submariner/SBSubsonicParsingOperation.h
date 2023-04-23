@@ -52,7 +52,7 @@ extern NSString *SBSubsonicSearchResultUpdatedNotification;
 extern NSString *SBSubsonicPodcastsUpdatedNotification;
 
 
-enum SBSubsonicRequestType {
+typedef NS_ENUM(NSInteger, SBSubsonicRequestType) {
     SBSubsonicRequestUnknow                 = -1,
     SBSubsonicRequestPing                   = 0,
     SBSubsonicRequestGetLicence             = 1,
@@ -81,7 +81,7 @@ enum SBSubsonicRequestType {
     SBSubsonicRequestGetLicense             = 24,
     SBSubsonicRequestGetPodcasts            = 25,
     SBSubsonicRequestScrobble               = 26,
-} typedef SBSubsonicRequestType;
+};
 
 
 

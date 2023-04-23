@@ -37,12 +37,6 @@
 #import <UniformTypeIdentifiers/UniformTypeIdentifiers.h>
 #import "SBAppDelegate.h"
 
-#import "SBLibrary.h"
-#import "SBArtist.h"
-#import "SBAlbum.h"
-#import "SBTrack.h"
-#import "SBCover.h"
-
 #import "NSManagedObjectContext+Fetch.h"
 
 #import "Submariner-Swift.h"

@@ -33,7 +33,8 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "SBServerViewController.h"
-#import "SBServer.h"
+
+#import "Submariner-Swift.h"
 
 @implementation SBServerViewController
 

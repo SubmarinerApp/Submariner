@@ -33,8 +33,9 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "SBMusicSearchController.h"
-#import "SBTrack.h"
 #import "SBPlayer.h"
+
+#import "Submariner-Swift.h"
 
 
 @implementation SBMusicSearchController

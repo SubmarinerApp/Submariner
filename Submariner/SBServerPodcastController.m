@@ -33,11 +33,9 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "SBServerPodcastController.h"
-#import "SBServer.h"
-#import "SBTrack.h"
-#import "SBPodcast.h"
-#import "SBEpisode.h"
 #import "SBPlayer.h"
+
+#import "Submariner-Swift.h"
 
 #import "NSManagedObjectContext+Fetch.h"
 

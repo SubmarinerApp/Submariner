@@ -33,10 +33,9 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "SBNowPlayingViewItem.h"
-#import "SBNowPlaying.h"
-#import "SBTrack.h"
-#import "SBAlbum.h"
 #import "SBPlayer.h"
+
+#import "Submariner-Swift.h"
 
 @implementation SBNowPlayingViewItem
 
