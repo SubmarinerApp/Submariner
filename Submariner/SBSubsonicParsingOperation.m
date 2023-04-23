@@ -319,7 +319,8 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
                 [newAlbum setCover:maybeExistingCover];
             }
             
-            if(!newAlbum.cover.imagePath || ![[NSFileManager defaultManager] fileExistsAtPath:newAlbum.cover.imagePath]) {
+            NSString *imagePath = newAlbum.cover.imagePath;
+            if (imagePath == nil || ![[NSFileManager defaultManager] fileExistsAtPath: imagePath]) {
                 if (maybeExistingCover != nil && maybeExistingCover.imagePath && [[NSFileManager defaultManager] fileExistsAtPath: maybeExistingCover.imagePath]) {
                     // this cover object is a weird dupe, patch up instead.
                     [maybeExistingCover setAlbum:newAlbum];

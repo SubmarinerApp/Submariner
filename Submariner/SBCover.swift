@@ -23,20 +23,21 @@ public class SBCover: SBMusicItem {
     }
     
     // utility funcs for coversDir
-    func trackIsLocal(_ track: SBTrack?) -> Bool {
+    private func trackIsLocal(_ track: SBTrack?) -> Bool {
         if let track = track {
             return track.isLocal?.boolValue == true && track.server == nil
         }
         return false
     }
-    func albumIsLocal(_ album: SBAlbum?) -> Bool {
+    
+    private func albumIsLocal(_ album: SBAlbum?) -> Bool {
         if let album = album, let albumArtist = album.artist {
             return album.isLocal?.boolValue == true && albumArtist.server == nil
         }
         return false
     }
     
-    func coversDir(_ coverDir: NSString) -> NSString? {
+    private func coversDir(_ coverDir: NSString) -> NSString? {
         var append: String? = nil
         if let server = self.server {
             append = server.resourceName

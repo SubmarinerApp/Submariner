@@ -17,11 +17,11 @@ public class SBAlbum: SBMusicItem {
     static let nullCover = NSImage(named: "NoArtwork")
     
     override public func imageTitle() -> String? {
-        return itemName // XXX: willAccessValueForKey?
+        return itemName
     }
     
     override public func imageUID() -> String? {
-        return itemName // XXX: willAccessValueForKey?
+        return itemName
     }
     
     override public func imageRepresentationType() -> String! {
@@ -30,8 +30,8 @@ public class SBAlbum: SBMusicItem {
     }
     
     override public func imageRepresentation() -> Any! {
-        if let cover = self.cover, let path = cover.imagePath {
-            return NSImage.init(byReferencingFile: path as String)
+        if let cover = self.cover, let path = cover.imagePath as String? {
+            return NSImage.init(byReferencingFile: path)
         }
         return SBAlbum.nullCover;
     }
@@ -41,7 +41,7 @@ public class SBAlbum: SBMusicItem {
         // since the album artwork shouldn't change normally (and if it does, rare it'll be the same size).
         // XXX: Better method.
         if let cover = self.cover,
-           let path = cover.path,
+           let path = cover.imagePath as String?,
            let attribs = try? FileManager.default.attributesOfItem(atPath: path) {
             return attribs[FileAttributeKey.size] as! Int
         }
