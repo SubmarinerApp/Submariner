@@ -119,57 +119,6 @@ public class SBCover: SBMusicItem {
         }
     }
     
-    /*
-     
-     [self willAccessValueForKey: @"imagePath"];
-     NSString *baseCoverDir = [[SBAppDelegate sharedInstance] coverDirectory];
-     NSString *currentPath = self.primitiveImagePath;
-     if (currentPath == nil) {
-         [self didAccessValueForKey: @"imagePath"];
-         return currentPath;
-     } else if ([currentPath isAbsolutePath]) {
-         NSString *coversDir = [self coversDir: baseCoverDir];
-         if (coversDir == nil) {
-             [self didAccessValueForKey: @"imagePath"];
-             return currentPath;
-         }
-         // If the path matches the prefix, do it, otherwise move the file
-         if ([currentPath hasPrefix: coversDir]) {
-             // Prefix matches, just update the DB entry
-             NSString *fileName = [currentPath lastPathComponent];
-             [self setImagePath: fileName];
-             [self didAccessValueForKey: @"imagePath"];
-             return currentPath;
-         } else if ([currentPath hasPrefix: baseCoverDir]) {
-             // in case it gets horribly lost (XXX: still need after real fix?)
-             [self didAccessValueForKey: @"imagePath"];
-             return currentPath;
-         } else {
-             // Prefix doesn't match, move instead
-             NSString *fileName = [currentPath lastPathComponent];
-             NSString *newPath = [coversDir stringByAppendingPathComponent: fileName];
-             NSError *error = nil;
-             // XXX: Synchronization? Only success will update tho
-             if ([[NSFileManager defaultManager] moveItemAtPath: currentPath toPath: newPath error: &error]) {
-                 [self setImagePath: fileName];
-                 [self didAccessValueForKey: @"imagePath"];
-                 return newPath;
-             } else {
-                 NSLog(@"Error when moving file out of dir into dir: %@", error);
-                 [self didAccessValueForKey: @"imagePath"];
-                 return currentPath;
-             }
-         }
-     } else {
-         NSString *coversDir = [self coversDir: baseCoverDir];
-         [self didAccessValueForKey: @"imagePath"];
-         if (coversDir == nil) {
-             return currentPath;
-         }
-         return [coversDir stringByAppendingPathComponent: currentPath];
-     }
-     */
-    
     // #MARK: - Core Data insert compatibility shim
     
     @objc(insertInManagedObjectContext:) class func insertInManagedObjectContext(context: NSManagedObjectContext) -> SBCover {
