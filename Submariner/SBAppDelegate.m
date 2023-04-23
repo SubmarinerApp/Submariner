@@ -81,6 +81,8 @@
     [NSValueTransformer setValueTransformer: volumeTrans forName: @"SBVolumeIconTransformer"];
     SBRepeatIconTransformer *repeatTrans = [[SBRepeatIconTransformer alloc] init];
     [NSValueTransformer setValueTransformer: repeatTrans forName: @"SBRepeatIconTransformer"];
+    SBTrackArtistNameTransformer *artistNameTrans = [[SBTrackArtistNameTransformer alloc] init];
+    [NSValueTransformer setValueTransformer: artistNameTrans forName: @"SBTrackArtistNameTransformer"];
     return self;
 }
 
