@@ -1,5 +1,5 @@
 //
-//  NSData+Type.swift
+//  Data+Type.swift
 //  Submariner
 //
 //  Created by Calvin Buckley on 2023-02-07.

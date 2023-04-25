@@ -164,7 +164,8 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
                         NSString *fileName = nil;
                         // trust what subsonic returns, instead of looking at contents
                         // but if we don't have any, what usually gets attached in ID3 is JPEG, AFAIK
-                        NSString *fileExtension = [MIMEType extensionForMIMEType] ?: @"jpeg";
+                        UTType *fileType = [UTType typeWithMIMEType: MIMEType] ?: UTTypeJPEG;
+                        NSString *fileExtension = [fileType preferredFilenameExtension];
                         fileName = [NSString stringWithFormat:@"%@.%@", currentCoverID, fileExtension];
                         
                         if (fileName != nil) {

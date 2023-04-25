@@ -1,5 +1,5 @@
 //
-//  NSOperationQueue+Shared.swift
+//  OperationQueue+Shared.swift
 //  Submariner
 //
 //  Created by Calvin Buckley on 2023-04-21.

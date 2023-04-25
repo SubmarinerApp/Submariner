@@ -10,10 +10,6 @@ import Cocoa
 import UniformTypeIdentifiers
 
 @objc extension NSString {
-    @objc func extensionForMIMEType() -> NSString? {
-        return UTType(mimeType: self as String)?.preferredFilenameExtension as NSString?
-    }
-    
     static let illegalFilenameCharacters = CharacterSet(charactersIn: "/\\?%*|\"<>")
     
     @objc func isValidFileName() -> Bool {

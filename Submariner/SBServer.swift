@@ -280,7 +280,7 @@ public class SBServer: SBResource {
     }
     
     @objc func getBaseParameters(_ parameters: NSMutableDictionary) {
-        if let username = self.username, let password = self.password as NSString? {
+        if let username = self.username, let password = self.password {
             parameters.setValue(username, forKey: "u")
             if self.useTokenAuth?.boolValue == true {
                 parameters.removeObject(forKey: "p")
@@ -291,7 +291,7 @@ public class SBServer: SBResource {
                 if saltResult != errSecSuccess {
                     abort()
                 }
-                let salt = NSString.hexStringFrom(bytes: saltBytes as NSData)
+                let salt = String.hexStringFrom(bytes: saltBytes)
                 parameters.setValue(salt, forKey: "s")
                 let token = String.init(format: "%@%@", password, salt).md5()
                 parameters.setValue(token, forKey: "t")
