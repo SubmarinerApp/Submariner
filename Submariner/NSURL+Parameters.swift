@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc extension NSURL {
+extension URL {
     // #MARK: -
     // #MARK: Temporary Files
     
@@ -17,7 +17,9 @@ import Foundation
         let randomName = UUID().uuidString
         return tempDir.appendingPathComponent(randomName)
     }
-    
+}
+
+@objc extension NSURL {
     // #MARK: -
     // #MARK: Parameters
     

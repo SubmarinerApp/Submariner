@@ -97,7 +97,7 @@ import UniformTypeIdentifiers
         
         // SBImportOperation needs an audio file extension. Rename the file.
         let fileType = UTType(mimeType: downloadTask.response?.mimeType ?? "audio/mp3") ?? UTType.mp3
-        let temporaryFile = NSURL.temporaryFile().appendingPathExtension(for: fileType)
+        let temporaryFile = URL.temporaryFile().appendingPathExtension(for: fileType)
         try! FileManager.default.moveItem(at: location, to: temporaryFile)
         
         // Now import.
