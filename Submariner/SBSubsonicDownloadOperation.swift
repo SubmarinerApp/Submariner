@@ -106,7 +106,7 @@ import UniformTypeIdentifiers
         }
         
         self.finish()
-        session.invalidateAndCancel()
+        session.finishTasksAndInvalidate()
     }
     
     // #MARK: -
