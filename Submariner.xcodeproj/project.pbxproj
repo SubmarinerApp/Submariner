@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -739,7 +739,8 @@
 		4C87ED56139CD8BE0064DE2E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1410;
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = "Submariner Developers";
 				TargetAttributes = {
 					4C87ED5E139CD8BE0064DE2E = {
@@ -1047,14 +1048,16 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "Submariner/Submariner-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@loader_path/../Frameworks",
+					"@executable_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.read-write.Submariner";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				STRIP_STYLE = all;
 				SWIFT_OBJC_BRIDGING_HEADER = "Submariner/Submariner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1093,14 +1096,16 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "Submariner/Submariner-Info.plist";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"@loader_path/../Frameworks",
+					"@executable_path/../Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "fr.read-write.Submariner";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SKIP_INSTALL = NO;
-				STRIP_STYLE = all;
 				SWIFT_OBJC_BRIDGING_HEADER = "Submariner/Submariner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				WRAPPER_EXTENSION = app;
