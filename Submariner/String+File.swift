@@ -1,5 +1,5 @@
 //
-//  NSString+File.swift
+//  String+File.swift
 //  Submariner
 //
 //  Created by Calvin Buckley on 2023-02-07.
@@ -9,15 +9,14 @@
 import Cocoa
 import UniformTypeIdentifiers
 
-@objc extension NSString {
+extension String {
     static let illegalFilenameCharacters = CharacterSet(charactersIn: "/\\?%*|\"<>")
     
-    @objc func isValidFileName() -> Bool {
-        guard !self.isEqual(to: "") else {
+    func isValidFileName() -> Bool {
+        guard self != "" else {
             return false
         }
         
-        let range = self.rangeOfCharacter(from: NSString.illegalFilenameCharacters)
-        return range.location == NSNotFound
+        return self.rangeOfCharacter(from: String.illegalFilenameCharacters) != nil
     }
 }

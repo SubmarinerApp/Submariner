@@ -89,40 +89,38 @@ public class SBServer: SBResource {
             return result
         }
         set {
-            /*
-             
-             // The covers directory should be renamed, since it uses resource name.
-             [self willChangeValueForKey:@"resourceName"];
-             // Rename here, since we can get changed by the edit server controller or source list,
-             // so there's no bottleneck where we can place it.
-             // XXX: Refactor to avoid having to keep doing this?
-             NSString *oldName = [self primitiveResourceName];
-             NSFileManager *fm = [NSFileManager defaultManager];
-             NSString *coversDir = [[SBAppDelegate sharedInstance] coverDirectory];
-             NSString *oldDir = [coversDir stringByAppendingPathComponent: oldName];
-             // If we're renaming a new server that has no content, it won't have a dir yet.
-             // If the directory name does make sense though, do try a rename.
-             if ([oldName isValidFileName]
-                 && [resourceName isValidFileName]
-                 && ![oldName isEqualToString: resourceName]
-                 && ![resourceName isEqualToString: @"Local Library"] // avoid stepping on local covers
-                 && [fm fileExistsAtPath: oldDir]) {
-                 NSString *newDir = [coversDir stringByAppendingPathComponent: resourceName];
-                 NSError *error = nil;
-                 // Tie our success to if we moved the directory. If we let this get out of sync,
-                 // it'll be very annoying for the user, while not fatal.
-                 if ([fm moveItemAtPath: oldDir toPath: newDir error: &error]) {
-                     [self setPrimitiveResourceName: resourceName];
-                 } else {
-                     [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
-                 }
-             } else if ([resourceName isValidFileName] && ![resourceName isEqualToString: @"Local Library"]) {
-                 // If we're renaming a new server that has no content, it won't have a dir yet.
-                 // No directory stuff to try, but do make sure we don't have an invalid name.
-                 [self setPrimitiveResourceName: resourceName];
-             }
-             [self didChangeValueForKey:@"resourceName"];
-             */
+            // The covers directory should be renamed, since it uses resource name.
+            self.willChangeValue(forKey: "resourceName")
+            // Rename here, since we can get changed by the edit server controller or source list,
+            // so there's no bottleneck where we can place it.
+            // XXX: Refactor to avoid having to keep doing this?
+            let coversDir = URL.init(fileURLWithPath: SBAppDelegate.sharedInstance().coverDirectory())
+            if let oldName = self.primitiveValue(forKey: "resourceName") as! String?,
+               let newName = newValue {
+                let oldDir = coversDir.appendingPathComponent(oldName)
+                if oldName.isValidFileName(),
+                   newName.isValidFileName(),
+                   oldName != newName,
+                   newName != "Local Library",
+                   FileManager.default.fileExists(atPath: oldDir.path) {
+                    let newDir = coversDir.appendingPathComponent(newName)
+                    // Tie our success to if we moved the directory. If we let this get out of sync,
+                    // it'll be very annoying for the user, while not fatal.
+                    do {
+                        try FileManager.default.moveItem(at: oldDir, to: newDir)
+                        self.setPrimitiveValue(newName, forKey: "resourceName")
+                    } catch {
+                        DispatchQueue.main.async {
+                            NSApp.presentError(error)
+                        }
+                    }
+                } else if newName.isValidFileName(), newName != "Local Library" {
+                    // If we're renaming a new server that has no content, it won't have a dir yet.
+                    // No directory stuff to try, but do make sure we don't have an invalid name.
+                    self.setPrimitiveValue(newName, forKey: "resourceName")
+                }
+            }
+            self.didChangeValue(forKey: "resourceName")
         }
     }
     

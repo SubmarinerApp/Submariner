@@ -28,7 +28,7 @@
 		3EA929BB29E4785F00938582 /* SBRepeatModeTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA929BA29E4785F00938582 /* SBRepeatModeTransformer.swift */; };
 		3EB2BCC12992D28A00DC5056 /* String+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCC02992D28A00DC5056 /* String+Hex.swift */; };
 		3EB2BCC32992D94E00DC5056 /* Data+Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCC22992D94E00DC5056 /* Data+Type.swift */; };
-		3EB2BCC52992DA8E00DC5056 /* NSString+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCC42992DA8E00DC5056 /* NSString+File.swift */; };
+		3EB2BCC52992DA8E00DC5056 /* String+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCC42992DA8E00DC5056 /* String+File.swift */; };
 		3EB2BCC72992E13700DC5056 /* NSString+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCC62992E13700DC5056 /* NSString+Time.swift */; };
 		3EB2BCC92992E85F00DC5056 /* NSImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCC82992E85F00DC5056 /* NSImage+Additions.swift */; };
 		3EB2BCCB2992F03A00DC5056 /* SBSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCCA2992F03A00DC5056 /* SBSearchResult.swift */; };
@@ -168,7 +168,7 @@
 		3EA929BA29E4785F00938582 /* SBRepeatModeTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBRepeatModeTransformer.swift; sourceTree = "<group>"; };
 		3EB2BCC02992D28A00DC5056 /* String+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Hex.swift"; sourceTree = "<group>"; };
 		3EB2BCC22992D94E00DC5056 /* Data+Type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Type.swift"; sourceTree = "<group>"; };
-		3EB2BCC42992DA8E00DC5056 /* NSString+File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+File.swift"; sourceTree = "<group>"; };
+		3EB2BCC42992DA8E00DC5056 /* String+File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+File.swift"; sourceTree = "<group>"; };
 		3EB2BCC62992E13700DC5056 /* NSString+Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+Time.swift"; sourceTree = "<group>"; };
 		3EB2BCC82992E85F00DC5056 /* NSImage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Additions.swift"; sourceTree = "<group>"; };
 		3EB2BCCA2992F03A00DC5056 /* SBSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBSearchResult.swift; sourceTree = "<group>"; };
@@ -561,7 +561,7 @@
 				3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */,
 				3EB2BCC02992D28A00DC5056 /* String+Hex.swift */,
 				3EB2BCC22992D94E00DC5056 /* Data+Type.swift */,
-				3EB2BCC42992DA8E00DC5056 /* NSString+File.swift */,
+				3EB2BCC42992DA8E00DC5056 /* String+File.swift */,
 				3EB2BCC62992E13700DC5056 /* NSString+Time.swift */,
 				3EB2BCC82992E85F00DC5056 /* NSImage+Additions.swift */,
 				3EC039C829EFC259001FDE50 /* View+Modify.swift */,
@@ -861,7 +861,7 @@
 				3EC03B4C29F4F2E0001FDE50 /* SBServer.swift in Sources */,
 				3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */,
 				3EB2BCCB2992F03A00DC5056 /* SBSearchResult.swift in Sources */,
-				3EB2BCC52992DA8E00DC5056 /* NSString+File.swift in Sources */,
+				3EB2BCC52992DA8E00DC5056 /* String+File.swift in Sources */,
 				4CFAFC45139FFC1700E82B57 /* SBClientController.m in Sources */,
 				4CFAFC47139FFC1700E82B57 /* SBSubsonicParsingOperation.m in Sources */,
 				4CFAFC48139FFC1700E82B57 /* SBPlayer.m in Sources */,
