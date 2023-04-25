@@ -188,7 +188,7 @@ import UniformTypeIdentifiers
         let coverDir = URL.init(fileURLWithPath: SBAppDelegate.sharedInstance().coverDirectory()).appendingPathComponent("Local Library")
         if let coverData = coverData {
             var coverType = UTType.jpeg
-            if let coverTypeGuess = coverData.guessImageUTI()) {
+            if let coverTypeGuess = coverData.guessImageType() {
                 coverType = coverTypeGuess
             }
             let artistCoverDir = coverDir.appendingPathComponent(albumArtistString!)
@@ -198,6 +198,8 @@ import UniformTypeIdentifiers
             let finalPath = artistCoverDir
                 .appendingPathComponent(albumString!)
                 .appendingPathExtension(for: coverType)
+            try coverData.write(to: finalPath, options: [.atomic])
+            
             let relativePath = albumArtistString! + "/" + albumString! + "." + coverType.preferredFilenameExtension!
             // HACK: check if cover in album is nil; usually somehow track's isn't
             if newAlbum!.cover == nil {
