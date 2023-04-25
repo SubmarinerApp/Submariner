@@ -278,7 +278,9 @@ import UniformTypeIdentifiers
                 try importFile(path: path)
             }
         } catch {
-            print(error)
+            DispatchQueue.main.async {
+                NSApp.presentError(error)
+            }
         }
         // finally
         saveThreadedContext()
