@@ -7,13 +7,14 @@
 //
 
 import Cocoa
+import UniformTypeIdentifiers
 
-@objc extension NSData {
+extension Data {
     /// Useful for determining the type of an image from only bytes, such as from a tag.
-    @objc func guessImageUTI() -> NSString? {
-        if let imgSrc = CGImageSourceCreateWithData(self, nil),
+    func guessImageType() -> UTType? {
+        if let imgSrc = CGImageSourceCreateWithData(self as CFData, nil),
            let str = CGImageSourceGetType(imgSrc) {
-            return str
+            return UTType(str as String)
         }
         return nil
     }

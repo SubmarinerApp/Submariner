@@ -40,7 +40,6 @@
 #import "SBTracklistController.h"
 #import "SBPlaylistController.h"
 #import "SBAnimatedView.h"
-#import "SBImportOperation.h"
 #import "SBSubsonicParsingOperation.h"
 #import "SBPlayer.h"
 #import "SBTableView.h"
@@ -990,24 +989,20 @@
     
     if(returnCode == NSAlertFirstButtonReturn) {
         if(choosedFiles != nil) {
-            
-            SBImportOperation *op = [[SBImportOperation alloc] initWithManagedObjectContext:self.managedObjectContext];
-            [op setFilePaths:choosedFiles];
-            [op setLibraryID:[library objectID]];
-            [op setCopyFile:YES];
-            [op setRemove:NO];
+            SBImportOperation *op = [[SBImportOperation alloc]
+                                     initWithManagedObjectContext: self.managedObjectContext
+                                     files: choosedFiles
+                                     copyFiles: YES];
             
             [[NSOperationQueue sharedDownloadQueue] addOperation:op];
         }
         
     } else if(returnCode == NSAlertSecondButtonReturn) {
         if(choosedFiles != nil) {
-            
-            SBImportOperation *op = [[SBImportOperation alloc] initWithManagedObjectContext:self.managedObjectContext];
-            [op setFilePaths:choosedFiles];
-            [op setLibraryID:[library objectID]];
-            [op setCopyFile:NO];
-            [op setRemove:NO];
+            SBImportOperation *op = [[SBImportOperation alloc]
+                                     initWithManagedObjectContext: self.managedObjectContext
+                                     files: choosedFiles
+                                     copyFiles: NO];
             
             [[NSOperationQueue sharedDownloadQueue] addOperation:op];
         }

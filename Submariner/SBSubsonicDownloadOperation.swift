@@ -99,15 +99,9 @@ import UniformTypeIdentifiers
         let fileType = UTType(mimeType: downloadTask.response?.mimeType ?? "audio/mp3") ?? UTType.mp3
         let temporaryFile = NSURL.temporaryFile().appendingPathExtension(for: fileType)
         try! FileManager.default.moveItem(at: location, to: temporaryFile)
-        let temporaryFilePath = temporaryFile.path
         
         // Now import.
-        if let importOperation = SBImportOperation(managedObjectContext: mainContext) {
-            importOperation.filePaths = [temporaryFilePath]
-            importOperation.copyFile = true
-            importOperation.remove = true
-            importOperation.libraryID = library.objectID
-            importOperation.remoteTrackID = track.objectID
+        if let importOperation = SBImportOperation(managedObjectContext: mainContext, file: temporaryFile, remoteTrackID: track.objectID) {
             OperationQueue.sharedDownloadQueue.addOperation(importOperation)
         }
         
