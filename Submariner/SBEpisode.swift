@@ -24,7 +24,8 @@ public class SBEpisode: SBTrack {
     
     @objc override func streamURL() -> URL? {
         let parameters = NSMutableDictionary()
-        if let isLocal = self.isLocal, isLocal.boolValue, let path = self.path {
+        if let isLocal = self.isLocal, isLocal.boolValue,
+           let path = self.path, FileManager.default.fileExists(atPath: path) {
             return URL.init(fileURLWithPath: path)
         } else if let server = self.server, let url = server.url {
             server.getBaseParameters(parameters)
