@@ -61,9 +61,10 @@ public class SBCover: SBMusicItem {
     //
     // XXX: Migrate absolute resources to relative ones on-demand here
     // XXX: Why is there a difference between MusicItem.path and Cover.imagePath?
-    @objc dynamic var imagePath: NSString? {
+    @objc var imagePath: NSString? {
         get {
             let baseCoverDir = SBAppDelegate.sharedInstance().coverDirectory()!
+            self.willAccessValue(forKey: "imagePath")
             let currentPath = self.primitiveValue(forKey: "imagePath") as! NSString?
             if let currentPath = currentPath {
                 if currentPath.isAbsolutePath {
@@ -73,9 +74,11 @@ public class SBCover: SBMusicItem {
                         if currentPath.hasPrefix(coversDir as String) {
                             // Prefix matches, just update the DB entry
                             self.imagePath = fileName as NSString?
+                            self.didAccessValue(forKey: "imagePath")
                             return currentPath
                         } else if currentPath.hasPrefix(baseCoverDir as String) {
                             // in case it gets horribly lost (XXX: still need after real fix?)
+                            self.didAccessValue(forKey: "imagePath")
                             return currentPath
                         } else {
                             // Prefix doesn't match, move instead\
@@ -84,27 +87,35 @@ public class SBCover: SBMusicItem {
                             do {
                                 try FileManager.default.moveItem(atPath: currentPath as String, toPath: newPath)
                                 self.imagePath = fileName as NSString?
+                                self.didAccessValue(forKey: "imagePath")
                                 return newPath as NSString
                             } catch {
                                 print("Error moving file for cover,", error)
+                                self.didAccessValue(forKey: "imagePath")
                                 return currentPath
                             }
                         }
                     } else {
+                        self.didAccessValue(forKey: "imagePath")
                         return currentPath
                     }
                 } else {
                     if let coversDir = coversDir(baseCoverDir as NSString) {
+                        self.didAccessValue(forKey: "imagePath")
                         return coversDir.appendingPathComponent(currentPath as String) as NSString
                     } else {
+                        self.didAccessValue(forKey: "imagePath")
                         return currentPath
                     }
                 }
             }
+            self.didAccessValue(forKey: "imagePath")
             return nil
         }
         set {
+            self.willChangeValue(forKey: "imagePath")
             self.setPrimitiveValue(newValue, forKey: "imagePath")
+            self.didChangeValue(forKey: "imagePath")
         }
     }
     

@@ -21,7 +21,7 @@ public class SBTrack: SBMusicItem {
         } else if key == "onlineImage" {
             return Set(["isLocal"])
         }
-        return super.keyPathsForValuesAffectingValue(forKey: key)
+        return Set()
     }
     
     public override func awakeFromInsert() {
@@ -31,8 +31,11 @@ public class SBTrack: SBMusicItem {
         }
     }
     
-    @objc dynamic var durationString: String? {
-        return NSString.stringWith(time: TimeInterval(duration?.intValue ?? 0)) as String?
+    @objc var durationString: String? {
+        self.willAccessValue(forKey: "duration")
+        let ret = NSString.stringWith(time: TimeInterval(duration?.intValue ?? 0))
+        self.didAccessValue(forKey: "duration")
+        return ret as String?
     }
     
     @objc func streamURL() -> URL? {
@@ -62,19 +65,19 @@ public class SBTrack: SBMusicItem {
         return nil
     }
     
-    @objc dynamic var playingImage: NSImage? {
+    @objc var playingImage: NSImage? {
         if let playing = self.isPlaying, playing.boolValue {
             return NSImage(systemSymbolName: "speaker.fill", accessibilityDescription: "Playing")
         }
         return nil
     }
     
-    @objc dynamic var coverImage: NSImage {
+    @objc var coverImage: NSImage {
         // change this if imageRepresentation is optimized
         return self.album?.imageRepresentation() as! NSImage
     }
     
-    @objc dynamic var artistString: String? {
+    @objc var artistString: String? {
         if let album = self.album,
            let albumArtist = album.artist,
            let albumArtistName = albumArtist.itemName {
@@ -83,11 +86,11 @@ public class SBTrack: SBMusicItem {
         return artistName
     }
     
-    @objc dynamic var albumString: String? {
+    @objc var albumString: String? {
         return self.album?.itemName
     }
     
-    @objc dynamic var onlineImage: NSImage {
+    @objc var onlineImage: NSImage {
         if self.localTrack != nil || self.isLocal?.boolValue == true {
             return NSImage(systemSymbolName: "bolt.horizontal.fill", accessibilityDescription: "Cached")!
         }
