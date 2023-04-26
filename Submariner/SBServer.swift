@@ -22,7 +22,7 @@ public class SBServer: SBResource {
         } else if key == "licenseImage" {
             return Set(["isValidLicense"])
         }
-        return Set()
+        return super.keyPathsForValuesAffectingValue(forKey: key)
     }
     
     // #MARK: - Lifecycle
@@ -36,43 +36,25 @@ public class SBServer: SBResource {
     
     // #MARK: - Custom Accessors (Source List Tree Support)
     
-    @objc var resources: NSSet {
+    @objc dynamic var resources: NSSet {
         get {
-            self.willAccessValue(forKey: "resources")
-            self.willAccessValue(forKey: "playlists")
-            let result = self.primitiveValue(forKey: "playlists") as! NSSet
-            self.didAccessValue(forKey: "playlists")
-            self.didAccessValue(forKey: "resources")
-            return result
+            return self.primitiveValue(forKey: "playlists") as! NSSet
         }
         set {
-            self.willAccessValue(forKey: "resources")
-            self.willAccessValue(forKey: "playlists")
             self.setPrimitiveValue(newValue, forKey: "playlists")
-            self.didAccessValue(forKey: "playlists")
-            self.didAccessValue(forKey: "resources")
         }
     }
     
-    @objc var playlist: NSSet {
+    @objc dynamic var playlist: NSSet {
         get {
-            self.willAccessValue(forKey: "resources")
-            self.willAccessValue(forKey: "playlists")
-            let result = self.primitiveValue(forKey: "playlists") as! NSSet
-            self.didAccessValue(forKey: "playlists")
-            self.didAccessValue(forKey: "resources")
-            return result
+            return self.primitiveValue(forKey: "playlists") as! NSSet
         }
         set {
-            self.willAccessValue(forKey: "resources")
-            self.willAccessValue(forKey: "playlists")
             self.setPrimitiveValue(newValue, forKey: "playlists")
-            self.didAccessValue(forKey: "playlists")
-            self.didAccessValue(forKey: "resources")
         }
     }
     
-    @objc var licenseImage: NSImage {
+    @objc dynamic var licenseImage: NSImage {
         if (self.isValidLicense?.boolValue == true) {
             return NSImage.init(named: NSImage.statusAvailableName)!
         }
@@ -81,16 +63,13 @@ public class SBServer: SBResource {
     
     // #MARK: - Custom Accessors (Rename Directories)
     
-    public override var resourceName: String? {
+    @objc dynamic public override var resourceName: String? {
         get {
-            self.willAccessValue(forKey: "resourceName")
             let result = self.primitiveValue(forKey: "resourceName") as! String?
-            self.didAccessValue(forKey: "resourceName")
             return result
         }
         set {
             // The covers directory should be renamed, since it uses resource name.
-            self.willChangeValue(forKey: "resourceName")
             // Rename here, since we can get changed by the edit server controller or source list,
             // so there's no bottleneck where we can place it.
             // XXX: Refactor to avoid having to keep doing this?
@@ -120,7 +99,6 @@ public class SBServer: SBResource {
                     self.setPrimitiveValue(newName, forKey: "resourceName")
                 }
             }
-            self.didChangeValue(forKey: "resourceName")
         }
     }
     
@@ -139,7 +117,6 @@ public class SBServer: SBResource {
     
     @objc var password: String? {
         get {
-            self.willAccessValue(forKey: "password")
             var ret: String? = nil
             if let primitivePassword = self.primitiveValue(forKey: "password") as! String?,
                primitivePassword != "" {
@@ -178,11 +155,9 @@ public class SBServer: SBResource {
                     cachedPassword = ret
                 }
             }
-            self.didAccessValue(forKey: "password")
             return ret
         }
         set {
-            self.willChangeValue(forKey: "password")
             // XXX: should we invalidate the stored pw?
             self.cachedPassword = nil
 
@@ -193,7 +168,6 @@ public class SBServer: SBResource {
                 // clear out the remnant of Core Data stored password
                 self.setPrimitiveValue("", forKey: "password")
             }
-            self.willChangeValue(forKey: "password")
         }
     }
     

@@ -17,9 +17,8 @@ public class SBMusicItem: NSManagedObject {
     // move, since we might not be the owners of it. (It does make the "user moved
     // the path" case more annoying though, but local items can always be destroyed
     // and recreated easily.
-    @objc var path: String? {
+    @objc dynamic var path: String? {
         get {
-            self.willAccessValue(forKey: "path")
             var ret: NSString? = self.primitiveValue(forKey: "path") as! NSString?
             if let primitivePath = ret,
                let libraryDir = SBAppDelegate.sharedInstance().musicDirectory() as NSString?,
@@ -37,33 +36,10 @@ public class SBMusicItem: NSManagedObject {
                     ret = libraryDir.appendingPathComponent(primitivePath as String) as NSString?
                 }
             }
-            self.didAccessValue(forKey: "path")
             return ret as String?
         }
         set {
-            self.willChangeValue(forKey: "path")
             self.setPrimitiveValue(newValue, forKey: "path")
-            self.didChangeValue(forKey: "path")
         }
     }
-    /*
-     
-     [self willAccessValueForKey:@"path"];
-     NSString *string = [self primitivePath];
-     if (self.isLocalValue && string && [string isAbsolutePath]) {
-         // If absolute path is in music dir, correct it.
-         NSString *libraryDir = [[SBAppDelegate sharedInstance] musicDirectory];
-         if ([string hasPrefix: libraryDir]) {
-             NSUInteger offset = [libraryDir length] + ([libraryDir hasSuffix: @"/"] ? 0 : 1);
-             NSString *trimmedPrefix = [string substringFromIndex: offset];
-             [self setPrimitivePath: trimmedPrefix];
-         }
-     } else if (self.isLocalValue && string) {
-         // Relative, but return the full directory.
-         NSString *libraryDir = [[SBAppDelegate sharedInstance] musicDirectory];
-         string = [libraryDir stringByAppendingPathComponent: string];
-     }
-     [self didAccessValueForKey:@"path"];
-     return string;
-     */
 }
