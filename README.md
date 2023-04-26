@@ -25,6 +25,14 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes:
 
+### Version 2.2 (not yet released)
+
+* Rewrite many components in Swift
+* Fix issue where cached files weren't being used
+* Fix issue with automatic caching not being reliable
+* Fix issue with download operations spuriously cancelling themselves
+* Fix issue with context menus not properly using the focused control
+
 ### Version 2.1.1
 
 * Fix server playlists being loaded out of order
