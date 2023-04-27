@@ -13,7 +13,6 @@ import UniformTypeIdentifiers
     static let DownloadStartedNotification = NSNotification.Name("SBSubsonicDownloadStarted")
     static let DownloadFinishedNotification = NSNotification.Name("SBSubsonicDownloadFinished")
     
-    private let library: SBLibrary
     private let track: SBTrack
     
     let activity: SBOperationActivity
@@ -29,9 +28,6 @@ import UniformTypeIdentifiers
         activity = SBOperationActivity(name: activityName)
         activity.operationInfo = "Pending Request..."
         activity.progress = .none
-        // get the handle to the library ID
-        let libraryRequest = NSFetchRequest<SBLibrary>(entityName: "Library")
-        library = try! mainContext.fetch(libraryRequest).first!
         
         super.init(managedObjectContext: mainContext)
         
