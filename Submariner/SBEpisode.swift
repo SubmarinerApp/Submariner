@@ -59,4 +59,11 @@ public class SBEpisode: SBTrack {
     @objc override var albumString: String? {
         self.episodeDescription
     }
+    
+    // #MARK: - Core Data insert compatibility shim
+    
+    @objc(insertInManagedObjectContext:) override class func insertInManagedObjectContext(context: NSManagedObjectContext) -> SBEpisode {
+        let entity = NSEntityDescription.entity(forEntityName: "Episode", in: context)
+        return NSEntityDescription.insertNewObject(forEntityName: entity!.name!, into: context) as! SBEpisode
+    }
 }
