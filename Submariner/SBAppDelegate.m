@@ -481,7 +481,8 @@
         [[NSApplication sharedApplication] presentError:error];
         return nil;
     }
-    __managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType: NSPrivateQueueConcurrencyType];
+    // It needs to be main queue concurrency, or SwiftUI gets angry.
+    __managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType: NSMainQueueConcurrencyType];
     [__managedObjectContext setPersistentStoreCoordinator:coordinator];
 
     return __managedObjectContext;

@@ -147,6 +147,7 @@
         [serverLibraryController setDatabaseController:self];
         [serverHomeController setDatabaseController:self];
         [serverSearchController setDatabaseController:self];
+        [serverUserController setDatabaseController:self];
     }
     return self;
 }
@@ -652,6 +653,7 @@
     if (server != nil && serverHomeController.server == server) {
         [serverHomeController reloadSelected: nil];
     }
+    [serverUserController refreshNowPlaying];
 }
 
 - (IBAction)reloadServer:(id)sender {

@@ -74,7 +74,10 @@ public class SBTrack: SBMusicItem {
     
     @objc var coverImage: NSImage {
         // change this if imageRepresentation is optimized
-        return self.album?.imageRepresentation() as! NSImage
+        if let album = self.album {
+            return album.imageRepresentation() as! NSImage
+        }
+        return SBAlbum.nullCover!
     }
     
     @objc var artistString: String? {

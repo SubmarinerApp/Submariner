@@ -39,7 +39,6 @@
 #import "SBServerLibraryController.h"
 #import "SBServerHomeController.h"
 #import "SBServerPodcastController.h"
-#import "SBServerUserViewController.h"
 #import "SBServerSearchController.h"
 #import "SBSourceList.h"
 
@@ -51,6 +50,7 @@
 @class SBMusicSearchController;
 @class SBServerSearchController;
 @class SBDownloadsController;
+@class SBServerUserViewController;
 @class SBTracklistController;
 @class SBPlaylistController;
 @class SBLibrary;
