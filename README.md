@@ -28,6 +28,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 ### Version 2.2 (not yet released)
 
 * Rewrite many components in Swift
+* The now playing view now shows the last update and can show the track in the library
 * Fix issue where cached files weren't being used
 * Fix issue with automatic caching not being reliable
 * Fix issue with download operations spuriously cancelling themselves
