@@ -39,11 +39,12 @@ public class SBTrack: SBMusicItem {
     }
     
     @objc func streamURL() -> URL? {
-        let parameters = NSMutableDictionary()
         if let isLocal = self.isLocal, isLocal.boolValue,
-           let path = self.path, FileManager.default.fileExists(atPath: path) {
+           let path = self.path,
+           FileManager.default.fileExists(atPath: path) {
             return URL.init(fileURLWithPath: path)
         } else if let server = self.server, let url = server.url {
+            let parameters = NSMutableDictionary()
             server.getBaseParameters(parameters)
             parameters.setValue(UserDefaults.standard.string(forKey: "maxBitRate"), forKey: "maxBitRate")
             parameters.setValue(self.id, forKey: "id")

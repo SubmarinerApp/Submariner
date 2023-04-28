@@ -19,22 +19,23 @@ public class SBMusicItem: NSManagedObject {
     // and recreated easily.
     @objc var path: String? {
         get {
+            let libraryDir = SBAppDelegate.sharedInstance().musicDirectory()!
             self.willAccessValue(forKey: "path")
-            var ret: NSString? = self.primitiveValue(forKey: "path") as! NSString?
+            var ret: String? = self.primitiveValue(forKey: "path") as! String?
             if let primitivePath = ret,
-               let libraryDir = SBAppDelegate.sharedInstance().musicDirectory() as NSString?,
                self.isLocal?.boolValue == true {
-                if primitivePath.isAbsolutePath {
+                if primitivePath.hasPrefix("/") {
                     // If absolute path is in music dir, correct it.
-                    if primitivePath.hasPrefix(libraryDir as String) {
-                        let offset = libraryDir.length + (libraryDir.hasSuffix("/") ? 0 : 1)
-                        let trimmedPrefix = primitivePath.substring(from: offset)
+                    if primitivePath.hasPrefix(libraryDir) {
+                        let offset = libraryDir.lengthOfBytes(using: .utf8) + (libraryDir.hasSuffix("/") ? 0 : 1)
+                        let offsetIndex = String.Index(utf16Offset: offset, in: primitivePath)
+                        let trimmedPrefix = String(primitivePath[offsetIndex...])
                         self.path = trimmedPrefix
-                        ret = trimmedPrefix as NSString?
+                        ret = trimmedPrefix
                     }
                 } else {
                     // relative
-                    ret = libraryDir.appendingPathComponent(primitivePath as String) as NSString?
+                    ret = libraryDir + "/" + primitivePath
                 }
             }
             self.didAccessValue(forKey: "path")
