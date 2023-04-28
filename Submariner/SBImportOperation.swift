@@ -31,6 +31,7 @@ import UniformTypeIdentifiers
         remoteTrack = threadedContext.object(with: remoteTrackID) as? SBTrack
         // importing a downloaded file, we remove it after
         self.removeSourceFiles = true
+        self.copyFiles = true
     }
     
     private func recursiveFiles(paths: [URL]) -> [URL] {
