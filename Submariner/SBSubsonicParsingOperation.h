@@ -117,8 +117,6 @@ typedef NS_ENUM(NSInteger, SBSubsonicRequestType) {
     // index counters
     NSInteger numberOfChildrens;
     NSInteger playlistIndex;
-    
-    BOOL hasUnread;
 }
 
 @property (readwrite, strong) SBArtist *currentArtist;
