@@ -47,24 +47,4 @@ public class SBMusicItem: NSManagedObject {
             self.didChangeValue(forKey: "path")
         }
     }
-    /*
-     
-     [self willAccessValueForKey:@"path"];
-     NSString *string = [self primitivePath];
-     if (self.isLocalValue && string && [string isAbsolutePath]) {
-         // If absolute path is in music dir, correct it.
-         NSString *libraryDir = [[SBAppDelegate sharedInstance] musicDirectory];
-         if ([string hasPrefix: libraryDir]) {
-             NSUInteger offset = [libraryDir length] + ([libraryDir hasSuffix: @"/"] ? 0 : 1);
-             NSString *trimmedPrefix = [string substringFromIndex: offset];
-             [self setPrimitivePath: trimmedPrefix];
-         }
-     } else if (self.isLocalValue && string) {
-         // Relative, but return the full directory.
-         NSString *libraryDir = [[SBAppDelegate sharedInstance] musicDirectory];
-         string = [libraryDir stringByAppendingPathComponent: string];
-     }
-     [self didAccessValueForKey:@"path"];
-     return string;
-     */
 }
