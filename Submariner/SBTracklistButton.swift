@@ -25,7 +25,7 @@ import Cocoa
         do {
             if let moc = managedObjectContext,
                let data = sender.draggingPasteboard.data(forType: SBTracklistButton.libraryType),
-               let tracks = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? [URL] {
+               let tracks = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, NSURL.self], from: data) as? [URL] {
                 // deserialize them
                 let deserialized = tracks.map { url in
                     // this should always give us a valid object ID,
