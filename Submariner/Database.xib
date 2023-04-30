@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
         <capability name="Search Toolbar Item" minToolsVersion="12.0" minSystemVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -68,7 +68,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="328" y="212" width="1024" height="600"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
             <value key="minSize" type="size" width="720" height="480"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="600"/>
@@ -86,11 +86,11 @@
                                         <rect key="frame" x="0.0" y="0.0" width="218" height="600"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" drawsBackground="NO" id="cdO-el-ZLY">
-                                            <rect key="frame" x="0.0" y="0.0" width="218" height="600"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="218" height="585"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" autosaveName="SourceList" rowHeight="24" indentationPerLevel="13" autosaveExpandedItems="YES" indentationMarkerFollowsCell="NO" outlineTableColumn="16" id="15" customClass="SBSourceList">
-                                                    <rect key="frame" x="0.0" y="0.0" width="258" height="600"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="258" height="585"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="0.0"/>
                                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -125,7 +125,7 @@
                                             <nil key="backgroundColor"/>
                                         </clipView>
                                         <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="14">
-                                            <rect key="frame" x="0.0" y="584" width="218" height="16"/>
+                                            <rect key="frame" x="0.0" y="585" width="218" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="12">
@@ -174,7 +174,7 @@
                     <toolbarItem implicitItemIdentifier="87708EA7-FC46-4E8B-9D35-38D1CD5AE527" explicitItemIdentifier="SBTBToggleSidebar" label="Sidebar" paletteLabel="Sidebar" image="sidebar.left" catalog="system" sizingBehavior="auto" id="x3E-BS-STX">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="mza-yT-8Pr">
-                            <rect key="frame" x="9" y="14" width="30" height="23"/>
+                            <rect key="frame" x="9" y="14" width="31" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="sidebar.left" catalog="system" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="8DD-f1-XMe">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -202,7 +202,7 @@
                     <toolbarItem implicitItemIdentifier="9525B815-9911-44B9-B3EB-03DA4EB073AA" explicitItemIdentifier="SBTBStop" label="Stop" paletteLabel="Stop" image="stop" catalog="system" sizingBehavior="auto" id="mYo-jG-gtG">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="6Fs-XI-yyc">
-                            <rect key="frame" x="3" y="14" width="26" height="23"/>
+                            <rect key="frame" x="3" y="14" width="27" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="stop" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="cri-4Y-hpb">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -216,7 +216,7 @@
                     <toolbarItem implicitItemIdentifier="D8E775C8-9646-4075-89D6-E78C8DB9EA08" explicitItemIdentifier="SBTBPrevious" label="Previous" paletteLabel="Previous" image="backward" catalog="system" sizingBehavior="auto" id="ub0-ue-gyH">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="235">
-                            <rect key="frame" x="11" y="14" width="31" height="23"/>
+                            <rect key="frame" x="11" y="14" width="32" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="backward" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="238">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -230,7 +230,7 @@
                     <toolbarItem implicitItemIdentifier="B63065D6-25E1-4246-BD4B-B4CAF0C74E35" explicitItemIdentifier="SBTBNext" label="Next" paletteLabel="Next" image="forward" catalog="system" sizingBehavior="auto" id="jzM-Vk-B8y">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="240">
-                            <rect key="frame" x="1" y="14" width="31" height="23"/>
+                            <rect key="frame" x="0.0" y="14" width="32" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="forward" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="241">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -312,7 +312,7 @@
                     <toolbarItem implicitItemIdentifier="7BB2B735-54FA-4211-874E-DC54D248F3E5" explicitItemIdentifier="SBTBShowVolume" label="Volume" paletteLabel="Volume" image="speaker" catalog="system" sizingBehavior="auto" id="Yk7-oS-omj">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="Sgq-JE-YWM" customClass="SBVolumeButton" customModule="Submariner" customModuleProvider="target">
-                            <rect key="frame" x="10" y="14" width="26" height="23"/>
+                            <rect key="frame" x="11" y="14" width="25" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="speaker" catalog="system" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="Ofy-se-eTz">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -331,33 +331,45 @@
                     <toolbarItem implicitItemIdentifier="7F4AA384-9A44-4EB0-8789-7EEF116D73AF" explicitItemIdentifier="SBTBToggleTacklist" label="Tracklist" paletteLabel="Tracklist" image="music.note.list" catalog="system" sizingBehavior="auto" id="aAW-If-dJs">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="5fD-bB-Du9" customClass="SBTracklistButton" customModule="Submariner" customModuleProvider="target">
-                            <rect key="frame" x="12" y="14" width="28" height="23"/>
+                            <rect key="frame" x="12" y="14" width="29" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="music.note.list" catalog="system" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="XuZ-5I-yef">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="music.note.list" catalog="system" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" id="XuZ-5I-yef">
+                                <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
+                            <connections>
+                                <binding destination="-2" name="value" keyPath="isTracklistShown" id="42I-sT-Klr">
+                                    <dictionary key="options">
+                                        <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                        <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                        <bool key="NSValidatesImmediately" value="YES"/>
+                                    </dictionary>
+                                </binding>
+                            </connections>
                         </button>
-                        <connections>
-                            <action selector="toggleTrackList:" target="-2" id="cXb-yx-2pH"/>
-                        </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="53034325-024B-4CCF-B5FE-A25369E507B3" explicitItemIdentifier="SBTBToggleServerUsers" label="Server Users" paletteLabel="Server Users" image="person.wave.2" sizingBehavior="auto" id="FV9-Yq-wbJ">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="Pbg-ZK-NRU">
                             <rect key="frame" x="24" y="14" width="27" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="person.wave.2" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="VHb-lF-zLZ">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="person.wave.2" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" id="VHb-lF-zLZ">
+                                <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
-                                <connections>
-                                    <action selector="toggleServerUsers:" target="-2" id="ECK-Vu-j7j"/>
-                                </connections>
                             </buttonCell>
                             <connections>
                                 <binding destination="-2" name="enabled" keyPath="server" id="un8-aV-BbK">
                                     <dictionary key="options">
                                         <string key="NSValueTransformerName">NSIsNotNil</string>
+                                    </dictionary>
+                                </binding>
+                                <binding destination="-2" name="value" keyPath="isServerUsersShown" id="Zvu-lC-mni">
+                                    <dictionary key="options">
+                                        <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                        <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                        <bool key="NSValidatesImmediately" value="YES"/>
                                     </dictionary>
                                 </binding>
                             </connections>
@@ -439,7 +451,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="294" y="363" width="400" height="292"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
             <value key="minSize" type="size" width="400" height="266"/>
             <view key="contentView" id="114">
                 <rect key="frame" x="0.0" y="0.0" width="400" height="292"/>
@@ -677,7 +689,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="485" y="393" width="412" height="124"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1025"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
             <value key="minSize" type="size" width="412" height="124"/>
             <value key="maxSize" type="size" width="600" height="124"/>
             <view key="contentView" id="200">
@@ -850,20 +862,20 @@ DQ
         <image name="NSStatusUnavailable" width="16" height="16"/>
         <image name="NoArtwork" width="512" height="512"/>
         <image name="airplayaudio" catalog="system" width="15" height="15"/>
-        <image name="backward" catalog="system" width="19" height="12"/>
+        <image name="backward" catalog="system" width="20" height="12"/>
         <image name="chevron.backward" catalog="system" width="10" height="14"/>
         <image name="chevron.forward" catalog="system" width="10" height="14"/>
-        <image name="forward" catalog="system" width="19" height="12"/>
-        <image name="music.note.list" catalog="system" width="16" height="15"/>
-        <image name="pause" catalog="system" width="9" height="13"/>
+        <image name="forward" catalog="system" width="20" height="12"/>
+        <image name="music.note.list" catalog="system" width="17" height="15"/>
+        <image name="pause" catalog="system" width="10" height="13"/>
         <image name="person.wave.2" width="15" height="14"/>
         <image name="play" catalog="system" width="12" height="13"/>
         <image name="repeat.circle" catalog="system" width="15" height="15"/>
         <image name="shuffle.circle" catalog="system" width="15" height="15"/>
         <image name="shuffle.circle.fill" catalog="system" width="15" height="15"/>
-        <image name="sidebar.left" catalog="system" width="18" height="14"/>
-        <image name="speaker" catalog="system" width="14" height="14"/>
+        <image name="sidebar.left" catalog="system" width="19" height="14"/>
+        <image name="speaker" catalog="system" width="13" height="14"/>
         <image name="speaker.wave.2" catalog="system" width="19" height="14"/>
-        <image name="stop" catalog="system" width="14" height="13"/>
+        <image name="stop" catalog="system" width="15" height="13"/>
     </resources>
 </document>

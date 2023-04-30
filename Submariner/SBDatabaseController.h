@@ -131,6 +131,9 @@
 // XXX: Make as part of SBServerController?
 @property (readwrite, strong) SBServer *server;
 
+@property (readonly, strong) IBOutlet NSNumber *isTracklistShown;
+@property (readonly, strong) IBOutlet NSNumber *isServerUsersShown;
+
 - (BOOL)openImportAlert:(NSWindow *)sender files:(NSArray *)files;
 
 - (void)goToTrack: (SBTrack*)track;

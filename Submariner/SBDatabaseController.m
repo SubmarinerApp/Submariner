@@ -455,6 +455,8 @@
 
 
 - (IBAction)toggleTrackList:(id)sender {
+    [self willChangeValueForKey: @"isServerUsersShown"];
+    [self willChangeValueForKey: @"isTracklistShown"];
     // as we can now switch the view
     if (tracklistContainmentBox.contentView != [tracklistController view]) {
         tracklistContainmentBox.contentView = [tracklistController view];
@@ -462,6 +464,8 @@
     } else {
         [tracklistSplit.animator setCollapsed: ![tracklistSplit isCollapsed]];
     }
+    [self didChangeValueForKey: @"isServerUsersShown"];
+    [self didChangeValueForKey: @"isTracklistShown"];
 }
 
 
@@ -469,6 +473,8 @@
     if (!self.server) {
         return;
     }
+    [self willChangeValueForKey: @"isServerUsersShown"];
+    [self willChangeValueForKey: @"isTracklistShown"];
     [serverUserController viewDidLoad];
     // as we can now switch the view
     if (tracklistContainmentBox.contentView != [serverUserController view]) {
@@ -477,6 +483,8 @@
     } else {
         [tracklistSplit.animator setCollapsed: ![tracklistSplit isCollapsed]];
     }
+    [self didChangeValueForKey: @"isServerUsersShown"];
+    [self didChangeValueForKey: @"isTracklistShown"];
 }
 
 
@@ -1980,6 +1988,25 @@
     return YES;
 }
 
+#pragma mark - Bindings for Interface Toggles
+
+- (NSNumber*)isTracklistShown {
+    return [NSNumber numberWithBool: (!tracklistSplit.collapsed &&
+            (tracklistContainmentBox.contentView == tracklistController.view))];
+}
+
+- (void)setIsTracklistShown:(NSNumber *)isTracklistShown {
+    [self toggleTrackList: nil];
+}
+
+- (NSNumber*)isServerUsersShown {
+    return [NSNumber numberWithBool: (!tracklistSplit.collapsed &&
+            (tracklistContainmentBox.contentView == serverUserController.view))];
+}
+
+- (void)setIsServerUsersShown:(NSNumber *)isServerUsersShown {
+    [self toggleServerUsers: nil];
+}
 
 @end
 
