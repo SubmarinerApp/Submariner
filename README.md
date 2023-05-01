@@ -25,10 +25,14 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes:
 
-### Version 2.2 (not yet released)
+### Version 2.2
 
 * Rewrite many components in Swift
 * The now playing view now shows the last update and can show the track in the library
+* The tracklist and server users toolbar items show toggle state
+* Fix issue with Keychain passwords not getting set correctly
+* Fix issue with the system now playing control metadata not being updated correctly
+* Fix issue with download operations not copying files
 * Fix issue where cached files weren't being used
 * Fix issue with automatic caching not being reliable
 * Fix issue with download operations spuriously cancelling themselves
