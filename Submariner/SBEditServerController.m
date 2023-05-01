@@ -65,9 +65,14 @@
     [super closeSheet:sender];
     
     // XXX: Not sure if PW updates MOC, since PW is not in Core Data anymore
-    if([self.managedObjectContext hasChanges] || ![self.server.password isEqualToString: oldPassword]) {
-        NSURL *oldURLAsURL = [NSURL URLWithString: oldURL];
-        [self.server updateKeychainWithOldURL: oldURLAsURL oldUsername: oldUsername];
+    if ([self.managedObjectContext hasChanges] || ![self.server.password isEqualToString: oldPassword]) {
+        if (self.oldURL) {
+            NSURL *oldURLAsURL = [NSURL URLWithString: oldURL];
+            [self.server updateKeychainWithOldURL: oldURLAsURL oldUsername: oldUsername];
+        } else {
+            // For a new server
+            [self.server updateKeychainPassword];
+        }
         [self.managedObjectContext commitEditing];
         [self.managedObjectContext save:nil];
     }
