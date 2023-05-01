@@ -17,6 +17,6 @@ extension String {
             return false
         }
         
-        return self.rangeOfCharacter(from: String.illegalFilenameCharacters) != nil
+        return self.rangeOfCharacter(from: String.illegalFilenameCharacters) == nil
     }
 }

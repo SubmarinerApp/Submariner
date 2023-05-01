@@ -119,6 +119,9 @@ public class SBServer: SBResource {
                     // No directory stuff to try, but do make sure we don't have an invalid name.
                     self.setPrimitiveValue(newName, forKey: "resourceName")
                 }
+            } else if let newName = newValue, self.primitiveValue(forKey: "resourceName") == nil {
+                // A new object will have a nil name, so it'll be safe.
+                self.setPrimitiveValue(newName, forKey: "resourceName")
             }
             self.didChangeValue(forKey: "resourceName")
         }
