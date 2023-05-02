@@ -63,14 +63,11 @@ typedef NS_ENUM(NSInteger, SBPlayerRepeatMode) {
     
     NSMutableArray *playlist;
     SBTrack *currentTrack;
-    NSString *tmpLocation;
     
     NSMutableDictionary *songInfo;
     
     BOOL isPlaying;
     BOOL isPaused;
-    
-    BOOL isCaching;
 }
 
 @property (readwrite, strong) NSMutableArray *playlist;

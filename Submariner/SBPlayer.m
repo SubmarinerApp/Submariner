@@ -151,7 +151,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemDidFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object: nil];
         
         playlist = [[NSMutableArray alloc] init];
-        isCaching = NO;
     }
     [self initializeSystemMediaControls];
     [self initNotifications];
@@ -521,9 +520,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     // set the new current track
     [self setCurrentTrack:track];
     
-    // Caching is handled when we request it now, including its file name
-    isCaching = NO;
-    
     if(self.currentTrack.isVideo) {
         [self showVideoAlert];
         return;
@@ -667,10 +663,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         [remotePlayer seekToTime:timeCM];
     }
     
-    if(isCaching) {
-        isCaching = NO;
-    }
-    
     // seeks will desync the NPIC
     [self updateSystemNowPlayingStatus];
 }
@@ -682,10 +674,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         CMTime durationCM = [currentItem duration];
         CMTime newTime = CMTimeMultiplyByFloat64(durationCM, (time / 100.0));
         [remotePlayer seekToTime:newTime];
-    }
-    
-    if(isCaching) {
-        isCaching = NO;
     }
     
     // seeks will desync the NPIC
