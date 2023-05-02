@@ -186,11 +186,11 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         // as passing NaNs here will crash the menu bar (!)
         NSTimeInterval duration = [self durationTime];
         if (isnan(duration) || duration == 0) {
-            [songInfo setObject: [NSNumber numberWithDouble: 0] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
-            [songInfo setObject: [currentTrack duration] forKey:MPMediaItemPropertyPlaybackDuration];
+            [songInfo setValue: [NSNumber numberWithDouble: 0] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
+            [songInfo setValue: [currentTrack duration] forKey:MPMediaItemPropertyPlaybackDuration];
         } else {
-            [songInfo setObject: [NSNumber numberWithDouble: [self currentTime]] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
-            [songInfo setObject: [NSNumber numberWithDouble: duration] forKey:MPMediaItemPropertyPlaybackDuration];
+            [songInfo setValue: [NSNumber numberWithDouble: [self currentTime]] forKey:MPNowPlayingInfoPropertyElapsedPlaybackTime];
+            [songInfo setValue: [NSNumber numberWithDouble: duration] forKey:MPMediaItemPropertyPlaybackDuration];
         }
     } else {
         [songInfo removeObjectForKey: MPNowPlayingInfoPropertyElapsedPlaybackTime];
@@ -208,35 +208,31 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 }
 
 -(void) updateSystemNowPlayingMetadataMusic: (SBTrack*)currentTrack {
-    [songInfo setObject: [currentTrack albumString] forKey:MPMediaItemPropertyAlbumTitle];
-    [songInfo setObject: currentTrack.artistName ?: currentTrack.artistString forKey:MPMediaItemPropertyArtist];
+    [songInfo setValue: [currentTrack albumString] forKey:MPMediaItemPropertyAlbumTitle];
+    [songInfo setValue: currentTrack.artistName ?: currentTrack.artistString forKey:MPMediaItemPropertyArtist];
     NSString *genre = [currentTrack genre];
-    if (genre != nil) {
-        [songInfo setObject: genre forKey:MPMediaItemPropertyGenre];
-    }
+    [songInfo setValue: genre forKey:MPMediaItemPropertyGenre];
     NSNumber *discNumber = [currentTrack discNumber];
-    if (discNumber != nil) {
-        [songInfo setObject: discNumber forKey: MPMediaItemPropertyDiscNumber];
-    }
+    [songInfo setValue: discNumber forKey: MPMediaItemPropertyDiscNumber];
     // do we have enough metadata to fill in?
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDate *releaseYear = [calendar dateWithEra:1 year:[[currentTrack year] intValue] month:0 day:0 hour:0 minute:0 second:0 nanosecond:0];
-    [songInfo setObject:releaseYear forKey:MPMediaItemPropertyReleaseDate];
+    [songInfo setValue:releaseYear forKey:MPMediaItemPropertyReleaseDate];
     // XXX: movieAttributes is blank and could be filled in with externalMetadata?
 }
 
 -(void) updateSystemNowPlayingMetadataPodcast: (SBEpisode*)currentTrack {
     // XXX: It seems there's the raw metadata Subsonic doesn't give us (i.e.
     // "BBC World Service" as underlying artist)
-    [songInfo setObject: currentTrack.podcast.itemName forKey: MPMediaItemPropertyPodcastTitle];
-    [songInfo setObject: currentTrack.artistName ?: currentTrack.artistString forKey:MPMediaItemPropertyArtist];
+    [songInfo setValue: currentTrack.podcast.itemName forKey: MPMediaItemPropertyPodcastTitle];
+    [songInfo setValue: currentTrack.artistName ?: currentTrack.artistString forKey:MPMediaItemPropertyArtist];
     NSDate *publishDate = currentTrack.publishDate;
     if (publishDate) {
-        [songInfo setObject: publishDate forKey: MPMediaItemPropertyReleaseDate];
+        [songInfo setValue: publishDate forKey: MPMediaItemPropertyReleaseDate];
     } else {
         NSCalendar *calendar = [NSCalendar currentCalendar];
         NSDate *releaseYear = [calendar dateWithEra:1 year:[[currentTrack year] intValue] month:0 day:0 hour:0 minute:0 second:0 nanosecond:0];
-        [songInfo setObject:releaseYear forKey:MPMediaItemPropertyReleaseDate];
+        [songInfo setValue:releaseYear forKey:MPMediaItemPropertyReleaseDate];
     }
     return;
 }
@@ -246,13 +242,13 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
     
     if (currentTrack != nil) {
         // i guess if we ever support video again...
-        [songInfo setObject: [NSNumber numberWithInteger: MPNowPlayingInfoMediaTypeAudio] forKey:MPMediaItemPropertyMediaType];
+        [songInfo setValue: [NSNumber numberWithInteger: MPNowPlayingInfoMediaTypeAudio] forKey:MPMediaItemPropertyMediaType];
         // XXX: podcasts will have different properties on SBTrack
-        [songInfo setObject: [currentTrack itemName] forKey:MPMediaItemPropertyTitle];
-        [songInfo setObject: [currentTrack rating] forKey:MPMediaItemPropertyRating];
+        [songInfo setValue: [currentTrack itemName] forKey:MPMediaItemPropertyTitle];
+        [songInfo setValue: [currentTrack rating] forKey:MPMediaItemPropertyRating];
         // seems the OS can use this to generate waveforms? should it be the download URL?
         NSURL *streamURL = [currentTrack.localTrack streamURL] ?: [currentTrack streamURL];
-        [songInfo setObject: streamURL forKey:MPMediaItemPropertyAssetURL];
+        [songInfo setValue: streamURL forKey:MPMediaItemPropertyAssetURL];
         if ([currentTrack isKindOfClass: SBEpisode.class]) {
             [self updateSystemNowPlayingMetadataPodcast: (SBEpisode*)currentTrack];
         } else {
@@ -264,7 +260,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
             MPMediaItemArtwork *mpArtwork = [[MPMediaItemArtwork alloc] initWithBoundsSize:artworkSize requestHandler:^NSImage * _Nonnull(CGSize size) {
                 return artwork;
             }];
-            [songInfo setObject: mpArtwork forKey:MPMediaItemPropertyArtwork];
+            [songInfo setValue: mpArtwork forKey:MPMediaItemPropertyArtwork];
         }
     } else {
         [songInfo removeObjectForKey: MPMediaItemPropertyMediaType];
