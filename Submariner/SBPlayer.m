@@ -75,7 +75,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 
 @synthesize currentTrack;
 @synthesize playlist;
-@synthesize isShuffle;
 @synthesize isPlaying;
 @synthesize isPaused;
 //@synthesize repeatMode;
@@ -152,7 +151,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(itemDidFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object: nil];
         
         playlist = [[NSMutableArray alloc] init];
-        isShuffle = NO;
         isCaching = NO;
         
         repeatMode = SBPlayerRepeatNo;
@@ -890,7 +888,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 // XXX: clumsy name, change in the
 - (void)setIsShuffle:(BOOL)newShuffle {
     [[NSUserDefaults standardUserDefaults] setInteger:newShuffle forKey:@"shuffle"];
-    isShuffle = newShuffle;
 }
 
 
@@ -960,7 +957,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 - (SBTrack *)nextTrack {
     
     if(self.playlist) {
-        if(!isShuffle) {
+        if(!self.isShuffle) {
             NSInteger index = [self.playlist indexOfObject:self.currentTrack];
             
             if(repeatMode == SBPlayerRepeatNo) {
@@ -1001,7 +998,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 
 - (SBTrack *)prevTrack {
     if(self.playlist) {
-        if(!isShuffle) {
+        if(!self.isShuffle) {
             NSInteger index = [self.playlist indexOfObject:self.currentTrack];   
             
             if(repeatMode == SBPlayerRepeatOne)
