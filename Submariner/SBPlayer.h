@@ -67,7 +67,6 @@ typedef NS_ENUM(NSInteger, SBPlayerRepeatMode) {
     
     NSMutableDictionary *songInfo;
     
-    SBPlayerRepeatMode repeatMode; // the player repeat mode
     BOOL isPlaying;
     BOOL isPaused;
     

@@ -276,17 +276,21 @@
                             </textFieldCell>
                         </textField>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="F638AE08-B100-4361-940E-E62D1338014A" explicitItemIdentifier="SBTBToggleRepeat" label="Repeat" paletteLabel="Repeat" image="repeat.circle" catalog="system" sizingBehavior="auto" id="S62-qJ-fzK">
+                    <toolbarItem implicitItemIdentifier="F638AE08-B100-4361-940E-E62D1338014A" explicitItemIdentifier="SBTBToggleRepeat" label="Repeat" paletteLabel="Repeat" image="repeat" catalog="system" sizingBehavior="auto" id="S62-qJ-fzK">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="308">
-                            <rect key="frame" x="9" y="14" width="27" height="23"/>
+                            <rect key="frame" x="7" y="14" width="30" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="repeat.circle" catalog="system" imagePosition="only" alignment="center" borderStyle="border" allowsMixedState="YES" inset="2" id="309">
-                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="repeat" catalog="system" imagePosition="only" alignment="center" borderStyle="border" allowsMixedState="YES" inset="2" id="309">
+                                <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <action selector="repeat:" target="-2" id="312"/>
+                                <binding destination="297" name="value" keyPath="values.repeatMode" id="xhZ-BS-vUy">
+                                    <dictionary key="options">
+                                        <string key="NSValueTransformerName">SBRepeatModeButtonStateTransformer</string>
+                                    </dictionary>
+                                </binding>
                                 <binding destination="297" name="image" keyPath="values.repeatMode" id="B2M-9S-QcH">
                                     <dictionary key="options">
                                         <string key="NSValueTransformerName">SBRepeatIconTransformer</string>
@@ -870,7 +874,7 @@ DQ
         <image name="pause" catalog="system" width="10" height="13"/>
         <image name="person.wave.2" width="15" height="14"/>
         <image name="play" catalog="system" width="12" height="13"/>
-        <image name="repeat.circle" catalog="system" width="15" height="15"/>
+        <image name="repeat" catalog="system" width="18" height="14"/>
         <image name="shuffle" catalog="system" width="19" height="14"/>
         <image name="sidebar.left" catalog="system" width="19" height="14"/>
         <image name="speaker" catalog="system" width="13" height="14"/>

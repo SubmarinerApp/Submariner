@@ -152,8 +152,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         
         playlist = [[NSMutableArray alloc] init];
         isCaching = NO;
-        
-        repeatMode = SBPlayerRepeatNo;
     }
     [self initializeSystemMediaControls];
     [self initNotifications];
@@ -877,7 +875,6 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
 
 - (void)setRepeatMode:(SBPlayerRepeatMode)newRepeatMode {
     [[NSUserDefaults standardUserDefaults] setInteger:newRepeatMode forKey:@"repeatMode"];
-    repeatMode = newRepeatMode;
 }
 
 
@@ -960,7 +957,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         if(!self.isShuffle) {
             NSInteger index = [self.playlist indexOfObject:self.currentTrack];
             
-            if(repeatMode == SBPlayerRepeatNo) {
+            if(self.repeatMode == SBPlayerRepeatNo) {
                 
                 // no repeat, play next
                 if(index > -1 && [self.playlist count]-1 >= index+1) {
@@ -969,11 +966,11 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
             }
                 
             // if repeat one, esay to relaunch the track
-            if(repeatMode == SBPlayerRepeatOne)
+            if(self.repeatMode == SBPlayerRepeatOne)
                 return self.currentTrack;
             
             // if repeat all
-            if(repeatMode == SBPlayerRepeatAll) {
+            if(self.repeatMode == SBPlayerRepeatAll) {
                 if([self.currentTrack isEqualTo:[self.playlist lastObject]] && index > 0) {
                      return [self.playlist objectAtIndex:0];
                 } else {
@@ -985,7 +982,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
             
         } else {
             // if repeat one, get the piority
-            if(repeatMode == SBPlayerRepeatOne)
+            if(self.repeatMode == SBPlayerRepeatOne)
                 return self.currentTrack;
             
             // else play random
@@ -1001,11 +998,11 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
         if(!self.isShuffle) {
             NSInteger index = [self.playlist indexOfObject:self.currentTrack];   
             
-            if(repeatMode == SBPlayerRepeatOne)
+            if(self.repeatMode == SBPlayerRepeatOne)
                 return self.currentTrack;
             
             if(index == 0) {
-                if(repeatMode == SBPlayerRepeatAll) {
+                if(self.repeatMode == SBPlayerRepeatAll) {
                     return [self.playlist lastObject];
                 } else {
                     // objectAtIndex for 0 - 1 is gonna throw, so don't
@@ -1017,7 +1014,7 @@ NSString *SBPlayerMovieToPlayNotification = @"SBPlayerPlaylistUpdatedNotificatio
             }
         } else {
             // if repeat one, get the piority
-            if(repeatMode == SBPlayerRepeatOne)
+            if(self.repeatMode == SBPlayerRepeatOne)
 
                 return self.currentTrack;
             

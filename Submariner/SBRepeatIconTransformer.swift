@@ -21,14 +21,12 @@ import Cocoa
         // value is NSNumber-based enum
         if let modeRaw = value as? Int, let mode = SBPlayerRepeatMode(rawValue: modeRaw) {
             switch (mode) {
-            case .no:
-                return NSImage.init(systemSymbolName: "repeat.circle", accessibilityDescription: "Repeat None")
             case .one:
-                return NSImage.init(systemSymbolName: "repeat.1.circle.fill", accessibilityDescription: "Repeat One")
+                return NSImage.init(systemSymbolName: "repeat.1", accessibilityDescription: "Repeat One")
             case .all:
-                return NSImage.init(systemSymbolName: "repeat.circle.fill", accessibilityDescription: "Repeat All")
+                return NSImage.init(systemSymbolName: "repeat", accessibilityDescription: "Repeat All")
             @unknown default:
-                fatalError()
+                return NSImage.init(systemSymbolName: "repeat", accessibilityDescription: "Repeat None")
             }
         }
         return nil
