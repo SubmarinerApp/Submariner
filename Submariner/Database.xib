@@ -295,13 +295,13 @@
                             </connections>
                         </button>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="A976DC3F-A37E-4600-A750-BC24B516BB13" explicitItemIdentifier="SBTBToggleShuffle" label="Shuffle" paletteLabel="Shuffle" image="shuffle.circle" catalog="system" sizingBehavior="auto" id="4vs-eG-BJh">
+                    <toolbarItem implicitItemIdentifier="A976DC3F-A37E-4600-A750-BC24B516BB13" explicitItemIdentifier="SBTBToggleShuffle" label="Shuffle" paletteLabel="Shuffle" image="shuffle" catalog="system" sizingBehavior="auto" id="4vs-eG-BJh">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="302">
-                            <rect key="frame" x="9" y="14" width="27" height="23"/>
+                            <rect key="frame" x="7" y="14" width="31" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
-                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="shuffle.circle" catalog="system" imagePosition="only" alignment="center" alternateImage="shuffle.circle.fill" borderStyle="border" inset="2" id="303">
-                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="shuffle" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="303">
+                                <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
@@ -359,17 +359,17 @@
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <binding destination="-2" name="enabled" keyPath="server" id="un8-aV-BbK">
-                                    <dictionary key="options">
-                                        <string key="NSValueTransformerName">NSIsNotNil</string>
-                                    </dictionary>
-                                </binding>
                                 <binding destination="-2" name="value" keyPath="isServerUsersShown" id="Zvu-lC-mni">
                                     <dictionary key="options">
                                         <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                         <bool key="NSConditionallySetsEnabled" value="NO"/>
                                         <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                         <bool key="NSValidatesImmediately" value="YES"/>
+                                    </dictionary>
+                                </binding>
+                                <binding destination="-2" name="enabled" keyPath="server" id="un8-aV-BbK">
+                                    <dictionary key="options">
+                                        <string key="NSValueTransformerName">NSIsNotNil</string>
                                     </dictionary>
                                 </binding>
                             </connections>
@@ -871,8 +871,7 @@ DQ
         <image name="person.wave.2" width="15" height="14"/>
         <image name="play" catalog="system" width="12" height="13"/>
         <image name="repeat.circle" catalog="system" width="15" height="15"/>
-        <image name="shuffle.circle" catalog="system" width="15" height="15"/>
-        <image name="shuffle.circle.fill" catalog="system" width="15" height="15"/>
+        <image name="shuffle" catalog="system" width="19" height="14"/>
         <image name="sidebar.left" catalog="system" width="19" height="14"/>
         <image name="speaker" catalog="system" width="13" height="14"/>
         <image name="speaker.wave.2" catalog="system" width="19" height="14"/>
