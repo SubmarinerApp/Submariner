@@ -25,6 +25,13 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes:
 
+### Version 2.2.1 (not yet released)
+
+* The repeat and shuffle toolbar buttons now show toggle state
+* Fix repeat and shuffle options not being respected by player
+* Fix server name being empty causing problems
+* Fix now playing information not being set properly with nil attributes
+
 ### Version 2.2
 
 * Rewrite many components in Swift
