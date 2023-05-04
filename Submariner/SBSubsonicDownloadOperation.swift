@@ -68,8 +68,9 @@ import UniformTypeIdentifiers
                 
                 completionHandler(.useCredential, credential)
             }
+        } else {
+            completionHandler(.cancelAuthenticationChallenge, nil)
         }
-        completionHandler(.cancelAuthenticationChallenge, nil)
     }
     
     // #MARK: -
