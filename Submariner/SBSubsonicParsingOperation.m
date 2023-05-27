@@ -457,19 +457,26 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
         
         // if playlist not found, create it
         if(newPlaylist == nil) {
+            // XXX: Usually this is a sign that somehow the playlist got renumbered or recreated.
+            // Subsonic uses an incrementing integer ID, so this is possible.
+            // Should we reset the ID of the playlist if so?
+#if DEBUG
+            NSLog(@"Failed to find playlist by ID, trying name : %@ / %@", attributeDict[@"id"], [attributeDict valueForKey:@"name"]);
+#endif
             
             // try with name
             newPlaylist = [self fetchPlaylistWithID:nil orName:[attributeDict valueForKey:@"name"]];
+            
+            if(!newPlaylist) {
 #if DEBUG
-            NSLog(@"Create new playlist : %@", [attributeDict valueForKey:@"name"]);
+                NSLog(@"Create new playlist : %@ / %@", attributeDict[@"id"], [attributeDict valueForKey:@"name"]);
 #endif
-            if(!newPlaylist)
                 newPlaylist = [self createPlaylistWithAttribute:attributeDict];
+            }
         }
 
-        [server willChangeValueForKey:@"playlist"];
-        [[server mutableSetValueForKey: @"resources"] addObject: newPlaylist];
-        [server didChangeValueForKey:@"playlist"];
+        newPlaylist.server = server;
+        [server addPlaylistsObject: newPlaylist];
     } else if(requestType == SBSubsonicRequestGetPlaylist) {
         currentPlaylist = [self fetchPlaylistWithID:[attributeDict valueForKey:@"id"] orName:nil];
 //            if(currentPlaylist)
