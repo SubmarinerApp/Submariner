@@ -54,7 +54,7 @@ public class SBServer: SBResource {
         }
     }
     
-    @objc var playlist: NSSet {
+    @objc var playlists: NSSet {
         get {
             self.willAccessValue(forKey: "resources")
             self.willAccessValue(forKey: "playlists")

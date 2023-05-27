@@ -26,7 +26,7 @@ extension SBServer {
     //@NSManaged public var password: String?
     @NSManaged public var username: String?
     @NSManaged public var isValidLicense: NSNumber?
-    @NSManaged public var playlists: NSSet?
+    //@NSManaged public var playlists: NSSet?
     @NSManaged public var tracks: NSSet?
     @NSManaged public var podcasts: NSSet?
     @NSManaged public var nowPlayings: NSSet?
