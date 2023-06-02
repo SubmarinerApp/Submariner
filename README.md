@@ -37,6 +37,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Fix server name being empty causing problems
 * Fix now playing information not being set properly with nil attributes
 * Fix authentication callback being called twice
+* Clean up playlist and track fetch code when parsing responses
 
 ### Version 2.2
 
