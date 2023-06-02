@@ -1105,16 +1105,16 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     NSPredicate *predicate = nil;
     
     if(album && trackID) {
-        predicate = [NSPredicate predicateWithFormat: @"(id == %@) && (album == %@)", trackID, album];
+        predicate = [NSPredicate predicateWithFormat: @"(id == %@) && (album == %@) && (server == %@)", trackID, album, server];
         
     } else if(album && trackTitle) {
-        predicate = [NSPredicate predicateWithFormat: @"(itemName == %@) && (album == %@)", trackTitle, album];
+        predicate = [NSPredicate predicateWithFormat: @"(itemName == %@) && (album == %@) && (server == %@)", trackTitle, album, server];
         
     } else if(!album  && trackID) {
-        predicate = [NSPredicate predicateWithFormat: @"(id == %@)", trackID];
+        predicate = [NSPredicate predicateWithFormat: @"(id == %@) && (server == %@)", trackID, server];
         
     } else if(!album  && trackTitle) {
-        predicate = [NSPredicate predicateWithFormat: @"(itemName == %@)", trackTitle];
+        predicate = [NSPredicate predicateWithFormat: @"(itemName == %@) && (server == %@)", trackTitle, server];
     }
     
     NSArray<SBTrack*> *tracks = [[self threadedContext] fetchEntitiesNammed:@"Track" withPredicate:predicate error:&error];
