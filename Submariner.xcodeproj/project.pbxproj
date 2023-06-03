@@ -19,7 +19,6 @@
 		3E53DBBA27E4192B00DB4C84 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBB927E4192B00DB4C84 /* AVFoundation.framework */; };
 		3E53DBBC27E41B6400DB4C84 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */; };
 		3E5C42E029846E25009B9699 /* SBOnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5C42DE29846E25009B9699 /* SBOnboardingController.swift */; };
-		3E5C42E129846E25009B9699 /* Onboarding.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E5C42DF29846E25009B9699 /* Onboarding.xib */; };
 		3E69A2FF28B02D86009800D8 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E69A2FD28B02D86009800D8 /* UserNotifications.framework */; };
 		3E82701827E653F0007E5695 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E82701727E653F0007E5695 /* MediaPlayer.framework */; };
 		3E94E5F62912EEC40080FDF6 /* SBNavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E5F52912EEC40080FDF6 /* SBNavigationItem.swift */; };
@@ -157,7 +156,6 @@
 		3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		3E5C41DB297F2E15009B9699 /* Submariner v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Submariner v3.xcdatamodel"; sourceTree = "<group>"; };
 		3E5C42DE29846E25009B9699 /* SBOnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBOnboardingController.swift; sourceTree = "<group>"; };
-		3E5C42DF29846E25009B9699 /* Onboarding.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Onboarding.xib; sourceTree = "<group>"; };
 		3E69A2FD28B02D86009800D8 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		3E82701727E653F0007E5695 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		3E94E5F52912EEC40080FDF6 /* SBNavigationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBNavigationItem.swift; sourceTree = "<group>"; };
@@ -524,7 +522,6 @@
 				4CFAFC2B139EF08800E82B57 /* ServerHome.xib */,
 				4CC6B56714041F7E003AEAC0 /* ServerPodcasts.xib */,
 				4CCF7FEE13B673C900954C6E /* ServerSearch.xib */,
-				3E5C42DF29846E25009B9699 /* Onboarding.xib */,
 			);
 			name = Nibs;
 			sourceTree = "<group>";
@@ -781,7 +778,6 @@
 				4CFAFC2D139EF08800E82B57 /* ServerHome.xib in Resources */,
 				4CCF7FF013B673CA00954C6E /* ServerSearch.xib in Resources */,
 				3ECF63FA280362BA004F9176 /* Assets.xcassets in Resources */,
-				3E5C42E129846E25009B9699 /* Onboarding.xib in Resources */,
 				4CFCE444140257EE00D35770 /* MusicSearch.xib in Resources */,
 				3E352ED629D602BE002C84CB /* AppIcon.icns in Resources */,
 				4CC6B56914041F7E003AEAC0 /* ServerPodcasts.xib in Resources */,
