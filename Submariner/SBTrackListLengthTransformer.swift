@@ -8,7 +8,7 @@
 
 import Cocoa
 
-@objcMembers class SBTrackListLengthTransformer: ValueTransformer {
+@objc(SBTrackListLengthTransformer) class SBTrackListLengthTransformer: ValueTransformer {
     private static let dateComponentsFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.hour, .minute, .second]

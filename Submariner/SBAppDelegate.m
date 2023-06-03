@@ -66,6 +66,28 @@
 
 - (id)init {
     self = [super init];
+    
+    // XXX: Best place to initialize UserDefaults?
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary *defaults = [[NSMutableDictionary alloc] init];
+    
+    [defaults setObject:@"submariner" forKey:@"clientIdentifier"];
+    [defaults setObject:@"1.5.0" forKey:@"apiVersion"];
+    
+    [defaults setObject:[NSNumber numberWithInt:1]              forKey:@"playerBehavior"];
+    [defaults setObject:[NSNumber numberWithFloat:0.5f]         forKey:@"playerVolume"];
+    [defaults setObject:[NSNumber numberWithInt:SBPlayerRepeatNo]         forKey:@"repeatMode"];
+    [defaults setObject:[NSNumber numberWithInt:NO]         forKey:@"shuffle"];
+    [defaults setObject:[NSNumber numberWithInt:YES]            forKey:@"enableCacheStreaming"];
+    [defaults setObject:[NSNumber numberWithInt:NO]             forKey:@"autoRefreshNowPlaying"];
+    [defaults setObject:[NSNumber numberWithFloat:0.75]         forKey:@"coverSize"];
+    [defaults setObject:[NSNumber numberWithInteger:0]          forKey:@"maxBitRate"];
+    [defaults setObject:[NSNumber numberWithInteger:300]        forKey:@"MaxCoverSize"];
+    [defaults setObject:[NSNumber numberWithBool:YES]           forKey:@"scrobbleToServer"];
+    [defaults setObject:[NSNumber numberWithBool:NO]            forKey:@"deleteAfterPlay"];
+    [defaults setObject:[NSNumber numberWithFloat:5.0]          forKey:@"SkipIncrement"];
+    [userDefaults registerDefaults:defaults];
+    
     // XXX: Best place to initialize value transformers?
     SBRepeatModeTransformer *noneTrans = [[SBRepeatModeTransformer alloc] initWithMode: SBPlayerRepeatNo];
     [NSValueTransformer setValueTransformer: noneTrans forName: @"SBRepeatModeNoneTransformer"];
@@ -74,15 +96,6 @@
     SBRepeatModeTransformer *allTrans = [[SBRepeatModeTransformer alloc] initWithMode: SBPlayerRepeatAll];
     [NSValueTransformer setValueTransformer: allTrans forName: @"SBRepeatModeAllTransformer"];
     
-    // we have to do this because Swift
-    SBTrackListLengthTransformer *lengthTrans = [[SBTrackListLengthTransformer alloc] init];
-    [NSValueTransformer setValueTransformer: lengthTrans forName: @"SBTrackListLengthTransformer"];
-    SBVolumeIconTransformer *volumeTrans = [[SBVolumeIconTransformer alloc] init];
-    [NSValueTransformer setValueTransformer: volumeTrans forName: @"SBVolumeIconTransformer"];
-    SBRepeatIconTransformer *repeatTrans = [[SBRepeatIconTransformer alloc] init];
-    [NSValueTransformer setValueTransformer: repeatTrans forName: @"SBRepeatIconTransformer"];
-    SBTrackArtistNameTransformer *artistNameTrans = [[SBTrackArtistNameTransformer alloc] init];
-    [NSValueTransformer setValueTransformer: artistNameTrans forName: @"SBTrackArtistNameTransformer"];
     return self;
 }
 

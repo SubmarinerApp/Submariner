@@ -8,7 +8,7 @@
 
 import Cocoa
 
-@objcMembers class SBRepeatIconTransformer: ValueTransformer {
+@objc(SBRepeatIconTransformer) class SBRepeatIconTransformer: ValueTransformer {
     override class func allowsReverseTransformation() -> Bool {
         false
     }

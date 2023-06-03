@@ -8,7 +8,7 @@
 
 import Cocoa
 
-@objcMembers class SBVolumeIconTransformer: ValueTransformer {
+@objc(SBVolumeIconTransformer) class SBVolumeIconTransformer: ValueTransformer {
     override class func allowsReverseTransformation() -> Bool {
         false
     }

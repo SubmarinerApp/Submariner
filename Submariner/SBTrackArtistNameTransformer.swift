@@ -8,7 +8,7 @@
 
 import Cocoa
 
-@objcMembers class SBTrackArtistNameTransformer: ValueTransformer {
+@objc(SBTrackArtistNameTransformer) class SBTrackArtistNameTransformer: ValueTransformer {
     override class func allowsReverseTransformation() -> Bool {
         false
     }
