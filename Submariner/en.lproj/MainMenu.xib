@@ -134,6 +134,11 @@
                                     <action selector="showSelectedInFinder:" target="-1" id="3X0-r0-rfO"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Show in Library" keyEquivalent="L" id="gM0-X6-Ge5">
+                                <connections>
+                                    <action selector="showSelectedInLibrary:" target="-1" id="3vl-KM-ebg"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="79">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
