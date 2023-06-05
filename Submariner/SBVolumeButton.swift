@@ -16,9 +16,9 @@ import Cocoa
             return
         }
         let delta = Float(event.deltaY * 0.01);
-        let oldVolume = SBPlayer.sharedInstance().volume()
+        let oldVolume = SBPlayer.sharedInstance().volume
         let newVolume = max(0, min(1, oldVolume + delta))
-        SBPlayer.sharedInstance().setVolume(newVolume)
+        SBPlayer.sharedInstance().volume = newVolume
         // XXX: Display volume in popover/tooltip.
     }
 }

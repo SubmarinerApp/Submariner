@@ -41,7 +41,6 @@
 #import "SBPlaylistController.h"
 #import "SBAnimatedView.h"
 #import "SBSubsonicParsingOperation.h"
-#import "SBPlayer.h"
 #import "SBTableView.h"
 
 #import "SBSplitView.h"
@@ -232,17 +231,12 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerPlaylistUpdatedNotification:)
-                                                 name:SBPlayerPlaylistUpdatedNotification
+                                                 name:@"SBPlayerPlaylistUpdatedNotification"
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerPlayStateNotification:)
-                                                 name:SBPlayerPlayStateNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(playerHaveMovieToPlayNotification:)
-                                                 name:SBPlayerMovieToPlayNotification
+                                                 name:@"SBPlayerPlayStateNotification"
                                                object:nil];
     
     // observe Subsonic connection

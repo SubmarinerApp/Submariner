@@ -35,7 +35,6 @@
 #import "SBAppDelegate.h"
 #import "SBPreferencesController.h"
 #import "SBDatabaseController.h"
-#import "SBPlayer.h"
 // Additions
 #import "NSManagedObjectContext+Fetch.h"
 

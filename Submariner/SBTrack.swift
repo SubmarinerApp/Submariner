@@ -33,9 +33,9 @@ public class SBTrack: SBMusicItem {
     
     @objc var durationString: String? {
         self.willAccessValue(forKey: "duration")
-        let ret = NSString.stringWith(time: TimeInterval(duration?.intValue ?? 0))
+        let ret = String(time: TimeInterval(duration?.intValue ?? 0))
         self.didAccessValue(forKey: "duration")
-        return ret as String?
+        return ret
     }
     
     @objc func streamURL() -> URL? {

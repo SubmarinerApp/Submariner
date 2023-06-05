@@ -9,9 +9,9 @@
 import Cocoa
 
 @objcMembers class SBRepeatModeTransformer: ValueTransformer {
-    let newMode: SBPlayerRepeatMode
+    let newMode: SBPlayer.RepeatMode
     
-    init(mode: SBPlayerRepeatMode) {
+    init(mode: SBPlayer.RepeatMode) {
         self.newMode = mode
         super.init()
     }
@@ -25,7 +25,7 @@ import Cocoa
     }
     
     override func transformedValue(_ value: Any?) -> Any? {
-        if let modeRaw = value as? Int, let passedMode = SBPlayerRepeatMode(rawValue: modeRaw) {
+        if let modeRaw = value as? Int, let passedMode = SBPlayer.RepeatMode(rawValue: modeRaw) {
             return self.newMode == passedMode
         }
         return nil

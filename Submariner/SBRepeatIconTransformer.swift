@@ -19,13 +19,13 @@ import Cocoa
 
     override func transformedValue(_ value: Any?) -> Any? {
         // value is NSNumber-based enum
-        if let modeRaw = value as? Int, let mode = SBPlayerRepeatMode(rawValue: modeRaw) {
+        if let modeRaw = value as? Int, let mode = SBPlayer.RepeatMode(rawValue: modeRaw) {
             switch (mode) {
             case .one:
                 return NSImage.init(systemSymbolName: "repeat.1", accessibilityDescription: "Repeat One")
             case .all:
                 return NSImage.init(systemSymbolName: "repeat", accessibilityDescription: "Repeat All")
-            @unknown default:
+            default:
                 return NSImage.init(systemSymbolName: "repeat", accessibilityDescription: "Repeat None")
             }
         }

@@ -25,7 +25,9 @@ import Cocoa
     @objc func dateTimeFromRFC3339() -> NSDate? {
         return NSString.rfc3339DateFormatter.date(from: self as String) as NSDate?
     }
-    
+}
+
+extension String {
     static let componentFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.minute, .second]
@@ -33,11 +35,12 @@ import Cocoa
         return formatter
     }()
     
-    @objc static func stringWith(time: TimeInterval) -> NSString? {
+    init(time: TimeInterval) {
         if time == 0 || time.isNaN {
-            return "0:00"
+            self = "0:00"
+            return
         }
         
-        return componentFormatter.string(from: time) as NSString?
+        self = String.componentFormatter.string(from: time)!
     }
 }

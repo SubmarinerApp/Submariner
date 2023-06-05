@@ -17,7 +17,7 @@ import Cocoa
         return NSNumber.self
     }
     
-    func toButtonState(_ value: SBPlayerRepeatMode) -> NSNumber {
+    func toButtonState(_ value: SBPlayer.RepeatMode) -> NSNumber {
         switch (value) {
         case .no:
             return NSNumber.init(integerLiteral: NSButton.StateValue.off.rawValue)
@@ -31,16 +31,16 @@ import Cocoa
     func toRepeatMode(_ value: NSButton.StateValue) -> NSNumber {
         switch (value) {
         case .off:
-            return NSNumber.init(integerLiteral: SBPlayerRepeatMode.no.rawValue)
+            return NSNumber.init(integerLiteral: SBPlayer.RepeatMode.no.rawValue)
         case .on:
-            return NSNumber.init(integerLiteral: SBPlayerRepeatMode.one.rawValue)
+            return NSNumber.init(integerLiteral: SBPlayer.RepeatMode.one.rawValue)
         default: // -1 / .mixed
-            return NSNumber.init(integerLiteral: SBPlayerRepeatMode.all.rawValue)
+            return NSNumber.init(integerLiteral: SBPlayer.RepeatMode.all.rawValue)
         }
     }
     
     override func transformedValue(_ value: Any?) -> Any? {
-        if let value = value as? Int, let asEnum = SBPlayerRepeatMode(rawValue: value) {
+        if let value = value as? Int, let asEnum = SBPlayer.RepeatMode(rawValue: value) {
             return toButtonState(asEnum)
         }
         return nil

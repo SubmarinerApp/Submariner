@@ -34,7 +34,7 @@ import Cocoa
                     return moc.object(with: objID) as! SBTrack
                 }
                 // then add them
-                SBPlayer.sharedInstance().addTrackArray(deserialized, replace: false)
+                SBPlayer.sharedInstance().add(tracks: deserialized, replace: false)
                 return true
             }
         } catch { }

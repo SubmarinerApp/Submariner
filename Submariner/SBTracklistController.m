@@ -34,7 +34,6 @@
 
 #import "SBTracklistController.h"
 #import "SBDatabaseController.h"
-#import "SBPlayer.h"
 
 #import "Submariner-Swift.h"
 
@@ -65,7 +64,7 @@
 
 - (void)dealloc {
     // remove player observer
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:SBPlayerPlaylistUpdatedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name: @"SBPlayerPlaylistUpdatedNotification" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:@"playlist"];
 }
 
@@ -81,7 +80,7 @@
     // observer playlist change
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(playerPlaylistUpdatedNotification:)
-                                                 name:SBPlayerPlaylistUpdatedNotification
+                                                 name:@"SBPlayerPlaylistUpdatedNotification"
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -312,7 +311,7 @@
         // get temp rows objects and remove them from the playlist
         [rowIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
             [tracks addObject:[[[SBPlayer sharedInstance] playlist] objectAtIndex:idx]];
-            [[[SBPlayer sharedInstance] playlist] removeObject:[[[SBPlayer sharedInstance] playlist] objectAtIndex:idx]];
+            [[SBPlayer sharedInstance] removeTrackAtIndex: idx];
             [playlistTableView reloadData];
         }];
         
@@ -325,7 +324,7 @@
             if(row > [[[SBPlayer sharedInstance] playlist] count])
                 row--;
             
-            [[[SBPlayer sharedInstance] playlist] insertObject:track atIndex:row];
+            [[SBPlayer sharedInstance] addTrack: track atIndex: row];
         }
         [playlistTableView reloadData];
         
@@ -343,7 +342,7 @@
         [reversedArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
             SBTrack *track = (SBTrack *)[self.managedObjectContext objectWithID:[[self.managedObjectContext persistentStoreCoordinator] managedObjectIDForURIRepresentation:obj]]; 
             
-            [[[SBPlayer sharedInstance] playlist] insertObject:track atIndex:row];
+            [[SBPlayer sharedInstance] addTrack: track atIndex:row];
         }];
         
         

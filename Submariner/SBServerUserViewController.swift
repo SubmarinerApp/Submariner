@@ -25,8 +25,8 @@ import SwiftUI
     }
     
     func play(track: SBTrack) {
-        SBPlayer.sharedInstance().add(track, replace: false)
-        SBPlayer.sharedInstance().play(track)
+        SBPlayer.sharedInstance().add(track: track, replace: false)
+        SBPlayer.sharedInstance().play(track: track)
     }
     
     func showInLibrary(track: SBTrack) {

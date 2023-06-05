@@ -36,7 +36,6 @@
 #import "SBDatabaseController.h"
 #import "SBPrioritySplitViewDelegate.h"
 #import "SBMergeArtistsController.h"
-#import "SBPlayer.h"
 
 #import "Submariner-Swift.h"
 
