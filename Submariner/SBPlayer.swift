@@ -117,6 +117,14 @@ import MediaPlayer
         }
         
         remoteCommandCenter.changePlaybackPositionCommand.isEnabled = true
+        remoteCommandCenter.changePlaybackPositionCommand.addTarget { event in
+            let seekEvent = event as! MPChangePlaybackPositionCommandEvent
+            if self.isPlaying {
+                self.seek(to: seekEvent.positionTime)
+                return .success
+            }
+            return .noActionableNowPlayingItem
+        }
         
         remoteCommandCenter.nextTrackCommand.isEnabled = true
         remoteCommandCenter.nextTrackCommand.addTarget { event in
@@ -132,14 +140,30 @@ import MediaPlayer
         
         // Disable these because they get used instead of prev/next track on macOS, at least in 12.
         // XXX: Does it make more sense to bind seekForward/Backward? For podcasts?
-        //[remoteCommandCenter.skipForwardCommand setEnabled:YES];
-        //[remoteCommandCenter.skipBackwardCommand setEnabled:YES];
+        remoteCommandCenter.skipForwardCommand.isEnabled = false
+        remoteCommandCenter.skipForwardCommand.addTarget { event in
+            self.fastForward()
+            return .success
+        }
+        remoteCommandCenter.skipBackwardCommand.isEnabled = false
+        remoteCommandCenter.skipBackwardCommand.addTarget { event in
+            self.rewind()
+            return .success
+        }
         remoteCommandCenter.skipForwardCommand.preferredIntervals = [interval]
         remoteCommandCenter.skipBackwardCommand.preferredIntervals = [interval]
         
         remoteCommandCenter.ratingCommand.isEnabled = true
         remoteCommandCenter.ratingCommand.minimumRating = 0.0
         remoteCommandCenter.ratingCommand.maximumRating = 5.0
+        remoteCommandCenter.ratingCommand.addTarget { event in
+            let ratingEvent = event as! MPRatingCommandEvent
+            if let currentTrack = self.currentTrack, currentTrack.server != nil {
+                currentTrack.rating = NSNumber(value: ratingEvent.rating)
+                return .success
+            }
+            return .noActionableNowPlayingItem
+        }
         
         // XXX: Shuffle, repeat, maybe bookmark
     }
