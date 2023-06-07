@@ -32,12 +32,17 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ### Version 2.2.1 (not yet released)
 
+* The volume button shows the popover when scrolled on, to show current volume
 * The repeat and shuffle toolbar buttons now show toggle state
 * Fix repeat and shuffle options not being respected by player
 * Fix server name being empty causing problems
 * Fix now playing information not being set properly with nil attributes
 * Fix authentication callback being called twice
+* The playback notification is rescinded upon playback stopping or quitting
+* Added "Show in Library" to the menu bar
 * Clean up playlist and track fetch code when parsing responses
+* Rewrite SBOnboardingController in SwiftUI
+* Rewrite SBPlayer in Swift
 
 ### Version 2.2
 
