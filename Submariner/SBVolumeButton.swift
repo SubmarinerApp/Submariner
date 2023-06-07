@@ -9,6 +9,8 @@
 import Cocoa
 
 @objc class SBVolumeButton: NSButton {
+    @objc var volumePopover: NSPopover?
+    
     @objc override func scrollWheel(with event: NSEvent) {
         // The trackpad gives us a (-)8 or so and slowly returns to zero.
         // Haven't tested wheel.
@@ -19,6 +21,9 @@ import Cocoa
         let oldVolume = SBPlayer.sharedInstance().volume
         let newVolume = max(0, min(1, oldVolume + delta))
         SBPlayer.sharedInstance().volume = newVolume
-        // XXX: Display volume in popover/tooltip.
+        
+        if let volumePopover = self.volumePopover, !volumePopover.isShown {
+            volumePopover.show(relativeTo: self.frame, of: self, preferredEdge: .maxY)
+        }
     }
 }

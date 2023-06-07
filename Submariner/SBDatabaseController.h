@@ -55,6 +55,7 @@
 @class SBPlaylistController;
 @class SBLibrary;
 @class SBAnimatedView;
+@class SBVolumeButton;
 
 
 #define SBLibraryTableViewDataType @"SBLibraryTableViewDataType"
@@ -95,7 +96,7 @@
     IBOutlet SBRoutePickerView *routePicker;
     IBOutlet NSToolbarItem *routePickerToolbarItem;
     __weak IBOutlet NSToolbarItem *volumeToolbarItem;
-    IBOutlet NSButton *volumeButton;
+    IBOutlet SBVolumeButton *volumeButton;
     IBOutlet NSPopover *volumePopover;
     IBOutlet SBTracklistButton *tracklistButton;
     IBOutlet NSSearchField *searchField;

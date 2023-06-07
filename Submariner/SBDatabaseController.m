@@ -349,6 +349,8 @@
     
     // The tracklist button needs an MOC
     tracklistButton.managedObjectContext = self.managedObjectContext;
+    
+    volumeButton.volumePopover = volumePopover;
 }
 
 #pragma mark -
