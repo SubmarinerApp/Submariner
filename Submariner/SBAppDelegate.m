@@ -117,14 +117,10 @@
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender {
+    NSError *error;
     
-    // unplay all tracks before quitting
-    NSError *error = nil;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(isPlaying == YES)"];
-    NSArray *tracks = [[self managedObjectContext] fetchEntitiesNammed:@"Track" withPredicate:predicate error:&error];
-    for(SBTrack *track in tracks) {
-        [track setIsPlaying:[NSNumber numberWithBool:NO]];
-    }
+    // Stop playback, remove playing bit from all tracks, rescind playback notification.
+    [[SBPlayer sharedInstance] stop];
     
     // Save changes in the application's managed object context before the application terminates.
     if (!__managedObjectContext) {

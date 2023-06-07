@@ -326,6 +326,13 @@ import MediaPlayer
         }
     }
     
+    private func removeNowPlayingNotification() {
+        let centre = UNUserNotificationCenter.current()
+        let nowPlayingIdentifiers = ["SubmarinerNowPlayingNotification"]
+        centre.removePendingNotificationRequests(withIdentifiers: nowPlayingIdentifiers)
+        centre.removeDeliveredNotifications(withIdentifiers: nowPlayingIdentifiers)
+    }
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         // We have to do this if we implement the delegate.
         // If we didn't assign a delegate, we basically get this behaviour,
@@ -596,6 +603,7 @@ import MediaPlayer
         isPaused = true
         
         updateSystemNowPlaying()
+        removeNowPlayingNotification()
         NotificationCenter.default.post(name: SBPlayer.playlistUpdatedNotification, object: self)
         NotificationCenter.default.post(name: SBPlayer.playStateNotification, object: self)
     }
