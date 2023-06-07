@@ -283,6 +283,14 @@
     [rightVC setArrangedObjects: @[ [rightVC.arrangedObjects objectAtIndex: 1] ]];
     [rightVC setSelectedIndex: 0];
     
+    // Show right sidebar. FIXME: Don't animate this initial thing.
+    NSString *lastRightSidebar = [[NSUserDefaults standardUserDefaults] objectForKey: @"RightSidebar"];
+    if ([lastRightSidebar isEqualToString: @"ServerUsers"]) {
+        [self toggleServerUsers: self];
+    } else if ([lastRightSidebar isEqualToString: @"Tracklist"]) {
+        [self toggleTrackList: self];
+    }
+    
     [resourcesController addObserver:self
                           forKeyPath:@"content"
                              options:NSKeyValueObservingOptionNew
@@ -460,6 +468,7 @@
     } else {
         [tracklistSplit.animator setCollapsed: ![tracklistSplit isCollapsed]];
     }
+    [[NSUserDefaults standardUserDefaults] setObject: [tracklistSplit isCollapsed] ? @"" : @"Tracklist" forKey: @"RightSidebar"];
     [self didChangeValueForKey: @"isServerUsersShown"];
     [self didChangeValueForKey: @"isTracklistShown"];
 }
@@ -479,6 +488,7 @@
     } else {
         [tracklistSplit.animator setCollapsed: ![tracklistSplit isCollapsed]];
     }
+    [[NSUserDefaults standardUserDefaults] setObject: [tracklistSplit isCollapsed] ? @"" : @"ServerUsers" forKey: @"RightSidebar"];
     [self didChangeValueForKey: @"isServerUsersShown"];
     [self didChangeValueForKey: @"isTracklistShown"];
 }

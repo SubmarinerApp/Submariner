@@ -85,6 +85,7 @@
     [defaults setObject:[NSNumber numberWithBool:YES]           forKey:@"scrobbleToServer"];
     [defaults setObject:[NSNumber numberWithBool:NO]            forKey:@"deleteAfterPlay"];
     [defaults setObject:[NSNumber numberWithFloat:5.0]          forKey:@"SkipIncrement"];
+    [defaults setObject:@""                                     forKey:@"RightSidebar"];
     [userDefaults registerDefaults:defaults];
     
     // XXX: Best place to initialize value transformers?

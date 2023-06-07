@@ -32,6 +32,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ### Version 2.2.1 (not yet released)
 
+* The current right sidebar view is remembered for next launch
 * The volume button shows the popover when scrolled on, to show current volume
 * The repeat and shuffle toolbar buttons now show toggle state
 * Fix repeat and shuffle options not being respected by player
