@@ -705,7 +705,7 @@ import MediaPlayer
     
     // #MARK: - Private
     
-    private func getRandomTrackExept(track: SBTrack) -> SBTrack? {
+    private func getRandomTrackExcept(track: SBTrack) -> SBTrack? {
         var randomTrack = track
         
         if playlist.count > 1 {
@@ -743,7 +743,7 @@ import MediaPlayer
             
             return nil
         } else if isShuffle, let currentTrack = self.currentTrack {
-            return getRandomTrackExept(track: currentTrack)
+            return getRandomTrackExcept(track: currentTrack)
         }
         
         return nil
@@ -770,7 +770,7 @@ import MediaPlayer
             
             return nil
         } else if isShuffle, let currentTrack = self.currentTrack {
-            return getRandomTrackExept(track: currentTrack)
+            return getRandomTrackExcept(track: currentTrack)
         }
         
         return nil
