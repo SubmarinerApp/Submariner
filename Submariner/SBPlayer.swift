@@ -384,6 +384,7 @@ import MediaPlayer
     
     @objc(addTrack:atIndex:) func add(track: SBTrack, index: Int) {
         playlist.insert(track, at: index)
+        NotificationCenter.default.post(name: SBPlayer.playlistUpdatedNotification, object: self)
     }
     
     @objc(removeTrack:) func remove(track: SBTrack) {
@@ -417,10 +418,8 @@ import MediaPlayer
         NotificationCenter.default.post(name: SBPlayer.playlistUpdatedNotification, object: self)
     }
     
-    @objc(removeTrackAtIndex:) func remove(index: Int) {
-        // Doesn't stop, used by SBTracklistController for moving
-        // FIXME: Refactor that to be more semantically obvious
-        playlist.remove(at: index)
+    @objc(moveTrackIndexSet:toIndex:) func move(trackIndexSet: IndexSet, index: Int) {
+        playlist.move(fromOffsets: trackIndexSet, toOffset: index)
         NotificationCenter.default.post(name: SBPlayer.playlistUpdatedNotification, object: self)
     }
     

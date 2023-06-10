@@ -305,27 +305,17 @@
             NSLog(@"Error unserializing index set %@", error);
             return NO;
         }
-        NSMutableArray *tracks = [NSMutableArray array];
-        NSArray *reversedArray  = nil;
-        
-        // get temp rows objects and remove them from the playlist
-        [rowIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-            [tracks addObject:[[[SBPlayer sharedInstance] playlist] objectAtIndex:idx]];
-            [[SBPlayer sharedInstance] removeTrackAtIndex: idx];
-            [playlistTableView reloadData];
+        [[SBPlayer sharedInstance] moveTrackIndexSet: rowIndexes toIndex:row];
+        // change selection to match new indices, since Array.move doesn't return them
+        __block NSInteger newRow = row;
+        [rowIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+            // if we move rows to after the index we need to compensate
+            if (idx < newRow) newRow--;
         }];
+        NSRange newIndexRange = NSMakeRange(newRow, [rowIndexes count]);
+        NSIndexSet *newIndexSet = [NSIndexSet indexSetWithIndexesInRange: newIndexRange];
+        [playlistTableView selectRowIndexes: newIndexSet byExtendingSelection: NO];
         
-        // reverse track array
-        reversedArray = [[tracks reverseObjectEnumerator] allObjects];
-        
-        // add reversed track at index
-        for(SBTrack *track in reversedArray) {
-            //NSLog(@"row : %ld", row);
-            if(row > [[[SBPlayer sharedInstance] playlist] count])
-                row--;
-            
-            [[SBPlayer sharedInstance] addTrack: track atIndex: row];
-        }
         [playlistTableView reloadData];
         
     } else if([[pboard types] containsObject:SBLibraryTableViewDataType]) {
