@@ -283,7 +283,6 @@
     [rightVC setArrangedObjects: @[ [rightVC.arrangedObjects objectAtIndex: 1] ]];
     [rightVC setSelectedIndex: 0];
     
-    // Show right sidebar. FIXME: Don't animate this initial thing.
     NSString *lastRightSidebar = [[NSUserDefaults standardUserDefaults] objectForKey: @"RightSidebar"];
     if ([lastRightSidebar isEqualToString: @"ServerUsers"]) {
         [self toggleServerUsers: self];
@@ -462,11 +461,12 @@
     [self willChangeValueForKey: @"isServerUsersShown"];
     [self willChangeValueForKey: @"isTracklistShown"];
     // as we can now switch the view
+    NSSplitViewItem *maybeAnimated = self.window.visible ? tracklistSplit.animator : tracklistSplit;
     if (tracklistContainmentBox.contentView != [tracklistController view]) {
         tracklistContainmentBox.contentView = [tracklistController view];
-        [tracklistSplit.animator setCollapsed: NO];
+        [maybeAnimated setCollapsed: NO];
     } else {
-        [tracklistSplit.animator setCollapsed: ![tracklistSplit isCollapsed]];
+        [maybeAnimated setCollapsed: ![tracklistSplit isCollapsed]];
     }
     [[NSUserDefaults standardUserDefaults] setObject: [tracklistSplit isCollapsed] ? @"" : @"Tracklist" forKey: @"RightSidebar"];
     [self didChangeValueForKey: @"isServerUsersShown"];
@@ -482,11 +482,12 @@
     [self willChangeValueForKey: @"isTracklistShown"];
     [serverUserController viewDidLoad];
     // as we can now switch the view
+    NSSplitViewItem *maybeAnimated = self.window.visible ? tracklistSplit.animator : tracklistSplit;
     if (tracklistContainmentBox.contentView != [serverUserController view]) {
         tracklistContainmentBox.contentView = [serverUserController view];
-        [tracklistSplit.animator setCollapsed: NO];
+        [maybeAnimated setCollapsed: NO];
     } else {
-        [tracklistSplit.animator setCollapsed: ![tracklistSplit isCollapsed]];
+        [maybeAnimated setCollapsed: ![tracklistSplit isCollapsed]];
     }
     [[NSUserDefaults standardUserDefaults] setObject: [tracklistSplit isCollapsed] ? @"" : @"ServerUsers" forKey: @"RightSidebar"];
     [self didChangeValueForKey: @"isServerUsersShown"];
