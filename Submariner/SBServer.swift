@@ -137,8 +137,7 @@ public class SBServer: SBResource {
     
     // #MARK: - Custom Accessors (Keychain Support)
     
-    // instance local
-    private var cachedPassword: String? = nil
+    static private var cachedPasswords: [SBServer.ID: String] = [:]
     
     @objc var password: String? {
         get {
@@ -148,8 +147,8 @@ public class SBServer: SBResource {
                primitivePassword != "" {
                 // setting it will null it out and set cachedPassword
                 self.password = primitivePassword
-                ret = cachedPassword
-            } else if let cachedPassword = self.cachedPassword {
+                ret = SBServer.cachedPasswords[self.id]
+            } else if let cachedPassword = SBServer.cachedPasswords[self.id] {
                 ret = cachedPassword
             } else if let urlString = self.url,
                       let url = URL.init(string: urlString),
@@ -182,7 +181,7 @@ public class SBServer: SBResource {
                           let passwordData = resultsDict[kSecValueData] as? Data { // success
                     print("SBServer.password getter: Successfully got the password")
                     ret = String.init(data: passwordData, encoding: .utf8)
-                    cachedPassword = ret
+                    SBServer.cachedPasswords[self.id] = ret
                 }
             }
             self.didAccessValue(forKey: "password")
@@ -191,12 +190,12 @@ public class SBServer: SBResource {
         set {
             self.willChangeValue(forKey: "password")
             // XXX: should we invalidate the stored pw?
-            self.cachedPassword = nil
+            SBServer.cachedPasswords.removeValue(forKey: self.id)
 
             // decompose URL
             if self.url != nil && self.username != nil {
                 // don't do the keychain update here anymore
-                cachedPassword = newValue
+                SBServer.cachedPasswords[self.id] = newValue
                 // clear out the remnant of Core Data stored password
                 self.setPrimitiveValue("", forKey: "password")
             }
