@@ -239,8 +239,7 @@ import UniformTypeIdentifiers
                         }
                         newAlbum!.cover!.path = relativePath
                         newAlbum!.cover!.isLocal = NSNumber(booleanLiteral: true)
-                        newTrack!.cover!.path = relativePath
-                        newTrack!.cover!.isLocal = NSNumber(booleanLiteral: true)
+                        // Don't set the track cover, since it's not really used.
                     }
                 }
             }

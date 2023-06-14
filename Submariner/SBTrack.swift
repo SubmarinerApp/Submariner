@@ -24,13 +24,6 @@ public class SBTrack: SBMusicItem {
         return Set()
     }
     
-    public override func awakeFromInsert() {
-        super.awakeFromInsert()
-        if self.cover == nil {
-            self.cover = SBCover.init(entity: SBCover.entity(), insertInto: self.managedObjectContext)
-        }
-    }
-    
     @objc var durationString: String? {
         self.willAccessValue(forKey: "duration")
         let ret = String(time: TimeInterval(duration?.intValue ?? 0))
