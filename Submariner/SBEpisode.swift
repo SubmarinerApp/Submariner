@@ -28,9 +28,8 @@ public class SBEpisode: SBTrack {
            FileManager.default.fileExists(atPath: path) {
             return URL.init(fileURLWithPath: path)
         } else if let server = self.server, let url = server.url {
-            let parameters = NSMutableDictionary()
-            server.getBaseParameters(parameters)
-            parameters.setValue(self.streamID, forKey: "id")
+            var parameters = server.getBaseParameters()
+            parameters["id"] = self.id
             
             return NSURL.URLWith(string: url, command: "rest/stream.view", parameters: parameters as! [String: String]?)
         }
@@ -38,10 +37,9 @@ public class SBEpisode: SBTrack {
     }
     
     @objc override func downloadURL() -> URL? {
-        let parameters = NSMutableDictionary()
         if let server = self.server, let url = server.url {
-            server.getBaseParameters(parameters)
-            parameters.setValue(self.streamID, forKey: "id")
+            var parameters = server.getBaseParameters()
+            parameters["id"] = self.id
             
             return NSURL.URLWith(string: url, command: "rest/download.view", parameters: parameters as! [String: String]?)
         }

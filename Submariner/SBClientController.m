@@ -193,7 +193,7 @@
 #pragma mark Request Messages
 
 - (void)connectToServer:(SBServer *)aServer {
-    [server getBaseParameters: parameters];
+    [parameters setDictionary: [server getBaseParameters]];
     NSURL *url = [NSURL URLWithString:server.url command:@"rest/ping.view" parameters:parameters];
     [self requestWithURL:url requestType:SBSubsonicRequestPing];
 }
@@ -263,9 +263,6 @@
 }
 
 - (void)getPlaylist:(SBPlaylist *)playlist {
-    // XXX: Why is this function different from the others?
-    [server getBaseParameters: parameters];
-    
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:parameters];
     [params setValue:playlist.id forKey:@"id"];
     

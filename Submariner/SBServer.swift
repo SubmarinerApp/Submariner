@@ -292,11 +292,17 @@ public class SBServer: SBResource {
         self.clientController.getLicense()
     }
     
-    @objc func getBaseParameters(_ parameters: NSMutableDictionary) {
+    /**
+     Gets the base query string parameters based on the server object's properties.
+     
+     The intent is to use these as a base, then add other options that your command requires.
+     */
+    @objc func getBaseParameters() -> [String: String] {
+        var parameters: [String: String] = [:]
         if let username = self.username, let password = self.password {
-            parameters.setValue(username, forKey: "u")
+            parameters["u"] = username
             if self.useTokenAuth?.boolValue == true {
-                parameters.removeObject(forKey: "p")
+                parameters.removeValue(forKey: "p")
                 var saltBytes = Data(count: 64)
                 let saltResult = saltBytes.withUnsafeMutableBytes { mutableData in
                     SecRandomCopyBytes(kSecRandomDefault, 64, mutableData)
@@ -305,18 +311,19 @@ public class SBServer: SBResource {
                     abort()
                 }
                 let salt = String.hexStringFrom(bytes: saltBytes)
-                parameters.setValue(salt, forKey: "s")
-                let token = String.init(format: "%@%@", password, salt).md5()
-                parameters.setValue(token, forKey: "t")
+                parameters["s"] = salt
+                let token = (password + salt).md5()
+                parameters["t"] = token
             } else {
-                parameters.removeObject(forKey: "t")
-                parameters.removeObject(forKey: "s")
-                let obfuscatedPassword = String.init(format: "enc:%@", password.toHex()!)
-                parameters.setValue(obfuscatedPassword, forKey: "p")
+                parameters.removeValue(forKey: "t")
+                parameters.removeValue(forKey: "s")
+                let obfuscatedPassword = "enc:" + password.toHex()!
+                parameters["p"] = obfuscatedPassword
             }
-            parameters.setValue(UserDefaults.standard.string(forKey: "apiVersion"), forKey: "v")
-            parameters.setValue(UserDefaults.standard.string(forKey: "clientIdentifier"), forKey: "c")
+            parameters["v"] = UserDefaults.standard.string(forKey: "apiVersion")
+            parameters["c"] = UserDefaults.standard.string(forKey: "clientIdentifier")
         }
+        return parameters
     }
     
     // #MARK: - Subsonic Client (Server Data)

@@ -37,10 +37,9 @@ public class SBTrack: SBMusicItem {
            FileManager.default.fileExists(atPath: path) {
             return URL.init(fileURLWithPath: path)
         } else if let server = self.server, let url = server.url {
-            let parameters = NSMutableDictionary()
-            server.getBaseParameters(parameters)
-            parameters.setValue(UserDefaults.standard.string(forKey: "maxBitRate"), forKey: "maxBitRate")
-            parameters.setValue(self.id, forKey: "id")
+            var parameters = server.getBaseParameters()
+            parameters["maxBitRate"] = UserDefaults.standard.string(forKey: "maxBitRate")
+            parameters["id"] = self.id
             
             return NSURL.URLWith(string: url, command: "rest/stream.view", parameters: parameters as! [String: String]?)
         }
@@ -48,11 +47,10 @@ public class SBTrack: SBMusicItem {
     }
     
     @objc func downloadURL() -> URL? {
-        let parameters = NSMutableDictionary()
         if let server = self.server, let url = server.url {
-            server.getBaseParameters(parameters)
-            parameters.setValue(UserDefaults.standard.string(forKey: "maxBitRate"), forKey: "maxBitRate")
-            parameters.setValue(self.id, forKey: "id")
+            var parameters = server.getBaseParameters()
+            parameters["maxBitRate"] = UserDefaults.standard.string(forKey: "maxBitRate")
+            parameters["id"] = self.id
             
             return NSURL.URLWith(string: url, command: "rest/download.view", parameters: parameters as! [String: String]?)
         }
