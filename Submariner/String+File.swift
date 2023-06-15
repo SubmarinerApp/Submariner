@@ -13,7 +13,7 @@ extension String {
     static let illegalFilenameCharacters = CharacterSet(charactersIn: "/\\?%*|\"<>")
     
     func isValidFileName() -> Bool {
-        guard self != "" else {
+        if self == "" || self == "." || self == ".." {
             return false
         }
         
