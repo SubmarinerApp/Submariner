@@ -44,9 +44,11 @@ import Cocoa
                 return
             } else if let response = response as? HTTPURLResponse {
                 print("Status code is", response.statusCode)
+                // Note that Subsonic and Navidrome return app-level error bodies in HTTP 200
                 if response.statusCode != 200 {
+                    let message = "HTTP \(response.statusCode) for \(url.path)"
+                    let userInfo = [NSLocalizedDescriptionKey: message]
                     // XXX: Right domain?
-                    let userInfo = [NSLocalizedDescriptionKey: "HTTP " + String(response.statusCode)]
                     let error = NSError(domain: NSURLErrorDomain, code: response.statusCode, userInfo: userInfo)
                     DispatchQueue.main.async {
                         NSApp.presentError(error)
