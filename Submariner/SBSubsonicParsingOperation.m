@@ -34,7 +34,6 @@
 
 #import "SBAppDelegate.h"
 #import "SBSubsonicParsingOperation.h"
-#import "SBClientController.h"
 
 
 #import "NSManagedObjectContext+Fetch.h"
@@ -105,7 +104,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
 - (id)initWithManagedObjectContext:(NSManagedObjectContext*)mainContext 
                             client:(SBClientController *)client
                        requestType:(SBSubsonicRequestType)type
-                            server:(SBServerID *)objectID
+                            server:(NSManagedObjectID *)objectID
                                xml:(NSData *)xml
                           mimeType:(NSString *)mimeType
 {

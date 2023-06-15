@@ -33,6 +33,7 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 #import "SBOperation.h"
 
 
@@ -101,7 +102,7 @@ typedef NS_ENUM(NSInteger, SBSubsonicRequestType) {
     NSNotificationCenter *nc;
     SBClientController *clientController;
     SBSubsonicRequestType requestType;
-    SBServerID *serverID;
+    NSManagedObjectID *serverID;
     SBServer *server;
     NSData *xmlData;
     NSString *MIMEType;
@@ -129,7 +130,7 @@ typedef NS_ENUM(NSInteger, SBSubsonicRequestType) {
 - (id)initWithManagedObjectContext:(NSManagedObjectContext*)mainContext 
                             client:(SBClientController *)client
                        requestType:(SBSubsonicRequestType)type
-                            server:(SBServerID *)objectID
+                            server:(NSManagedObjectID *)objectID
                                xml:(NSData *)xml
                           mimeType:(NSString *)mimeType;
 

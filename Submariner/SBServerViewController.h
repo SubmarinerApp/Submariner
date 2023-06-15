@@ -41,10 +41,8 @@
 @interface SBServerViewController : SBViewController {
 @protected
     SBServer *server;
-    SBClientController *clientController;
 }
 
-@property (readwrite, strong) SBClientController *clientController;
 @property (readwrite, strong) SBServer *server;
 
 - (id)initWithServer:(SBServer *)server context:(NSManagedObjectContext *)context;

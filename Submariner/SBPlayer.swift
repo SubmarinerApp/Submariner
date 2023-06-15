@@ -457,7 +457,7 @@ import MediaPlayer
         // scrobble if doing that
         if let server = track.server, track.localTrack?.streamURL() != nil,
            UserDefaults.standard.scrobbleToServer {
-            server.clientController.scrobble(track.id)
+            server.clientController.scrobble(id: track.id!)
         }
     }
     

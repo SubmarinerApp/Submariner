@@ -41,7 +41,7 @@ public class SBTrack: SBMusicItem {
             parameters["maxBitRate"] = UserDefaults.standard.string(forKey: "maxBitRate")
             parameters["id"] = self.id
             
-            return NSURL.URLWith(string: url, command: "rest/stream.view", parameters: parameters as! [String: String]?)
+            return URL.URLWith(string: url, command: "rest/stream.view", parameters: parameters)
         }
         return nil
     }
@@ -52,7 +52,7 @@ public class SBTrack: SBMusicItem {
             parameters["maxBitRate"] = UserDefaults.standard.string(forKey: "maxBitRate")
             parameters["id"] = self.id
             
-            return NSURL.URLWith(string: url, command: "rest/download.view", parameters: parameters as! [String: String]?)
+            return URL.URLWith(string: url, command: "rest/download.view", parameters: parameters)
         }
         return nil
     }

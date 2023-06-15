@@ -17,13 +17,12 @@ extension URL {
         let randomName = UUID().uuidString
         return tempDir.appendingPathComponent(randomName)
     }
-}
-
-@objc extension NSURL {
+    
     // #MARK: -
     // #MARK: Parameters
     
-    @objc static func URLWith(string: String, command: String, parameters:  [String: String]?, andParameterString: String?) -> URL? {
+    // XXX: Convert to initializers
+    static func URLWith(string: String, command: String, parameters:  [String: String]?, andParameterString: String?) -> URL? {
         // string -> "http://ip:port"; the base URL (which could have its own path components)
         // command -> "rest/ping.view"; the API endpoint
         // so, we get "http://ip:port/rest/ping.view" from appendingPathComponent
@@ -51,12 +50,10 @@ extension URL {
         return components.url
     }
     
-    @objc static func URLWith(string: String, command: String, parameters:  [String: String]?) -> URL? {
+    static func URLWith(string: String, command: String, parameters:  [String: String]?) -> URL? {
         return URLWith(string: string, command: command, parameters: parameters, andParameterString: nil)
     }
-}
-
-extension URL {
+    
     // #MARK: -
     // #MARK: Keychain
     

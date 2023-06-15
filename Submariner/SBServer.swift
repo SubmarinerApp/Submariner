@@ -130,9 +130,8 @@ public class SBServer: SBResource {
     // #MARK: - Custom Accessors (Subsonic Client)
     
     @objc lazy var clientController: SBClientController = {
-        let clientController = SBClientController(managedObjectContext: self.managedObjectContext)
-        clientController?.server = self
-        return clientController!
+        let clientController = SBClientController(managedObjectContext: self.managedObjectContext!, server: self)
+        return clientController
     }()
     
     // #MARK: - Custom Accessors (Keychain Support)
@@ -285,7 +284,7 @@ public class SBServer: SBResource {
     // #MARK: - Subsonic Client (Login)
     
     @objc func connect() {
-        self.clientController.connect(to: self)
+        self.clientController.connect(server: self)
     }
     
     @objc func getServerLicense() {
@@ -330,22 +329,22 @@ public class SBServer: SBResource {
     
     @objc func getServerIndexes() {
         if let lastIndexesDate = self.lastIndexesDate {
-            self.clientController.getIndexesSince(lastIndexesDate)
+            self.clientController.getIndexes(since: lastIndexesDate)
         } else {
             self.clientController.getIndexes()
         }
     }
     
     @objc func getAlbumsFor(artist: SBArtist) {
-        self.clientController.getAlbumsFor(artist)
+        self.clientController.getAlbums(artist: artist)
     }
     
     @objc func getTracksFor(albumID: String) {
-        self.clientController.getTracksForAlbumID(albumID)
+        self.clientController.getTracks(albumID: albumID)
     }
     
     @objc func getAlbumListFor(type: SBSubsonicRequestType) {
-        self.clientController.getAlbumList(for: type)
+        self.clientController.getAlbumList(type: type)
     }
     
     // #MARK: - Subsonic Client (Playlists)
@@ -355,15 +354,15 @@ public class SBServer: SBResource {
     }
     
     @objc func createPlaylist(name: String, tracks: [SBTrack]) {
-        self.clientController.createPlaylist(withName: name, tracks: tracks)
+        self.clientController.createPlaylist(name: name, tracks: tracks)
     }
     
     @objc func updatePlaylist(ID: String, tracks: [SBTrack]) {
-        self.clientController.updatePlaylist(withID: ID, tracks: tracks)
+        self.clientController.updatePlaylist(playlistID: ID, tracks: tracks)
     }
     
     @objc func deletePlaylist(ID: String) {
-        self.clientController.deletePlaylist(withID: ID)
+        self.clientController.deletePlaylist(id: ID)
     }
     
     @objc func getPlaylistTracks(_ playlist: SBPlaylist) {
@@ -391,7 +390,7 @@ public class SBServer: SBResource {
     // #MARK: - Subsonic Client (Rating)
     
     @objc(setRating:forID:) func setRating(_ rating: Int, id: String) {
-        self.clientController.setRating(rating, forID: id)
+        self.clientController.setRating(rating, id: id)
     }
     
     // #MARK: - Core Data insert compatibility shim

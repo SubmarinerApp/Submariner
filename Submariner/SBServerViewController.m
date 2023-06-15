@@ -40,7 +40,6 @@
 
 
 
-@synthesize clientController;
 @synthesize server;
 
 

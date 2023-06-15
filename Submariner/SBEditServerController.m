@@ -35,7 +35,6 @@
 
 #import "SBEditServerController.h"
 #import "SBWindowController.h"
-#import "SBClientController.h"
 
 #import "Submariner-Swift.h"
 

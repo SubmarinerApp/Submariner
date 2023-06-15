@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3E0DAD5C29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */; };
 		3E189E4028EF5BAB0062ACA0 /* SBAudioMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */; };
+		3E2E1C842A395B79001A3148 /* SBClientController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E1C832A395B79001A3148 /* SBClientController.swift */; };
 		3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */; };
 		3E2F86D828E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */; };
 		3E352ED629D602BE002C84CB /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3E352ED529D602BE002C84CB /* AppIcon.icns */; };
@@ -42,7 +43,7 @@
 		3EC039C729EFB867001FDE50 /* SBDownloadsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC039C629EFB867001FDE50 /* SBDownloadsController.swift */; };
 		3EC039C929EFC259001FDE50 /* View+Modify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC039C829EFC259001FDE50 /* View+Modify.swift */; };
 		3EC03AC329F33C68001FDE50 /* OperationQueue+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC03AC229F33C68001FDE50 /* OperationQueue+Shared.swift */; };
-		3EC03AC529F42C95001FDE50 /* NSURL+Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC03AC429F42C95001FDE50 /* NSURL+Parameters.swift */; };
+		3EC03AC529F42C95001FDE50 /* URL+Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC03AC429F42C95001FDE50 /* URL+Parameters.swift */; };
 		3EC03B3429F4F2E0001FDE50 /* SBMusicItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC03B1029F4F2E0001FDE50 /* SBMusicItem.swift */; };
 		3EC03B3629F4F2E0001FDE50 /* SBEpisode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC03B1229F4F2E0001FDE50 /* SBEpisode.swift */; };
 		3EC03B3829F4F2E0001FDE50 /* SBHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC03B1429F4F2E0001FDE50 /* SBHome.swift */; };
@@ -111,7 +112,6 @@
 		4CFAFC2D139EF08800E82B57 /* ServerHome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CFAFC2B139EF08800E82B57 /* ServerHome.xib */; };
 		4CFAFC37139EF20600E82B57 /* MGScopeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC33139EF20500E82B57 /* MGScopeBar.m */; };
 		4CFAFC38139EF20600E82B57 /* MGRecessedPopUpButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC36139EF20500E82B57 /* MGRecessedPopUpButtonCell.m */; };
-		4CFAFC45139FFC1700E82B57 /* SBClientController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC3A139FFC1100E82B57 /* SBClientController.m */; };
 		4CFAFC47139FFC1700E82B57 /* SBSubsonicParsingOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC3E139FFC1300E82B57 /* SBSubsonicParsingOperation.m */; };
 		4CFAFC6613A0150300E82B57 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CFAFC6513A0150300E82B57 /* AudioToolbox.framework */; };
 		4CFAFC7D13A0F7E000E82B57 /* SBAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC7C13A0F7E000E82B57 /* SBAnimatedView.m */; };
@@ -144,6 +144,7 @@
 		3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTrackListLengthTransformer.swift; sourceTree = "<group>"; };
 		3E189E3228EBBAC40062ACA0 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBAudioMetadata.swift; sourceTree = "<group>"; };
+		3E2E1C832A395B79001A3148 /* SBClientController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBClientController.swift; sourceTree = "<group>"; };
 		3E2F86C928DD36E600C5CE23 /* Submariner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Submariner-Bridging-Header.h"; sourceTree = "<group>"; };
 		3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBMonospaceTextField.swift; sourceTree = "<group>"; };
 		3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTreeController+IndexPath.swift"; sourceTree = "<group>"; };
@@ -181,7 +182,7 @@
 		3EC039C629EFB867001FDE50 /* SBDownloadsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBDownloadsController.swift; sourceTree = "<group>"; };
 		3EC039C829EFC259001FDE50 /* View+Modify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Modify.swift"; sourceTree = "<group>"; };
 		3EC03AC229F33C68001FDE50 /* OperationQueue+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OperationQueue+Shared.swift"; sourceTree = "<group>"; };
-		3EC03AC429F42C95001FDE50 /* NSURL+Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSURL+Parameters.swift"; sourceTree = "<group>"; };
+		3EC03AC429F42C95001FDE50 /* URL+Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Parameters.swift"; sourceTree = "<group>"; };
 		3EC03B1029F4F2E0001FDE50 /* SBMusicItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBMusicItem.swift; sourceTree = "<group>"; };
 		3EC03B1229F4F2E0001FDE50 /* SBEpisode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBEpisode.swift; sourceTree = "<group>"; };
 		3EC03B1429F4F2E0001FDE50 /* SBHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBHome.swift; sourceTree = "<group>"; };
@@ -286,8 +287,6 @@
 		4CFAFC34139EF20500E82B57 /* MGScopeBarDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGScopeBarDelegateProtocol.h; sourceTree = "<group>"; };
 		4CFAFC35139EF20500E82B57 /* MGRecessedPopUpButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRecessedPopUpButtonCell.h; sourceTree = "<group>"; };
 		4CFAFC36139EF20500E82B57 /* MGRecessedPopUpButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRecessedPopUpButtonCell.m; sourceTree = "<group>"; };
-		4CFAFC39139FFC1000E82B57 /* SBClientController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBClientController.h; sourceTree = "<group>"; };
-		4CFAFC3A139FFC1100E82B57 /* SBClientController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBClientController.m; sourceTree = "<group>"; };
 		4CFAFC3D139FFC1200E82B57 /* SBSubsonicParsingOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSubsonicParsingOperation.h; sourceTree = "<group>"; };
 		4CFAFC3E139FFC1300E82B57 /* SBSubsonicParsingOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSubsonicParsingOperation.m; sourceTree = "<group>"; };
 		4CFAFC6513A0150300E82B57 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -558,7 +557,7 @@
 				3EB2BCC62992E13700DC5056 /* NSString+Time.swift */,
 				3EB2BCC82992E85F00DC5056 /* NSImage+Additions.swift */,
 				3EC039C829EFC259001FDE50 /* View+Modify.swift */,
-				3EC03AC429F42C95001FDE50 /* NSURL+Parameters.swift */,
+				3EC03AC429F42C95001FDE50 /* URL+Parameters.swift */,
 				3E45201D29FAD41900604079 /* UserDefaults+Submariner.swift */,
 			);
 			name = Additions;
@@ -636,9 +635,8 @@
 		4CFAFC4B139FFC2100E82B57 /* Subsonic */ = {
 			isa = PBXGroup;
 			children = (
-				4CFAFC39139FFC1000E82B57 /* SBClientController.h */,
-				4CFAFC3A139FFC1100E82B57 /* SBClientController.m */,
 				3E70B2E02A2D52A1002C0B93 /* SBPlayer.swift */,
+				3E2E1C832A395B79001A3148 /* SBClientController.swift */,
 			);
 			name = Subsonic;
 			sourceTree = "<group>";
@@ -790,6 +788,7 @@
 				4C87ED71139CD8BE0064DE2E /* main.m in Sources */,
 				3EC03AC329F33C68001FDE50 /* OperationQueue+Shared.swift in Sources */,
 				4C87ED77139CD8BE0064DE2E /* SBAppDelegate.m in Sources */,
+				3E2E1C842A395B79001A3148 /* SBClientController.swift in Sources */,
 				3EC03B3829F4F2E0001FDE50 /* SBHome.swift in Sources */,
 				3EC03B5229F4F2E0001FDE50 /* SBIndex.swift in Sources */,
 				3EC03B3C29F4F2E0001FDE50 /* SBTracklist.swift in Sources */,
@@ -855,7 +854,6 @@
 				3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */,
 				3EB2BCCB2992F03A00DC5056 /* SBSearchResult.swift in Sources */,
 				3EB2BCC52992DA8E00DC5056 /* String+File.swift in Sources */,
-				4CFAFC45139FFC1700E82B57 /* SBClientController.m in Sources */,
 				4CFAFC47139FFC1700E82B57 /* SBSubsonicParsingOperation.m in Sources */,
 				3EB2BCCF2992F3CA00DC5056 /* SBVolumeButton.swift in Sources */,
 				3EA929BB29E4785F00938582 /* SBRepeatModeTransformer.swift in Sources */,
@@ -864,7 +862,7 @@
 				4C4113AD13A3BD680069CC33 /* SBAddServerPlaylistController.m in Sources */,
 				4CB4D8F713A670BF00F706EC /* SBPrioritySplitViewDelegate.m in Sources */,
 				3EC03B3629F4F2E0001FDE50 /* SBEpisode.swift in Sources */,
-				3EC03AC529F42C95001FDE50 /* NSURL+Parameters.swift in Sources */,
+				3EC03AC529F42C95001FDE50 /* URL+Parameters.swift in Sources */,
 				4C4A1E8713B4E6A0000BA93D /* SBMergeArtistsController.m in Sources */,
 				3EC03B6329F5B0E2001FDE50 /* SBServer+CoreDataProperties.swift in Sources */,
 				4CCF7FEF13B673CA00954C6E /* SBServerSearchController.m in Sources */,
