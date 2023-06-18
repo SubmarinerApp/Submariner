@@ -30,7 +30,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes:
 
-### Version 2.2.1 (not yet released)
+### Version 2.3
 
 * The current right sidebar view is remembered for next launch
 * The volume button shows the popover when scrolled on, to show current volume
@@ -41,9 +41,14 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Fix authentication callback being called twice
 * The playback notification is rescinded upon playback stopping or quitting
 * Added "Show in Library" to the menu bar
+* Show API endpoint that caused a non-successful HTTP response
+* Clean up moving tracks in the tracklist
 * Clean up playlist and track fetch code when parsing responses
+* Avoid making junk cover objects for tracks
+* Clean up password caching
 * Rewrite SBOnboardingController in SwiftUI
 * Rewrite SBPlayer in Swift
+* Rewrite SBClientController in Swift, improving performance
 
 ### Version 2.2
 
