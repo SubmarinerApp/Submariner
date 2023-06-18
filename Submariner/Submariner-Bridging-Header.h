@@ -4,5 +4,5 @@
 
 #import "SBViewController.h"
 #import "SBDatabaseController.h"
-#import "SBAppDelegate.h"
+#import "SBPreferencesController.h"
 #import "SBSubsonicParsingOperation.h"

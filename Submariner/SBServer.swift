@@ -94,7 +94,7 @@ public class SBServer: SBResource {
             // Rename here, since we can get changed by the edit server controller or source list,
             // so there's no bottleneck where we can place it.
             // XXX: Refactor to avoid having to keep doing this?
-            let coversDir = URL.init(fileURLWithPath: SBAppDelegate.sharedInstance().coverDirectory())
+            let coversDir = SBAppDelegate.coverDirectory
             if let oldName = self.primitiveValue(forKey: "resourceName") as! String?,
                let newName = newValue {
                 let oldDir = coversDir.appendingPathComponent(oldName)

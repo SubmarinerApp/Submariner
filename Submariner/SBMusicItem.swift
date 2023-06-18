@@ -19,7 +19,8 @@ public class SBMusicItem: NSManagedObject {
     // and recreated easily.
     @objc var path: String? {
         get {
-            let libraryDir = SBAppDelegate.sharedInstance().musicDirectory()!
+            // FIXME: Refactor this to make sense for direct URL use
+            let libraryDir = SBAppDelegate.musicDirectory.path
             self.willAccessValue(forKey: "path")
             var ret: String? = self.primitiveValue(forKey: "path") as! String?
             if let primitivePath = ret,

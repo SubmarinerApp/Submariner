@@ -167,8 +167,8 @@ import UniformTypeIdentifiers
             let fileName = UUID().uuidString + "." + trackType.preferredFilenameExtension!
             let trackPath = albumPath + "/" + fileName
             
-            let absoluteAlbumURL = URL.init(fileURLWithPath: SBAppDelegate.sharedInstance().musicDirectory()).appendingPathComponent(albumPath)
-            let absoluteTrackURL = URL.init(fileURLWithPath: SBAppDelegate.sharedInstance().musicDirectory()).appendingPathComponent(trackPath)
+            let absoluteAlbumURL = SBAppDelegate.musicDirectory.appendingPathComponent(albumPath)
+            let absoluteTrackURL = SBAppDelegate.musicDirectory.appendingPathComponent(trackPath)
             
             // create artist and album directory if needed
             try FileManager.default.createDirectory(at: absoluteAlbumURL, withIntermediateDirectories: true)
@@ -186,7 +186,7 @@ import UniformTypeIdentifiers
         }
         
         // #MARK: Step 3: Cover
-        let coverDir = URL.init(fileURLWithPath: SBAppDelegate.sharedInstance().coverDirectory()).appendingPathComponent("Local Library")
+        let coverDir = SBAppDelegate.coverDirectory.appendingPathComponent("Local Library")
         if let coverData = coverData {
             var coverType = UTType.jpeg
             if let coverTypeGuess = coverData.guessImageType() {

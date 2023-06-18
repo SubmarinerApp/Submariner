@@ -63,12 +63,12 @@ public class SBCover: SBMusicItem {
     // XXX: Why is there a difference between MusicItem.path and Cover.imagePath?
     @objc var imagePath: NSString? {
         get {
-            let baseCoverDir = SBAppDelegate.sharedInstance().coverDirectory()!
+            let baseCoverDir = SBAppDelegate.coverDirectory
             self.willAccessValue(forKey: "imagePath")
             let currentPath = self.primitiveValue(forKey: "imagePath") as! NSString?
             if let currentPath = currentPath {
                 if currentPath.isAbsolutePath {
-                    if let coversDir = coversDir(baseCoverDir as NSString) {
+                    if let coversDir = coversDir(baseCoverDir.path as NSString) {
                         // If the path matches the prefix, do it, otherwise move the file
                         let fileName = currentPath.lastPathComponent
                         if currentPath.hasPrefix(coversDir as String) {
@@ -76,7 +76,7 @@ public class SBCover: SBMusicItem {
                             self.imagePath = fileName as NSString?
                             self.didAccessValue(forKey: "imagePath")
                             return currentPath
-                        } else if currentPath.hasPrefix(baseCoverDir as String) {
+                        } else if currentPath.hasPrefix(baseCoverDir.path) {
                             // in case it gets horribly lost (XXX: still need after real fix?)
                             self.didAccessValue(forKey: "imagePath")
                             return currentPath
@@ -100,7 +100,7 @@ public class SBCover: SBMusicItem {
                         return currentPath
                     }
                 } else {
-                    if let coversDir = coversDir(baseCoverDir as NSString) {
+                    if let coversDir = coversDir(baseCoverDir.path as NSString) {
                         self.didAccessValue(forKey: "imagePath")
                         return coversDir.appendingPathComponent(currentPath as String) as NSString
                     } else {

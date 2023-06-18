@@ -32,7 +32,6 @@
 //  OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-#import "SBAppDelegate.h"
 #import "SBSubsonicParsingOperation.h"
 
 
@@ -148,8 +147,8 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
                     // if data, cover, stream...
                 } else if ([MIMEType hasPrefix: @"image/"]) {
                     if(requestType == SBSubsonicRequestGetCoverArt) {
-                        // build paths
-                        NSString *coversDir = [[[SBAppDelegate sharedInstance] coverDirectory] stringByAppendingPathComponent:server.resourceName];
+                        // build paths (FIXME: use NSURL better)
+                        NSString *coversDir = [[SBAppDelegate coverDirectory].path stringByAppendingPathComponent:server.resourceName];
                         
                         // check cover dir
                         if(![[NSFileManager defaultManager] fileExistsAtPath:coversDir])

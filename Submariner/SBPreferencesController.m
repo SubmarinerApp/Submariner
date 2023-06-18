@@ -34,7 +34,6 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "SBPreferencesController.h"
-#import "SBAppDelegate.h"
 
 
 
