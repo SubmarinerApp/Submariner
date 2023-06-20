@@ -30,6 +30,11 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes:
 
+### Version 2.3.1 (not yet released)
+
+* Improve error logging on the console, using structured logging
+* Rewrite SBAppDelegate in Swift
+
 ### Version 2.3
 
 * The current right sidebar view is remembered for next launch
