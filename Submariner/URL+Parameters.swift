@@ -7,6 +7,9 @@
 //
 
 import Foundation
+import os
+
+fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "URL+Parameters")
 
 extension URL {
     // #MARK: -
@@ -30,18 +33,32 @@ extension URL {
             .appendingPathComponent(command)
         var components = URLComponents(url: baseUrl, resolvingAgainstBaseURL: false)!
         
+        logger.info("Assembling base URL \(baseUrl)")
+        logger.info("\tAPI endpoint \(baseUrl.path, privacy: .public)")
+        
         if let parameters = parameters {
             components.query = "" // we have to init it to use it
             // XXX: the Objective-C version called into a CF API for specific escaping rules
             // (that is, CFURLCreateStringByAddingPercentEscapes
             //  and legal characters escaped as @";?:/@&=+$,")
-            let queryItems = parameters.map { (k, v) in URLQueryItem(name: k, value: v) }
+            let queryItems = parameters.map { (k, v) in
+                // XXX: Debug?
+                if k == "p" || k == "t" || k == "s" {
+                    logger.info("\tSensitive parameter \(k, privacy: .public) = \(v.count) long")
+                } else {
+                    logger.info("\tparameter \(k, privacy: .public) = \(v, privacy: .public)")
+                }
+                
+                return URLQueryItem(name: k, value: v)
+            }
             components.queryItems?.append(contentsOf: queryItems)
             
+            // FIXME: Convert callers to use URLQueryItem lists for when dict doesn't work
             // parameterString is used for cases where there are duplicate keys
             // (i.e. songId for playlist manipulation), and can't be represented
             // by a dictionary. it will always have & prefixed, so it'll be safe
             if let andParameterString = andParameterString {
+                logger.info("\tAppending query string \(andParameterString)")
                 components.query?.append(andParameterString)
             }
         }
