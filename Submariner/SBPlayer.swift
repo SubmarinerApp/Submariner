@@ -165,7 +165,40 @@ import MediaPlayer
             return .noActionableNowPlayingItem
         }
         
-        // XXX: Shuffle, repeat, maybe bookmark
+        // Shuffle and repeat aren't exposed in macOS's now playing controls,
+        // but is in watchOS now playing for a device... which only supports iPhone for now.
+        // XXX: preservesXMode?
+        remoteCommandCenter.changeShuffleModeCommand.isEnabled = true
+        remoteCommandCenter.changeShuffleModeCommand.addTarget { event in
+            let shuffleEvent = event as! MPChangeShuffleModeCommandEvent
+            switch shuffleEvent.shuffleType {
+            case .off:
+                self.isShuffle = false
+            case .items:
+                self.isShuffle = true
+            default:
+                // XXX: Semantically correct for .collections et al?
+                return .commandFailed
+            }
+            return .success
+        }
+        remoteCommandCenter.changeRepeatModeCommand.isEnabled = true
+        remoteCommandCenter.changeRepeatModeCommand.addTarget { event in
+            let repeatEvent = event as! MPChangeRepeatModeCommandEvent
+            switch repeatEvent.repeatType {
+            case .off:
+                self.repeatMode = .no
+            case .one:
+                self.repeatMode = .one
+            case .all:
+                self.repeatMode = .all
+            default:
+                return .commandFailed
+            }
+            return .success
+        }
+        
+        // XXX: maybe bookmark
     }
     
     // #MARK: - Now Playing
@@ -686,6 +719,17 @@ import MediaPlayer
             return RepeatMode(rawValue: UserDefaults.standard.repeatMode) ?? .no
         } set {
             UserDefaults.standard.set(newValue.rawValue, forKey: "repeatMode")
+            // XXX: do we set this at init?
+            var mprcRepeatType = MPRepeatType.off
+            switch (newValue) {
+            case .no:
+                mprcRepeatType = .off
+            case .one:
+                mprcRepeatType = .one
+            case .all:
+                mprcRepeatType = .all
+            }
+            MPRemoteCommandCenter.shared().changeRepeatModeCommand.currentRepeatType = mprcRepeatType
         }
     }
     
@@ -694,6 +738,8 @@ import MediaPlayer
             return UserDefaults.standard.shuffle
         } set {
             UserDefaults.standard.set(newValue, forKey: "shuffle")
+            let mprcShuffleType = newValue ? MPShuffleType.items : MPShuffleType.off
+            MPRemoteCommandCenter.shared().changeShuffleModeCommand.currentShuffleType = mprcShuffleType
         }
     }
     
