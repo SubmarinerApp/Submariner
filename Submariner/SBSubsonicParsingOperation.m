@@ -33,12 +33,13 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "SBSubsonicParsingOperation.h"
-
+#import "os/log.h"
 
 #import "NSManagedObjectContext+Fetch.h"
 
 #import "Submariner-Swift.h"
 
+static os_log_t logger;
 
 NSString *SBSubsonicConnectionFailedNotification        = @"SBSubsonicConnectionFailedNotification";
 NSString *SBSubsonicConnectionSucceededNotification     = @"SBSubsonicConnectionSucceededNotification";
@@ -99,6 +100,10 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
 
 #pragma mark -
 #pragma mark SBParsingOperation
+
++ (void)load {
+    logger = os_log_create([[NSBundle mainBundle] bundleIdentifier].UTF8String, "SBSubsonicParsingOperation");
+}
 
 - (id)initWithManagedObjectContext:(NSManagedObjectContext*)mainContext 
                             client:(SBClientController *)client
@@ -217,9 +222,8 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
 }
 
 - (void)parseElementError: (NSDictionary<NSString*,NSString*> *)attributeDict {
-#if DEBUG
-    NSLog(@"ERROR : %@", attributeDict);
-#endif
+    os_log_with_type(logger, OS_LOG_TYPE_ERROR, "XML error element (code %{public}@, message %{public}@)",
+                     attributeDict[@"code"], attributeDict[@"message"]);
     [nc postNotificationName:SBSubsonicConnectionFailedNotification object:attributeDict];
 }
 
@@ -729,7 +733,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     } else if ([elementName isEqualToString:@"entry"]) { // check playlist/now playing entries
         [self parseElementEntry: attributeDict];
     } else if ([elementName isEqualToString:@"chatMessage"]) {
-        NSLog(@"Chat is no longer supported.");
+        os_log_with_type(logger, OS_LOG_TYPE_INFO, "Chat is no longer supported.");
     } else if ([elementName isEqualToString:@"user"]) {
         [nc postNotificationName:SBSubsonicUserInfoUpdatedNotification object:attributeDict];
     } else if ([elementName isEqualToString:@"song"]) { // check for search2 result (song parsing)
@@ -743,7 +747,7 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
     } else if ([elementName isEqualToString:@"nowPlaying"]) {
         // nothing
     } else {
-        NSLog(@"An unknown element was encountered parsing, and ignored. <%@ %@>", elementName, attributeDict);
+        os_log_with_type(logger, OS_LOG_TYPE_ERROR, "Unknown XML element %{public}@, attribs %{public}@", elementName, attributeDict);
     }
 }
 
