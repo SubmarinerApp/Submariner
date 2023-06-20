@@ -159,12 +159,11 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         var params = parameters
         params["name"] = name
         
-        var additionalParams = ""
-        for track in tracks {
-            additionalParams += ("&songID=" + track.id!)
-        }
+        // XXX: DRY this with update
+        let allParams = params.map { (k, v) in  URLQueryItem(name: k, value: v) } +
+            tracks.map { track in URLQueryItem(name: "songID", value: track.id) }
         
-        let url = URL.URLWith(string: server.url!, command: "rest/createPlaylist.view", parameters: params, andParameterString: additionalParams)
+        let url = URL.URLWith(string: server.url!, command: "rest/createPlaylist.view", queryItems: allParams)
         request(url: url!, type: .createPlaylist)
     }
     
@@ -172,12 +171,10 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         var params = parameters
         params["playlistId"] = playlistID
         
-        var additionalParams = ""
-        for track in tracks {
-            additionalParams += ("&songID=" + track.id!)
-        }
+        let allParams = params.map { (k, v) in  URLQueryItem(name: k, value: v) } +
+            tracks.map { track in URLQueryItem(name: "songID", value: track.id) }
         
-        let url = URL.URLWith(string: server.url!, command: "rest/createPlaylist.view", parameters: params, andParameterString: additionalParams)
+        let url = URL.URLWith(string: server.url!, command: "rest/createPlaylist.view", queryItems: allParams)
         request(url: url!, type: .createPlaylist)
     }
     
