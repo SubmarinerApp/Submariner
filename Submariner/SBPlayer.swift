@@ -10,6 +10,9 @@ import Foundation
 import AVFoundation
 import UserNotifications
 import MediaPlayer
+import os
+
+fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "SBPlayer")
 
 @objc class SBPlayer: NSObject, UNUserNotificationCenterDelegate {
     @objc(SBPlayerRepeatMode) enum RepeatMode: Int {
@@ -49,6 +52,8 @@ import MediaPlayer
             case .unknown:
                 self.stop()
             case .failed:
+                // XXX: Surface?
+                logger.error("AVPlayer status is failed, error \(player.error, privacy: .public)")
                 self.stop()
             default:
                 return
@@ -277,8 +282,10 @@ import MediaPlayer
             songInfo[MPMediaItemPropertyTitle] = currentTrack.itemName
             songInfo[MPMediaItemPropertyRating] = currentTrack.rating
             // seems the OS can use this to generate waveforms? should it be the download URL?
-            let streamURL = currentTrack.localTrack?.streamURL() ?? currentTrack.streamURL()!
-            songInfo[MPMediaItemPropertyAssetURL] = streamURL
+            // avoid using streamURL to avoid possible console noise
+            if let asset = remotePlayer.currentItem?.asset as? AVURLAsset {
+                songInfo[MPMediaItemPropertyAssetURL] = asset.url
+            }
             
             if currentTrack is SBEpisode {
                 updateSystemNowPlayingMetadataPodcast()
@@ -328,7 +335,7 @@ import MediaPlayer
         // Badge permissions might be useful, but we use badges for other things.
         centre.requestAuthorization(options: [UNAuthorizationOptions.alert]) { granted, error in
             if !granted {
-                NSLog("User denied permission for notifications")
+                logger.warning("User denied permission for notifications")
             }
         }
     }
@@ -498,6 +505,12 @@ import MediaPlayer
         remotePlayer.replaceCurrentItem(with: nil)
         
         let url = track.localTrack?.streamURL() ?? track.streamURL()!
+        // XXX: Debug?
+        if url.isFileURL {
+            logger.info("Playing local track at file: \(url, privacy: .public)")
+        } else {
+            logger.info("Playing remote track via \(url.path, privacy: .public) at URL: \(url)")
+        }
         
         let asset = AVURLAsset(url: url, options: [
             "AVURLAssetOutOfBandMIMETypeKey": track.macOSCompatibleContentType()!,

@@ -81,15 +81,6 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     
     @objc func connect(server: SBServer) {
         parameters = parameters.mergedCopyFrom(dictionary: server.getBaseParameters())
-        // XXX: Enable in release build?
-        logger.info("Base params on connect for \(server.url ?? "<no URL>"):")
-        for (k, v) in parameters {
-            if k == "p" || k == "t" || k == "s" {
-                logger.info("\tSensitive parameter \(k, privacy: .public) = \(v.count) long")
-            } else {
-                logger.info("\tparameter \(k, privacy: .public) = \(v, privacy: .public)")
-            }
-        }
         let url = URL.URLWith(string: server.url!, command: "rest/ping.view", parameters: parameters)
         request(url: url!, type: .ping)
     }

@@ -325,6 +325,15 @@ public class SBServer: SBResource {
             parameters["v"] = UserDefaults.standard.string(forKey: "apiVersion")
             parameters["c"] = UserDefaults.standard.string(forKey: "clientIdentifier")
         }
+        // XXX: Enable in release build?
+        logger.info("Base params for \(self.url ?? "<no URL>"):")
+        for (k, v) in parameters {
+            if k == "p" || k == "t" || k == "s" {
+                logger.info("\tSensitive parameter \(k, privacy: .public) = \(v.count) long")
+            } else {
+                logger.info("\tparameter \(k, privacy: .public) = \(v, privacy: .public)")
+            }
+        }
         return parameters
     }
     

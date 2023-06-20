@@ -8,6 +8,9 @@
 
 import Cocoa
 import UniformTypeIdentifiers
+import os
+
+fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "SBSubsonicDownloadOperation")
 
 @objc class SBSubsonicDownloadOperation: SBOperation, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDownloadDelegate {
     static let DownloadStartedNotification = NSNotification.Name("SBSubsonicDownloadStarted")
@@ -41,6 +44,7 @@ import UniformTypeIdentifiers
             // We don't need to do any transformation here,
             // as downloadURL will get the auth params from SBServer.
             let url = track.downloadURL()!
+            logger.info("Downloading track at URL: \(url)")
             let request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 30)
             let configuration = URLSessionConfiguration.default
             let session = URLSession(configuration: configuration, delegate: self, delegateQueue: nil)
@@ -78,6 +82,7 @@ import UniformTypeIdentifiers
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         if let error = error {
+            logger.error("Failure downloading track with URLSession, error \(error, privacy: .public)")
             DispatchQueue.main.async {
                 NSApp.presentError(error)
             }
