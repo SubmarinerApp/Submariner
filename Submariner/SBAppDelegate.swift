@@ -7,6 +7,9 @@
 //
 
 import Cocoa
+import os
+
+fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "SBAppDelegate")
 
 @objc(SBAppDelegate) class SBAppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSUserInterfaceValidations {
     
@@ -87,7 +90,6 @@ import Cocoa
                                                                     at: newURL,
                                                                     options: storeOpts)
         }
-        print(self.persistentStoreCoordinator.persistentStores)
         
         // #MARK: Init Core Data (managed object store)
         // must be main queue for SwiftUI
@@ -109,7 +111,8 @@ import Cocoa
         SBPlayer.sharedInstance().stop()
         
         if !managedObjectContext.commitEditing() {
-            print("Failed to commit changes in MOC on quit")
+            // XXX: Make an NSError
+            logger.error("Failed to commit changes in MOC on quit")
             return .terminateCancel
         }
         

@@ -7,6 +7,9 @@
 //
 
 import Cocoa
+import os
+
+fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "SBClientController")
 
 @objc class SBClientController: NSObject {
     let managedObjectContext: NSManagedObjectContext
@@ -35,7 +38,9 @@ import Cocoa
         }
         
         let task = session.dataTask(with: request) { data, response, error in
-            print("Handling URL", url)
+            // sensitive because &p= contains user password
+            logger.info("Handling URL \(url, privacy: .sensitive)")
+            logger.info("\tAPI endpoint \(url.path, privacy: .public)")
             
             if let error = error {
                 DispatchQueue.main.async {
@@ -43,7 +48,7 @@ import Cocoa
                 }
                 return
             } else if let response = response as? HTTPURLResponse {
-                print("Status code is", response.statusCode)
+                logger.info("\tStatus code is \(response.statusCode)")
                 // Note that Subsonic and Navidrome return app-level error bodies in HTTP 200
                 if response.statusCode != 200 {
                     let message = "HTTP \(response.statusCode) for \(url.path)"
@@ -76,6 +81,15 @@ import Cocoa
     
     @objc func connect(server: SBServer) {
         parameters = parameters.mergedCopyFrom(dictionary: server.getBaseParameters())
+        // XXX: Enable in release build?
+        logger.info("Base params on connect for \(server.url ?? "<no URL>"):")
+        for (k, v) in parameters {
+            if k == "p" || k == "t" || k == "s" {
+                logger.info("\tSensitive parameter \(k, privacy: .public) = \(v.count) long")
+            } else {
+                logger.info("\tparameter \(k, privacy: .public) = \(v, privacy: .public)")
+            }
+        }
         let url = URL.URLWith(string: server.url!, command: "rest/ping.view", parameters: parameters)
         request(url: url!, type: .ping)
     }

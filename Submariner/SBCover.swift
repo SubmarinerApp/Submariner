@@ -9,6 +9,9 @@
 
 import Foundation
 import CoreData
+import os
+
+fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "SBCover")
 
 @objc(SBCover)
 public class SBCover: SBMusicItem {
@@ -90,7 +93,8 @@ public class SBCover: SBMusicItem {
                                 self.didAccessValue(forKey: "imagePath")
                                 return newPath as NSString
                             } catch {
-                                print("Error moving file for cover,", error)
+                                // XXX: Surface alert?
+                                logger.error("Error moving file for cover: \(error, privacy: .public)")
                                 self.didAccessValue(forKey: "imagePath")
                                 return currentPath
                             }

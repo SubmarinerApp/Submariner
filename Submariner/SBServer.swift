@@ -9,6 +9,9 @@
 
 import Foundation
 import CoreData
+import os
+
+fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "SBServer")
 
 @objc(SBServer)
 public class SBServer: SBResource {
@@ -164,21 +167,21 @@ public class SBServer: SBResource {
                     kSecReturnAttributes: NSNumber.init(booleanLiteral: true)
                 ]
                 var results: AnyObject? = nil
-                print("SBServer.password getter: Getting internet keychain for", url, "user", username)
+                logger.info("SBServer.password getter: Getting internet keychain for \(url.absoluteString) user \(username)")
                 let keychainStatus = SecItemCopyMatching(attribs as CFDictionary, &results)
                 if keychainStatus == errSecItemNotFound {
                     // ok to get unlike other errors
-                    print("SBServer.password getter: Keychain item not found")
+                    logger.info("SBServer.password getter: Keychain item not found")
                     ret = nil
                 } else if keychainStatus != errSecSuccess {
                     let error = NSError(domain: NSOSStatusErrorDomain, code: Int(keychainStatus))
-                    print("SBServer.password getter: Keychain error", error)
+                    logger.error("SBServer.password getter: Keychain error \(error, privacy: .public)")
                     DispatchQueue.main.async {
                         NSApp.presentError(error)
                     }
                 } else if let resultsDict = results as? [CFString: Any],
                           let passwordData = resultsDict[kSecValueData] as? Data { // success
-                    print("SBServer.password getter: Successfully got the password")
+                    logger.info("SBServer.password getter: Successfully got the password")
                     ret = String.init(data: passwordData, encoding: .utf8)
                     SBServer.cachedPasswords[self.id] = ret
                 }
@@ -218,10 +221,10 @@ public class SBServer: SBResource {
               kSecValueData: passwordData
             ]
             
-            print("SBServer.password new URL setter: Setting internet keychain for", url, "user", username)
+            logger.info("SBServer.password new URL setter: Setting internet keychain for \(url) user \(username)")
             var ret = SecItemAdd(attribs as CFDictionary, nil)
             if ret == errSecDuplicateItem {
-                print("SBServer.password old URL setter: Duplicate item, adding instead")
+                logger.warning("SBServer.password old URL setter: Duplicate item, adding instead")
                 attribs.removeValue(forKey: kSecValueData)
                 let updateAttribs: [CFString: Any] = [
                     kSecValueData: passwordData
@@ -230,7 +233,7 @@ public class SBServer: SBResource {
             }
             if ret != errSecSuccess {
                 let error = NSError(domain: NSOSStatusErrorDomain, code: Int(ret))
-                print("SBServer.password new URL setter: Keychain error", error)
+                logger.error("SBServer.password new URL setter: Keychain error \(error, privacy: .public)")
                 DispatchQueue.main.async {
                     NSApp.presentError(error)
                 }
@@ -262,21 +265,21 @@ public class SBServer: SBResource {
                 kSecValueData: passwordData
             ]
             
-            print("SBServer.password old URL setter: Setting internet keychain for", oldURL, "user", oldUsername, "vs", newURL, "user", username)
+            logger.info("SBServer.password old URL setter: Setting internet keychain for \(oldURL) user \(oldUsername) vs \(newURL) user \(username)")
             let ret = SecItemUpdate(attribs as CFDictionary, newAttribs as CFDictionary)
             if ret == errSecItemNotFound {
                 // Use the old method of having it be updated by the current values,
                 // since we have nothing to update. This will create it in keychain.
-                print("SBServer.password old URL setter: Have to update for current value")
+                logger.info("SBServer.password old URL setter: Have to update for current value")
                 self.updateKeychainPassword()
             } else if ret != errSecSuccess {
                 let error = NSError(domain: NSOSStatusErrorDomain, code: Int(ret))
-                print("SBServer.password old URL setter: Keychain error", error)
+                logger.error("SBServer.password old URL setter: Keychain error \(error, privacy: .public)")
                 DispatchQueue.main.async {
                     NSApp.presentError(error)
                 }
             } else {
-                print("SBServer.password old URL setter: Success")
+                logger.info("SBServer.password old URL setter: Success")
             }
         }
     }
