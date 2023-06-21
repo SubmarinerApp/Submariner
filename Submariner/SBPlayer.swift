@@ -575,8 +575,9 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     @objc func next() {
         maybeDeleteCurrentTrack()
         if let next = nextTrack() {
-            // FIXME: Synchronized
-            play(track: next)
+            synchronized(self) {
+                play(track: next)
+            }
         } else {
             stop()
         }
@@ -585,8 +586,9 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     @objc func previous() {
         maybeDeleteCurrentTrack()
         if let prev = prevTrack() {
-            // FIXME: Synchronized
-            play(track: prev)
+            synchronized(self) {
+                play(track: prev)
+            }
         } else {
             stop()
         }
@@ -638,19 +640,20 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     }
     
     @objc func stop() {
-        // FIXME: Synchronized
-        remotePlayer.replaceCurrentItem(with: nil)
-        
-        unplayAllTracks()
-        currentTrack = nil
-        
-        isPlaying = false
-        isPaused = true
-        
-        updateSystemNowPlaying()
-        removeNowPlayingNotification()
-        NotificationCenter.default.post(name: SBPlayer.playlistUpdatedNotification, object: self)
-        NotificationCenter.default.post(name: SBPlayer.playStateNotification, object: self)
+        synchronized(self) {
+            remotePlayer.replaceCurrentItem(with: nil)
+            
+            unplayAllTracks()
+            currentTrack = nil
+            
+            isPlaying = false
+            isPaused = true
+            
+            updateSystemNowPlaying()
+            removeNowPlayingNotification()
+            NotificationCenter.default.post(name: SBPlayer.playlistUpdatedNotification, object: self)
+            NotificationCenter.default.post(name: SBPlayer.playStateNotification, object: self)
+        }
     }
     
     @objc func clear() {

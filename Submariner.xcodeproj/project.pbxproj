@@ -22,6 +22,7 @@
 		3E5C42E029846E25009B9699 /* SBOnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5C42DE29846E25009B9699 /* SBOnboardingController.swift */; };
 		3E69A2FF28B02D86009800D8 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E69A2FD28B02D86009800D8 /* UserNotifications.framework */; };
 		3E702DE32A3E8E1F005F7184 /* SBAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E702DE22A3E8E1F005F7184 /* SBAppDelegate.swift */; };
+		3E702DE72A428A1B005F7184 /* Synchronized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E702DE62A428A1B005F7184 /* Synchronized.swift */; };
 		3E70B2DF2A2BDC55002C0B93 /* SBApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E70B2DE2A2BDC55002C0B93 /* SBApplication.swift */; };
 		3E70B2E12A2D52A1002C0B93 /* SBPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E70B2E02A2D52A1002C0B93 /* SBPlayer.swift */; };
 		3E82701827E653F0007E5695 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E82701727E653F0007E5695 /* MediaPlayer.framework */; };
@@ -159,6 +160,7 @@
 		3E5C42DE29846E25009B9699 /* SBOnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBOnboardingController.swift; sourceTree = "<group>"; };
 		3E69A2FD28B02D86009800D8 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		3E702DE22A3E8E1F005F7184 /* SBAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBAppDelegate.swift; sourceTree = "<group>"; };
+		3E702DE62A428A1B005F7184 /* Synchronized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synchronized.swift; sourceTree = "<group>"; };
 		3E70B2DE2A2BDC55002C0B93 /* SBApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBApplication.swift; sourceTree = "<group>"; };
 		3E70B2E02A2D52A1002C0B93 /* SBPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPlayer.swift; sourceTree = "<group>"; };
 		3E82701727E653F0007E5695 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -558,6 +560,7 @@
 				3EC039C829EFC259001FDE50 /* View+Modify.swift */,
 				3EC03AC429F42C95001FDE50 /* URL+Parameters.swift */,
 				3E45201D29FAD41900604079 /* UserDefaults+Submariner.swift */,
+				3E702DE62A428A1B005F7184 /* Synchronized.swift */,
 			);
 			name = Additions;
 			sourceTree = "<group>";
@@ -804,6 +807,7 @@
 				3EB2BCC72992E13700DC5056 /* NSString+Time.swift in Sources */,
 				4C87EDBA139CDAB90064DE2E /* SBDatabaseController.m in Sources */,
 				3E70B2DF2A2BDC55002C0B93 /* SBApplication.swift in Sources */,
+				3E702DE72A428A1B005F7184 /* Synchronized.swift in Sources */,
 				3EC03B4029F4F2E0001FDE50 /* SBDownloads.swift in Sources */,
 				3EC03B4229F4F2E0001FDE50 /* SBResource.swift in Sources */,
 				3EC039C529EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift in Sources */,
