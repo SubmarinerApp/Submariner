@@ -163,6 +163,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         remoteCommandCenter.ratingCommand.maximumRating = 5.0
         remoteCommandCenter.ratingCommand.addTarget { event in
             let ratingEvent = event as! MPRatingCommandEvent
+            // technically we can set the one in local DB for local tracks
             if let currentTrack = self.currentTrack, currentTrack.server != nil {
                 currentTrack.rating = NSNumber(value: ratingEvent.rating)
                 return .success
@@ -219,9 +220,10 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
             // times are in sec; trust the SBTrack if the player isn't ready
             // as passing NaNs here will crash the menu bar (!)
             let duration = durationTime
+            let zero = NSNumber(value: 0)
             if duration.isNaN || duration == 0 {
-                songInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = NSNumber(value: 0)
-                songInfo[MPMediaItemPropertyPlaybackDuration] = currentTrack.duration
+                songInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = zero
+                songInfo[MPMediaItemPropertyPlaybackDuration] = currentTrack.duration ?? zero
             } else {
                 songInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = NSNumber(value: currentTime)
                 songInfo[MPMediaItemPropertyPlaybackDuration] = NSNumber(value: duration)
@@ -244,14 +246,24 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     
     private func updateSystemNowPlayingMetadataMusic() {
         if let currentTrack = self.currentTrack {
-            songInfo[MPMediaItemPropertyAlbumTitle] = currentTrack.albumString
-            songInfo[MPMediaItemPropertyArtist] = currentTrack.artistName ?? currentTrack.artistString
-            songInfo[MPMediaItemPropertyGenre] = currentTrack.genre
-            songInfo[MPMediaItemPropertyDiscNumber] = currentTrack.discNumber
+            if let album = currentTrack.albumString {
+                songInfo[MPMediaItemPropertyAlbumTitle] = album
+            }
+            if let artist = currentTrack.artistName ?? currentTrack.artistString {
+                songInfo[MPMediaItemPropertyArtist] = artist
+            }
+            if let genre = currentTrack.genre {
+                songInfo[MPMediaItemPropertyGenre] = genre
+            }
+            if let trackNumber = currentTrack.trackNumber {
+                songInfo[MPMediaItemPropertyAlbumTrackNumber] = trackNumber
+            }
+            if let discNumber = currentTrack.discNumber {
+                songInfo[MPMediaItemPropertyDiscNumber] = discNumber
+            }
             
-            if let year = currentTrack.year {
-                let calendar = Calendar.current
-                let releaseYear = calendar.date(from: DateComponents(year: year.intValue)) as NSDate?
+            if let year = currentTrack.year,
+               let releaseYear = Calendar.current.date(from: DateComponents(year: year.intValue)) as NSDate? {
                 songInfo[MPMediaItemPropertyReleaseDate] = releaseYear
             }
         }
@@ -266,9 +278,8 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
             
             if let publishDate = currentTrack.publishDate {
                 songInfo[MPMediaItemPropertyReleaseDate] = publishDate
-            } else if let year = currentTrack.year {
-                let calendar = Calendar.current
-                let releaseYear = calendar.date(from: DateComponents(year: year.intValue)) as NSDate?
+            } else if let year = currentTrack.year,
+                      let releaseYear = Calendar.current.date(from: DateComponents(year: year.intValue)) as NSDate? {
                 songInfo[MPMediaItemPropertyReleaseDate] = releaseYear
             }
         }
@@ -279,8 +290,12 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
             // i guess if we ever support video again...
             songInfo[MPNowPlayingInfoPropertyMediaType] = NSNumber(value: MPNowPlayingInfoMediaType.audio.rawValue)
             // XXX: podcasts will have different properties on SBTrack
-            songInfo[MPMediaItemPropertyTitle] = currentTrack.itemName
-            songInfo[MPMediaItemPropertyRating] = currentTrack.rating
+            if let title = currentTrack.itemName {
+                songInfo[MPMediaItemPropertyTitle] = title
+            }
+            if let rating = currentTrack.rating {
+                songInfo[MPMediaItemPropertyRating] = rating
+            }
             // seems the OS can use this to generate waveforms? should it be the download URL?
             // avoid using streamURL to avoid possible console noise
             if let asset = remotePlayer.currentItem?.asset as? AVURLAsset {
@@ -471,7 +486,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     @objc dynamic var isPaused = false
     
     @objc(playTrack:) func play(track: SBTrack) {
-        if let currentTrack = self.currentTrack {
+        if self.currentTrack != nil {
             unplayAllTracks()
             self.currentTrack = nil
         }
@@ -481,8 +496,13 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
             return
         }
         
+        if !self.playRemote(track: track) {
+            // this is very unusual if it happens
+            showTrackNoURLAlert()
+            return
+        }
+        
         self.currentTrack = track
-        self.playRemote(track: track)
         
         track.isPlaying = true
         NotificationCenter.default.post(name: SBPlayer.playlistUpdatedNotification, object: self)
@@ -501,26 +521,36 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         }
     }
     
-    private func playRemote(track: SBTrack) {
+    private func playRemote(track: SBTrack) -> Bool {
         remotePlayer.replaceCurrentItem(with: nil)
         
-        let url = track.localTrack?.streamURL() ?? track.streamURL()!
-        // XXX: Debug?
-        if url.isFileURL {
-            logger.info("Playing local track at file: \(url, privacy: .public)")
+        if let url = track.localTrack?.streamURL() ?? track.streamURL() {
+            // XXX: Debug?
+            if url.isFileURL {
+                logger.info("Playing local track at file: \(url, privacy: .public)")
+            } else {
+                logger.info("Playing remote track via \(url.path, privacy: .public) at URL: \(url)")
+            }
+            
+            var options: [String: Any] = [
+                AVURLAssetPreferPreciseDurationAndTimingKey: NSNumber(value: true)
+            ]
+            if let contentType = track.macOSCompatibleContentType() {
+                options["AVURLAssetOutOfBandMIMETypeKey"] = contentType
+            }
+            
+            let asset = AVURLAsset(url: url, options: options)
+            let newItem = AVPlayerItem(asset: asset)
+            
+            remotePlayer.replaceCurrentItem(with: newItem)
+            remotePlayer.volume = volume
+            remotePlayer.play()
+            
+            return true
         } else {
-            logger.info("Playing remote track via \(url.path, privacy: .public) at URL: \(url)")
+            logger.error("Somehow the SBTrack has no URL")
+            return false
         }
-        
-        let asset = AVURLAsset(url: url, options: [
-            "AVURLAssetOutOfBandMIMETypeKey": track.macOSCompatibleContentType()!,
-            AVURLAssetPreferPreciseDurationAndTimingKey: NSNumber(value: true)
-        ])
-        let newItem = AVPlayerItem(asset: asset)
-        
-        remotePlayer.replaceCurrentItem(with: newItem)
-        remotePlayer.volume = volume
-        remotePlayer.play()
     }
     
     @objc func playTracklistAtBeginning() {
@@ -666,12 +696,11 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     @objc var subtitle: String {
         var ret: String? = ""
         if let currentEpisode = self.currentTrack as? SBEpisode? {
-            ret = currentEpisode?.podcast?.itemName ?? (currentEpisode?.artistName ?? currentEpisode?.artistString!)
+            ret = currentEpisode?.podcast?.itemName ?? currentEpisode?.artistName ?? currentEpisode?.artistString
         } else if let currentTrack = self.currentTrack {
-            let sep = " - "
-            ret = (currentTrack.artistName ?? currentTrack.artistString!)
-                + sep
-                + currentTrack.albumString!
+            let artist = currentTrack.artistName ?? currentTrack.artistString ?? "Unknown Artist"
+            let album = currentTrack.albumString ?? "Unknown Album"
+            ret = "\(artist) - \(album)"
         }
         return ret ?? ""
     }
@@ -851,11 +880,22 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         }
     }
     
+    // #MARK: - Messages
+    
     private func showVideoAlert() {
         let alert = NSAlert()
         alert.alertStyle = .informational
         alert.informativeText = "Submariner doesn't support video."
         alert.messageText = "No Video"
+        alert.addButton(withTitle: "OK")
+        alert.runModal()
+    }
+    
+    private func showTrackNoURLAlert() {
+        let alert = NSAlert()
+        alert.alertStyle = .warning
+        alert.informativeText = "The track doesn't point to a file or remote URL."
+        alert.messageText = "No URL"
         alert.addButton(withTitle: "OK")
         alert.runModal()
     }
