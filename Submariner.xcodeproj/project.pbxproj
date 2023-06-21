@@ -23,6 +23,7 @@
 		3E69A2FF28B02D86009800D8 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E69A2FD28B02D86009800D8 /* UserNotifications.framework */; };
 		3E702DE32A3E8E1F005F7184 /* SBAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E702DE22A3E8E1F005F7184 /* SBAppDelegate.swift */; };
 		3E702DE72A428A1B005F7184 /* Synchronized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E702DE62A428A1B005F7184 /* Synchronized.swift */; };
+		3E702DE92A428CF6005F7184 /* SBSubsonicParsingOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E702DE82A428CF6005F7184 /* SBSubsonicParsingOperation.swift */; };
 		3E70B2DF2A2BDC55002C0B93 /* SBApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E70B2DE2A2BDC55002C0B93 /* SBApplication.swift */; };
 		3E70B2E12A2D52A1002C0B93 /* SBPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E70B2E02A2D52A1002C0B93 /* SBPlayer.swift */; };
 		3E82701827E653F0007E5695 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E82701727E653F0007E5695 /* MediaPlayer.framework */; };
@@ -161,6 +162,7 @@
 		3E69A2FD28B02D86009800D8 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		3E702DE22A3E8E1F005F7184 /* SBAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBAppDelegate.swift; sourceTree = "<group>"; };
 		3E702DE62A428A1B005F7184 /* Synchronized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synchronized.swift; sourceTree = "<group>"; };
+		3E702DE82A428CF6005F7184 /* SBSubsonicParsingOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBSubsonicParsingOperation.swift; sourceTree = "<group>"; };
 		3E70B2DE2A2BDC55002C0B93 /* SBApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBApplication.swift; sourceTree = "<group>"; };
 		3E70B2E02A2D52A1002C0B93 /* SBPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPlayer.swift; sourceTree = "<group>"; };
 		3E82701727E653F0007E5695 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -651,6 +653,7 @@
 				4CFAFC3E139FFC1300E82B57 /* SBSubsonicParsingOperation.m */,
 				3EC039C429EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift */,
 				3E45201929F5DE9100604079 /* SBImportOperation.swift */,
+				3E702DE82A428CF6005F7184 /* SBSubsonicParsingOperation.swift */,
 			);
 			name = Operations;
 			sourceTree = "<group>";
@@ -840,6 +843,7 @@
 				3EC03B5429F4F2E0001FDE50 /* SBPlaylist.swift in Sources */,
 				3EC039C729EFB867001FDE50 /* SBDownloadsController.swift in Sources */,
 				3EA929B929E4766900938582 /* SBVolumeIconTransformer.swift in Sources */,
+				3E702DE92A428CF6005F7184 /* SBSubsonicParsingOperation.swift in Sources */,
 				4C7AA229139D53A50050BE95 /* SBTableView.m in Sources */,
 				3EC03B5F29F5B0E2001FDE50 /* SBMusicItem+CoreDataProperties.swift in Sources */,
 				3EC03B5029F4F2E0001FDE50 /* SBPodcast.swift in Sources */,
