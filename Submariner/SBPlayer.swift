@@ -14,17 +14,17 @@ import os
 
 fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "SBPlayer")
 
+extension NSNotification.Name {
+    static let SBPlayerPlaylistUpdated = NSNotification.Name("SBPlayerPlaylistUpdatedNotification")
+    static let SBPlayerPlayState = NSNotification.Name("SBPlayerPlayStateNotification")
+}
+
 @objc class SBPlayer: NSObject, UNUserNotificationCenterDelegate {
     @objc(SBPlayerRepeatMode) enum RepeatMode: Int {
         @objc(SBPlayerRepeatNo) case no = 0
         @objc(SBPlayerRepeatOne) case one = 1
         @objc(SBPlayerRepeatAll) case all = 2
     }
-    
-    // #MARK: - Notification Names
-    
-    static let playlistUpdatedNotification = NSNotification.Name("SBPlayerPlaylistUpdatedNotification")
-    static let playStateNotification = NSNotification.Name("SBPlayerPlayStateNotification")
     
     // #MARK: - Initialization
     
@@ -425,7 +425,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         }
         
         playlist.append(track)
-        NotificationCenter.default.post(name: SBPlayer.playlistUpdatedNotification, object: self)
+        NotificationCenter.default.post(name: .SBPlayerPlaylistUpdated, object: self)
     }
     
     @objc(addTrackArray:replace:) func add(tracks: [SBTrack], replace: Bool) {
@@ -434,12 +434,12 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         }
         
         playlist.append(contentsOf: tracks)
-        NotificationCenter.default.post(name: SBPlayer.playlistUpdatedNotification, object: self)
+        NotificationCenter.default.post(name: .SBPlayerPlaylistUpdated, object: self)
     }
     
     @objc(addTrack:atIndex:) func add(track: SBTrack, index: Int) {
         playlist.insert(track, at: index)
-        NotificationCenter.default.post(name: SBPlayer.playlistUpdatedNotification, object: self)
+        NotificationCenter.default.post(name: .SBPlayerPlaylistUpdated, object: self)
     }
     
     @objc(removeTrack:) func remove(track: SBTrack) {
@@ -448,7 +448,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         }
         
         playlist.removeAll { candidateTrack in track == candidateTrack }
-        NotificationCenter.default.post(name: SBPlayer.playlistUpdatedNotification, object: self)
+        NotificationCenter.default.post(name: .SBPlayerPlaylistUpdated, object: self)
     }
     
     @objc(removeTrackArray:) func remove(tracks: [SBTrack]) {
@@ -457,7 +457,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         }
         
         playlist.removeAll { candidateTrack in tracks.contains(candidateTrack) }
-        NotificationCenter.default.post(name: SBPlayer.playlistUpdatedNotification, object: self)
+        NotificationCenter.default.post(name: .SBPlayerPlaylistUpdated, object: self)
     }
     
     @objc(removeTrackIndexSet:) func remove(trackIndexSet: IndexSet) {
@@ -470,12 +470,12 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         }
         
         playlist.remove(atOffsets: trackIndexSet)
-        NotificationCenter.default.post(name: SBPlayer.playlistUpdatedNotification, object: self)
+        NotificationCenter.default.post(name: .SBPlayerPlaylistUpdated, object: self)
     }
     
     @objc(moveTrackIndexSet:toIndex:) func move(trackIndexSet: IndexSet, index: Int) {
         playlist.move(fromOffsets: trackIndexSet, toOffset: index)
-        NotificationCenter.default.post(name: SBPlayer.playlistUpdatedNotification, object: self)
+        NotificationCenter.default.post(name: .SBPlayerPlaylistUpdated, object: self)
     }
     
     // #MARK: - Player Control
@@ -505,10 +505,10 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         self.currentTrack = track
         
         track.isPlaying = true
-        NotificationCenter.default.post(name: SBPlayer.playlistUpdatedNotification, object: self)
+        NotificationCenter.default.post(name: .SBPlayerPlaylistUpdated, object: self)
         isPlaying = true
         isPaused = false
-        NotificationCenter.default.post(name: SBPlayer.playStateNotification, object: self)
+        NotificationCenter.default.post(name: .SBPlayerPlayState, object: self)
         
         // update npic
         updateSystemNowPlaying()
@@ -564,7 +564,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         isPaused = false
         
         updateSystemNowPlaying()
-        NotificationCenter.default.post(name: SBPlayer.playStateNotification, object: self)
+        NotificationCenter.default.post(name: .SBPlayerPlayState, object: self)
     }
     
     @objc func pause() {
@@ -572,7 +572,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         isPaused = true
         
         updateSystemNowPlaying()
-        NotificationCenter.default.post(name: SBPlayer.playStateNotification, object: self)
+        NotificationCenter.default.post(name: .SBPlayerPlayState, object: self)
     }
     
     @objc func playPause() {
@@ -590,7 +590,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         } else {
             updateSystemNowPlaying()
         }
-        NotificationCenter.default.post(name: SBPlayer.playStateNotification, object: self)
+        NotificationCenter.default.post(name: .SBPlayerPlayState, object: self)
     }
     
     private func maybeDeleteCurrentTrack() {
@@ -681,8 +681,8 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
             
             updateSystemNowPlaying()
             removeNowPlayingNotification()
-            NotificationCenter.default.post(name: SBPlayer.playlistUpdatedNotification, object: self)
-            NotificationCenter.default.post(name: SBPlayer.playStateNotification, object: self)
+            NotificationCenter.default.post(name: .SBPlayerPlaylistUpdated, object: self)
+            NotificationCenter.default.post(name: .SBPlayerPlayState, object: self)
         }
     }
     

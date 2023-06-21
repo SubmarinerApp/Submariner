@@ -25,11 +25,11 @@ import SwiftUI
     override func viewDidLoad() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(SBDownloadsController.subsonicDownloadStarted(notification:)),
-                                               name: SBSubsonicDownloadOperation.DownloadStartedNotification,
+                                               name: .SBSubsonicDownloadStarted,
                                                object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(SBDownloadsController.subsonicDownloadFinished(notification:)),
-                                               name: SBSubsonicDownloadOperation.DownloadFinishedNotification,
+                                               name: .SBSubsonicDownloadFinished,
                                                object: nil)
     }
     

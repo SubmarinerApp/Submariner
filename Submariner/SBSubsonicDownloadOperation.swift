@@ -12,10 +12,12 @@ import os
 
 fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "SBSubsonicDownloadOperation")
 
+extension NSNotification.Name {
+    static let SBSubsonicDownloadStarted = NSNotification.Name("SBSubsonicDownloadStarted")
+    static let SBSubsonicDownloadFinished = NSNotification.Name("SBSubsonicDownloadFinished")
+}
+
 @objc class SBSubsonicDownloadOperation: SBOperation, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDownloadDelegate {
-    static let DownloadStartedNotification = NSNotification.Name("SBSubsonicDownloadStarted")
-    static let DownloadFinishedNotification = NSNotification.Name("SBSubsonicDownloadFinished")
-    
     private let track: SBTrack
     
     let activity: SBOperationActivity
@@ -35,7 +37,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         super.init(managedObjectContext: mainContext)
         
         DispatchQueue.main.async {
-            NotificationCenter.default.post(name: SBSubsonicDownloadOperation.DownloadStartedNotification, object: self.activity)
+            NotificationCenter.default.post(name: .SBSubsonicDownloadStarted, object: self.activity)
         }
     }
     
@@ -55,7 +57,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     
     override func finish() {
         DispatchQueue.main.async {
-            NotificationCenter.default.post(name: SBSubsonicDownloadOperation.DownloadFinishedNotification, object: self.activity)
+            NotificationCenter.default.post(name: .SBSubsonicDownloadFinished, object: self.activity)
         }
         super.finish()
     }
