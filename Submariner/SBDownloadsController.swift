@@ -34,8 +34,8 @@ import SwiftUI
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: SBSubsonicDownloadOperation.DownloadStartedNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: SBSubsonicDownloadOperation.DownloadFinishedNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .SBSubsonicDownloadStarted, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .SBSubsonicDownloadFinished, object: nil)
     }
     
     @objc var itemCount: Int {
