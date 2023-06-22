@@ -1199,9 +1199,14 @@
 }
 
 - (void)switchToResource:(SBResource*)resource updateSidebar:(BOOL)updateSidebar {
-    if(resource && [resource isKindOfClass:[SBServer class]]) {
+    if (resource && [resource isKindOfClass: [SBServer class]]) {
         SBServer *server = (SBServer *)resource;
         [server connect];
+    } else if (resource && [resource isKindOfClass: [SBPlaylist class]]) {
+        SBPlaylist *playlist = (SBPlaylist *)resource;
+        if (playlist.server) {
+            [playlist.server connect];
+        }
     }
     // Must be after the connection.
     if (resource) {
