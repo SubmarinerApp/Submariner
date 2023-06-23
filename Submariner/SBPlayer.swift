@@ -32,7 +32,6 @@ extension NSNotification.Name {
     @objc let remotePlayer = AVPlayer()
     
     var playerStatusObserver: NSKeyValueObservation?
-    var playerItemObserver: NSKeyValueObservation?
     
     private override init() {
         super.init()
@@ -57,20 +56,6 @@ extension NSNotification.Name {
                 self.stop()
             default:
                 return
-            }
-        }
-        playerItemObserver = remotePlayer.observe(\.currentItem) { player, change in
-            if UserDefaults.standard.enableCacheStreaming {
-                if let currentTrack = self.currentTrack {
-                    // Check if we've already downloaded this track.
-                    if currentTrack.isLocal == true || currentTrack.localTrack != nil {
-                        return
-                    }
-                    
-                    if let op = SBSubsonicDownloadOperation(managedObjectContext: currentTrack.managedObjectContext, trackID: currentTrack.objectID) {
-                        OperationQueue.sharedDownloadQueue.addOperation(op)
-                    }
-                }
             }
         }
         NotificationCenter.default.addObserver(self, selector: #selector(SBPlayer.itemDidFinishPlaying), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
@@ -503,6 +488,10 @@ extension NSNotification.Name {
         }
         
         self.currentTrack = track
+        // Putting it here instead of on AVPlayerItem seems more reliable,
+        // guarantees it'll happen first. Might block the AVPlayer, but
+        // that seems desirable as opposed to risking it get sidetracked.
+        cacheTrack()
         
         track.isPlaying = true
         NotificationCenter.default.post(name: .SBPlayerPlaylistUpdated, object: self)
@@ -875,6 +864,21 @@ extension NSNotification.Name {
             if let tracks = try? moc.fetch(fetchRequest) {
                 for track in tracks {
                     track.isPlaying = false
+                }
+            }
+        }
+    }
+    
+    private func cacheTrack() {
+        if UserDefaults.standard.enableCacheStreaming {
+            if let currentTrack = self.currentTrack {
+                // Check if we've already downloaded this track.
+                if currentTrack.isLocal == true || currentTrack.localTrack != nil {
+                    return
+                }
+                
+                if let op = SBSubsonicDownloadOperation(managedObjectContext: currentTrack.managedObjectContext, trackID: currentTrack.objectID) {
+                    OperationQueue.sharedDownloadQueue.addOperation(op)
                 }
             }
         }
