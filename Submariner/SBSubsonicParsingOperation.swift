@@ -24,6 +24,7 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
     var playlistIndex: Int = 0
     
     // state for selected object
+    var currentPlaylist: SBPlaylist?
     var currentArtist: SBArtist?
     var currentAlbum: SBAlbum?
     var currentPodcast: SBPodcast?
@@ -141,9 +142,8 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
                 return
             }
             logger.log("Creating new artist with ID: \(id, privacy: .public) and name \(name, privacy: .public)")
+            // we don't do anything with the return value since it gets put into core data
             let artist = createArtist(attributes: attributeDict)
-            server.addToIndexes(artist)
-            artist.server = server
         }
     }
     
@@ -210,9 +210,18 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
     
     private func parseElementChildForTrackDirectory(attributeDict: [String: String]) {
         if let currentAlbum = self.currentAlbum, attributeDict["isDir"] == "false",
-           let id = attributeDict["id"] {
-            if let track = fetchTrack(id: id) {
-                
+           let id = attributeDict["id"], let name = attributeDict["title"] {
+            if let track = fetchTrack(id: id)  {
+                // Update
+                logger.log("Creating new track with ID: \(id, privacy: .public) and name \(name, privacy: .public)")
+                updateTrack(track, attributes: attributeDict)
+            } else {
+                // Create
+                logger.log("Creating new track with ID: \(id, privacy: .public) and name \(name, privacy: .public)")
+                let track = createTrack(attributes: attributeDict)
+                // now assume not nil
+                track.album = currentAlbum
+                currentAlbum.addToTracks(track)
             }
         }
     }
@@ -221,8 +230,94 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
         if requestType == .getAlbumDirectory {
             parseElementChildForAlbumDirectory(attributeDict: attributeDict)
         } else if requestType == .getTrackDirectory {
+            parseElementChildForTrackDirectory(attributeDict: attributeDict)
         } else {
             logger.warning("Invalid request type \(self.requestType.rawValue, privacy: .public) for child element")
+        }
+    }
+    
+    private func parseElementAlbumList(attributeDict: [String: String]) {
+        // Clear the ServerHome controller
+        server.home?.albums = nil
+    }
+    
+    private func parseElementAlbum(attributeDict: [String: String]) {
+        // We must have a parent (artist) to assign to.
+        // This will need adaptation for ID3 based approaches
+        // (if using ID3 endpoint, use currentArtist or artistId attrib instead)
+        if let parent = attributeDict["parent"], let id = attributeDict["id"] {
+            var artist = fetchArtist(id: parent)
+            if artist == nil {
+                // handles the different context fine
+                logger.log("Creating new artist with ID: \(parent, privacy: .public) for album ID \(id, privacy: .public)")
+                artist = createArtist(attributes: attributeDict)
+            }
+            
+            var album = fetchAlbum(id: id)
+            if album == nil {
+                logger.log("Creating new album with ID: \(id, privacy: .public) for artist ID \(parent, privacy: .public)")
+                album = createAlbum(attributes: attributeDict)
+            }
+            
+            if album!.artist == nil {
+                album!.artist = artist
+                artist?.addToAlbums(album!)
+            }
+            server.home?.addToAlbums(album!)
+            album!.home = server.home
+            
+            if let coverArt = attributeDict["coverArt"] {
+                if album?.cover == nil {
+                    logger.log("Creating new cover with ID: \(coverArt, privacy: .public) for album ID \(id, privacy: .public)")
+                    let cover = createCover(attributes: attributeDict)
+                    cover.album = album
+                    album!.cover = cover
+                }
+                
+                if album?.cover?.imagePath == nil {
+                    clientController.getCover(id: coverArt)
+                }
+            }
+        }
+    }
+    
+    private func parseElementPlaylist(attributeDict: [String: String]) {
+        if requestType == .getPlaylists,
+           let id = attributeDict["id"], let name = attributeDict["name"] {
+            var playlist = fetchPlaylist(id: id)
+            if playlist == nil {
+                logger.info("Failed to fetch playlist ID \(id, privacy: .public), trying name \(name, privacy: .public)")
+                playlist = fetchPlaylist(name: name)
+            }
+            if playlist == nil {
+                logger.info("Creating playlist with ID \(id, privacy: .public), trying name \(name, privacy: .public)")
+                playlist = createPlaylist(attributes: attributeDict)
+            }
+        } else if requestType == .getPlaylist, let id = attributeDict["id"] {
+            currentPlaylist = fetchPlaylist(id: id)
+        } else {
+            logger.warning("Invalid request type \(self.requestType.rawValue, privacy: .public) for playlist element")
+        }
+    }
+    
+    private func parseElementEntryForPlaylist(attributeDict: [String: String]) {
+        if let currentPlaylist = self.currentPlaylist {
+            
+        } else {
+            logger.warning("No current playlist, even though we have an entry element?")
+        }
+    }
+    
+    private func parseElementEntryForNowPlaying(attributeDict: [String: String]) {
+    }
+    
+    private func parseElementEntry(attributeDict: [String: String]) {
+        if requestType == .getPlaylist {
+            parseElementEntryForPlaylist(attributeDict: attributeDict)
+        } else if requestType == .getNowPlaying {
+            parseElementEntryForNowPlaying(attributeDict: attributeDict)
+        } else {
+            logger.warning("Invalid request type \(self.requestType.rawValue, privacy: .public) for entry element")
         }
     }
     
@@ -230,6 +325,7 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         numberOfChildrens += 1
+        logger.debug("Encountered XML element \(elementName, privacy: .public)")
         if elementName == "subsonic-response" {
             // don't count ourselves
             numberOfChildrens -= 0
@@ -244,6 +340,18 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
             parseElementArtist(attributeDict: attributeDict)
         } else if elementName == "directory" { // a directory...
             parseElementDirectory(attributeDict: attributeDict)
+        } else if elementName == "child" { // ...and a directory's child item
+            parseElementChild(attributeDict: attributeDict)
+        } else if elementName == "albumList" { // the ServerHome controller's album list...
+            parseElementAlbumList(attributeDict: attributeDict)
+        } else if elementName == "albumList" { // ...and its albums
+            parseElementAlbumList(attributeDict: attributeDict)
+        } else if elementName == "playlists" {
+            // nothing anymore
+        } else if elementName == "playlist" {
+            parseElementPlaylist(attributeDict: attributeDict)
+        } else if elementName == "entry" {
+            parseElementEntry(attributeDict: attributeDict)
         }
     }
     
@@ -350,6 +458,22 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
         return results?.first
     }
     
+    private func fetchPlaylist(id: String) -> SBPlaylist? {
+        let fetchRequest = NSFetchRequest<SBPlaylist>(entityName: "Playlist")
+        fetchRequest.predicate = NSPredicate(format: "(id == %@) && (server == %@)", id, server)
+        let results = try? threadedContext.fetch(fetchRequest)
+        
+        return results?.first
+    }
+    
+    private func fetchPlaylist(name: String) -> SBPlaylist? {
+        let fetchRequest = NSFetchRequest<SBPlaylist>(entityName: "Playlist")
+        fetchRequest.predicate = NSPredicate(format: "(itemName == %@) && (server == %@)", name, server)
+        let results = try? threadedContext.fetch(fetchRequest)
+        
+        return results?.first
+    }
+    
     // #MARK: - Create Core Data objects
     
     private func createGroup(attributes: [String: String]) -> SBGroup {
@@ -365,10 +489,13 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
     private func createArtist(attributes: [String: String]) -> SBArtist {
         let artist = SBArtist.insertInManagedObjectContext(context: threadedContext)
         
+        // note that for the <album> context it has both the artist and album in the same element,
+        // but this should override that. it may be worth making the context an arg to make sure
+        // instead of relying on overrides though
         if let name = attributes["name"] {
             artist.itemName = name
         }
-        // i think it's in other contexts
+        // in album element context
         if let artistName = attributes["artist"] {
             artist.itemName = artistName
         }
@@ -376,8 +503,14 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
         if let id = attributes["id"] {
             artist.id = id
         }
+        // in album element context
+        if let id = attributes["parent"] {
+            artist.id = id
+        }
         
         artist.isLocal = false
+        server.addToIndexes(artist)
+        artist.server = server
         
         return artist
     }
@@ -400,6 +533,70 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
         return album
     }
     
+    private func updateTrack(_ track: SBTrack, attributes: [String: String]) {
+        if let name = attributes["title"] {
+            track.itemName = name
+        }
+        if let artist = attributes["artist"] {
+            track.artistName = artist
+        }
+        if let album = attributes["album"] {
+            track.albumName = album
+        }
+        if let trackString = attributes["track"], let trackNumber = Int(trackString) {
+            track.trackNumber = NSNumber(value: trackNumber)
+        }
+        if let discString = attributes["discNumber"], let disc = Int(discString) {
+            track.discNumber = NSNumber(value: disc)
+        }
+        if let yearString = attributes["year"], let year = Int(yearString) {
+            track.year = NSNumber(value: year)
+        }
+        if let genre = attributes["genre"] {
+            track.genre = genre
+        }
+        if let sizeString = attributes["size"], let size = Int(sizeString) {
+            track.size = NSNumber(value: size)
+        }
+        if let contentType = attributes["contentType"] {
+            track.contentType = contentType
+        }
+        if let contentSuffix = attributes["contentSuffix"] {
+            track.contentSuffix = contentSuffix
+        }
+        if let transcodedContentType = attributes["transcodedContentType"] {
+            track.transcodedType = transcodedContentType
+        }
+        if let transcodedSuffix = attributes["transcodedSuffix"] {
+            track.transcodeSuffix = transcodedSuffix
+        }
+        if let durationString = attributes["duration"], let duration = Int(durationString) {
+            track.duration = NSNumber(value: duration)
+        }
+        if let bitRateString = attributes["bitRate"], let bitRate = Int(bitRateString) {
+            track.bitRate = NSNumber(value: bitRate)
+        }
+        if let path = attributes["path"] {
+            track.path = path
+        }
+    }
+    
+    private func createTrack(attributes: [String: String]) -> SBTrack {
+        let track = SBTrack.insertInManagedObjectContext(context: threadedContext)
+        
+        if let id = attributes["id"] {
+            track.id = id
+        }
+        
+        track.isLocal = false
+        track.server = server
+        server.addToTracks(track)
+        
+        updateTrack(track, attributes: attributes)
+        
+        return track
+    }
+    
     private func createCover(attributes: [String: String]) -> SBCover {
         let cover = SBCover.insertInManagedObjectContext(context: threadedContext)
         
@@ -408,5 +605,21 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
         }
         
         return cover
+    }
+    
+    private func createPlaylist(attributes: [String: String]) -> SBPlaylist {
+        let playlist = SBPlaylist.insertInManagedObjectContext(context: threadedContext)
+        
+        if let id = attributes["id"] {
+            playlist.id = id
+        }
+        if let name = attributes["name"] {
+            playlist.resourceName = name
+        }
+        
+        playlist.server = server
+        server.addToPlaylists(playlist)
+        
+        return playlist
     }
 }
