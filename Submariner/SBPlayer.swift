@@ -503,9 +503,9 @@ extension NSNotification.Name {
         updateSystemNowPlaying()
         postNowPlayingNotification()
         
-        // scrobble if doing that
-        if let server = track.server, track.localTrack?.streamURL() != nil,
-           UserDefaults.standard.scrobbleToServer {
+        // scrobble if doing that. navidrome/navidrome#2347 implies we should always do this,
+        // even if we're using the remote stream URL instead of a local track.
+        if let server = track.server, UserDefaults.standard.scrobbleToServer {
             server.clientController.scrobble(id: track.id!)
         }
     }
