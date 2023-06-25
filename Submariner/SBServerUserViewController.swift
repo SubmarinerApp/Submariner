@@ -9,6 +9,11 @@
 import Cocoa
 import SwiftUI
 
+extension NSNotification.Name {
+    // Actually defined in ParsingOperation for now
+    static let SBSubsonicCoversUpdated = NSNotification.Name("SBSubsonicCoversUpdatedNotification")
+}
+
 @objc class SBServerUserViewController: SBViewController {
     @objc var databaseController: SBDatabaseController?
     
@@ -58,7 +63,7 @@ import SwiftUI
             self.startTimer()
         }
         // we don't need SBSubsonicNowPlayingUpdatedNotification because SwiftUI pulls from the fetch request
-        coverObserver = NotificationCenter.default.addObserver(forName: SBServerUserViewController.subsonicCoversUpdatedNotification,
+        coverObserver = NotificationCenter.default.addObserver(forName: .SBSubsonicCoversUpdated,
                                                object: nil,
                                                queue: nil) { notification in
             // XXX: don't have a way to forcibly invalidate cover other than the big hammer
@@ -89,8 +94,6 @@ import SwiftUI
     }
     
     // #MARK: - Observers and Timers
-    
-    static let subsonicCoversUpdatedNotification = NSNotification.Name("SBSubsonicCoversUpdatedNotification")
     
     var coverObserver: Any?
     var autoRefreshObserver: NSKeyValueObservation?
