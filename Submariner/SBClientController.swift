@@ -30,11 +30,16 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         let session = URLSession(configuration: config)
         let request = URLRequest(url: url)
         
-        let loginString = server.username! + ":" + server.password!
-        if let loginData = loginString.data(using: .utf8) {
-            let base64login = loginData.base64EncodedString()
-            let authHeader = "Basic " + base64login
-            config.httpAdditionalHeaders = ["Authorization": authHeader]
+        if let username = server.username, let password = server.password {
+            let loginString = "\(username):\(password)"
+            if let loginData = loginString.data(using: .utf8) {
+                let base64login = loginData.base64EncodedString()
+                let authHeader = "Basic \(base64login)"
+                config.httpAdditionalHeaders = ["Authorization": authHeader]
+            }
+        } else {
+            logger.warning("Empty username/password, no authorization header will be included.")
+            logger.warning("username nil? \(self.server.username == nil) password nil? \(self.server.password == nil)")
         }
         
         let task = session.dataTask(with: request) { data, response, error in
