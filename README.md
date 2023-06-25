@@ -32,6 +32,11 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ### Version 2.3.1 (not yet released)
 
+* Only try precise times for FLACs which need it, and not other file types
+* When enabled, only download a track before its start.
+* Always scrobble, even if using a remote stream, to workaround Navidrome behaviour
+* Fix not connecting to the server if a playlist is the first thing opened
+* Fix crash with empty username or password
 * Fix issues with empty artist or album names
 * Improve error logging on the console, using structured logging
 * Rewrite SBAppDelegate in Swift
