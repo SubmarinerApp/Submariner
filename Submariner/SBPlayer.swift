@@ -521,11 +521,16 @@ extension NSNotification.Name {
                 logger.info("Playing remote track via \(url.path, privacy: .public) at URL: \(url)")
             }
             
-            var options: [String: Any] = [
-                AVURLAssetPreferPreciseDurationAndTimingKey: NSNumber(value: true)
-            ]
+            var options: [String: Any] = [:]
             if let contentType = track.macOSCompatibleContentType() {
+                logger.info("Track MIME type is \(contentType, privacy: .public)")
+                // Workaround an issue where macOS requires a specific FLAC mimetype.
                 options["AVURLAssetOutOfBandMIMETypeKey"] = contentType
+                // Seeking is inaccurate with FLACs otherwise.
+                // Not enabled for other content in case it runs into issues.
+                if contentType.contains("flac") {
+                    options[AVURLAssetPreferPreciseDurationAndTimingKey] = NSNumber(value: true)
+                }
             }
             
             let asset = AVURLAsset(url: url, options: options)
