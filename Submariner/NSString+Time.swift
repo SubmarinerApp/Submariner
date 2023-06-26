@@ -41,7 +41,7 @@ extension String {
     }
     
     func dateTimeFromRFC3339() -> Date? {
-        return NSString.rfc3339DateFormatter.date(from: self as String
+        return NSString.rfc3339DateFormatter.date(from: self as String)
     }
     
     init(time: TimeInterval) {

@@ -497,8 +497,38 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
         }
     }
     
+    private func postServerNotification(_ notificationName: NSNotification.Name) {
+        NotificationCenter.default.post(name: notificationName, object: server.objectID)
+    }
+    
     func parserDidEndDocument(_ parser: XMLParser) {
+        logger.info("Finished XML processing")
+        threadedContext.processPendingChanges()
+        saveThreadedContext()
         
+        if requestType == .ping && numberOfChildrens == 0 {
+            postServerNotification(.SBSubsonicConnectionSucceeded)
+        } else if requestType == .deletePlaylist {
+            postServerNotification(.SBSubsonicPlaylistUpdated)
+        } else if requestType == .createPlaylist {
+            postServerNotification(.SBSubsonicPlaylistsCreated)
+        } else if requestType == .getIndexes {
+            postServerNotification(.SBSubsonicIndexesUpdated)
+        } else if requestType == .getAlbumDirectory {
+            postServerNotification(.SBSubsonicAlbumsUpdated)
+        } else if requestType == .getTrackDirectory {
+            postServerNotification(.SBSubsonicTracksUpdated)
+        } else if requestType == .getPlaylists {
+            postServerNotification(.SBSubsonicPlaylistsUpdated)
+        } else if requestType == .getPlaylist {
+            currentPlaylist = nil
+        } else if requestType == .getNowPlaying {
+            postServerNotification(.SBSubsonicNowPlayingUpdated)
+        } else if requestType == .search {
+            NotificationCenter.default.post(name: .SBSubsonicSearchResultUpdated, object: currentSearch)
+        } else if requestType == .getPodcasts {
+            postServerNotification(.SBSubsonicPodcastsUpdated)
+        }
     }
     
     func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
