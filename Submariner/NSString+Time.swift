@@ -8,6 +8,7 @@
 
 import Cocoa
 
+// Remove when Objective-C version of parsing op is gone
 @objc extension NSString {
     static let iso8601Formatter = ISO8601DateFormatter()
     static let rfc3339DateFormatter: DateFormatter = {
@@ -34,6 +35,14 @@ extension String {
         formatter.zeroFormattingBehavior = .pad
         return formatter
     }()
+    
+    func dateTimeFromISO() -> Date? {
+        return NSString.iso8601Formatter.date(from: self as String)
+    }
+    
+    func dateTimeFromRFC3339() -> Date? {
+        return NSString.rfc3339DateFormatter.date(from: self as String
+    }
     
     init(time: TimeInterval) {
         if time == 0 || time.isNaN {

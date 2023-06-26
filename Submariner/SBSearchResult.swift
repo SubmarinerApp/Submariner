@@ -9,7 +9,7 @@
 import Cocoa
 
 @objc class SBSearchResult: NSObject {
-    @objc let tracks = NSMutableArray() // would be nice to be typesafe
+    @objc var tracks: [SBTrack] = []
     @objc let query: String // NSString
     
     @objc(initWithQuery:) init(query: String) {
