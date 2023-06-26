@@ -638,6 +638,22 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
         return results?.first
     }
     
+    private func fetchPodcast(id: String) -> SBPodcast? {
+        let fetchRequest = NSFetchRequest<SBPodcast>(entityName: "Podcast")
+        fetchRequest.predicate = NSPredicate(format: "(id == %@) && (server == %@)", id, server)
+        let results = try? threadedContext.fetch(fetchRequest)
+        
+        return results?.first
+    }
+    
+    private func fetchEpisode(id: String) -> SBEpisode? {
+        let fetchRequest = NSFetchRequest<SBEpisode>(entityName: "Episode")
+        fetchRequest.predicate = NSPredicate(format: "(id == %@) && (server == %@)", id, server)
+        let results = try? threadedContext.fetch(fetchRequest)
+        
+        return results?.first
+    }
+    
     // #MARK: - Create Core Data objects
     
     private func createGroup(attributes: [String: String]) -> SBGroup {
@@ -804,5 +820,92 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
         server.addToNowPlayings(nowPlaying)
         
         return nowPlaying
+    }
+    
+    private func createPodcast(attributes: [String: String]) -> SBPodcast {
+        let podcast = SBPodcast.insertInManagedObjectContext(context: threadedContext)
+        
+        if let id = attributes["id"] {
+            podcast.id = id
+        }
+        if let title = attributes["title"] {
+            podcast.itemName = title
+        }
+        if let description = attributes["description"] {
+            podcast.channelDescription = description
+        }
+        if let status = attributes["status"] {
+            podcast.channelStatus = status
+        }
+        if let url = attributes["url"] {
+            podcast.channelURL = url
+        }
+        if let errorMessage = attributes["errorMessage"] {
+            podcast.errorMessage = errorMessage
+        }
+        if let path = attributes["path"] {
+            podcast.path = path
+        }
+        
+        podcast.isLocal = false
+        podcast.server = server
+        server.addToPodcasts(podcast)
+        
+        return podcast
+    }
+    
+    private func createEpisode(attributes: [String: String]) -> SBEpisode {
+        let episode = SBEpisode.insertInManagedObjectContext(context: threadedContext)
+        
+        if let id = attributes["id"] {
+            episode.id = id
+        }
+        if let streamId = attributes["streamId"] {
+            episode.streamID = streamId
+        }
+        if let description = attributes["description"] {
+            episode.episodeDescription = description
+        }
+        if let status = attributes["status"] {
+            episode.episodeStatus = status
+        }
+        if let publishDate = attributes["publishDate"]?.dateTimeFromRFC3339() {
+            episode.publishDate = publishDate
+        }
+        // same as SBTrack from this point on i believe
+        if let yearString = attributes["year"], let year = Int(yearString) {
+            episode.year = NSNumber(value: year)
+        }
+        if let genre = attributes["genre"] {
+            episode.genre = genre
+        }
+        if let sizeString = attributes["size"], let size = Int(sizeString) {
+            episode.size = NSNumber(value: size)
+        }
+        if let contentType = attributes["contentType"] {
+            episode.contentType = contentType
+        }
+        if let contentSuffix = attributes["contentSuffix"] {
+            episode.contentSuffix = contentSuffix
+        }
+        if let transcodedContentType = attributes["transcodedContentType"] {
+            episode.transcodedType = transcodedContentType
+        }
+        if let transcodedSuffix = attributes["transcodedSuffix"] {
+            episode.transcodeSuffix = transcodedSuffix
+        }
+        if let durationString = attributes["duration"], let duration = Int(durationString) {
+            episode.duration = NSNumber(value: duration)
+        }
+        if let bitRateString = attributes["bitRate"], let bitRate = Int(bitRateString) {
+            episode.bitRate = NSNumber(value: bitRate)
+        }
+        if let path = attributes["path"] {
+            episode.path = path
+        }
+        
+        episode.isLocal = false
+        
+        return episode
     }
 }

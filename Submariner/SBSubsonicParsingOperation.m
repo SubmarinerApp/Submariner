@@ -605,13 +605,13 @@ NSString *SBSubsonicPodcastsUpdatedNotification         = @"SBSubsonicPodcastsUp
                 }
                 
                 if(!exists) {
-                    [self.currentSearch.tracks addObject:track];
+                    //[self.currentSearch.tracks addObject:track];
                 }
                 // no track found
             } else {
                 // create it
                 track = [self createTrackWithAttribute:attributeDict];
-                [self.currentSearch.tracks addObject:track];
+                //[self.currentSearch.tracks addObject:track];
                 [track setServer:server];
             }
         }
