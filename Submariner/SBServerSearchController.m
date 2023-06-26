@@ -92,11 +92,7 @@
         SBSearchResult *results = [notification object];
         // HACK: We can't use the objects that were fetched on another thread.
         // Refetch on this one from ours. Better way possible?
-        for (size_t i = 0; i < results.tracks.count; i++) {
-            SBTrack *track = results.tracks[i];
-            SBTrack *newTrack = [self.managedObjectContext objectWithID: [track objectID]];
-            [results.tracks replaceObjectAtIndex: i withObject: newTrack];
-        }
+        [results replaceManagedInstancesForThreadWithManagedObjectContext: self.managedObjectContext];
         [self setSearchResult:[notification object]];
     });
 }
