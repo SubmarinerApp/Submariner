@@ -448,6 +448,49 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
         }
     }
     
+    private func parseElementChannel(attributeDict: [String: String]) {
+        if let id = attributeDict["id"] {
+            var podcast = fetchPodcast(id: id)
+            if podcast == nil {
+                logger.info("Creating podcast ID \(id, privacy: .public)")
+                podcast = createPodcast(attributes: attributeDict)
+            }
+            
+            currentPodcast = podcast
+        }
+    }
+    
+    private func parseElementEpisode(attributeDict: [String: String]) {
+        if let currentPodcast = self.currentPodcast, let id = attributeDict["id"] {
+            var episode = fetchEpisode(id: id)
+            if episode != nil {
+                logger.info("Creating episode ID \(id, privacy: .public)")
+                episode = createEpisode(attributes: attributeDict)
+            }
+            
+            if currentPodcast.episodes?.contains(episode!) == true && attributeDict["status"] == episode?.episodeStatus {
+                // FIXME: This seems very bad, we should update the object instead (convert createEpisode to updateEpisode)
+                currentPodcast.removeFromEpisodes(episode!)
+                episode = createEpisode(attributes: attributeDict)
+                currentPodcast.addToEpisodes(episode!)
+            } else {
+                currentPodcast.addToEpisodes(episode!)
+            }
+            
+            // FIXME: yeah, this is how it was before, it doesn't make much sense
+            if let streamID = attributeDict["streamId"] {
+                var track = fetchTrack(id: streamID)
+                if track == nil, let albumID = attributeDict["parent"] {
+                    clientController.getTracks(albumID: albumID)
+                } else {
+                    episode!.track = track
+                }
+            }
+            
+            // there was some commented out stuff for covers, who knows if it ever works
+        }
+    }
+    
     // #MARK: - XML delegate
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
@@ -486,6 +529,14 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
             parseElementEntry(attributeDict: attributeDict)
         } else if elementName == "license" {
             parseElementLicense(attributeDict: attributeDict)
+        } else if elementName == "channel" {
+            parseElementChannel(attributeDict: attributeDict)
+        } else if elementName == "episode" {
+            parseElementEpisode(attributeDict: attributeDict)
+        } else if elementName == "nowPlaying" {
+            // nop
+        } else {
+            logger.error("Unknown XML element \(elementName, privacy: .public), attributes \(attributeDict, privacy: .public)")
         }
     }
     
@@ -905,6 +956,8 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
         }
         
         episode.isLocal = false
+        episode.server = server
+        // XXX: Do we call addToTracks?
         
         return episode
     }
