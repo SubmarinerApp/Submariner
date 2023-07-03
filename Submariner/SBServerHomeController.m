@@ -155,7 +155,7 @@
     // observe album covers
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(subsonicCoversUpdatedNotification:) 
-                                                 name:SBSubsonicCoversUpdatedNotification
+                                                 name:@"SBSubsonicCoversUpdatedNotification"
                                                object:nil];
     
     [[NSUserDefaults standardUserDefaults] addObserver:self

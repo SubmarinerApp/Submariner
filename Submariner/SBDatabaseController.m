@@ -39,7 +39,6 @@
 #import "SBTracklistController.h"
 #import "SBPlaylistController.h"
 #import "SBAnimatedView.h"
-#import "SBSubsonicParsingOperation.h"
 #import "SBTableView.h"
 
 #import "SBSplitView.h"
@@ -155,8 +154,8 @@
     // remove window observer
     [self.window.contentView removeObserver: self forKeyPath: @"safeAreaInsets"];
     // remove Subsonic observers
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:SBSubsonicConnectionSucceededNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:SBSubsonicConnectionFailedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBSubsonicConnectionSucceededNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBSubsonicConnectionFailedNotification" object:nil];
     // remove queue operations observer
     [[NSOperationQueue sharedServerQueue] removeObserver:self forKeyPath:@"operationCount"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -219,13 +218,13 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(subsonicPlaylistsUpdatedNotification:)
-                                                 name:SBSubsonicPlaylistsUpdatedNotification
+                                                 name:@"SBSubsonicPlaylistsUpdatedNotification"
                                                object:nil];
     
     // observer server playlists creation to reload source list when needed
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(subsonicPlaylistsCreatedNotification:)
-                                                 name:SBSubsonicPlaylistsCreatedNotification
+                                                 name:@"SBSubsonicPlaylistsCreatedNotification"
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -241,12 +240,12 @@
     // observe Subsonic connection
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(subsonicConnectionSucceeded:)
-                                                 name:SBSubsonicConnectionSucceededNotification
+                                                 name:@"SBSubsonicConnectionSucceededNotification"
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(subsonicConnectionFailed:)
-                                                 name:SBSubsonicConnectionFailedNotification
+                                                 name:@"SBSubsonicConnectionFailedNotification"
                                                object:nil];
 
     // setup main box subviews animation

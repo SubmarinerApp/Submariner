@@ -355,7 +355,7 @@ public class SBServer: SBResource {
         self.clientController.getTracks(albumID: albumID)
     }
     
-    @objc func getAlbumListFor(type: SBSubsonicRequestType) {
+    @objc func getAlbumListFor(type: SBSubsonicParsingOperation.RequestType) {
         self.clientController.getAlbumList(type: type)
     }
     

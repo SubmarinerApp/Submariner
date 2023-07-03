@@ -114,7 +114,6 @@
 		4CFAFC2D139EF08800E82B57 /* ServerHome.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CFAFC2B139EF08800E82B57 /* ServerHome.xib */; };
 		4CFAFC37139EF20600E82B57 /* MGScopeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC33139EF20500E82B57 /* MGScopeBar.m */; };
 		4CFAFC38139EF20600E82B57 /* MGRecessedPopUpButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC36139EF20500E82B57 /* MGRecessedPopUpButtonCell.m */; };
-		4CFAFC47139FFC1700E82B57 /* SBSubsonicParsingOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC3E139FFC1300E82B57 /* SBSubsonicParsingOperation.m */; };
 		4CFAFC6613A0150300E82B57 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CFAFC6513A0150300E82B57 /* AudioToolbox.framework */; };
 		4CFAFC7D13A0F7E000E82B57 /* SBAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC7C13A0F7E000E82B57 /* SBAnimatedView.m */; };
 		4CFB3E07139CEA76008DC01A /* NSOutlineView+Expand.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB3E06139CEA76008DC01A /* NSOutlineView+Expand.m */; };
@@ -290,8 +289,6 @@
 		4CFAFC34139EF20500E82B57 /* MGScopeBarDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGScopeBarDelegateProtocol.h; sourceTree = "<group>"; };
 		4CFAFC35139EF20500E82B57 /* MGRecessedPopUpButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRecessedPopUpButtonCell.h; sourceTree = "<group>"; };
 		4CFAFC36139EF20500E82B57 /* MGRecessedPopUpButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRecessedPopUpButtonCell.m; sourceTree = "<group>"; };
-		4CFAFC3D139FFC1200E82B57 /* SBSubsonicParsingOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSubsonicParsingOperation.h; sourceTree = "<group>"; };
-		4CFAFC3E139FFC1300E82B57 /* SBSubsonicParsingOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSubsonicParsingOperation.m; sourceTree = "<group>"; };
 		4CFAFC6513A0150300E82B57 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		4CFAFC7B13A0F7E000E82B57 /* SBAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAnimatedView.h; sourceTree = "<group>"; };
 		4CFAFC7C13A0F7E000E82B57 /* SBAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAnimatedView.m; sourceTree = "<group>"; };
@@ -649,8 +646,6 @@
 			children = (
 				4CFB3EA1139D115F008DC01A /* SBOperation.h */,
 				4CFB3EA2139D115F008DC01A /* SBOperation.m */,
-				4CFAFC3D139FFC1200E82B57 /* SBSubsonicParsingOperation.h */,
-				4CFAFC3E139FFC1300E82B57 /* SBSubsonicParsingOperation.m */,
 				3EC039C429EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift */,
 				3E45201929F5DE9100604079 /* SBImportOperation.swift */,
 				3E702DE82A428CF6005F7184 /* SBSubsonicParsingOperation.swift */,
@@ -860,7 +855,6 @@
 				3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */,
 				3EB2BCCB2992F03A00DC5056 /* SBSearchResult.swift in Sources */,
 				3EB2BCC52992DA8E00DC5056 /* String+File.swift in Sources */,
-				4CFAFC47139FFC1700E82B57 /* SBSubsonicParsingOperation.m in Sources */,
 				3EB2BCCF2992F3CA00DC5056 /* SBVolumeButton.swift in Sources */,
 				3EA929BB29E4785F00938582 /* SBRepeatModeTransformer.swift in Sources */,
 				3EC03B4629F4F2E0001FDE50 /* SBTrack.swift in Sources */,

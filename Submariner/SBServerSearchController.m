@@ -33,7 +33,6 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "SBServerSearchController.h"
-#import "SBSubsonicParsingOperation.h"
 #import "SBDatabaseController.h"
 
 #import "Submariner-Swift.h"
@@ -63,7 +62,7 @@
 
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:SBSubsonicSearchResultUpdatedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBSubsonicSearchResultUpdatedNotification" object:nil];
 }
 
 - (void)loadView {
@@ -71,7 +70,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(subsonicSearchResultUpdatedNotification:) 
-                                                 name:SBSubsonicSearchResultUpdatedNotification 
+                                                 name:@"SBSubsonicSearchResultUpdatedNotification"
                                                object:nil];
     
     [tracksTableView setTarget:self];

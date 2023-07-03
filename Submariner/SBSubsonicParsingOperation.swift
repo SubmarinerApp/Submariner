@@ -12,9 +12,55 @@ import os
 
 fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "SBSubsonicParsingOperation")
 
-class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
+extension NSNotification.Name{
+    static let SBSubsonicConnectionFailed = NSNotification.Name("SBSubsonicConnectionFailedNotification")
+    static let SBSubsonicConnectionSucceeded = NSNotification.Name("SBSubsonicConnectionSucceededNotification")
+    static let SBSubsonicIndexesUpdated = NSNotification.Name("SBSubsonicIndexesUpdatedNotification")
+    static let SBSubsonicAlbumsUpdated = NSNotification.Name("SBSubsonicAlbumsUpdatedNotification")
+    static let SBSubsonicTracksUpdated = NSNotification.Name("SBSubsonicTracksUpdatedNotification")
+    // "SBSubsonicCoversUpdatedNotification" defined elsewhere
+    static let SBSubsonicPlaylistsUpdated = NSNotification.Name("SBSubsonicPlaylistsUpdatedNotification")
+    static let SBSubsonicPlaylistUpdated = NSNotification.Name("SBSubsonicPlaylistUpdatedNotification")
+    static let SBSubsonicNowPlayingUpdated = NSNotification.Name("SBSubsonicNowPlayingUpdatedNotification")
+    static let SBSubsonicUserInfoUpdated = NSNotification.Name("SBSubsonicUserInfoUpdatedNotification")
+    static let SBSubsonicPlaylistsCreated = NSNotification.Name("SBSubsonicPlaylistsCreatedNotification")
+    static let SBSubsonicSearchResultUpdated = NSNotification.Name("SBSubsonicSearchResultUpdatedNotification")
+    static let SBSubsonicPodcastsUpdated = NSNotification.Name("SBSubsonicPodcastsUpdatedNotification")
+}
+
+class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
+    @objc(SBSubsonicRequestType) enum RequestType: Int {
+        @objc(SBSubsonicRequestUnknown) case unknown = -1
+        @objc(SBSubsonicRequestPing) case ping = 0
+        @objc(SBSubsonicRequestGetLicence) case getLicense = 1 // XXX: Duplicated 24?
+        @objc(SBSubsonicRequestGetMusicFolders) case getMusicFolders = 2
+        @objc(SBSubsonicRequestGetIndexes) case getIndexes = 3
+        @objc(SBSubsonicRequestGetMusicDirectory) case getMusicDirectory = 4
+        @objc(SBSubsonicRequestGetAlbumDirectory) case getAlbumDirectory = 5
+        @objc(SBSubsonicRequestGetTrackDirectory) case getTrackDirectory = 6
+        @objc(SBSubsonicRequestGetCoverArt) case getCoverArt = 7
+        @objc(SBSubsonicRequestStream) case requestStream = 8
+        @objc(SBSubsonicRequestGetPlaylists) case getPlaylists = 9
+        @objc(SBSubsonicRequestGetAlbumListRandom) case getAlbumListRandom = 10
+        @objc(SBSubsonicRequestGetAlbumListNewest) case getAlbumListNewest = 11
+        @objc(SBSubsonicRequestGetAlbumListHighest) case getAlbumListHighest = 12
+        @objc(SBSubsonicRequestGetAlbumListFrequent) case getAlbumListFrequent = 13
+        @objc(SBSubsonicRequestGetAlbumListRecent) case getAlbumListRecent = 14
+        @objc(SBSubsonicRequestGetPlaylist) case getPlaylist = 15
+        @objc(SBSubsonicRequestDeletePlaylist) case deletePlaylist = 16
+        @objc(SBSubsonicRequestCreatePlaylist) case createPlaylist = 17
+        @objc(SBSubsonicRequestGetChatMessages) case getChatMessages = 18
+        @objc(SBSubsonicRequestAddChatMessage) case addChatMessage = 19
+        @objc(SBSubsonicRequestGetNowPlaying) case getNowPlaying = 20
+        @objc(SBSubsonicRequestGetUser) case getUser = 21
+        @objc(SBSubsonicRequestSearch) case search = 22
+        @objc(SBSubsonicRequestSetRating) case setRating = 23
+        @objc(SBSubsonicRequestGetPodcasts) case getPodcasts = 25
+        @objc(SBSubsonicRequestSetScrobble) case scrobble = 26
+    }
+    
     let clientController: SBClientController
-    let requestType: SBSubsonicRequestType
+    let requestType: RequestType
     var server: SBServer
     let xmlData: Data?
     let mimeType: String?
@@ -34,7 +80,7 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
     
     init!(managedObjectContext mainContext: NSManagedObjectContext!,
           client: SBClientController,
-          requestType: SBSubsonicRequestType,
+          requestType: RequestType,
           server: NSManagedObjectID,
           xml: Data?,
           mimeType: String?) {
