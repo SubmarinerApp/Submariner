@@ -15,7 +15,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
 class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
     let clientController: SBClientController
     let requestType: SBSubsonicRequestType
-    let server: SBServer
+    var server: SBServer
     let xmlData: Data?
     let mimeType: String?
     
@@ -33,18 +33,20 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
     var currentCoverID: String?
     
     init!(managedObjectContext mainContext: NSManagedObjectContext!,
-          clientController: SBClientController,
+          client: SBClientController,
           requestType: SBSubsonicRequestType,
           server: NSManagedObjectID,
           xml: Data?,
           mimeType: String?) {
         self.requestType = requestType
-        self.clientController = clientController
+        self.clientController = client
+        // HACK: we need to throw this away, so we can reinit with threadedContext from SBOperation
         self.server = mainContext.object(with: server) as! SBServer
         self.xmlData = xml
         self.mimeType = mimeType
         
         super.init(managedObjectContext: mainContext)
+        self.server = threadedContext.object(with: server) as! SBServer
     }
     
     // #MARK: - NSOperation
@@ -214,7 +216,7 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
            let id = attributeDict["id"], let name = attributeDict["title"] {
             if let track = fetchTrack(id: id)  {
                 // Update
-                logger.info("Creating new track with ID: \(id, privacy: .public) and name \(name, privacy: .public)")
+                logger.info("Updating track with ID: \(id, privacy: .public) and name \(name, privacy: .public)")
                 updateTrack(track, attributes: attributeDict)
             } else {
                 // Create
@@ -404,6 +406,10 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
             attachedAlbum.artist = attachedArtist!
             attachedArtist!.addToAlbums(attachedAlbum)
         }
+        
+        // do it here
+        nowPlaying.server = server
+        server.addToNowPlayings(nowPlaying)
     }
     
     private func parseElementEntry(attributeDict: [String: String]) {
@@ -865,10 +871,6 @@ class SBSubsonicParsingOperation2: SBOperation, XMLParserDelegate {
         }
         
         // the attached objects like track and its descendents may not exist yet, done in caller
-        
-        nowPlaying.server = server
-        // XXX: would this trigger early?
-        server.addToNowPlayings(nowPlaying)
         
         return nowPlaying
     }

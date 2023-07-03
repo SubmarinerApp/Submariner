@@ -25,7 +25,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     
     // #MARK: - HTTP Requests
     
-    private func request(url: URL, type: SBSubsonicRequestType, customization: ((SBSubsonicParsingOperation) -> Void)? = nil) {
+    private func request(url: URL, type: SBSubsonicRequestType, customization: ((SBSubsonicParsingOperation2) -> Void)? = nil) {
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         let request = URLRequest(url: url)
@@ -66,12 +66,12 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                     return
                 }
                 
-                if let operation = SBSubsonicParsingOperation(managedObjectContext: self.managedObjectContext,
-                                                              client: self,
-                                                              requestType: type,
-                                                              server: self.server.objectID,
-                                                              xml: data,
-                                                              mimeType: response.mimeType) {
+                if let operation = SBSubsonicParsingOperation2(managedObjectContext: self.managedObjectContext,
+                                                               client: self,
+                                                               requestType: type,
+                                                               server: self.server.objectID,
+                                                               xml: data,
+                                                               mimeType: response.mimeType) {
                     if let customization = customization {
                         customization(operation)
                     }
