@@ -37,7 +37,7 @@
 		3EB2BCC12992D28A00DC5056 /* String+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCC02992D28A00DC5056 /* String+Hex.swift */; };
 		3EB2BCC32992D94E00DC5056 /* Data+Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCC22992D94E00DC5056 /* Data+Type.swift */; };
 		3EB2BCC52992DA8E00DC5056 /* String+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCC42992DA8E00DC5056 /* String+File.swift */; };
-		3EB2BCC72992E13700DC5056 /* NSString+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCC62992E13700DC5056 /* NSString+Time.swift */; };
+		3EB2BCC72992E13700DC5056 /* String+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCC62992E13700DC5056 /* String+Time.swift */; };
 		3EB2BCC92992E85F00DC5056 /* NSImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCC82992E85F00DC5056 /* NSImage+Additions.swift */; };
 		3EB2BCCB2992F03A00DC5056 /* SBSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCCA2992F03A00DC5056 /* SBSearchResult.swift */; };
 		3EB2BCCD2992F1B800DC5056 /* SBOperationActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCCC2992F1B800DC5056 /* SBOperationActivity.swift */; };
@@ -177,7 +177,7 @@
 		3EB2BCC02992D28A00DC5056 /* String+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Hex.swift"; sourceTree = "<group>"; };
 		3EB2BCC22992D94E00DC5056 /* Data+Type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Type.swift"; sourceTree = "<group>"; };
 		3EB2BCC42992DA8E00DC5056 /* String+File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+File.swift"; sourceTree = "<group>"; };
-		3EB2BCC62992E13700DC5056 /* NSString+Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+Time.swift"; sourceTree = "<group>"; };
+		3EB2BCC62992E13700DC5056 /* String+Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Time.swift"; sourceTree = "<group>"; };
 		3EB2BCC82992E85F00DC5056 /* NSImage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Additions.swift"; sourceTree = "<group>"; };
 		3EB2BCCA2992F03A00DC5056 /* SBSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBSearchResult.swift; sourceTree = "<group>"; };
 		3EB2BCCC2992F1B800DC5056 /* SBOperationActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBOperationActivity.swift; sourceTree = "<group>"; };
@@ -553,7 +553,7 @@
 				3EB2BCC02992D28A00DC5056 /* String+Hex.swift */,
 				3EB2BCC22992D94E00DC5056 /* Data+Type.swift */,
 				3EB2BCC42992DA8E00DC5056 /* String+File.swift */,
-				3EB2BCC62992E13700DC5056 /* NSString+Time.swift */,
+				3EB2BCC62992E13700DC5056 /* String+Time.swift */,
 				3EB2BCC82992E85F00DC5056 /* NSImage+Additions.swift */,
 				3EC039C829EFC259001FDE50 /* View+Modify.swift */,
 				3EC03AC429F42C95001FDE50 /* URL+Parameters.swift */,
@@ -801,7 +801,7 @@
 				4C87EDB0139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m in Sources */,
 				4C87EDB6139CDAA50064DE2E /* SBPreferencesController.m in Sources */,
 				3E1C6C432A5264570085B578 /* SBOperation.swift in Sources */,
-				3EB2BCC72992E13700DC5056 /* NSString+Time.swift in Sources */,
+				3EB2BCC72992E13700DC5056 /* String+Time.swift in Sources */,
 				4C87EDBA139CDAB90064DE2E /* SBDatabaseController.m in Sources */,
 				3E70B2DF2A2BDC55002C0B93 /* SBApplication.swift in Sources */,
 				3E702DE72A428A1B005F7184 /* Synchronized.swift in Sources */,

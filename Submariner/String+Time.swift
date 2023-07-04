@@ -9,9 +9,9 @@
 import Cocoa
 
 // Remove when Objective-C version of parsing op is gone
-@objc extension NSString {
-    static let iso8601Formatter = ISO8601DateFormatter()
-    static let rfc3339DateFormatter: DateFormatter = {
+extension String {
+    fileprivate static let iso8601Formatter = ISO8601DateFormatter()
+    fileprivate static let rfc3339DateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
@@ -19,16 +19,6 @@ import Cocoa
         return formatter
     }()
     
-    @objc func dateTimeFromISO() -> NSDate? {
-        return NSString.iso8601Formatter.date(from: self as String) as NSDate?
-    }
-    
-    @objc func dateTimeFromRFC3339() -> NSDate? {
-        return NSString.rfc3339DateFormatter.date(from: self as String) as NSDate?
-    }
-}
-
-extension String {
     static let componentFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.minute, .second]
@@ -37,11 +27,11 @@ extension String {
     }()
     
     func dateTimeFromISO() -> Date? {
-        return NSString.iso8601Formatter.date(from: self as String)
+        return String.iso8601Formatter.date(from: self as String)
     }
     
     func dateTimeFromRFC3339() -> Date? {
-        return NSString.rfc3339DateFormatter.date(from: self as String)
+        return String.rfc3339DateFormatter.date(from: self as String)
     }
     
     init(time: TimeInterval) {
