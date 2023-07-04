@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3E0DAD5C29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */; };
 		3E189E4028EF5BAB0062ACA0 /* SBAudioMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */; };
+		3E1C6C432A5264570085B578 /* SBOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1C6C422A5264570085B578 /* SBOperation.swift */; };
 		3E2E1C842A395B79001A3148 /* SBClientController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E1C832A395B79001A3148 /* SBClientController.swift */; };
 		3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */; };
 		3E2F86D828E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */; };
@@ -120,7 +121,6 @@
 		4CFB3E14139D028D008DC01A /* SBSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB3E11139D028D008DC01A /* SBSheetController.m */; };
 		4CFB3E15139D028D008DC01A /* SBServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB3E13139D028D008DC01A /* SBServerViewController.m */; };
 		4CFB3E19139D052F008DC01A /* SBEditServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB3E18139D052F008DC01A /* SBEditServerController.m */; };
-		4CFB3EA3139D115F008DC01A /* SBOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB3EA2139D115F008DC01A /* SBOperation.m */; };
 		4CFB3EF2139D4693008DC01A /* SBTracklistController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB3EF0139D4693008DC01A /* SBTracklistController.m */; };
 		4CFB3EF3139D4693008DC01A /* Tracklist.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CFB3EF1139D4693008DC01A /* Tracklist.xib */; };
 		4CFB3EF8139D47EA008DC01A /* SBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB3EF7139D47EA008DC01A /* SBViewController.m */; };
@@ -145,6 +145,7 @@
 		3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTrackListLengthTransformer.swift; sourceTree = "<group>"; };
 		3E189E3228EBBAC40062ACA0 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBAudioMetadata.swift; sourceTree = "<group>"; };
+		3E1C6C422A5264570085B578 /* SBOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBOperation.swift; sourceTree = "<group>"; };
 		3E2E1C832A395B79001A3148 /* SBClientController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBClientController.swift; sourceTree = "<group>"; };
 		3E2F86C928DD36E600C5CE23 /* Submariner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Submariner-Bridging-Header.h"; sourceTree = "<group>"; };
 		3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBMonospaceTextField.swift; sourceTree = "<group>"; };
@@ -300,8 +301,6 @@
 		4CFB3E13139D028D008DC01A /* SBServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBServerViewController.m; sourceTree = "<group>"; };
 		4CFB3E17139D052F008DC01A /* SBEditServerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBEditServerController.h; sourceTree = "<group>"; };
 		4CFB3E18139D052F008DC01A /* SBEditServerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBEditServerController.m; sourceTree = "<group>"; };
-		4CFB3EA1139D115F008DC01A /* SBOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBOperation.h; sourceTree = "<group>"; };
-		4CFB3EA2139D115F008DC01A /* SBOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBOperation.m; sourceTree = "<group>"; };
 		4CFB3EEF139D4693008DC01A /* SBTracklistController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBTracklistController.h; sourceTree = "<group>"; };
 		4CFB3EF0139D4693008DC01A /* SBTracklistController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBTracklistController.m; sourceTree = "<group>"; };
 		4CFB3EF1139D4693008DC01A /* Tracklist.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Tracklist.xib; sourceTree = "<group>"; };
@@ -644,8 +643,7 @@
 		4CFB3EA0139D113C008DC01A /* Operations */ = {
 			isa = PBXGroup;
 			children = (
-				4CFB3EA1139D115F008DC01A /* SBOperation.h */,
-				4CFB3EA2139D115F008DC01A /* SBOperation.m */,
+				3E1C6C422A5264570085B578 /* SBOperation.swift */,
 				3EC039C429EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift */,
 				3E45201929F5DE9100604079 /* SBImportOperation.swift */,
 				3E702DE82A428CF6005F7184 /* SBSubsonicParsingOperation.swift */,
@@ -802,6 +800,7 @@
 				3EC03B5629F4F2E0001FDE50 /* SBArtist.swift in Sources */,
 				4C87EDB0139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m in Sources */,
 				4C87EDB6139CDAA50064DE2E /* SBPreferencesController.m in Sources */,
+				3E1C6C432A5264570085B578 /* SBOperation.swift in Sources */,
 				3EB2BCC72992E13700DC5056 /* NSString+Time.swift in Sources */,
 				4C87EDBA139CDAB90064DE2E /* SBDatabaseController.m in Sources */,
 				3E70B2DF2A2BDC55002C0B93 /* SBApplication.swift in Sources */,
@@ -829,7 +828,6 @@
 				3EC03B6129F5B0E2001FDE50 /* SBCover+CoreDataProperties.swift in Sources */,
 				3EB2BCC92992E85F00DC5056 /* NSImage+Additions.swift in Sources */,
 				4CFB3E19139D052F008DC01A /* SBEditServerController.m in Sources */,
-				4CFB3EA3139D115F008DC01A /* SBOperation.m in Sources */,
 				3E45201C29FA488C00604079 /* SBServerUserViewController.swift in Sources */,
 				3EC03B3429F4F2E0001FDE50 /* SBMusicItem.swift in Sources */,
 				4CFB3EF2139D4693008DC01A /* SBTracklistController.m in Sources */,
