@@ -33,7 +33,6 @@
 //  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "SBServerSearchController.h"
-#import "SBSubsonicParsingOperation.h"
 #import "SBDatabaseController.h"
 
 #import "Submariner-Swift.h"
@@ -63,7 +62,7 @@
 
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:SBSubsonicSearchResultUpdatedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBSubsonicSearchResultUpdatedNotification" object:nil];
 }
 
 - (void)loadView {
@@ -71,7 +70,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(subsonicSearchResultUpdatedNotification:) 
-                                                 name:SBSubsonicSearchResultUpdatedNotification 
+                                                 name:@"SBSubsonicSearchResultUpdatedNotification"
                                                object:nil];
     
     [tracksTableView setTarget:self];
@@ -92,11 +91,7 @@
         SBSearchResult *results = [notification object];
         // HACK: We can't use the objects that were fetched on another thread.
         // Refetch on this one from ours. Better way possible?
-        for (size_t i = 0; i < results.tracks.count; i++) {
-            SBTrack *track = results.tracks[i];
-            SBTrack *newTrack = [self.managedObjectContext objectWithID: [track objectID]];
-            [results.tracks replaceObjectAtIndex: i withObject: newTrack];
-        }
+        [results replaceManagedInstancesForThreadWithManagedObjectContext: self.managedObjectContext];
         [self setSearchResult:[notification object]];
     });
 }

@@ -25,7 +25,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     
     // #MARK: - HTTP Requests
     
-    private func request(url: URL, type: SBSubsonicRequestType, customization: ((SBSubsonicParsingOperation) -> Void)? = nil) {
+    private func request(url: URL, type: SBSubsonicParsingOperation.RequestType, customization: ((SBSubsonicParsingOperation) -> Void)? = nil) {
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         let request = URLRequest(url: url)
@@ -92,7 +92,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     
     @objc func getLicense() {
         let url = URL.URLWith(string: server.url!, command: "rest/getLicense.view", parameters: parameters)
-        request(url: url!, type: .getLicence)
+        request(url: url!, type: .getLicense)
     }
     
     @objc func getIndexes() {
@@ -183,7 +183,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         request(url: url!, type: .createPlaylist)
     }
     
-    @objc(getAlbumListForType:) func getAlbumList(type: SBSubsonicRequestType) {
+    @objc(getAlbumListForType:) func getAlbumList(type: SBSubsonicParsingOperation.RequestType) {
         var params = parameters
         switch type {
         case .getAlbumListRandom:

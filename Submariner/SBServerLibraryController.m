@@ -35,7 +35,6 @@
 #import "SBServerLibraryController.h"
 #import "SBDatabaseController.h"
 #import "SBAddServerPlaylistController.h"
-#import "SBSubsonicParsingOperation.h"
 #import "SBTableView.h"
 #import "SBPrioritySplitViewDelegate.h"
 
@@ -119,8 +118,8 @@
 - (void)dealloc
 {
     // remove subsonic observers
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:SBSubsonicCoversUpdatedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:SBSubsonicTracksUpdatedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBSubsonicCoversUpdatedNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBSubsonicTracksUpdatedNotification" object:nil];
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"coverSize"];
     [albumsController removeObserver:self forKeyPath:@"selectedObjects"];
 }
@@ -153,13 +152,13 @@
     // observe album covers
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(subsonicCoversUpdatedNotification:) 
-                                                 name:SBSubsonicCoversUpdatedNotification
+                                                 name:@"SBSubsonicCoversUpdatedNotification"
                                                object:nil];
     
     // observe tracks
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(subsonicTracksUpdatedNotification:) 
-                                                 name:SBSubsonicTracksUpdatedNotification
+                                                 name:@"SBSubsonicTracksUpdatedNotification"
                                                object:nil];
     
     // Observe album for saving. Artist isn't observed because it triggers after for some reason.
