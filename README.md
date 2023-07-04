@@ -30,7 +30,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes:
 
-### Version 2.3.1 (not yet released)
+### Version 2.3.1
 
 * Only try precise times for FLACs which need it, and not other file types
 * When enabled, only download a track before its start.
