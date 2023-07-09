@@ -102,7 +102,9 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         params["id"] = artist.id
         
         let url = URL.URLWith(string: server.url!, command: "rest/getMusicDirectory.view", parameters: params)
-        request(url: url!, type: .getAlbumDirectory)
+        request(url: url!, type: .getAlbumDirectory) { operation in
+            operation.currentArtistID = artist.id
+        }
     }
     
     @objc(getCoverWithID:) func getCover(id: String) {
@@ -120,7 +122,9 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         params["id"] = albumID
         
         let url = URL.URLWith(string: server.url!, command: "rest/getMusicDirectory.view", parameters: params)
-        request(url: url!, type: .getTrackDirectory)
+        request(url: url!, type: .getTrackDirectory) { operation in
+            operation.currentAlbumID = albumID
+        }
     }
     
     @objc func getPlaylists() {
@@ -133,7 +137,9 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         params["id"] = playlist.id
         
         let url = URL.URLWith(string: server.url!, command: "rest/getPlaylist.view", parameters: params)
-        request(url: url!, type: .getPlaylist)
+        request(url: url!, type: .getPlaylist) { operation in
+            operation.currentPlaylistID = playlist.id
+        }
     }
     
     @objc func getPodcasts() {
@@ -146,7 +152,9 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         params["id"] = id
         
         let url = URL.URLWith(string: server.url!, command: "rest/deletePlaylist.view", parameters: params)
-        request(url: url!, type: .deletePlaylist)
+        request(url: url!, type: .deletePlaylist) { operation in
+            operation.currentPlaylistID = id
+        }
     }
     
     @objc(createPlaylistWithName:tracks:) func createPlaylist(name: String, tracks: [SBTrack]) {
@@ -169,7 +177,9 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
             tracks.map { track in URLQueryItem(name: "songID", value: track.id) }
         
         let url = URL.URLWith(string: server.url!, command: "rest/createPlaylist.view", queryItems: allParams)
-        request(url: url!, type: .createPlaylist)
+        request(url: url!, type: .createPlaylist) { operation in
+            operation.currentPlaylistID = playlistID
+        }
     }
     
     @objc(getAlbumListForType:) func getAlbumList(type: SBSubsonicParsingOperation.RequestType) {

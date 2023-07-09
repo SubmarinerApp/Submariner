@@ -76,6 +76,9 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     var currentPodcast: SBPodcast?
     var currentSearch: SBSearchResult?
     
+    var currentPlaylistID: String?
+    var currentArtistID: String?
+    var currentAlbumID: String?
     var currentCoverID: String?
     
     init!(managedObjectContext mainContext: NSManagedObjectContext!,
@@ -162,6 +165,17 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     
     private func parseElementError(attributeDict: [String: String]) {
         logger.error("Subsonic error element, code \(attributeDict["code"] ?? "unknown", privacy: .public), \(attributeDict["message"] ?? "", privacy: .public)")
+        if attributeDict["code"] == "70" { // Not found
+            // delete the object we're requesting since it doesn't exist
+            if let currentPlaylistID = self.currentPlaylistID, let playlistToDelete = fetchPlaylist(id: currentPlaylistID) {
+                threadedContext.delete(playlistToDelete)
+            } else if let currentArtistID = self.currentArtistID, let artistToDelete = fetchArtist(id: currentArtistID) {
+                threadedContext.delete(artistToDelete)
+            } else if let currentAlbumID = self.currentAlbumID, let albumToDelete = fetchAlbum(id: currentAlbumID) {
+                threadedContext.delete(albumToDelete)
+            }
+            // XXX: Cover, podcast, track? Do we need to remove it from any sets?
+        }
         NotificationCenter.default.post(name: .SBSubsonicConnectionFailed, object: attributeDict)
     }
     
