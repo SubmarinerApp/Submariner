@@ -749,7 +749,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     
     private func fetchPlaylist(name: String) -> SBPlaylist? {
         let fetchRequest = NSFetchRequest<SBPlaylist>(entityName: "Playlist")
-        fetchRequest.predicate = NSPredicate(format: "(itemName == %@) && (server == %@)", name, server)
+        fetchRequest.predicate = NSPredicate(format: "(resourceName == %@) && (server == %@)", name, server)
         let results = try? threadedContext.fetch(fetchRequest)
         
         return results?.first
