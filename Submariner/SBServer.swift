@@ -154,10 +154,11 @@ public class SBServer: SBResource {
                 ret = cachedPassword
             } else if let urlString = self.url,
                       let url = URL.init(string: urlString),
-                      let username = self.username {
+                      let username = self.username,
+                      let host = url.host {
                 let attribs: [CFString: Any] = [
                     kSecClass: kSecClassInternetPassword,
-                    kSecAttrServer: url.host!,
+                    kSecAttrServer: host,
                     kSecAttrAccount: username,
                     kSecAttrPath: "/",
                     kSecAttrPort: url.portWithHTTPFallback,
@@ -209,11 +210,12 @@ public class SBServer: SBResource {
         if let urlString = self.url,
            let url = URL.init(string: urlString),
            let username = self.username,
-           let password = self.password {
+           let password = self.password,
+           let host = url.host {
             let passwordData = password.data(using: .utf8) ?? Data()
             var attribs: [CFString: Any] = [
               kSecClass: kSecClassInternetPassword,
-              kSecAttrServer: url.host!,
+              kSecAttrServer: host,
               kSecAttrAccount: username,
               kSecAttrPath: "/",
               kSecAttrPort: url.portWithHTTPFallback,
@@ -245,11 +247,13 @@ public class SBServer: SBResource {
         if let url = self.url,
            let newURL = URL.init(string: url),
            let username = self.username,
-           let password = self.password {
+           let password = self.password,
+           let oldHost = oldURL.host,
+           let host = newURL.host {
             let passwordData = password.data(using: .utf8) ?? Data()
             let attribs: [CFString: Any] = [
               kSecClass: kSecClassInternetPassword,
-              kSecAttrServer: oldURL.host!,
+              kSecAttrServer: oldHost,
               kSecAttrAccount: oldUsername,
               kSecAttrPath: "/",
               kSecAttrPort: oldURL.portWithHTTPFallback,
@@ -258,7 +262,7 @@ public class SBServer: SBResource {
             ]
             
             let newAttribs: [CFString: Any] = [
-                kSecAttrServer: newURL.host!,
+                kSecAttrServer: host,
                 kSecAttrAccount: username,
                 kSecAttrPort: newURL.portWithHTTPFallback,
                 kSecAttrProtocol: newURL.keychainProtocol,
