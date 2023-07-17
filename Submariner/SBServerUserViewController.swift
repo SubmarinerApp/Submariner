@@ -67,7 +67,8 @@ extension NSNotification.Name {
                                                object: nil,
                                                queue: nil) { notification in
             // XXX: don't have a way to forcibly invalidate cover other than the big hammer
-            self.refreshNowPlaying()
+            // TODO: Disabled due to propensity for causing infinite loops, figure out a better way for real
+            //self.refreshNowPlaying()
         }
         startTimer()
     }
