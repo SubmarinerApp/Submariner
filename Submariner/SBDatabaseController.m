@@ -890,7 +890,7 @@
         [self navigateForwardToNavItem: navItem];
     } else {
         [searchToolbarItem endSearchInteraction];
-        while ([rightVC.selectedViewController isKindOfClass: SBMusicSearchController.class]
+        if ([rightVC.selectedViewController isKindOfClass: SBMusicSearchController.class]
                || [rightVC.selectedViewController isKindOfClass: SBServerSearchController.class]) {
             [rightVC navigateBack: sender];
         }
