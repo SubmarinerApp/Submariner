@@ -123,6 +123,12 @@
                                     <action selector="configureCurrentServer:" target="494" id="gI5-O5-FSs"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Scan Server Library" id="BXD-JV-K3T">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="scanCurrentLibrary:" target="494" id="mo3-OO-ITW"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="dt2-nv-5IQ"/>
                             <menuItem title="Download" keyEquivalent="S" id="eFU-Sh-VoQ">
                                 <connections>

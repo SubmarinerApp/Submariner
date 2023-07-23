@@ -531,9 +531,11 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     }
     
     private func parseElementScanStatus(attributeDict: [String: String]) {
+        // Navidrome extends the Subsonic schema with lastScan (date) and folderCount (int)
         if let scanningString = attributeDict["scanning"] {
-            if scanningString == "true" {
-                // FIXME: include "count"
+            // The initial scan starts with false, it seems
+            if scanningString == "true" || requestType == .scanLibrary {
+                // FIXME: include "count" and others in a message
                 postServerNotification(.SBSubsonicLibraryScanProgress)
             } else {
                 postServerNotification(.SBSubsonicLibraryScanDone)

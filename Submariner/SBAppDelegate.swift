@@ -332,6 +332,10 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         databaseController.configureCurrentServer(sender)
     }
     
+    @IBAction func scanCurrentLibrary(_ sender: Any?) {
+        databaseController.scanCurrentLibrary(sender)
+    }
+    
     // #MARK: - Core Data
     
     @objc let managedObjectModel: NSManagedObjectModel

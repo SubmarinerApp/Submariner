@@ -682,6 +682,28 @@
     [self reloadServerInternal: self.server];
 }
 
+- (void)scanLibraryInternal: (SBServer*)server {
+    if (server == nil || ![server isKindOfClass:[SBServer class]]) {
+        return;
+    }
+    // TODO: This should subscribe to the notifications to observe progress,
+    // and kick off a reload event when done
+    [server scanLibrary];
+}
+
+- (IBAction)scanLibrary:(id)sender {
+    NSInteger selectedRow = [sourceList selectedRow];
+    
+    if (selectedRow != -1) {
+        SBServer *server = [[sourceList itemAtRow:selectedRow] representedObject];
+        [self scanLibraryInternal: server];
+    }
+}
+
+- (IBAction)scanCurrentLibrary:(id)sender {
+    [self scanLibraryInternal: self.server];
+}
+
 - (IBAction)playPause:(id)sender {
     
     if([[SBPlayer sharedInstance] isPlaying] || [[SBPlayer sharedInstance] isPaused]) {
@@ -1701,7 +1723,9 @@
                 NSMenu * m = [[NSMenu alloc] init];
                 
                 [m addItemWithTitle:@"Add Playlist to Server" action:@selector(addRemotePlaylist:) keyEquivalent:@""];
+                [m addItem:[NSMenuItem separatorItem]];
                 [m addItemWithTitle:@"Reload Server" action:@selector(reloadServer:) keyEquivalent:@""];
+                [m addItemWithTitle:@"Scan Server Library" action:@selector(scanLibrary:) keyEquivalent:@""];
                 [m addItem:[NSMenuItem separatorItem]];
                 [m addItemWithTitle:@"Open Home Page" action:@selector(openHomePage:) keyEquivalent:@""];
                 [m addItemWithTitle:@"Configure Server" action:@selector(editItem:) keyEquivalent:@""];
