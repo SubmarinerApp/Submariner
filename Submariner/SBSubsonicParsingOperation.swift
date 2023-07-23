@@ -609,7 +609,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             // XXX: do parsing here?
             NotificationCenter.default.post(name: .SBSubsonicUserInfoUpdated, object: attributeDict)
         } else if elementName == "song" { // search2 results
-            parseElementEntry(attributeDict: attributeDict)
+            parseElementSong(attributeDict: attributeDict)
         } else if elementName == "license" {
             parseElementLicense(attributeDict: attributeDict)
         } else if elementName == "channel" {
