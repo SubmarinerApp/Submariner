@@ -26,6 +26,8 @@ extension NSNotification.Name{
     static let SBSubsonicPlaylistsCreated = NSNotification.Name("SBSubsonicPlaylistsCreatedNotification")
     static let SBSubsonicSearchResultUpdated = NSNotification.Name("SBSubsonicSearchResultUpdatedNotification")
     static let SBSubsonicPodcastsUpdated = NSNotification.Name("SBSubsonicPodcastsUpdatedNotification")
+    static let SBSubsonicLibraryScanDone = NSNotification.Name("SBSubsonicLibraryScanDone")
+    static let SBSubsonicLibraryScanProgress = NSNotification.Name("SBSubsonicLibraryScanProgress")
 }
 
 class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
@@ -57,6 +59,8 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         @objc(SBSubsonicRequestSetRating) case setRating = 23
         @objc(SBSubsonicRequestGetPodcasts) case getPodcasts = 25
         @objc(SBSubsonicRequestSetScrobble) case scrobble = 26
+        @objc(SBSubsonicRequestScanLibrary) case scanLibrary = 27
+        @objc(SBSubsonicRequestGetScanStatus) case getScanStatus = 28
     }
     
     let clientController: SBClientController
@@ -526,6 +530,17 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         }
     }
     
+    private func parseElementScanStatus(attributeDict: [String: String]) {
+        if let scanningString = attributeDict["scanning"] {
+            if scanningString == "true" {
+                // FIXME: include "count"
+                postServerNotification(.SBSubsonicLibraryScanProgress)
+            } else {
+                postServerNotification(.SBSubsonicLibraryScanDone)
+            }
+        }
+    }
+    
     private func parseElementEpisode(attributeDict: [String: String]) {
         if let currentPodcast = self.currentPodcast, let id = attributeDict["id"] {
             var episode = fetchEpisode(id: id)
@@ -601,6 +616,8 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             parseElementEpisode(attributeDict: attributeDict)
         } else if elementName == "nowPlaying" {
             // nop
+        } else if elementName == "scanStatus" {
+            parseElementScanStatus(attributeDict: attributeDict)
         } else {
             logger.error("Unknown XML element \(elementName, privacy: .public), attributes \(attributeDict, privacy: .public)")
         }

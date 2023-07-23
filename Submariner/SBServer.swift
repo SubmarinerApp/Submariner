@@ -409,6 +409,16 @@ public class SBServer: SBResource {
         self.clientController.setRating(rating, id: id)
     }
     
+    // #MARK: - Subsonic Client (Library Scan)
+    
+    @objc func scanLibrary() {
+        self.clientController.scanLibrary()
+    }
+    
+    @objc func getScanStatus() {
+        self.clientController.getScanStatus()
+    }
+    
     // #MARK: - Core Data insert compatibility shim
     
     @objc(insertInManagedObjectContext:) class func insertInManagedObjectContext(context: NSManagedObjectContext) -> SBServer {

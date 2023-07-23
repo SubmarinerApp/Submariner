@@ -245,6 +245,16 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         let url = URL.URLWith(string: server.url!, command: "rest/scrobble.view", parameters: params)
         request(url: url!, type: .scrobble)
     }
+    
+    @objc func scanLibrary() {
+        let url = URL.URLWith(string: server.url!, command: "rest/startScan.view", parameters: parameters)
+        request(url: url!, type: .getNowPlaying)
+    }
+    
+    @objc func getScanStatus() {
+        let url = URL.URLWith(string: server.url!, command: "rest/getScanStatus.view", parameters: parameters)
+        request(url: url!, type: .getNowPlaying)
+    }
 }
 
 extension Dictionary {
