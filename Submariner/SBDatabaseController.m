@@ -1547,21 +1547,17 @@
                     [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
                     return NO;
                 }
-                NSMutableArray *trackIDs = [NSMutableArray array];
+                
+                NSMutableArray *tracks = [NSMutableArray array];
                 NSString *playlistID = playlist.id;
                 
-                // create an IDs array with existing playlist tracks
-                [playlist.tracks enumerateObjectsUsingBlock:^(id obj, BOOL *stop) {
-                    [trackIDs addObject:[obj valueForKey:@"id"]];
-                }];
-                
-                // also add new track IDs to the array
+                // append these tracks using the updatePlaylist endpoint
                 [tracksURIs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                     SBTrack *track = (SBTrack *)[self.managedObjectContext objectWithID:[[self.managedObjectContext persistentStoreCoordinator] managedObjectIDForURIRepresentation:obj]];
-                    [trackIDs addObject:track.id];
+                    [tracks addObject: track];
                 }];
                 
-                [playlist.server updatePlaylistWithID:playlistID tracks:trackIDs];
+                [playlist.server updatePlaylistWithID: playlistID name: nil comment: nil appending: tracks removing: nil];
             }
             
             return YES;

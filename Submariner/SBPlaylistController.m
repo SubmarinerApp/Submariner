@@ -90,9 +90,6 @@
 }
 
 
-
-
-
 #pragma mark - 
 #pragma mark IBActions
 
@@ -163,10 +160,19 @@
     if (returnCode == NSAlertFirstButtonReturn) { 
         NSInteger selectedRow = [tracksTableView selectedRow];
         
+        // XXX: Multiple selections
         if(selectedRow != -1) {
             SBTrack *selectedTrack = [[tracksController arrangedObjects] objectAtIndex:selectedRow];
             if(selectedTrack != nil) {
                 [playlist removeTracksObject:selectedTrack];
+                
+                if (playlist.server) {
+                    [playlist.server updatePlaylistWithID: playlist.id
+                                                     name: nil
+                                                  comment: nil
+                                                appending: nil
+                                                 removing: @[[NSNumber numberWithLong: selectedRow]]];
+                }
             }
         }
     }
@@ -323,6 +329,11 @@
         
         [tracksController rearrangeObjects];
         [tracksTableView reloadData];
+        
+        // submit changes to server, this uses createPlaylist behind the scenes since we can reorder with it
+        if (playlist.server) {
+            [playlist.server updatePlaylistWithID: playlist.id tracks: tracksController.arrangedObjects];
+        }
     }
     
     return YES;

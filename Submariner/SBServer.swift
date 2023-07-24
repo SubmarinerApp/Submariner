@@ -377,6 +377,15 @@ public class SBServer: SBResource {
         self.clientController.updatePlaylist(playlistID: ID, tracks: tracks)
     }
     
+    // public ommited because Bool? not in objc
+    @objc func updatePlaylist(ID: String,
+                              name: String? = nil,
+                              comment: String? = nil,
+                              appending: [SBTrack]? = nil,
+                              removing: [Int]? = nil) {
+        self.clientController.updatePlaylist(ID: ID, name: name, comment: comment, appending: appending, removing: removing)
+    }
+    
     @objc func deletePlaylist(ID: String) {
         self.clientController.deletePlaylist(id: ID)
     }

@@ -163,7 +163,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         
         // XXX: DRY this with update
         let allParams = params.map { (k, v) in  URLQueryItem(name: k, value: v) } +
-            tracks.map { track in URLQueryItem(name: "songID", value: track.id) }
+            tracks.map { track in URLQueryItem(name: "songId", value: track.id) }
         
         let url = URL.URLWith(string: server.url!, command: "rest/createPlaylist.view", queryItems: allParams)
         request(url: url!, type: .createPlaylist)
@@ -174,12 +174,41 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         params["playlistId"] = playlistID
         
         let allParams = params.map { (k, v) in  URLQueryItem(name: k, value: v) } +
-            tracks.map { track in URLQueryItem(name: "songID", value: track.id) }
+            tracks.map { track in URLQueryItem(name: "songId", value: track.id) }
         
         let url = URL.URLWith(string: server.url!, command: "rest/createPlaylist.view", queryItems: allParams)
         request(url: url!, type: .createPlaylist) { operation in
             operation.currentPlaylistID = playlistID
         }
+    }
+    
+    func updatePlaylist(ID: String,
+                        name: String? = nil,
+                        comment: String? = nil,
+                        isPublic: Bool? = nil,
+                        appending: [SBTrack]? = nil,
+                        removing: [Int]? = nil) {
+        var params = parameters
+        params["playlistId"] = ID
+        if let name = name {
+            params["name"] = name
+        }
+        if let comment = comment {
+            params["comment"] = comment
+        }
+        if let isPublic = isPublic {
+            params["public"] = "\(isPublic)"
+        }
+        
+        let allParams = params.map { (k, v) in  URLQueryItem(name: k, value: v) } +
+            (appending?.map { track in URLQueryItem(name: "songIdToAdd", value: track.id) } ?? []) +
+            (removing?.map { index in URLQueryItem(name: "songIndexToRemove", value: "\(index)") } ?? [])
+        
+        let url = URL.URLWith(string: server.url!, command: "rest/updatePlaylist.view", queryItems: allParams)
+        request(url: url!, type: .createPlaylist) { operation in
+            operation.currentPlaylistID = ID
+        }
+        
     }
     
     @objc(getAlbumListForType:) func getAlbumList(type: SBSubsonicParsingOperation.RequestType) {
