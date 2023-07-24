@@ -30,6 +30,17 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes:
 
+### Version 2.3.2 (not yet releases)
+
+* Server library scans can be kicked off from the UI
+* Non-existent server items are automatically removed
+* Fix an infinite loop when leaving search results
+* Fix an infinite loop with server now playing
+* Fix crashes with null hostnames
+* Fix reordering server playlists
+* Appending to or removing items from server playlists is more efficient
+* Rewrite Subsonic response parsing in Swift
+
 ### Version 2.3.1
 
 * Only try precise times for FLACs which need it, and not other file types
