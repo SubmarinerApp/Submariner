@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -27,7 +27,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveName="PlaylistTable" headerView="16" id="14" customClass="SBTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="681" height="292"/>
+                                <rect key="frame" x="0.0" y="0.0" width="751" height="292"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -139,7 +139,7 @@
                                             <binding destination="33" name="value" keyPath="arrangedObjects.onlineImage" id="54"/>
                                         </connections>
                                     </tableColumn>
-                                    <tableColumn identifier="online" width="10" minWidth="80" maxWidth="10" id="55">
+                                    <tableColumn identifier="Server" width="80" minWidth="80" maxWidth="1000" id="55">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Server">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -159,7 +159,7 @@
                                             </binding>
                                         </connections>
                                     </tableColumn>
-                                    <tableColumn identifier="rating" width="64" minWidth="10" maxWidth="3.4028234663852886e+38" id="72">
+                                    <tableColumn identifier="rating" width="64" minWidth="10" maxWidth="1000" id="72">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Rating">
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -190,7 +190,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <tableHeaderView key="headerView" wantsLayer="YES" id="16">
-                        <rect key="frame" x="0.0" y="0.0" width="681" height="28"/>
+                        <rect key="frame" x="0.0" y="0.0" width="751" height="28"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>

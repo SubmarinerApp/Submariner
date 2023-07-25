@@ -69,9 +69,8 @@
 
 // synthesis of various answers in https://stackoverflow.com/questions/13553935/nstableview-to-allow-user-to-choose-which-columns-to-display
 
-- (NSString*)columnsAutosaveKeyName {
-    return [NSString stringWithFormat: @"SBTableView %@ Columns", self.autosaveName];
-}
+// XXX: Modern macOS (as of I believe before macOS 11) makes this redundant with the NSTableView Columns v2/NSTableView Columns v3 autosave schema. Which is undocumented.
+// All these UI bits become unnecessary in 14 when NSTableView can do this built-in, so it can be nopped out for that release.
 
 - (void)toggleColumn:(NSMenuItem *)menu {
     NSTableColumn *col = menu.representedObject;
@@ -86,25 +85,17 @@
         cols[column.identifier] = @(!column.isHidden);
     }
 
-    NSString *keyName = [self columnsAutosaveKeyName];
-    [[NSUserDefaults standardUserDefaults] setObject:cols forKey: keyName];
-    if (shouldHide) {
-        [self sizeLastColumnToFit];
-    } else {
-        [self sizeToFit];
-    }
+    // don't do stuff like sizeToFit to avoid resizing other columns unexpectedly,
+    // AppKit at least in 13+ does this intelligently for us
 }
 
 - (void)createViewHeaderMenu {
-    NSString *keyName = [self columnsAutosaveKeyName];
-    headerMenu = [[NSMenu alloc] initWithTitle: keyName];
+    headerMenu = [[NSMenu alloc] initWithTitle: self.autosaveName];
     headerMenu.delegate = self;
     self.headerView.menu = headerMenu;
     
-    NSDictionary *savedCols = [[NSUserDefaults standardUserDefaults] dictionaryForKey: keyName];
-    
     for (NSTableColumn *col in self.tableColumns) {
-        //NSLog(@"Adding column ID %@ with name %@ tooltip %@", col.identifier, col.headerCell.stringValue, col.headerToolTip);
+        //NSLog(@"In table \"%@\" adding column ID \"%@\" with name \"%@\" tooltip \"%@\"", self.autosaveName, col.identifier, col.headerCell.stringValue, col.headerToolTip);
 
         NSString *miName = [col.headerCell stringValue]; // does not return nil
         if ([miName isEqual: @""] && col.headerToolTip != nil && ![col.headerToolTip isEqual: @""]) {
@@ -117,11 +108,6 @@
                                                     action:@selector(toggleColumn:)
                                              keyEquivalent:@""];
         mi.target = self;
-
-        if (savedCols) {
-            BOOL isVisible = [savedCols[col.identifier] boolValue];
-            [col setHidden:!isVisible];
-        }
 
         mi.state = (col.isHidden ? NSControlStateValueOff: NSControlStateValueOn);
         mi.representedObject = col;
