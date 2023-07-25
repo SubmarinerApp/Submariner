@@ -137,10 +137,10 @@
         SBTrack *selectedTrack = [[tracksController arrangedObjects] objectAtIndex:selectedRow];
         if(selectedTrack != nil) {
             NSAlert *alert = [[NSAlert alloc] init];
-            [alert addButtonWithTitle:@"OK"];
+            [alert addButtonWithTitle:@"Remove"];
             [alert addButtonWithTitle:@"Cancel"];
-            [alert setMessageText:@"Remove the selected track ?"];
-            [alert setInformativeText:@"The selected track will be removed from this playlist."];
+            [alert setMessageText:@"Remove the selected tracks?"];
+            [alert setInformativeText:@"The selected tracks will be removed from this playlist."];
             [alert setAlertStyle:NSAlertStyleWarning];
             
             [alert beginSheetModalForWindow: [[self view] window] completionHandler:^(NSModalResponse returnCode) {
@@ -157,23 +157,25 @@
 
 
 - (void)removeTrackAlertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    if (returnCode == NSAlertFirstButtonReturn) { 
-        NSInteger selectedRow = [tracksTableView selectedRow];
+    if (returnCode == NSAlertFirstButtonReturn) {
+        NSIndexSet *selectedRows = [tracksTableView selectedRowIndexes];
         
-        // XXX: Multiple selections
-        if(selectedRow != -1) {
-            SBTrack *selectedTrack = [[tracksController arrangedObjects] objectAtIndex:selectedRow];
-            if(selectedTrack != nil) {
+        // delete each indiviually
+        [selectedRows enumerateIndexesWithOptions: NSEnumerationReverse usingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+            SBTrack *selectedTrack = [[tracksController arrangedObjects] objectAtIndex: idx];
+            if (selectedTrack != nil) {
                 [playlist removeTracksObject:selectedTrack];
-                
-                if (playlist.server) {
-                    [playlist.server updatePlaylistWithID: playlist.id
-                                                     name: nil
-                                                  comment: nil
-                                                appending: nil
-                                                 removing: @[[NSNumber numberWithLong: selectedRow]]];
-                }
             }
+        }];
+        
+        // delete all the rows at once in the server
+        if (playlist.server) {
+            NSArray *selectedRowsArray = [selectedRows toArray];
+            [playlist.server updatePlaylistWithID: playlist.id
+                                             name: nil
+                                          comment: nil
+                                        appending: nil
+                                         removing: selectedRowsArray];
         }
     }
 }

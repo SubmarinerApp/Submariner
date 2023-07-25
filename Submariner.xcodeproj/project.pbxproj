@@ -21,6 +21,7 @@
 		3E53DBBA27E4192B00DB4C84 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBB927E4192B00DB4C84 /* AVFoundation.framework */; };
 		3E53DBBC27E41B6400DB4C84 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */; };
 		3E5C42E029846E25009B9699 /* SBOnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5C42DE29846E25009B9699 /* SBOnboardingController.swift */; };
+		3E69507D2A707A2A006E5868 /* NSIndexSet+Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E69507C2A707A2A006E5868 /* NSIndexSet+Array.swift */; };
 		3E69A2FF28B02D86009800D8 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E69A2FD28B02D86009800D8 /* UserNotifications.framework */; };
 		3E702DE32A3E8E1F005F7184 /* SBAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E702DE22A3E8E1F005F7184 /* SBAppDelegate.swift */; };
 		3E702DE72A428A1B005F7184 /* Synchronized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E702DE62A428A1B005F7184 /* Synchronized.swift */; };
@@ -159,6 +160,7 @@
 		3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		3E5C41DB297F2E15009B9699 /* Submariner v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Submariner v3.xcdatamodel"; sourceTree = "<group>"; };
 		3E5C42DE29846E25009B9699 /* SBOnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBOnboardingController.swift; sourceTree = "<group>"; };
+		3E69507C2A707A2A006E5868 /* NSIndexSet+Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSIndexSet+Array.swift"; sourceTree = "<group>"; };
 		3E69A2FD28B02D86009800D8 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		3E702DE22A3E8E1F005F7184 /* SBAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBAppDelegate.swift; sourceTree = "<group>"; };
 		3E702DE62A428A1B005F7184 /* Synchronized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synchronized.swift; sourceTree = "<group>"; };
@@ -559,6 +561,7 @@
 				3EC03AC429F42C95001FDE50 /* URL+Parameters.swift */,
 				3E45201D29FAD41900604079 /* UserDefaults+Submariner.swift */,
 				3E702DE62A428A1B005F7184 /* Synchronized.swift */,
+				3E69507C2A707A2A006E5868 /* NSIndexSet+Array.swift */,
 			);
 			name = Additions;
 			sourceTree = "<group>";
@@ -861,6 +864,7 @@
 				4CB4D8F713A670BF00F706EC /* SBPrioritySplitViewDelegate.m in Sources */,
 				3EC03B3629F4F2E0001FDE50 /* SBEpisode.swift in Sources */,
 				3EC03AC529F42C95001FDE50 /* URL+Parameters.swift in Sources */,
+				3E69507D2A707A2A006E5868 /* NSIndexSet+Array.swift in Sources */,
 				4C4A1E8713B4E6A0000BA93D /* SBMergeArtistsController.m in Sources */,
 				3EC03B6329F5B0E2001FDE50 /* SBServer+CoreDataProperties.swift in Sources */,
 				4CCF7FEF13B673CA00954C6E /* SBServerSearchController.m in Sources */,
