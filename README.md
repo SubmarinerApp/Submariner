@@ -37,6 +37,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Non-existent server items are automatically removed
 * Fix an infinite loop when leaving search results
 * Fix an infinite loop with server now playing
+* Fix crash with shuffle
 * Fix crashes with null hostnames
 * Fix issue with column headers in server search and playlists
 * Fix reordering server playlists

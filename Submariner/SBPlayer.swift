@@ -795,7 +795,8 @@ extension NSNotification.Name {
         
         if playlist.count > 1 {
             while randomTrack == track {
-                let randomIndex = Int.random(in: 0...playlist.count)
+                let lastIndex = playlist.count - 1
+                let randomIndex = Int.random(in: 0...lastIndex)
                 randomTrack = playlist[randomIndex]
             }
             return randomTrack
