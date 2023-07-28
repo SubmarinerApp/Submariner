@@ -40,6 +40,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Fix crashes with null hostnames
 * Fix issue with column headers in server search and playlists
 * Fix reordering server playlists
+* Fix issue with playlist items not pointing to known items not having metadata
 * Appending to or removing items from server playlists is more efficient
 * Rewrite Subsonic response parsing in Swift
 
