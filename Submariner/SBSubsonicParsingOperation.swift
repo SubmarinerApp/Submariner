@@ -384,8 +384,69 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                     track.playlist = currentPlaylist
                 }
             } else {
+                // if the track doesn't exist yet, it'll be born without context. provide that context (artist/album/cover)
+                // FIXME: Should we update *existing* tracks regardless? For previous cases they were pulled anew...
+                var attachedArtist: SBArtist?
+                // is this right for album artist? the artist object can get corrected on fetch though...
+                if let artistID = attributeDict["artistId"] {
+                    attachedArtist = fetchArtist(id: artistID)
+                    if attachedArtist == nil, let artistName = attributeDict["artist"] {
+                        logger.info("Creating artist ID \(artistID, privacy: .public) for playlist entry")
+                        attachedArtist = SBArtist.insertInManagedObjectContext(context: threadedContext)
+                        // this special case isn't as bad as Now Playing
+                        attachedArtist!.id = artistID
+                        attachedArtist!.itemName = artistName
+                        attachedArtist!.isLocal = false
+                        attachedArtist!.server = server
+                        server.addToIndexes(attachedArtist!)
+                    }
+                }
+                
+                var attachedAlbum: SBAlbum?
+                // same idea
+                if let albumID = attributeDict["albumId"] {
+                    attachedAlbum = fetchAlbum(id: albumID)
+                    if attachedArtist == nil, let albumName = attributeDict["albumName"] {
+                        logger.info("Creating album ID \(albumID, privacy: .public) for playlist entry")
+                        attachedArtist = SBArtist.insertInManagedObjectContext(context: threadedContext)
+                        // XXX: Lack of ID seems like it'll be agony
+                        attachedAlbum = SBAlbum.insertInManagedObjectContext(context: threadedContext)
+                        attachedAlbum!.id = albumID
+                        attachedAlbum!.itemName = albumName
+                        attachedAlbum!.isLocal = false
+                        if let attachedArtist = attachedArtist {
+                            attachedAlbum?.artist = attachedArtist
+                            attachedArtist.addToAlbums(attachedAlbum!)
+                        }
+                        
+                        server.home?.addToAlbums(attachedAlbum!)
+                        attachedAlbum!.home = server.home
+                    }
+                }
+                
+                // the track doesn't need to know this, so scope doesn't matter
+                if let attachedAlbum = attachedAlbum, let coverID = attributeDict["coverArt"] {
+                    var attachedCover: SBCover?
+                    
+                    attachedCover = fetchCover(coverID: coverID)
+                    
+                    if attachedCover?.id == nil || attachedCover?.id == "" {
+                        logger.info("Creating cover ID \(coverID, privacy: .public) for playlist entry")
+                        attachedCover = SBCover.insertInManagedObjectContext(context: threadedContext)
+                        attachedCover!.id = coverID
+                        attachedCover!.album = attachedAlbum
+                        attachedAlbum.cover = attachedCover!
+                    }
+                    
+                    clientController.getCover(id: coverID)
+                }
+                
                 logger.info("Creating new track with ID: \(id, privacy: .public) for playlist \(currentPlaylist.id ?? "(no ID?)", privacy: .public)")
                 let track = createTrack(attributes: attributeDict)
+                if let attachedAlbum = attachedAlbum {
+                    attachedAlbum.addToTracks(track)
+                    track.album = attachedAlbum
+                }
                 
                 track.playlistIndex = NSNumber(value: playlistIndex)
                 playlistIndex += 1
@@ -438,6 +499,10 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 
                 attachedAlbum?.addToTracks(attachedTrack)
                 attachedTrack.album = attachedAlbum
+                
+                // XXX: do this here?
+                server.home?.addToAlbums(attachedAlbum!)
+                attachedAlbum!.home = server.home
             }
         }
         
