@@ -39,11 +39,13 @@ public class SBServer: SBResource {
     
     // #MARK: - Custom Accessors (Source List Tree Support)
     
-    @objc var resources: NSSet {
+    // This is used by outline views can return a variety of things.
+    @objc dynamic var resources: NSSet? {
         get {
             self.willAccessValue(forKey: "resources")
             self.willAccessValue(forKey: "playlists")
-            let result = self.primitiveValue(forKey: "playlists") as! NSSet
+            // seems we need to return a set at all for the outline view
+            let result = self.primitiveValue(forKey: "playlists") as? NSSet ?? NSSet()
             self.didAccessValue(forKey: "playlists")
             self.didAccessValue(forKey: "resources")
             return result
@@ -57,11 +59,12 @@ public class SBServer: SBResource {
         }
     }
     
-    @objc var playlists: NSSet {
+    @objc dynamic var playlists: NSSet? {
         get {
             self.willAccessValue(forKey: "resources")
             self.willAccessValue(forKey: "playlists")
-            let result = self.primitiveValue(forKey: "playlists") as! NSSet
+            // but i think this can be null?
+            let result = self.primitiveValue(forKey: "playlists") as? NSSet
             self.didAccessValue(forKey: "playlists")
             self.didAccessValue(forKey: "resources")
             return result
