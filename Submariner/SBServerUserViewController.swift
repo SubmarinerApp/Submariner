@@ -192,7 +192,6 @@ extension NSNotification.Name {
         
         init(serverUsersController: SBServerUserViewController, server: SBServer?) {
             self.serverUsersController = serverUsersController
-            print("server is \(serverUsersController.server?.resourceName ?? "nil")")
             var predicate = NSPredicate.init(format: "(server == nil) && (track != nil)")
             // HACK: Because we can't set this in FetchRequest...
             if let server = server {
