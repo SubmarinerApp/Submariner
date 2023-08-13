@@ -171,6 +171,14 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         logger.error("Subsonic error element, code \(attributeDict["code"] ?? "unknown", privacy: .public), \(attributeDict["message"] ?? "", privacy: .public)")
         if attributeDict["code"] == "70" { // Not found
             // delete the object we're requesting since it doesn't exist
+            // that, or we need to mark the feature as unsupported so we don't do it again
+            // (which is cleared on restart of app)
+            if let message = attributeDict["message"], message.contains("not supported") {
+                server.markNotSupported(feature: requestType)
+                // if it's unsupported we don't need to go through with the rest
+                return
+            }
+            
             if let currentPlaylistID = self.currentPlaylistID, let playlistToDelete = fetchPlaylist(id: currentPlaylistID) {
                 threadedContext.delete(playlistToDelete)
             } else if let currentArtistID = self.currentArtistID, let artistToDelete = fetchArtist(id: currentArtistID) {

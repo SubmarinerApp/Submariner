@@ -1978,12 +1978,15 @@
     if (action == @selector(showIndices:)
         || action == @selector(showAlbums:)
         || action == @selector(showPodcasts:)
-        || action == @selector(toggleServerUsers:)
         || action == @selector(reloadCurrentServer:)
         || action == @selector(openCurrentServerHomePage:)
         || action == @selector(addPlaylistToCurrentServer:)
         || action == @selector(configureCurrentServer:)) {
         return self.server != nil;
+    }
+    
+    if (action == @selector(toggleServerUsers:)) {
+        return self.server != nil && self.server.supportsNowPlaying;
     }
     
     if (action == @selector(search:)) {

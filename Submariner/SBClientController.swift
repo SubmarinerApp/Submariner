@@ -44,7 +44,12 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
             } else if let response = response as? HTTPURLResponse {
                 logger.info("\tStatus code is \(response.statusCode)")
                 // Note that Subsonic and Navidrome return app-level error bodies in HTTP 200
-                if response.statusCode != 200 {
+                // HTTP 404s are used for unsupported features in Subsonic and Navidrome,
+                // but OC Music uses code 70 Subsonic responses
+                if response.statusCode == 404 {
+                    self.server.markNotSupported(feature: type)
+                    return
+                } else if response.statusCode != 200 {
                     let message = "HTTP \(response.statusCode) for \(url.path)"
                     let userInfo = [NSLocalizedDescriptionKey: message]
                     // XXX: Right domain?

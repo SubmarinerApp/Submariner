@@ -193,11 +193,13 @@ extension NSNotification.Name {
         @Environment(\.managedObjectContext) var moc
         
         let serverUsersController: SBServerUserViewController
+        let server: SBServer?
         
         @FetchRequest var items: FetchedResults<SBNowPlaying>
         
         init(serverUsersController: SBServerUserViewController, server: SBServer?) {
             self.serverUsersController = serverUsersController
+            self.server = server
             var predicate = NSPredicate.init(format: "(server == nil) && (track != nil)")
             // HACK: Because we can't set this in FetchRequest...
             if let server = server {
@@ -210,20 +212,26 @@ extension NSNotification.Name {
         }
         
         var body: some View {
-            List(items) {
-                NowPlayingItemView(item: $0, serverUsersController: serverUsersController)
-            }
-            .contextMenu {
-                Button {
-                    serverUsersController.refreshNowPlaying()
-                } label: {
-                    Text("Refresh")
+            if let server = self.server, server.supportsNowPlaying {
+                List(items) {
+                    NowPlayingItemView(item: $0, serverUsersController: serverUsersController)
                 }
-            }
-            .modify {
-                if #available(macOS 12, *) {
-                    $0.listStyle(.inset(alternatesRowBackgrounds: true))
+                .contextMenu {
+                    Button {
+                        serverUsersController.refreshNowPlaying()
+                    } label: {
+                        Text("Refresh")
+                    }
                 }
+                .modify {
+                    if #available(macOS 12, *) {
+                        $0.listStyle(.inset(alternatesRowBackgrounds: true))
+                    }
+                }
+            } else {
+                Text("This server doesn't support now playing.")
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.secondary)
             }
         }
     }

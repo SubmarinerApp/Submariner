@@ -28,6 +28,33 @@ public class SBServer: SBResource {
         return Set()
     }
     
+    // #MARK: - Supported Features
+    
+    // TODO: Move into Core Data as transient, only HTTP 404 and not parsing operation will be properly marked,
+    // since it runs off main thread and thus has own instance of SBServer
+    @objc dynamic var supportsNowPlaying = true
+    
+    func markNotSupported(feature: SBSubsonicParsingOperation.RequestType) {
+        switch (feature) {
+        case .getNowPlaying:
+            // not supported by OC Music, we special case because this gets called in the background
+            supportsNowPlaying = false
+            // we don't need to show a message here, since SBServerUserViewController will display this for us
+        default:
+            // this happened possibly unexpectedly, maybe without user interaction. do further special casing from here
+            DispatchQueue.main.async {
+                let alert = NSAlert()
+                // XXX: suppressable?
+                alert.alertStyle = .warning
+                alert.informativeText = "The request type \(feature) isn't supported or implemented by the server \(self.resourceName ?? "")."
+                alert.messageText = "Unsupported Server Feature"
+                alert.addButton(withTitle: "OK")
+                alert.runModal()
+            }
+            return
+        }
+    }
+    
     // #MARK: - Lifecycle
     
     public override func awakeFromInsert() {
@@ -406,7 +433,9 @@ public class SBServer: SBResource {
     // #MARK: - Subsonic Client (Now Playing)
     
     @objc func getNowPlaying() {
-        self.clientController.getNowPlaying()
+        if self.supportsNowPlaying {
+            self.clientController.getNowPlaying()
+        }
     }
     
     // #MARK: - Subsonic Client (Search)
