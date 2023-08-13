@@ -32,7 +32,8 @@ public class SBServer: SBResource {
     
     // TODO: Move into Core Data as transient, only HTTP 404 and not parsing operation will be properly marked,
     // since it runs off main thread and thus has own instance of SBServer
-    @objc dynamic var supportsNowPlaying = true
+    // NSNumber for binding's sake
+    @objc dynamic var supportsNowPlaying: NSNumber = true
     
     func markNotSupported(feature: SBSubsonicParsingOperation.RequestType) {
         switch (feature) {
@@ -433,7 +434,7 @@ public class SBServer: SBResource {
     // #MARK: - Subsonic Client (Now Playing)
     
     @objc func getNowPlaying() {
-        if self.supportsNowPlaying {
+        if self.supportsNowPlaying == true {
             self.clientController.getNowPlaying()
         }
     }

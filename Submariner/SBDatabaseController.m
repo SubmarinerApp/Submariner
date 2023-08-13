@@ -1986,7 +1986,7 @@
     }
     
     if (action == @selector(toggleServerUsers:)) {
-        return self.server != nil && self.server.supportsNowPlaying;
+        return self.server != nil && [self.server.supportsNowPlaying boolValue];
     }
     
     if (action == @selector(search:)) {

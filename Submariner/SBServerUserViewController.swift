@@ -14,7 +14,7 @@ extension NSNotification.Name {
     static let SBSubsonicCoversUpdated = NSNotification.Name("SBSubsonicCoversUpdatedNotification")
 }
 
-@objc class SBServerUserViewController: SBViewController {
+@objc class SBServerUserViewController: SBViewController, ObservableObject {
     @objc var databaseController: SBDatabaseController?
     
     @objc func refreshNowPlaying() {
@@ -79,14 +79,8 @@ extension NSNotification.Name {
     // we'll just recreate the entire hosting view instead. If we drop Big Sur support, it's
     // just a matter of making this Observable, server Published, make the this controller
     // in the SwiftUI view Observed, and onReceive $server, setting request's nsPredicate.
-    private var _server: SBServer?
-    @objc var server: SBServer? {
-        get {
-            return _server
-        }
-        set {
-            _server = newValue
-            
+    @objc @Published var server: SBServer? {
+        didSet {
             if _viewShown {
                 recreateView()
                 refreshNowPlaying()
@@ -192,14 +186,13 @@ extension NSNotification.Name {
     struct NowPlayingContentView: View {
         @Environment(\.managedObjectContext) var moc
         
-        let serverUsersController: SBServerUserViewController
-        let server: SBServer?
+        @ObservedObject var serverUsersController: SBServerUserViewController
         
         @FetchRequest var items: FetchedResults<SBNowPlaying>
         
         init(serverUsersController: SBServerUserViewController, server: SBServer?) {
             self.serverUsersController = serverUsersController
-            self.server = server
+            print("server is \(serverUsersController.server?.resourceName ?? "nil")")
             var predicate = NSPredicate.init(format: "(server == nil) && (track != nil)")
             // HACK: Because we can't set this in FetchRequest...
             if let server = server {
@@ -212,7 +205,8 @@ extension NSNotification.Name {
         }
         
         var body: some View {
-            if let server = self.server, server.supportsNowPlaying {
+            let _ = print("Server is (from view) \(serverUsersController.server?.resourceName ?? "<nil>")")
+            if let server = serverUsersController.server, server.supportsNowPlaying == true {
                 List(items) {
                     NowPlayingItemView(item: $0, serverUsersController: serverUsersController)
                 }
@@ -228,8 +222,12 @@ extension NSNotification.Name {
                         $0.listStyle(.inset(alternatesRowBackgrounds: true))
                     }
                 }
+            } else if let server = serverUsersController.server {
+                Text("\(server.resourceName ?? "This server") doesn't support now playing.")
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.secondary)
             } else {
-                Text("This server doesn't support now playing.")
+                Text("There is no server selected.")
                     .multilineTextAlignment(.center)
                     .foregroundColor(.secondary)
             }

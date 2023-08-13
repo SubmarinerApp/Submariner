@@ -286,14 +286,14 @@
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <binding destination="297" name="value" keyPath="values.repeatMode" id="xhZ-BS-vUy">
-                                    <dictionary key="options">
-                                        <string key="NSValueTransformerName">SBRepeatModeButtonStateTransformer</string>
-                                    </dictionary>
-                                </binding>
                                 <binding destination="297" name="image" keyPath="values.repeatMode" id="B2M-9S-QcH">
                                     <dictionary key="options">
                                         <string key="NSValueTransformerName">SBRepeatIconTransformer</string>
+                                    </dictionary>
+                                </binding>
+                                <binding destination="297" name="value" keyPath="values.repeatMode" id="xhZ-BS-vUy">
+                                    <dictionary key="options">
+                                        <string key="NSValueTransformerName">SBRepeatModeButtonStateTransformer</string>
                                     </dictionary>
                                 </binding>
                             </connections>
@@ -363,17 +363,17 @@
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
+                                <binding destination="-2" name="enabled" keyPath="server.supportsNowPlaying" id="oQy-sn-AbY">
+                                    <dictionary key="options">
+                                        <integer key="NSNullPlaceholder" value="0"/>
+                                    </dictionary>
+                                </binding>
                                 <binding destination="-2" name="value" keyPath="isServerUsersShown" id="Zvu-lC-mni">
                                     <dictionary key="options">
                                         <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                         <bool key="NSConditionallySetsEnabled" value="NO"/>
                                         <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                         <bool key="NSValidatesImmediately" value="YES"/>
-                                    </dictionary>
-                                </binding>
-                                <binding destination="-2" name="enabled" keyPath="server" id="un8-aV-BbK">
-                                    <dictionary key="options">
-                                        <string key="NSValueTransformerName">NSIsNotNil</string>
                                     </dictionary>
                                 </binding>
                             </connections>
