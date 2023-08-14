@@ -634,7 +634,7 @@
     
     if (selectedRow != -1) {
         SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
-        if(resource && (([resource isKindOfClass:[SBPlaylist class]] && ((SBPlaylist *)resource).server == nil) || [resource isKindOfClass:[SBServer class]]) ) {
+        if(resource && ([resource isKindOfClass:[SBPlaylist class]] || [resource isKindOfClass:[SBServer class]]) ) {
             [sourceList editColumn:0 row:selectedRow withEvent:nil select:YES];
         }
     }
@@ -645,7 +645,7 @@
     
     if (selectedRow != -1) {
         SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
-        if(resource && [resource isKindOfClass:[SBPlaylist class]] && ((SBPlaylist *)resource).server == nil) {
+        if(resource && [resource isKindOfClass:[SBPlaylist class]]) {
             [sourceList editColumn:0 row:selectedRow withEvent:nil select:YES];
         } else if(resource && [resource isKindOfClass:[SBServer class]]) {
             [editServerController setEditMode:YES];
@@ -1439,7 +1439,17 @@
 }
 
 - (void)sourceList:(SBSourceList *)aSourceList setObjectValue:(id)object forItem:(id)item {
-    [[item representedObject] setResourceName:object];
+    NSString *newName = (NSString*)object;
+    SBResource *resource = (SBResource*)[item representedObject];
+    [resource setResourceName: newName];
+    // XXX: Best place to hold playlist rename logic? Doing it in
+    if ([resource isKindOfClass: SBPlaylist.class]) {
+        SBPlaylist *playlist = (SBPlaylist*)resource;
+        if (playlist.server == nil) {
+            return;
+        }
+        [playlist.server updatePlaylistWithID: playlist.id name: newName comment: nil appending: nil removing: nil];
+    }
 }
 
 - (BOOL)sourceList:(SBSourceList*)aSourceList isItemExpandable:(id)item {
@@ -1679,7 +1689,7 @@
     if([[item representedObject] isKindOfClass:[SBSection class]])
         return NO;
     
-    if([[item representedObject] isKindOfClass:[SBPlaylist class]] && ((SBPlaylist *)[item representedObject]).server != nil)
+    if([[item representedObject] isKindOfClass:[SBPlaylist class]])
         return NO;
     
     return YES;
@@ -1699,11 +1709,13 @@
                 SBPlaylist *playlist = (SBPlaylist *)resource;
                 NSMenu * m = [[NSMenu alloc] init];
                 
+                NSString *editString = [NSString stringWithFormat:@"Edit \"%@\"", [[item representedObject] resourceName]];
+                
+                [m addItemWithTitle:editString action:@selector(editItem:) keyEquivalent:@""];
+                
+                // TODO: Why do these need to be different?
                 if(playlist.server == nil) {
                     // if playlist is local
-                    NSString *editString = [NSString stringWithFormat:@"Edit \"%@\"", [[item representedObject] resourceName]];
-                    
-                    [m addItemWithTitle:editString action:@selector(editItem:) keyEquivalent:@""];
                     [m addItemWithTitle:@"Remove Playlist" action:@selector(removeItem:) keyEquivalent:@""];
                     
                 } else {
@@ -2002,7 +2014,7 @@
         NSInteger selectedRow = [sourceList selectedRow];
         if (selectedRow != -1) {
             SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
-            return (([resource isKindOfClass:[SBPlaylist class]] && ((SBPlaylist *)resource).server == nil) || [resource isKindOfClass:[SBServer class]]);
+            return ([resource isKindOfClass:[SBPlaylist class]] || [resource isKindOfClass:[SBServer class]]);
         } else {
             return NO;
         }

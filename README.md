@@ -36,6 +36,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Multiple items can be removed from a playlist at once
 * Non-existent server items are automatically removed
 * Better support for servers that don't support some features (i.e. now playing)
+* Server playlists can be renamed
 * Fix an infinite loop when leaving search results
 * Fix an infinite loop with server now playing
 * Fix crash with shuffle
