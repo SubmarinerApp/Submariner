@@ -1842,6 +1842,11 @@
         SBServerNavigationItem *serverNavItem = (SBServerNavigationItem*)navItem;
         self.server = serverNavItem.server;
         [self updateSourceListSelection: serverNavItem.server];
+    } else if ([navItem isKindOfClass: SBPlaylistNavigationItem.class]) {
+        SBPlaylistNavigationItem *playlistNavItem = (SBPlaylistNavigationItem*)navItem;
+        SBPlaylist *playlist = playlistNavItem.playlist;
+        // set server for UI properly recognizes this
+        self.server = playlist.server;
     } else {
         self.server = nil;
     }
