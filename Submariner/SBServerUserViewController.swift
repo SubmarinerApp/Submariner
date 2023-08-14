@@ -204,7 +204,6 @@ extension NSNotification.Name {
         }
         
         var body: some View {
-            let _ = print("Server is (from view) \(serverUsersController.server?.resourceName ?? "<nil>")")
             if let server = serverUsersController.server, server.supportsNowPlaying == true {
                 List(items) {
                     NowPlayingItemView(item: $0, serverUsersController: serverUsersController)

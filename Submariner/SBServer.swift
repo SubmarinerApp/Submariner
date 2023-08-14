@@ -30,10 +30,22 @@ public class SBServer: SBResource {
     
     // #MARK: - Supported Features
     
-    // TODO: Move into Core Data as transient, only HTTP 404 and not parsing operation will be properly marked,
-    // since it runs off main thread and thus has own instance of SBServer
-    // NSNumber for binding's sake
-    @objc dynamic var supportsNowPlaying: NSNumber = true
+    // Core Data is a bad idea to persist this in, because transients are instance-local,
+    // forcing us to persist this in Core Data (and persisting it is kinda stupid if it
+    // gets upgraded, definitely not worth the schema change). We don't need to delete
+    // items either; if the dictionary grows to where it becomes a problem, just restart.
+    // This is NSNumber for Cocoa binding's sake
+    fileprivate static var _supportsNowPlaying: [NSManagedObjectID: NSNumber] = [:]
+    
+    @objc dynamic var supportsNowPlaying: NSNumber {
+        get {
+            // ?? true is because we only set this if overriden to be unsupported
+            return SBServer._supportsNowPlaying[self.objectID] ?? true
+        }
+        set {
+            SBServer._supportsNowPlaying[self.objectID] = newValue
+        }
+    }
     
     func markNotSupported(feature: SBSubsonicParsingOperation.RequestType) {
         switch (feature) {
