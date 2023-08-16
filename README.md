@@ -30,7 +30,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes:
 
-### Version 2.3.2 (not yet releases)
+### Version 2.4
 
 * Server library scans can be kicked off from the UI
 * Multiple items can be removed from a playlist at once
