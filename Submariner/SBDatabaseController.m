@@ -221,6 +221,11 @@
                                                  name:@"SBSubsonicPlaylistsUpdatedNotification"
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(subsonicPlaylistUpdatedNotification:)
+                                                 name:@"SBSubsonicPlaylistUpdatedNotification"
+                                               object:nil];
+    
     // observer server playlists creation to reload source list when needed
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(subsonicPlaylistsCreatedNotification:)
@@ -554,28 +559,6 @@
     [playlistsSection addResourcesObject:newPlaylist];
     
     [sourceList expandURIs:[NSArray arrayWithObject:[[[playlistsSection objectID] URIRepresentation] absoluteString]]];
-}
-
-
-- (IBAction)deleteRemotePlaylist:(id)sender {
-    NSInteger selectedRow = [sourceList selectedRow];
-    
-    if (selectedRow != -1) {
-        SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
-        if(resource && [resource isKindOfClass:[SBPlaylist class]]) {
-            
-            NSAlert *alert = [[NSAlert alloc] init];
-            [alert addButtonWithTitle:@"OK"];
-            [alert addButtonWithTitle:@"Cancel"];
-            [alert setMessageText:@"Delete the selected server playlist?"];
-            [alert setInformativeText:@"Deleted server playlists cannot be restored."];
-            [alert setAlertStyle:NSAlertStyleWarning];
-            
-            [alert beginSheetModalForWindow: [self window] completionHandler:^(NSModalResponse returnCode) {
-                [self deleteServerPlaylistAlertDidEnd: alert returnCode: returnCode contextInfo: nil];
-            }];
-        }
-    }
 }
 
 
@@ -1053,7 +1036,12 @@
         
         if (selectedRow != -1) {
             SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
-            if (resource && self.server == resource) {
+            if (resource == nil) {
+                // What was the point?
+                return;
+            }
+            // FIXME: Remove references from the navigation stack
+            if (self.server == resource) {
                 // Clean out any possible state involving this server...
                 self.server = nil;
                 // if it's open, close it
@@ -1063,28 +1051,16 @@
                 }
                 [self showLibraryView: nil];
             }
-            if(resource && ([resource isKindOfClass:[SBPlaylist class]] || [resource isKindOfClass:[SBServer class]])) {
-                [self.managedObjectContext deleteObject:resource];
-                [self.managedObjectContext processPendingChanges];
-            }
-        }
-    }
-}
-
-
-- (void)deleteServerPlaylistAlertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    if (returnCode == NSAlertFirstButtonReturn) {
-        NSInteger selectedRow = [sourceList selectedRow];
-        
-        if (selectedRow != -1) {
-            SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
-            if(resource && [resource isKindOfClass:[SBPlaylist class]]) {
+            if ([resource isKindOfClass:[SBPlaylist class]]) {
                 SBPlaylist *playlist = (SBPlaylist *)resource;
                 SBServer *server = playlist.server;
                 
-                [server deletePlaylistWithID:playlist.id];
-                
-                [self.managedObjectContext deleteObject:playlist];
+                if (server != nil) {
+                    [server deletePlaylistWithID:playlist.id];
+                }
+            }
+            if ([resource isKindOfClass:[SBPlaylist class]] || [resource isKindOfClass:[SBServer class]]) {
+                [self.managedObjectContext deleteObject:resource];
                 [self.managedObjectContext processPendingChanges];
             }
         }
@@ -1334,6 +1310,11 @@
     //[sourceList performSelectorOnMainThread:@selector(expandURIs:) withObject:URIs waitUntilDone:YES];
 }
 
+- (void)subsonicPlaylistUpdatedNotification:(NSNotification *)notification {
+    // HACK: we should send the notification about the playlist ID + server specifically, but this will do for now
+    [self subsonicPlaylistsCreatedNotification: notification];
+}
+
 
 - (void)subsonicPlaylistsCreatedNotification:(NSNotification *)notification {
     
@@ -1441,14 +1422,12 @@
 - (void)sourceList:(SBSourceList *)aSourceList setObjectValue:(id)object forItem:(id)item {
     NSString *newName = (NSString*)object;
     SBResource *resource = (SBResource*)[item representedObject];
-    [resource setResourceName: newName];
-    // XXX: Best place to hold playlist rename logic? Doing it in
-    if ([resource isKindOfClass: SBPlaylist.class]) {
+    // Let the remote server have a say first, just do it for local
+    if ([resource isKindOfClass: SBPlaylist.class] && [(SBPlaylist*)resource server] != nil) {
         SBPlaylist *playlist = (SBPlaylist*)resource;
-        if (playlist.server == nil) {
-            return;
-        }
         [playlist.server updatePlaylistWithID: playlist.id name: newName comment: nil appending: nil removing: nil];
+    } else {
+        [resource setResourceName: newName];
     }
 }
 
@@ -1709,20 +1688,8 @@
                 SBPlaylist *playlist = (SBPlaylist *)resource;
                 NSMenu * m = [[NSMenu alloc] init];
                 
-                NSString *editString = [NSString stringWithFormat:@"Edit \"%@\"", [[item representedObject] resourceName]];
-                
-                [m addItemWithTitle:editString action:@selector(editItem:) keyEquivalent:@""];
-                
-                // TODO: Why do these need to be different?
-                if(playlist.server == nil) {
-                    // if playlist is local
-                    [m addItemWithTitle:@"Remove Playlist" action:@selector(removeItem:) keyEquivalent:@""];
-                    
-                } else {
-                    // if playlist is a remote playlist
-                    NSString *removeString = [NSString stringWithFormat:@"Delete \"%@\"", [[item representedObject] resourceName]];
-                    [m addItemWithTitle:removeString action:@selector(deleteRemotePlaylist:) keyEquivalent:@""];
-                }
+                [m addItemWithTitle: @"Rename Playlist" action:@selector(editItem:) keyEquivalent:@""];
+                [m addItemWithTitle: @"Delete Playlist" action:@selector(removeItem:) keyEquivalent:@""];
                 
                 return m;
                 
@@ -1770,11 +1737,7 @@
         if(![res isKindOfClass:[SBSection class]] &&
            (![res.resourceName isEqualToString:@"Music"] ||
             ![res.resourceName isEqualToString:@"Tracklist"])) {
-               if([res isKindOfClass:[SBPlaylist class]] && ((SBPlaylist *)res).server != nil) {
-                   [self deleteRemotePlaylist:self];
-               } else {
-                   [self removeItem:self];
-               }
+               [self removeItem:self];
            }
     }
 }

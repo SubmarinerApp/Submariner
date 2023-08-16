@@ -151,7 +151,6 @@
 - (IBAction)addServer:(id)sender;
 - (IBAction)editItem:(id)sender;
 - (IBAction)removeItem:(id)sender;
-- (IBAction)deleteRemotePlaylist:(id)sender;
 - (IBAction)reloadServer:(id)sender;
 - (IBAction)reloadCurrentServer:(id)sender;
 - (IBAction)scanCurrentLibrary:(id)sender;

@@ -210,7 +210,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
             (removing?.map { index in URLQueryItem(name: "songIndexToRemove", value: "\(index)") } ?? [])
         
         let url = URL.URLWith(string: server.url!, command: "rest/updatePlaylist.view", queryItems: allParams)
-        request(url: url!, type: .createPlaylist) { operation in
+        request(url: url!, type: .updatePlaylist) { operation in
             operation.currentPlaylistID = ID
         }
         

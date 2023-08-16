@@ -61,6 +61,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         @objc(SBSubsonicRequestSetScrobble) case scrobble = 26
         @objc(SBSubsonicRequestScanLibrary) case scanLibrary = 27
         @objc(SBSubsonicRequestGetScanStatus) case getScanStatus = 28
+        @objc(SBSubsonicRequestUpdatePlaylist) case updatePlaylist = 29
     }
     
     let clientController: SBClientController
@@ -367,6 +368,9 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             if playlist == nil {
                 logger.info("Creating playlist with ID \(id, privacy: .public), trying name \(name, privacy: .public)")
                 playlist = createPlaylist(attributes: attributeDict)
+            } else if let playlist = playlist {
+                // we have an existing playlist, update it
+                updatePlaylist(playlist, attributes: attributeDict)
             }
         } else if requestType == .getPlaylist, let id = attributeDict["id"] {
             currentPlaylist = fetchPlaylist(id: id)
@@ -717,7 +721,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         
         if requestType == .ping && numberOfChildrens == 0 {
             postServerNotification(.SBSubsonicConnectionSucceeded)
-        } else if requestType == .deletePlaylist {
+        } else if requestType == .updatePlaylist {
             postServerNotification(.SBSubsonicPlaylistUpdated)
         } else if requestType == .createPlaylist {
             postServerNotification(.SBSubsonicPlaylistsCreated)
@@ -996,15 +1000,19 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         return cover
     }
     
-    private func createPlaylist(attributes: [String: String]) -> SBPlaylist {
-        let playlist = SBPlaylist.insertInManagedObjectContext(context: threadedContext)
-        
+    private func updatePlaylist(_ playlist: SBPlaylist, attributes: [String: String]) {
         if let id = attributes["id"] {
             playlist.id = id
         }
         if let name = attributes["name"] {
             playlist.resourceName = name
         }
+    }
+    
+    private func createPlaylist(attributes: [String: String]) -> SBPlaylist {
+        let playlist = SBPlaylist.insertInManagedObjectContext(context: threadedContext)
+        
+        updatePlaylist(playlist, attributes: attributes)
         
         playlist.server = server
         server.addToPlaylists(playlist)
