@@ -1685,7 +1685,6 @@
             
             if([resource isKindOfClass:[SBPlaylist class]]) {
                 
-                SBPlaylist *playlist = (SBPlaylist *)resource;
                 NSMenu * m = [[NSMenu alloc] init];
                 
                 [m addItemWithTitle: @"Rename Playlist" action:@selector(editItem:) keyEquivalent:@""];
