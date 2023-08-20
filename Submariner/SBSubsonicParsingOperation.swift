@@ -674,8 +674,8 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             parseElementChild(attributeDict: attributeDict)
         } else if elementName == "albumList" { // the ServerHome controller's album list...
             parseElementAlbumList(attributeDict: attributeDict)
-        } else if elementName == "albumList" { // ...and its albums
-            parseElementAlbumList(attributeDict: attributeDict)
+        } else if elementName == "album" { // ...and its albums
+            parseElementAlbum(attributeDict: attributeDict)
         } else if elementName == "playlists" {
             // nothing anymore
         } else if elementName == "playlist" {
