@@ -55,9 +55,11 @@
     if (self.server == nil) {
         return;
     }
+    oldName = server.resourceName;
     oldURL = server.url;
     oldUsername = server.username;
     oldPassword = server.password;
+    oldToken = server.useTokenAuth;
 }
 
 - (void)closeSheet:(id)sender {
@@ -117,6 +119,15 @@
     if(self.server != nil && !editMode) {
         [self.managedObjectContext deleteObject:self.server];
         [self.managedObjectContext processPendingChanges];
+    } else if (self.server != nil) {
+        // XXX: MOC undo unreliable; should be a transaction?
+        self.server.resourceName = oldName;
+        self.server.url = oldURL;
+        self.server.username = oldUsername;
+        self.server.password = oldPassword;
+        self.server.useTokenAuth = oldToken;
+        [self.managedObjectContext commitEditing];
+        [self.managedObjectContext save:nil];
     }
 }
 

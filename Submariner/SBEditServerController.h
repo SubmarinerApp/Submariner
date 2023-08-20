@@ -48,7 +48,8 @@
     IBOutlet NSTextField *usernameTextField;
     IBOutlet NSTextField *passwordTextField;
     
-    NSString *oldURL, *oldUsername, *oldPassword;
+    NSString *oldURL, *oldUsername, *oldPassword, *oldName;
+    NSNumber *oldToken;
 }
 
 @property (readwrite, strong) SBServer *server;
