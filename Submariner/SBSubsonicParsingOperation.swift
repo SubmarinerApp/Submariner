@@ -444,8 +444,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                     
                     if attachedCover?.id == nil || attachedCover?.id == "" {
                         logger.info("Creating cover ID \(coverID, privacy: .public) for playlist entry")
-                        attachedCover = SBCover.insertInManagedObjectContext(context: threadedContext)
-                        attachedCover!.id = coverID
+                        attachedCover = createCover(attributes: attributeDict)
                         attachedCover!.album = attachedAlbum
                         attachedAlbum.cover = attachedCover!
                     }
@@ -523,8 +522,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             
             if attachedCover?.id == nil || attachedCover?.id == "" {
                 logger.info("Creating cover ID \(coverID, privacy: .public) for now playing entry")
-                attachedCover = SBCover.insertInManagedObjectContext(context: threadedContext)
-                attachedCover!.id = coverID
+                attachedCover = createCover(attributes: attributeDict)
                 attachedCover!.album = attachedAlbum
                 attachedAlbum.cover = attachedCover!
             }
