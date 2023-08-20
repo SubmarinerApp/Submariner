@@ -114,6 +114,10 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     
     @objc(getAlbumsForArtist:) func getAlbums(artist: SBArtist) {
         var params = parameters
+        if artist.id == nil {
+            // can happen because of now playing/search
+            return
+        }
         params["id"] = artist.id
         
         let url = URL.URLWith(string: server.url, command: "rest/getMusicDirectory.view", parameters: params)
