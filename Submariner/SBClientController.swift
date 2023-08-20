@@ -96,7 +96,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     
     @objc(getIndexesSince:) func getIndexes(since: Date) {
         var params = parameters
-        params["ifModifiedSince"] = String(format: "%00.f", since.timeIntervalSince1970)
+        params["ifModifiedSince"] = String(format: "%00.f", since.timeIntervalSince1970 * 1000)
         
         let url = URL.URLWith(string: server.url!, command: "rest/getIndexes.view", parameters: params)
         request(url: url!, type: .getIndexes)
