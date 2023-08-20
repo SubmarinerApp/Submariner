@@ -29,13 +29,15 @@ extension URL {
         // string -> "http://ip:port"; the base URL (which could have its own path components)
         // command -> "rest/ping.view"; the API endpoint
         // so, we get "http://ip:port/rest/ping.view" from appendingPathComponent
-        let baseUrl = URL.init(string: string)!
-            .appendingPathComponent(command)
-        var components = URLComponents(url: baseUrl, resolvingAgainstBaseURL: false)!
+        var components = URLComponents(string: string)!
+        if components.path.last != "/" {
+            components.path.append("/")
+        }
+        components.path.append(command)
         
         // XXX: Debug?
-        logger.info("Assembling base URL \(baseUrl)")
-        logger.info("\tAPI endpoint \(baseUrl.path, privacy: .public)")
+        logger.info("Assembling base URL \(components.string ?? "<nil>")")
+        logger.info("\tAPI endpoint \(components.path, privacy: .public)")
         for item in queryItems {
             // XXX: Debug?
             if let value = item.value, item.name == "p" || item.name == "t" || item.name == "s" {
