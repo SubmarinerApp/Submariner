@@ -230,6 +230,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         case .getAlbumListRecent:
             params["type"] = "recent"
         default:
+            logger.error("getAlbumList type: unrecognized")
             abort()
         }
         
