@@ -61,6 +61,35 @@
 }
 
 - (void)closeSheet:(id)sender {
+    // make sure things make sense so we don't deal with some bizarre sitch
+    // FIXME: other validations possible; i believe SBServer does this for resourceName already
+    if (!server.resourceName || [server.resourceName isEqualToString: @""]) {
+        NSAlert *alert = [[NSAlert alloc] init];
+        alert.alertStyle = NSAlertStyleCritical;
+        alert.messageText = @"Invalid Server Name";
+        alert.informativeText = @"The server name can't be empty.";
+        [alert runModal];
+        return;
+    }
+    if (!server.url || [server.url isEqualToString: @""]) {
+        NSAlert *alert = [[NSAlert alloc] init];
+        alert.alertStyle = NSAlertStyleCritical;
+        alert.messageText = @"Invalid URL";
+        alert.informativeText = @"The URL can't be empty.";
+        [alert runModal];
+        return;
+    } else if ([NSURLComponents componentsWithString: server.url] == nil) {
+        // TODO: Is this overly strict?
+        NSAlert *alert = [[NSAlert alloc] init];
+        alert.alertStyle = NSAlertStyleCritical;
+        alert.messageText = @"Invalid URL";
+        alert.informativeText = @"The URL isn't valid. It should be a full URL including the protocol, hostname, and if needed, port.";
+        [alert runModal];
+        return;
+    }
+    // username and password must be passed to subsonic, but allowed to be empty in theory
+    
+    // finally finished validations
     [super closeSheet:sender];
     
     // XXX: Not sure if PW updates MOC, since PW is not in Core Data anymore
