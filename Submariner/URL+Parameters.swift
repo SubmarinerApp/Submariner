@@ -25,11 +25,20 @@ extension URL {
     // #MARK: Parameters
     
     // XXX: Convert to initializers
-    static func URLWith(string: String, command: String, queryItems:  [URLQueryItem]) -> URL? {
+    static func URLWith(string: String?, command: String, queryItems:  [URLQueryItem]) -> URL? {
+        if string == nil {
+            return nil
+        }
         // string -> "http://ip:port"; the base URL (which could have its own path components)
         // command -> "rest/ping.view"; the API endpoint
         // so, we get "http://ip:port/rest/ping.view" from appendingPathComponent
-        var components = URLComponents(string: string)!
+        var components = URLComponents(string: string!) ?? URLComponents()
+        // crude way to reject an invalid URL... we need valid scheme
+        // TODO: prettier way
+        if components.scheme == nil {
+            return nil
+        }
+        
         if components.path.last != "/" {
             components.path.append("/")
         }
@@ -56,7 +65,7 @@ extension URL {
         return components.url
     }
     
-    static func URLWith(string: String, command: String, parameters:  [String: String]) -> URL? {
+    static func URLWith(string: String?, command: String, parameters:  [String: String]) -> URL? {
         // XXX: the Objective-C version called into a CF API for specific escaping rules
         // (that is, CFURLCreateStringByAddingPercentEscapes
         //  and legal characters escaped as @";?:/@&=+$,")

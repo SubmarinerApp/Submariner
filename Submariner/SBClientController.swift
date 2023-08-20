@@ -76,38 +76,48 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         task.resume()
     }
     
+    // HACK: eat the nils here if some stupid nil happens,
+    // without needing to change logic in real func or add ifs to all the callsites
+    private func request(url: URL?, type: SBSubsonicParsingOperation.RequestType, customization: ((SBSubsonicParsingOperation) -> Void)? = nil) {
+        if let url = url {
+            request(url: url, type: type, customization: customization)
+        } else {
+            logger.error("URL was nil for request \(String(describing: type)), the server URL likely needs to be reset")
+        }
+    }
+    
     // #MARK: - Request Messages
     
     @objc func connect(server: SBServer) {
         parameters = parameters.mergedCopyFrom(dictionary: server.getBaseParameters())
-        let url = URL.URLWith(string: server.url!, command: "rest/ping.view", parameters: parameters)
-        request(url: url!, type: .ping)
+        let url = URL.URLWith(string: server.url, command: "rest/ping.view", parameters: parameters)
+        request(url: url, type: .ping)
     }
     
     @objc func getLicense() {
-        let url = URL.URLWith(string: server.url!, command: "rest/getLicense.view", parameters: parameters)
-        request(url: url!, type: .getLicense)
+        let url = URL.URLWith(string: server.url, command: "rest/getLicense.view", parameters: parameters)
+        request(url: url, type: .getLicense)
     }
     
     @objc func getIndexes() {
-        let url = URL.URLWith(string: server.url!, command: "rest/getIndexes.view", parameters: parameters)
-        request(url: url!, type: .getIndexes)
+        let url = URL.URLWith(string: server.url, command: "rest/getIndexes.view", parameters: parameters)
+        request(url: url, type: .getIndexes)
     }
     
     @objc(getIndexesSince:) func getIndexes(since: Date) {
         var params = parameters
         params["ifModifiedSince"] = String(format: "%00.f", since.timeIntervalSince1970 * 1000)
         
-        let url = URL.URLWith(string: server.url!, command: "rest/getIndexes.view", parameters: params)
-        request(url: url!, type: .getIndexes)
+        let url = URL.URLWith(string: server.url, command: "rest/getIndexes.view", parameters: params)
+        request(url: url, type: .getIndexes)
     }
     
     @objc(getAlbumsForArtist:) func getAlbums(artist: SBArtist) {
         var params = parameters
         params["id"] = artist.id
         
-        let url = URL.URLWith(string: server.url!, command: "rest/getMusicDirectory.view", parameters: params)
-        request(url: url!, type: .getAlbumDirectory) { operation in
+        let url = URL.URLWith(string: server.url, command: "rest/getMusicDirectory.view", parameters: params)
+        request(url: url, type: .getAlbumDirectory) { operation in
             operation.currentArtistID = artist.id
         }
     }
@@ -116,8 +126,8 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         var params = parameters
         params["id"] = id
         
-        let url = URL.URLWith(string: server.url!, command: "rest/getCoverArt.view", parameters: params)
-        request(url: url!, type: .getCoverArt) { operation in
+        let url = URL.URLWith(string: server.url, command: "rest/getCoverArt.view", parameters: params)
+        request(url: url, type: .getCoverArt) { operation in
             operation.currentCoverID = id
         }
     }
@@ -126,38 +136,38 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         var params = parameters
         params["id"] = albumID
         
-        let url = URL.URLWith(string: server.url!, command: "rest/getMusicDirectory.view", parameters: params)
-        request(url: url!, type: .getTrackDirectory) { operation in
+        let url = URL.URLWith(string: server.url, command: "rest/getMusicDirectory.view", parameters: params)
+        request(url: url, type: .getTrackDirectory) { operation in
             operation.currentAlbumID = albumID
         }
     }
     
     @objc func getPlaylists() {
-        let url = URL.URLWith(string: server.url!, command: "rest/getPlaylists.view", parameters: parameters)
-        request(url: url!, type: .getPlaylists)
+        let url = URL.URLWith(string: server.url, command: "rest/getPlaylists.view", parameters: parameters)
+        request(url: url, type: .getPlaylists)
     }
     
     @objc func getPlaylist(_ playlist: SBPlaylist) {
         var params = parameters
         params["id"] = playlist.id
         
-        let url = URL.URLWith(string: server.url!, command: "rest/getPlaylist.view", parameters: params)
-        request(url: url!, type: .getPlaylist) { operation in
+        let url = URL.URLWith(string: server.url, command: "rest/getPlaylist.view", parameters: params)
+        request(url: url, type: .getPlaylist) { operation in
             operation.currentPlaylistID = playlist.id
         }
     }
     
     @objc func getPodcasts() {
-        let url = URL.URLWith(string: server.url!, command: "rest/getPodcasts.view", parameters: parameters)
-        request(url: url!, type: .getPodcasts)
+        let url = URL.URLWith(string: server.url, command: "rest/getPodcasts.view", parameters: parameters)
+        request(url: url, type: .getPodcasts)
     }
     
     @objc(deletePlaylistWithID:) func deletePlaylist(id: String) {
         var params = parameters
         params["id"] = id
         
-        let url = URL.URLWith(string: server.url!, command: "rest/deletePlaylist.view", parameters: params)
-        request(url: url!, type: .deletePlaylist) { operation in
+        let url = URL.URLWith(string: server.url, command: "rest/deletePlaylist.view", parameters: params)
+        request(url: url, type: .deletePlaylist) { operation in
             operation.currentPlaylistID = id
         }
     }
@@ -170,8 +180,8 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         let allParams = params.map { (k, v) in  URLQueryItem(name: k, value: v) } +
             tracks.map { track in URLQueryItem(name: "songId", value: track.id) }
         
-        let url = URL.URLWith(string: server.url!, command: "rest/createPlaylist.view", queryItems: allParams)
-        request(url: url!, type: .createPlaylist)
+        let url = URL.URLWith(string: server.url, command: "rest/createPlaylist.view", queryItems: allParams)
+        request(url: url, type: .createPlaylist)
     }
     
     @objc(updatePlaylistWithID:tracks:) func updatePlaylist(playlistID: String, tracks: [SBTrack]) {
@@ -181,8 +191,8 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         let allParams = params.map { (k, v) in  URLQueryItem(name: k, value: v) } +
             tracks.map { track in URLQueryItem(name: "songId", value: track.id) }
         
-        let url = URL.URLWith(string: server.url!, command: "rest/createPlaylist.view", queryItems: allParams)
-        request(url: url!, type: .createPlaylist) { operation in
+        let url = URL.URLWith(string: server.url, command: "rest/createPlaylist.view", queryItems: allParams)
+        request(url: url, type: .updatePlaylist) { operation in
             operation.currentPlaylistID = playlistID
         }
     }
@@ -209,8 +219,8 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
             (appending?.map { track in URLQueryItem(name: "songIdToAdd", value: track.id) } ?? []) +
             (removing?.map { index in URLQueryItem(name: "songIndexToRemove", value: "\(index)") } ?? [])
         
-        let url = URL.URLWith(string: server.url!, command: "rest/updatePlaylist.view", queryItems: allParams)
-        request(url: url!, type: .updatePlaylist) { operation in
+        let url = URL.URLWith(string: server.url, command: "rest/updatePlaylist.view", queryItems: allParams)
+        request(url: url, type: .updatePlaylist) { operation in
             operation.currentPlaylistID = ID
         }
         
@@ -234,21 +244,21 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
             abort()
         }
         
-        let url = URL.URLWith(string: server.url!, command: "rest/getAlbumList.view", parameters: params)
-        request(url: url!, type: type)
+        let url = URL.URLWith(string: server.url, command: "rest/getAlbumList.view", parameters: params)
+        request(url: url, type: type)
     }
     
     @objc func getNowPlaying() {
-        let url = URL.URLWith(string: server.url!, command: "rest/getNowPlaying.view", parameters: parameters)
-        request(url: url!, type: .getNowPlaying)
+        let url = URL.URLWith(string: server.url, command: "rest/getNowPlaying.view", parameters: parameters)
+        request(url: url, type: .getNowPlaying)
     }
     
     @objc(getUserWithName:) func getUser(username: String) {
         var params = parameters
         params["username"] = username
         
-        let url = URL.URLWith(string: server.url!, command: "rest/getUser.view", parameters: params)
-        request(url: url!, type: .getUser)
+        let url = URL.URLWith(string: server.url, command: "rest/getUser.view", parameters: params)
+        request(url: url, type: .getUser)
     }
     
     @objc func search(_ query: String) {
@@ -256,8 +266,8 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         params["query"] = query
         params["songCount"] = "100" // XXX: Configurable? Pagination?
         
-        let url = URL.URLWith(string: server.url!, command: "rest/search2.view", parameters: params)
-        request(url: url!, type: .search) { operation in
+        let url = URL.URLWith(string: server.url, command: "rest/search2.view", parameters: params)
+        request(url: url, type: .search) { operation in
             operation.currentSearch = SBSearchResult(query: query)
         }
     }
@@ -267,8 +277,8 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         params["rating"] = String(rating)
         params["id"] = id
         
-        let url = URL.URLWith(string: server.url!, command: "rest/setRating.view", parameters: params)
-        request(url: url!, type: .setRating)
+        let url = URL.URLWith(string: server.url, command: "rest/setRating.view", parameters: params)
+        request(url: url, type: .setRating)
     }
     
     @objc func scrobble(id: String) {
@@ -277,18 +287,18 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         let currentTimeMS = Int64(Date().timeIntervalSince1970 * 1000)
         params["time"] = String(currentTimeMS)
         
-        let url = URL.URLWith(string: server.url!, command: "rest/scrobble.view", parameters: params)
-        request(url: url!, type: .scrobble)
+        let url = URL.URLWith(string: server.url, command: "rest/scrobble.view", parameters: params)
+        request(url: url, type: .scrobble)
     }
     
     @objc func scanLibrary() {
-        let url = URL.URLWith(string: server.url!, command: "rest/startScan.view", parameters: parameters)
-        request(url: url!, type: .getNowPlaying)
+        let url = URL.URLWith(string: server.url, command: "rest/startScan.view", parameters: parameters)
+        request(url: url, type: .getNowPlaying)
     }
     
     @objc func getScanStatus() {
-        let url = URL.URLWith(string: server.url!, command: "rest/getScanStatus.view", parameters: parameters)
-        request(url: url!, type: .getNowPlaying)
+        let url = URL.URLWith(string: server.url, command: "rest/getScanStatus.view", parameters: parameters)
+        request(url: url, type: .getNowPlaying)
     }
 }
 
