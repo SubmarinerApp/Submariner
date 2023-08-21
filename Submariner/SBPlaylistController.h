@@ -45,18 +45,21 @@
     
     IBOutlet SBTableView *tracksTableView;
     IBOutlet NSArrayController *tracksController;
+    SBDatabaseController *databaseController;
     
     NSArray *playlistSortDescriptors;
 }
 
 @property (readwrite, strong) SBPlaylist *playlist; 
 @property (readwrite, strong) NSArray *playlistSortDescriptors;
+@property (readwrite, strong) SBDatabaseController *databaseController;
 
 - (void)clearPlaylist;
 - (IBAction)removeTrack:(id)sender;
 - (IBAction)trackDoubleClick:(id)sender;
 - (IBAction)playSelected:(id)sender;
 - (IBAction)addSelectedToTracklist:(id)sender;
+- (IBAction)showSelectedInLibrary:(id)sender;
 - (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item;
 
 @end

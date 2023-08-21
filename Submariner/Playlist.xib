@@ -23,11 +23,11 @@
                     <rect key="frame" x="-2" y="41" width="642" height="320"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="He9-AT-H5G">
-                        <rect key="frame" x="0.0" y="0.0" width="642" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="642" height="305"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveName="PlaylistTable" headerView="16" id="14" customClass="SBTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="751" height="292"/>
+                                <rect key="frame" x="0.0" y="0.0" width="751" height="277"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -182,7 +182,7 @@
                         </subviews>
                     </clipView>
                     <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="15">
-                        <rect key="frame" x="0.0" y="304" width="642" height="16"/>
+                        <rect key="frame" x="0.0" y="305" width="642" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="17">
@@ -260,6 +260,12 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="showSelectedInFinder:" target="-2" id="jq4-yR-J1X"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Show in Library" id="Czz-kA-F4W">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="showSelectedInLibrary:" target="-2" id="38X-X1-8Rz"/>
                     </connections>
                 </menuItem>
             </items>

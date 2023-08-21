@@ -141,6 +141,7 @@
         [musicController setDatabaseController:self];
         [musicSearchController setDatabaseController:self];
         [tracklistController setDatabaseController:self];
+        [playlistController setDatabaseController:self];
         [serverLibraryController setDatabaseController:self];
         [serverHomeController setDatabaseController:self];
         [serverSearchController setDatabaseController:self];

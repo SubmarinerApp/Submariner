@@ -43,6 +43,7 @@
 
 @synthesize playlist;
 @synthesize playlistSortDescriptors;
+@synthesize databaseController;
 
 
 
@@ -209,6 +210,20 @@
     }
     
     [self createLocalPlaylistWithSelected: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes databaseController: nil];
+}
+
+
+- (IBAction)showSelectedInLibrary:(id)sender {
+    NSInteger selectedRow = [tracksTableView selectedRow];
+    
+    if(selectedRow == -1) {
+        return;
+    }
+    
+    // only makes sense to have a single track, imho
+    NSUInteger index = tracksTableView.selectedRowIndexes.firstIndex;
+    SBTrack *track = (SBTrack*)[tracksController.arrangedObjects objectAtIndex: index];
+    [[self databaseController] goToTrack: track];
 }
 
 
