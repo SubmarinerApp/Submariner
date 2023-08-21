@@ -822,7 +822,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         if let artistID = attributeDict["artistId"] {
             attachedArtist = fetchArtist(id: artistID)
             if attachedArtist == nil, let artistName = attributeDict["artist"] {
-                logger.info("Creating artist ID \(artistID, privacy: .public) for playlist entry")
+                logger.info("Creating artist ID \(artistID, privacy: .public) for tag based entry")
                 attachedArtist = SBArtist.insertInManagedObjectContext(context: threadedContext)
                 // this special case isn't as bad as Now Playing
                 attachedArtist!.id = artistID
@@ -838,7 +838,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         if let albumID = attributeDict["albumId"] {
             attachedAlbum = fetchAlbum(id: albumID, artist: attachedArtist)
             if attachedAlbum == nil, let albumName = attributeDict["albumName"] {
-                logger.info("Creating album ID \(albumID, privacy: .public) for playlist entry")
+                logger.info("Creating album ID \(albumID, privacy: .public) for tag based entry")
                 // XXX: Lack of ID seems like it'll be agony
                 attachedAlbum = SBAlbum.insertInManagedObjectContext(context: threadedContext)
                 attachedAlbum!.id = albumID
@@ -861,7 +861,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             attachedCover = fetchCover(coverID: coverID)
             
             if attachedCover?.id == nil || attachedCover?.id == "" {
-                logger.info("Creating cover ID \(coverID, privacy: .public) for playlist entry")
+                logger.info("Creating cover ID \(coverID, privacy: .public) for tag based entry")
                 attachedCover = createCover(attributes: attributeDict)
                 attachedCover!.album = attachedAlbum
                 attachedAlbum.cover = attachedCover!
@@ -887,7 +887,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             // we might not have the artist here to attach to
             attachedAlbum = fetchAlbum(id: albumID)
             if attachedAlbum == nil {
-                logger.info("Creating album ID \(albumID, privacy: .public) for now playing entry")
+                logger.info("Creating album ID \(albumID, privacy: .public) for index based entry")
                 // not using normal construction
                 attachedAlbum = SBAlbum.insertInManagedObjectContext(context: threadedContext)
                 attachedAlbum?.id = albumID
@@ -912,7 +912,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             attachedCover = fetchCover(coverID: coverID)
             
             if attachedCover?.id == nil || attachedCover?.id == "" {
-                logger.info("Creating cover ID \(coverID, privacy: .public) for now playing entry")
+                logger.info("Creating cover ID \(coverID, privacy: .public) for index based entry")
                 attachedCover = createCover(attributes: attributeDict)
                 attachedCover!.album = attachedAlbum
                 attachedAlbum.cover = attachedCover!
@@ -925,7 +925,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             // XXX: try using artistId - may be tag based in subsonic so wouldn't match right ID...
             attachedArtist = fetchArtist(name: artistName)
             if attachedArtist == nil {
-                logger.info("Creating artist name \(artistName, privacy: .public) for now playing entry")
+                logger.info("Creating artist name \(artistName, privacy: .public) for index based entry")
                 attachedArtist = SBArtist.insertInManagedObjectContext(context: threadedContext)
                 // XXX: Lack of ID seems like it'll be agony
                 attachedArtist!.itemName = artistName
