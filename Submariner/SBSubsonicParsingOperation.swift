@@ -387,66 +387,6 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         }
     }
     
-    private func updateTrackDependenciesForPlaylistEntry(_ track: SBTrack, attributeDict: [String: String]) {
-        var attachedArtist: SBArtist?
-        // is this right for album artist? the artist object can get corrected on fetch though...
-        if let artistID = attributeDict["artistId"] {
-            attachedArtist = fetchArtist(id: artistID)
-            if attachedArtist == nil, let artistName = attributeDict["artist"] {
-                logger.info("Creating artist ID \(artistID, privacy: .public) for playlist entry")
-                attachedArtist = SBArtist.insertInManagedObjectContext(context: threadedContext)
-                // this special case isn't as bad as Now Playing
-                attachedArtist!.id = artistID
-                attachedArtist!.itemName = artistName
-                attachedArtist!.isLocal = false
-                attachedArtist!.server = server
-                server.addToIndexes(attachedArtist!)
-            }
-        }
-        
-        var attachedAlbum: SBAlbum?
-        // same idea
-        if let albumID = attributeDict["albumId"] {
-            attachedAlbum = fetchAlbum(id: albumID, artist: attachedArtist)
-            if attachedAlbum == nil, let albumName = attributeDict["albumName"] {
-                logger.info("Creating album ID \(albumID, privacy: .public) for playlist entry")
-                // XXX: Lack of ID seems like it'll be agony
-                attachedAlbum = SBAlbum.insertInManagedObjectContext(context: threadedContext)
-                attachedAlbum!.id = albumID
-                attachedAlbum!.itemName = albumName
-                attachedAlbum!.isLocal = false
-                if let attachedArtist = attachedArtist {
-                    attachedAlbum?.artist = attachedArtist
-                    attachedArtist.addToAlbums(attachedAlbum!)
-                }
-                
-                server.home?.addToAlbums(attachedAlbum!)
-                attachedAlbum!.home = server.home
-            }
-        }
-        
-        // the track doesn't need to know this, so scope doesn't matter
-        if let attachedAlbum = attachedAlbum, let coverID = attributeDict["coverArt"] {
-            var attachedCover: SBCover?
-            
-            attachedCover = fetchCover(coverID: coverID)
-            
-            if attachedCover?.id == nil || attachedCover?.id == "" {
-                logger.info("Creating cover ID \(coverID, privacy: .public) for playlist entry")
-                attachedCover = createCover(attributes: attributeDict)
-                attachedCover!.album = attachedAlbum
-                attachedAlbum.cover = attachedCover!
-            }
-            
-            clientController.getCover(id: coverID)
-        }
-        
-        if let attachedAlbum = attachedAlbum {
-            attachedAlbum.addToTracks(track)
-            track.album = attachedAlbum
-        }
-    }
-    
     private func parseElementEntryForPlaylist(attributeDict: [String: String]) {
         if let currentPlaylist = self.currentPlaylist, let id = attributeDict["id"] {
             if let track = fetchTrack(id: id) {
@@ -455,7 +395,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 } ?? false
                 logger.info("Adding track (and updating) with ID: \(id, privacy: .public) to playlist \(currentPlaylist.id ?? "(no ID?)", privacy: .public), exists? \(exists) index? \(self.playlistIndex)")
                 
-                updateTrackDependenciesForPlaylistEntry(track, attributeDict: attributeDict)
+                updateTrackDependenciesForDirectoryIndex(track, attributeDict: attributeDict)
                 
                 // limitation if the same track exists twice
                 track.playlistIndex = NSNumber(value: playlistIndex)
@@ -470,7 +410,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 // FIXME: Should we update *existing* tracks regardless? For previous cases they were pulled anew...
                 logger.info("Creating new track with ID: \(id, privacy: .public) for playlist \(currentPlaylist.id ?? "(no ID?)", privacy: .public)")
                 let track = createTrack(attributes: attributeDict)
-                updateTrackDependenciesForPlaylistEntry(track, attributeDict: attributeDict)
+                updateTrackDependenciesForDirectoryIndex(track, attributeDict: attributeDict)
                 
                 track.playlistIndex = NSNumber(value: playlistIndex)
                 playlistIndex += 1
@@ -480,69 +420,6 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             }
         } else {
             logger.warning("No current playlist, even though we have an entry element?")
-        }
-    }
-    
-    // ...and search
-    private func updateTrackDependenciesForNowPlaying(_ track: SBTrack, attributeDict: [String: String]) {
-        var attachedAlbum: SBAlbum?
-        var attachedCover: SBCover?
-        var attachedArtist: SBArtist?
-        
-        // set these if not already set (prev versions might not have for tracks where first seen was from now playing/search)
-        if let albumID = attributeDict["parent"] {
-            // we might not have the artist here to attach to
-            attachedAlbum = fetchAlbum(id: albumID)
-            if attachedAlbum == nil {
-                logger.info("Creating album ID \(albumID, privacy: .public) for now playing entry")
-                // not using normal construction
-                attachedAlbum = SBAlbum.insertInManagedObjectContext(context: threadedContext)
-                attachedAlbum?.id = albumID
-                if let name = attributeDict["album"] {
-                    attachedAlbum?.itemName = name
-                }
-                attachedAlbum?.isLocal = false
-                
-                attachedAlbum?.addToTracks(track)
-                track.album = attachedAlbum
-                
-                // XXX: do this here?
-                server.home?.addToAlbums(attachedAlbum!)
-                attachedAlbum!.home = server.home
-            } else if track.album == nil {
-                attachedAlbum?.addToTracks(track)
-                track.album = attachedAlbum
-            }
-        }
-        
-        if let attachedAlbum = attachedAlbum, let coverID = attributeDict["coverArt"] {
-            attachedCover = fetchCover(coverID: coverID)
-            
-            if attachedCover?.id == nil || attachedCover?.id == "" {
-                logger.info("Creating cover ID \(coverID, privacy: .public) for now playing entry")
-                attachedCover = createCover(attributes: attributeDict)
-                attachedCover!.album = attachedAlbum
-                attachedAlbum.cover = attachedCover!
-            }
-            
-            clientController.getCover(id: coverID)
-        }
-        
-        if let attachedAlbum = attachedAlbum, let artistName = attributeDict["artist"] {
-            // XXX: try using artistId - may be tag based in subsonic so wouldn't match right ID...
-            attachedArtist = fetchArtist(name: artistName)
-            if attachedArtist == nil {
-                logger.info("Creating artist name \(artistName, privacy: .public) for now playing entry")
-                attachedArtist = SBArtist.insertInManagedObjectContext(context: threadedContext)
-                // XXX: Lack of ID seems like it'll be agony
-                attachedArtist!.itemName = artistName
-                attachedArtist!.isLocal = false
-                attachedArtist!.server = server
-                server.addToIndexes(attachedArtist!)
-            }
-            
-            attachedAlbum.artist = attachedArtist!
-            attachedArtist!.addToAlbums(attachedAlbum)
         }
     }
     
@@ -569,7 +446,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         nowPlaying.track = attachedTrack
         attachedTrack?.nowPlaying = nowPlaying
         
-        updateTrackDependenciesForNowPlaying(attachedTrack!, attributeDict: attributeDict)
+        updateTrackDependenciesForDirectoryIndex(attachedTrack!, attributeDict: attributeDict)
         
         // do it here
         nowPlaying.server = server
@@ -596,13 +473,13 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             if let track = fetchTrack(id: id) {
                 logger.info("Creating track ID \(id, privacy: .public) for search")
                 // the song element has the same format as the one used in nowPlaying, complete with artist name without ID
-                updateTrackDependenciesForNowPlaying(track, attributeDict: attributeDict)
+                updateTrackDependenciesForDirectoryIndex(track, attributeDict: attributeDict)
                 // objc version did some check in playlist, which didn't make sense
                 currentSearch.tracks.append(track)
             } else {
                 logger.info("Creating track ID \(id, privacy: .public) for search")
                 let track = createTrack(attributes: attributeDict)
-                updateTrackDependenciesForNowPlaying(track, attributeDict: attributeDict)
+                updateTrackDependenciesForDirectoryIndex(track, attributeDict: attributeDict)
                 currentSearch.tracks.append(track)
             }
         } else {
@@ -936,6 +813,130 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         album.isLocal = false
         
         return album
+    }
+    
+    // NOT USED YET - this makes sense only if you're using
+    private func updateTrackDependenciesForTag(_ track: SBTrack, attributeDict: [String: String]) {
+        var attachedArtist: SBArtist?
+        // is this right for album artist? the artist object can get corrected on fetch though...
+        if let artistID = attributeDict["artistId"] {
+            attachedArtist = fetchArtist(id: artistID)
+            if attachedArtist == nil, let artistName = attributeDict["artist"] {
+                logger.info("Creating artist ID \(artistID, privacy: .public) for playlist entry")
+                attachedArtist = SBArtist.insertInManagedObjectContext(context: threadedContext)
+                // this special case isn't as bad as Now Playing
+                attachedArtist!.id = artistID
+                attachedArtist!.itemName = artistName
+                attachedArtist!.isLocal = false
+                attachedArtist!.server = server
+                server.addToIndexes(attachedArtist!)
+            }
+        }
+        
+        var attachedAlbum: SBAlbum?
+        // same idea
+        if let albumID = attributeDict["albumId"] {
+            attachedAlbum = fetchAlbum(id: albumID, artist: attachedArtist)
+            if attachedAlbum == nil, let albumName = attributeDict["albumName"] {
+                logger.info("Creating album ID \(albumID, privacy: .public) for playlist entry")
+                // XXX: Lack of ID seems like it'll be agony
+                attachedAlbum = SBAlbum.insertInManagedObjectContext(context: threadedContext)
+                attachedAlbum!.id = albumID
+                attachedAlbum!.itemName = albumName
+                attachedAlbum!.isLocal = false
+                if let attachedArtist = attachedArtist {
+                    attachedAlbum?.artist = attachedArtist
+                    attachedArtist.addToAlbums(attachedAlbum!)
+                }
+                
+                server.home?.addToAlbums(attachedAlbum!)
+                attachedAlbum!.home = server.home
+            }
+        }
+        
+        // the track doesn't need to know this, so scope doesn't matter
+        if let attachedAlbum = attachedAlbum, let coverID = attributeDict["coverArt"] {
+            var attachedCover: SBCover?
+            
+            attachedCover = fetchCover(coverID: coverID)
+            
+            if attachedCover?.id == nil || attachedCover?.id == "" {
+                logger.info("Creating cover ID \(coverID, privacy: .public) for playlist entry")
+                attachedCover = createCover(attributes: attributeDict)
+                attachedCover!.album = attachedAlbum
+                attachedAlbum.cover = attachedCover!
+            }
+            
+            clientController.getCover(id: coverID)
+        }
+        
+        if let attachedAlbum = attachedAlbum {
+            attachedAlbum.addToTracks(track)
+            track.album = attachedAlbum
+        }
+    }
+    
+    // not as good as former, but we have to use it until we switch to using tag based metadata instead of hierarchy index
+    private func updateTrackDependenciesForDirectoryIndex(_ track: SBTrack, attributeDict: [String: String]) {
+        var attachedAlbum: SBAlbum?
+        var attachedCover: SBCover?
+        var attachedArtist: SBArtist?
+        
+        // set these if not already set (prev versions might not have for tracks where first seen was from now playing/search)
+        if let albumID = attributeDict["parent"] {
+            // we might not have the artist here to attach to
+            attachedAlbum = fetchAlbum(id: albumID)
+            if attachedAlbum == nil {
+                logger.info("Creating album ID \(albumID, privacy: .public) for now playing entry")
+                // not using normal construction
+                attachedAlbum = SBAlbum.insertInManagedObjectContext(context: threadedContext)
+                attachedAlbum?.id = albumID
+                if let name = attributeDict["album"] {
+                    attachedAlbum?.itemName = name
+                }
+                attachedAlbum?.isLocal = false
+                
+                attachedAlbum?.addToTracks(track)
+                track.album = attachedAlbum
+                
+                // XXX: do this here?
+                server.home?.addToAlbums(attachedAlbum!)
+                attachedAlbum!.home = server.home
+            } else if track.album == nil {
+                attachedAlbum?.addToTracks(track)
+                track.album = attachedAlbum
+            }
+        }
+        
+        if let attachedAlbum = attachedAlbum, let coverID = attributeDict["coverArt"] {
+            attachedCover = fetchCover(coverID: coverID)
+            
+            if attachedCover?.id == nil || attachedCover?.id == "" {
+                logger.info("Creating cover ID \(coverID, privacy: .public) for now playing entry")
+                attachedCover = createCover(attributes: attributeDict)
+                attachedCover!.album = attachedAlbum
+                attachedAlbum.cover = attachedCover!
+            }
+            
+            clientController.getCover(id: coverID)
+        }
+        
+        if let attachedAlbum = attachedAlbum, let artistName = attributeDict["artist"] {
+            // XXX: try using artistId - may be tag based in subsonic so wouldn't match right ID...
+            attachedArtist = fetchArtist(name: artistName)
+            if attachedArtist == nil {
+                logger.info("Creating artist name \(artistName, privacy: .public) for now playing entry")
+                attachedArtist = SBArtist.insertInManagedObjectContext(context: threadedContext)
+                // XXX: Lack of ID seems like it'll be agony
+                attachedArtist!.itemName = artistName
+                attachedArtist!.isLocal = false
+                attachedArtist!.server = server
+                server.addToIndexes(attachedArtist!)
+            }
+            
+            attachedAlbum.artist = attachedArtist!
+            attachedArtist!.addToAlbums(attachedAlbum)
+        }
     }
     
     private func updateTrack(_ track: SBTrack, attributes: [String: String]) {
