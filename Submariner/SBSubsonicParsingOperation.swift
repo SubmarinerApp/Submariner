@@ -254,14 +254,14 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
            let id = attributeDict["id"],
            let name = attributeDict["title"] {
             // TODO: This whole metaphor is translated from Objective-C and is kinda clumsy.
-            var album = fetchAlbum(id: id, artist: currentArtist)
+            var album = fetchAlbum(id: id)
             if album == nil {
                 logger.info("Creating new album with ID: \(id, privacy: .public) and name \(name, privacy: .public)")
                 album = createAlbum(attributes: attributeDict)
                 // now assume not nil
-                album!.artist = currentArtist
-                currentArtist.addToAlbums(album!)
             }
+            album!.artist = currentArtist
+            currentArtist.addToAlbums(album!)
             
             // the track may not have a cover assigned yet
             if let cover = album!.cover {
@@ -299,6 +299,8 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 // Update
                 logger.info("Updating track with ID: \(id, privacy: .public) and name \(name, privacy: .public)")
                 updateTrack(track, attributes: attributeDict)
+                track.album = currentAlbum
+                currentAlbum.addToTracks(track)
             } else {
                 // Create
                 logger.info("Creating new track with ID: \(id, privacy: .public) and name \(name, privacy: .public)")
@@ -337,7 +339,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 artist = createArtist(attributes: attributeDict)
             }
             
-            var album = fetchAlbum(id: id, artist: artist)
+            var album = fetchAlbum(id: id)
             if album == nil {
                 logger.info("Creating new album with ID: \(id, privacy: .public) for artist ID \(parent, privacy: .public)")
                 album = createAlbum(attributes: attributeDict)
