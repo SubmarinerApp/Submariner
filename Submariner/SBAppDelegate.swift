@@ -110,10 +110,14 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         SBPlayer.sharedInstance().stop()
         
+        // If we have database corruption, we're screwed anyways and shouldn't put the user in an infinite loop.
         if !managedObjectContext.commitEditing() {
-            // XXX: Make an NSError
-            logger.error("Failed to commit changes in MOC on quit")
-            return .terminateCancel
+            let alert = NSAlert()
+            alert.alertStyle = .critical
+            alert.messageText = "Failed to Commit Changes"
+            alert.informativeText = "Submariner failed to commit changes to the local database while exiting."
+            alert.runModal()
+            return .terminateNow
         }
         
         if !managedObjectContext.hasChanges {
@@ -123,9 +127,18 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         do {
             try managedObjectContext.save()
         } catch {
-            NSApplication.shared.presentError(error)
-            // XXX: Backport the old Objective-C SBAppDelegate prompt, if it even makes sense
-            return .terminateCancel
+            if NSApplication.shared.presentError(error) {
+                return .terminateCancel
+            }
+            let alert = NSAlert()
+            alert.alertStyle = .critical
+            alert.messageText = "Could not save changes while quitting. Quit anyway?"
+            alert.informativeText = "Quitting now will lose any changes you have made since the last successful save."
+            alert.addButton(withTitle: "Quit")
+            alert.addButton(withTitle: "Cancel")
+            if alert.runModal() == .cancel {
+                return .terminateCancel
+            }
         }
         
         return .terminateNow
