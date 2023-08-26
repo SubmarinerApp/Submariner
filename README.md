@@ -30,7 +30,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes:
 
-### Version 2.4.1 (not yet released)
+### Version 2.4.1
 
 * Items in a playlist can be shown in the library
 * Restore old values when cancelling editing a server
