@@ -30,6 +30,17 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes:
 
+### Version 2.4.1 (not yet released)
+
+* Items in a playlist can be shown in the library
+* Restore old values when cancelling editing a server
+* Validate URL before saving a server's settings
+* If the database is corrupted when trying to exit, don't get stuck in a loop
+* Handle nil URLs without crashing
+* Update item dependencies (i.e. track to album) when fetching from server
+* Fix not updating indices when connecting to a server
+* Fix accidental mix-up of tag and index based IDs
+
 ### Version 2.4
 
 * Server library scans can be kicked off from the UI
