@@ -116,6 +116,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         var params = parameters
         if artist.id == nil {
             // can happen because of now playing/search
+
             return
         }
         params["id"] = artist.id

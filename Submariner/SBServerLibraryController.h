@@ -53,6 +53,7 @@
     IBOutlet NSArrayController  *albumsController;
     IBOutlet NSArrayController  *tracksController;
     IBOutlet NSSplitView        *artistSplitView;
+    __weak IBOutlet NSSearchField *filterView;
     
     __weak IBOutlet NSSplitView *rightSplitView;
     SBPrioritySplitViewDelegate *splitViewDelegate;
@@ -63,6 +64,8 @@
     
     NSDictionary *artistCellSelectedAttributes;
     NSDictionary *artistCellUnselectedAttributes;
+    
+    NSEntityDescription *groupEntity;
 }
 @property (readonly, strong) NSDictionary *artistCellSelectedAttributes;
 @property (readonly, strong) NSDictionary *artistCellUnselectedAttributes;

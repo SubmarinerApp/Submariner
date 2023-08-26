@@ -15,6 +15,7 @@
                 <outlet property="artistSplitView" destination="81" id="164"/>
                 <outlet property="artistsController" destination="128" id="134"/>
                 <outlet property="artistsTableView" destination="183" id="191"/>
+                <outlet property="filterView" destination="86" id="h9G-QD-1Ts"/>
                 <outlet property="rightSplitView" destination="93" id="sIc-aB-bUr"/>
                 <outlet property="tracksController" destination="144" id="147"/>
                 <outlet property="tracksTableView" destination="108" id="143"/>
@@ -118,15 +119,15 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="444" height="158"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <clipView key="contentView" copiesOnScroll="NO" id="rl6-t2-l9H">
-                                                        <rect key="frame" x="0.0" y="0.0" width="429" height="158"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="444" height="158"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
-                                                            <ikImageBrowserView autoresizesSubviews="NO" zoomValue="2.1645288467407227" allowsMultipleSelection="NO" id="104" customClass="SBImageBrowserView">
-                                                                <rect key="frame" x="0.0" y="0.0" width="429" height="2534"/>
+                                                            <ikImageBrowserView autoresizesSubviews="NO" zoomValue="3.8248698711395264" allowsMultipleSelection="NO" id="104" customClass="SBImageBrowserView">
+                                                                <rect key="frame" x="0.0" y="0.0" width="444" height="2534"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <ikCellsStyle key="cellsStyleMask" shadowed="YES" titled="YES" subtitled="YES"/>
                                                                 <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
-                                                                <size key="cellSize" width="297" height="297"/>
+                                                                <size key="cellSize" width="834" height="834"/>
                                                                 <connections>
                                                                     <binding destination="137" name="content" keyPath="arrangedObjects" id="140"/>
                                                                     <binding destination="137" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="140" id="169"/>
@@ -141,7 +142,7 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="106">
-                                                        <rect key="frame" x="429" y="0.0" width="15" height="158"/>
+                                                        <rect key="frame" x="428" y="0.0" width="16" height="158"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                     <connections>
@@ -158,11 +159,11 @@
                                                     <rect key="frame" x="-2" y="41" width="446" height="199"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <clipView key="contentView" id="uNg-bD-Z0H">
-                                                        <rect key="frame" x="0.0" y="0.0" width="446" height="184"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="446" height="199"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveName="ServerMusicTable" headerView="110" id="108" customClass="SBTableView">
-                                                                <rect key="frame" x="0.0" y="0.0" width="692" height="156"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="692" height="171"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -312,7 +313,7 @@
                                                         </subviews>
                                                     </clipView>
                                                     <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="109">
-                                                        <rect key="frame" x="0.0" y="184" width="446" height="15"/>
+                                                        <rect key="frame" x="0.0" y="183" width="446" height="16"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                     <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="111">

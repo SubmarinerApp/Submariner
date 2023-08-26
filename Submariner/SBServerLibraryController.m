@@ -88,6 +88,8 @@
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context {
     self = [super initWithManagedObjectContext:context];
     if (self) {
+        groupEntity = [NSEntityDescription entityForName: @"Group" inManagedObjectContext: managedObjectContext];
+        
         NSSortDescriptor *artistDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"itemName" ascending:YES];
         artistSortDescriptor = [NSArray arrayWithObject:artistDescriptor];
         
@@ -106,6 +108,10 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    
+    // set initial filter, we can perhaps persist between launches by storing in the text for filter
+    [self filterArtist: filterView];
+    
     self->compensatedSplitView = self->rightSplitView;
 }
 
@@ -323,11 +329,16 @@
     
     searchString = [sender stringValue];
     
+    // Including server is redundant, since the artistController dervives from server's own indexSet
+    // Filter out nil ids to avoid confusing user, since only thing that can make those is i.e. playlist from index-based IDs
+    // If we don't include group, we won't have the headers
     if(searchString != nil && [searchString length] > 0) {
-        predicate = [NSPredicate predicateWithFormat:@"(itemName CONTAINS[cd] %@) && (server == %@)", searchString, self.server];
+        // We don't need to worry about filtering group names here.
+        // If we do want groups, then we should reverse the search if it's a group (%@ begins with itemName)
+        predicate = [NSPredicate predicateWithFormat:@"(itemName CONTAINS[cd] %@ && id != nil)", searchString];
         [artistsController setFilterPredicate:predicate];
     } else {
-        predicate = [NSPredicate predicateWithFormat:@"(server == %@)", self.server];
+        predicate = [NSPredicate predicateWithFormat:@"(id != nil || entity == %@)", groupEntity];
         [artistsController setFilterPredicate:predicate];
     }
 }
@@ -465,13 +476,6 @@
     [artistsController setSelectedObjects: @[artist]];
     [artistsTableView scrollRowToVisible: [artistsTableView selectedRow]];
 }
-
-
-
-
-
-#pragma mark - 
-#pragma mark Observers
 
 
 
