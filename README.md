@@ -40,6 +40,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Update item dependencies (i.e. track to album) when fetching from server
 * Fix not updating indices when connecting to a server
 * Fix accidental mix-up of tag and index based IDs
+* Don't display artists with a nil ID
 
 ### Version 2.4
 
