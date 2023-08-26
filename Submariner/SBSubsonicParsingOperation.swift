@@ -493,11 +493,16 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         if let validString = attributeDict["valid"] {
             server.isValidLicense = NSNumber(value: validString == "true")
         }
+        // note that these can be empty which can confuse user if we don't set them
         if let email = attributeDict["email"] {
             server.licenseEmail = email
+        } else {
+            server.licenseEmail = ""
         }
         if let date = attributeDict["date"]?.dateTimeFromISO() {
             server.licenseDate = date
+        } else {
+            server.licenseDate = Date()
         }
     }
     
