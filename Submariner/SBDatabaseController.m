@@ -988,11 +988,8 @@
 
 - (void)openAudioFilesPanelDidEnd:(NSOpenPanel *)panel returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
     if(returnCode == NSModalResponseOK) {
-        NSArray *files = [panel URLs];
+        NSArray<NSURL*> *files = [panel URLs];
         if(files) {
-            // SBImportOperation takes NSStrings, not URLs, so map
-            files = [files valueForKey: @"path"];
-            
             [panel orderOut:self];
             [NSApp endSheet:panel];
             
@@ -1006,7 +1003,7 @@
 }
 
 
-- (void)importSheetDidEnd: (NSWindow *)sheet returnCode: (NSInteger)returnCode contextInfo: (NSArray *)choosedFiles {
+- (void)importSheetDidEnd: (NSWindow *)sheet returnCode: (NSInteger)returnCode contextInfo: (NSArray<NSURL*> *)choosedFiles {
     
     if(returnCode == NSAlertFirstButtonReturn) {
         if(choosedFiles != nil) {
@@ -1280,7 +1277,7 @@
 }
 
 
-- (BOOL)openImportAlert:(NSWindow *)sender files:(NSArray *)files {
+- (BOOL)openImportAlert:(NSWindow *)sender files:(NSArray<NSURL*> *)files {
     NSAlert *importAlert = [[NSAlert alloc] init];
     [importAlert setMessageText:@"Do you want to copy the imported audio files?"];
     [importAlert setInformativeText: @"The files will copied into the library directory, or have the new library items link to the original files."];
