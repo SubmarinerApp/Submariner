@@ -9,7 +9,7 @@ Please see the [old README](https://github.com/Read-Write/Submariner/blob/a1a10e
 ## Requirements
 
 * Submariner requires macOS 11 or newer. It works on both Intel and Apple Silicon machines.
-* Your Subsonic server must implement API version 1.5.0 or newer. Non-Subsonic implementations are supported.
+* Your Subsonic server must implement API version 1.15.0 or newer. Non-Subsonic implementations are supported.
 
 ## Building
 
