@@ -464,6 +464,26 @@ extension NSNotification.Name {
         NotificationCenter.default.post(name: .SBPlayerPlaylistUpdated, object: self)
     }
     
+    // #MARK: - Playlist+Playback Frontend Helpers
+    
+    /// This function is mostly used by the frontend to replace a common pattern in the UI for playing albums.
+    ///
+    /// That is,
+    /// 1. it replaces or appends a bunch of tracks to the tracklist, depending on preferences
+    /// 2. it starts playing at a certain track based on user feedback
+    @objc(playTracks:startingAt:) func play(tracks: [SBTrack], startingAt: Int) {
+        self.stop()
+        
+        if UserDefaults.standard.playerBehavior == 1 /* replace */ {
+            self.add(tracks: tracks, replace: true)
+            self.play(index: startingAt)
+        } else {
+            let beforeCount = playlist.count
+            self.add(tracks: tracks, replace: false)
+            self.play(index: beforeCount + startingAt)
+        }
+    }
+    
     // #MARK: - Player Control
     
     @objc dynamic var currentTrack: SBTrack? {

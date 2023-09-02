@@ -101,23 +101,8 @@
 
 - (IBAction)trackDoubleClick:(id)sender {
     NSInteger selectedRow = [tracksTableView selectedRow];
-    if(selectedRow != -1) {
-        SBTrack *clickedTrack = [[tracksController arrangedObjects] objectAtIndex:selectedRow];
-        if(clickedTrack) {
-            
-            // stop current playing tracks
-            [[SBPlayer sharedInstance] stop];
-            
-            // add track to player
-            if([[NSUserDefaults standardUserDefaults] integerForKey:@"playerBehavior"] == 1) {
-                [[SBPlayer sharedInstance] addTrackArray:[tracksController arrangedObjects] replace:YES];
-                // play track
-                [[SBPlayer sharedInstance] playTrack:clickedTrack];
-            } else {
-                [[SBPlayer sharedInstance] addTrackArray:[tracksController arrangedObjects] replace:NO];
-                [[SBPlayer sharedInstance] playTrack:clickedTrack];
-            }
-        }
+    if (selectedRow != -1) {
+        [[SBPlayer sharedInstance] playTracks: [tracksController arrangedObjects] startingAt: selectedRow];
     }
 }
 

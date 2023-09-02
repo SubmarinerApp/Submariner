@@ -41,4 +41,8 @@ extension UserDefaults {
     @objc dynamic var scrobbleToServer: Bool {
         return bool(forKey: "scrobbleToServer")
     }
+    
+    @objc dynamic var playerBehavior: Int {
+        return integer(forKey: "playerBehavior")
+    }
 }
