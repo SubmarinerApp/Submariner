@@ -117,6 +117,9 @@
 }
 
 
+- (IBAction)playSelected:(id)sender {
+    [self trackDoubleClick: sender];
+}
 
 
 - (IBAction)removeTrack:(id)sender {
