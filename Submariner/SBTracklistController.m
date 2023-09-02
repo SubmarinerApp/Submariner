@@ -112,15 +112,7 @@
 - (IBAction)trackDoubleClick:(id)sender {
     NSInteger selectedRow = [playlistTableView selectedRow];
     if(selectedRow != -1) {
-        SBTrack *clickedTrack = [[[SBPlayer sharedInstance] playlist] objectAtIndex:selectedRow];
-        if(clickedTrack) {
-            
-            // stop current playing tracks
-            [[SBPlayer sharedInstance] stop];
-            
-            // play track
-            [[SBPlayer sharedInstance] playTrack:clickedTrack];
-        }
+        [[SBPlayer sharedInstance] playTrackByIndex: selectedRow];
     }
 }
 
@@ -221,8 +213,7 @@
     id value = nil;
     
     if([[tableColumn identifier] isEqualToString:@"isPlaying"]) {
-        SBTrack *track = (SBTrack *)[[[SBPlayer sharedInstance] playlist] objectAtIndex:row];
-        if([[track isPlaying] boolValue]) {
+        if (row == [[SBPlayer sharedInstance] currentIndexNumber]) {
             value = [NSImage imageWithSystemSymbolName: @"speaker.fill" accessibilityDescription: @"Playing"];
         }
     }

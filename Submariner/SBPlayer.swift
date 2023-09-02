@@ -424,56 +424,86 @@ extension NSNotification.Name {
     
     @objc(addTrack:atIndex:) func add(track: SBTrack, index: Int) {
         playlist.insert(track, at: index)
-        NotificationCenter.default.post(name: .SBPlayerPlaylistUpdated, object: self)
-    }
-    
-    @objc(removeTrack:) func remove(track: SBTrack) {
-        if track == currentTrack {
-            stop()
+        if let currentIndex = self.currentIndex, index <= currentIndex {
+            self.currentIndex = currentIndex + 1
         }
-        
-        playlist.removeAll { candidateTrack in track == candidateTrack }
-        NotificationCenter.default.post(name: .SBPlayerPlaylistUpdated, object: self)
-    }
-    
-    @objc(removeTrackArray:) func remove(tracks: [SBTrack]) {
-        if let currentTrack = self.currentTrack, tracks.contains(currentTrack) {
-            stop()
-        }
-        
-        playlist.removeAll { candidateTrack in tracks.contains(candidateTrack) }
         NotificationCenter.default.post(name: .SBPlayerPlaylistUpdated, object: self)
     }
     
     @objc(removeTrackIndexSet:) func remove(trackIndexSet: IndexSet) {
-        if let currentTrack = self.currentTrack {
+        var newCurrentIndex = 0
+        if let currentIndex = self.currentIndex {
+            newCurrentIndex = currentIndex
             trackIndexSet.forEach { i in
-                if playlist[i] == currentTrack {
+                if i <= currentIndex {
+                    newCurrentIndex -= 1
+                }
+                if i == currentIndex {
                     stop()
                 }
             }
         }
         
         playlist.remove(atOffsets: trackIndexSet)
+        if self.currentIndex != nil {
+            self.currentIndex = newCurrentIndex
+        }
         NotificationCenter.default.post(name: .SBPlayerPlaylistUpdated, object: self)
     }
     
     @objc(moveTrackIndexSet:toIndex:) func move(trackIndexSet: IndexSet, index: Int) {
+        // TODO: Avoid making a copy of the playlist here, and calculate the new offset instead
+        if let currentIndex = self.currentIndex {
+            var playlistWithIndices = playlist.enumerated().map { ($0, $1) }
+            playlistWithIndices.move(fromOffsets: trackIndexSet, toOffset: index)
+            self.currentIndex = playlistWithIndices.firstIndex { (i, _) in
+                return i == currentIndex
+            }
+        }
         playlist.move(fromOffsets: trackIndexSet, toOffset: index)
         NotificationCenter.default.post(name: .SBPlayerPlaylistUpdated, object: self)
     }
     
     // #MARK: - Player Control
     
-    @objc dynamic var currentTrack: SBTrack?
+    @objc dynamic var currentTrack: SBTrack? {
+        get {
+            if let currentIndex = self.currentIndex {
+                return playlist[currentIndex]
+            } else {
+                return nil
+            }
+        }
+    }
+    var currentIndex: Int?
+    // Used because we can't represent Int? in Objective-C. Don't use in Swift.
+    @objc dynamic var currentIndexNumber: Int {
+        get {
+            if let currentIndex = self.currentIndex {
+                return currentIndex
+            } else {
+                return NSNotFound
+            }
+        }
+    }
     
     @objc dynamic var isPlaying = false
     @objc dynamic var isPaused = false
     
     @objc(playTrack:) func play(track: SBTrack) {
+        if let index = playlist.firstIndex(of: track) {
+            play(track: track, index: index)
+        }
+    }
+    
+    @objc(playTrackByIndex:) func play(index: Int) {
+        play(track: playlist[index], index: index)
+    }
+    
+    private func play(track: SBTrack, index: Int) {
         if self.currentTrack != nil {
             unplayAllTracks()
-            self.currentTrack = nil
+            self.currentIndex = nil
         }
         
         if track.isVideo() {
@@ -487,7 +517,7 @@ extension NSNotification.Name {
             return
         }
         
-        self.currentTrack = track
+        self.currentIndex = index
         // Putting it here instead of on AVPlayerItem seems more reliable,
         // guarantees it'll happen first. Might block the AVPlayer, but
         // that seems desirable as opposed to risking it get sidetracked.
@@ -548,8 +578,8 @@ extension NSNotification.Name {
     }
     
     @objc func playTracklistAtBeginning() {
-        if let first = playlist.first {
-            play(track: first)
+        if !playlist.isEmpty {
+            play(index: 0)
         }
     }
     
@@ -591,8 +621,8 @@ extension NSNotification.Name {
         if !UserDefaults.standard.deleteAfterPlay {
             return
         }
-        if let currentTrack = self.currentTrack {
-            remove(track: currentTrack)
+        if let currentIndex = self.currentIndex {
+            remove(trackIndexSet: IndexSet(integer: currentIndex))
         }
     }
     
@@ -600,7 +630,7 @@ extension NSNotification.Name {
         maybeDeleteCurrentTrack()
         if let next = nextTrack() {
             synchronized(self) {
-                play(track: next)
+                play(index: next)
             }
         } else {
             stop()
@@ -611,7 +641,7 @@ extension NSNotification.Name {
         maybeDeleteCurrentTrack()
         if let prev = prevTrack() {
             synchronized(self) {
-                play(track: prev)
+                play(index: prev)
             }
         } else {
             stop()
@@ -668,7 +698,7 @@ extension NSNotification.Name {
             remotePlayer.replaceCurrentItem(with: nil)
             
             unplayAllTracks()
-            currentTrack = nil
+            currentIndex = nil
             
             isPlaying = false
             isPaused = true
@@ -682,7 +712,7 @@ extension NSNotification.Name {
     
     @objc func clear() {
         playlist.removeAll()
-        currentTrack = nil
+        currentIndex = nil
     }
     
     // #MARK: - Accessors (Player Properties)
@@ -790,14 +820,14 @@ extension NSNotification.Name {
     
     // #MARK: - Private
     
-    private func getRandomTrackExcept(track: SBTrack) -> SBTrack? {
-        var randomTrack = track
+    private func getRandomTrackExcept(index: Int) -> Int? {
+        var randomTrack = index
         
         if playlist.count > 1 {
-            while randomTrack == track {
+            while randomTrack == index {
                 let lastIndex = playlist.count - 1
                 let randomIndex = Int.random(in: 0...lastIndex)
-                randomTrack = playlist[randomIndex]
+                randomTrack = randomIndex
             }
             return randomTrack
         }
@@ -805,58 +835,56 @@ extension NSNotification.Name {
         return nil
     }
     
-    private func nextTrack() -> SBTrack? {
+    private func nextTrack() -> Int? {
         if repeatMode == .one {
-            return currentTrack
+            return currentIndex
         }
         
-        if !isShuffle, let currentTrack = self.currentTrack,
-           let index = playlist.firstIndex(of: currentTrack) {
+        if !isShuffle, let index = self.currentIndex {
             switch (repeatMode) {
             case .no:
                 if index >= 0 && (playlist.count - 1) >= (index + 1) {
-                    return playlist[index + 1]
+                    return index + 1
                 }
             case .all:
-                if playlist.last == currentTrack && index > 0 {
-                    return playlist.first
+                if playlist.count - 1 == index && index > 0 {
+                    return 0
                 } else if index >= 0 && (playlist.count - 1) >= (index + 1) {
-                    return playlist[index + 1]
+                    return index + 1
                 }
             default:
                 return nil
             }
             
             return nil
-        } else if isShuffle, let currentTrack = self.currentTrack {
-            return getRandomTrackExcept(track: currentTrack)
+        } else if isShuffle, let index = self.currentIndex {
+            return getRandomTrackExcept(index: index)
         }
         
         return nil
     }
     
-    private func prevTrack() -> SBTrack? {
+    private func prevTrack() -> Int? {
         if repeatMode == .one {
-            return currentTrack
+            return currentIndex
         }
         
-        if !isShuffle, let currentTrack = self.currentTrack,
-           let index = playlist.firstIndex(of: currentTrack) {
+        if !isShuffle, let index = self.currentIndex {
             
             if index == 0 {
                 if repeatMode == .all {
-                    return playlist.last
+                    return playlist.count - 1
                 } else {
                     // objectAtIndex for 0 - 1 is gonna throw, so don't
                     return nil
                 }
             } else if index != -1 {
-                return playlist[index - 1]
+                return index - 1
             }
             
             return nil
-        } else if isShuffle, let currentTrack = self.currentTrack {
-            return getRandomTrackExcept(track: currentTrack)
+        } else if isShuffle, let index = self.currentIndex {
+            return getRandomTrackExcept(index: index)
         }
         
         return nil

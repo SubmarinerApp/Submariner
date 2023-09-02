@@ -221,10 +221,10 @@
             if([[NSUserDefaults standardUserDefaults] integerForKey:@"playerBehavior"] == 1) {
                 [[SBPlayer sharedInstance] addTrackArray:tracks replace:YES];
                 // play track
-                [[SBPlayer sharedInstance] playTrack:[tracks objectAtIndex:0]];
+                [[SBPlayer sharedInstance] playTracklistAtBeginning];
             } else {
                 [[SBPlayer sharedInstance] addTrackArray:tracks replace:NO];
-                [[SBPlayer sharedInstance] playTrack:[tracks objectAtIndex:0]];
+                [[SBPlayer sharedInstance] playTracklistAtBeginning];
             }
         }
     }

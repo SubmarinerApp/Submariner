@@ -263,7 +263,7 @@
             [[SBPlayer sharedInstance] addTrackArray:tracks replace:YES];
             
             // play track
-            [[SBPlayer sharedInstance] playTrack:[tracks objectAtIndex:0]];
+            [[SBPlayer sharedInstance] playTracklistAtBeginning];
         }
     }
 }
