@@ -477,12 +477,12 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 // the song element has the same format as the one used in nowPlaying, complete with artist name without ID
                 updateTrackDependenciesForDirectoryIndex(track, attributeDict: attributeDict)
                 // objc version did some check in playlist, which didn't make sense
-                currentSearch.tracks.append(track)
+                currentSearch.tracksToFetch.append(track.objectID)
             } else {
                 logger.info("Creating track ID \(id, privacy: .public) for search")
                 let track = createTrack(attributes: attributeDict)
                 updateTrackDependenciesForDirectoryIndex(track, attributeDict: attributeDict)
-                currentSearch.tracks.append(track)
+                currentSearch.tracksToFetch.append(track.objectID)
             }
         } else {
             logger.warning("Current search was null on a song element")
