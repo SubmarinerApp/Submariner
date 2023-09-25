@@ -349,6 +349,11 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         databaseController.scanCurrentLibrary(sender)
     }
     
+    @IBAction func purgeLocalLibrary(_ sender: Any?) {
+        let operation = SBLibraryPurgeOperation(managedObjectContext: managedObjectContext)
+        OperationQueue.sharedServerQueue.addOperation(operation)
+    }
+    
     // #MARK: - Core Data
     
     @objc let managedObjectModel: NSManagedObjectModel

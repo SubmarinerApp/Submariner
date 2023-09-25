@@ -31,6 +31,13 @@
                                     <action selector="openPreferences:" target="494" id="535"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="dhh-J0-WuM"/>
+                            <menuItem title="Delete Downloaded Items..." id="iqe-ys-z2b">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="purgeLocalLibrary:" target="494" id="hx4-Rn-XJj"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="143">
                                 <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                             </menuItem>
