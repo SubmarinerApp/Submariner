@@ -25,7 +25,7 @@ class SBOperation: Operation {
         super.init()
     }
     
-    // #MARK: Concurrency
+    // #MARK: - Concurrency
     
     private var _isExecuting = false
     @objc dynamic override var isExecuting: Bool {
@@ -66,7 +66,7 @@ class SBOperation: Operation {
         self.didChangeValue(forKey: "isFinished")
     }
 
-    // #MARK: Core Data
+    // #MARK: - Core Data
     
     public func saveThreadedContext() {
         if self.threadedContext.hasChanges {
