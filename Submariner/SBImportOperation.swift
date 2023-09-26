@@ -209,8 +209,6 @@ import UniformTypeIdentifiers
             }
             newAlbum!.cover!.path = relativePath
             newAlbum!.cover!.isLocal = NSNumber(booleanLiteral: true)
-            newTrack!.cover!.path = relativePath
-            newTrack!.cover!.isLocal = NSNumber(booleanLiteral: true)
         } else {
             // else if track parent directory contains cover file
             let originalAlbumFolder = path.deletingLastPathComponent()
