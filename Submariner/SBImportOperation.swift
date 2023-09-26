@@ -20,13 +20,13 @@ import UniformTypeIdentifiers
     @objc init!(managedObjectContext mainContext: NSManagedObjectContext!, files: [URL], copyFiles: Bool) {
         initialPaths = files
         remoteTrack = nil
-        super.init(managedObjectContext: mainContext)
+        super.init(managedObjectContext: mainContext, name: "Importing Local Files")
         self.copyFiles = copyFiles
     }
     
     init!(managedObjectContext mainContext: NSManagedObjectContext!, file: URL, remoteTrackID: NSManagedObjectID) {
         initialPaths = [file]
-        super.init(managedObjectContext: mainContext)
+        super.init(managedObjectContext: mainContext, name: "Importing Downloaded Tracks")
         // we assume we have a valid track here
         remoteTrack = threadedContext.object(with: remoteTrackID) as? SBTrack
         // importing a downloaded file, we remove it after

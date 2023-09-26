@@ -12,15 +12,8 @@ import os
 
 fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "SBSubsonicDownloadOperation")
 
-extension NSNotification.Name {
-    static let SBSubsonicDownloadStarted = NSNotification.Name("SBSubsonicDownloadStarted")
-    static let SBSubsonicDownloadFinished = NSNotification.Name("SBSubsonicDownloadFinished")
-}
-
 @objc class SBSubsonicDownloadOperation: SBOperation, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDownloadDelegate {
     private let track: SBTrack
-    
-    let activity: SBOperationActivity
     
     @objc init!(managedObjectContext mainContext: NSManagedObjectContext!, trackID: NSManagedObjectID) {
         // Reconstitute the track because Core Data objects can't cross thread boundaries.
@@ -30,15 +23,10 @@ extension NSNotification.Name {
                                        Locale.current.quotationBeginDelimiter ?? "\"",
                                        track.itemName!,
                                        Locale.current.quotationEndDelimiter ?? "\"")
-        activity = SBOperationActivity(name: activityName)
-        activity.operationInfo = "Pending Request..."
-        activity.progress = .none
         
-        super.init(managedObjectContext: mainContext)
-        
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: .SBSubsonicDownloadStarted, object: self.activity)
-        }
+        super.init(managedObjectContext: mainContext, name: activityName)
+        self.operationInfo = "Pending Request..."
+        self.progress = .none
     }
     
     override func main() {
@@ -53,13 +41,6 @@ extension NSNotification.Name {
             let task = session.downloadTask(with: request)
             task.resume()
         }
-    }
-    
-    override func finish() {
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: .SBSubsonicDownloadFinished, object: self.activity)
-        }
-        super.finish()
     }
     
     // #MARK: -
@@ -96,7 +77,7 @@ extension NSNotification.Name {
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         // Success
         DispatchQueue.main.async {
-            self.activity.operationInfo = "Importing track..."
+            self.operationInfo = "Importing track..."
         }
         
         // SBImportOperation needs an audio file extension. Rename the file.
@@ -125,15 +106,15 @@ extension NSNotification.Name {
             let totalToWrite = Measurement<UnitInformationStorage>(value: Double(totalBytesExpectedToWrite), unit: .bytes)
                 .converted(to: .megabytes)
             DispatchQueue.main.async {
-                self.activity.progress = .determinate(n: Float(totalBytesWritten), outOf: Float(totalBytesExpectedToWrite))
-                self.activity.operationInfo = String.init(format: "Downloaded %@/%@",
+                self.progress = .determinate(n: Float(totalBytesWritten), outOf: Float(totalBytesExpectedToWrite))
+                self.operationInfo = String.init(format: "Downloaded %@/%@",
                                                           self.byteCountFormatter.string(from: totalWritten),
                                                           self.byteCountFormatter.string(from: totalToWrite))
             }
         } else {
             DispatchQueue.main.async {
-                self.activity.progress = .indeterminate(n: Float(totalBytesWritten))
-                self.activity.operationInfo = String.init(format: "Downloaded %@",
+                self.progress = .indeterminate(n: Float(totalBytesWritten))
+                self.operationInfo = String.init(format: "Downloaded %@",
                                                           self.byteCountFormatter.string(from: totalWritten))
             }
         }

@@ -11,18 +11,42 @@ import os
 
 fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "SBOperation")
 
-class SBOperation: Operation {
+extension NSNotification.Name {
+    static let SBSubsonicOperationStarted = NSNotification.Name("SBSubsonicOperationStarted")
+    static let SBSubsonicOperationFinished = NSNotification.Name("SBSubsonicOperationFinished")
+}
+
+class SBOperation: Operation, ObservableObject, Identifiable {
     public let mainContext: NSManagedObjectContext
     public let threadedContext: NSManagedObjectContext
     
-    init(managedObjectContext: NSManagedObjectContext) {
+    init(managedObjectContext: NSManagedObjectContext, name: String) {
         self.mainContext = managedObjectContext
         self.threadedContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         self.threadedContext.persistentStoreCoordinator = self.mainContext.persistentStoreCoordinator
         self.threadedContext.mergePolicy = self.mainContext.mergePolicy
         self.threadedContext.retainsRegisteredObjects = true
         
+        self.operationName = name
+        
         super.init()
+        
+        // We have to publish these ourselves to anyone interested, because OperationCenter.operations is deprecated and racy.
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: .SBSubsonicOperationStarted, object: self)
+        }
+    }
+    
+    // #MARK: - Metadata
+    
+    let operationName: String
+    @Published var operationInfo: String = ""
+    @Published var progress: Progress = .none
+    
+    enum Progress {
+        case none
+        case indeterminate(n: Float)
+        case determinate(n: Float, outOf: Float)
     }
     
     // #MARK: - Concurrency
@@ -64,6 +88,9 @@ class SBOperation: Operation {
         isFinished = true
         self.didChangeValue(forKey: "isExecuting")
         self.didChangeValue(forKey: "isFinished")
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: .SBSubsonicOperationFinished, object: self)
+        }
     }
 
     // #MARK: - Core Data

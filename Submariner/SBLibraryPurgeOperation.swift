@@ -16,6 +16,10 @@ class SBLibraryPurgeOperation: SBOperation {
     
     var tracks: [SBTrack]?
     
+    init(managedObjectContext: NSManagedObjectContext) {
+        super.init(managedObjectContext: managedObjectContext, name: "Deleting Downloaded Tracks")
+    }
+    
     override func main() {
         let fetchRequest: NSFetchRequest<SBTrack> = SBTrack.fetchRequest()
         // local library tracks that are associated with a remote track

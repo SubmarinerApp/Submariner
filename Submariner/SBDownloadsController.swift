@@ -10,7 +10,7 @@ import Cocoa
 import SwiftUI
 
 @objc class SBDownloadsController: SBViewController, ObservableObject {
-    @Published var downloadActivities: [SBOperationActivity] = []
+    @Published var activities: [SBOperation] = []
     
     // it's ok to use nil if we aren't rehydrating a nib, SBViewController doesn't mind?
     override class func nibName() -> String! {
@@ -25,37 +25,37 @@ import SwiftUI
     override func viewDidLoad() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(SBDownloadsController.subsonicDownloadStarted(notification:)),
-                                               name: .SBSubsonicDownloadStarted,
+                                               name: .SBSubsonicOperationStarted,
                                                object: nil)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(SBDownloadsController.subsonicDownloadFinished(notification:)),
-                                               name: .SBSubsonicDownloadFinished,
+                                               name: .SBSubsonicOperationFinished,
                                                object: nil)
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: .SBSubsonicDownloadStarted, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .SBSubsonicDownloadFinished, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .SBSubsonicOperationStarted, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .SBSubsonicOperationFinished, object: nil)
     }
     
     @objc var itemCount: Int {
-        return downloadActivities.count
+        return activities.count
     }
     
     @objc func subsonicDownloadStarted(notification: NSNotification) {
-        if let item = notification.object as? SBOperationActivity {
-            downloadActivities.append(item)
+        if let item = notification.object as? SBOperation {
+            activities.append(item)
         }
     }
     
     @objc func subsonicDownloadFinished(notification: NSNotification) {
-        if let item = notification.object as? SBOperationActivity {
-            downloadActivities.removeAll { itemInArray in itemInArray.id == item.id }
+        if let item = notification.object as? SBOperation {
+            activities.removeAll { itemInArray in itemInArray == item }
         }
     }
     
     struct DownloadItemView: View {
-        @ObservedObject var item: SBOperationActivity
+        @ObservedObject var item: SBOperation
         
         var body: some View {
             VStack(alignment: .leading) {
@@ -81,7 +81,7 @@ import SwiftUI
         var body: some View {
             // TODO: It would be nice if this was seamless to the toolbar like NSCollectionView was.
             // TODO: Consistent row height.
-            List(downloadsController.downloadActivities) {
+            List(downloadsController.activities) {
                 DownloadItemView(item: $0)
             }
             .modify {

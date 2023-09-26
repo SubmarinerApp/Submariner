@@ -99,7 +99,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         self.xmlData = xml
         self.mimeType = mimeType
         
-        super.init(managedObjectContext: mainContext)
+        super.init(managedObjectContext: mainContext, name: "Parsing Subsonic Request")
         self.server = threadedContext.object(with: server) as! SBServer
     }
     

@@ -41,7 +41,6 @@
 		3EB2BCC72992E13700DC5056 /* String+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCC62992E13700DC5056 /* String+Time.swift */; };
 		3EB2BCC92992E85F00DC5056 /* NSImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCC82992E85F00DC5056 /* NSImage+Additions.swift */; };
 		3EB2BCCB2992F03A00DC5056 /* SBSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCCA2992F03A00DC5056 /* SBSearchResult.swift */; };
-		3EB2BCCD2992F1B800DC5056 /* SBOperationActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCCC2992F1B800DC5056 /* SBOperationActivity.swift */; };
 		3EB2BCCF2992F3CA00DC5056 /* SBVolumeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCCE2992F3CA00DC5056 /* SBVolumeButton.swift */; };
 		3EB2BCD12992FD5A00DC5056 /* SBTracklistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCD02992FD5A00DC5056 /* SBTracklistButton.swift */; };
 		3EC039C529EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC039C429EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift */; };
@@ -183,7 +182,6 @@
 		3EB2BCC62992E13700DC5056 /* String+Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Time.swift"; sourceTree = "<group>"; };
 		3EB2BCC82992E85F00DC5056 /* NSImage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Additions.swift"; sourceTree = "<group>"; };
 		3EB2BCCA2992F03A00DC5056 /* SBSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBSearchResult.swift; sourceTree = "<group>"; };
-		3EB2BCCC2992F1B800DC5056 /* SBOperationActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBOperationActivity.swift; sourceTree = "<group>"; };
 		3EB2BCCE2992F3CA00DC5056 /* SBVolumeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBVolumeButton.swift; sourceTree = "<group>"; };
 		3EB2BCD02992FD5A00DC5056 /* SBTracklistButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTracklistButton.swift; sourceTree = "<group>"; };
 		3EC039C429EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBSubsonicDownloadOperation.swift; sourceTree = "<group>"; };
@@ -503,7 +501,6 @@
 				3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */,
 				3E94E5F52912EEC40080FDF6 /* SBNavigationItem.swift */,
 				3EB2BCCA2992F03A00DC5056 /* SBSearchResult.swift */,
-				3EB2BCCC2992F1B800DC5056 /* SBOperationActivity.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -839,7 +836,6 @@
 				3EC03B3429F4F2E0001FDE50 /* SBMusicItem.swift in Sources */,
 				4CFB3EF2139D4693008DC01A /* SBTracklistController.m in Sources */,
 				4CFB3EF8139D47EA008DC01A /* SBViewController.m in Sources */,
-				3EB2BCCD2992F1B800DC5056 /* SBOperationActivity.swift in Sources */,
 				3EC03B5429F4F2E0001FDE50 /* SBPlaylist.swift in Sources */,
 				3EC039C729EFB867001FDE50 /* SBDownloadsController.swift in Sources */,
 				3EA929B929E4766900938582 /* SBVolumeIconTransformer.swift in Sources */,
