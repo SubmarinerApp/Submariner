@@ -26,7 +26,8 @@ import UniformTypeIdentifiers
     
     init!(managedObjectContext mainContext: NSManagedObjectContext!, file: URL, remoteTrackID: NSManagedObjectID) {
         initialPaths = [file]
-        super.init(managedObjectContext: mainContext, name: "Importing Downloaded Tracks")
+        // XXX: can't make it title without making name a published var
+        super.init(managedObjectContext: mainContext, name: "Importing Downloaded Track")
         // we assume we have a valid track here
         remoteTrack = threadedContext.object(with: remoteTrackID) as? SBTrack
         // importing a downloaded file, we remove it after
@@ -271,11 +272,21 @@ import UniformTypeIdentifiers
     }
     
     override func main() {
+        DispatchQueue.main.async {
+            self.operationInfo = "Finding files"
+        }
         let paths = recursiveFiles(paths: initialPaths)
         // XXX: do we fail at first error or let the other files continue?
         do {
+            var i = Float(0)
+            let total = Float(paths.count)
             for path in paths {
+                DispatchQueue.main.async {
+                    self.operationInfo = "Importing \(path)"
+                    self.progress = .determinate(n: i, outOf: total)
+                }
                 try importFile(path: path)
+                i += 1
             }
         } catch {
             DispatchQueue.main.async {

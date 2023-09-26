@@ -21,6 +21,10 @@ class SBLibraryPurgeOperation: SBOperation {
     }
     
     override func main() {
+        DispatchQueue.main.async {
+            self.operationInfo = "Counting tracks"
+        }
+        
         let fetchRequest: NSFetchRequest<SBTrack> = SBTrack.fetchRequest()
         // local library tracks that are associated with a remote track
         // this should exclude linked tracks as well as copied into library files directly imported
@@ -92,7 +96,13 @@ class SBLibraryPurgeOperation: SBOperation {
     func deleteItems() {
         var failedTracks: [SBTrack] = []
         // we had to get here because it is non-null
+        var i = Float(0)
+        let total = Float(tracks!.count)
         for track in tracks! {
+            DispatchQueue.main.async {
+                self.operationInfo = "Deleting \(track.itemName ?? "untitled track")"
+                self.progress = .determinate(n: i, outOf: total)
+            }
             if let path = track.path {
                 do {
                     // if the file doesn't exist, definitely get rid of it
@@ -112,8 +122,13 @@ class SBLibraryPurgeOperation: SBOperation {
             } else {
                 logger.warning("Couldn't get the path or size for track ID \(track.objectID, privacy: .public)")
             }
+            i += 1
         }
         // clean out albums and artists locally that are now empty
+        DispatchQueue.main.async {
+            self.operationInfo = "Removing empty local albums and artists"
+            self.progress = .indeterminate(n: 0)
+        }
         let artistRequest: NSFetchRequest<SBArtist> = SBArtist.fetchRequest()
         artistRequest.predicate = NSPredicate(format: "(server == nil)")
         if let localArtists = try? threadedContext.fetch(artistRequest) {
