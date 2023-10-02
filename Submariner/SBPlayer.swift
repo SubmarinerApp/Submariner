@@ -517,7 +517,9 @@ extension NSNotification.Name {
     }
     
     @objc(playTrackByIndex:) func play(index: Int) {
-        play(track: playlist[index], index: index)
+        if index < playlist.count {
+            play(track: playlist[index], index: index)
+        }
     }
     
     private func play(track: SBTrack, index: Int) {
