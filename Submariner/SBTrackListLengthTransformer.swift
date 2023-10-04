@@ -30,7 +30,7 @@ import Cocoa
     }
     
     func timeLength(_ tracks: [SBTrack]) -> String? {
-        let length = TimeInterval(tracks.map({ track in track.duration!.doubleValue}).reduce(0, +))
+        let length = TimeInterval(tracks.map({ track in track.duration?.doubleValue ?? 0 }).reduce(0, +))
         let string = SBTrackListLengthTransformer.dateComponentsFormatter.string(from: length)
         return string
     }
