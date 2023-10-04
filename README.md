@@ -34,6 +34,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 * Adds an option to purge the locally downloaded/cached files. Imported files are unaffected.
 * Makes the internal tracklist model index based. Duplicate tracks no longer cause UI wonkiness.
+* Fix a crash when trying to play an album without any tracks
 
 ### Version 2.4.2
 
