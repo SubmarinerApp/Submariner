@@ -8,7 +8,8 @@ Please see the [old README](https://github.com/Read-Write/Submariner/blob/a1a10e
 
 ## Requirements
 
-* Submariner requires macOS 11 or newer. It works on both Intel and Apple Silicon machines.
+* Submariner requires macOS 12 or newer. It works on both Intel and Apple Silicon machines.
+  * The last supported version for macOS 11 is 2.4.2.
 * Your Subsonic server must implement API version 1.15.0 or newer. Non-Subsonic implementations are supported.
 
 ## Building
@@ -32,6 +33,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ### Version 2.5 (not yet released)
 
+* macOS 12 is now the minimum version.
 * Adds an option to purge the locally downloaded/cached files. Imported files are unaffected.
 * Makes the internal tracklist model index based. Duplicate tracks no longer cause UI wonkiness.
 * Fix a crash when trying to play an album without any tracks

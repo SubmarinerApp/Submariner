@@ -40,13 +40,6 @@ extension NSNotification.Name {
     
     // #MARK: - View Management
     
-    private var _viewShown = false
-    func recreateView() {
-        let rootView = NowPlayingContentView(serverUsersController: self, server: server)
-            .environment(\.managedObjectContext, self.managedObjectContext)
-        view = NSHostingView(rootView: rootView)
-    }
-    
     override class func nibName() -> String! {
         nil
     }
@@ -55,9 +48,10 @@ extension NSNotification.Name {
         title = "Server Users"
         
         // XXX: Can we set the view before loadView?
-        _viewShown = true
-        recreateView()
-        refreshNowPlaying()
+        let rootView = NowPlayingContentView(serverUsersController: self)
+            .environment(\.managedObjectContext, self.managedObjectContext)
+        view = NSHostingView(rootView: rootView)
+        // don't refresh since we'll do it in didAppear
         
         autoRefreshObserver = UserDefaults.standard.observe(\.autoRefreshNowPlaying) { (defaults, change) in
             self.startTimer()
@@ -73,20 +67,16 @@ extension NSNotification.Name {
         startTimer()
     }
     
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        
+        // update it if we become visible
+        refreshNowPlaying()
+    }
+    
     // #MARK: - Server Getter/Setter
     
-    // HACK: Because Big Sur doesn't support changing FetchRequest's NSPredicate at runtime,
-    // we'll just recreate the entire hosting view instead. If we drop Big Sur support, it's
-    // just a matter of making this Observable, server Published, make the this controller
-    // in the SwiftUI view Observed, and onReceive $server, setting request's nsPredicate.
-    @objc @Published var server: SBServer? {
-        didSet {
-            if _viewShown {
-                recreateView()
-                refreshNowPlaying()
-            }
-        }
-    }
+    @objc @Published var server: SBServer?
     
     // #MARK: - Observers and Timers
     
@@ -188,19 +178,23 @@ extension NSNotification.Name {
         
         @ObservedObject var serverUsersController: SBServerUserViewController
         
-        @FetchRequest var items: FetchedResults<SBNowPlaying>
+        @FetchRequest(
+            // NSSortDescriptor because NSNumber
+            sortDescriptors: [NSSortDescriptor.init(key: "minutesAgo", ascending: true)]
+            // We build the predicate after when server is set
+        ) var items: FetchedResults<SBNowPlaying>
         
-        init(serverUsersController: SBServerUserViewController, server: SBServer?) {
+        init(serverUsersController: SBServerUserViewController) {
             self.serverUsersController = serverUsersController
+        }
+        
+        func updatePredicate(server: SBServer?) {
             var predicate = NSPredicate.init(format: "(server == nil) && (track != nil)")
             // HACK: Because we can't set this in FetchRequest...
             if let server = server {
                 predicate = NSPredicate.init(format: "(server == %@) && (track != nil)", server)
             }
-            // NSSortDescriptor because NSNumber
-            let minutesAgoSD = NSSortDescriptor.init(key: "minutesAgo", ascending: true)
-            _items = FetchRequest<SBNowPlaying>(sortDescriptors: [minutesAgoSD],
-                                                predicate: predicate)
+            items.nsPredicate = predicate
         }
         
         var body: some View {
@@ -215,9 +209,13 @@ extension NSNotification.Name {
                         Text("Refresh")
                     }
                 }
-                .modify {
-                    if #available(macOS 12, *) {
-                        $0.listStyle(.inset(alternatesRowBackgrounds: true))
+                .listStyle(.inset(alternatesRowBackgrounds: true))
+                .onChange(of: serverUsersController.server) { newValue in
+                    updatePredicate(server: newValue)
+                    // if the sidebar is open and we switch servers, make sure we have the latest if it makes sense
+                    if (self.serverUsersController.databaseController?.isServerUsersShown == true) {
+                        // hopefully this doesn't trigger for unsupported servers...
+                        serverUsersController.refreshNowPlaying()
                     }
                 }
             } else if let server = serverUsersController.server {

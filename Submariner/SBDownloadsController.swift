@@ -84,11 +84,7 @@ import SwiftUI
             List(downloadsController.activities) {
                 DownloadItemView(item: $0)
             }
-            .modify {
-                if #available(macOS 12, *) {
-                    $0.listStyle(.inset(alternatesRowBackgrounds: true))
-                }
-            }
+            .listStyle(.inset(alternatesRowBackgrounds: true))
         }
     }
 }

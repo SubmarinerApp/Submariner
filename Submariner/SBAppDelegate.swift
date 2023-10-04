@@ -70,23 +70,22 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
             NSMigratePersistentStoresAutomaticallyOption: true
         ]
         // migrate legacy stores when possible; legacyStoreFile
-        // XXX: Convert to the nicer Swift API in macOS 12+ when we drop 11 support
         // XXX: Error handling sufficient here?
         let oldURL = SBAppDelegate.legacyStoreFileName
         let newURL = SBAppDelegate.storeFileName
         if FileManager.default.fileExists(atPath: oldURL.path) && !FileManager.default.fileExists(atPath: newURL.path) {
-            let oldStore = try! self.persistentStoreCoordinator.addPersistentStore(ofType: NSXMLStoreType,
-                                                                                   configurationName: nil,
+            let oldStore = try! self.persistentStoreCoordinator.addPersistentStore(type: .xml,
+                                                                                   configuration: nil,
                                                                                    at: oldURL,
                                                                                    options: storeOpts)
             try! self.persistentStoreCoordinator.migratePersistentStore(oldStore,
                                                                         to: newURL,
                                                                         options: storeOpts,
-                                                                        withType: NSSQLiteStoreType)
+                                                                        type: .sqlite)
         } else {
             // usual path, we aren't converting, but just using modern store
-            try! self.persistentStoreCoordinator.addPersistentStore(ofType: NSSQLiteStoreType,
-                                                                    configurationName: nil,
+            try! self.persistentStoreCoordinator.addPersistentStore(type: .sqlite,
+                                                                    configuration: nil,
                                                                     at: newURL,
                                                                     options: storeOpts)
         }
