@@ -353,6 +353,27 @@
                             </connections>
                         </button>
                     </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="07A2C033-EAF8-4A4C-BBB0-C64BC05AB497" explicitItemIdentifier="SBTBToggleInspector" label="Inspector" paletteLabel="Inspector" image="info.circle" catalog="system" bordered="YES" sizingBehavior="auto" id="LjW-EZ-0AQ">
+                        <nil key="toolTip"/>
+                        <button key="view" verticalHuggingPriority="750" id="A2b-yY-W7S">
+                            <rect key="frame" x="15" y="14" width="27" height="23"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="info.circle" catalog="system" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" id="pqk-4D-ts3">
+                                <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
+                                <font key="font" metaFont="system"/>
+                            </buttonCell>
+                            <connections>
+                                <binding destination="-2" name="value" keyPath="isInspectorShown" id="rbO-Px-wy9">
+                                    <dictionary key="options">
+                                        <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
+                                        <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                        <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                        <bool key="NSValidatesImmediately" value="YES"/>
+                                    </dictionary>
+                                </binding>
+                            </connections>
+                        </button>
+                    </toolbarItem>
                     <toolbarItem implicitItemIdentifier="53034325-024B-4CCF-B5FE-A25369E507B3" explicitItemIdentifier="SBTBToggleServerUsers" label="Server Users" paletteLabel="Server Users" image="person.wave.2" sizingBehavior="auto" id="FV9-Yq-wbJ">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="Pbg-ZK-NRU">
@@ -363,17 +384,17 @@
                                 <font key="font" metaFont="system"/>
                             </buttonCell>
                             <connections>
-                                <binding destination="-2" name="enabled" keyPath="server.supportsNowPlaying" id="oQy-sn-AbY">
-                                    <dictionary key="options">
-                                        <integer key="NSNullPlaceholder" value="0"/>
-                                    </dictionary>
-                                </binding>
                                 <binding destination="-2" name="value" keyPath="isServerUsersShown" id="Zvu-lC-mni">
                                     <dictionary key="options">
                                         <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
                                         <bool key="NSConditionallySetsEnabled" value="NO"/>
                                         <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                         <bool key="NSValidatesImmediately" value="YES"/>
+                                    </dictionary>
+                                </binding>
+                                <binding destination="-2" name="enabled" keyPath="server.supportsNowPlaying" id="oQy-sn-AbY">
+                                    <dictionary key="options">
+                                        <integer key="NSNullPlaceholder" value="0"/>
                                     </dictionary>
                                 </binding>
                             </connections>
@@ -870,6 +891,7 @@ DQ
         <image name="chevron.backward" catalog="system" width="10" height="14"/>
         <image name="chevron.forward" catalog="system" width="10" height="14"/>
         <image name="forward" catalog="system" width="20" height="12"/>
+        <image name="info.circle" catalog="system" width="15" height="15"/>
         <image name="music.note.list" catalog="system" width="17" height="15"/>
         <image name="pause" catalog="system" width="10" height="13"/>
         <image name="person.wave.2" width="15" height="14"/>

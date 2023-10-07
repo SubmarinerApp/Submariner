@@ -2038,7 +2038,7 @@
             (tracklistContainmentBox.contentView == inspectorController.view))];
 }
 
-- (void)setInspectorShown:(NSNumber *)isServerUsersShown {
+- (void)setIsInspectorShown:(NSNumber *)isServerUsersShown {
     [self toggleInspector: nil];
 }
 

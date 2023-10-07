@@ -262,6 +262,11 @@ CA
                                     <action selector="toggleServerUsers:" target="494" id="QuS-kO-6Ep"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Toggle Inspector" keyEquivalent="i" id="iey-02-CZw">
+                                <connections>
+                                    <action selector="toggleInspector:" target="-1" id="dnq-Zg-KFV"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="2b6-cD-4uz"/>
                             <menuItem title="Reload Server" keyEquivalent="r" id="nCA-zb-sOF">
                                 <connections>
