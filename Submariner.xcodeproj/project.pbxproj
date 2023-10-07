@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3E0DAD5C29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */; };
 		3E189E4028EF5BAB0062ACA0 /* SBAudioMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */; };
+		3E1B785E2ACE5039008927C6 /* SBInspectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B785D2ACE5039008927C6 /* SBInspectorController.swift */; };
 		3E1C6C432A5264570085B578 /* SBOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1C6C422A5264570085B578 /* SBOperation.swift */; };
 		3E2E1C842A395B79001A3148 /* SBClientController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E1C832A395B79001A3148 /* SBClientController.swift */; };
 		3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */; };
@@ -146,6 +147,7 @@
 		3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTrackListLengthTransformer.swift; sourceTree = "<group>"; };
 		3E189E3228EBBAC40062ACA0 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBAudioMetadata.swift; sourceTree = "<group>"; };
+		3E1B785D2ACE5039008927C6 /* SBInspectorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBInspectorController.swift; sourceTree = "<group>"; };
 		3E1C6C422A5264570085B578 /* SBOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBOperation.swift; sourceTree = "<group>"; };
 		3E2E1C832A395B79001A3148 /* SBClientController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBClientController.swift; sourceTree = "<group>"; };
 		3E2F86C928DD36E600C5CE23 /* Submariner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Submariner-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -695,6 +697,7 @@
 				3E5C42DE29846E25009B9699 /* SBOnboardingController.swift */,
 				3EC039C629EFB867001FDE50 /* SBDownloadsController.swift */,
 				3E45201B29FA488C00604079 /* SBServerUserViewController.swift */,
+				3E1B785D2ACE5039008927C6 /* SBInspectorController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -807,6 +810,7 @@
 				3EB2BCC72992E13700DC5056 /* String+Time.swift in Sources */,
 				3ED4C4D42AC0E25400649FB2 /* SBLibraryPurgeOperation.swift in Sources */,
 				4C87EDBA139CDAB90064DE2E /* SBDatabaseController.m in Sources */,
+				3E1B785E2ACE5039008927C6 /* SBInspectorController.swift in Sources */,
 				3E70B2DF2A2BDC55002C0B93 /* SBApplication.swift in Sources */,
 				3E702DE72A428A1B005F7184 /* Synchronized.swift in Sources */,
 				3EC03B4029F4F2E0001FDE50 /* SBDownloads.swift in Sources */,

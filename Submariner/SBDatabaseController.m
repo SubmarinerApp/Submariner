@@ -136,6 +136,7 @@
         serverPodcastController = [[SBServerPodcastController alloc] initWithManagedObjectContext:self.managedObjectContext];
         serverUserController = [[SBServerUserViewController alloc] initWithManagedObjectContext:self.managedObjectContext];
         serverSearchController = [[SBServerSearchController alloc] initWithManagedObjectContext:self.managedObjectContext];
+        inspectorController = [[SBInspectorController alloc] initWithManagedObjectContext:self.managedObjectContext];
         
         [onboardingController setDatabaseController:self];
         [musicController setDatabaseController:self];
@@ -146,6 +147,7 @@
         [serverHomeController setDatabaseController:self];
         [serverSearchController setDatabaseController:self];
         [serverUserController setDatabaseController:self];
+        [inspectorController setDatabaseController:self];
     }
     return self;
 }
@@ -292,6 +294,8 @@
         [self toggleServerUsers: self];
     } else if ([lastRightSidebar isEqualToString: @"Tracklist"]) {
         [self toggleTrackList: self];
+    } else if ([lastRightSidebar isEqualToString: @"Inspector"]) {
+        [self toggleInspector: self];
     }
     
     [resourcesController addObserver:self
@@ -461,20 +465,39 @@
 }
 
 
-- (IBAction)toggleTrackList:(id)sender {
+- (void)toggleRightSidebar: (NSString*) type {
+    NSViewController *newVC = nil;
+    if ([type isEqualToString: @"Tracklist"]) {
+        newVC = tracklistController;
+    } else if ([type isEqualToString: @"ServerUsers"]) {
+        newVC = serverUserController;
+    } else if ([type isEqualToString: @"Inspector"]) {
+        newVC = inspectorController;
+    } else {
+        NSLog(@"Oops. Unknown right sidebar type %@", type);
+        return;
+    }
+    
+    // shared logic
     [self willChangeValueForKey: @"isServerUsersShown"];
     [self willChangeValueForKey: @"isTracklistShown"];
-    // as we can now switch the view
+    [self willChangeValueForKey: @"isInspectorShown"];
     NSSplitViewItem *maybeAnimated = self.window.visible ? tracklistSplit.animator : tracklistSplit;
-    if (tracklistContainmentBox.contentView != [tracklistController view]) {
-        tracklistContainmentBox.contentView = [tracklistController view];
+    if (tracklistContainmentBox.contentView != [newVC view]) {
+        tracklistContainmentBox.contentView = [newVC view];
         [maybeAnimated setCollapsed: NO];
     } else {
         [maybeAnimated setCollapsed: ![tracklistSplit isCollapsed]];
     }
-    [[NSUserDefaults standardUserDefaults] setObject: [tracklistSplit isCollapsed] ? @"" : @"Tracklist" forKey: @"RightSidebar"];
+    [[NSUserDefaults standardUserDefaults] setObject: [tracklistSplit isCollapsed] ? @"" : type forKey: @"RightSidebar"];
+    [self didChangeValueForKey: @"isInspectorShown"];
     [self didChangeValueForKey: @"isServerUsersShown"];
     [self didChangeValueForKey: @"isTracklistShown"];
+}
+
+
+- (IBAction)toggleTrackList:(id)sender {
+    [self toggleRightSidebar: @"Tracklist"];
 }
 
 
@@ -482,20 +505,12 @@
     if (!self.server) {
         return;
     }
-    [self willChangeValueForKey: @"isServerUsersShown"];
-    [self willChangeValueForKey: @"isTracklistShown"];
-    [serverUserController viewDidLoad];
-    // as we can now switch the view
-    NSSplitViewItem *maybeAnimated = self.window.visible ? tracklistSplit.animator : tracklistSplit;
-    if (tracklistContainmentBox.contentView != [serverUserController view]) {
-        tracklistContainmentBox.contentView = [serverUserController view];
-        [maybeAnimated setCollapsed: NO];
-    } else {
-        [maybeAnimated setCollapsed: ![tracklistSplit isCollapsed]];
-    }
-    [[NSUserDefaults standardUserDefaults] setObject: [tracklistSplit isCollapsed] ? @"" : @"ServerUsers" forKey: @"RightSidebar"];
-    [self didChangeValueForKey: @"isServerUsersShown"];
-    [self didChangeValueForKey: @"isTracklistShown"];
+    [self toggleRightSidebar: @"ServerUsers"];
+}
+
+
+- (IBAction)toggleInspector:(id)sender {
+    [self toggleRightSidebar: @"Inspector"];
 }
 
 
@@ -2016,6 +2031,15 @@
 
 - (void)setIsServerUsersShown:(NSNumber *)isServerUsersShown {
     [self toggleServerUsers: nil];
+}
+
+- (NSNumber*)isInspectorShown {
+    return [NSNumber numberWithBool: (!tracklistSplit.collapsed &&
+            (tracklistContainmentBox.contentView == inspectorController.view))];
+}
+
+- (void)setInspectorShown:(NSNumber *)isServerUsersShown {
+    [self toggleInspector: nil];
 }
 
 @end

@@ -19,7 +19,7 @@ extension NSNotification.Name {
     static let SBPlayerPlayState = NSNotification.Name("SBPlayerPlayStateNotification")
 }
 
-@objc class SBPlayer: NSObject, UNUserNotificationCenterDelegate {
+@objc class SBPlayer: NSObject, UNUserNotificationCenterDelegate, ObservableObject {
     @objc(SBPlayerRepeatMode) enum RepeatMode: Int {
         @objc(SBPlayerRepeatNo) case no = 0
         @objc(SBPlayerRepeatOne) case one = 1
@@ -495,7 +495,7 @@ extension NSNotification.Name {
             }
         }
     }
-    var currentIndex: Int?
+    @Published var currentIndex: Int?
     // Used because we can't represent Int? in Objective-C. Don't use in Swift.
     @objc dynamic var currentIndexNumber: Int {
         get {

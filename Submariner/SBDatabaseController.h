@@ -51,6 +51,7 @@
 @class SBServerSearchController;
 @class SBDownloadsController;
 @class SBServerUserViewController;
+@class SBInspectorController;
 @class SBTracklistController;
 @class SBPlaylistController;
 @class SBLibrary;
@@ -114,6 +115,7 @@
     SBServerPodcastController *serverPodcastController;
     SBServerUserViewController *serverUserController;
     SBServerSearchController *serverSearchController;
+    SBInspectorController *inspectorController;
     
     NSArray *resourceSortDescriptors;
     SBLibrary *library;
@@ -145,6 +147,7 @@
 - (IBAction)openAudioFiles:(id)sender;
 - (IBAction)toggleTrackList:(id)sender;
 - (IBAction)toggleServerUsers:(id)sender;
+- (IBAction)toggleInspector:(id)sender;
 - (IBAction)addPlaylist:(id)sender;
 - (IBAction)addRemotePlaylist:(id)sender;
 - (IBAction)addPlaylistToCurrentServer:(id)sender;
