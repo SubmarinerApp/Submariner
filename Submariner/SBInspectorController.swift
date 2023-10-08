@@ -49,14 +49,27 @@ import SwiftUI
             }
         }
         
+        @ViewBuilder func field(label: String, string: String) -> some View {
+            if #available(macOS 13, *) {
+                LabeledContent {
+                    Text(string)
+                        .textSelection(.enabled)
+                } label: {
+                    Text(label)
+                }
+            } else {
+                TextField(label, text: .constant(string))
+            }
+        }
+        
         @ViewBuilder func stringField(label: String, for property: KeyPath<SBTrack, String?>) -> some View {
             if let stringMaybeSingular = valueIfSame(property: property) {
                 if let string = stringMaybeSingular {
-                    TextField(label, text: .constant(string))
+                    field(label: label, string: string)
                 }
                 // no thing -> nothing
             } else {
-                TextField(label, text: .constant(TrackInfoView.multipleDiffer))
+                field(label: label, string: TrackInfoView.multipleDiffer)
             }
         }
         
@@ -64,14 +77,14 @@ import SwiftUI
             if let numberMaybeSingular = valueIfSame(property: property) {
                 if let number = numberMaybeSingular, number != 0 {
                     if let formatter = formatter, let string = formatter.string(for: number) {
-                        TextField(label, text: .constant(string))
+                        field(label: label, string: string)
                     } else {
-                        TextField(label, text: .constant(number.stringValue))
+                        field(label: label, string: number.stringValue)
                     }
                 }
                 // no thing -> nothing
             } else {
-                TextField(label, text: .constant(TrackInfoView.multipleDiffer))
+                field(label: label, string: TrackInfoView.multipleDiffer)
             }
         }
         
