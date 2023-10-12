@@ -313,7 +313,7 @@
     
     // create an IDs array
     [rowIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        [trackIDs addObject:[[[tracksController arrangedObjects] objectAtIndex:idx] id]];
+        [trackIDs addObject:[[[tracksController arrangedObjects] objectAtIndex:idx] itemId]];
     }];
     
     [databaseController.addServerPlaylistController setServer:self.server];
@@ -335,10 +335,10 @@
     if(searchString != nil && [searchString length] > 0) {
         // We don't need to worry about filtering group names here.
         // If we do want groups, then we should reverse the search if it's a group (%@ begins with itemName)
-        predicate = [NSPredicate predicateWithFormat:@"(itemName CONTAINS[cd] %@ && id != nil)", searchString];
+        predicate = [NSPredicate predicateWithFormat:@"(itemName CONTAINS[cd] %@ && itemId != nil)", searchString];
         [artistsController setFilterPredicate:predicate];
     } else {
-        predicate = [NSPredicate predicateWithFormat:@"(id != nil || entity == %@)", groupEntity];
+        predicate = [NSPredicate predicateWithFormat:@"(itemId != nil || entity == %@)", groupEntity];
         [artistsController setFilterPredicate:predicate];
     }
 }
@@ -578,7 +578,7 @@
                 if(clickedTrack) {
                     
                     NSInteger rating = [anObject intValue];
-                    NSString *trackID = [clickedTrack id];
+                    NSString *trackID = [clickedTrack itemId];
                     
                     [self.server setRating:rating forID:trackID];
                 }
@@ -618,7 +618,7 @@
         SBAlbum *album = [[albumsController arrangedObjects] objectAtIndex:selectedRow];
         if(album) {
             
-            [self.server getTracksForAlbumID:album.id];
+            [self.server getTracksForAlbumID: album.itemId];
             
             if([album.tracks count] == 0) {                
                 // wait for new tracks

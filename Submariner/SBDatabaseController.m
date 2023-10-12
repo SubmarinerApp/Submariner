@@ -1069,7 +1069,7 @@
                 SBServer *server = playlist.server;
                 
                 if (server != nil) {
-                    [server deletePlaylistWithID:playlist.id];
+                    [server deletePlaylistWithID: playlist.itemId];
                 }
             }
             if ([resource isKindOfClass:[SBPlaylist class]] || [resource isKindOfClass:[SBServer class]]) {
@@ -1438,7 +1438,7 @@
     // Let the remote server have a say first, just do it for local
     if ([resource isKindOfClass: SBPlaylist.class] && [(SBPlaylist*)resource server] != nil) {
         SBPlaylist *playlist = (SBPlaylist*)resource;
-        [playlist.server updatePlaylistWithID: playlist.id name: newName comment: nil appending: nil removing: nil];
+        [playlist.server updatePlaylistWithID: playlist.itemId name: newName comment: nil appending: nil removing: nil];
     } else {
         [resource setResourceName: newName];
     }
@@ -1551,7 +1551,7 @@
                 }
                 
                 NSMutableArray *tracks = [NSMutableArray array];
-                NSString *playlistID = playlist.id;
+                NSString *playlistID = playlist.itemId;
                 
                 // append these tracks using the updatePlaylist endpoint
                 [tracksURIs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {

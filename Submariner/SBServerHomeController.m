@@ -264,7 +264,7 @@
     
     // create an IDs array
     [rowIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        [trackIDs addObject:[[[tracksController arrangedObjects] objectAtIndex:idx] id]];
+        [trackIDs addObject:[[[tracksController arrangedObjects] objectAtIndex:idx] itemId]];
     }];
     
     [databaseController.addServerPlaylistController setServer:self.server];
@@ -382,7 +382,7 @@
             
             // reset current tracks
             [tracksController setContent:nil];
-            [self.server getTracksForAlbumID:album.id];
+            [self.server getTracksForAlbumID: album.itemId];
             
             if([album.tracks count] == 0) {   
                 // wait for new tracks
@@ -470,7 +470,7 @@
                 if(clickedTrack) {
                     
                     NSInteger rating = [anObject intValue];
-                    NSString *trackID = [clickedTrack id];
+                    NSString *trackID = [clickedTrack itemId];
                     
                     [self.server setRating:rating forID:trackID];
                 }

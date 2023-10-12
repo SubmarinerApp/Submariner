@@ -220,7 +220,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             }
             // for cases where we have artists without IDs from i.e. getNowPlaying/search2
             if let existingArtist = fetchArtist(name: name) {
-                existingArtist.id = id
+                existingArtist.itemId = id
                 // as we don't do it in updateTrackDependencies
                 server.addToIndexes(existingArtist)
                 return
@@ -283,7 +283,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             }
             
             // now fetch that cover after we initialized one
-            if let cover = album!.cover, let coverID = cover.id,
+            if let cover = album!.cover, let coverID = cover.itemId,
                (cover.imagePath == nil || !FileManager.default.fileExists(atPath: cover.imagePath! as String)) {
                 // file doesn't exist, fetch it
                 logger.info("Fetching file for cover with ID: \(coverID, privacy: .public)")
@@ -393,9 +393,9 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         if let currentPlaylist = self.currentPlaylist, let id = attributeDict["id"] {
             if let track = fetchTrack(id: id) {
                 let exists = currentPlaylist.tracks?.contains { (playlistTrack: SBTrack) in
-                    return track.id == playlistTrack.id
+                    return track.itemId == playlistTrack.itemId
                 } ?? false
-                logger.info("Adding track (and updating) with ID: \(id, privacy: .public) to playlist \(currentPlaylist.id ?? "(no ID?)", privacy: .public), exists? \(exists) index? \(self.playlistIndex)")
+                logger.info("Adding track (and updating) with ID: \(id, privacy: .public) to playlist \(currentPlaylist.itemId ?? "(no ID?)", privacy: .public), exists? \(exists) index? \(self.playlistIndex)")
                 
                 updateTrackDependenciesForDirectoryIndex(track, attributeDict: attributeDict)
                 
@@ -410,7 +410,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             } else {
                 // if the track doesn't exist yet, it'll be born without context. provide that context (artist/album/cover)
                 // FIXME: Should we update *existing* tracks regardless? For previous cases they were pulled anew...
-                logger.info("Creating new track with ID: \(id, privacy: .public) for playlist \(currentPlaylist.id ?? "(no ID?)", privacy: .public)")
+                logger.info("Creating new track with ID: \(id, privacy: .public) for playlist \(currentPlaylist.itemId ?? "(no ID?)", privacy: .public)")
                 let track = createTrack(attributes: attributeDict)
                 updateTrackDependenciesForDirectoryIndex(track, attributeDict: attributeDict)
                 
@@ -672,7 +672,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     
     private func fetchArtist(id: String) -> SBArtist? {
         let fetchRequest = NSFetchRequest<SBArtist>(entityName: "Artist")
-        fetchRequest.predicate = NSPredicate(format: "(id == %@) && (server == %@)", id, server)
+        fetchRequest.predicate = NSPredicate(format: "(itemId == %@) && (server == %@)", id, server)
         let results = try? threadedContext.fetch(fetchRequest)
         
         return results?.first
@@ -689,9 +689,9 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     private func fetchAlbum(id: String, artist: SBArtist? = nil) -> SBAlbum? {
         let fetchRequest = NSFetchRequest<SBAlbum>(entityName: "Album")
         if let artist = artist {
-            fetchRequest.predicate = NSPredicate(format: "(id == %@) && (artist == %@)", id, artist)
+            fetchRequest.predicate = NSPredicate(format: "(itemId == %@) && (artist == %@)", id, artist)
         } else {
-            fetchRequest.predicate = NSPredicate(format: "(id == %@)", id)
+            fetchRequest.predicate = NSPredicate(format: "(itemId == %@)", id)
         }
         let results = try? threadedContext.fetch(fetchRequest)
         
@@ -713,7 +713,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     private func fetchCover(coverID: String) -> SBCover? {
         let fetchRequest = NSFetchRequest<SBCover>(entityName: "Cover")
         // XXX: server on predicate here?
-        fetchRequest.predicate = NSPredicate(format: "(id == %@)", coverID)
+        fetchRequest.predicate = NSPredicate(format: "(itemId == %@)", coverID)
         let results = try? threadedContext.fetch(fetchRequest)
         
         return results?.first
@@ -722,9 +722,9 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     private func fetchTrack(id: String, album: SBAlbum? = nil) -> SBTrack? {
         let fetchRequest = NSFetchRequest<SBTrack>(entityName: "Track")
         if let album = album {
-            fetchRequest.predicate = NSPredicate(format: "(server == %@) && (id == %@) && (album == %@)", server, id, album)
+            fetchRequest.predicate = NSPredicate(format: "(server == %@) && (itemId == %@) && (album == %@)", server, id, album)
         } else {
-            fetchRequest.predicate = NSPredicate(format: "(server == %@) && (id == %@)", server, id)
+            fetchRequest.predicate = NSPredicate(format: "(server == %@) && (itemId == %@)", server, id)
         }
         let results = try? threadedContext.fetch(fetchRequest)
         
@@ -733,7 +733,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     
     private func fetchPlaylist(id: String) -> SBPlaylist? {
         let fetchRequest = NSFetchRequest<SBPlaylist>(entityName: "Playlist")
-        fetchRequest.predicate = NSPredicate(format: "(id == %@) && (server == %@)", id, server)
+        fetchRequest.predicate = NSPredicate(format: "(itemId == %@) && (server == %@)", id, server)
         let results = try? threadedContext.fetch(fetchRequest)
         
         return results?.first
@@ -749,7 +749,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     
     private func fetchPodcast(id: String) -> SBPodcast? {
         let fetchRequest = NSFetchRequest<SBPodcast>(entityName: "Podcast")
-        fetchRequest.predicate = NSPredicate(format: "(id == %@) && (server == %@)", id, server)
+        fetchRequest.predicate = NSPredicate(format: "(itemId == %@) && (server == %@)", id, server)
         let results = try? threadedContext.fetch(fetchRequest)
         
         return results?.first
@@ -757,7 +757,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     
     private func fetchEpisode(id: String) -> SBEpisode? {
         let fetchRequest = NSFetchRequest<SBEpisode>(entityName: "Episode")
-        fetchRequest.predicate = NSPredicate(format: "(id == %@) && (server == %@)", id, server)
+        fetchRequest.predicate = NSPredicate(format: "(itemId == %@) && (server == %@)", id, server)
         let results = try? threadedContext.fetch(fetchRequest)
         
         return results?.first
@@ -790,11 +790,11 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         }
         
         if let id = attributes["id"] {
-            artist.id = id
+            artist.itemId = id
         }
         // in album element context
         if let id = attributes["parent"] {
-            artist.id = id
+            artist.itemId = id
         }
         
         artist.isLocal = false
@@ -812,7 +812,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         }
         
         if let id = attributes["id"] {
-            album.id = id
+            album.itemId = id
         }
         
         // don't assume cover yet
@@ -832,7 +832,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 logger.info("Creating artist ID \(artistID, privacy: .public) for tag based entry")
                 attachedArtist = SBArtist.insertInManagedObjectContext(context: threadedContext)
                 // this special case isn't as bad as Now Playing
-                attachedArtist!.id = artistID
+                attachedArtist!.itemId = artistID
                 attachedArtist!.itemName = artistName
                 attachedArtist!.isLocal = false
                 attachedArtist!.server = server
@@ -848,7 +848,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 logger.info("Creating album ID \(albumID, privacy: .public) for tag based entry")
                 // XXX: Lack of ID seems like it'll be agony
                 attachedAlbum = SBAlbum.insertInManagedObjectContext(context: threadedContext)
-                attachedAlbum!.id = albumID
+                attachedAlbum!.itemId = albumID
                 attachedAlbum!.itemName = albumName
                 attachedAlbum!.isLocal = false
                 if let attachedArtist = attachedArtist {
@@ -867,7 +867,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             
             attachedCover = fetchCover(coverID: coverID)
             
-            if attachedCover?.id == nil || attachedCover?.id == "" {
+            if attachedCover?.itemId == nil || attachedCover?.itemId == "" {
                 logger.info("Creating cover ID \(coverID, privacy: .public) for tag based entry")
                 attachedCover = createCover(attributes: attributeDict)
                 attachedCover!.album = attachedAlbum
@@ -897,7 +897,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 logger.info("Creating album ID \(albumID, privacy: .public) for index based entry")
                 // not using normal construction
                 attachedAlbum = SBAlbum.insertInManagedObjectContext(context: threadedContext)
-                attachedAlbum?.id = albumID
+                attachedAlbum?.itemId = albumID
                 if let name = attributeDict["album"] {
                     attachedAlbum?.itemName = name
                 }
@@ -918,7 +918,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         if let attachedAlbum = attachedAlbum, let coverID = attributeDict["coverArt"] {
             attachedCover = fetchCover(coverID: coverID)
             
-            if attachedCover?.id == nil || attachedCover?.id == "" {
+            if attachedCover?.itemId == nil || attachedCover?.itemId == "" {
                 logger.info("Creating cover ID \(coverID, privacy: .public) for index based entry")
                 attachedCover = createCover(attributes: attributeDict)
                 attachedCover!.album = attachedAlbum
@@ -998,7 +998,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         let track = SBTrack.insertInManagedObjectContext(context: threadedContext)
         
         if let id = attributes["id"] {
-            track.id = id
+            track.itemId = id
         }
         
         track.isLocal = false
@@ -1014,7 +1014,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         let cover = SBCover.insertInManagedObjectContext(context: threadedContext)
         
         if let id = attributes["coverArt"] {
-            cover.id = id
+            cover.itemId = id
         }
         
         return cover
@@ -1022,7 +1022,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     
     private func updatePlaylist(_ playlist: SBPlaylist, attributes: [String: String]) {
         if let id = attributes["id"] {
-            playlist.id = id
+            playlist.itemId = id
         }
         if let name = attributes["name"] {
             playlist.resourceName = name
@@ -1059,7 +1059,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         let podcast = SBPodcast.insertInManagedObjectContext(context: threadedContext)
         
         if let id = attributes["id"] {
-            podcast.id = id
+            podcast.itemId = id
         }
         if let title = attributes["title"] {
             podcast.itemName = title
@@ -1091,7 +1091,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         let episode = SBEpisode.insertInManagedObjectContext(context: threadedContext)
         
         if let id = attributes["id"] {
-            episode.id = id
+            episode.itemId = id
         }
         if let streamId = attributes["streamId"] {
             episode.streamID = streamId

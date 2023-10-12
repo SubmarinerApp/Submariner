@@ -29,7 +29,7 @@ public class SBEpisode: SBTrack {
             return URL.init(fileURLWithPath: path)
         } else if let server = self.server, let url = server.url {
             var parameters = server.getBaseParameters()
-            parameters["id"] = self.id
+            parameters["id"] = self.itemId
             
             return URL.URLWith(string: url, command: "rest/stream.view", parameters: parameters)
         }
@@ -39,7 +39,7 @@ public class SBEpisode: SBTrack {
     @objc override func downloadURL() -> URL? {
         if let server = self.server, let url = server.url {
             var parameters = server.getBaseParameters()
-            parameters["id"] = self.id
+            parameters["id"] = self.itemId
             
             return URL.URLWith(string: url, command: "rest/download.view", parameters: parameters)
         }

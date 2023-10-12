@@ -39,7 +39,7 @@ public class SBTrack: SBMusicItem {
         } else if let server = self.server, let url = server.url {
             var parameters = server.getBaseParameters()
             parameters["maxBitRate"] = UserDefaults.standard.string(forKey: "maxBitRate")
-            parameters["id"] = self.id
+            parameters["id"] = self.itemId
             
             return URL.URLWith(string: url, command: "rest/stream.view", parameters: parameters)
         }
@@ -50,7 +50,7 @@ public class SBTrack: SBMusicItem {
         if let server = self.server, let url = server.url {
             var parameters = server.getBaseParameters()
             parameters["maxBitRate"] = UserDefaults.standard.string(forKey: "maxBitRate")
-            parameters["id"] = self.id
+            parameters["id"] = self.itemId
             
             return URL.URLWith(string: url, command: "rest/download.view", parameters: parameters)
         }

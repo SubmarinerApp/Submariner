@@ -18,7 +18,7 @@ extension SBMusicItem {
     }
 
     //@NSManaged public var path: String?
-    @NSManaged public var id: String?
+    @NSManaged public var itemId: String?
     @NSManaged public var isLocal: NSNumber?
     @NSManaged public var itemName: String?
     @NSManaged public var isLinked: NSNumber?

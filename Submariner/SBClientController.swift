@@ -114,16 +114,16 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     
     @objc(getAlbumsForArtist:) func getAlbums(artist: SBArtist) {
         var params = parameters
-        if artist.id == nil {
+        if artist.itemId == nil {
             // can happen because of now playing/search
 
             return
         }
-        params["id"] = artist.id
+        params["id"] = artist.itemId
         
         let url = URL.URLWith(string: server.url, command: "rest/getMusicDirectory.view", parameters: params)
         request(url: url, type: .getAlbumDirectory) { operation in
-            operation.currentArtistID = artist.id
+            operation.currentArtistID = artist.itemId
         }
     }
     
@@ -154,11 +154,11 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     
     @objc func getPlaylist(_ playlist: SBPlaylist) {
         var params = parameters
-        params["id"] = playlist.id
+        params["id"] = playlist.itemId
         
         let url = URL.URLWith(string: server.url, command: "rest/getPlaylist.view", parameters: params)
         request(url: url, type: .getPlaylist) { operation in
-            operation.currentPlaylistID = playlist.id
+            operation.currentPlaylistID = playlist.itemId
         }
     }
     
@@ -183,7 +183,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         
         // XXX: DRY this with update
         let allParams = params.map { (k, v) in  URLQueryItem(name: k, value: v) } +
-            tracks.map { track in URLQueryItem(name: "songId", value: track.id) }
+            tracks.map { track in URLQueryItem(name: "songId", value: track.itemId) }
         
         let url = URL.URLWith(string: server.url, command: "rest/createPlaylist.view", queryItems: allParams)
         request(url: url, type: .createPlaylist)
@@ -194,7 +194,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         params["playlistId"] = playlistID
         
         let allParams = params.map { (k, v) in  URLQueryItem(name: k, value: v) } +
-            tracks.map { track in URLQueryItem(name: "songId", value: track.id) }
+            tracks.map { track in URLQueryItem(name: "songId", value: track.itemId) }
         
         let url = URL.URLWith(string: server.url, command: "rest/createPlaylist.view", queryItems: allParams)
         request(url: url, type: .updatePlaylist) { operation in
@@ -221,7 +221,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         }
         
         let allParams = params.map { (k, v) in  URLQueryItem(name: k, value: v) } +
-            (appending?.map { track in URLQueryItem(name: "songIdToAdd", value: track.id) } ?? []) +
+            (appending?.map { track in URLQueryItem(name: "songIdToAdd", value: track.itemId) } ?? []) +
             (removing?.map { index in URLQueryItem(name: "songIndexToRemove", value: "\(index)") } ?? [])
         
         let url = URL.URLWith(string: server.url, command: "rest/updatePlaylist.view", queryItems: allParams)

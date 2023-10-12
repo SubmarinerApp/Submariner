@@ -157,7 +157,7 @@
         // delete all the rows at once in the server
         if (playlist.server) {
             NSArray *selectedRowsArray = [selectedRows toArray];
-            [playlist.server updatePlaylistWithID: playlist.id
+            [playlist.server updatePlaylistWithID: playlist.itemId
                                              name: nil
                                           comment: nil
                                         appending: nil
@@ -334,7 +334,7 @@
         
         // submit changes to server, this uses createPlaylist behind the scenes since we can reorder with it
         if (playlist.server) {
-            [playlist.server updatePlaylistWithID: playlist.id tracks: tracksController.arrangedObjects];
+            [playlist.server updatePlaylistWithID: playlist.itemId tracks: tracksController.arrangedObjects];
         }
     }
     
@@ -358,7 +358,7 @@
                 if(clickedTrack) {
                     
                     NSInteger rating = [anObject intValue];
-                    NSString *trackID = [clickedTrack id];
+                    NSString *trackID = [clickedTrack itemId];
                     
                     [clickedTrack.server setRating:rating forID:trackID];
                 }
