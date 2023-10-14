@@ -34,9 +34,12 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 ### Version 2.5 (not yet released)
 
 * macOS 12 is now the minimum version.
+* Adds an inspector sidebar for looking at track properties
 * Adds an option to purge the locally downloaded/cached files. Imported files are unaffected.
 * Makes the internal tracklist model index based. Duplicate tracks no longer cause UI wonkiness.
 * Fix a crash when trying to play an album without any tracks
+* Fix a crash if the track's duration is nil
+* Fix attribute names in schema blocking future refactors.
 
 ### Version 2.4.2
 
