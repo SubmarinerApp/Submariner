@@ -63,10 +63,10 @@ import SwiftUI
                 //case .none:
                 //    Text(item.operationName)
                 case .indeterminate, .none:
-                    ProgressView(item.operationName)
+                    ProgressView(item.name ?? "Unknown")
                         .progressViewStyle(.linear)
                 case .determinate(let n, let outOf):
-                    ProgressView(item.operationName, value: n, total: outOf)
+                    ProgressView(item.name ?? "Unknown", value: n, total: outOf)
                         .progressViewStyle(.linear)
                 }
                 Text(item.operationInfo)

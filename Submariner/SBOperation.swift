@@ -27,9 +27,9 @@ class SBOperation: Operation, ObservableObject, Identifiable {
         self.threadedContext.mergePolicy = self.mainContext.mergePolicy
         self.threadedContext.retainsRegisteredObjects = true
         
-        self.operationName = name
-        
         super.init()
+        
+        self.name = name
         
         // We have to publish these ourselves to anyone interested, because OperationCenter.operations is deprecated and racy.
         DispatchQueue.main.async {
@@ -39,7 +39,6 @@ class SBOperation: Operation, ObservableObject, Identifiable {
     
     // #MARK: - Metadata
     
-    let operationName: String
     @Published var operationInfo: String = ""
     @Published var progress: Progress = .none
     
@@ -64,6 +63,7 @@ class SBOperation: Operation, ObservableObject, Identifiable {
     }
     
     override var isConcurrent: Bool { true }
+    override var isAsynchronous: Bool { true }
     
     public override func start() {
         if isCancelled {
