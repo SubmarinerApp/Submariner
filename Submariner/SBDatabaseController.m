@@ -952,7 +952,7 @@
     if (progressUpdateTimer != nil) {
         return;
     }
-    progressUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:0.01
+    progressUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:0.1
                                                            target:self
                                                          selector:@selector(updateProgress:)
                                                          userInfo:nil
