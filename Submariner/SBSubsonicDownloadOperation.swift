@@ -30,6 +30,11 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     }
     
     override func main() {
+        if track.localTrack != nil {
+            // We don't need to redownload the track.
+            self.finish()
+            return
+        }
         autoreleasepool {
             // We don't need to do any transformation here,
             // as downloadURL will get the auth params from SBServer.
