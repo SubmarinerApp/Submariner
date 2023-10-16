@@ -758,7 +758,7 @@ extension NSNotification.Name {
     }
     
     @objc var currentTimeString: String {
-        return String(time: currentTime)
+        return String(timeInterval: currentTime)
     }
     
     @objc var durationTime: TimeInterval {
@@ -782,7 +782,7 @@ extension NSNotification.Name {
     }
     
     @objc var remainingTimeString: String {
-        return String(time: remainingTime)
+        return String(timeInterval: remainingTime)
     }
     
     @objc var progress: Double {

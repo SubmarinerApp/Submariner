@@ -256,6 +256,17 @@
                                                  name:@"SBSubsonicConnectionFailedNotification"
                                                object:nil];
 
+    // observe application state
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(windowDidMiniaturize:)
+                                                 name:NSWindowDidMiniaturizeNotification
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(windowDidDeminiaturize:)
+                                                 name:NSWindowDidDeminiaturizeNotification
+                                               object:nil];
+
     // setup main box subviews animation
     // XXX: Creates a null first item
     SBNavigationItem *navItem = [[SBLocalMusicNavigationItem alloc] init];
@@ -965,14 +976,16 @@
     }
     [progressUpdateTimer invalidate];
     progressUpdateTimer = nil;
-    [self clearPlaybackProgress];
 }
 
 - (void)updateProgress:(NSTimer *)updatedTimer {
     
     if([[SBPlayer sharedInstance] isPlaying]) {
-        [progressSlider setEnabled:YES];
+        if ([[SBPlayer sharedInstance] isPaused]) {
+            return;
+        }
         
+        [progressSlider setEnabled:YES];
         NSString *currentTimeString = [[SBPlayer sharedInstance] currentTimeString];
         NSString *remainingTimeString = [[SBPlayer sharedInstance] remainingTimeString];
         double progress = [[SBPlayer sharedInstance] progress];
@@ -1365,6 +1378,30 @@
 
 
 #pragma mark -
+#pragma mark Application Notification (Private)
+
+- (void)windowDidMiniaturize:(NSNotification *)notification {
+    NSWindow *sender = [notification object];
+    if ([sender isEqual:self.window]) {
+        [self uninstallProgressTimer];
+    }
+}
+
+- (void)windowDidDeminiaturize:(NSNotification *)notification {
+    NSWindow *sender = [notification object];
+    if ([sender isEqual:self.window]) {
+        [self installProgressTimer];
+    }
+}
+
+
+
+
+#pragma mark -
+
+
+
+
 #pragma mark Player Notifications (Private)
 
 - (void)playerPlaylistUpdatedNotification:(NSNotification *)notification {
@@ -1406,6 +1443,7 @@
         }
     } else {
         [self uninstallProgressTimer];
+        [self clearPlaybackProgress];
         [playPauseButton setState:NSControlStateValueOn];
     }
 }
