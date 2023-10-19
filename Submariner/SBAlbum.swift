@@ -14,7 +14,7 @@ import CoreData
 public class SBAlbum: SBMusicItem {
     // #MARK: - IKImageBrowserView
     
-    static let nullCover = NSImage(named: "NoArtwork")
+    @objc static let nullCover = NSImage(systemSymbolName: "questionmark.square.dashed", accessibilityDescription: "No Album Art")
     
     override public func imageTitle() -> String? {
         return itemName

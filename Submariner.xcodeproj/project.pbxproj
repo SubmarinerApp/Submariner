@@ -102,7 +102,6 @@
 		4C87EDBA139CDAB90064DE2E /* SBDatabaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDB9139CDAB90064DE2E /* SBDatabaseController.m */; };
 		4C87EDBC139CDACE0064DE2E /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C87EDBB139CDACE0064DE2E /* Preferences.xib */; };
 		4C87EDC1139CDC260064DE2E /* SBSourceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDBE139CDC250064DE2E /* SBSourceList.m */; };
-		4C87EE02139CDCB10064DE2E /* NoArtwork.icns in Resources */ = {isa = PBXBuildFile; fileRef = 4C87EDDE139CDCB10064DE2E /* NoArtwork.icns */; };
 		4C87EE10139CE33B0064DE2E /* NSManagedObjectContext+Fetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EE0F139CE33B0064DE2E /* NSManagedObjectContext+Fetch.m */; };
 		4CAD75C813AA597E00E7455C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAD75C713AA597E00E7455C /* CoreServices.framework */; };
 		4CB4D8F713A670BF00F706EC /* SBPrioritySplitViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D8F613A670BF00F706EC /* SBPrioritySplitViewDelegate.m */; };
@@ -268,7 +267,6 @@
 		4C87EDBE139CDC250064DE2E /* SBSourceList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSourceList.m; sourceTree = "<group>"; };
 		4C87EDBF139CDC250064DE2E /* SBSourceListDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSourceListDataSource.h; sourceTree = "<group>"; };
 		4C87EDC0139CDC260064DE2E /* SBSourceListDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSourceListDelegate.h; sourceTree = "<group>"; };
-		4C87EDDE139CDCB10064DE2E /* NoArtwork.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = NoArtwork.icns; sourceTree = "<group>"; };
 		4C87EE0E139CE33B0064DE2E /* NSManagedObjectContext+Fetch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+Fetch.h"; sourceTree = "<group>"; };
 		4C87EE0F139CE33B0064DE2E /* NSManagedObjectContext+Fetch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+Fetch.m"; sourceTree = "<group>"; };
 		4C9DE9A91451749D00632936 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
@@ -445,7 +443,6 @@
 			children = (
 				3ECF63F9280362BA004F9176 /* Assets.xcassets */,
 				3EA06A5028B9AD220091A75F /* Submariner.entitlements */,
-				4C87EDC2139CDCA70064DE2E /* Pictures */,
 				4C87ED6B139CD8BE0064DE2E /* Submariner-Info.plist */,
 				4C87ED6C139CD8BE0064DE2E /* InfoPlist.strings */,
 				3E2F86C928DD36E600C5CE23 /* Submariner-Bridging-Header.h */,
@@ -572,14 +569,6 @@
 				4CFB3EF5139D46AC008DC01A /* View Controllers */,
 			);
 			name = Controllers;
-			sourceTree = "<group>";
-		};
-		4C87EDC2139CDCA70064DE2E /* Pictures */ = {
-			isa = PBXGroup;
-			children = (
-				4C87EDDE139CDCB10064DE2E /* NoArtwork.icns */,
-			);
-			name = Pictures;
 			sourceTree = "<group>";
 		};
 		4C87EE11139CE4370064DE2E /* Concrete */ = {
@@ -765,7 +754,6 @@
 				4C87ED7A139CD8BE0064DE2E /* MainMenu.xib in Resources */,
 				4C87EDAB139CD9DA0064DE2E /* Database.xib in Resources */,
 				4C87EDBC139CDACE0064DE2E /* Preferences.xib in Resources */,
-				4C87EE02139CDCB10064DE2E /* NoArtwork.icns in Resources */,
 				4CFB3EF3139D4693008DC01A /* Tracklist.xib in Resources */,
 				4C7AA22E139D563A0050BE95 /* Playlist.xib in Resources */,
 				4C7AA233139D57A00050BE95 /* Music.xib in Resources */,

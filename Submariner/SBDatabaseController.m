@@ -1416,7 +1416,7 @@
         if(cover && cover.imagePath && [[NSFileManager defaultManager]fileExistsAtPath:cover.imagePath]) {
             coverImage = [[NSImage alloc] initWithContentsOfFile:cover.imagePath];
         } else {
-            coverImage = [NSImage imageNamed:@"NoArtwork"];
+            coverImage = [SBAlbum nullCover];
         }
         
         [self.window setTitle:currentTrack.itemName];
@@ -1425,7 +1425,7 @@
     } else {
         [self.window setTitle: rightVC.selectedViewController.title ?: @""];
         [self.window setSubtitle: @""];
-        [coverImageView setImage:[NSImage imageNamed:@"NoArtwork"]];
+        [coverImageView setImage: [SBAlbum nullCover]];
         [playPauseButton setState:NSControlStateValueOn];
     }
 }

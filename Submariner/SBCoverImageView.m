@@ -38,12 +38,10 @@
 @implementation SBCoverImageView
 
 - (void)drawRect:(NSRect)dirtyRect {
-        
-    NSRect rect = [self bounds];
-    NSGradient *gradient = [[NSGradient alloc] initWithStartingColor:[NSColor colorWithCalibratedRed:0.2853 green:0.2853 blue:0.2853 alpha:1.0000] 
-                                                          endingColor:[NSColor colorWithCalibratedRed:0.0514 green:0.0514 blue:0.0514 alpha:1.0000]];
-    
-    [gradient drawInRect:rect angle:-90];
+    // get rid of the status bar
+    [[NSColor windowBackgroundColor] set];
+    NSRectFill(self.bounds);
+    // XXX: if we have album art, a gradient based on dominant colour in art may not be a bad idea, see GH-37
     
     [super drawRect:dirtyRect];
 }
