@@ -981,6 +981,11 @@
             return;
         }
         
+        BOOL visible = self.window.occlusionState & NSWindowOcclusionStateVisible;
+        if (!visible) {
+            return;
+        }
+
         [progressSlider setEnabled:YES];
         NSString *currentTimeString = [[SBPlayer sharedInstance] currentTimeString];
         NSString *remainingTimeString = [[SBPlayer sharedInstance] remainingTimeString];
