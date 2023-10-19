@@ -14,7 +14,6 @@
 		3E2E1C842A395B79001A3148 /* SBClientController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E1C832A395B79001A3148 /* SBClientController.swift */; };
 		3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */; };
 		3E2F86D828E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */; };
-		3E352ED629D602BE002C84CB /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3E352ED529D602BE002C84CB /* AppIcon.icns */; };
 		3E45201829F5DBDC00604079 /* SBTrackArtistNameTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E45201729F5DBDC00604079 /* SBTrackArtistNameTransformer.swift */; };
 		3E45201A29F5DE9100604079 /* SBImportOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E45201929F5DE9100604079 /* SBImportOperation.swift */; };
 		3E45201C29FA488C00604079 /* SBServerUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E45201B29FA488C00604079 /* SBServerUserViewController.swift */; };
@@ -153,7 +152,6 @@
 		3E2F86C928DD36E600C5CE23 /* Submariner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Submariner-Bridging-Header.h"; sourceTree = "<group>"; };
 		3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBMonospaceTextField.swift; sourceTree = "<group>"; };
 		3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTreeController+IndexPath.swift"; sourceTree = "<group>"; };
-		3E352ED529D602BE002C84CB /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
 		3E45201729F5DBDC00604079 /* SBTrackArtistNameTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTrackArtistNameTransformer.swift; sourceTree = "<group>"; };
 		3E45201929F5DE9100604079 /* SBImportOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBImportOperation.swift; sourceTree = "<group>"; };
 		3E45201B29FA488C00604079 /* SBServerUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBServerUserViewController.swift; sourceTree = "<group>"; };
@@ -445,7 +443,6 @@
 		4C87ED6A139CD8BE0064DE2E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				3E352ED529D602BE002C84CB /* AppIcon.icns */,
 				3ECF63F9280362BA004F9176 /* Assets.xcassets */,
 				3EA06A5028B9AD220091A75F /* Submariner.entitlements */,
 				4C87EDC2139CDCA70064DE2E /* Pictures */,
@@ -777,7 +774,6 @@
 				4CCF7FF013B673CA00954C6E /* ServerSearch.xib in Resources */,
 				3ECF63FA280362BA004F9176 /* Assets.xcassets in Resources */,
 				4CFCE444140257EE00D35770 /* MusicSearch.xib in Resources */,
-				3E352ED629D602BE002C84CB /* AppIcon.icns in Resources */,
 				4CC6B56914041F7E003AEAC0 /* ServerPodcasts.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
