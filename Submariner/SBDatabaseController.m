@@ -256,16 +256,12 @@
                                                  name:@"SBSubsonicConnectionFailedNotification"
                                                object:nil];
 
-    // observe application state
+    // observe window state
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(windowDidMiniaturize:)
-                                                 name:NSWindowDidMiniaturizeNotification
+                                             selector:@selector(windowDidChangeOcclusionState:)
+                                                 name:NSWindowDidChangeOcclusionStateNotification
                                                object:nil];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(windowDidDeminiaturize:)
-                                                 name:NSWindowDidDeminiaturizeNotification
-                                               object:nil];
 
     // setup main box subviews animation
     // XXX: Creates a null first item
@@ -1378,30 +1374,27 @@
 
 
 #pragma mark -
-#pragma mark Application Notification (Private)
+#pragma mark Window Notification (Private)
 
-- (void)windowDidMiniaturize:(NSNotification *)notification {
+- (void)windowDidChangeOcclusionState:(NSNotification *)notification {
     NSWindow *sender = [notification object];
     if ([sender isEqual:self.window]) {
-        [self uninstallProgressTimer];
+        BOOL visible = self.window.occlusionState & NSWindowOcclusionStateVisible;
+        if (visible) {
+            [self installProgressTimer];
+        }
+        else {
+            [self uninstallProgressTimer];
+        }
     }
 }
 
-- (void)windowDidDeminiaturize:(NSNotification *)notification {
-    NSWindow *sender = [notification object];
-    if ([sender isEqual:self.window]) {
-        [self installProgressTimer];
-    }
-}
+
 
 
 
 
 #pragma mark -
-
-
-
-
 #pragma mark Player Notifications (Private)
 
 - (void)playerPlaylistUpdatedNotification:(NSNotification *)notification {
