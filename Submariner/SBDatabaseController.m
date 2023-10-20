@@ -159,6 +159,8 @@
     // remove Subsonic observers
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBSubsonicConnectionSucceededNotification" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBSubsonicConnectionFailedNotification" object:nil];
+    // remove window observers
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidChangeOcclusionStateNotification object:nil];
     // remove queue operations observer
     [[NSOperationQueue sharedServerQueue] removeObserver:self forKeyPath:@"operationCount"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
