@@ -40,6 +40,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Reduce the frequency in which the position slider is updated, reducing CPU usage
 * Don't update the position slider if the window isn't visible, reducing CPU usage
 * Avoid downloading tracks if they're already downloaded
+* Remove some images, reduce application size
 * Fix a crash when trying to play an album without any tracks
 * Fix a crash if the track's duration is nil
 * Fix attribute names in schema blocking future refactors.
