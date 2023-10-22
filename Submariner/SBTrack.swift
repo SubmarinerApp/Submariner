@@ -26,7 +26,7 @@ public class SBTrack: SBMusicItem {
     
     @objc var durationString: String? {
         self.willAccessValue(forKey: "duration")
-        let ret = String(time: TimeInterval(duration?.intValue ?? 0))
+        let ret = String(timeInterval: TimeInterval(duration?.intValue ?? 0))
         self.didAccessValue(forKey: "duration")
         return ret
     }

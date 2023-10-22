@@ -159,6 +159,8 @@
     // remove Subsonic observers
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBSubsonicConnectionSucceededNotification" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBSubsonicConnectionFailedNotification" object:nil];
+    // remove window observers
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidChangeOcclusionStateNotification object:nil];
     // remove queue operations observer
     [[NSOperationQueue sharedServerQueue] removeObserver:self forKeyPath:@"operationCount"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -255,6 +257,13 @@
                                              selector:@selector(subsonicConnectionFailed:)
                                                  name:@"SBSubsonicConnectionFailedNotification"
                                                object:nil];
+
+    // observe window state
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(windowDidChangeOcclusionState:)
+                                                 name:NSWindowDidChangeOcclusionStateNotification
+                                               object:nil];
+
 
     // setup main box subviews animation
     // XXX: Creates a null first item
@@ -965,14 +974,21 @@
     }
     [progressUpdateTimer invalidate];
     progressUpdateTimer = nil;
-    [self clearPlaybackProgress];
 }
 
 - (void)updateProgress:(NSTimer *)updatedTimer {
     
     if([[SBPlayer sharedInstance] isPlaying]) {
-        [progressSlider setEnabled:YES];
+        if ([[SBPlayer sharedInstance] isPaused]) {
+            return;
+        }
         
+        BOOL visible = self.window.occlusionState & NSWindowOcclusionStateVisible;
+        if (!visible) {
+            return;
+        }
+
+        [progressSlider setEnabled:YES];
         NSString *currentTimeString = [[SBPlayer sharedInstance] currentTimeString];
         NSString *remainingTimeString = [[SBPlayer sharedInstance] remainingTimeString];
         double progress = [[SBPlayer sharedInstance] progress];
@@ -1365,6 +1381,27 @@
 
 
 #pragma mark -
+#pragma mark Window Notification (Private)
+
+- (void)windowDidChangeOcclusionState:(NSNotification *)notification {
+    NSWindow *sender = [notification object];
+    if ([sender isEqual:self.window]) {
+        BOOL visible = self.window.occlusionState & NSWindowOcclusionStateVisible;
+        if (visible) {
+            [self installProgressTimer];
+        }
+        else {
+            [self uninstallProgressTimer];
+        }
+    }
+}
+
+
+
+
+
+
+#pragma mark -
 #pragma mark Player Notifications (Private)
 
 - (void)playerPlaylistUpdatedNotification:(NSNotification *)notification {
@@ -1406,6 +1443,7 @@
         }
     } else {
         [self uninstallProgressTimer];
+        [self clearPlaybackProgress];
         [playPauseButton setState:NSControlStateValueOn];
     }
 }
