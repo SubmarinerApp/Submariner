@@ -1387,7 +1387,8 @@
     NSWindow *sender = [notification object];
     if ([sender isEqual:self.window]) {
         BOOL visible = self.window.occlusionState & NSWindowOcclusionStateVisible;
-        if (visible) {
+        BOOL playing = [[SBPlayer sharedInstance] isPlaying];
+        if (visible && playing) {
             [self installProgressTimer];
         }
         else {
