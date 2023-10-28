@@ -28,8 +28,6 @@ extension String {
     }
     
     static func hexStringFrom(bytes: Data) -> String {
-        let data = bytes as Data
-        let joined = data.map({ String(format: "%02x", $0) }).joined()
-        return joined
+        return bytes.map { String(format: "%02x", $0) }.joined()
     }
 }
