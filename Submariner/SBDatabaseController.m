@@ -976,6 +976,27 @@
     progressUpdateTimer = nil;
 }
 
+/// Updates the progress slider, without any preconditions.
+- (void)updateProgress {
+    
+    [progressSlider setEnabled:YES];
+    NSString *currentTimeString = [[SBPlayer sharedInstance] currentTimeString];
+    NSString *remainingTimeString = [[SBPlayer sharedInstance] remainingTimeString];
+    double progress = [[SBPlayer sharedInstance] progress];
+    
+    if(currentTimeString)
+        [progressTextField setStringValue:currentTimeString];
+    
+    if(remainingTimeString)
+        [durationTextField setStringValue:remainingTimeString];
+    
+    if(progress > 0)
+        [progressSlider setDoubleValue:progress];
+    
+    // If buffering is useful to know, we could reimplement it better someday.
+    
+}
+
 - (void)updateProgress:(NSTimer *)updatedTimer {
     
     if([[SBPlayer sharedInstance] isPlaying]) {
@@ -988,22 +1009,7 @@
             return;
         }
 
-        [progressSlider setEnabled:YES];
-        NSString *currentTimeString = [[SBPlayer sharedInstance] currentTimeString];
-        NSString *remainingTimeString = [[SBPlayer sharedInstance] remainingTimeString];
-        double progress = [[SBPlayer sharedInstance] progress];
-        
-        if(currentTimeString)
-            [progressTextField setStringValue:currentTimeString];
-        
-        if(remainingTimeString)
-            [durationTextField setStringValue:remainingTimeString];
-        
-        if(progress > 0)
-            [progressSlider setDoubleValue:progress];
-        
-        // If buffering is useful to know, we could reimplement it better someday.
-    
+        [self updateProgress];
     } else {
         [self clearPlaybackProgress];
     }
@@ -1389,6 +1395,8 @@
         BOOL visible = self.window.occlusionState & NSWindowOcclusionStateVisible;
         BOOL playing = [[SBPlayer sharedInstance] isPlaying];
         if (visible && playing) {
+            // call updateProgress to always update, as updateProgress: from the timer will bail early if paused
+            [self updateProgress];
             [self installProgressTimer];
         }
         else {
@@ -1396,7 +1404,6 @@
         }
     }
 }
-
 
 
 
