@@ -18,6 +18,13 @@ extension String {
         formatter.locale = Locale(identifier: "en_US_POSIX")
         return formatter
     }()
+    fileprivate static let httpDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEE', 'dd' 'MMM' 'yyyy' 'hh:mm:ss' GMT'"
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter
+    }()
     
     static let componentFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
@@ -34,6 +41,10 @@ extension String {
         return String.rfc3339DateFormatter.date(from: self as String)
     }
     
+    func dateTimeFromHTTP() -> Date? {
+        return String.httpDateFormatter.date(from: self)
+    }
+
     init(timeInterval: TimeInterval) {
         if timeInterval == 0 || timeInterval.isNaN {
             self = "00:00"

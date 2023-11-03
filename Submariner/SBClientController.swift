@@ -49,6 +49,29 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                 if response.statusCode == 404 {
                     self.server.markNotSupported(feature: type)
                     return
+                } else if response.statusCode == 429 {
+                    // Newer versions of Navidrome back getCoverArt w/ third-party APIs.
+                    // As such, it rate limits API requests that can invoke them.
+                    // Instead of bothering the user, retry the request later.
+
+                    // Retry-After is seconds or a specific date
+                    let retryAfter = response.value(forHTTPHeaderField: "Retry-After")
+                    logger.info("Retrying w/ Retry-After value \(retryAfter ?? "<nil>")")
+
+                    if let retryAfter = retryAfter,
+                       let specificDate = retryAfter.dateTimeFromHTTP() {
+                        _ = Timer(fire: specificDate, interval: 0, repeats: false) { timer in
+                            self.request(url: url, type: type, customization: customization)
+                            timer.invalidate()
+                        }
+                    } else if let retryAfter = retryAfter {
+                        let seconds = TimeInterval(retryAfter) ?? 5
+                        _ = Timer(timeInterval: seconds, repeats: false) { timer in
+                            self.request(url: url, type: type, customization: customization)
+                            timer.invalidate()
+                        }
+                    }
+                    return
                 } else if response.statusCode != 200 {
                     let message = "HTTP \(response.statusCode) for \(url.path)"
                     let userInfo = [NSLocalizedDescriptionKey: message]
