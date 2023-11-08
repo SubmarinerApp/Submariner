@@ -44,8 +44,9 @@ extension NSNotification.Name {
         remotePlayer.allowsExternalPlayback = false;
         
         // observers
-        playerStatusObserver = remotePlayer.observe(\.status) { player, change in
-            switch (change.newValue) {
+        playerStatusObserver = remotePlayer.observe(\.status, options: [.old, .new]) { player, change in
+            // workaround newValue sometimes returning nil if AVPlayer fails (even with .new)
+            switch (player.status) {
             case .readyToPlay:
                 player.play()
             case .unknown:
@@ -55,6 +56,7 @@ extension NSNotification.Name {
                 logger.error("AVPlayer status is failed, error \(player.error, privacy: .public)")
                 self.stop()
             default:
+                logger.debug("For some reason, player status isn't a recognized value (\(change.newValue!.rawValue)") // none handled
                 return
             }
         }
