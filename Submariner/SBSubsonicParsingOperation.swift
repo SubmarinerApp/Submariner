@@ -397,7 +397,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 } ?? false
                 logger.info("Adding track (and updating) with ID: \(id, privacy: .public) to playlist \(currentPlaylist.itemId ?? "(no ID?)", privacy: .public), exists? \(exists) index? \(self.playlistIndex)")
                 
-                updateTrackDependenciesForDirectoryIndex(track, attributeDict: attributeDict)
+                updateTrackDependenciesForDirectoryIndex(track, attributeDict: attributeDict, shouldFetchAlbumArt: false)
                 
                 // limitation if the same track exists twice
                 track.playlistIndex = NSNumber(value: playlistIndex)
@@ -412,7 +412,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 // FIXME: Should we update *existing* tracks regardless? For previous cases they were pulled anew...
                 logger.info("Creating new track with ID: \(id, privacy: .public) for playlist \(currentPlaylist.itemId ?? "(no ID?)", privacy: .public)")
                 let track = createTrack(attributes: attributeDict)
-                updateTrackDependenciesForDirectoryIndex(track, attributeDict: attributeDict)
+                updateTrackDependenciesForDirectoryIndex(track, attributeDict: attributeDict, shouldFetchAlbumArt: false)
                 
                 track.playlistIndex = NSNumber(value: playlistIndex)
                 playlistIndex += 1
@@ -822,8 +822,8 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         return album
     }
     
-    // NOT USED YET - this makes sense only if you're using
-    private func updateTrackDependenciesForTag(_ track: SBTrack, attributeDict: [String: String]) {
+    // NOT USED YET - this makes sense only if you're using the tag based APIs
+    private func updateTrackDependenciesForTag(_ track: SBTrack, attributeDict: [String: String], shouldFetchAlbumArt: Bool = true) {
         var attachedArtist: SBArtist?
         // is this right for album artist? the artist object can get corrected on fetch though...
         if let artistID = attributeDict["artistId"] {
@@ -874,7 +874,9 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 attachedAlbum.cover = attachedCover!
             }
             
-            clientController.getCover(id: coverID)
+            if shouldFetchAlbumArt {
+                clientController.getCover(id: coverID)
+            }
         }
         
         if let attachedAlbum = attachedAlbum {
@@ -884,7 +886,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     }
     
     // not as good as former, but we have to use it until we switch to using tag based metadata instead of hierarchy index
-    private func updateTrackDependenciesForDirectoryIndex(_ track: SBTrack, attributeDict: [String: String]) {
+    private func updateTrackDependenciesForDirectoryIndex(_ track: SBTrack, attributeDict: [String: String], shouldFetchAlbumArt: Bool = true) {
         var attachedAlbum: SBAlbum?
         var attachedCover: SBCover?
         var attachedArtist: SBArtist?
@@ -925,7 +927,9 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 attachedAlbum.cover = attachedCover!
             }
             
-            clientController.getCover(id: coverID)
+            if shouldFetchAlbumArt {
+                clientController.getCover(id: coverID)
+            }
         }
         
         if let attachedAlbum = attachedAlbum, let artistName = attributeDict["artist"] {
