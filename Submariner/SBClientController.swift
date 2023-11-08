@@ -64,8 +64,9 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                             self.request(url: url, type: type, customization: customization)
                             timer.invalidate()
                         }
-                    } else if let retryAfter = retryAfter {
-                        let seconds = TimeInterval(retryAfter) ?? 5
+                    } else {
+                        // handle if Retry-After is valid, invalid, or missing
+                        let seconds = TimeInterval(retryAfter ?? "5") ?? 5
                         _ = Timer(timeInterval: seconds, repeats: false) { timer in
                             self.request(url: url, type: type, customization: customization)
                             timer.invalidate()
