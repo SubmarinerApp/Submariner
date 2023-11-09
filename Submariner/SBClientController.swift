@@ -325,7 +325,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         params["query"] = query
         params["songCount"] = "100" // XXX: Configurable? Pagination?
         
-        let url = URL.URLWith(string: server.url, command: "rest/search2.view", parameters: params)
+        let url = URL.URLWith(string: server.url, command: "rest/search3.view", parameters: params)
         request(url: url, type: .search) { operation in
             operation.currentSearch = SBSearchResult(query: query)
         }
