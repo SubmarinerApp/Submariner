@@ -668,7 +668,7 @@
         return;
     }
     [server getServerLicense];
-    [server getServerIndexes];
+    [server getArtists];
     [server getServerPlaylists];
     // XXX: Check if it's the current VC too?
     if (server != nil && serverHomeController.server == server) {
@@ -1380,7 +1380,7 @@
 - (void)subsonicConnectionSucceeded:(NSNotification *)notification {
     // loading of server content, major !!!
     [self.server getServerLicense];
-    [self.server getServerIndexes];
+    [self.server getArtists];
     [self.server getServerPlaylists];
 }
 

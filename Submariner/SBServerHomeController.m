@@ -382,7 +382,7 @@
             
             // reset current tracks
             [tracksController setContent:nil];
-            [self.server getTracksForAlbumID: album.itemId];
+            [self.server getAlbum: album];
             
             if([album.tracks count] == 0) {   
                 // wait for new tracks

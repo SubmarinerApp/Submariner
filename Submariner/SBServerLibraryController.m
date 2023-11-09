@@ -505,7 +505,7 @@
         if(selectedRow != -1) {
             SBArtist *selectedArtist = [[artistsController arrangedObjects] objectAtIndex:selectedRow];
             if(selectedArtist && [selectedArtist isKindOfClass:[SBArtist class]]) {
-                [self.server getAlbumsForArtist:selectedArtist];
+                [self.server getArtist:selectedArtist];
                 [albumsBrowserView setSelectionIndexes:nil byExtendingSelection:NO];
             }
         }
@@ -618,7 +618,7 @@
         SBAlbum *album = [[albumsController arrangedObjects] objectAtIndex:selectedRow];
         if(album) {
             
-            [self.server getTracksForAlbumID: album.itemId];
+            [self.server getAlbum: album];
             
             if([album.tracks count] == 0) {                
                 // wait for new tracks

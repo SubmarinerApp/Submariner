@@ -62,6 +62,9 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         @objc(SBSubsonicRequestScanLibrary) case scanLibrary = 27
         @objc(SBSubsonicRequestGetScanStatus) case getScanStatus = 28
         @objc(SBSubsonicRequestUpdatePlaylist) case updatePlaylist = 29
+        @objc(SBSubsonicRequestGetArtists) case getArtists = 30
+        @objc(SBSubsonicRequestGetArtist) case getArtist = 31
+        @objc(SBSubsonicRequestGetAlbum) case getAlbum = 32
     }
     
     let clientController: SBClientController
@@ -329,20 +332,24 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     
     private func parseElementAlbum(attributeDict: [String: String]) {
         // We must have a parent (artist) to assign to.
-        // This will need adaptation for ID3 based approaches
-        // (if using ID3 endpoint, use currentArtist or artistId attrib instead)
-        if let parent = attributeDict["parent"], let id = attributeDict["id"] {
-            var artist = fetchArtist(id: parent)
+        // Use tag based approach; getAlbumList2 and search3 use this.
+        if let artistId = attributeDict["artistId"], let id = attributeDict["id"] {
+            var artist = fetchArtist(id: artistId)
             if artist == nil {
                 // handles the different context fine
-                logger.info("Creating new artist with ID: \(parent, privacy: .public) for album ID \(id, privacy: .public)")
+                logger.info("Creating new artist with ID: \(artistId, privacy: .public) for album ID \(id, privacy: .public)")
                 artist = createArtist(attributes: attributeDict)
             }
             
             var album = fetchAlbum(id: id)
             if album == nil {
-                logger.info("Creating new album with ID: \(id, privacy: .public) for artist ID \(parent, privacy: .public)")
+                logger.info("Creating new album with ID: \(id, privacy: .public) for artist ID \(artistId, privacy: .public)")
                 album = createAlbum(attributes: attributeDict)
+            }
+            
+            // for future song elements under this one
+            if requestType == .getAlbum {
+                currentAlbum = album
             }
             
             if album!.artist == nil {
@@ -448,7 +455,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         nowPlaying.track = attachedTrack
         attachedTrack?.nowPlaying = nowPlaying
         
-        updateTrackDependenciesForDirectoryIndex(attachedTrack!, attributeDict: attributeDict)
+        updateTrackDependenciesForTag(attachedTrack!, attributeDict: attributeDict)
         
         // do it here
         nowPlaying.server = server
@@ -466,26 +473,37 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     }
     
     private func parseElementSong(attributeDict: [String: String]) {
-        if requestType != .search {
-            logger.warning("Got a song element outside of search")
-            return
-        }
-        
         if let currentSearch = self.currentSearch, let id = attributeDict["id"] {
             if let track = fetchTrack(id: id) {
                 logger.info("Creating track ID \(id, privacy: .public) for search")
                 // the song element has the same format as the one used in nowPlaying, complete with artist name without ID
-                updateTrackDependenciesForDirectoryIndex(track, attributeDict: attributeDict)
+                updateTrackDependenciesForTag(track, attributeDict: attributeDict)
                 // objc version did some check in playlist, which didn't make sense
                 currentSearch.tracksToFetch.append(track.objectID)
             } else {
                 logger.info("Creating track ID \(id, privacy: .public) for search")
                 let track = createTrack(attributes: attributeDict)
-                updateTrackDependenciesForDirectoryIndex(track, attributeDict: attributeDict)
+                updateTrackDependenciesForTag(track, attributeDict: attributeDict)
                 currentSearch.tracksToFetch.append(track.objectID)
             }
+        } else if let currentAlbum = self.currentAlbum, let id = attributeDict["id"], let name = attributeDict["title"] {
+            // like parseElementChildForTrackDirectory; shouldn't need to call update dependencies...
+            if let track = fetchTrack(id: id)  {
+                // Update
+                logger.info("Updating track with ID: \(id, privacy: .public) and name \(name, privacy: .public)")
+                updateTrack(track, attributes: attributeDict)
+                track.album = currentAlbum
+                currentAlbum.addToTracks(track)
+            } else {
+                // Create
+                logger.info("Creating new track with ID: \(id, privacy: .public) and name \(name, privacy: .public)")
+                let track = createTrack(attributes: attributeDict)
+                // now assume not nil
+                track.album = currentAlbum
+                currentAlbum.addToTracks(track)
+            }
         } else {
-            logger.warning("Current search was null on a song element")
+            logger.warning("Song ID was nil for get album or search")
         }
     }
     
@@ -793,7 +811,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             artist.itemId = id
         }
         // in album element context
-        if let id = attributes["parent"] {
+        if let id = attributes["artistId"] {
             artist.itemId = id
         }
         
@@ -807,7 +825,8 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     private func createAlbum(attributes: [String: String]) -> SBAlbum {
         let album = SBAlbum.insertInManagedObjectContext(context: threadedContext)
         
-        if let name = attributes["title"] {
+        // ID3 based routes use name instead of title
+        if let name = attributes["name"] {
             album.itemName = name
         }
         

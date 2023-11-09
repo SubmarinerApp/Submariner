@@ -386,20 +386,16 @@ public class SBServer: SBResource {
     
     // #MARK: - Subsonic Client (Server Data)
     
-    @objc func getServerIndexes() {
-        if let lastIndexesDate = self.lastIndexesDate {
-            self.clientController.getIndexes(since: lastIndexesDate)
-        } else {
-            self.clientController.getIndexes()
-        }
+    @objc func getArtists() {
+        self.clientController.getArtists()
     }
     
-    @objc func getAlbumsFor(artist: SBArtist) {
-        self.clientController.getAlbums(artist: artist)
+    @objc(getArtist:) func get(artist: SBArtist) {
+        self.clientController.get(artist: artist)
     }
     
-    @objc func getTracksFor(albumID: String) {
-        self.clientController.getTracks(albumID: albumID)
+    @objc(getAlbum:) func get(album: SBAlbum) {
+        self.clientController.get(album: album)
     }
     
     @objc func getAlbumListFor(type: SBSubsonicParsingOperation.RequestType) {

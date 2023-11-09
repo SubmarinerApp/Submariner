@@ -136,6 +136,11 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         request(url: url, type: .getIndexes)
     }
     
+    func getArtists() {
+        let url = URL.URLWith(string: server.url, command: "rest/getArtists.view", parameters: parameters)
+        request(url: url, type: .getIndexes)
+    }
+    
     @objc(getAlbumsForArtist:) func getAlbums(artist: SBArtist) {
         var params = parameters
         if artist.itemId == nil {
@@ -147,6 +152,21 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         
         let url = URL.URLWith(string: server.url, command: "rest/getMusicDirectory.view", parameters: params)
         request(url: url, type: .getAlbumDirectory) { operation in
+            operation.currentArtistID = artist.itemId
+        }
+    }
+    
+    func get(artist: SBArtist) {
+        var params = parameters
+        if artist.itemId == nil {
+            // can happen because of now playing/search
+
+            return
+        }
+        params["id"] = artist.itemId
+        
+        let url = URL.URLWith(string: server.url, command: "rest/getArtist.view", parameters: params)
+        request(url: url, type: .getArtist) { operation in
             operation.currentArtistID = artist.itemId
         }
     }
@@ -168,6 +188,16 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         let url = URL.URLWith(string: server.url, command: "rest/getMusicDirectory.view", parameters: params)
         request(url: url, type: .getTrackDirectory) { operation in
             operation.currentAlbumID = albumID
+        }
+    }
+    
+    func get(album: SBAlbum) {
+        var params = parameters
+        params["id"] = album.itemId
+        
+        let url = URL.URLWith(string: server.url, command: "rest/getAlbum.view", parameters: params)
+        request(url: url, type: .getAlbum) { operation in
+            operation.currentAlbumID = album.itemId
         }
     }
     
@@ -273,7 +303,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
             abort()
         }
         
-        let url = URL.URLWith(string: server.url, command: "rest/getAlbumList.view", parameters: params)
+        let url = URL.URLWith(string: server.url, command: "rest/getAlbumList2.view", parameters: params)
         request(url: url, type: type)
     }
     
