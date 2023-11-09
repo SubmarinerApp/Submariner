@@ -404,7 +404,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 } ?? false
                 logger.info("Adding track (and updating) with ID: \(id, privacy: .public) to playlist \(currentPlaylist.itemId ?? "(no ID?)", privacy: .public), exists? \(exists) index? \(self.playlistIndex)")
                 
-                updateTrackDependenciesForDirectoryIndex(track, attributeDict: attributeDict, shouldFetchAlbumArt: false)
+                updateTrackDependenciesForTag(track, attributeDict: attributeDict, shouldFetchAlbumArt: false)
                 
                 // limitation if the same track exists twice
                 track.playlistIndex = NSNumber(value: playlistIndex)
@@ -419,7 +419,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 // FIXME: Should we update *existing* tracks regardless? For previous cases they were pulled anew...
                 logger.info("Creating new track with ID: \(id, privacy: .public) for playlist \(currentPlaylist.itemId ?? "(no ID?)", privacy: .public)")
                 let track = createTrack(attributes: attributeDict)
-                updateTrackDependenciesForDirectoryIndex(track, attributeDict: attributeDict, shouldFetchAlbumArt: false)
+                updateTrackDependenciesForTag(track, attributeDict: attributeDict, shouldFetchAlbumArt: false)
                 
                 track.playlistIndex = NSNumber(value: playlistIndex)
                 playlistIndex += 1
