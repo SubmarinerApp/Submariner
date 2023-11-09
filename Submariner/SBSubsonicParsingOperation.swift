@@ -588,7 +588,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             parseElementSubsonicResponse(attributeDict: attributeDict)
         } else if elementName == "error" {
             parseElementError(attributeDict: attributeDict)
-        } else if elementName == "indexes" {
+        } else if elementName == "indexes" || elementName == "artists" { // directory or tag based index...
             parseElementIndexes(attributeDict: attributeDict)
         } else if elementName == "index" { // build group index
             parseElementIndex(attributeDict: attributeDict)
