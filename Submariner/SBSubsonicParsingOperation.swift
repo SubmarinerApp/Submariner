@@ -233,7 +233,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             }
             logger.info("Creating new artist with ID: \(id, privacy: .public) and name \(name, privacy: .public)")
             // we don't do anything with the return value since it gets put into core data
-            let artist = createArtist(attributes: attributeDict)
+            _ = createArtist(attributes: attributeDict)
         }
     }
     
@@ -270,7 +270,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             currentArtist.addToAlbums(album!)
             
             // the track may not have a cover assigned yet
-            if let cover = album!.cover {
+            if album!.cover != nil {
                 // the album already has a cover
                 logger.info("Album ID \(id, privacy: .public) already has a cover")
             } else if let coverID = attributeDict["coverArt"],
@@ -571,7 +571,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             
             // FIXME: yeah, this is how it was before, it doesn't make much sense
             if let streamID = attributeDict["streamId"] {
-                var track = fetchTrack(id: streamID)
+                let track = fetchTrack(id: streamID)
                 if track == nil, let albumID = attributeDict["parent"] {
                     clientController.getTracks(albumID: albumID)
                 } else {
