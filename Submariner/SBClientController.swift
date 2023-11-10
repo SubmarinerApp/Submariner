@@ -123,37 +123,9 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         request(url: url, type: .getLicense)
     }
     
-    @objc func getIndexes() {
-        let url = URL.URLWith(string: server.url, command: "rest/getIndexes.view", parameters: parameters)
-        request(url: url, type: .getIndexes)
-    }
-    
-    @objc(getIndexesSince:) func getIndexes(since: Date) {
-        var params = parameters
-        params["ifModifiedSince"] = String(format: "%00.f", since.timeIntervalSince1970 * 1000)
-        
-        let url = URL.URLWith(string: server.url, command: "rest/getIndexes.view", parameters: params)
-        request(url: url, type: .getIndexes)
-    }
-    
     func getArtists() {
         let url = URL.URLWith(string: server.url, command: "rest/getArtists.view", parameters: parameters)
         request(url: url, type: .getIndexes)
-    }
-    
-    @objc(getAlbumsForArtist:) func getAlbums(artist: SBArtist) {
-        var params = parameters
-        if artist.itemId == nil {
-            // can happen because of now playing/search
-
-            return
-        }
-        params["id"] = artist.itemId
-        
-        let url = URL.URLWith(string: server.url, command: "rest/getMusicDirectory.view", parameters: params)
-        request(url: url, type: .getAlbumDirectory) { operation in
-            operation.currentArtistID = artist.itemId
-        }
     }
     
     func get(artist: SBArtist) {
