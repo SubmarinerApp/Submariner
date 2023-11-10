@@ -197,6 +197,10 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     }
     
     private func parseElementIndexes(attributeDict: [String: String]) {
+        // Tempting to do this, but it really messes the internal data model,
+        // by abandoning all the server's artist entries and leaves them adopted by local library
+        //server.indexes = NSSet()
+        
         if let timestampString = attributeDict["timestamp"],
            let timestamp = Double(timestampString) {
             let date = Date(timeIntervalSince1970: timestamp)
@@ -222,18 +226,26 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 // doing this in ID3 migration, but may be useful if servers keep ID if artist renames
                 // i.e. "British Sea Power" -> "Sea Power" (and avoid deadnames, etc.)
                 existingArtist.itemName = name
-                return
-            }
-            // for cases where we have artists without IDs from i.e. getNowPlaying/search2
-            if let existingArtist = fetchArtist(name: name) {
+                // as we don't do it in updateTrackDependencies
+                server.addToIndexes(existingArtist)
+                // Experiment: clear albums list to remove stale albums from transitional period
+                if requestType == .getArtist {
+                    existingArtist.albums = NSSet()
+                }
+            } else if let existingArtist = fetchArtist(name: name) {
+                // legacy for cases where we have artists without IDs from i.e. getNowPlaying/search2
                 existingArtist.itemId = id
                 // as we don't do it in updateTrackDependencies
                 server.addToIndexes(existingArtist)
-                return
+                // same as experiment
+                if requestType == .getArtist {
+                    existingArtist.albums = NSSet()
+                }
+            } else {
+                logger.info("Creating new artist with ID: \(id, privacy: .public) and name \(name, privacy: .public)")
+                // we don't do anything with the return value since it gets put into core data
+                _ = createArtist(attributes: attributeDict)
             }
-            logger.info("Creating new artist with ID: \(id, privacy: .public) and name \(name, privacy: .public)")
-            // we don't do anything with the return value since it gets put into core data
-            _ = createArtist(attributes: attributeDict)
         }
     }
     
@@ -355,15 +367,24 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 currentAlbum = album
             }
             
-            if album!.artist == nil {
-                album!.artist = artist
-                artist?.addToAlbums(album!)
+            // refresh name
+            if let name = attributeDict["name"] {
+                album!.itemName = name
             }
+            
+            // always reassociate due to possible transitions
+            album!.artist = artist
+            artist?.addToAlbums(album!)
             server.home?.addToAlbums(album!)
             album!.home = server.home
             
             if let coverArt = attributeDict["coverArt"] {
-                if album?.cover == nil {
+                if let cover = album?.cover, cover.itemId != coverArt {
+                    logger.info("Cover ID \(cover.itemId ?? "<nil>", privacy: .public) mismatch for returned ID \(coverArt, privacy: .public), resetting")
+                    cover.itemId = coverArt
+                    // let's reset it, since it might be stale
+                    cover.imagePath = nil
+                } else if album?.cover == nil {
                     logger.info("Creating new cover with ID: \(coverArt, privacy: .public) for album ID \(id, privacy: .public)")
                     let cover = createCover(attributes: attributeDict)
                     cover.album = album
