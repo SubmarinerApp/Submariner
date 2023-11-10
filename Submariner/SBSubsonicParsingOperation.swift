@@ -218,7 +218,10 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     
     private func parseElementArtist(attributeDict: [String: String]) {
         if let id = attributeDict["id"], let name = attributeDict["name"] {
-            if fetchArtist(id: id) != nil {
+            if let existingArtist = fetchArtist(id: id) {
+                // doing this in ID3 migration, but may be useful if servers keep ID if artist renames
+                // i.e. "British Sea Power" -> "Sea Power" (and avoid deadnames, etc.)
+                existingArtist.itemName = name
                 return
             }
             // for cases where we have artists without IDs from i.e. getNowPlaying/search2
