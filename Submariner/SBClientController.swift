@@ -125,7 +125,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     
     func getArtists() {
         let url = URL.URLWith(string: server.url, command: "rest/getArtists.view", parameters: parameters)
-        request(url: url, type: .getIndexes)
+        request(url: url, type: .getArtists)
     }
     
     func get(artist: SBArtist) {
