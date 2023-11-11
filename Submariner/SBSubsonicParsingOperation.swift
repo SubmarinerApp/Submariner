@@ -89,6 +89,9 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     var currentAlbumID: String?
     var currentCoverID: String?
     
+    // state for deleting elements not in this list
+    var artistsReturned: [SBArtist] = []
+    
     init!(managedObjectContext mainContext: NSManagedObjectContext!,
           client: SBClientController,
           requestType: RequestType,
@@ -197,10 +200,6 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     }
     
     private func parseElementIndexes(attributeDict: [String: String]) {
-        // Tempting to do this, but it really messes the internal data model,
-        // by abandoning all the server's artist entries and leaves them adopted by local library
-        //server.indexes = NSSet()
-        
         if let timestampString = attributeDict["timestamp"],
            let timestamp = Double(timestampString) {
             let date = Date(timeIntervalSince1970: timestamp)
@@ -223,6 +222,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     private func parseElementArtist(attributeDict: [String: String]) {
         if let id = attributeDict["id"], let name = attributeDict["name"] {
             if let existingArtist = fetchArtist(id: id) {
+                artistsReturned.append(existingArtist)
                 // doing this in ID3 migration, but may be useful if servers keep ID if artist renames
                 // i.e. "British Sea Power" -> "Sea Power" (and avoid deadnames, etc.)
                 existingArtist.itemName = name
@@ -233,6 +233,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                     existingArtist.albums = NSSet()
                 }
             } else if let existingArtist = fetchArtist(name: name) {
+                artistsReturned.append(existingArtist)
                 // legacy for cases where we have artists without IDs from i.e. getNowPlaying/search2
                 existingArtist.itemId = id
                 // as we don't do it in updateTrackDependencies
@@ -243,8 +244,8 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 }
             } else {
                 logger.info("Creating new artist with ID: \(id, privacy: .public) and name \(name, privacy: .public)")
-                // we don't do anything with the return value since it gets put into core data
-                _ = createArtist(attributes: attributeDict)
+                let artist = createArtist(attributes: attributeDict)
+                artistsReturned.append(artist)
             }
         }
     }
@@ -668,8 +669,6 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     
     func parserDidEndDocument(_ parser: XMLParser) {
         logger.info("Finished XML processing")
-        threadedContext.processPendingChanges()
-        saveThreadedContext()
         
         if requestType == .ping && !errored {
             postServerNotification(.SBSubsonicConnectionSucceeded)
@@ -693,7 +692,26 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             NotificationCenter.default.post(name: .SBSubsonicSearchResultUpdated, object: currentSearch)
         } else if requestType == .getPodcasts {
             postServerNotification(.SBSubsonicPodcastsUpdated)
+        } else if requestType == .getArtists {
+            // purge artists not returned, since unlike getIndexes, getArtists returns the full list
+            let artistRequest: NSFetchRequest<SBArtist> = SBArtist.fetchRequest()
+            artistRequest.predicate = NSPredicate(format: "(server == %@) && (NOT (self IN %@))", server, artistsReturned)
+            if let artists = try? threadedContext.fetch(artistRequest) {
+                for artist in artists {
+                    logger.info("Removing artist not in list \(artist.itemId ?? "<nil>", privacy: .public) name \(artist.itemName ?? "<nil>")")
+                    threadedContext.delete(artist)
+                }
+            }
+            postServerNotification(.SBSubsonicIndexesUpdated)
+        } else if requestType == .getArtist {
+            postServerNotification(.SBSubsonicAlbumsUpdated)
+        } else if requestType == .getAlbum {
+            postServerNotification(.SBSubsonicTracksUpdated)
         }
+        
+        // since we can run DB ops here now, save this for last
+        threadedContext.processPendingChanges()
+        saveThreadedContext()
     }
     
     func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
