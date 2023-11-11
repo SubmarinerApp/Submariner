@@ -906,20 +906,19 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         }
         
         // the track doesn't need to know this, so scope doesn't matter
-        if let attachedAlbum = attachedAlbum, let coverID = attributeDict["coverArt"] {
-            var attachedCover: SBCover?
-            
-            attachedCover = fetchCover(coverID: coverID)
-            
-            if attachedCover?.itemId == nil || attachedCover?.itemId == "" {
-                logger.info("Creating cover ID \(coverID, privacy: .public) for tag based entry")
-                attachedCover = createCover(attributes: attributeDict)
-                attachedCover!.album = attachedAlbum
-                attachedAlbum.cover = attachedCover!
+        if shouldFetchAlbumArt, let attachedAlbum = attachedAlbum, let coverArt = attributeDict["coverArt"] {
+            // don't have the codepath that resets the cover since if getNowPlaying is called,
+            // subsonic returns the directory cover ID instead of the tag cover ID.
+            // if we set it first here, NBD, it can get reset later.
+            if attachedAlbum.cover == nil {
+                logger.info("Creating new cover with ID: \(coverArt, privacy: .public) for album ID \(attachedAlbum.itemId ?? "<nil>", privacy: .public)")
+                let cover = createCover(attributes: attributeDict)
+                cover.album = attachedAlbum
+                attachedAlbum.cover = cover
             }
             
-            if shouldFetchAlbumArt {
-                clientController.getCover(id: coverID)
+            if attachedAlbum.cover?.imagePath == nil {
+                clientController.getCover(id: coverArt)
             }
         }
         
