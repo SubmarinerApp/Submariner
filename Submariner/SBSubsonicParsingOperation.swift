@@ -867,7 +867,6 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         return album
     }
     
-    // NOT USED YET - this makes sense only if you're using the tag based APIs
     private func updateTrackDependenciesForTag(_ track: SBTrack, attributeDict: [String: String], shouldFetchAlbumArt: Bool = true) {
         var attachedArtist: SBArtist?
         // is this right for album artist? the artist object can get corrected on fetch though...
