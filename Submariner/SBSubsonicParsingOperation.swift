@@ -250,97 +250,6 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         }
     }
     
-    private func parseElementDirectory(attributeDict: [String: String]) {
-        if requestType == .getAlbumDirectory {
-            if let id = attributeDict["id"], let artist = fetchArtist(id: id) {
-                currentArtist = artist
-            }
-        } else if requestType == .getTrackDirectory {
-            if let id = attributeDict["id"], let album = fetchAlbum(id: id, artist: currentArtist) {
-                currentAlbum = album
-            }
-        } else {
-            logger.warning("Invalid request type \(self.requestType.rawValue, privacy: .public) for directory element")
-        }
-    }
-    
-    private func parseElementChildForAlbumDirectory(attributeDict: [String: String]) {
-        // Try not to consume an object that doesn't make sense. For now, we assume a hierarchy of
-        // Artist/Album/Track.ext. Navidrome is happy to oblige us and make up a hierarchy, but
-        // Subsonic doesn't guarantee it when it gives you the real FS layout.
-        if let currentArtist = self.currentArtist,
-           attributeDict["isDir"] == "true",
-           let id = attributeDict["id"],
-           let name = attributeDict["title"] {
-            // TODO: This whole metaphor is translated from Objective-C and is kinda clumsy.
-            var album = fetchAlbum(id: id)
-            if album == nil {
-                logger.info("Creating new album with ID: \(id, privacy: .public) and name \(name, privacy: .public)")
-                album = createAlbum(attributes: attributeDict)
-                // now assume not nil
-            }
-            album!.artist = currentArtist
-            currentArtist.addToAlbums(album!)
-            
-            // the track may not have a cover assigned yet
-            if album!.cover != nil {
-                // the album already has a cover
-                logger.info("Album ID \(id, privacy: .public) already has a cover")
-            } else if let coverID = attributeDict["coverArt"],
-                      let cover = fetchCover(coverID: coverID) {
-                // the album doesn't have a cover, but somehow the ID exists already
-                logger.warning("Album ID \(id, privacy: .public) isn't assigned to cover \(coverID, privacy: .public)")
-                // so assign it
-                cover.album = album!
-                album!.cover = cover
-            } else if let coverID = attributeDict["coverArt"] {
-                // there is no cover
-                logger.info("Creating new cover with ID: \(coverID, privacy: .public) for album ID \(id, privacy: .public)")
-                let cover = createCover(attributes: attributeDict)
-                cover.album = album!
-                album!.cover = cover
-            }
-            
-            // now fetch that cover after we initialized one
-            if let cover = album!.cover, let coverID = cover.itemId,
-               (cover.imagePath == nil || !FileManager.default.fileExists(atPath: cover.imagePath! as String)) {
-                // file doesn't exist, fetch it
-                logger.info("Fetching file for cover with ID: \(coverID, privacy: .public)")
-                clientController.getCover(id: coverID)
-            }
-        }
-    }
-    
-    private func parseElementChildForTrackDirectory(attributeDict: [String: String]) {
-        if let currentAlbum = self.currentAlbum, attributeDict["isDir"] == "false",
-           let id = attributeDict["id"], let name = attributeDict["title"] {
-            if let track = fetchTrack(id: id)  {
-                // Update
-                logger.info("Updating track with ID: \(id, privacy: .public) and name \(name, privacy: .public)")
-                updateTrack(track, attributes: attributeDict)
-                track.album = currentAlbum
-                currentAlbum.addToTracks(track)
-            } else {
-                // Create
-                logger.info("Creating new track with ID: \(id, privacy: .public) and name \(name, privacy: .public)")
-                let track = createTrack(attributes: attributeDict)
-                // now assume not nil
-                track.album = currentAlbum
-                currentAlbum.addToTracks(track)
-            }
-        }
-    }
-    
-    private func parseElementChild(attributeDict: [String: String]) {
-        if requestType == .getAlbumDirectory {
-            parseElementChildForAlbumDirectory(attributeDict: attributeDict)
-        } else if requestType == .getTrackDirectory {
-            parseElementChildForTrackDirectory(attributeDict: attributeDict)
-        } else {
-            logger.warning("Invalid request type \(self.requestType.rawValue, privacy: .public) for child element")
-        }
-    }
-    
     private func parseElementAlbumList(attributeDict: [String: String]) {
         // Clear the ServerHome controller
         server.home?.albums = nil
@@ -621,10 +530,6 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             parseElementIndex(attributeDict: attributeDict)
         } else if elementName == "artist" { // build artist index
             parseElementArtist(attributeDict: attributeDict)
-        } else if elementName == "directory" { // a directory...
-            parseElementDirectory(attributeDict: attributeDict)
-        } else if elementName == "child" { // ...and a directory's child item
-            parseElementChild(attributeDict: attributeDict)
         } else if elementName == "albumList" || elementName == "albumList2" { // the ServerHome controller's album list...
             parseElementAlbumList(attributeDict: attributeDict)
         } else if elementName == "album" { // ...and its albums
@@ -676,10 +581,6 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             postServerNotification(.SBSubsonicPlaylistUpdated)
         } else if requestType == .createPlaylist {
             postServerNotification(.SBSubsonicPlaylistsCreated)
-        } else if requestType == .getIndexes {
-            postServerNotification(.SBSubsonicIndexesUpdated)
-        } else if requestType == .getAlbumDirectory {
-            postServerNotification(.SBSubsonicAlbumsUpdated)
         } else if requestType == .getTrackDirectory {
             postServerNotification(.SBSubsonicTracksUpdated)
         } else if requestType == .getPlaylists {
@@ -943,71 +844,6 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         if let attachedAlbum = attachedAlbum {
             attachedAlbum.addToTracks(track)
             track.album = attachedAlbum
-        }
-    }
-    
-    // not as good as former, but we have to use it until we switch to using tag based metadata instead of hierarchy index
-    private func updateTrackDependenciesForDirectoryIndex(_ track: SBTrack, attributeDict: [String: String], shouldFetchAlbumArt: Bool = true) {
-        var attachedAlbum: SBAlbum?
-        var attachedCover: SBCover?
-        var attachedArtist: SBArtist?
-        
-        // set these if not already set (prev versions might not have for tracks where first seen was from now playing/search)
-        if let albumID = attributeDict["parent"] {
-            // we might not have the artist here to attach to
-            attachedAlbum = fetchAlbum(id: albumID)
-            if attachedAlbum == nil {
-                logger.info("Creating album ID \(albumID, privacy: .public) for index based entry")
-                // not using normal construction
-                attachedAlbum = SBAlbum.insertInManagedObjectContext(context: threadedContext)
-                attachedAlbum?.itemId = albumID
-                if let name = attributeDict["album"] {
-                    attachedAlbum?.itemName = name
-                }
-                attachedAlbum?.isLocal = false
-                
-                attachedAlbum?.addToTracks(track)
-                track.album = attachedAlbum
-                
-                // XXX: do this here?
-                server.home?.addToAlbums(attachedAlbum!)
-                attachedAlbum!.home = server.home
-            } else if track.album == nil {
-                attachedAlbum?.addToTracks(track)
-                track.album = attachedAlbum
-            }
-        }
-        
-        if let attachedAlbum = attachedAlbum, let coverID = attributeDict["coverArt"] {
-            attachedCover = fetchCover(coverID: coverID)
-            
-            if attachedCover?.itemId == nil || attachedCover?.itemId == "" {
-                logger.info("Creating cover ID \(coverID, privacy: .public) for index based entry")
-                attachedCover = createCover(attributes: attributeDict)
-                attachedCover!.album = attachedAlbum
-                attachedAlbum.cover = attachedCover!
-            }
-            
-            if shouldFetchAlbumArt {
-                clientController.getCover(id: coverID)
-            }
-        }
-        
-        if let attachedAlbum = attachedAlbum, let artistName = attributeDict["artist"] {
-            // XXX: try using artistId - may be tag based in subsonic so wouldn't match right ID...
-            attachedArtist = fetchArtist(name: artistName)
-            if attachedArtist == nil {
-                logger.info("Creating artist name \(artistName, privacy: .public) for index based entry")
-                attachedArtist = SBArtist.insertInManagedObjectContext(context: threadedContext)
-                // XXX: Lack of ID seems like it'll be agony
-                attachedArtist!.itemName = artistName
-                attachedArtist!.isLocal = false
-                attachedArtist!.server = server
-                server.addToIndexes(attachedArtist!)
-            }
-            
-            attachedAlbum.artist = attachedArtist!
-            attachedArtist!.addToAlbums(attachedAlbum)
         }
     }
     
