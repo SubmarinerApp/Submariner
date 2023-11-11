@@ -86,7 +86,12 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         }
         
         // SBImportOperation needs an audio file extension. Rename the file.
-        let fileType = UTType(mimeType: downloadTask.response?.mimeType ?? "audio/mp3") ?? UTType.mp3
+        var proposedMimeType = downloadTask.response?.mimeType
+        if proposedMimeType == "application/x-download" {
+            // XXX: get a better one
+            proposedMimeType = nil
+        }
+        let fileType = UTType(mimeType: proposedMimeType ?? "audio/mp3") ?? UTType.mp3
         let temporaryFile = URL.temporaryFile().appendingPathExtension(for: fileType)
         try! FileManager.default.moveItem(at: location, to: temporaryFile)
         
