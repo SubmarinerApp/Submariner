@@ -373,8 +373,10 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             }
             
             // always reassociate due to possible transitions
-            album!.artist = artist
-            artist?.addToAlbums(album!)
+            if artist != nil {
+                album!.artist = artist
+                artist?.addToAlbums(album!)
+            }
             server.home?.addToAlbums(album!)
             album!.home = server.home
             
