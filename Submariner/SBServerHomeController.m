@@ -117,9 +117,10 @@
 					  [NSDictionary dictionaryWithObjectsAndKeys: 
                        @"NewestItem", ITEM_IDENTIFIER, 
                        @"Newest", ITEM_NAME, nil],
-                      [NSDictionary dictionaryWithObjectsAndKeys: 
-                       @"HighestItem", ITEM_IDENTIFIER, 
-                       @"Highest", ITEM_NAME, nil],
+                      // "highest" isn't supported by albumList2 in Subsonic or Navidrome for some reason...
+//                      [NSDictionary dictionaryWithObjectsAndKeys:
+//                       @"HighestItem", ITEM_IDENTIFIER,
+//                       @"Highest", ITEM_NAME, nil],
                       [NSDictionary dictionaryWithObjectsAndKeys: 
                        @"FrequentItem", ITEM_IDENTIFIER, 
                        @"Frequent", ITEM_NAME, nil],
