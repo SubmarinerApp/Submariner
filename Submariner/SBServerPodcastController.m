@@ -70,7 +70,7 @@
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context {
     self = [super initWithManagedObjectContext:context];
     if (self) {
-        NSSortDescriptor *descr1 = [NSSortDescriptor sortDescriptorWithKey:@"id" ascending:YES];
+        NSSortDescriptor *descr1 = [NSSortDescriptor sortDescriptorWithKey:@"itemId" ascending:YES];
         podcastsSortDescriptors = [[NSArray alloc] initWithObjects:descr1, nil];
         
         NSSortDescriptor *descr2 = [NSSortDescriptor sortDescriptorWithKey:@"publishDate" ascending:NO];

@@ -860,7 +860,7 @@
         return;
     }
     [self.server setSelectedTabIndex: 2];
-    SBNavigationItem *navItem = [[SBServerHomeNavigationItem alloc] initWithServer: self.server];
+    SBNavigationItem *navItem = [[SBServerPodcastsNavigationItem alloc] initWithServer: self.server];
     [self navigateForwardToNavItem: navItem];
 }
 

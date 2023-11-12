@@ -65,6 +65,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         @objc(SBSubsonicRequestGetArtists) case getArtists = 30
         @objc(SBSubsonicRequestGetArtist) case getArtist = 31
         @objc(SBSubsonicRequestGetAlbum) case getAlbum = 32
+        @objc(SBSubsonicRequestGetTrack) case getTrack = 33
     }
     
     let clientController: SBClientController
@@ -488,25 +489,22 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     private func parseElementEpisode(attributeDict: [String: String]) {
         if let currentPodcast = self.currentPodcast, let id = attributeDict["id"] {
             var episode = fetchEpisode(id: id)
-            if episode != nil {
+            if episode == nil {
                 logger.info("Creating episode ID \(id, privacy: .public)")
                 episode = createEpisode(attributes: attributeDict)
             }
             
             if currentPodcast.episodes?.contains(episode!) == true && attributeDict["status"] == episode?.episodeStatus {
-                // FIXME: This seems very bad, we should update the object instead (convert createEpisode to updateEpisode)
-                currentPodcast.removeFromEpisodes(episode!)
-                episode = createEpisode(attributes: attributeDict)
-                currentPodcast.addToEpisodes(episode!)
+                updateEpisode(episode!, attributes: attributeDict)
             } else {
                 currentPodcast.addToEpisodes(episode!)
             }
             
-            // FIXME: yeah, this is how it was before, it doesn't make much sense
             if let streamID = attributeDict["streamId"] {
                 let track = fetchTrack(id: streamID)
-                if track == nil, let albumID = attributeDict["parent"] {
-                    clientController.getTracks(albumID: albumID)
+                if track == nil {
+                    // XXX: does it associate? is it used?
+                    clientController.getTrack(trackID: streamID)
                 } else {
                     episode!.track = track
                 }
@@ -988,11 +986,12 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         return podcast
     }
     
-    private func createEpisode(attributes: [String: String]) -> SBEpisode {
-        let episode = SBEpisode.insertInManagedObjectContext(context: threadedContext)
-        
+    private func updateEpisode(_ episode: SBEpisode, attributes: [String: String]) {
         if let id = attributes["id"] {
             episode.itemId = id
+        }
+        if let title = attributes["title"] {
+            episode.itemName = title
         }
         if let streamId = attributes["streamId"] {
             episode.streamID = streamId
@@ -1041,6 +1040,12 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         episode.isLocal = false
         episode.server = server
         // XXX: Do we call addToTracks?
+    }
+    
+    private func createEpisode(attributes: [String: String]) -> SBEpisode {
+        let episode = SBEpisode.insertInManagedObjectContext(context: threadedContext)
+        
+        updateEpisode(episode, attributes: attributes)
         
         return episode
     }

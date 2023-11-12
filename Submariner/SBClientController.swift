@@ -153,14 +153,12 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         }
     }
     
-    @objc(getTracksForAlbumID:) func getTracks(albumID: String) {
+    func getTrack(trackID: String) {
         var params = parameters
-        params["id"] = albumID
+        params["id"] = trackID
         
-        let url = URL.URLWith(string: server.url, command: "rest/getMusicDirectory.view", parameters: params)
-        request(url: url, type: .getTrackDirectory) { operation in
-            operation.currentAlbumID = albumID
-        }
+        let url = URL.URLWith(string: server.url, command: "rest/getSong.view", parameters: params)
+        request(url: url, type: .getTrack)
     }
     
     func get(album: SBAlbum) {
