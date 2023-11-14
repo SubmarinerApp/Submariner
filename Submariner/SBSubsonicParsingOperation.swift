@@ -91,6 +91,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     var currentCoverID: String?
     
     // state for deleting elements not in this list
+    var playlistsReturned: [SBPlaylist] = []
     var artistsReturned: [SBArtist] = []
     
     init!(managedObjectContext mainContext: NSManagedObjectContext!,
@@ -341,6 +342,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 // we have an existing playlist, update it
                 updatePlaylist(playlist, attributes: attributeDict)
             }
+            playlistsReturned.append(playlist!)
         } else if requestType == .getPlaylist, let id = attributeDict["id"] {
             currentPlaylist = fetchPlaylist(id: id)
         } else {
@@ -597,6 +599,14 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         } else if requestType == .getTrackDirectory {
             postServerNotification(.SBSubsonicTracksUpdated)
         } else if requestType == .getPlaylists {
+            let playlistRequest: NSFetchRequest<SBPlaylist> = SBPlaylist.fetchRequest()
+            playlistRequest.predicate = NSPredicate(format: "(server == %@) && (NOT (self IN %@))", server, playlistsReturned)
+            if let playlists = try? threadedContext.fetch(playlistRequest) {
+                for playlist in playlists {
+                    logger.info("Removing artist not in list \(playlist.itemId ?? "<nil>", privacy: .public) name \(playlist.resourceName ?? "<nil>")")
+                    threadedContext.delete(playlist)
+                }
+            }
             postServerNotification(.SBSubsonicPlaylistsUpdated)
         } else if requestType == .getPlaylist {
             currentPlaylist = nil
