@@ -188,12 +188,27 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 return
             }
             
-            if let currentPlaylistID = self.currentPlaylistID, let playlistToDelete = fetchPlaylist(id: currentPlaylistID) {
-                threadedContext.delete(playlistToDelete)
-            } else if let currentArtistID = self.currentArtistID, let artistToDelete = fetchArtist(id: currentArtistID) {
-                threadedContext.delete(artistToDelete)
-            } else if let currentAlbumID = self.currentAlbumID, let albumToDelete = fetchAlbum(id: currentAlbumID) {
-                threadedContext.delete(albumToDelete)
+            if let currentPlaylistID = self.currentPlaylistID {
+                logger.info("Didn't find playlist on server w/ ID of \(currentPlaylistID, privacy: .public)")
+                if let playlistToDelete = fetchPlaylist(id: currentPlaylistID) {
+                    logger.info("Removing playlist that wasn't found on server w/ ID of \(currentPlaylistID, privacy: .public)")
+                    threadedContext.delete(playlistToDelete)
+                }
+                return
+            } else if let currentArtistID = self.currentArtistID {
+                logger.info("Didn't find artist on server w/ ID of \(currentArtistID, privacy: .public)")
+                if let artistToDelete = fetchArtist(id: currentArtistID) {
+                    logger.info("Removing artist that wasn't found on server w/ ID of \(currentArtistID, privacy: .public)")
+                    threadedContext.delete(artistToDelete)
+                }
+                return
+            } else if let currentAlbumID = self.currentAlbumID {
+                logger.info("Didn't find album on server w/ ID of \(currentAlbumID, privacy: .public)")
+                if let albumToDelete = fetchAlbum(id: currentAlbumID) {
+                    logger.info("Removing album that wasn't found on server w/ ID of \(currentAlbumID, privacy: .public)")
+                    threadedContext.delete(albumToDelete)
+                }
+                return
             }
             // XXX: Cover, podcast, track? Do we need to remove it from any sets?
         }
