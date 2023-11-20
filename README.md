@@ -31,9 +31,14 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes:
 
-### Version 2.5 (not yet released)
+### Version 3.0 (not yet released)
 
 * macOS 12 is now the minimum version.
+* The internal database now stores actual artist and album instead of directory IDs, alleviating many UI quirks when using Subsonic servers
+  * Users of alternative server implementations like Navidrome won't notice anything, as they already use fake directory IDs based on artist and album IDs.
+  * I've tried hard to make this transition as smooth as possible. Please file an issue if anything goes wrong.
+  * If reloading and switching away from and back to the server doesn't help, delete recreate your server in the database.
+* Podcasts have been made less buggy
 * Adds an inspector sidebar for looking at track properties
 * Adds an option to purge the locally downloaded/cached files. Imported files are unaffected.
 * Makes the internal tracklist model index based. Duplicate tracks no longer cause UI wonkiness.
@@ -41,6 +46,10 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Don't update the position slider if the window isn't visible, reducing CPU usage
 * Avoid downloading tracks if they're already downloaded
 * Remove some images, reduce application size
+* Don't show 404 messages to avoid noise w/ ID migrations
+* Avoid hitting download endpoint if unneeded
+* HTTP timeouts are now handled correctly
+* Fix tracks unable to be downloaded from Subsonic servers
 * Fix a crash when trying to play an album without any tracks
 * Fix a crash if the track's duration is nil
 * Fix attribute names in schema blocking future refactors.
