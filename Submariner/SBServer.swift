@@ -36,6 +36,8 @@ public class SBServer: SBResource {
     // items either; if the dictionary grows to where it becomes a problem, just restart.
     // This is NSNumber for Cocoa binding's sake
     fileprivate static var _supportsNowPlaying: [NSManagedObjectID: NSNumber] = [:]
+    // TODO: Need to bind this to the UI so it'll hide in menu bar
+    var supportsPodcasts: Bool = true
     
     @objc dynamic var supportsNowPlaying: NSNumber {
         get {
@@ -53,6 +55,21 @@ public class SBServer: SBResource {
             // not supported by OC Music, we special case because this gets called in the background
             supportsNowPlaying = false
             // we don't need to show a message here, since SBServerUserViewController will display this for us
+        case .getPodcasts:
+            // TODO: UI stuff beyond an initial dialog displayed once (switch away, hide UI like now playing SwiftUI view does, etc.)
+            if supportsPodcasts {
+                DispatchQueue.main.async {
+                    let alert = NSAlert()
+                    // XXX: suppressable?
+                    alert.alertStyle = .warning
+                    alert.informativeText = "Podcasts aren't supported by the server \(self.resourceName ?? "")."
+                    alert.messageText = "Unsupported Server Feature"
+                    alert.addButton(withTitle: "OK")
+                    alert.runModal()
+                }
+            }
+            supportsPodcasts = false
+            return
         default:
             // this happened possibly unexpectedly, maybe without user interaction. do further special casing from here
             DispatchQueue.main.async {
