@@ -149,9 +149,16 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             let fileType = UTType(mimeType: self.mimeType!) ?? data.guessImageType() ?? UTType.jpeg
             let fileName = coversDir.appendingPathComponent(currentCoverID, conformingTo: fileType)
             try data.write(to: fileName, options: [.atomic])
+            logger.info("Wrote cover file \(fileName, privacy: .public)")
             
             if let cover = fetchCover(coverID: currentCoverID) {
+                // reset album in weird circumstance where it's not associated
+                if let currentAlbumID = self.currentAlbumID, let album = fetchAlbum(id: currentAlbumID) {
+                    cover.album = album
+                    album.cover = cover
+                }
                 cover.imagePath = fileName.path as NSString
+                logger.info("Set cover \(currentCoverID, privacy: .public) to file \(fileName, privacy: .public)")
             }
         }
         
@@ -321,7 +328,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 }
                 
                 if album?.cover?.imagePath == nil {
-                    clientController.getCover(id: coverArt)
+                    clientController.getCover(id: coverArt, for: album!.itemId)
                 }
             }
         }
@@ -860,7 +867,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             }
             
             if attachedAlbum.cover?.imagePath == nil {
-                clientController.getCover(id: coverArt)
+                clientController.getCover(id: coverArt, for: attributeDict["albumId"])
             }
         }
         

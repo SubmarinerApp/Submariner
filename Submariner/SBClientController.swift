@@ -143,13 +143,14 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         }
     }
     
-    @objc(getCoverWithID:) func getCover(id: String) {
+    func getCover(id: String, for albumID: String? = nil) {
         var params = parameters
         params["id"] = id
         
         let url = URL.URLWith(string: server.url, command: "rest/getCoverArt.view", parameters: params)
         request(url: url, type: .getCoverArt) { operation in
             operation.currentCoverID = id
+            operation.currentAlbumID = albumID
         }
     }
     
