@@ -17,6 +17,10 @@ extension NSNotification.Name {
 @objc class SBServerUserViewController: SBViewController, ObservableObject {
     @objc var databaseController: SBDatabaseController?
     
+    // #MARK: - Commands
+    // TODO: Some of the logic is similar to that of SBViewController, but different due to that fact we're not working with tables.
+    // As such, it could be made more consistent eventually.
+    
     @objc func refreshNowPlaying() {
         let fetchRequest = NSFetchRequest<SBNowPlaying>(entityName: "NowPlaying")
         fetchRequest.includesPropertyValues = false
@@ -34,8 +38,44 @@ extension NSNotification.Name {
         SBPlayer.sharedInstance().play(track: track)
     }
     
+    func addToTracklist(track: SBTrack) {
+        SBPlayer.sharedInstance().add(track: track, replace: false)
+    }
+    
+    func addToNewLocalPlaylist(track: SBTrack) {
+        let playlistSectionRequest: NSFetchRequest<SBSection> = SBSection.fetchRequest()
+        playlistSectionRequest.predicate = NSPredicate(format: "(resourceName = %@)", "Playlists")
+        if let playlistsSection = try? managedObjectContext.fetch(playlistSectionRequest).first {
+            let newPlaylist = SBPlaylist.insertInManagedObjectContext(context: managedObjectContext)
+            newPlaylist.resourceName = "New Playlist"
+            newPlaylist.tracks = Set([track]) as NSSet
+            newPlaylist.section = playlistsSection
+            playlistsSection.addToResources(newPlaylist)
+        }
+    }
+    
+    func addToNewServerPlaylist(track: SBTrack) {
+        databaseController?.addServerPlaylistController.server = server
+        databaseController?.addServerPlaylistController.tracks = [track]
+        databaseController?.addServerPlaylistController.openSheet(self)
+    }
+    
+    func download(track: SBTrack) {
+        if let downloadOperation = SBSubsonicDownloadOperation(managedObjectContext: managedObjectContext, trackID: track.objectID) {
+            OperationQueue.sharedDownloadQueue.addOperation(downloadOperation)
+            databaseController?.showDownloadView(self)
+        }
+    }
+    
     func showInLibrary(track: SBTrack) {
         databaseController?.go(to: track)
+    }
+    
+    func showInFinder(track: SBTrack) {
+        if let localTrack = track.localTrack, let localPath = localTrack.path {
+            let url = URL(fileURLWithPath: localPath)
+            NSWorkspace.shared.activateFileViewerSelecting([url])
+        }
     }
     
     // #MARK: - View Management
@@ -161,7 +201,37 @@ extension NSNotification.Name {
                 } label: {
                     Text("Play")
                 }
+                Button {
+                    if let track = item.track {
+                        serverUsersController.addToTracklist(track: track)
+                    }
+                } label: {
+                    Text("Add to Tracklist")
+                }
                 Divider()
+                Button {
+                    if let track = item.track {
+                        serverUsersController.addToNewLocalPlaylist(track: track)
+                    }
+                } label: {
+                    Text("Create Playlist with Selected")
+                }
+                Button {
+                    if let track = item.track {
+                        serverUsersController.addToNewServerPlaylist(track: track)
+                    }
+                } label: {
+                    Text("Create Server Playlist with Selected")
+                }
+                Divider()
+                Button {
+                    if let track = item.track {
+                        serverUsersController.download(track: track)
+                    }
+                } label: {
+                    Text("Download")
+                }
+                .disabled(item.track?.localTrack != nil)
                 Button {
                     if let track = item.track {
                         serverUsersController.showInLibrary(track: track)
@@ -169,6 +239,14 @@ extension NSNotification.Name {
                 } label: {
                     Text("Show in Library")
                 }
+                Button {
+                    if let track = item.track {
+                        serverUsersController.showInFinder(track: track)
+                    }
+                } label: {
+                    Text("Show in Finder")
+                }
+                .disabled(item.track?.localTrack == nil)
             }
         }
     }
