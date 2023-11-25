@@ -42,12 +42,12 @@
 
 
 @synthesize server;
-@synthesize trackIDs;
+@synthesize tracks;
 
 - (id)init {
     self = [super init];
     if (self) {
-        trackIDs = [[NSArray alloc] init];
+        tracks = [[NSArray alloc] init];
     }
     return self;
 }
@@ -61,7 +61,7 @@
         NSString *playlistName = [playlistNameField stringValue];
         
         // create playlist on server
-        [self.server createPlaylistWithName:playlistName tracks:trackIDs];
+        [self.server createPlaylistWithName:playlistName tracks:tracks];
         [super closeSheet:sender];
     }
 }

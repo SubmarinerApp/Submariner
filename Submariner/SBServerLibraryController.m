@@ -309,15 +309,15 @@
 - (IBAction)createNewPlaylistWithSelectedTracks:(id)sender {
     // get selected rows track objects
     NSIndexSet *rowIndexes = [tracksTableView selectedRowIndexes];
-    NSMutableArray *trackIDs = [NSMutableArray array];
+    NSMutableArray *tracks = [NSMutableArray array];
     
     // create an IDs array
     [rowIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        [trackIDs addObject:[[[tracksController arrangedObjects] objectAtIndex:idx] itemId]];
+        [tracks addObject:[[tracksController arrangedObjects] objectAtIndex:idx]];
     }];
     
     [databaseController.addServerPlaylistController setServer:self.server];
-    [databaseController.addServerPlaylistController setTrackIDs:trackIDs];
+    [databaseController.addServerPlaylistController setTracks:tracks];
     [databaseController.addServerPlaylistController openSheet:sender];
 }
 

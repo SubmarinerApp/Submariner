@@ -37,15 +37,16 @@
 #import "SBSheetController.h"
 
 @class SBServer;
+@class SBTrack;
 
 @interface SBAddServerPlaylistController : SBSheetController {
     SBServer *server;
-    NSArray *trackIDs;
+    NSArray<SBTrack*> *tracks;
     
     IBOutlet NSTextField *playlistNameField;
 }
 
-@property (readwrite, strong) NSArray *trackIDs;
+@property (readwrite, strong) NSArray<SBTrack*> *tracks;
 @property (readwrite, strong) SBServer *server;
 
 @end
