@@ -49,6 +49,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Don't show 404 messages to avoid noise w/ ID migrations
 * Avoid hitting download endpoint if unneeded
 * HTTP timeouts are now handled correctly
+* Use remote album artist name when importing downloaded tracks
 * Fix tracks unable to be downloaded from Subsonic servers
 * Fix a crash when trying to play an album without any tracks
 * Fix a crash if the track's duration is nil

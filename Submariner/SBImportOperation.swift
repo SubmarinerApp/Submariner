@@ -69,7 +69,10 @@ import UniformTypeIdentifiers
         if let remoteTrack = remoteTrack {
             titleString = remoteTrack.itemName as String?
             artistString = remoteTrack.artistName as String?
-            if let albumArtistMaybe = remoteTrack.artistName as String?,
+            // first case is so that it matches the album's artist on the server
+            if let remoteAlbum = remoteTrack.album, let remoteAlbumArtist = remoteAlbum.artist {
+                albumArtistString = remoteAlbumArtist.itemName
+            } else if let albumArtistMaybe = remoteTrack.artistName as String?,
                albumArtistMaybe != "" {
                 albumArtistString = albumArtistMaybe
             } else {
