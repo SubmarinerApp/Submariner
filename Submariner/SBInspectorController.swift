@@ -8,6 +8,7 @@
 
 import Cocoa
 import SwiftUI
+import QuickLook
 
 @objc class SBInspectorController: SBViewController {
     @objc var databaseController: SBDatabaseController?
@@ -32,6 +33,8 @@ import SwiftUI
         static var byteFormatter = ByteCountFormatter()
         
         let tracks: [SBTrack]
+        // used for quick look preview
+        @State var coverUrl: URL?
 
         func valueIfSame<T: Hashable>(property: KeyPath<SBTrack, T>) -> T? {
             // one or none
@@ -96,8 +99,19 @@ import SwiftUI
                let path = cover.imagePath, let image = NSImage(contentsOfFile: path as String) {
                 Image(nsImage: image)
                     .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    
+                    .scaledToFit()
+                    .aspectRatio(contentMode: .fit)
+                    .onTapGesture {
+                        coverUrl = URL(fileURLWithPath: path as String)
+                    }
+                    .quickLookPreview($coverUrl)
+            } else {
+                Image(systemName: "questionmark.square.dashed")
+                    .resizable()
+                    .scaledToFit()
+                    .aspectRatio(contentMode: .fit)
+                    .padding()
+                    .foregroundColor(.secondary)
             }
              */
             Form {
