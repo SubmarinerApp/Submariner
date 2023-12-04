@@ -11,7 +11,6 @@
             <connections>
                 <outlet property="albumsBrowserView" destination="104" id="149"/>
                 <outlet property="albumsController" destination="137" id="148"/>
-                <outlet property="artistController" destination="128" id="133"/>
                 <outlet property="artistSplitView" destination="81" id="164"/>
                 <outlet property="artistsController" destination="128" id="134"/>
                 <outlet property="artistsTableView" destination="183" id="191"/>
