@@ -348,7 +348,9 @@
     // tracklistContainmentBox.frame.size.width would be default size to clamp to if you want
     tracklistSplit.minimumThickness = 150 + 36;
     //[tracklistContainmentBox.contentView addSubview: [tracklistController view]];
-    tracklistContainmentBox.contentView = [tracklistController view];
+    // Don't set the view here, we set it when querying defaults for last opened view.
+    // Otherwise, we'll confuse it if the view is the one from the defaults
+    //tracklistContainmentBox.contentView = [tracklistController view];
     [splitVC addSplitViewItem: tracklistSplit];
     tracklistSplit.canCollapse=YES;
     tracklistSplit.collapsed = YES;
