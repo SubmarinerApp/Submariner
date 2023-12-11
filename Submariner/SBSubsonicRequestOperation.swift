@@ -103,7 +103,7 @@ class SBSubsonicRequestOperation: SBOperation {
                     return
                 }
                 
-                if let operation = SBSubsonicParsingOperation(managedObjectContext: self.threadedContext,
+                if let operation = SBSubsonicParsingOperation(managedObjectContext: self.mainContext,
                                                               requestType: type,
                                                               server: self.server.objectID,
                                                               xml: data,
