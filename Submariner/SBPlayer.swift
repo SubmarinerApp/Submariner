@@ -560,7 +560,7 @@ extension NSNotification.Name {
         // scrobble if doing that. navidrome/navidrome#2347 implies we should always do this,
         // even if we're using the remote stream URL instead of a local track.
         if let server = track.server, UserDefaults.standard.scrobbleToServer, let itemId = track.itemId {
-            server.clientController.scrobble(id: itemId)
+            server.scrobble(id: itemId)
         }
     }
     

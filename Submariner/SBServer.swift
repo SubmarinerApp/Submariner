@@ -472,6 +472,10 @@ public class SBServer: SBResource {
         }
     }
     
+    func scrobble(id: String) {
+        self.clientController.scrobble(id: id)
+    }
+    
     // #MARK: - Subsonic Client (Search)
     
     @objc func search(query: String) {
