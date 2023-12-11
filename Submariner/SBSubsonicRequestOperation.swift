@@ -16,7 +16,7 @@ class SBSubsonicRequestOperation: SBOperation {
     
     var server: SBServer // like parsing we need to do the same throwing away again
     
-    let parameters: [String: String]
+    var parameters: [String: String] = [:]
     let request: SBSubsonicRequestType
     var url: URL? // XXX: Make into let
     var customization: ParsingCustomization? = nil
@@ -134,9 +134,8 @@ class SBSubsonicRequestOperation: SBOperation {
         case .getLicense:
             url = URL.URLWith(string: server.url, command: "rest/getLicense.view", parameters: parameters)
         case .getCoverArt(id: let id, forAlbumId: let albumId):
-            var params = parameters
-            params["id"] = id
-            url = URL.URLWith(string: server.url, command: "rest/getCoverArt.view", parameters: params)
+            parameters["id"] = id
+            url = URL.URLWith(string: server.url, command: "rest/getCoverArt.view", parameters: parameters)
             customization = { operation in
                 operation.currentCoverID = id
                 operation.currentAlbumID = albumId
@@ -144,79 +143,71 @@ class SBSubsonicRequestOperation: SBOperation {
         case .getPlaylists:
             url = URL.URLWith(string: server.url, command: "rest/getPlaylists.view", parameters: parameters)
         case .getAlbumList(type: let type):
-            var params = parameters
             switch type {
             case .random:
-                params["type"] = "random"
+                parameters["type"] = "random"
             case .newest:
-                params["type"] = "newest"
+                parameters["type"] = "newest"
             case .frequent:
-                params["type"] = "frequent"
+                parameters["type"] = "frequent"
             case .highest:
-                params["type"] = "highest"
+                parameters["type"] = "highest"
             case .recent:
-                params["type"] = "recent"
+                parameters["type"] = "recent"
             default:
                 logger.error("getAlbumList type: unrecognized")
                 abort()
             }
             
-            url = URL.URLWith(string: server.url, command: "rest/getAlbumList2.view", parameters: params)
+            url = URL.URLWith(string: server.url, command: "rest/getAlbumList2.view", parameters: parameters)
         case .getPlaylist(id: let id):
-            var params = parameters
-            params["id"] = id
-            url = URL.URLWith(string: server.url, command: "rest/getPlaylist.view", parameters: params)
+            parameters["id"] = id
+            url = URL.URLWith(string: server.url, command: "rest/getPlaylist.view", parameters: parameters)
             customization = { operation in
                 operation.currentPlaylistID = id
             }
         case .deletePlaylist(id: let id):
-            var params = parameters
-            params["id"] = id
-            url = URL.URLWith(string: server.url, command: "rest/deletePlaylist.view", parameters: params)
+            parameters["id"] = id
+            url = URL.URLWith(string: server.url, command: "rest/deletePlaylist.view", parameters: parameters)
             customization = { operation in
                 operation.currentPlaylistID = id
             }
         case .createPlaylist(name: let name, tracks: let tracks):
-            var params = parameters
-            params["name"] = name
+            parameters["name"] = name
             
             // XXX: DRY this with update
-            let allParams = params.map { (k, v) in  URLQueryItem(name: k, value: v) } +
+            let allParams = parameters.map { (k, v) in  URLQueryItem(name: k, value: v) } +
                 tracks.map { track in URLQueryItem(name: "songId", value: track.itemId) }
             
             url = URL.URLWith(string: server.url, command: "rest/createPlaylist.view", queryItems: allParams)
         case .getNowPlaying:
             url = URL.URLWith(string: server.url, command: "rest/getNowPlaying.view", parameters: parameters)
         case .search(query: let query):
-            var params = parameters
-            params["query"] = query
-            params["songCount"] = "100" // XXX: Configurable? Pagination?
-            url = URL.URLWith(string: server.url, command: "rest/search3.view", parameters: params)
+            parameters["query"] = query
+            parameters["songCount"] = "100" // XXX: Configurable? Pagination?
+            url = URL.URLWith(string: server.url, command: "rest/search3.view", parameters: parameters)
             customization = { operation in
                 operation.currentSearch = SBSearchResult(query: query)
             }
         case .setRating(id: let id, rating: let rating):
-            var params = parameters
-            params["rating"] = String(rating)
-            params["id"] = id
-            url = URL.URLWith(string: server.url, command: "rest/setRating.view", parameters: params)
+            parameters["rating"] = String(rating)
+            parameters["id"] = id
+            url = URL.URLWith(string: server.url, command: "rest/setRating.view", parameters: parameters)
         case .getPodcasts:
             url = URL.URLWith(string: server.url, command: "rest/getPodcasts.view", parameters: parameters)
         case .scrobble(id: let id):
-            var params = parameters
-            params["id"] = id
+            parameters["id"] = id
             let currentTimeMS = Int64(Date().timeIntervalSince1970 * 1000)
-            params["time"] = String(currentTimeMS)
-            url = URL.URLWith(string: server.url, command: "rest/scrobble.view", parameters: params)
+            parameters["time"] = String(currentTimeMS)
+            url = URL.URLWith(string: server.url, command: "rest/scrobble.view", parameters: parameters)
         case .scanLibrary:
             url = URL.URLWith(string: server.url, command: "rest/startScan.view", parameters: parameters)
         case .getScanStatus:
             url = URL.URLWith(string: server.url, command: "rest/getScanStatus.view", parameters: parameters)
         case .replacePlaylist(id: let id, tracks: let tracks):
-            var params = parameters
-            params["playlistId"] = id
+            parameters["playlistId"] = id
             
-            let allParams = params.map { (k, v) in  URLQueryItem(name: k, value: v) } +
+            let allParams = parameters.map { (k, v) in  URLQueryItem(name: k, value: v) } +
                 tracks.map { track in URLQueryItem(name: "songId", value: track.itemId) }
             
             url = URL.URLWith(string: server.url, command: "rest/createPlaylist.view", queryItems: allParams)
@@ -224,19 +215,18 @@ class SBSubsonicRequestOperation: SBOperation {
                 operation.currentPlaylistID = id
             }
         case .updatePlaylist(id: let id, name: let name, comment: let comment, isPublic: let isPublic, appending: let appending, removing: let removing):
-            var params = parameters
-            params["playlistId"] = id
+            parameters["playlistId"] = id
             if let name = name {
-                params["name"] = name
+                parameters["name"] = name
             }
             if let comment = comment {
-                params["comment"] = comment
+                parameters["comment"] = comment
             }
             if let isPublic = isPublic {
-                params["public"] = "\(isPublic)"
+                parameters["public"] = "\(isPublic)"
             }
             
-            let allParams = params.map { (k, v) in  URLQueryItem(name: k, value: v) } +
+            let allParams = parameters.map { (k, v) in  URLQueryItem(name: k, value: v) } +
                 (appending?.map { track in URLQueryItem(name: "songIdToAdd", value: track.itemId) } ?? []) +
                 (removing?.map { index in URLQueryItem(name: "songIndexToRemove", value: "\(index)") } ?? [])
             
@@ -247,24 +237,20 @@ class SBSubsonicRequestOperation: SBOperation {
         case .getArtists:
             url = URL.URLWith(string: server.url, command: "rest/getArtists.view", parameters: parameters)
         case .getArtist(id: let id):
-            var params = parameters
-            params["id"] = id
-            url = URL.URLWith(string: server.url, command: "rest/getArtist.view", parameters: params)
+            parameters["id"] = id
+            url = URL.URLWith(string: server.url, command: "rest/getArtist.view", parameters: parameters)
             customization = { operation in
                 operation.currentArtistID = id
             }
         case .getAlbum(id: let id):
-            var params = parameters
-            params["id"] = id
-            url = URL.URLWith(string: server.url, command: "rest/getAlbum.view", parameters: params)
+            parameters["id"] = id
+            url = URL.URLWith(string: server.url, command: "rest/getAlbum.view", parameters: parameters)
             customization = { operation in
                 operation.currentAlbumID = id
             }
         case .getTrack(id: let id):
-            var params = parameters
-            params["id"] = id
-            
-            url = URL.URLWith(string: server.url, command: "rest/getSong.view", parameters: params)
+            parameters["id"] = id
+            url = URL.URLWith(string: server.url, command: "rest/getSong.view", parameters: parameters)
         }
     }
 }
