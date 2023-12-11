@@ -9,7 +9,7 @@
 import Cocoa
 import os
 
-fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "SBClientController")
+fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "SBSubsonicRequestOperation")
 
 class SBSubsonicRequestOperation: SBOperation {
     typealias ParsingCustomization = ((SBSubsonicParsingOperation) -> Void)
