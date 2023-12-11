@@ -68,7 +68,6 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         @objc(SBSubsonicRequestGetTrack) case getTrack = 33
     }
     
-    let clientController: SBClientController
     let requestType: RequestType
     var server: SBServer
     let xmlData: Data?
@@ -95,13 +94,11 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     var artistsReturned: [SBArtist] = []
     
     init!(managedObjectContext mainContext: NSManagedObjectContext!,
-          client: SBClientController,
           requestType: RequestType,
           server: NSManagedObjectID,
           xml: Data?,
           mimeType: String?) {
         self.requestType = requestType
-        self.clientController = client
         // HACK: we need to throw this away, so we can reinit with threadedContext from SBOperation
         self.server = mainContext.object(with: server) as! SBServer
         self.xmlData = xml
@@ -328,7 +325,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 }
                 
                 if album?.cover?.imagePath == nil {
-                    clientController.getCover(id: coverArt, for: album!.itemId)
+                    server.getCover(id: coverArt, for: album!.itemId)
                 }
             }
         }
@@ -528,7 +525,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 let track = fetchTrack(id: streamID)
                 if track == nil {
                     // XXX: does it associate? is it used?
-                    clientController.getTrack(trackID: streamID)
+                    server.getTrack(trackID: streamID)
                 } else {
                     episode!.track = track
                 }
@@ -867,7 +864,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             }
             
             if attachedAlbum.cover?.imagePath == nil {
-                clientController.getCover(id: coverArt, for: attributeDict["albumId"])
+                server.getCover(id: coverArt, for: attributeDict["albumId"])
             }
         }
         

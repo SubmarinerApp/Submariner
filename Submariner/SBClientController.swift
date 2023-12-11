@@ -85,7 +85,6 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                 }
                 
                 if let operation = SBSubsonicParsingOperation(managedObjectContext: self.managedObjectContext,
-                                                              client: self,
                                                               requestType: type,
                                                               server: self.server.objectID,
                                                               xml: data,

@@ -415,6 +415,14 @@ public class SBServer: SBResource {
         self.clientController.get(album: album)
     }
     
+    func getTrack(trackID: String) {
+        self.clientController.getTrack(trackID: trackID)
+    }
+    
+    func getCover(id: String, for albumID: String?) {
+        self.clientController.getCover(id: id, for: albumID)
+    }
+    
     @objc func getAlbumListFor(type: SBSubsonicParsingOperation.RequestType) {
         self.clientController.getAlbumList(type: type)
     }
