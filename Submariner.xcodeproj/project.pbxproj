@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 53;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,7 +11,8 @@
 		3E189E4028EF5BAB0062ACA0 /* SBAudioMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */; };
 		3E1B785E2ACE5039008927C6 /* SBInspectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B785D2ACE5039008927C6 /* SBInspectorController.swift */; };
 		3E1C6C432A5264570085B578 /* SBOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1C6C422A5264570085B578 /* SBOperation.swift */; };
-		3E2E1C842A395B79001A3148 /* SBClientController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E1C832A395B79001A3148 /* SBClientController.swift */; };
+		3E2155122B26E6F0004BCCFC /* SBSubsonicRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2155112B26E6F0004BCCFC /* SBSubsonicRequestType.swift */; };
+		3E2E1C842A395B79001A3148 /* SBSubsonicRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E1C832A395B79001A3148 /* SBSubsonicRequestOperation.swift */; };
 		3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */; };
 		3E2F86D828E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */; };
 		3E45201829F5DBDC00604079 /* SBTrackArtistNameTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E45201729F5DBDC00604079 /* SBTrackArtistNameTransformer.swift */; };
@@ -147,7 +148,8 @@
 		3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBAudioMetadata.swift; sourceTree = "<group>"; };
 		3E1B785D2ACE5039008927C6 /* SBInspectorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBInspectorController.swift; sourceTree = "<group>"; };
 		3E1C6C422A5264570085B578 /* SBOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBOperation.swift; sourceTree = "<group>"; };
-		3E2E1C832A395B79001A3148 /* SBClientController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBClientController.swift; sourceTree = "<group>"; };
+		3E2155112B26E6F0004BCCFC /* SBSubsonicRequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBSubsonicRequestType.swift; sourceTree = "<group>"; };
+		3E2E1C832A395B79001A3148 /* SBSubsonicRequestOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBSubsonicRequestOperation.swift; sourceTree = "<group>"; };
 		3E2F86C928DD36E600C5CE23 /* Submariner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Submariner-Bridging-Header.h"; sourceTree = "<group>"; };
 		3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBMonospaceTextField.swift; sourceTree = "<group>"; };
 		3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTreeController+IndexPath.swift"; sourceTree = "<group>"; };
@@ -626,7 +628,7 @@
 			isa = PBXGroup;
 			children = (
 				3E70B2E02A2D52A1002C0B93 /* SBPlayer.swift */,
-				3E2E1C832A395B79001A3148 /* SBClientController.swift */,
+				3E2155112B26E6F0004BCCFC /* SBSubsonicRequestType.swift */,
 			);
 			name = Subsonic;
 			sourceTree = "<group>";
@@ -639,6 +641,7 @@
 				3E45201929F5DE9100604079 /* SBImportOperation.swift */,
 				3E702DE82A428CF6005F7184 /* SBSubsonicParsingOperation.swift */,
 				3ED4C4D32AC0E25400649FB2 /* SBLibraryPurgeOperation.swift */,
+				3E2E1C832A395B79001A3148 /* SBSubsonicRequestOperation.swift */,
 			);
 			name = Operations;
 			sourceTree = "<group>";
@@ -775,7 +778,7 @@
 			files = (
 				4C87ED71139CD8BE0064DE2E /* main.m in Sources */,
 				3EC03AC329F33C68001FDE50 /* OperationQueue+Shared.swift in Sources */,
-				3E2E1C842A395B79001A3148 /* SBClientController.swift in Sources */,
+				3E2E1C842A395B79001A3148 /* SBSubsonicRequestOperation.swift in Sources */,
 				3EC03B3829F4F2E0001FDE50 /* SBHome.swift in Sources */,
 				3EC03B5229F4F2E0001FDE50 /* SBIndex.swift in Sources */,
 				3EC03B3C29F4F2E0001FDE50 /* SBTracklist.swift in Sources */,
@@ -786,6 +789,7 @@
 				3EC03B4E29F4F2E0001FDE50 /* SBSection.swift in Sources */,
 				3EC03B4829F4F2E0001FDE50 /* SBNowPlaying.swift in Sources */,
 				4C87ED8E139CD91B0064DE2E /* SBWindowController.m in Sources */,
+				3E2155122B26E6F0004BCCFC /* SBSubsonicRequestType.swift in Sources */,
 				4C87EDA1139CD97B0064DE2E /* SBSplitView.m in Sources */,
 				3E45201E29FAD41900604079 /* UserDefaults+Submariner.swift in Sources */,
 				3EC03B5629F4F2E0001FDE50 /* SBArtist.swift in Sources */,

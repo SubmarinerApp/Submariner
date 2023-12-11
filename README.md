@@ -38,6 +38,8 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
   * Users of alternative server implementations like Navidrome won't notice anything, as they already use fake directory IDs based on artist and album IDs.
   * I've tried hard to make this transition as smooth as possible. Please file an issue if anything goes wrong.
   * If reloading and switching away from and back to the server doesn't help, delete recreate your server in the database.
+* HTTP requests have been made more async, and shouldn't block the UI.
+  * This comes with a major internal simplification to how requests are built, to be more idiomatic Swift.
 * Podcasts have been made less buggy
 * Adds an inspector sidebar for looking at track properties
 * Adds an option to purge the locally downloaded/cached files. Imported files are unaffected.

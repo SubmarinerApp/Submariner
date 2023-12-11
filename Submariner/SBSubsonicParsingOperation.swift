@@ -31,44 +31,7 @@ extension NSNotification.Name{
 }
 
 class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
-    @objc(SBSubsonicRequestType) enum RequestType: Int {
-        @objc(SBSubsonicRequestUnknown) case unknown = -1
-        @objc(SBSubsonicRequestPing) case ping = 0
-        @objc(SBSubsonicRequestGetLicence) case getLicense = 1 // XXX: Duplicated 24?
-        @objc(SBSubsonicRequestGetMusicFolders) case getMusicFolders = 2
-        @objc(SBSubsonicRequestGetIndexes) case getIndexes = 3
-        @objc(SBSubsonicRequestGetMusicDirectory) case getMusicDirectory = 4
-        @objc(SBSubsonicRequestGetAlbumDirectory) case getAlbumDirectory = 5
-        @objc(SBSubsonicRequestGetTrackDirectory) case getTrackDirectory = 6
-        @objc(SBSubsonicRequestGetCoverArt) case getCoverArt = 7
-        @objc(SBSubsonicRequestStream) case requestStream = 8
-        @objc(SBSubsonicRequestGetPlaylists) case getPlaylists = 9
-        @objc(SBSubsonicRequestGetAlbumListRandom) case getAlbumListRandom = 10
-        @objc(SBSubsonicRequestGetAlbumListNewest) case getAlbumListNewest = 11
-        @objc(SBSubsonicRequestGetAlbumListHighest) case getAlbumListHighest = 12
-        @objc(SBSubsonicRequestGetAlbumListFrequent) case getAlbumListFrequent = 13
-        @objc(SBSubsonicRequestGetAlbumListRecent) case getAlbumListRecent = 14
-        @objc(SBSubsonicRequestGetPlaylist) case getPlaylist = 15
-        @objc(SBSubsonicRequestDeletePlaylist) case deletePlaylist = 16
-        @objc(SBSubsonicRequestCreatePlaylist) case createPlaylist = 17
-        @objc(SBSubsonicRequestGetChatMessages) case getChatMessages = 18
-        @objc(SBSubsonicRequestAddChatMessage) case addChatMessage = 19
-        @objc(SBSubsonicRequestGetNowPlaying) case getNowPlaying = 20
-        @objc(SBSubsonicRequestGetUser) case getUser = 21
-        @objc(SBSubsonicRequestSearch) case search = 22
-        @objc(SBSubsonicRequestSetRating) case setRating = 23
-        @objc(SBSubsonicRequestGetPodcasts) case getPodcasts = 25
-        @objc(SBSubsonicRequestSetScrobble) case scrobble = 26
-        @objc(SBSubsonicRequestScanLibrary) case scanLibrary = 27
-        @objc(SBSubsonicRequestGetScanStatus) case getScanStatus = 28
-        @objc(SBSubsonicRequestUpdatePlaylist) case updatePlaylist = 29
-        @objc(SBSubsonicRequestGetArtists) case getArtists = 30
-        @objc(SBSubsonicRequestGetArtist) case getArtist = 31
-        @objc(SBSubsonicRequestGetAlbum) case getAlbum = 32
-        @objc(SBSubsonicRequestGetTrack) case getTrack = 33
-    }
-    
-    let requestType: RequestType
+    let requestType: SBSubsonicRequestType
     var server: SBServer
     let xmlData: Data?
     let mimeType: String?
@@ -94,7 +57,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     var artistsReturned: [SBArtist] = []
     
     init!(managedObjectContext mainContext: NSManagedObjectContext!,
-          requestType: RequestType,
+          requestType: SBSubsonicRequestType,
           server: NSManagedObjectID,
           xml: Data?,
           mimeType: String?) {
@@ -117,7 +80,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 self.saveThreadedContext()
             }
             do {
-                if self.requestType == .getCoverArt, let mimeType = self.mimeType, mimeType.hasPrefix("image/") {
+                if let mimeType = self.mimeType, mimeType.hasPrefix("image/") {
                     try mainImportCover()
                 } else if let mimeType = self.mimeType, mimeType.contains("xml") {
                     // Navidrome and Subsonic differ by using application/ or text/
@@ -250,8 +213,11 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 // as we don't do it in updateTrackDependencies
                 server.addToIndexes(existingArtist)
                 // Experiment: clear albums list to remove stale albums from transitional period
-                if requestType == .getArtist {
+                switch requestType {
+                case .getArtist(_):
                     existingArtist.albums = NSSet()
+                default:
+                    break
                 }
             } else if let existingArtist = fetchArtist(name: name) {
                 artistsReturned.append(existingArtist)
@@ -260,8 +226,11 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 // as we don't do it in updateTrackDependencies
                 server.addToIndexes(existingArtist)
                 // same as experiment
-                if requestType == .getArtist {
+                switch requestType {
+                case .getArtist(_):
                     existingArtist.albums = NSSet()
+                default:
+                    break
                 }
             } else {
                 logger.info("Creating new artist with ID: \(id, privacy: .public) and name \(name, privacy: .public)")
@@ -294,8 +263,11 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             }
             
             // for future song elements under this one
-            if requestType == .getAlbum {
+            switch requestType {
+            case .getAlbum(_):
                 currentAlbum = album
+            default:
+                break
             }
             
             // refresh name
@@ -332,25 +304,29 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     }
     
     private func parseElementPlaylist(attributeDict: [String: String]) {
-        if requestType == .getPlaylists,
-           let id = attributeDict["id"], let name = attributeDict["name"] {
-            var playlist = fetchPlaylist(id: id)
-            if playlist == nil {
-                logger.info("Failed to fetch playlist ID \(id, privacy: .public), trying name \(name, privacy: .public)")
-                playlist = fetchPlaylist(name: name)
+        switch requestType {
+        case .getPlaylists:
+            if let id = attributeDict["id"], let name = attributeDict["name"] {
+                var playlist = fetchPlaylist(id: id)
+                if playlist == nil {
+                    logger.info("Failed to fetch playlist ID \(id, privacy: .public), trying name \(name, privacy: .public)")
+                    playlist = fetchPlaylist(name: name)
+                }
+                if playlist == nil {
+                    logger.info("Creating playlist with ID \(id, privacy: .public), trying name \(name, privacy: .public)")
+                    playlist = createPlaylist(attributes: attributeDict)
+                } else if let playlist = playlist {
+                    // we have an existing playlist, update it
+                    updatePlaylist(playlist, attributes: attributeDict)
+                }
+                playlistsReturned.append(playlist!)
             }
-            if playlist == nil {
-                logger.info("Creating playlist with ID \(id, privacy: .public), trying name \(name, privacy: .public)")
-                playlist = createPlaylist(attributes: attributeDict)
-            } else if let playlist = playlist {
-                // we have an existing playlist, update it
-                updatePlaylist(playlist, attributes: attributeDict)
+        case .getPlaylist(_):
+            if let id = attributeDict["id"] {
+                currentPlaylist = fetchPlaylist(id: id)
             }
-            playlistsReturned.append(playlist!)
-        } else if requestType == .getPlaylist, let id = attributeDict["id"] {
-            currentPlaylist = fetchPlaylist(id: id)
-        } else {
-            logger.warning("Invalid request type \(self.requestType.rawValue, privacy: .public) for playlist element")
+        default:
+            logger.warning("Invalid request type \(String(describing: self.requestType)) for playlist element")
         }
     }
     
@@ -421,12 +397,13 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     }
     
     private func parseElementEntry(attributeDict: [String: String]) {
-        if requestType == .getPlaylist {
+        switch requestType {
+        case .getPlaylist(_):
             parseElementEntryForPlaylist(attributeDict: attributeDict)
-        } else if requestType == .getNowPlaying {
+        case .getNowPlaying:
             parseElementEntryForNowPlaying(attributeDict: attributeDict)
-        } else {
-            logger.warning("Invalid request type \(self.requestType.rawValue, privacy: .public) for entry element")
+        default:
+            logger.warning("Invalid request type \(String(describing: self.requestType)) for entry element")
         }
     }
     
@@ -559,9 +536,6 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             parseElementPlaylist(attributeDict: attributeDict)
         } else if elementName == "entry" { // for playlist or now playing
             parseElementEntry(attributeDict: attributeDict)
-        } else if elementName == "user" {
-            // XXX: do parsing here?
-            NotificationCenter.default.post(name: .SBSubsonicUserInfoUpdated, object: attributeDict)
         } else if elementName == "song" { // search2 results
             parseElementSong(attributeDict: attributeDict)
         } else if elementName == "license" {
@@ -594,15 +568,10 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     func parserDidEndDocument(_ parser: XMLParser) {
         logger.info("Finished XML processing")
         
-        if requestType == .ping && !errored {
+        switch requestType {
+        case .ping where !errored:
             postServerNotification(.SBSubsonicConnectionSucceeded)
-        } else if requestType == .updatePlaylist {
-            postServerNotification(.SBSubsonicPlaylistUpdated)
-        } else if requestType == .createPlaylist {
-            postServerNotification(.SBSubsonicPlaylistsCreated)
-        } else if requestType == .getTrackDirectory {
-            postServerNotification(.SBSubsonicTracksUpdated)
-        } else if requestType == .getPlaylists {
+        case .getPlaylists:
             let playlistRequest: NSFetchRequest<SBPlaylist> = SBPlaylist.fetchRequest()
             playlistRequest.predicate = NSPredicate(format: "(server == %@) && (NOT (self IN %@))", server, playlistsReturned)
             if let playlists = try? threadedContext.fetch(playlistRequest) {
@@ -612,15 +581,21 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 }
             }
             postServerNotification(.SBSubsonicPlaylistsUpdated)
-        } else if requestType == .getPlaylist {
+        case .getPlaylist(_):
             currentPlaylist = nil
-        } else if requestType == .getNowPlaying {
+        case .createPlaylist(_, _):
+            postServerNotification(.SBSubsonicPlaylistsCreated)
+        case .getNowPlaying:
             postServerNotification(.SBSubsonicNowPlayingUpdated)
-        } else if requestType == .search {
+        case .search(_):
             NotificationCenter.default.post(name: .SBSubsonicSearchResultUpdated, object: currentSearch)
-        } else if requestType == .getPodcasts {
+        case .getPodcasts:
             postServerNotification(.SBSubsonicPodcastsUpdated)
-        } else if requestType == .getArtists {
+        case .replacePlaylist(_, _):
+            postServerNotification(.SBSubsonicPlaylistUpdated)
+        case .updatePlaylist(_, _, _, _, _, _):
+            postServerNotification(.SBSubsonicPlaylistUpdated)
+        case .getArtists:
             // purge artists not returned, since unlike getIndexes, getArtists returns the full list
             let artistRequest: NSFetchRequest<SBArtist> = SBArtist.fetchRequest()
             artistRequest.predicate = NSPredicate(format: "(server == %@) && (NOT (self IN %@))", server, artistsReturned)
@@ -631,10 +606,12 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 }
             }
             postServerNotification(.SBSubsonicIndexesUpdated)
-        } else if requestType == .getArtist {
+        case .getArtist(_):
             postServerNotification(.SBSubsonicAlbumsUpdated)
-        } else if requestType == .getAlbum {
+        case .getAlbum(_):
             postServerNotification(.SBSubsonicTracksUpdated)
+        default:
+            break
         }
         
         // since we can run DB ops here now, save this for last

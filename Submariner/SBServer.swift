@@ -49,7 +49,7 @@ public class SBServer: SBResource {
         }
     }
     
-    func markNotSupported(feature: SBSubsonicParsingOperation.RequestType) {
+    func markNotSupported(feature: SBSubsonicRequestType) {
         switch (feature) {
         case .getNowPlaying:
             // not supported by OC Music, we special case because this gets called in the background
@@ -189,13 +189,6 @@ public class SBServer: SBResource {
             self.didChangeValue(forKey: "resourceName")
         }
     }
-    
-    // #MARK: - Custom Accessors (Subsonic Client)
-    
-    @objc lazy var clientController: SBClientController = {
-        let clientController = SBClientController(managedObjectContext: self.managedObjectContext!, server: self)
-        return clientController
-    }()
     
     // #MARK: - Custom Accessors (Keychain Support)
     
@@ -351,11 +344,13 @@ public class SBServer: SBResource {
     // #MARK: - Subsonic Client (Login)
     
     @objc func connect() {
-        self.clientController.connect(server: self)
+        let request = SBSubsonicRequestOperation(server: self, request: .ping)
+        request.main()
     }
     
     @objc func getServerLicense() {
-        self.clientController.getLicense()
+        let request = SBSubsonicRequestOperation(server: self, request: .getLicense)
+        request.main()
     }
     
     /**
@@ -404,41 +399,52 @@ public class SBServer: SBResource {
     // #MARK: - Subsonic Client (Server Data)
     
     @objc func getArtists() {
-        self.clientController.getArtists()
+        let request = SBSubsonicRequestOperation(server: self, request: .getArtists)
+        request.main()
     }
     
     @objc(getArtist:) func get(artist: SBArtist) {
-        self.clientController.get(artist: artist)
+        guard let artistId = artist.itemId else { return }
+        let request = SBSubsonicRequestOperation(server: self, request: .getArtist(id: artistId))
+        request.main()
     }
     
     @objc(getAlbum:) func get(album: SBAlbum) {
-        self.clientController.get(album: album)
+        guard let albumId = album.itemId else { return }
+        let request = SBSubsonicRequestOperation(server: self, request: .getAlbum(id: albumId))
+        request.main()
     }
     
     func getTrack(trackID: String) {
-        self.clientController.getTrack(trackID: trackID)
+        let request = SBSubsonicRequestOperation(server: self, request: .getTrack(id: trackID))
+        request.main()
     }
     
     func getCover(id: String, for albumID: String?) {
-        self.clientController.getCover(id: id, for: albumID)
+        let request = SBSubsonicRequestOperation(server: self, request: .getCoverArt(id: id, forAlbumId: albumID))
+        request.main()
     }
     
-    @objc func getAlbumListFor(type: SBSubsonicParsingOperation.RequestType) {
-        self.clientController.getAlbumList(type: type)
+    @objc func getAlbumListFor(type: SBAlbumListType) {
+        let request = SBSubsonicRequestOperation(server: self, request: .getAlbumList(type: type))
+        request.main()
     }
     
     // #MARK: - Subsonic Client (Playlists)
     
     @objc func getServerPlaylists() {
-        self.clientController.getPlaylists()
+        let request = SBSubsonicRequestOperation(server: self, request: .getPlaylists)
+        request.main()
     }
     
     @objc func createPlaylist(name: String, tracks: [SBTrack]) {
-        self.clientController.createPlaylist(name: name, tracks: tracks)
+        let request = SBSubsonicRequestOperation(server: self, request: .createPlaylist(name: name, tracks: tracks))
+        request.main()
     }
     
     @objc func updatePlaylist(ID: String, tracks: [SBTrack]) {
-        self.clientController.updatePlaylist(playlistID: ID, tracks: tracks)
+        let request = SBSubsonicRequestOperation(server: self, request: .replacePlaylist(id: ID, tracks: tracks))
+        request.main()
     }
     
     // public ommited because Bool? not in objc
@@ -447,55 +453,66 @@ public class SBServer: SBResource {
                               comment: String? = nil,
                               appending: [SBTrack]? = nil,
                               removing: [Int]? = nil) {
-        self.clientController.updatePlaylist(ID: ID, name: name, comment: comment, appending: appending, removing: removing)
+        let request = SBSubsonicRequestOperation(server: self, request: .updatePlaylist(id: ID, name: name, comment: comment, isPublic: nil, appending: appending, removing: removing))
+        request.main()
     }
     
     @objc func deletePlaylist(ID: String) {
-        self.clientController.deletePlaylist(id: ID)
+        let request = SBSubsonicRequestOperation(server: self, request: .deletePlaylist(id: ID))
+        request.main()
     }
     
     @objc func getPlaylistTracks(_ playlist: SBPlaylist) {
-        self.clientController.getPlaylist(playlist)
+        guard let playlistId = playlist.itemId else { return }
+        let request = SBSubsonicRequestOperation(server: self, request: .getPlaylist(id: playlistId))
+        request.main()
     }
     
     // #MARK: - Subsonic Client (Podcasts)
     
     @objc func getServerPodcasts() {
-        self.clientController.getPodcasts()
+        let request = SBSubsonicRequestOperation(server: self, request: .getPodcasts)
+        request.main()
     }
     
     // #MARK: - Subsonic Client (Now Playing)
     
     @objc func getNowPlaying() {
         if self.supportsNowPlaying == true {
-            self.clientController.getNowPlaying()
+            let request = SBSubsonicRequestOperation(server: self, request: .getNowPlaying)
+            request.main()
         }
     }
     
     func scrobble(id: String) {
-        self.clientController.scrobble(id: id)
+        let request = SBSubsonicRequestOperation(server: self, request: .scrobble(id: id))
+        request.main()
     }
     
     // #MARK: - Subsonic Client (Search)
     
     @objc func search(query: String) {
-        self.clientController.search(query)
+        let request = SBSubsonicRequestOperation(server: self, request: .search(query: query))
+        request.main()
     }
     
     // #MARK: - Subsonic Client (Rating)
     
     @objc(setRating:forID:) func setRating(_ rating: Int, id: String) {
-        self.clientController.setRating(rating, id: id)
+        let request = SBSubsonicRequestOperation(server: self, request: .setRating(id: id, rating: rating))
+        request.main()
     }
     
     // #MARK: - Subsonic Client (Library Scan)
     
     @objc func scanLibrary() {
-        self.clientController.scanLibrary()
+        let request = SBSubsonicRequestOperation(server: self, request: .scanLibrary)
+        request.main()
     }
     
     @objc func getScanStatus() {
-        self.clientController.getScanStatus()
+        let request = SBSubsonicRequestOperation(server: self, request: .getScanStatus)
+        request.main()
     }
     
     // #MARK: - Core Data insert compatibility shim
