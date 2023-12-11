@@ -33,7 +33,7 @@ class SBSubsonicRequestOperation: SBOperation {
         
         DispatchQueue.main.async {
             if let url = self.url {
-                self.name = "Requesting from \(self.server.resourceName ?? "server"): \(url)"
+                self.name = "\(baseName): \(url)"
             }
         }
         
