@@ -453,22 +453,12 @@
 
 
 - (IBAction)openAudioFiles:(id)sender {
-    static NSArray *types = nil;
-    static dispatch_once_t token;
-    dispatch_once(&token, ^{
-        UInt32 typesSize = sizeof(NSArray*);
-        OSStatus ret = AudioFileGetGlobalInfo(kAudioFileGlobalInfo_AllUTIs, 0, NULL, &typesSize, &types);
-        if (ret != noErr) {
-            types = [NSArray arrayWithObjects:@"mp3", @"flac", @"m4a", @"wav", @"aiff", @"aif", @"ogg", @"aac", nil];
-        }
-    });
-    
     NSOpenPanel *openPanel = [NSOpenPanel openPanel];
     [openPanel setCanChooseDirectories:YES];
     [openPanel setCanChooseFiles:YES];
     [openPanel setAllowsMultipleSelection: YES];
     
-    [openPanel setAllowedFileTypes: types];
+    [openPanel setAllowedContentTypes: [UTType audioToolboxTypes]];
     [openPanel beginSheetModalForWindow: [self window] completionHandler:^(NSModalResponse result) {
         [self openAudioFilesPanelDidEnd: openPanel returnCode: result contextInfo: nil];
     }];

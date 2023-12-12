@@ -12,6 +12,7 @@
 		3E1B785E2ACE5039008927C6 /* SBInspectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B785D2ACE5039008927C6 /* SBInspectorController.swift */; };
 		3E1C6C432A5264570085B578 /* SBOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1C6C422A5264570085B578 /* SBOperation.swift */; };
 		3E2155122B26E6F0004BCCFC /* SBSubsonicRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2155112B26E6F0004BCCFC /* SBSubsonicRequestType.swift */; };
+		3E2155142B281E7D004BCCFC /* UTType+AudioToolbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2155132B281E7D004BCCFC /* UTType+AudioToolbox.swift */; };
 		3E2E1C842A395B79001A3148 /* SBSubsonicRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E1C832A395B79001A3148 /* SBSubsonicRequestOperation.swift */; };
 		3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */; };
 		3E2F86D828E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */; };
@@ -149,6 +150,7 @@
 		3E1B785D2ACE5039008927C6 /* SBInspectorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBInspectorController.swift; sourceTree = "<group>"; };
 		3E1C6C422A5264570085B578 /* SBOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBOperation.swift; sourceTree = "<group>"; };
 		3E2155112B26E6F0004BCCFC /* SBSubsonicRequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBSubsonicRequestType.swift; sourceTree = "<group>"; };
+		3E2155132B281E7D004BCCFC /* UTType+AudioToolbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UTType+AudioToolbox.swift"; sourceTree = "<group>"; };
 		3E2E1C832A395B79001A3148 /* SBSubsonicRequestOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBSubsonicRequestOperation.swift; sourceTree = "<group>"; };
 		3E2F86C928DD36E600C5CE23 /* Submariner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Submariner-Bridging-Header.h"; sourceTree = "<group>"; };
 		3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBMonospaceTextField.swift; sourceTree = "<group>"; };
@@ -560,6 +562,7 @@
 				3E45201D29FAD41900604079 /* UserDefaults+Submariner.swift */,
 				3E702DE62A428A1B005F7184 /* Synchronized.swift */,
 				3E69507C2A707A2A006E5868 /* NSIndexSet+Array.swift */,
+				3E2155132B281E7D004BCCFC /* UTType+AudioToolbox.swift */,
 			);
 			name = Additions;
 			sourceTree = "<group>";
@@ -811,6 +814,7 @@
 				3EB2BCC12992D28A00DC5056 /* String+Hex.swift in Sources */,
 				3E0DAD5C29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift in Sources */,
 				3E45201829F5DBDC00604079 /* SBTrackArtistNameTransformer.swift in Sources */,
+				3E2155142B281E7D004BCCFC /* UTType+AudioToolbox.swift in Sources */,
 				3E5C42E029846E25009B9699 /* SBOnboardingController.swift in Sources */,
 				3EC03B4A29F4F2E0001FDE50 /* SBLibrary.swift in Sources */,
 				3EC03B3E29F4F2E0001FDE50 /* SBCover.swift in Sources */,
