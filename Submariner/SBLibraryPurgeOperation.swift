@@ -28,7 +28,7 @@ class SBLibraryPurgeOperation: SBOperation {
         let fetchRequest: NSFetchRequest<SBTrack> = SBTrack.fetchRequest()
         // local library tracks that are associated with a remote track
         // this should exclude linked tracks as well as copied into library files directly imported
-        fetchRequest.predicate = NSPredicate(format: "(server == nil) && (remoteTrack != nil)")
+        fetchRequest.predicate = NSPredicate(format: "(server == nil) && (remoteTrack != nil) && (isPlaying == NO)")
         self.tracks = try? threadedContext.fetch(fetchRequest)
         
         if let tracks = self.tracks {
