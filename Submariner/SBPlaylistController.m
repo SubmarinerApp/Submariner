@@ -212,6 +212,12 @@
 }
 
 
+#pragma mark - NSTableView (Columns)
+
+
+- (BOOL)tableView:(NSTableView *)tableView userCanChangeVisibilityOfTableColumn:(NSTableColumn *)column {
+    return YES;
+}
 
 
 #pragma mark -
