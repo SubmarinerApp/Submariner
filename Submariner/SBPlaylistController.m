@@ -78,6 +78,34 @@
     [tracksTableView setTarget:self];
     [tracksTableView setDoubleAction:@selector(trackDoubleClick:)];
     [tracksTableView registerForDraggedTypes:[NSArray arrayWithObject:SBLibraryTableViewDataType]];
+    
+    [tracksController addObserver:self
+                      forKeyPath:@"selectedObjects"
+                      options:NSKeyValueObservingOptionNew
+                      context:nil];
+}
+
+
+- (void)dealloc {
+    [tracksController removeObserver:self forKeyPath:@"selectedObjects"];
+}
+
+
+- (void)viewDidAppear {
+    [super viewDidAppear];
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"SBTrackSelectionChanged"
+                                                        object: tracksController.selectedObjects];
+}
+
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    if (object == tracksController && [keyPath isEqualToString:@"selectedObjects"] && self.view.window != nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName: @"SBTrackSelectionChanged"
+                                                            object: tracksController.selectedObjects];
+    }
 }
 
 

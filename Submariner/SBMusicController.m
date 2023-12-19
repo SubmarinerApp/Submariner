@@ -99,13 +99,15 @@
     // XXX: It's not accounting for the safe area on initial appearance.
     // It *will* correct itself when redisplayed (i.e. view controller switch).
     [albumsBrowserView setZoomValue:[[NSUserDefaults standardUserDefaults] floatForKey:@"coverSize"]];
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"SBTrackSelectionChanged"
+                                                        object: tracksController.selectedObjects];
 }
 
 - (void)dealloc
 {
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"coverSize"];
     [albumsController removeObserver:self forKeyPath:@"selectedObjects"];
-    
+    [tracksController removeObserver:self forKeyPath:@"selectedObjects"];
 }
 
 - (void)loadView {
@@ -142,6 +144,11 @@
                       forKeyPath:@"selectedObjects"
                       options:NSKeyValueObservingOptionNew
                       context:nil];
+    
+    [tracksController addObserver:self
+                      forKeyPath:@"selectedObjects"
+                      options:NSKeyValueObservingOptionNew
+                      context:nil];
 }
 
 
@@ -159,6 +166,9 @@
             NSString *urlString = album.objectID.URIRepresentation.absoluteString;
             [[NSUserDefaults standardUserDefaults] setObject: urlString forKey: @"LastViewedResource"];
         }
+    } else if (object == tracksController && [keyPath isEqualToString:@"selectedObjects"] && self.view.window != nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName: @"SBTrackSelectionChanged"
+                                                            object: tracksController.selectedObjects];
     }
 }
 

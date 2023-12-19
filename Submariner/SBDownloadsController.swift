@@ -33,6 +33,13 @@ import SwiftUI
                                                object: nil)
     }
     
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        // HACK: Because the observers for track array controllers are supressed when the views aren't visible,
+        // we have to send one here to avoid lingering selection from the previous view.
+        NotificationCenter.default.post(name: .SBTrackSelectionChanged, object: [])
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(self, name: .SBSubsonicOperationStarted, object: nil)
         NotificationCenter.default.removeObserver(self, name: .SBSubsonicOperationFinished, object: nil)

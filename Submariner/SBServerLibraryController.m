@@ -119,6 +119,8 @@
     [super viewDidAppear];
     // XXX: see -[SBMusicController viewDidAppear]
     [albumsBrowserView setZoomValue:[[NSUserDefaults standardUserDefaults] floatForKey:@"coverSize"]];
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"SBTrackSelectionChanged"
+                                                        object: tracksController.selectedObjects];
 }
 
 - (void)dealloc
@@ -128,6 +130,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBSubsonicTracksUpdatedNotification" object:nil];
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"coverSize"];
     [albumsController removeObserver:self forKeyPath:@"selectedObjects"];
+    [tracksController removeObserver:self forKeyPath:@"selectedObjects"];
 }
 
 - (void)loadView {
@@ -172,6 +175,11 @@
                       forKeyPath:@"selectedObjects"
                       options:NSKeyValueObservingOptionNew
                       context:nil];
+    
+    [tracksController addObserver:self
+                      forKeyPath:@"selectedObjects"
+                      options:NSKeyValueObservingOptionNew
+                      context:nil];
 }
 
 
@@ -189,6 +197,9 @@
             NSString *urlString = album.objectID.URIRepresentation.absoluteString;
             [[NSUserDefaults standardUserDefaults] setObject: urlString forKey: @"LastViewedResource"];
         }
+    } else if (object == tracksController && [keyPath isEqualToString:@"selectedObjects"] && self.view.window != nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName: @"SBTrackSelectionChanged"
+                                                            object: tracksController.selectedObjects];
     }
 }
 

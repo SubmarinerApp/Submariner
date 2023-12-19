@@ -10,23 +10,38 @@ import Cocoa
 import SwiftUI
 import QuickLook
 
-@objc class SBInspectorController: SBViewController {
+extension NSNotification.Name {
+    // Actually defined in ParsingOperation for now
+    static let SBTrackSelectionChanged = NSNotification.Name("SBTrackSelectionChanged")
+}
+
+@objc class SBInspectorController: SBViewController, ObservableObject {
     @objc var databaseController: SBDatabaseController?
     var rootView: InspectorView?
     
     override func loadView() {
-        title = "Downloads"
-        rootView = InspectorView()
+        title = "Inspector"
+        rootView = InspectorView(inspectorController: self)
         view = NSHostingView(rootView: rootView)
+        
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(SBInspectorController.trackSelectionChange(notification:)),
+                                               name: .SBTrackSelectionChanged,
+                                               object: nil)
     }
     
-    @objc dynamic var selectedTracks: [SBTrack] {
-        get {
-            return rootView?.selectedTracks ?? []
-        } set {
-            rootView?.selectedTracks = newValue
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .SBTrackSelectionChanged, object: nil)
+    }
+    
+    @objc private func trackSelectionChange(notification: Notification) {
+        if let selectedTracks = notification.object as? [SBTrack] {
+            self.selectedTracks = selectedTracks
         }
     }
+    
+    @Published var selectedTracks: [SBTrack] = []
     
     struct TrackInfoView: View {
         static let multipleDiffer = "..."
@@ -151,13 +166,12 @@ import QuickLook
     }
     
     struct InspectorView: View {
-        @State var selectedTracks: [SBTrack] = []
-        
+        @ObservedObject var inspectorController: SBInspectorController
         @ObservedObject var player = SBPlayer.sharedInstance()
         
         var body: some View {
-            if selectedTracks.count > 0 {
-                TrackInfoView(tracks: selectedTracks)
+            if inspectorController.selectedTracks.count > 0 {
+                TrackInfoView(tracks: inspectorController.selectedTracks)
             } else if let currentIndex = player.currentIndex, let currentTrack = player.currentTrack {
                 TrackInfoView(tracks: [currentTrack])
             } else {

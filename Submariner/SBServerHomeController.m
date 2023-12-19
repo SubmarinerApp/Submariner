@@ -97,12 +97,15 @@
 
 - (void)dealloc {
     [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"coverSize"];
+    [tracksController removeObserver:self forKeyPath:@"selectedObjects"];
 }
 
 - (void)viewDidAppear {
     [super viewDidAppear];
     // XXX: see -[SBMusicController viewDidAppear]
     [albumsBrowserView setZoomValue:[[NSUserDefaults standardUserDefaults] floatForKey:@"coverSize"]];
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"SBTrackSelectionChanged"
+                                                        object: tracksController.selectedObjects];
 }
 
 
@@ -163,6 +166,11 @@
                                             forKeyPath:@"coverSize" 
                                                options:NSKeyValueObservingOptionNew
                                                context:nil];
+    
+    [tracksController addObserver:self
+                      forKeyPath:@"selectedObjects"
+                      options:NSKeyValueObservingOptionNew
+                      context:nil];
 }
 
 
@@ -353,6 +361,9 @@
     } else if(object == [NSUserDefaults standardUserDefaults] && [keyPath isEqualToString:@"coverSize"]) {
         [albumsBrowserView setZoomValue:[[NSUserDefaults standardUserDefaults] floatForKey:@"coverSize"]];
         [albumsBrowserView setNeedsDisplay:YES];
+    } else if (object == tracksController && [keyPath isEqualToString:@"selectedObjects"] && self.view.window != nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName: @"SBTrackSelectionChanged"
+                                                            object: tracksController.selectedObjects];
     }
 }
 
