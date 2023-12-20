@@ -119,6 +119,11 @@ extension NSNotification.Name {
                         .onTapGesture {
                             coverUrl = URL(fileURLWithPath: path as String)
                         }
+                        .clipShape(
+                            RoundedRectangle(cornerRadius: 6)
+                        )
+                        .padding(.top, 20)
+                        .padding(.horizontal, 20)
                         .quickLookPreview($coverUrl)
                 } else {
                     Image(systemName: "questionmark.square.dashed")
