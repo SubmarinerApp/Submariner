@@ -404,7 +404,8 @@ extension NSNotification.Name {
     // #MARK: - Playlist Management
     
     // This shouldn't really be mutable outside of the player context...
-    @objc var playlist: [SBTrack] = []
+    // HACK: Dynamic because of the binding in SBTracklistController
+    @objc dynamic var playlist: [SBTrack] = []
     
     @objc(addTrack:replace:) func add(track: SBTrack, replace: Bool) {
         if replace {

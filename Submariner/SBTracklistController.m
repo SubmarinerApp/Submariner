@@ -87,6 +87,14 @@
                                            forKeyPath:@"playlist"  
                                               options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) 
                                               context:(__bridge void*)[SBPlayer sharedInstance]];
+    
+    NSDictionary *bindingOpts = @{
+        NSValueTransformerNameBindingOption: @"SBTrackListLengthTransformer"
+    };
+    [tracklistLengthView bind: @"value"
+                     toObject: SBPlayer.sharedInstance
+                  withKeyPath: @"playlist"
+                      options: bindingOpts];
 }
 
 

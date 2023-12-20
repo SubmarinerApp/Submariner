@@ -9,6 +9,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="SBTracklistController">
             <connections>
                 <outlet property="playlistTableView" destination="13" id="40"/>
+                <outlet property="tracklistLengthView" destination="dCO-3f-vLw" id="dkw-oj-0Db"/>
                 <outlet property="view" destination="1" id="2"/>
             </connections>
         </customObject>
@@ -102,6 +103,15 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                 </scrollView>
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dCO-3f-vLw">
+                    <rect key="frame" x="17" y="13" width="341" height="17"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" title="Track length" id="ndW-3C-gZk">
+                        <font key="font" usesAppearanceFont="YES"/>
+                        <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
             </subviews>
             <point key="canvasLocation" x="138.5" y="135"/>
         </customView>

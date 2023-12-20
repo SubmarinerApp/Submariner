@@ -44,6 +44,7 @@
 @interface SBTracklistController : SBViewController <NSTableViewDelegate, NSUserInterfaceValidations> {
 @private
     IBOutlet NSTableView *playlistTableView;
+    __weak IBOutlet NSTextField *tracklistLengthView;
     SBDatabaseController *databaseController;
 }
 
