@@ -48,6 +48,7 @@ extension NSNotification.Name {
         static var byteFormatter = ByteCountFormatter()
         
         let tracks: [SBTrack]
+        let isFromSelection: Bool
         // used for quick look preview
         @State var coverUrl: URL?
 
@@ -162,6 +163,13 @@ extension NSNotification.Name {
                     $0
                 }
             }
+            if isFromSelection {
+                // XXX: ugly for localization
+                Text("\(tracks.count) selected track\(tracks.count == 1 ? "" : "s")")
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(.secondary)
+                    .padding(.bottom, 6) // 13 for same y dist from bottom as VCs
+            }
         }
     }
     
@@ -171,9 +179,9 @@ extension NSNotification.Name {
         
         var body: some View {
             if inspectorController.selectedTracks.count > 0 {
-                TrackInfoView(tracks: inspectorController.selectedTracks)
-            } else if let currentIndex = player.currentIndex, let currentTrack = player.currentTrack {
-                TrackInfoView(tracks: [currentTrack])
+                TrackInfoView(tracks: inspectorController.selectedTracks, isFromSelection: true)
+            } else if let currentTrack = player.currentTrack {
+                TrackInfoView(tracks: [currentTrack], isFromSelection: false)
             } else {
                 Text("There are no tracks playing or selected.")
                     .multilineTextAlignment(.center)
