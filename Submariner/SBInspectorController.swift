@@ -148,10 +148,22 @@ extension NSNotification.Name {
                     numberField(label: "Disc #", for: \.discNumber)
                 }
                 Section {
-                    stringField(label: "Duration", for: \.durationString)
+                    // Special behaviour to sum up duration and file size,
+                    // size differences are expected, but totals are useful
+                    if tracks.count > 1 {
+                        let length = TimeInterval(tracks.map({ track in track.duration?.doubleValue ?? 0 }).reduce(0, +))
+                        field(label: "Duration", string: String(timeInterval: length))
+                    } else {
+                        stringField(label: "Duration", for: \.durationString)
+                    }
                     stringField(label: "Type", for: \.contentType)
                     stringField(label: "Transcoded As", for: \.transcodedType)
-                    numberField(label: "Size", for: \.size, formatter: TrackInfoView.byteFormatter)
+                    if tracks.count > 1 {
+                        let total = tracks.map({ track in track.size?.int64Value ?? 0 }).reduce(0, +)
+                        field(label: "Size", string: TrackInfoView.byteFormatter.string(fromByteCount: total))
+                    } else {
+                        numberField(label: "Size", for: \.size, formatter: TrackInfoView.byteFormatter)
+                    }
                     numberField(label: "Bitrate (KB/s)", for: \.bitRate)
                 }
                 // Maybe some buttons here?
