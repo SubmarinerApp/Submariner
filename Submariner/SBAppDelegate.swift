@@ -135,7 +135,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
             alert.informativeText = "Quitting now will lose any changes you have made since the last successful save."
             alert.addButton(withTitle: "Quit")
             alert.addButton(withTitle: "Cancel")
-            if alert.runModal() == .cancel {
+            if alert.runModal() == .alertSecondButtonReturn {
                 return .terminateCancel
             }
         }
