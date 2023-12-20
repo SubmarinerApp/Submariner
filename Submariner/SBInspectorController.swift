@@ -184,6 +184,9 @@ extension NSNotification.Name {
                         Text("\(tracks.count) selected track\(tracks.count == 1 ? "" : "s")")
                             .multilineTextAlignment(.center)
                             .foregroundStyle(.secondary)
+                            // keep same font/baseline as the nibs w/ System 13pt
+                            .font(.system(size: 13))
+                            .padding(.bottom, 4)
                     }
                 }
                 .frame(height: 41)
