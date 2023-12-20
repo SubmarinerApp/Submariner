@@ -108,77 +108,80 @@ extension NSNotification.Name {
         }
         
         var body: some View {
-            if let albumMaybeSingular = valueIfSame(property: \.album),
-               let album = albumMaybeSingular, let cover = album.cover,
-               let path = cover.imagePath, let image = NSImage(contentsOfFile: path as String) {
-                Image(nsImage: image)
-                    .resizable()
-                    .scaledToFit()
-                    .aspectRatio(contentMode: .fit)
-                    .onTapGesture {
-                        coverUrl = URL(fileURLWithPath: path as String)
-                    }
-                    .quickLookPreview($coverUrl)
-            } else {
-                Image(systemName: "questionmark.square.dashed")
-                    .resizable()
-                    .scaledToFit()
-                    .aspectRatio(contentMode: .fit)
-                    .padding()
-                    .foregroundColor(.secondary)
-            }
-            Form {
-                // Try to generalize, if multiple are selected then show something that indicates they differ
-                Section {
-                    stringField(label: "Title", for: \.itemName)
-                    stringField(label: "Album", for: \.albumString)
-                    stringField(label: "Artist", for: \.artistString)
-                    stringField(label: "Genre", for: \.genre)
-                    numberField(label: "Year", for: \.year)
-                }
-                Section {
-                    // TODO: Make this an interactive control. NSTableView has something like it
-                    numberField(label: "Rating", for: \.rating)
-                }
-                Section {
-                    numberField(label: "Track #", for: \.trackNumber)
-                    numberField(label: "Disc #", for: \.discNumber)
-                }
-                Section {
-                    // Special behaviour to sum up duration and file size,
-                    // size differences are expected, but totals are useful
-                    if tracks.count > 1 {
-                        let length = TimeInterval(tracks.map({ track in track.duration?.doubleValue ?? 0 }).reduce(0, +))
-                        field(label: "Duration", string: String(timeInterval: length))
-                    } else {
-                        stringField(label: "Duration", for: \.durationString)
-                    }
-                    stringField(label: "Type", for: \.contentType)
-                    stringField(label: "Transcoded As", for: \.transcodedType)
-                    if tracks.count > 1 {
-                        let total = tracks.map({ track in track.size?.int64Value ?? 0 }).reduce(0, +)
-                        field(label: "Size", string: TrackInfoView.byteFormatter.string(fromByteCount: total))
-                    } else {
-                        numberField(label: "Size", for: \.size, formatter: TrackInfoView.byteFormatter)
-                    }
-                    numberField(label: "Bitrate (KB/s)", for: \.bitRate)
-                }
-                // Maybe some buttons here?
-            }
-            .modify {
-                if #available(macOS 13, *) {
-                    $0.formStyle(.grouped)
+            VStack(spacing: 0) {
+                if let albumMaybeSingular = valueIfSame(property: \.album),
+                   let album = albumMaybeSingular, let cover = album.cover,
+                   let path = cover.imagePath, let image = NSImage(contentsOfFile: path as String) {
+                    Image(nsImage: image)
+                        .resizable()
+                        .scaledToFit()
+                        .aspectRatio(contentMode: .fit)
+                        .onTapGesture {
+                            coverUrl = URL(fileURLWithPath: path as String)
+                        }
+                        .quickLookPreview($coverUrl)
                 } else {
-                    $0
+                    Image(systemName: "questionmark.square.dashed")
+                        .resizable()
+                        .scaledToFit()
+                        .aspectRatio(contentMode: .fit)
+                        .padding()
+                        .foregroundColor(.secondary)
                 }
-            }
-            if isFromSelection {
-                // XXX: ugly for localization
-                Text("\(tracks.count) selected track\(tracks.count == 1 ? "" : "s")")
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(.secondary)
-                    .padding(.bottom, 13)
-                    .padding(.top, 4)
+                Form {
+                    // Try to generalize, if multiple are selected then show something that indicates they differ
+                    Section {
+                        stringField(label: "Title", for: \.itemName)
+                        stringField(label: "Album", for: \.albumString)
+                        stringField(label: "Artist", for: \.artistString)
+                        stringField(label: "Genre", for: \.genre)
+                        numberField(label: "Year", for: \.year)
+                    }
+                    Section {
+                        // TODO: Make this an interactive control. NSTableView has something like it
+                        numberField(label: "Rating", for: \.rating)
+                    }
+                    Section {
+                        numberField(label: "Track #", for: \.trackNumber)
+                        numberField(label: "Disc #", for: \.discNumber)
+                    }
+                    Section {
+                        // Special behaviour to sum up duration and file size,
+                        // size differences are expected, but totals are useful
+                        if tracks.count > 1 {
+                            let length = TimeInterval(tracks.map({ track in track.duration?.doubleValue ?? 0 }).reduce(0, +))
+                            field(label: "Duration", string: String(timeInterval: length))
+                        } else {
+                            stringField(label: "Duration", for: \.durationString)
+                        }
+                        stringField(label: "Type", for: \.contentType)
+                        stringField(label: "Transcoded As", for: \.transcodedType)
+                        if tracks.count > 1 {
+                            let total = tracks.map({ track in track.size?.int64Value ?? 0 }).reduce(0, +)
+                            field(label: "Size", string: TrackInfoView.byteFormatter.string(fromByteCount: total))
+                        } else {
+                            numberField(label: "Size", for: \.size, formatter: TrackInfoView.byteFormatter)
+                        }
+                        numberField(label: "Bitrate (KB/s)", for: \.bitRate)
+                    }
+                    // Maybe some buttons here?
+                }
+                .modify {
+                    if #available(macOS 13, *) {
+                        $0.formStyle(.grouped)
+                    } else {
+                        $0
+                    }
+                }
+                if isFromSelection {
+                    // XXX: ugly for localization
+                    HStack {
+                        Text("\(tracks.count) selected track\(tracks.count == 1 ? "" : "s")")
+                            .multilineTextAlignment(.center)
+                            .foregroundStyle(.secondary)
+                    }
+                    .frame(height: 41)
+                }
             }
         }
     }

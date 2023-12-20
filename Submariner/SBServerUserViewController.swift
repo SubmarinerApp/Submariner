@@ -277,24 +277,37 @@ extension NSNotification.Name {
         
         var body: some View {
             if let server = serverUsersController.server, server.supportsNowPlaying == true {
-                List(items) {
-                    NowPlayingItemView(item: $0, serverUsersController: serverUsersController)
-                }
-                .contextMenu {
-                    Button {
-                        serverUsersController.refreshNowPlaying()
-                    } label: {
-                        Text("Refresh")
+                VStack(spacing: 0) {
+                    List(items) {
+                        NowPlayingItemView(item: $0, serverUsersController: serverUsersController)
                     }
-                }
-                .listStyle(.inset(alternatesRowBackgrounds: true))
-                .onChange(of: serverUsersController.server) { newValue in
-                    updatePredicate(server: newValue)
-                    // if the sidebar is open and we switch servers, make sure we have the latest if it makes sense
-                    if (self.serverUsersController.databaseController?.isServerUsersShown == true) {
-                        // hopefully this doesn't trigger for unsupported servers...
-                        serverUsersController.refreshNowPlaying()
+                    .contextMenu {
+                        Button {
+                            serverUsersController.refreshNowPlaying()
+                        } label: {
+                            Text("Refresh")
+                        }
                     }
+                    .listStyle(.inset(alternatesRowBackgrounds: true))
+                    .onChange(of: serverUsersController.server) { newValue in
+                        updatePredicate(server: newValue)
+                        // if the sidebar is open and we switch servers, make sure we have the latest if it makes sense
+                        if (self.serverUsersController.databaseController?.isServerUsersShown == true) {
+                            // hopefully this doesn't trigger for unsupported servers...
+                            serverUsersController.refreshNowPlaying()
+                        }
+                    }
+                    // the bottom bar is 41px into content area, so
+                    HStack {
+                        Spacer()
+                        Button {
+                            serverUsersController.refreshNowPlaying()
+                        } label: {
+                            Image(systemName: "arrow.clockwise")
+                        }
+                        .padding(.trailing, 10)
+                    }
+                    .frame(height: 41)
                 }
             } else if let server = serverUsersController.server {
                 Text("\(server.resourceName ?? "This server") doesn't support now playing.")
