@@ -178,15 +178,15 @@ extension NSNotification.Name {
                         $0
                     }
                 }
-                if isFromSelection {
-                    // XXX: ugly for localization
-                    HStack {
+                HStack {
+                    if isFromSelection {
+                        // XXX: ugly for localization
                         Text("\(tracks.count) selected track\(tracks.count == 1 ? "" : "s")")
                             .multilineTextAlignment(.center)
                             .foregroundStyle(.secondary)
                     }
-                    .frame(height: 41)
                 }
+                .frame(height: 41)
             }
         }
     }
