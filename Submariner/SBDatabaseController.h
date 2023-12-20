@@ -83,7 +83,6 @@
     IBOutlet NSTextField *durationTextField;
     IBOutlet NSTextField *progressTextField;
     IBOutlet NSSlider *progressSlider;
-    IBOutlet NSImageView *coverImageView;
     IBOutlet NSButton *playPauseButton;
     
     IBOutlet NSViewController *leftVC;

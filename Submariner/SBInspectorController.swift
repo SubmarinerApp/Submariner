@@ -108,8 +108,6 @@ extension NSNotification.Name {
         }
         
         var body: some View {
-            // We should move the album art out of the nib with the sidebar, and get rid of a lot of constraints.
-            /*
             if let albumMaybeSingular = valueIfSame(property: \.album),
                let album = albumMaybeSingular, let cover = album.cover,
                let path = cover.imagePath, let image = NSImage(contentsOfFile: path as String) {
@@ -129,7 +127,6 @@ extension NSNotification.Name {
                     .padding()
                     .foregroundColor(.secondary)
             }
-             */
             Form {
                 // Try to generalize, if multiple are selected then show something that indicates they differ
                 Section {
@@ -180,7 +177,8 @@ extension NSNotification.Name {
                 Text("\(tracks.count) selected track\(tracks.count == 1 ? "" : "s")")
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.secondary)
-                    .padding(.bottom, 6) // 13 for same y dist from bottom as VCs
+                    .padding(.bottom, 13)
+                    .padding(.top, 4)
             }
         }
     }

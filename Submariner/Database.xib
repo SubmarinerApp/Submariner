@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22155" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22155"/>
         <capability name="Search Toolbar Item" minToolsVersion="12.0" minSystemVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,7 +10,6 @@
         <customObject id="-2" userLabel="File's Owner" customClass="SBDatabaseController">
             <connections>
                 <outlet property="addServerPlaylistController" destination="197" id="210"/>
-                <outlet property="coverImageView" destination="215" id="250"/>
                 <outlet property="durationTextField" destination="269" id="288"/>
                 <outlet property="editServerController" destination="111" id="138"/>
                 <outlet property="leftVC" destination="kgz-hh-1FR" id="2g7-qJ-078"/>
@@ -187,7 +186,7 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="B71E009C-6208-43BC-9F33-BE1E546849B7" explicitItemIdentifier="SBTBPlayPause" label="Play/Pause" paletteLabel="Play/Pause" image="play" catalog="system" sizingBehavior="auto" id="8gb-MR-oSz">
                         <nil key="toolTip"/>
-                        <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="234">
+                        <button key="view" imageHugsTitle="YES" verticalHuggingPriority="750" id="234">
                             <rect key="frame" x="20" y="14" width="24" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="play" catalog="system" imagePosition="only" alignment="center" alternateImage="pause" borderStyle="border" inset="2" id="239">
@@ -201,7 +200,7 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="9525B815-9911-44B9-B3EB-03DA4EB073AA" explicitItemIdentifier="SBTBStop" label="Stop" paletteLabel="Stop" image="stop" catalog="system" sizingBehavior="auto" id="mYo-jG-gtG">
                         <nil key="toolTip"/>
-                        <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="6Fs-XI-yyc">
+                        <button key="view" imageHugsTitle="YES" verticalHuggingPriority="750" id="6Fs-XI-yyc">
                             <rect key="frame" x="3" y="14" width="27" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="stop" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="cri-4Y-hpb">
@@ -215,7 +214,7 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="D8E775C8-9646-4075-89D6-E78C8DB9EA08" explicitItemIdentifier="SBTBPrevious" label="Previous" paletteLabel="Previous" image="backward" catalog="system" sizingBehavior="auto" id="ub0-ue-gyH">
                         <nil key="toolTip"/>
-                        <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="235">
+                        <button key="view" imageHugsTitle="YES" verticalHuggingPriority="750" id="235">
                             <rect key="frame" x="11" y="14" width="32" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="backward" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="238">
@@ -229,7 +228,7 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="B63065D6-25E1-4246-BD4B-B4CAF0C74E35" explicitItemIdentifier="SBTBNext" label="Next" paletteLabel="Next" image="forward" catalog="system" sizingBehavior="auto" id="jzM-Vk-B8y">
                         <nil key="toolTip"/>
-                        <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="240">
+                        <button key="view" imageHugsTitle="YES" verticalHuggingPriority="750" id="240">
                             <rect key="frame" x="0.0" y="14" width="32" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="forward" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="241">
@@ -243,7 +242,7 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="D49D7AE8-8081-46E9-90F3-09E7640095F2" explicitItemIdentifier="SBTBProgressLabel" label="Progress" paletteLabel="Progress" sizingBehavior="auto" id="8J7-oa-JoQ">
                         <nil key="toolTip"/>
-                        <textField key="view" verticalHuggingPriority="750" id="270" customClass="SBMonospaceTextField">
+                        <textField key="view" focusRingType="none" verticalHuggingPriority="750" id="270" customClass="SBMonospaceTextField">
                             <rect key="frame" x="12" y="14" width="31" height="11"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="00:00" id="278">
@@ -266,7 +265,7 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="0CB85B96-471B-4F16-92B4-C0F067699C04" explicitItemIdentifier="SBTBDurationLabel" label="Duration" paletteLabel="Duration" sizingBehavior="auto" id="ulm-c1-CKY">
                         <nil key="toolTip"/>
-                        <textField key="view" verticalHuggingPriority="750" id="269" customClass="SBMonospaceTextField">
+                        <textField key="view" focusRingType="none" verticalHuggingPriority="750" id="269" customClass="SBMonospaceTextField">
                             <rect key="frame" x="9" y="14" width="35" height="11"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="-00:00" id="279">
@@ -278,7 +277,7 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="F638AE08-B100-4361-940E-E62D1338014A" explicitItemIdentifier="SBTBToggleRepeat" label="Repeat" paletteLabel="Repeat" image="repeat" catalog="system" sizingBehavior="auto" id="S62-qJ-fzK">
                         <nil key="toolTip"/>
-                        <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="308">
+                        <button key="view" imageHugsTitle="YES" verticalHuggingPriority="750" id="308">
                             <rect key="frame" x="7" y="14" width="30" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="repeat" catalog="system" imagePosition="only" alignment="center" borderStyle="border" allowsMixedState="YES" inset="2" id="309">
@@ -301,7 +300,7 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="A976DC3F-A37E-4600-A750-BC24B516BB13" explicitItemIdentifier="SBTBToggleShuffle" label="Shuffle" paletteLabel="Shuffle" image="shuffle" catalog="system" sizingBehavior="auto" id="4vs-eG-BJh">
                         <nil key="toolTip"/>
-                        <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="302">
+                        <button key="view" imageHugsTitle="YES" verticalHuggingPriority="750" id="302">
                             <rect key="frame" x="7" y="14" width="31" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="shuffle" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="303">
@@ -315,7 +314,7 @@
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="7BB2B735-54FA-4211-874E-DC54D248F3E5" explicitItemIdentifier="SBTBShowVolume" label="Volume" paletteLabel="Volume" image="speaker" catalog="system" sizingBehavior="auto" id="Yk7-oS-omj">
                         <nil key="toolTip"/>
-                        <button key="view" verticalHuggingPriority="750" imageHugsTitle="YES" id="Sgq-JE-YWM" customClass="SBVolumeButton" customModule="Submariner" customModuleProvider="target">
+                        <button key="view" imageHugsTitle="YES" verticalHuggingPriority="750" id="Sgq-JE-YWM" customClass="SBVolumeButton" customModule="Submariner" customModuleProvider="target">
                             <rect key="frame" x="11" y="14" width="25" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="speaker" catalog="system" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="Ofy-se-eTz">
@@ -402,7 +401,7 @@
                     </toolbarItem>
                     <searchToolbarItem implicitItemIdentifier="F50E393F-C4BE-40CE-B71B-1B83BC2EE811" explicitItemIdentifier="SBTBSearch" label="Search" paletteLabel="Search" visibilityPriority="1001" id="9F1-5u-YOh">
                         <nil key="toolTip"/>
-                        <searchField key="view" verticalHuggingPriority="750" textCompletion="NO" id="6O8-Ia-yxP">
+                        <searchField key="view" focusRingType="none" verticalHuggingPriority="750" textCompletion="NO" id="6O8-Ia-yxP">
                             <rect key="frame" x="0.0" y="0.0" width="100" height="21"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" usesSingleLineMode="YES" bezelStyle="round" sendsSearchStringImmediately="YES" sendsWholeSearchString="YES" id="c23-Jy-pVu">
@@ -482,7 +481,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="400" height="292"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" id="115">
+                    <textField focusRingType="none" verticalHuggingPriority="750" id="115">
                         <rect key="frame" x="68" y="223" width="34" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="URL:" id="134">
@@ -491,7 +490,7 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" id="116">
+                    <textField focusRingType="none" verticalHuggingPriority="750" id="116">
                         <rect key="frame" x="107" y="220" width="273" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="133">
@@ -508,7 +507,7 @@
                             <outlet property="delegate" destination="111" id="323"/>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" id="117">
+                    <textField focusRingType="none" verticalHuggingPriority="750" id="117">
                         <rect key="frame" x="32" y="193" width="70" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Username:" id="132">
@@ -517,7 +516,7 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" contentType="username" id="118">
+                    <textField focusRingType="none" verticalHuggingPriority="750" contentType="username" id="118">
                         <rect key="frame" x="107" y="190" width="273" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="131">
@@ -534,7 +533,7 @@
                             <outlet property="delegate" destination="111" id="324"/>
                         </connections>
                     </textField>
-                    <textField verticalHuggingPriority="750" id="119">
+                    <textField focusRingType="none" verticalHuggingPriority="750" id="119">
                         <rect key="frame" x="36" y="163" width="66" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Password:" id="130">
@@ -543,7 +542,7 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" contentType="password" id="120" customClass="NSSecureTextField">
+                    <textField focusRingType="none" verticalHuggingPriority="750" contentType="password" id="120" customClass="NSSecureTextField">
                         <rect key="frame" x="107" y="160" width="273" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="129">
@@ -560,7 +559,7 @@
                             <outlet property="delegate" destination="111" id="325"/>
                         </connections>
                     </textField>
-                    <button verticalHuggingPriority="750" imageHugsTitle="YES" id="121">
+                    <button imageHugsTitle="YES" verticalHuggingPriority="750" id="121">
                         <rect key="frame" x="287" y="13" width="100" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="128">
@@ -574,7 +573,7 @@ DQ
                             <action selector="closeSheet:" target="111" id="137"/>
                         </connections>
                     </button>
-                    <textField verticalHuggingPriority="750" id="123">
+                    <textField focusRingType="none" verticalHuggingPriority="750" id="123">
                         <rect key="frame" x="15" y="253" width="87" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Server Name:" id="126">
@@ -583,7 +582,7 @@ DQ
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" id="124">
+                    <textField focusRingType="none" verticalHuggingPriority="750" id="124">
                         <rect key="frame" x="107" y="250" width="273" height="21"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" continuous="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="125">
@@ -599,7 +598,7 @@ DQ
                             </binding>
                         </connections>
                     </textField>
-                    <button verticalHuggingPriority="750" imageHugsTitle="YES" id="122">
+                    <button imageHugsTitle="YES" verticalHuggingPriority="750" id="122">
                         <rect key="frame" x="193" y="13" width="100" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="127">
@@ -639,7 +638,7 @@ Gw
                                         <binding destination="111" name="value" keyPath="server.licenseImage" id="335"/>
                                     </connections>
                                 </imageView>
-                                <textField verticalHuggingPriority="750" id="328">
+                                <textField focusRingType="none" verticalHuggingPriority="750" id="328">
                                     <rect key="frame" x="109" y="30" width="176" height="14"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="Invalid/Unknown License" id="329">
@@ -666,7 +665,7 @@ Gw
                                         <binding destination="111" name="value" keyPath="server.licenseDate" id="334"/>
                                     </connections>
                                 </datePicker>
-                                <textField verticalHuggingPriority="750" id="338">
+                                <textField focusRingType="none" verticalHuggingPriority="750" id="338">
                                     <rect key="frame" x="95" y="6" width="261" height="17"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" placeholderString="Undefined" id="339">
@@ -678,7 +677,7 @@ Gw
                                         <binding destination="111" name="value" keyPath="server.apiVersion" id="343"/>
                                     </connections>
                                 </textField>
-                                <textField verticalHuggingPriority="750" id="340">
+                                <textField focusRingType="none" verticalHuggingPriority="750" id="340">
                                     <rect key="frame" x="36" y="30" width="55" height="16"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="License:" id="341">
@@ -687,7 +686,7 @@ Gw
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" id="336">
+                                <textField focusRingType="none" verticalHuggingPriority="750" id="336">
                                     <rect key="frame" x="18" y="7" width="77" height="16"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="API Version:" id="337">
@@ -721,7 +720,7 @@ Gw
                 <rect key="frame" x="0.0" y="0.0" width="412" height="124"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button verticalHuggingPriority="750" imageHugsTitle="YES" id="201">
+                    <button imageHugsTitle="YES" verticalHuggingPriority="750" id="201">
                         <rect key="frame" x="299" y="13" width="100" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Add" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="202">
@@ -735,7 +734,7 @@ DQ
                             <action selector="closeSheet:" target="197" id="212"/>
                         </connections>
                     </button>
-                    <textField verticalHuggingPriority="750" id="205">
+                    <textField focusRingType="none" verticalHuggingPriority="750" id="205">
                         <rect key="frame" x="17" y="75" width="90" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Playlist Name:" id="206">
@@ -744,7 +743,7 @@ DQ
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" id="207">
+                    <textField focusRingType="none" verticalHuggingPriority="750" id="207">
                         <rect key="frame" x="119" y="72" width="273" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="208">
@@ -753,7 +752,7 @@ DQ
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button verticalHuggingPriority="750" imageHugsTitle="YES" id="203">
+                    <button imageHugsTitle="YES" verticalHuggingPriority="750" id="203">
                         <rect key="frame" x="201" y="13" width="100" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="204">
@@ -773,44 +772,14 @@ DQ
             <rect key="frame" x="0.0" y="0.0" width="230" height="367"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <splitView dividerStyle="thin" id="aAG-gb-Gdq">
+                <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="neC-xR-4bn" userLabel="Tracklist Containment Box">
                     <rect key="frame" x="0.0" y="0.0" width="230" height="367"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <subviews>
-                        <customView fixedFrame="YES" id="pcK-LA-pJG">
-                            <rect key="frame" x="0.0" y="0.0" width="230" height="136"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                            <subviews>
-                                <box fixedFrame="YES" boxType="custom" borderType="none" borderWidth="0.0" title="Box" translatesAutoresizingMaskIntoConstraints="NO" id="neC-xR-4bn" userLabel="Tracklist Containment Box">
-                                    <rect key="frame" x="0.0" y="0.0" width="230" height="136"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <view key="contentView" id="dv4-gh-fP9">
-                                        <rect key="frame" x="0.0" y="0.0" width="230" height="136"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    </view>
-                                </box>
-                            </subviews>
-                        </customView>
-                        <customView id="jGx-de-wfl">
-                            <rect key="frame" x="0.0" y="137" width="230" height="230"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                            <subviews>
-                                <imageView id="215" customClass="SBCoverImageView">
-                                    <rect key="frame" x="0.0" y="0.0" width="230" height="230"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyUpOrDown" image="questionmark.square.dashed" catalog="system" id="216"/>
-                                </imageView>
-                            </subviews>
-                            <constraints>
-                                <constraint firstAttribute="width" secondItem="jGx-de-wfl" secondAttribute="height" multiplier="1:1" id="EmX-Na-vlg"/>
-                            </constraints>
-                        </customView>
-                    </subviews>
-                    <holdingPriorities>
-                        <real value="250"/>
-                        <real value="445"/>
-                    </holdingPriorities>
-                </splitView>
+                    <view key="contentView" id="dv4-gh-fP9">
+                        <rect key="frame" x="0.0" y="0.0" width="230" height="367"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                </box>
             </subviews>
             <point key="canvasLocation" x="742" y="201.5"/>
         </customView>
@@ -844,7 +813,7 @@ DQ
             <rect key="frame" x="0.0" y="0.0" width="286" height="32"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
-                <button verticalHuggingPriority="750" imageHugsTitle="YES" id="RQW-nU-T8g">
+                <button imageHugsTitle="YES" verticalHuggingPriority="750" id="RQW-nU-T8g">
                     <rect key="frame" x="19" y="4" width="26" height="23"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="speaker" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="tbS-r3-CVa">
@@ -855,7 +824,7 @@ DQ
                         <action selector="setMuteOn:" target="-2" id="s7h-xA-beg"/>
                     </connections>
                 </button>
-                <button verticalHuggingPriority="750" imageHugsTitle="YES" id="uWd-YM-CxM">
+                <button imageHugsTitle="YES" verticalHuggingPriority="750" id="uWd-YM-CxM">
                     <rect key="frame" x="236" y="4" width="31" height="23"/>
                     <autoresizingMask key="autoresizingMask"/>
                     <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="speaker.wave.2" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="2Se-ec-wf1">
@@ -894,8 +863,7 @@ DQ
         <image name="music.note.list" catalog="system" width="17" height="15"/>
         <image name="pause" catalog="system" width="10" height="13"/>
         <image name="person.wave.2" width="15" height="14"/>
-	<image name="play" catalog="system" width="12" height="13"/>
-	<image name="questionmark.square.dashed" catalog="system" width="15" height="14"/>
+        <image name="play" catalog="system" width="12" height="13"/>
         <image name="repeat" catalog="system" width="18" height="14"/>
         <image name="shuffle" catalog="system" width="19" height="14"/>
         <image name="sidebar.left" catalog="system" width="19" height="14"/>

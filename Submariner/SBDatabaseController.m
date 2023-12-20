@@ -1410,22 +1410,11 @@
     if(currentTrack != nil) {
         
         NSString *trackInfos = [[SBPlayer sharedInstance] subtitle];
-        SBCover *cover = currentTrack.album.cover;
-        NSImage *coverImage = nil;
-        
-        if(cover && cover.imagePath && [[NSFileManager defaultManager]fileExistsAtPath:cover.imagePath]) {
-            coverImage = [[NSImage alloc] initWithContentsOfFile:cover.imagePath];
-        } else {
-            coverImage = [SBAlbum nullCover];
-        }
-        
         [self.window setTitle:currentTrack.itemName];
         [self.window setSubtitle:trackInfos];
-        [coverImageView setImage:coverImage];
     } else {
         [self.window setTitle: rightVC.selectedViewController.title ?: @""];
         [self.window setSubtitle: @""];
-        [coverImageView setImage: [SBAlbum nullCover]];
         [playPauseButton setState:NSControlStateValueOn];
     }
 }
