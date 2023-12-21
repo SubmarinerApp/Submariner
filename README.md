@@ -45,6 +45,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
   * This shows the selection, and the current playing track otherwise.
   * This is now the home of album art; clicking the image will show the full resolution in Quick Look.
 * The tracklist now shows the length of the tracklist and count.
+* The tracklist toolbar button will show the tracklist if you leave the cursor over the button.
 * Adds an option to purge the locally downloaded/cached files. Imported files are unaffected.
 * Makes the internal tracklist model index based. Duplicate tracks no longer cause UI wonkiness.
 * Reduce the frequency in which the position slider is updated, reducing CPU usage

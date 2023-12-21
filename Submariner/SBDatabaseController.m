@@ -374,7 +374,7 @@
     routePickerToolbarItem.view = routePicker;
     
     // The tracklist button needs an MOC
-    tracklistButton.managedObjectContext = self.managedObjectContext;
+    tracklistButton.databaseController = self;
     
     volumeButton.volumePopover = volumePopover;
 }

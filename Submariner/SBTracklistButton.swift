@@ -12,25 +12,39 @@ import Cocoa
 @objc class SBTracklistButton: NSButton {
     static let libraryType = NSPasteboard.PasteboardType.init(rawValue: "SBLibraryTableViewDataType")
     
-    // we need this to be able to convert from URIs to actual objects
-    // we could get say the DatabaseController to hold the MOC for us, but this is fine I guess
-    @objc var managedObjectContext: NSManagedObjectContext? = nil
+    var dragLingerTimer: Timer?
+    
+    @objc weak var databaseController: SBDatabaseController!
 
-    @objc override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+    override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
         // only triggered if we get a library item
+        dragLingerTimer = Timer(timeInterval: 1, repeats: false, block: { timer in
+            if (self.databaseController.isTracklistShown != true) {
+                self.databaseController.toggleTrackList(self)
+            }
+            timer.invalidate()
+        })
+        // we need common runloop mode, NOT the event tracking one, or dragging blocks the timer
+        RunLoop.main.add(dragLingerTimer!, forMode: .common)
         return .copy
     }
     
-    @objc override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+    override func draggingExited(_ sender: NSDraggingInfo?) {
+        dragLingerTimer?.invalidate()
+    }
+    
+    override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        defer {
+            dragLingerTimer?.invalidate()
+        }
         do {
-            if let moc = managedObjectContext,
+            if let moc = databaseController.managedObjectContext,
                let data = sender.draggingPasteboard.data(forType: SBTracklistButton.libraryType),
                let tracks = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, NSURL.self], from: data) as? [URL] {
-                // deserialize them
                 let deserialized = tracks.map { url in
                     // this should always give us a valid object ID,
                     // since we sourced good URLs from drag source
-                    let objID = (moc.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: url))! as NSManagedObjectID
+                    let objID = moc.persistentStoreCoordinator!.managedObjectID(forURIRepresentation: url)!
                     return moc.object(with: objID) as! SBTrack
                 }
                 // then add them
@@ -41,14 +55,11 @@ import Cocoa
         return false
     }
     
-    @objc override func awakeFromNib() {
+    override func awakeFromNib() {
         super.awakeFromNib()
         
         // it doesn't make sense to register SBTracklistTableViewDataType,
         // since that assumes the tracklist is already open
         registerForDraggedTypes([SBTracklistButton.libraryType])
     }
-    
-    // XXX: Consider, do we show the tracklist if we're being dropped onto?
-    // Does that make sense? Would it then make sense to still be a target?
 }
