@@ -26,13 +26,6 @@ extension String {
         return formatter
     }()
     
-    static let componentFormatter: DateComponentsFormatter = {
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.minute, .second]
-        formatter.zeroFormattingBehavior = .pad
-        return formatter
-    }()
-    
     func dateTimeFromISO() -> Date? {
         return String.iso8601Formatter.date(from: self as String)
     }
