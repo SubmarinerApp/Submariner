@@ -1110,6 +1110,11 @@
     }
     [self.window setTitle: rightVC.selectedViewController.title ?: @""];
     [self.window setSubtitle: @""];
+    if ([rightVC.selectedViewController isKindOfClass: SBMusicController.class]) {
+        [self.window setRepresentedURL: SBAppDelegate.musicDirectory];
+    } else {
+        [self.window setRepresentedFilename: @""];
+    }
 }
 
 - (void)populatedDefaultSections {
@@ -1412,9 +1417,12 @@
         NSString *trackInfos = [[SBPlayer sharedInstance] subtitle];
         [self.window setTitle:currentTrack.itemName];
         [self.window setSubtitle:trackInfos];
+        SBTrack *localTrack = currentTrack.localTrack != nil ? currentTrack.localTrack : currentTrack;
+        [self.window setRepresentedFilename: localTrack.path];
     } else {
         [self.window setTitle: rightVC.selectedViewController.title ?: @""];
         [self.window setSubtitle: @""];
+        [self.window setRepresentedFilename: @""];
         [playPauseButton setState:NSControlStateValueOn];
     }
 }
