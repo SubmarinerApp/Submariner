@@ -14,7 +14,13 @@ import CoreData
 public class SBAlbum: SBMusicItem {
     // #MARK: - IKImageBrowserView
     
-    @objc static let nullCover = NSImage(systemSymbolName: "questionmark.square.dashed", accessibilityDescription: "No Album Art")
+    // HACK: because IKImageBrowserView gets the smallest size by default. unneeded in the future?
+    static let nullCover = {
+        // 600 -> max size in image browser view for now
+        let config = NSImage.SymbolConfiguration(pointSize: 600, weight: .regular)
+        let image = NSImage(systemSymbolName: "questionmark.square.dashed", accessibilityDescription: "No Album Art")
+        return image!.withSymbolConfiguration(config)
+    }()
     
     override public func imageTitle() -> String? {
         return itemName
