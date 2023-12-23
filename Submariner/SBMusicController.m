@@ -79,7 +79,6 @@
     [super awakeFromNib];
     self->compensatedSplitView = self->rightSplitView;
     // so it doesn't resize unless the user does so
-    rightSplitView.delegate = self;
     artistSplitView.delegate = self;
 }
 
@@ -773,21 +772,6 @@
         return view != splitView.subviews.firstObject;
     }
     return YES;
-}
-
-- (BOOL)splitView:(NSSplitView *)splitView canCollapseSubview:(NSView *)subview {
-    if (splitView == rightSplitView && subview == splitView.subviews.firstObject) {
-        return NO;
-    }
-    return YES;
-}
-
-- (CGFloat)splitView:(NSSplitView *)splitView constrainMinCoordinate:(CGFloat)proposedMinimumPosition ofSubviewAt:(NSInteger)dividerIndex {
-    if (splitView == rightSplitView && dividerIndex ==  0) {
-        // Prevent the splitter from going above the toolbar
-        return MAX(self.view.safeAreaInsets.top, 0);
-    }
-    return proposedMinimumPosition;
 }
 
 
