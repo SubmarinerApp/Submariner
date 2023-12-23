@@ -44,7 +44,7 @@
 @class SBDatabaseController;
 @class SBPrioritySplitViewDelegate;
 
-@interface SBServerLibraryController : SBServerViewController <NSTabViewDelegate, NSTableViewDelegate> {
+@interface SBServerLibraryController : SBServerViewController <NSTableViewDelegate, NSSplitViewDelegate> {
 @private
     IBOutlet NSTableView        *artistsTableView;
     IBOutlet SBTableView        *tracksTableView;
@@ -56,7 +56,6 @@
     __weak IBOutlet NSSearchField *filterView;
     
     __weak IBOutlet NSSplitView *rightSplitView;
-    SBPrioritySplitViewDelegate *splitViewDelegate;
     SBDatabaseController *databaseController;
     NSArray *artistSortDescriptor;
     NSArray *albumSortDescriptor;

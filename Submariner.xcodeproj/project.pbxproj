@@ -105,7 +105,6 @@
 		4C87EDC1139CDC260064DE2E /* SBSourceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDBE139CDC250064DE2E /* SBSourceList.m */; };
 		4C87EE10139CE33B0064DE2E /* NSManagedObjectContext+Fetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EE0F139CE33B0064DE2E /* NSManagedObjectContext+Fetch.m */; };
 		4CAD75C813AA597E00E7455C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAD75C713AA597E00E7455C /* CoreServices.framework */; };
-		4CB4D8F713A670BF00F706EC /* SBPrioritySplitViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CB4D8F613A670BF00F706EC /* SBPrioritySplitViewDelegate.m */; };
 		4CC18E8013B9145400AA4FDB /* SBImageBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC18E7D13B9145400AA4FDB /* SBImageBrowserCell.m */; };
 		4CC18E8113B9145400AA4FDB /* SBImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC18E7F13B9145400AA4FDB /* SBImageBrowserView.m */; };
 		4CC6B56814041F7E003AEAC0 /* SBServerPodcastController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6B56614041F7E003AEAC0 /* SBServerPodcastController.m */; };
@@ -272,8 +271,6 @@
 		4C87EE0F139CE33B0064DE2E /* NSManagedObjectContext+Fetch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+Fetch.m"; sourceTree = "<group>"; };
 		4C9DE9A91451749D00632936 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		4CAD75C713AA597E00E7455C /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
-		4CB4D8F513A670BF00F706EC /* SBPrioritySplitViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPrioritySplitViewDelegate.h; sourceTree = "<group>"; };
-		4CB4D8F613A670BF00F706EC /* SBPrioritySplitViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPrioritySplitViewDelegate.m; sourceTree = "<group>"; };
 		4CC18E7C13B9145400AA4FDB /* SBImageBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBImageBrowserCell.h; sourceTree = "<group>"; };
 		4CC18E7D13B9145400AA4FDB /* SBImageBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBImageBrowserCell.m; sourceTree = "<group>"; };
 		4CC18E7E13B9145400AA4FDB /* SBImageBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBImageBrowserView.h; sourceTree = "<group>"; };
@@ -354,15 +351,6 @@
 				3E189E3228EBBAC40062ACA0 /* Shared.xcconfig */,
 			);
 			name = Build;
-			sourceTree = "<group>";
-		};
-		4C1D412E13A8F367002D77F3 /* SplitView Delegates */ = {
-			isa = PBXGroup;
-			children = (
-				4CB4D8F513A670BF00F706EC /* SBPrioritySplitViewDelegate.h */,
-				4CB4D8F613A670BF00F706EC /* SBPrioritySplitViewDelegate.m */,
-			);
-			name = "SplitView Delegates";
 			sourceTree = "<group>";
 		};
 		4C7A3E97148F07F7009C6EE6 /* Subprojects */ = {
@@ -458,7 +446,6 @@
 			isa = PBXGroup;
 			children = (
 				3E0DAD5D29CA3EAD00D895E2 /* Value Transformers */,
-				4C1D412E13A8F367002D77F3 /* SplitView Delegates */,
 				4CC18E7C13B9145400AA4FDB /* SBImageBrowserCell.h */,
 				4CC18E7D13B9145400AA4FDB /* SBImageBrowserCell.m */,
 				4CC18E7E13B9145400AA4FDB /* SBImageBrowserView.h */,
@@ -852,7 +839,6 @@
 				3EC03B4629F4F2E0001FDE50 /* SBTrack.swift in Sources */,
 				4CFAFC7D13A0F7E000E82B57 /* SBAnimatedView.m in Sources */,
 				4C4113AD13A3BD680069CC33 /* SBAddServerPlaylistController.m in Sources */,
-				4CB4D8F713A670BF00F706EC /* SBPrioritySplitViewDelegate.m in Sources */,
 				3EC03B3629F4F2E0001FDE50 /* SBEpisode.swift in Sources */,
 				3EC03AC529F42C95001FDE50 /* URL+Parameters.swift in Sources */,
 				3E69507D2A707A2A006E5868 /* NSIndexSet+Array.swift in Sources */,

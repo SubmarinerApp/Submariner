@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22155" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
-        <plugIn identifier="com.apple.imagekit.ibplugin" version="21701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22155"/>
+        <plugIn identifier="com.apple.imagekit.ibplugin" version="22155"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -27,7 +27,7 @@
             <rect key="frame" x="0.0" y="0.0" width="619" height="398"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <splitView autosaveName="" dividerStyle="thin" vertical="YES" id="81" customClass="SBSplitView">
+                <splitView autosaveName="ServerLibrarySplitView" dividerStyle="thin" vertical="YES" id="81" customClass="SBSplitView">
                     <rect key="frame" x="0.0" y="0.0" width="619" height="398"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
@@ -114,19 +114,19 @@
                                             <rect key="frame" x="0.0" y="0.0" width="443" height="158"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="120.75" horizontalPageScroll="10" verticalLineScroll="140" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="103">
+                                                <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="118" horizontalPageScroll="10" verticalLineScroll="118" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="103">
                                                     <rect key="frame" x="0.0" y="0.0" width="444" height="158"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <clipView key="contentView" copiesOnScroll="NO" id="rl6-t2-l9H">
-                                                        <rect key="frame" x="0.0" y="0.0" width="444" height="158"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="429" height="158"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
-                                                            <ikImageBrowserView autoresizesSubviews="NO" zoomValue="3.8248698711395264" allowsMultipleSelection="NO" id="104" customClass="SBImageBrowserView">
-                                                                <rect key="frame" x="0.0" y="0.0" width="444" height="2534"/>
+                                                            <ikImageBrowserView autoresizesSubviews="NO" zoomValue="1" allowsMultipleSelection="NO" id="104" customClass="SBImageBrowserView">
+                                                                <rect key="frame" x="0.0" y="0.0" width="429" height="2534"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <ikCellsStyle key="cellsStyleMask" shadowed="YES" titled="YES" subtitled="YES"/>
                                                                 <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
-                                                                <size key="cellSize" width="834" height="834"/>
+                                                                <size key="cellSize" width="98" height="98"/>
                                                                 <connections>
                                                                     <binding destination="137" name="content" keyPath="arrangedObjects" id="140"/>
                                                                     <binding destination="137" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="140" id="169"/>
@@ -141,7 +141,7 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                     <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="106">
-                                                        <rect key="frame" x="428" y="0.0" width="16" height="158"/>
+                                                        <rect key="frame" x="429" y="0.0" width="15" height="158"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                     <connections>
@@ -158,11 +158,11 @@
                                                     <rect key="frame" x="-2" y="41" width="446" height="199"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <clipView key="contentView" id="uNg-bD-Z0H">
-                                                        <rect key="frame" x="0.0" y="0.0" width="446" height="199"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="446" height="184"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveName="ServerMusicTable" headerView="110" id="108" customClass="SBTableView">
-                                                                <rect key="frame" x="0.0" y="0.0" width="692" height="171"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="692" height="156"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -312,7 +312,7 @@
                                                         </subviews>
                                                     </clipView>
                                                     <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="109">
-                                                        <rect key="frame" x="0.0" y="183" width="446" height="16"/>
+                                                        <rect key="frame" x="0.0" y="184" width="446" height="15"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                     <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="111">
@@ -324,7 +324,7 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </tableHeaderView>
                                                 </scrollView>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lsy-d6-bHZ">
+                                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lsy-d6-bHZ">
                                                     <rect key="frame" x="18" y="13" width="407" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" title="Track length" id="nMz-qf-gee">
@@ -345,15 +345,15 @@
                                         </customView>
                                     </subviews>
                                     <holdingPriorities>
-                                        <real value="249"/>
-                                        <real value="250"/>
+                                        <real value="200"/>
+                                        <real value="225"/>
                                     </holdingPriorities>
                                 </splitView>
                             </subviews>
                         </customView>
                     </subviews>
                     <holdingPriorities>
-                        <real value="250"/>
+                        <real value="275"/>
                         <real value="250"/>
                     </holdingPriorities>
                 </splitView>

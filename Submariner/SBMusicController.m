@@ -34,21 +34,9 @@
 
 #import "SBMusicController.h"
 #import "SBDatabaseController.h"
-#import "SBPrioritySplitViewDelegate.h"
 #import "SBMergeArtistsController.h"
 
 #import "Submariner-Swift.h"
-
-
-
-// main split view constant
-#define LEFT_VIEW_INDEX 0
-#define LEFT_VIEW_PRIORITY 2
-#define LEFT_VIEW_MINIMUM_WIDTH 175.0
-
-#define MAIN_VIEW_INDEX 1
-#define MAIN_VIEW_PRIORITY 0
-#define MAIN_VIEW_MINIMUM_WIDTH 200.0
 
 
 
@@ -83,8 +71,6 @@
         NSSortDescriptor *trackNumberDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"trackNumber" ascending:YES];
         NSSortDescriptor *discNumberDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"discNumber" ascending:YES];
         trackSortDescriptor = @[discNumberDescriptor, trackNumberDescriptor];
-        
-        splitViewDelegate = [[SBPrioritySplitViewDelegate alloc] init];
     }
     return self;
 }
@@ -92,7 +78,10 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self->compensatedSplitView = self->rightSplitView;
+    // so it doesn't resize unless the user does so
+    artistSplitView.delegate = self;
 }
+
 
 - (void)viewDidAppear {
     [super viewDidAppear];
@@ -112,16 +101,6 @@
 
 - (void)loadView {
     [super loadView];
-    
-    //[artistSplitView setPosition:LEFT_VIEW_MINIMUM_WIDTH ofDividerAtIndex:0];
-    
-    [splitViewDelegate setPriority:LEFT_VIEW_PRIORITY forViewAtIndex:LEFT_VIEW_INDEX];
-	[splitViewDelegate setMinimumLength:LEFT_VIEW_MINIMUM_WIDTH forViewAtIndex:LEFT_VIEW_INDEX];
-    
-	[splitViewDelegate setPriority:MAIN_VIEW_PRIORITY forViewAtIndex:MAIN_VIEW_INDEX];
-	[splitViewDelegate setMinimumLength:MAIN_VIEW_MINIMUM_WIDTH forViewAtIndex:MAIN_VIEW_INDEX];
-    
-    [artistSplitView setDelegate:splitViewDelegate];
 
     // add drag and drop support
     [tracksTableView registerForDraggedTypes:[NSArray arrayWithObject:SBLibraryTableViewDataType]];
@@ -784,6 +763,16 @@
     [self albumDoubleClick:self];
 }
 
+
+#pragma mark -
+#pragma mark NSSplitViewDelegate
+
+- (BOOL)splitView:(NSSplitView *)splitView shouldAdjustSizeOfSubview:(NSView *)view {
+    if (splitView == artistSplitView) {
+        return view != splitView.subviews.firstObject;
+    }
+    return YES;
+}
 
 
 #pragma mark -

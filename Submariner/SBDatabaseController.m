@@ -330,16 +330,19 @@
 
     // prepare the left pane as a sidebar
     NSSplitViewItem*a=[NSSplitViewItem sidebarWithViewController:leftVC];
+    a.holdingPriority = 275; // 250 is default, we want the sidebars to hold
     //[a setTitlebarSeparatorStyle:NSTitlebarSeparatorStyleShadow];
     [splitVC addSplitViewItem:a];
 
     // prepare the right pane
     NSSplitViewItem*b=[NSSplitViewItem splitViewItemWithViewController:rightVC];
+    b.holdingPriority = 266;
     b.titlebarSeparatorStyle = NSTitlebarSeparatorStyleNone;
     [splitVC addSplitViewItem:b];
     
     // prepare the righter pane
     tracklistSplit=[NSSplitViewItem splitViewItemWithViewController:tracklistVC];
+    tracklistSplit.holdingPriority = 300;
     // XXX: Not really working like you'd expect
     tracklistSplit.titlebarSeparatorStyle = NSTitlebarSeparatorStyleNone;
     // This uses the width in the nib, which is specified to show everything while not looking ridiculous.

@@ -44,7 +44,7 @@
 @class SBPrioritySplitViewDelegate;
 @class SBMergeArtistsController;
 
-@interface SBMusicController : SBViewController <NSTableViewDelegate>  {
+@interface SBMusicController : SBViewController <NSTableViewDelegate, NSSplitViewDelegate>  {
 @private
     IBOutlet SBMergeArtistsController *mergeArtistsController;
     IBOutlet NSTableView        *artistsTableView;
@@ -57,7 +57,6 @@
     __weak IBOutlet NSSplitView *rightSplitView;
     
     SBDatabaseController *databaseController;
-    SBPrioritySplitViewDelegate *splitViewDelegate;
     NSArray *artistSortDescriptor;
     NSArray *albumSortDescriptor;
     NSArray *trackSortDescriptor;

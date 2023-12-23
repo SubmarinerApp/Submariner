@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22155" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
-        <plugIn identifier="com.apple.imagekit.ibplugin" version="21701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22155"/>
+        <plugIn identifier="com.apple.imagekit.ibplugin" version="22155"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -128,12 +128,12 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="430" height="157"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
-                                                            <ikImageBrowserView autoresizesSubviews="NO" zoomValue="2.2063374519348145" allowsMultipleSelection="NO" id="27" customClass="SBImageBrowserView">
+                                                            <ikImageBrowserView autoresizesSubviews="NO" zoomValue="1" allowsMultipleSelection="NO" id="27" customClass="SBImageBrowserView">
                                                                 <rect key="frame" x="0.0" y="0.0" width="430" height="2533"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <ikCellsStyle key="cellsStyleMask" shadowed="YES" outlined="YES" titled="YES" subtitled="YES"/>
                                                                 <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
-                                                                <size key="cellSize" width="302" height="302"/>
+                                                                <size key="cellSize" width="97" height="97"/>
                                                                 <connections>
                                                                     <binding destination="64" name="content" keyPath="arrangedObjects" id="67"/>
                                                                     <binding destination="64" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="67" id="71"/>
@@ -316,7 +316,7 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </tableHeaderView>
                                                 </scrollView>
-                                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="73n-1I-VEG">
+                                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="73n-1I-VEG">
                                                     <rect key="frame" x="18" y="13" width="407" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" title="Track length" id="nWE-i6-oUD">
@@ -337,15 +337,15 @@
                                         </customView>
                                     </subviews>
                                     <holdingPriorities>
-                                        <real value="249"/>
-                                        <real value="250"/>
+                                        <real value="200"/>
+                                        <real value="225"/>
                                     </holdingPriorities>
                                 </splitView>
                             </subviews>
                         </customView>
                     </subviews>
                     <holdingPriorities>
-                        <real value="250"/>
+                        <real value="275"/>
                         <real value="250"/>
                     </holdingPriorities>
                 </splitView>
@@ -387,7 +387,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="404" height="120"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="100">
+                    <popUpButton imageHugsTitle="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="100">
                         <rect key="frame" x="152" y="74" width="236" height="26"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="101">
@@ -396,7 +396,7 @@
                             <menu key="menu" title="OtherViews" id="102"/>
                         </popUpButtonCell>
                     </popUpButton>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="108">
+                    <button imageHugsTitle="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="108">
                         <rect key="frame" x="299" y="13" width="92" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Merge" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="109">
@@ -407,7 +407,7 @@
                             <action selector="closeSheet:" target="95" id="113"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="110">
+                    <button imageHugsTitle="YES" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="110">
                         <rect key="frame" x="209" y="13" width="92" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="111">
@@ -418,7 +418,7 @@
                             <action selector="cancelSheet:" target="95" id="112"/>
                         </connections>
                     </button>
-                    <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="98">
+                    <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="98">
                         <rect key="frame" x="18" y="80" width="132" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Target Artist Name:" id="99">
