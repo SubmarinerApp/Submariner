@@ -39,9 +39,13 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // don't override an existing menu
-    if (self.autosaveName != nil && self.headerView.menu == nil) {
-        [self createViewHeaderMenu];
+    if (@available(macOS 14.0, *)) {
+        // use built into sonoma feature instead
+    } else {
+        // don't override an existing menu
+        if (self.autosaveName != nil && self.headerView.menu == nil) {
+            [self createViewHeaderMenu];
+        }
     }
 }
 
