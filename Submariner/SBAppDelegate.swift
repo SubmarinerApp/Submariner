@@ -78,16 +78,17 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                                                                                    configuration: nil,
                                                                                    at: oldURL,
                                                                                    options: storeOpts)
-            try! self.persistentStoreCoordinator.migratePersistentStore(oldStore,
-                                                                        to: newURL,
-                                                                        options: storeOpts,
-                                                                        type: .sqlite)
+            // It's OK to ignore the return value, since it mutates the coordinator to include it
+            _ = try! self.persistentStoreCoordinator.migratePersistentStore(oldStore,
+                                                                            to: newURL,
+                                                                            options: storeOpts,
+                                                                            type: .sqlite)
         } else {
             // usual path, we aren't converting, but just using modern store
-            try! self.persistentStoreCoordinator.addPersistentStore(type: .sqlite,
-                                                                    configuration: nil,
-                                                                    at: newURL,
-                                                                    options: storeOpts)
+            _ = try! self.persistentStoreCoordinator.addPersistentStore(type: .sqlite,
+                                                                        configuration: nil,
+                                                                        at: newURL,
+                                                                        options: storeOpts)
         }
         
         // #MARK: Init Core Data (managed object store)
