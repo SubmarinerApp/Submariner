@@ -14,52 +14,51 @@ Please see the [old README](https://github.com/Read-Write/Submariner/blob/a1a10e
 
 ## Building
 
-1. Clone recursively (i.e. `git clone --recursive`). Failing that, initialize submodules recursively (`git submodule update --init --recursive`).
+1. Clone recursively (i.e. `git clone --recursive`). Failing that, initialize submodules recursively (`git submodule update --init --recursive`). We don't use submodules at the moment, but it's a good idea to in case we do later.
 2. Create `Submariner/DEVELOPMENT_TEAM.xcconfig` with contents like `DEVELOPMENT_TEAM = AAAAAAAAAA`, substituting that string with your development ID. If you don't, you'll have a bad day setting up signing.
 3. Use Xcode or `xcbuild` to build.
 
 It is recommended you do `git config core.hooksPath .githooks` to avoid commiting your developer ID.
-Doing so isn't fatal (it's not a secret), but it is annoying for other contributors.
+Doing so isn't fatal (it's not a secret), but it is annoying for other contributors, as Git/Xcode will want you to commit changes to your developer ID, overriding what's in the repository.
 
-## Third-Party
+## Third-Party Dependencies
 
 ### Vendored
 
 * MGScopeBar by Matt Gemmell
 * PXSourceList by Alex Rozanski, Stefan Vogt
-* ColumnSplitView by Matt Gallagher
 
-## Release Notes:
+## Release Notes
 
-### Version 3.0 (not yet released)
+### Version 3.0
 
 * macOS 12 is now the minimum version. macOS 13 or newer is recommended.
-* The internal database now stores actual artist and album instead of directory IDs, alleviating many UI quirks when using Subsonic servers
+* The internal database now stores actual artist and album instead of directory IDs, alleviating many UI quirks when using Subsonic servers. (GH-73)
   * Users of alternative server implementations like Navidrome won't notice anything, as they already use fake directory IDs based on artist and album IDs.
   * I've tried hard to make this transition as smooth as possible. Please file an issue if anything goes wrong.
   * If reloading and switching away from and back to the server doesn't help, delete recreate your server in the database.
-* HTTP requests have been made more async, and shouldn't block the UI.
+* HTTP requests have been made more async, and shouldn't block the UI. (GH-175)
   * This comes with a major internal simplification to how requests are built, to be more idiomatic Swift.
-* Podcasts have been made less buggy
-* Adds an inspector sidebar for looking at track properties, now in default toolbar items.
+* Adds an inspector sidebar for looking at track properties, now in default toolbar items. (GH-72)
   * This shows the selection, and the current playing track otherwise.
   * This is now the home of album art; clicking the image will show the full resolution in Quick Look.
-* The tracklist now shows the length of the tracklist and count.
+* The tracklist now shows the length of the tracklist and count. (GH-112)
 * The tracklist toolbar button will show the tracklist if you leave the cursor over the button.
 * Adds an option to purge the locally downloaded/cached files. Imported files are unaffected.
 * Makes the internal tracklist model index based. Duplicate tracks no longer cause UI wonkiness.
-* Reduce the frequency in which the position slider is updated, reducing CPU usage
-* Don't update the position slider if the window isn't visible, reducing CPU usage
-* Avoid downloading tracks if they're already downloaded
-* Remove some images, reduce application size
-* Don't show 404 messages to avoid noise w/ ID migrations
-* Avoid hitting download endpoint if unneeded
-* HTTP timeouts are now handled correctly
-* Use remote album artist name when importing downloaded tracks
-* Fix tracks unable to be downloaded from Subsonic servers
-* Fix a crash when trying to play an album without any tracks
-* Fix a crash if the track's duration is nil
-* Fix attribute names in schema blocking future refactors.
+* Reduce the frequency in which the position slider is updated, reducing CPU usage. (GH-169)
+* Don't update the position slider if the window isn't visible, reducing CPU usage. (GH-171)
+* Podcast episodes shouldn't duplicate when refreshing.
+* Avoid downloading tracks if they're already downloaded.
+* Remove some images from the app bundle to reduce application size.
+* Use newer split view functionality available in modern macOS.
+* Don't show 404 messages to avoid noise w/ database ID migrations.
+* HTTP timeouts are now handled correctly, to better handle newer versions of Navidrome. (GH-174)
+* Use remote album artist name when importing downloaded tracks.
+* Fix tracks unable to be downloaded from Subsonic servers.
+* Fix a crash when trying to play an album without any tracks. (GH-166)
+* Fix a crash if the track's duration is nil.
+* Fix attribute names in schema blocking future refactors. (GH-167)
 
 ### Version 2.4.2
 
