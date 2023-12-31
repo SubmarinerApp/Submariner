@@ -210,7 +210,7 @@ import UniformTypeIdentifiers
             if newAlbum!.cover == nil {
                 newAlbum!.cover = SBCover.init(entity: SBCover.entity(), insertInto: threadedContext)
             }
-            newAlbum!.cover!.path = relativePath
+            newAlbum!.cover!.imagePath = relativePath as NSString?
             newAlbum!.cover!.isLocal = NSNumber(booleanLiteral: true)
         } else {
             // else if track parent directory contains cover file
@@ -239,7 +239,7 @@ import UniformTypeIdentifiers
                         if newAlbum!.cover == nil {
                             newAlbum!.cover = SBCover.init(entity: SBCover.entity(), insertInto: threadedContext)
                         }
-                        newAlbum!.cover!.path = relativePath
+                        newAlbum!.cover!.imagePath = relativePath
                         newAlbum!.cover!.isLocal = NSNumber(booleanLiteral: true)
                         // Don't set the track cover, since it's not really used.
                     }

@@ -69,7 +69,9 @@ public class SBCover: SBMusicItem {
             let baseCoverDir = SBAppDelegate.coverDirectory
             self.willAccessValue(forKey: "imagePath")
             let currentPath = self.primitiveValue(forKey: "imagePath") as! NSString?
-            if let currentPath = currentPath {
+            // XXX: SBImportOperation was setting this, but SBSubsonicParsingOperation was not
+            let fallbackPath = self.primitiveValue(forKey: "path") as! NSString?
+            if let currentPath = currentPath ?? fallbackPath {
                 if currentPath.isAbsolutePath {
                     if let coversDir = coversDir(baseCoverDir.path as NSString) {
                         // If the path matches the prefix, do it, otherwise move the file
