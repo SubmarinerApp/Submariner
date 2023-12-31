@@ -30,6 +30,10 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes
 
+### Not yet released
+
+* Files can be dropped onto the dock icon to import them.
+
 ### Version 3.0
 
 * macOS 12 is now the minimum version. macOS 13 or newer is recommended.
