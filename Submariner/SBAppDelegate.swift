@@ -144,23 +144,14 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         return .terminateNow
     }
     
+    // XXX: this is called on launch, but is it needed?
     func applicationOpenUntitledFile(_ sender: NSApplication) -> Bool {
         zoomDatabaseWindow(self)
         return false
     }
     
-    func application(_ sender: NSApplication, openFile filename: String) -> Bool {
-        databaseController.openImportAlert(databaseController.window, files: [filename])
-        return true
-    }
-    
-    func application(_ sender: Any, openFileWithoutUI filename: String) -> Bool {
-        databaseController.openImportAlert(databaseController.window, files: [filename])
-        return true
-    }
-    
-    func application(_ sender: NSApplication, openFiles filenames: [String]) {
-        databaseController.openImportAlert(databaseController.window, files: filenames)
+    func application(_ application: NSApplication, open urls: [URL]) {
+        databaseController.openImportAlert(databaseController.window, files: urls.map { $0.path })
     }
     
     // #MARK: - Application Files/Directories
