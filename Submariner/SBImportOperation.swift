@@ -239,7 +239,7 @@ import UniformTypeIdentifiers
                         if newAlbum!.cover == nil {
                             newAlbum!.cover = SBCover.init(entity: SBCover.entity(), insertInto: threadedContext)
                         }
-                        newAlbum!.cover!.imagePath = relativePath
+                        newAlbum!.cover!.imagePath = relativePath as NSString?
                         newAlbum!.cover!.isLocal = NSNumber(booleanLiteral: true)
                         // Don't set the track cover, since it's not really used.
                     }
