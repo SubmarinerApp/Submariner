@@ -137,7 +137,7 @@
 @property (readonly, strong) IBOutlet NSNumber *isServerUsersShown;
 @property (readonly, strong) IBOutlet NSNumber *isInspectorShown;
 
-- (BOOL)openImportAlert:(NSWindow *)sender files:(NSArray *)files;
+- (BOOL)openImportAlert:(NSWindow *)sender files:(NSArray<NSURL*> *)files;
 
 - (void)goToTrack: (SBTrack*)track;
 

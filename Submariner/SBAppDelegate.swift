@@ -151,7 +151,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     }
     
     func application(_ application: NSApplication, open urls: [URL]) {
-        databaseController.openImportAlert(databaseController.window, files: urls.map { $0.path })
+        databaseController.openImportAlert(databaseController.window, files: urls)
     }
     
     // #MARK: - Application Files/Directories
