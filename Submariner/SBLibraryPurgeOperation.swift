@@ -142,11 +142,11 @@ class SBLibraryPurgeOperation: SBOperation {
                             threadedContext.delete(album)
                         }
                     }
-                    
-                    // then see if it's empty so we can delete
-                    if albums.count == 0 {
-                        threadedContext.delete(artist)
-                    }
+                }
+                
+                // then see if it's empty so we can delete
+                if let albums = artist.albums as! Set<SBAlbum>?, albums.count == 0 {
+                    threadedContext.delete(artist)
                 }
             }
         }

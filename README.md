@@ -33,6 +33,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 ### Not yet released
 
 * Files can be dropped onto the dock icon to import them.
+* Empty artists entries are deleted from the local library on deleting downloaded items.
 
 ### Version 3.0
 
