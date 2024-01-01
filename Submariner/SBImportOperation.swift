@@ -102,6 +102,10 @@ import UniformTypeIdentifiers
             durationNumber = metadata.duration
             bitrateNumber = metadata.bitrate
             coverData = metadata.albumArt as Data?
+            if let extensionType = UTType(filenameExtension: path.pathExtension),
+               let mime = extensionType.preferredMIMEType {
+                contentType = mime
+            }
         }
         
         // set these if non-existent
