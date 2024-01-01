@@ -11,18 +11,17 @@ import Cocoa
 
 // https://stackoverflow.com/a/9050488
 @objc extension NSTreeController {
-    @objc(indexPathForObject:) func indexPathFor(object:NSObject) -> NSIndexPath? {
-        return self.indexPathFor(object: object, nodes: self.arrangedObjects.children)
+    @objc(indexPathForObject:) func indexPath(for object: NSObject) -> NSIndexPath? {
+        return self.indexPath(for: object, nodes: self.arrangedObjects.children)
     }
 
-    @objc(indexPathForObject::) func indexPathFor(object:NSObject, nodes:[NSTreeNode]!) -> NSIndexPath? {
+    private func indexPath(for object: NSObject, nodes: [NSTreeNode]!) -> NSIndexPath? {
         for node in nodes {
             if (object == node.representedObject as! NSObject)  {
                 return node.indexPath as NSIndexPath
             }
             if (node.children != nil) {
-                if let path:NSIndexPath = self.indexPathFor(object: object, nodes: node.children)
-                {
+                if let path:NSIndexPath = self.indexPath(for: object, nodes: node.children) {
                     return path
                 }
             }
