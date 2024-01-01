@@ -96,23 +96,29 @@
 #pragma mark -
 #pragma mark Library View Helper Functions
 
--(void)showTracksInFinder:(NSArray*)trackList selectedIndices:(NSIndexSet*)indexSet
+-(void)showTracksInFinder:(NSArray<SBTrack*>*)trackList selectedIndices:(NSIndexSet*)indexSet
+{
+    NSArray *selectedTracks = [trackList objectsAtIndexes: indexSet];
+    [self showTracksInFinder: selectedTracks];
+}
+
+-(void)showTracksInFinder:(NSArray<SBTrack*>*)trackList
 {
     NSMutableArray *tracks = [NSMutableArray array];
     
     __block NSInteger remoteOnly = 0;
-    [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        SBTrack *track = [trackList objectAtIndex:idx];
+    for (SBTrack *track in trackList) {
+        SBTrack *trackToUse = track;
         // handle remote but cached tracks
         if (track.localTrack != nil) {
-            track = track.localTrack;
-        } else if (track.isLocal.boolValue == NO) {
+            trackToUse = track.localTrack;
+        } else if (trackToUse.isLocal.boolValue == NO) {
             remoteOnly++;
             return;
         }
-        NSURL *trackURL = [NSURL fileURLWithPath: track.path];
+        NSURL *trackURL = [NSURL fileURLWithPath: trackToUse.path];
         [tracks addObject: trackURL];
-    }];
+    }
     
     if ([tracks count] > 0) {
         [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs: tracks];
@@ -127,11 +133,16 @@
     }
 }
 
--(void)downloadTracks:(NSArray*)trackList selectedIndices:(NSIndexSet*)indexSet databaseController:(SBDatabaseController*)databaseController
+-(void)downloadTracks:(NSArray<SBTrack*>*)trackList selectedIndices:(NSIndexSet*)indexSet databaseController:(SBDatabaseController*)databaseController
 {
-    __block NSInteger downloaded = 0;
-    [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        SBTrack *track = [trackList objectAtIndex:idx];
+    NSArray *selectedTracks = [trackList objectsAtIndexes: indexSet];
+    [self downloadTracks: selectedTracks databaseController: databaseController];
+}
+
+-(void)downloadTracks:(NSArray<SBTrack*>*)trackList databaseController:(SBDatabaseController*)databaseController
+{
+    NSInteger downloaded = 0;
+    for (SBTrack *track in trackList) {
         // Check if we've already downloaded this track.
         if (track.localTrack != nil || track.isLocal.boolValue == YES) {
             return;
@@ -143,24 +154,29 @@
         
         [[NSOperationQueue sharedDownloadQueue] addOperation:op];
         downloaded++;
-    }];
+    }
     if (databaseController != nil && downloaded > 0) {
         [databaseController showDownloadView: self];
     }
 }
 
-- (SBSelectedRowStatus) selectedRowStatus:(NSArray*)trackList selectedIndices:(NSIndexSet*)indexSet
+- (SBSelectedRowStatus) selectedRowStatus:(NSArray<SBTrack*>*)trackList selectedIndices:(NSIndexSet*)indexSet
+{
+    NSArray *selectedTracks = [trackList objectsAtIndexes: indexSet];
+    return [self selectedRowStatus: selectedTracks];
+}
+
+- (SBSelectedRowStatus) selectedRowStatus:(NSArray<SBTrack*>*)trackList
 {
     __block NSInteger downloadable = 0, showable = 0;
-    [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        SBTrack *track = [trackList objectAtIndex:idx];
+    for (SBTrack *track in trackList) {
         if (track.isLocal.boolValue == YES || track.localTrack != nil) {
             showable++;
         }
         if (track.isLocal.boolValue == NO && track.localTrack == nil) {
             downloadable++;
         }
-    }];
+    }
     SBSelectedRowStatus status = 0;
     if (downloadable)
         status |= SBSelectedRowDownloadable;
@@ -169,9 +185,13 @@
     return status;
 }
 
-- (void)createLocalPlaylistWithSelected:(NSArray*)trackList selectedIndices:(NSIndexSet*)indexSet databaseController:(SBDatabaseController*)databaseController {
+- (void)createLocalPlaylistWithSelected:(NSArray<SBTrack*>*)trackList selectedIndices:(NSIndexSet*)indexSet databaseController:(SBDatabaseController*)databaseController {
     NSArray *selectedTracks = [trackList objectsAtIndexes: indexSet];
-    NSSet *selectedTracksAsSet = [NSSet setWithArray: selectedTracks];
+    [self createLocalPlaylistWithSelected: selectedTracks databaseController: databaseController];
+}
+
+- (void)createLocalPlaylistWithSelected:(NSArray<SBTrack*>*)trackList databaseController:(SBDatabaseController*)databaseController {
+    NSSet *selectedTracksAsSet = [NSSet setWithArray: trackList];
     
     // create playlist
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@)", @"Playlists"];

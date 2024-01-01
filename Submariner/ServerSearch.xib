@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22155" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22155"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,11 +23,11 @@
                     <rect key="frame" x="0.0" y="41" width="642" height="320"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="nvd-lE-CIH">
-                        <rect key="frame" x="0.0" y="0.0" width="642" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="642" height="305"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveName="ServerSearchTable" headerView="5" id="7" customClass="SBTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="684" height="292"/>
+                                <rect key="frame" x="0.0" y="0.0" width="684" height="277"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -172,6 +172,7 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
+                                    <action trigger="doubleAction" selector="playSelected:" target="-2" id="tQD-i3-FTs"/>
                                     <outlet property="dataSource" destination="-2" id="45"/>
                                     <outlet property="delegate" destination="-2" id="46"/>
                                     <outlet property="menu" destination="mZ5-X3-B9N" id="vza-LQ-PAJ"/>
@@ -180,7 +181,7 @@
                         </subviews>
                     </clipView>
                     <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="6">
-                        <rect key="frame" x="0.0" y="304" width="642" height="16"/>
+                        <rect key="frame" x="0.0" y="305" width="642" height="15"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="4">
@@ -192,7 +193,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ffA-B8-PXv">
+                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ffA-B8-PXv">
                     <rect key="frame" x="18" y="13" width="606" height="16"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" title="Track length" id="V24-O1-K64">

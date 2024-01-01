@@ -37,6 +37,7 @@
 
 // forward declare since importing is not good here
 @class SBDatabaseController;
+@class SBTrack;
 
 @interface SBViewController : NSViewController {
 @protected
@@ -51,17 +52,21 @@
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context;
 
 // Helper functions for library views (XXX: Is this the best place for them?)
--(void)showTracksInFinder:(NSArray*)trackList selectedIndices:(NSIndexSet*)indexSet;
--(void)downloadTracks:(NSArray*)trackList selectedIndices:(NSIndexSet*)indexSet databaseController:(SBDatabaseController*)databaseController;
-- (void)createLocalPlaylistWithSelected:(NSArray*)trackList selectedIndices:(NSIndexSet*)indexSet databaseController:(SBDatabaseController*)databaseController;
+-(void)showTracksInFinder:(NSArray<SBTrack*>*)trackList selectedIndices:(NSIndexSet*)indexSet;
+-(void)showTracksInFinder:(NSArray<SBTrack*>*)trackList NS_SWIFT_NAME(showTracksInFinder(_:));
+-(void)downloadTracks:(NSArray<SBTrack*>*)trackList selectedIndices:(NSIndexSet*)indexSet databaseController:(SBDatabaseController*)databaseController;
+-(void)downloadTracks:(NSArray<SBTrack*>*)trackList databaseController:(SBDatabaseController*)databaseController;
+- (void)createLocalPlaylistWithSelected:(NSArray<SBTrack*>*)trackList selectedIndices:(NSIndexSet*)indexSet databaseController:(SBDatabaseController*)databaseController;
+- (void)createLocalPlaylistWithSelected:(NSArray<SBTrack*>*)trackList databaseController:(SBDatabaseController*)databaseController;
 
-typedef enum _SBSelectedRowStatus {
+
+typedef NS_OPTIONS(NSInteger, SBSelectedRowStatus) {
     SBSelectedRowNone = 0,
-    /* this is a bitfield */
     SBSelectedRowDownloadable = 1,
     SBSelectedRowShowableInFinder = 2,
-} SBSelectedRowStatus;
+};
 
-- (SBSelectedRowStatus) selectedRowStatus:(NSArray*)trackList selectedIndices:(NSIndexSet*)indexSet;
+- (SBSelectedRowStatus) selectedRowStatus:(NSArray<SBTrack*>*)trackList selectedIndices:(NSIndexSet*)indexSet;
+- (SBSelectedRowStatus) selectedRowStatus:(NSArray<SBTrack*>*)trackList;
 
 @end
