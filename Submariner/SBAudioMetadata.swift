@@ -270,16 +270,17 @@ import AVFoundation
         }
     }
     
+    // in kilobytes/s
     @objc var bitrate: NSNumber? {
         get {
             if audioToolboxBitrate > 0 {
-                return NSNumber.init(value: audioToolboxBitrate)
+                return NSNumber.init(value: audioToolboxBitrate / 1000) // not 1024, weirdly
             }
             if let asset = asset {
                 // Uses the first one it can find, which should be the only one
                 for track in asset.tracks(withMediaType: .audio) {
                     let bitrate: Float = track.estimatedDataRate
-                    return NSNumber.init(value: bitrate)
+                    return NSNumber.init(value: bitrate / 1000)
                 }
             }
             return nil
