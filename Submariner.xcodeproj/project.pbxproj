@@ -33,6 +33,7 @@
 		3E82701827E653F0007E5695 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E82701727E653F0007E5695 /* MediaPlayer.framework */; };
 		3E87E90E2B43557400E85000 /* SBServerSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E87E90D2B43557400E85000 /* SBServerSearchController.swift */; };
 		3E87E9102B4364CF00E85000 /* Collection+IndexSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E87E90F2B4364CF00E85000 /* Collection+IndexSet.swift */; };
+		3E87E9122B436B4500E85000 /* PasteboardType+Submariner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E87E9112B436B4500E85000 /* PasteboardType+Submariner.swift */; };
 		3E94E5F62912EEC40080FDF6 /* SBNavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E5F52912EEC40080FDF6 /* SBNavigationItem.swift */; };
 		3E94E5F82915AAB80080FDF6 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E94E5F72915AAB80080FDF6 /* AVKit.framework */; };
 		3E94E5FA2915AB130080FDF6 /* SBRoutePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E5F92915AB130080FDF6 /* SBRoutePickerView.swift */; };
@@ -173,6 +174,7 @@
 		3E82701727E653F0007E5695 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		3E87E90D2B43557400E85000 /* SBServerSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBServerSearchController.swift; sourceTree = "<group>"; };
 		3E87E90F2B4364CF00E85000 /* Collection+IndexSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+IndexSet.swift"; sourceTree = "<group>"; };
+		3E87E9112B436B4500E85000 /* PasteboardType+Submariner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PasteboardType+Submariner.swift"; sourceTree = "<group>"; };
 		3E94E5F52912EEC40080FDF6 /* SBNavigationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBNavigationItem.swift; sourceTree = "<group>"; };
 		3E94E5F72915AAB80080FDF6 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		3E94E5F92915AB130080FDF6 /* SBRoutePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBRoutePickerView.swift; sourceTree = "<group>"; };
@@ -547,6 +549,7 @@
 				3E69507C2A707A2A006E5868 /* NSIndexSet+Array.swift */,
 				3E2155132B281E7D004BCCFC /* UTType+AudioToolbox.swift */,
 				3E87E90F2B4364CF00E85000 /* Collection+IndexSet.swift */,
+				3E87E9112B436B4500E85000 /* PasteboardType+Submariner.swift */,
 			);
 			name = Additions;
 			sourceTree = "<group>";
@@ -798,6 +801,7 @@
 				3EB2BCC12992D28A00DC5056 /* String+Hex.swift in Sources */,
 				3E0DAD5C29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift in Sources */,
 				3E45201829F5DBDC00604079 /* SBTrackArtistNameTransformer.swift in Sources */,
+				3E87E9122B436B4500E85000 /* PasteboardType+Submariner.swift in Sources */,
 				3E2155142B281E7D004BCCFC /* UTType+AudioToolbox.swift in Sources */,
 				3E5C42E029846E25009B9699 /* SBOnboardingController.swift in Sources */,
 				3EC03B4A29F4F2E0001FDE50 /* SBLibrary.swift in Sources */,

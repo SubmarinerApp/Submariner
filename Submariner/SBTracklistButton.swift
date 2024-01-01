@@ -10,8 +10,6 @@ import Cocoa
 
 /// Acts as a drop target for library items, so they can be added to the tracklist.
 @objc class SBTracklistButton: NSButton {
-    static let libraryType = NSPasteboard.PasteboardType.init(rawValue: "SBLibraryTableViewDataType")
-    
     var dragLingerTimer: Timer?
     
     @objc weak var databaseController: SBDatabaseController!
@@ -39,7 +37,7 @@ import Cocoa
         }
         do {
             if let moc = databaseController.managedObjectContext,
-               let data = sender.draggingPasteboard.data(forType: SBTracklistButton.libraryType),
+               let data = sender.draggingPasteboard.data(forType: .libraryType),
                let tracks = try NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, NSURL.self], from: data) as? [URL] {
                 let deserialized = tracks.map { url in
                     // this should always give us a valid object ID,
@@ -60,6 +58,6 @@ import Cocoa
         
         // it doesn't make sense to register SBTracklistTableViewDataType,
         // since that assumes the tracklist is already open
-        registerForDraggedTypes([SBTracklistButton.libraryType])
+        registerForDraggedTypes([.libraryType])
     }
 }

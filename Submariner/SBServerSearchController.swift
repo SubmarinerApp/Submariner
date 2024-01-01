@@ -37,7 +37,7 @@ import Cocoa
             }
         }
         
-        tracksTableView.registerForDraggedTypes([SBTracklistButton.libraryType])
+        tracksTableView.registerForDraggedTypes([.libraryType])
         
         selectionObserver = tracksController.observe(\.selectedObjects) { arrayController, change in
             NotificationCenter.default.post(name: .SBTrackSelectionChanged, object: arrayController.selectedObjects)
@@ -114,8 +114,8 @@ import Cocoa
         do {
             let data = try NSKeyedArchiver.archivedData(withRootObject: desiredTracks, requiringSecureCoding: true)
             
-            pboard.declareTypes([SBTracklistButton.libraryType], owner: self)
-            pboard.setData(data, forType: SBTracklistButton.libraryType)
+            pboard.declareTypes([.libraryType], owner: self)
+            pboard.setData(data, forType: .libraryType)
             
             return true
         } catch {
