@@ -16,3 +16,11 @@ public func synchronized<T>(_ lock: AnyObject, closure:() -> T) -> T {
 
     return closure()
 }
+
+@discardableResult
+public func synchronized<T>(_ lock: AnyObject, closure:() throws -> T) throws -> T {
+    objc_sync_enter(lock)
+    defer { objc_sync_exit(lock) }
+
+    return try closure()
+}

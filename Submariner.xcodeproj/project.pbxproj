@@ -34,6 +34,7 @@
 		3E87E90E2B43557400E85000 /* SBServerSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E87E90D2B43557400E85000 /* SBServerSearchController.swift */; };
 		3E87E9102B4364CF00E85000 /* Collection+IndexSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E87E90F2B4364CF00E85000 /* Collection+IndexSet.swift */; };
 		3E87E9122B436B4500E85000 /* PasteboardType+Submariner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E87E9112B436B4500E85000 /* PasteboardType+Submariner.swift */; };
+		3E87E9142B460FFB00E85000 /* NSManagedObjectContext+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E87E9132B460FFB00E85000 /* NSManagedObjectContext+Fetch.swift */; };
 		3E94E5F62912EEC40080FDF6 /* SBNavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E5F52912EEC40080FDF6 /* SBNavigationItem.swift */; };
 		3E94E5F82915AAB80080FDF6 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E94E5F72915AAB80080FDF6 /* AVKit.framework */; };
 		3E94E5FA2915AB130080FDF6 /* SBRoutePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E5F92915AB130080FDF6 /* SBRoutePickerView.swift */; };
@@ -106,7 +107,6 @@
 		4C87EDBA139CDAB90064DE2E /* SBDatabaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDB9139CDAB90064DE2E /* SBDatabaseController.m */; };
 		4C87EDBC139CDACE0064DE2E /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C87EDBB139CDACE0064DE2E /* Preferences.xib */; };
 		4C87EDC1139CDC260064DE2E /* SBSourceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDBE139CDC250064DE2E /* SBSourceList.m */; };
-		4C87EE10139CE33B0064DE2E /* NSManagedObjectContext+Fetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EE0F139CE33B0064DE2E /* NSManagedObjectContext+Fetch.m */; };
 		4CAD75C813AA597E00E7455C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAD75C713AA597E00E7455C /* CoreServices.framework */; };
 		4CC18E8013B9145400AA4FDB /* SBImageBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC18E7D13B9145400AA4FDB /* SBImageBrowserCell.m */; };
 		4CC18E8113B9145400AA4FDB /* SBImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC18E7F13B9145400AA4FDB /* SBImageBrowserView.m */; };
@@ -175,6 +175,7 @@
 		3E87E90D2B43557400E85000 /* SBServerSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBServerSearchController.swift; sourceTree = "<group>"; };
 		3E87E90F2B4364CF00E85000 /* Collection+IndexSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+IndexSet.swift"; sourceTree = "<group>"; };
 		3E87E9112B436B4500E85000 /* PasteboardType+Submariner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PasteboardType+Submariner.swift"; sourceTree = "<group>"; };
+		3E87E9132B460FFB00E85000 /* NSManagedObjectContext+Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Fetch.swift"; sourceTree = "<group>"; };
 		3E94E5F52912EEC40080FDF6 /* SBNavigationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBNavigationItem.swift; sourceTree = "<group>"; };
 		3E94E5F72915AAB80080FDF6 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		3E94E5F92915AB130080FDF6 /* SBRoutePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBRoutePickerView.swift; sourceTree = "<group>"; };
@@ -272,8 +273,6 @@
 		4C87EDBE139CDC250064DE2E /* SBSourceList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSourceList.m; sourceTree = "<group>"; };
 		4C87EDBF139CDC250064DE2E /* SBSourceListDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSourceListDataSource.h; sourceTree = "<group>"; };
 		4C87EDC0139CDC260064DE2E /* SBSourceListDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSourceListDelegate.h; sourceTree = "<group>"; };
-		4C87EE0E139CE33B0064DE2E /* NSManagedObjectContext+Fetch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+Fetch.h"; sourceTree = "<group>"; };
-		4C87EE0F139CE33B0064DE2E /* NSManagedObjectContext+Fetch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+Fetch.m"; sourceTree = "<group>"; };
 		4C9DE9A91451749D00632936 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		4CAD75C713AA597E00E7455C /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		4CC18E7C13B9145400AA4FDB /* SBImageBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBImageBrowserCell.h; sourceTree = "<group>"; };
@@ -529,8 +528,6 @@
 		4C87EDAC139CD9E90064DE2E /* Additions */ = {
 			isa = PBXGroup;
 			children = (
-				4C87EE0E139CE33B0064DE2E /* NSManagedObjectContext+Fetch.h */,
-				4C87EE0F139CE33B0064DE2E /* NSManagedObjectContext+Fetch.m */,
 				4C87EDAE139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.h */,
 				4C87EDAF139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m */,
 				4CFB3E05139CEA76008DC01A /* NSOutlineView+Expand.h */,
@@ -550,6 +547,7 @@
 				3E2155132B281E7D004BCCFC /* UTType+AudioToolbox.swift */,
 				3E87E90F2B4364CF00E85000 /* Collection+IndexSet.swift */,
 				3E87E9112B436B4500E85000 /* PasteboardType+Submariner.swift */,
+				3E87E9132B460FFB00E85000 /* NSManagedObjectContext+Fetch.swift */,
 			);
 			name = Additions;
 			sourceTree = "<group>";
@@ -774,6 +772,7 @@
 				3E702DE32A3E8E1F005F7184 /* SBAppDelegate.swift in Sources */,
 				3E2F86D828E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift in Sources */,
 				3EC5A6452A019B5C00025812 /* SBRepeatModeButtonStateTransformer.swift in Sources */,
+				3E87E9142B460FFB00E85000 /* NSManagedObjectContext+Fetch.swift in Sources */,
 				4C87ED7D139CD8BE0064DE2E /* Submariner.xcdatamodeld in Sources */,
 				3EC03B4E29F4F2E0001FDE50 /* SBSection.swift in Sources */,
 				3EC03B4829F4F2E0001FDE50 /* SBNowPlaying.swift in Sources */,
@@ -796,7 +795,6 @@
 				3EC03B4229F4F2E0001FDE50 /* SBResource.swift in Sources */,
 				3EC039C529EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift in Sources */,
 				4C87EDC1139CDC260064DE2E /* SBSourceList.m in Sources */,
-				4C87EE10139CE33B0064DE2E /* NSManagedObjectContext+Fetch.m in Sources */,
 				3E94E5F62912EEC40080FDF6 /* SBNavigationItem.swift in Sources */,
 				3EB2BCC12992D28A00DC5056 /* String+Hex.swift in Sources */,
 				3E0DAD5C29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift in Sources */,

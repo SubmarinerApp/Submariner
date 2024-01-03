@@ -43,7 +43,6 @@
 
 #import "SBSplitView.h"
 
-#import "NSManagedObjectContext+Fetch.h"
 #import "NSOutlineView+Expand.h"
 
 #import "Submariner-Swift.h"

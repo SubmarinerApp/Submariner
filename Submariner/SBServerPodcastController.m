@@ -36,8 +36,6 @@
 
 #import "Submariner-Swift.h"
 
-#import "NSManagedObjectContext+Fetch.h"
-
 
 #pragma mark -
 #pragma mark Private Interface
