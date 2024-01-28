@@ -54,6 +54,18 @@ public class SBAlbum: SBMusicItem {
         return 0
     }
     
+    // #MARK: - Derived Attributes
+    
+    // XXX: This is better off living in Core Data, but adding a derived attribute
+    // (once you get past the other issues) causes loading the new model version
+    // to fail with "Cannot migrate store in-place".
+    //
+    // Because of this, it seems a little janky (the old order might be kept, might
+    // need to click albums to refresh the sorting properly?)
+    @objc dynamic var year: NSNumber? {
+        (self.tracks as? Set<SBTrack>)?.first?.year
+    }
+    
     // #MARK: - Core Data insert compatibility shim
     
     @objc(insertInManagedObjectContext:) class func insertInManagedObjectContext(context: NSManagedObjectContext) -> SBAlbum {

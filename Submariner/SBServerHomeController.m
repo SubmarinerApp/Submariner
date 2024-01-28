@@ -84,8 +84,10 @@
     if (self) {
         scopeGroups = [[NSMutableArray alloc] init];
         
-        NSSortDescriptor *albumDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"itemName" ascending:YES];
-        albumSortDescriptor = @[albumDescriptor];
+        // XXX: Does it make sense to do a year sort for this view?
+        NSSortDescriptor *albumYearDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"year" ascending:YES];
+        NSSortDescriptor *albumNameDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"itemName" ascending:YES];
+        albumSortDescriptor = @[albumYearDescriptor, albumNameDescriptor];
         
         NSSortDescriptor *trackNumberDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"trackNumber" ascending:YES];
         NSSortDescriptor *discNumberDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"discNumber" ascending:YES];

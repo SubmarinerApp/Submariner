@@ -82,9 +82,9 @@
         NSSortDescriptor *artistDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"itemName" ascending:YES];
         artistSortDescriptor = [NSArray arrayWithObject:artistDescriptor];
         
-        // XXX: Useful to change by i.e. year instead or alphabetical, but that's not a property of Album
-        NSSortDescriptor *albumDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"itemName" ascending:YES];
-        albumSortDescriptor = @[albumDescriptor];
+        NSSortDescriptor *albumYearDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"year" ascending:YES];
+        NSSortDescriptor *albumNameDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"itemName" ascending:YES];
+        albumSortDescriptor = @[albumYearDescriptor, albumNameDescriptor];
         
         NSSortDescriptor *trackNumberDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"trackNumber" ascending:YES];
         NSSortDescriptor *discNumberDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"discNumber" ascending:YES];
