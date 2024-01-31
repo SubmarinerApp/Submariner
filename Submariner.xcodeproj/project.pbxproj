@@ -30,6 +30,7 @@
 		3E702DE92A428CF6005F7184 /* SBSubsonicParsingOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E702DE82A428CF6005F7184 /* SBSubsonicParsingOperation.swift */; };
 		3E70B2DF2A2BDC55002C0B93 /* SBApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E70B2DE2A2BDC55002C0B93 /* SBApplication.swift */; };
 		3E70B2E12A2D52A1002C0B93 /* SBPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E70B2E02A2D52A1002C0B93 /* SBPlayer.swift */; };
+		3E7491972B6A1AE00052CBCE /* SBTracklistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7491962B6A1AE00052CBCE /* SBTracklistController.swift */; };
 		3E82701827E653F0007E5695 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E82701727E653F0007E5695 /* MediaPlayer.framework */; };
 		3E87E90E2B43557400E85000 /* SBServerSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E87E90D2B43557400E85000 /* SBServerSearchController.swift */; };
 		3E87E9102B4364CF00E85000 /* Collection+IndexSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E87E90F2B4364CF00E85000 /* Collection+IndexSet.swift */; };
@@ -123,7 +124,6 @@
 		4CFB3E14139D028D008DC01A /* SBSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB3E11139D028D008DC01A /* SBSheetController.m */; };
 		4CFB3E15139D028D008DC01A /* SBServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB3E13139D028D008DC01A /* SBServerViewController.m */; };
 		4CFB3E19139D052F008DC01A /* SBEditServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB3E18139D052F008DC01A /* SBEditServerController.m */; };
-		4CFB3EF2139D4693008DC01A /* SBTracklistController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB3EF0139D4693008DC01A /* SBTracklistController.m */; };
 		4CFB3EF3139D4693008DC01A /* Tracklist.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CFB3EF1139D4693008DC01A /* Tracklist.xib */; };
 		4CFB3EF8139D47EA008DC01A /* SBViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB3EF7139D47EA008DC01A /* SBViewController.m */; };
 		4CFCE444140257EE00D35770 /* MusicSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CFCE443140257EE00D35770 /* MusicSearch.xib */; };
@@ -171,6 +171,7 @@
 		3E702DE82A428CF6005F7184 /* SBSubsonicParsingOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBSubsonicParsingOperation.swift; sourceTree = "<group>"; };
 		3E70B2DE2A2BDC55002C0B93 /* SBApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBApplication.swift; sourceTree = "<group>"; };
 		3E70B2E02A2D52A1002C0B93 /* SBPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPlayer.swift; sourceTree = "<group>"; };
+		3E7491962B6A1AE00052CBCE /* SBTracklistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTracklistController.swift; sourceTree = "<group>"; };
 		3E82701727E653F0007E5695 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		3E87E90D2B43557400E85000 /* SBServerSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBServerSearchController.swift; sourceTree = "<group>"; };
 		3E87E90F2B4364CF00E85000 /* Collection+IndexSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+IndexSet.swift"; sourceTree = "<group>"; };
@@ -302,8 +303,6 @@
 		4CFB3E13139D028D008DC01A /* SBServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBServerViewController.m; sourceTree = "<group>"; };
 		4CFB3E17139D052F008DC01A /* SBEditServerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBEditServerController.h; sourceTree = "<group>"; };
 		4CFB3E18139D052F008DC01A /* SBEditServerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBEditServerController.m; sourceTree = "<group>"; };
-		4CFB3EEF139D4693008DC01A /* SBTracklistController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBTracklistController.h; sourceTree = "<group>"; };
-		4CFB3EF0139D4693008DC01A /* SBTracklistController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBTracklistController.m; sourceTree = "<group>"; };
 		4CFB3EF1139D4693008DC01A /* Tracklist.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Tracklist.xib; sourceTree = "<group>"; };
 		4CFB3EF6139D47EA008DC01A /* SBViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBViewController.h; sourceTree = "<group>"; };
 		4CFB3EF7139D47EA008DC01A /* SBViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBViewController.m; sourceTree = "<group>"; };
@@ -658,8 +657,6 @@
 				4C7AA230139D57A00050BE95 /* SBMusicController.m */,
 				4CFCE4451402582400D35770 /* SBMusicSearchController.h */,
 				4CFCE4461402582400D35770 /* SBMusicSearchController.m */,
-				4CFB3EEF139D4693008DC01A /* SBTracklistController.h */,
-				4CFB3EF0139D4693008DC01A /* SBTracklistController.m */,
 				4C7AA22A139D563A0050BE95 /* SBPlaylistController.h */,
 				4C7AA22B139D563A0050BE95 /* SBPlaylistController.m */,
 				4C7AA24A139D64920050BE95 /* SBServerLibraryController.h */,
@@ -675,6 +672,7 @@
 				3E45201B29FA488C00604079 /* SBServerUserViewController.swift */,
 				3E1B785D2ACE5039008927C6 /* SBInspectorController.swift */,
 				3E87E90D2B43557400E85000 /* SBServerSearchController.swift */,
+				3E7491962B6A1AE00052CBCE /* SBTracklistController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -788,6 +786,7 @@
 				3EB2BCC72992E13700DC5056 /* String+Time.swift in Sources */,
 				3ED4C4D42AC0E25400649FB2 /* SBLibraryPurgeOperation.swift in Sources */,
 				4C87EDBA139CDAB90064DE2E /* SBDatabaseController.m in Sources */,
+				3E7491972B6A1AE00052CBCE /* SBTracklistController.swift in Sources */,
 				3E1B785E2ACE5039008927C6 /* SBInspectorController.swift in Sources */,
 				3E70B2DF2A2BDC55002C0B93 /* SBApplication.swift in Sources */,
 				3E702DE72A428A1B005F7184 /* Synchronized.swift in Sources */,
@@ -817,7 +816,6 @@
 				4CFB3E19139D052F008DC01A /* SBEditServerController.m in Sources */,
 				3E45201C29FA488C00604079 /* SBServerUserViewController.swift in Sources */,
 				3EC03B3429F4F2E0001FDE50 /* SBMusicItem.swift in Sources */,
-				4CFB3EF2139D4693008DC01A /* SBTracklistController.m in Sources */,
 				4CFB3EF8139D47EA008DC01A /* SBViewController.m in Sources */,
 				3EC03B5429F4F2E0001FDE50 /* SBPlaylist.swift in Sources */,
 				3E87E90E2B43557400E85000 /* SBServerSearchController.swift in Sources */,

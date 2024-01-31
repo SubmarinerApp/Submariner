@@ -433,6 +433,14 @@ extension NSNotification.Name {
         NotificationCenter.default.post(name: .SBPlayerPlaylistUpdated, object: self)
     }
     
+    @objc(addTrackArray:atIndex:) func add(tracks: [SBTrack], index: Int) {
+        playlist.insert(contentsOf: tracks, at: index)
+        if let currentIndex = self.currentIndex, index <= currentIndex {
+            self.currentIndex = currentIndex + tracks.count
+        }
+        NotificationCenter.default.post(name: .SBPlayerPlaylistUpdated, object: self)
+    }
+    
     @objc(removeTrackIndexSet:) func remove(trackIndexSet: IndexSet) {
         var newCurrentIndex = 0
         if let currentIndex = self.currentIndex {
@@ -499,16 +507,6 @@ extension NSNotification.Name {
         }
     }
     @Published var currentIndex: Int?
-    // Used because we can't represent Int? in Objective-C. Don't use in Swift.
-    @objc dynamic var currentIndexNumber: Int {
-        get {
-            if let currentIndex = self.currentIndex {
-                return currentIndex
-            } else {
-                return NSNotFound
-            }
-        }
-    }
     
     @objc dynamic var isPlaying = false
     @objc dynamic var isPaused = false
@@ -738,6 +736,7 @@ extension NSNotification.Name {
     @objc func clear() {
         playlist.removeAll()
         currentIndex = nil
+        NotificationCenter.default.post(name: .SBPlayerPlaylistUpdated, object: self)
     }
     
     // #MARK: - Accessors (Player Properties)

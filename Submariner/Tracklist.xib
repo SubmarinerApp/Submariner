@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22155" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22155"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -27,7 +27,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" id="13" customClass="SBTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="377" height="319"/>
+                                <rect key="frame" x="0.0" y="0.0" width="391" height="319"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -87,6 +87,7 @@
                                     </tableColumn>
                                 </tableColumns>
                                 <connections>
+                                    <action trigger="doubleAction" selector="playSelected:" target="-2" id="79s-QM-pKj"/>
                                     <outlet property="dataSource" destination="-2" id="39"/>
                                     <outlet property="delegate" destination="-2" id="51"/>
                                     <outlet property="menu" destination="ZuB-I1-mw4" id="s6t-Zl-XCm"/>
@@ -120,7 +121,7 @@
                 <menuItem title="Play" id="ZxI-hf-xRA">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="trackDoubleClick:" target="-2" id="cWd-NU-QOj"/>
+                        <action selector="playSelected:" target="-2" id="hEx-5R-aRb"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="8p2-LZ-tRv"/>
