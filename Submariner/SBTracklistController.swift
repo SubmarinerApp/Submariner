@@ -62,7 +62,7 @@ import Cocoa
     
     @IBAction func showSelectedInFinder(_ sender: Any) {
         if playlistTableView.selectedRow != -1 {
-            self.showTracks(inFinder: SBPlayer.sharedInstance().playlist, selectedIndices: playlistTableView.selectedRowIndexes)
+            self.showTracksInFinder(SBPlayer.sharedInstance().playlist, selectedIndices: playlistTableView.selectedRowIndexes)
         }
     }
     

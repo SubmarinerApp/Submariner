@@ -52,7 +52,7 @@
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context;
 
 // Helper functions for library views (XXX: Is this the best place for them?)
--(void)showTracksInFinder:(NSArray<SBTrack*>*)trackList selectedIndices:(NSIndexSet*)indexSet;
+-(void)showTracksInFinder:(NSArray<SBTrack*>*)trackList selectedIndices:(NSIndexSet*)indexSet NS_SWIFT_NAME(showTracksInFinder(_:selectedIndices:));
 -(void)showTracksInFinder:(NSArray<SBTrack*>*)trackList NS_SWIFT_NAME(showTracksInFinder(_:));
 -(void)downloadTracks:(NSArray<SBTrack*>*)trackList selectedIndices:(NSIndexSet*)indexSet databaseController:(SBDatabaseController*)databaseController;
 -(void)downloadTracks:(NSArray<SBTrack*>*)trackList databaseController:(SBDatabaseController*)databaseController;
