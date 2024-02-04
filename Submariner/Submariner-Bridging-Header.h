@@ -3,6 +3,6 @@
 //
 
 #import "SBServerViewController.h"
-#import "SBAddServerPlaylistController.h"
+#import "SBSheetController.h"
 #import "SBDatabaseController.h"
 #import "SBPreferencesController.h"

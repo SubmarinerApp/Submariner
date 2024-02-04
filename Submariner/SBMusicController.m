@@ -34,7 +34,6 @@
 
 #import "SBMusicController.h"
 #import "SBDatabaseController.h"
-#import "SBMergeArtistsController.h"
 
 #import "Submariner-Swift.h"
 

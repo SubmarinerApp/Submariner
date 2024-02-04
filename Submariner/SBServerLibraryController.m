@@ -34,7 +34,6 @@
 
 #import "SBServerLibraryController.h"
 #import "SBDatabaseController.h"
-#import "SBAddServerPlaylistController.h"
 #import "SBTableView.h"
 
 #import "Submariner-Swift.h"

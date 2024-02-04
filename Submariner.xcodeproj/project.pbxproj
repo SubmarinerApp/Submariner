@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E04F5EB2B7043F600E24E56 /* SBMergeArtistsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F5EA2B7043F600E24E56 /* SBMergeArtistsController.swift */; };
+		3E04F5ED2B70487200E24E56 /* SBAddServerPlaylistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F5EC2B70487200E24E56 /* SBAddServerPlaylistController.swift */; };
 		3E0DAD5C29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */; };
 		3E189E4028EF5BAB0062ACA0 /* SBAudioMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */; };
 		3E1B785E2ACE5039008927C6 /* SBInspectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B785D2ACE5039008927C6 /* SBInspectorController.swift */; };
@@ -79,8 +81,6 @@
 		3EC5A6452A019B5C00025812 /* SBRepeatModeButtonStateTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC5A6442A019B5C00025812 /* SBRepeatModeButtonStateTransformer.swift */; };
 		3ECF63FA280362BA004F9176 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ECF63F9280362BA004F9176 /* Assets.xcassets */; };
 		3ED4C4D42AC0E25400649FB2 /* SBLibraryPurgeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4C4D32AC0E25400649FB2 /* SBLibraryPurgeOperation.swift */; };
-		4C4113AD13A3BD680069CC33 /* SBAddServerPlaylistController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4113AC13A3BD680069CC33 /* SBAddServerPlaylistController.m */; };
-		4C4A1E8713B4E6A0000BA93D /* SBMergeArtistsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C4A1E8613B4E6A0000BA93D /* SBMergeArtistsController.m */; };
 		4C4DE62413A200AD006A1EC1 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4DE62213A200AA006A1EC1 /* Carbon.framework */; };
 		4C4DE62513A200AD006A1EC1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4DE62313A200AC006A1EC1 /* Security.framework */; };
 		4C56868214050AD000BE3478 /* SBCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56868114050AD000BE3478 /* SBCollectionView.m */; };
@@ -144,6 +144,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3E04F5EA2B7043F600E24E56 /* SBMergeArtistsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBMergeArtistsController.swift; sourceTree = "<group>"; };
+		3E04F5EC2B70487200E24E56 /* SBAddServerPlaylistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBAddServerPlaylistController.swift; sourceTree = "<group>"; };
 		3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTrackListLengthTransformer.swift; sourceTree = "<group>"; };
 		3E189E3228EBBAC40062ACA0 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBAudioMetadata.swift; sourceTree = "<group>"; };
@@ -222,10 +224,6 @@
 		3EC5A6442A019B5C00025812 /* SBRepeatModeButtonStateTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBRepeatModeButtonStateTransformer.swift; sourceTree = "<group>"; };
 		3ECF63F9280362BA004F9176 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3ED4C4D32AC0E25400649FB2 /* SBLibraryPurgeOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBLibraryPurgeOperation.swift; sourceTree = "<group>"; };
-		4C4113AB13A3BD680069CC33 /* SBAddServerPlaylistController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAddServerPlaylistController.h; sourceTree = "<group>"; };
-		4C4113AC13A3BD680069CC33 /* SBAddServerPlaylistController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAddServerPlaylistController.m; sourceTree = "<group>"; };
-		4C4A1E8513B4E6A0000BA93D /* SBMergeArtistsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBMergeArtistsController.h; sourceTree = "<group>"; };
-		4C4A1E8613B4E6A0000BA93D /* SBMergeArtistsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBMergeArtistsController.m; sourceTree = "<group>"; };
 		4C4DE62213A200AA006A1EC1 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		4C4DE62313A200AC006A1EC1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		4C56868014050AD000BE3478 /* SBCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCollectionView.h; sourceTree = "<group>"; };
@@ -642,10 +640,8 @@
 				4C87EDB5139CDAA40064DE2E /* SBPreferencesController.m */,
 				4CFB3E17139D052F008DC01A /* SBEditServerController.h */,
 				4CFB3E18139D052F008DC01A /* SBEditServerController.m */,
-				4C4113AB13A3BD680069CC33 /* SBAddServerPlaylistController.h */,
-				4C4113AC13A3BD680069CC33 /* SBAddServerPlaylistController.m */,
-				4C4A1E8513B4E6A0000BA93D /* SBMergeArtistsController.h */,
-				4C4A1E8613B4E6A0000BA93D /* SBMergeArtistsController.m */,
+				3E04F5EC2B70487200E24E56 /* SBAddServerPlaylistController.swift */,
+				3E04F5EA2B7043F600E24E56 /* SBMergeArtistsController.swift */,
 			);
 			name = "Window Controllers";
 			sourceTree = "<group>";
@@ -800,6 +796,7 @@
 				3E45201829F5DBDC00604079 /* SBTrackArtistNameTransformer.swift in Sources */,
 				3E87E9122B436B4500E85000 /* PasteboardType+Submariner.swift in Sources */,
 				3E2155142B281E7D004BCCFC /* UTType+AudioToolbox.swift in Sources */,
+				3E04F5ED2B70487200E24E56 /* SBAddServerPlaylistController.swift in Sources */,
 				3E5C42E029846E25009B9699 /* SBOnboardingController.swift in Sources */,
 				3EC03B4A29F4F2E0001FDE50 /* SBLibrary.swift in Sources */,
 				3EC03B3E29F4F2E0001FDE50 /* SBCover.swift in Sources */,
@@ -821,6 +818,7 @@
 				3E87E90E2B43557400E85000 /* SBServerSearchController.swift in Sources */,
 				3EC039C729EFB867001FDE50 /* SBDownloadsController.swift in Sources */,
 				3EA929B929E4766900938582 /* SBVolumeIconTransformer.swift in Sources */,
+				3E04F5EB2B7043F600E24E56 /* SBMergeArtistsController.swift in Sources */,
 				3E702DE92A428CF6005F7184 /* SBSubsonicParsingOperation.swift in Sources */,
 				4C7AA229139D53A50050BE95 /* SBTableView.m in Sources */,
 				3EC03B5F29F5B0E2001FDE50 /* SBMusicItem+CoreDataProperties.swift in Sources */,
@@ -841,11 +839,9 @@
 				3EA929BB29E4785F00938582 /* SBRepeatModeTransformer.swift in Sources */,
 				3EC03B4629F4F2E0001FDE50 /* SBTrack.swift in Sources */,
 				4CFAFC7D13A0F7E000E82B57 /* SBAnimatedView.m in Sources */,
-				4C4113AD13A3BD680069CC33 /* SBAddServerPlaylistController.m in Sources */,
 				3EC03B3629F4F2E0001FDE50 /* SBEpisode.swift in Sources */,
 				3EC03AC529F42C95001FDE50 /* URL+Parameters.swift in Sources */,
 				3E69507D2A707A2A006E5868 /* NSIndexSet+Array.swift in Sources */,
-				4C4A1E8713B4E6A0000BA93D /* SBMergeArtistsController.m in Sources */,
 				3EC03B6329F5B0E2001FDE50 /* SBServer+CoreDataProperties.swift in Sources */,
 				4CC18E8013B9145400AA4FDB /* SBImageBrowserCell.m in Sources */,
 				4CC18E8113B9145400AA4FDB /* SBImageBrowserView.m in Sources */,

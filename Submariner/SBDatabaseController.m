@@ -34,7 +34,6 @@
 
 #import "SBDatabaseController.h"
 #import "SBEditServerController.h"
-#import "SBAddServerPlaylistController.h"
 #import "SBMusicController.h"
 #import "SBPlaylistController.h"
 #import "SBAnimatedView.h"
