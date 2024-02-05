@@ -400,51 +400,51 @@ public class SBServer: SBResource {
     
     @objc func getArtists() {
         let request = SBSubsonicRequestOperation(server: self, request: .getArtists)
-        request.main()
+        OperationQueue.sharedServerQueue.addOperation(request)
     }
     
     @objc(getArtist:) func get(artist: SBArtist) {
         guard let artistId = artist.itemId else { return }
         let request = SBSubsonicRequestOperation(server: self, request: .getArtist(id: artistId))
-        request.main()
+        OperationQueue.sharedServerQueue.addOperation(request)
     }
     
     @objc(getAlbum:) func get(album: SBAlbum) {
         guard let albumId = album.itemId else { return }
         let request = SBSubsonicRequestOperation(server: self, request: .getAlbum(id: albumId))
-        request.main()
+        OperationQueue.sharedServerQueue.addOperation(request)
     }
     
     func getTrack(trackID: String) {
         let request = SBSubsonicRequestOperation(server: self, request: .getTrack(id: trackID))
-        request.main()
+        OperationQueue.sharedServerQueue.addOperation(request)
     }
     
     func getCover(id: String, for albumID: String?) {
         let request = SBSubsonicRequestOperation(server: self, request: .getCoverArt(id: id, forAlbumId: albumID))
-        request.main()
+        OperationQueue.sharedServerQueue.addOperation(request)
     }
     
     @objc func getAlbumListFor(type: SBAlbumListType) {
         let request = SBSubsonicRequestOperation(server: self, request: .getAlbumList(type: type))
-        request.main()
+        OperationQueue.sharedServerQueue.addOperation(request)
     }
     
     // #MARK: - Subsonic Client (Playlists)
     
     @objc func getServerPlaylists() {
         let request = SBSubsonicRequestOperation(server: self, request: .getPlaylists)
-        request.main()
+        OperationQueue.sharedServerQueue.addOperation(request)
     }
     
     @objc func createPlaylist(name: String, tracks: [SBTrack]) {
         let request = SBSubsonicRequestOperation(server: self, request: .createPlaylist(name: name, tracks: tracks))
-        request.main()
+        OperationQueue.sharedServerQueue.addOperation(request)
     }
     
     @objc func updatePlaylist(ID: String, tracks: [SBTrack]) {
         let request = SBSubsonicRequestOperation(server: self, request: .replacePlaylist(id: ID, tracks: tracks))
-        request.main()
+        OperationQueue.sharedServerQueue.addOperation(request)
     }
     
     // public ommited because Bool? not in objc
@@ -454,25 +454,25 @@ public class SBServer: SBResource {
                               appending: [SBTrack]? = nil,
                               removing: [Int]? = nil) {
         let request = SBSubsonicRequestOperation(server: self, request: .updatePlaylist(id: ID, name: name, comment: comment, isPublic: nil, appending: appending, removing: removing))
-        request.main()
+        OperationQueue.sharedServerQueue.addOperation(request)
     }
     
     @objc func deletePlaylist(ID: String) {
         let request = SBSubsonicRequestOperation(server: self, request: .deletePlaylist(id: ID))
-        request.main()
+        OperationQueue.sharedServerQueue.addOperation(request)
     }
     
     @objc func getPlaylistTracks(_ playlist: SBPlaylist) {
         guard let playlistId = playlist.itemId else { return }
         let request = SBSubsonicRequestOperation(server: self, request: .getPlaylist(id: playlistId))
-        request.main()
+        OperationQueue.sharedServerQueue.addOperation(request)
     }
     
     // #MARK: - Subsonic Client (Podcasts)
     
     @objc func getServerPodcasts() {
         let request = SBSubsonicRequestOperation(server: self, request: .getPodcasts)
-        request.main()
+        OperationQueue.sharedServerQueue.addOperation(request)
     }
     
     // #MARK: - Subsonic Client (Now Playing)
@@ -480,39 +480,39 @@ public class SBServer: SBResource {
     @objc func getNowPlaying() {
         if self.supportsNowPlaying == true {
             let request = SBSubsonicRequestOperation(server: self, request: .getNowPlaying)
-            request.main()
+            OperationQueue.sharedServerQueue.addOperation(request)
         }
     }
     
     func scrobble(id: String) {
         let request = SBSubsonicRequestOperation(server: self, request: .scrobble(id: id))
-        request.main()
+        OperationQueue.sharedServerQueue.addOperation(request)
     }
     
     // #MARK: - Subsonic Client (Search)
     
     @objc func search(query: String) {
         let request = SBSubsonicRequestOperation(server: self, request: .search(query: query))
-        request.main()
+        OperationQueue.sharedServerQueue.addOperation(request)
     }
     
     // #MARK: - Subsonic Client (Rating)
     
     @objc(setRating:forID:) func setRating(_ rating: Int, id: String) {
         let request = SBSubsonicRequestOperation(server: self, request: .setRating(id: id, rating: rating))
-        request.main()
+        OperationQueue.sharedServerQueue.addOperation(request)
     }
     
     // #MARK: - Subsonic Client (Library Scan)
     
     @objc func scanLibrary() {
         let request = SBSubsonicRequestOperation(server: self, request: .scanLibrary)
-        request.main()
+        OperationQueue.sharedServerQueue.addOperation(request)
     }
     
     @objc func getScanStatus() {
         let request = SBSubsonicRequestOperation(server: self, request: .getScanStatus)
-        request.main()
+        OperationQueue.sharedServerQueue.addOperation(request)
     }
     
     // #MARK: - Core Data insert compatibility shim

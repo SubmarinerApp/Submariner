@@ -32,7 +32,7 @@ extension NSNotification.Name{
 
 class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     let requestType: SBSubsonicRequestType
-    var server: SBServer
+    var server: SBServer!
     let xmlData: Data?
     let mimeType: String?
     
@@ -62,13 +62,11 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
           xml: Data?,
           mimeType: String?) {
         self.requestType = requestType
-        // HACK: we need to throw this away, so we can reinit with threadedContext from SBOperation
-        self.server = mainContext.object(with: server) as! SBServer
         self.xmlData = xml
         self.mimeType = mimeType
         
         super.init(managedObjectContext: mainContext, name: "Parsing Subsonic Request")
-        self.server = threadedContext.object(with: server) as! SBServer
+        self.server = threadedContext.object(with: server) as? SBServer
     }
     
     // #MARK: - NSOperation

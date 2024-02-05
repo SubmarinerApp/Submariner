@@ -14,7 +14,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
 class SBSubsonicRequestOperation: SBOperation {
     typealias ParsingCustomization = ((SBSubsonicParsingOperation) -> Void)
     
-    var server: SBServer // like parsing we need to do the same throwing away again
+    var server: SBServer!
     
     var parameters: [String: String] = [:]
     let request: SBSubsonicRequestType
@@ -22,14 +22,13 @@ class SBSubsonicRequestOperation: SBOperation {
     var customization: ParsingCustomization? = nil
     
     init(server: SBServer, request: SBSubsonicRequestType) {
-        self.server = server
         parameters = server.getBaseParameters()
         self.request = request
         
-        // name is temporary
-        let baseName = "Requesting from \(self.server.resourceName ?? "server")"
+        // name is temporary, and we're on the same thread as what passed us this i hope
+        let baseName = "Requesting from \(server.resourceName ?? "server")"
         super.init(managedObjectContext: server.managedObjectContext!, name: baseName)
-        self.server = threadedContext.object(with: server.objectID) as! SBServer
+        self.server = threadedContext.object(with: server.objectID) as? SBServer
         
         DispatchQueue.main.async {
             if let url = self.url {
