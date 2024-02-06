@@ -51,6 +51,7 @@
 @class SBDownloadsController;
 @class SBServerUserViewController;
 @class SBServerSearchController;
+@class SBServerDirectoryController;
 @class SBInspectorController;
 @class SBTracklistController;
 @class SBPlaylistController;
@@ -111,6 +112,7 @@
     SBMusicSearchController *musicSearchController;
     SBServerLibraryController *serverLibraryController;
     SBServerHomeController *serverHomeController;
+    SBServerDirectoryController *serverDirectoryController;
     SBServerPodcastController *serverPodcastController;
     SBServerUserViewController *serverUserController;
     SBServerSearchController *serverSearchController;

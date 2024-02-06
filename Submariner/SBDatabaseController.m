@@ -128,6 +128,7 @@
         musicSearchController = [[SBMusicSearchController alloc] initWithManagedObjectContext:self.managedObjectContext];
         serverLibraryController = [[SBServerLibraryController alloc] initWithManagedObjectContext:self.managedObjectContext];
         serverHomeController = [[SBServerHomeController alloc] initWithManagedObjectContext:self.managedObjectContext];
+        serverDirectoryController = [[SBServerDirectoryController alloc] initWithManagedObjectContext:self.managedObjectContext];
         serverPodcastController = [[SBServerPodcastController alloc] initWithManagedObjectContext:self.managedObjectContext];
         serverUserController = [[SBServerUserViewController alloc] initWithManagedObjectContext:self.managedObjectContext];
         serverSearchController = [[SBServerSearchController alloc] initWithManagedObjectContext:self.managedObjectContext];
@@ -140,6 +141,7 @@
         [playlistController setDatabaseController:self];
         [serverLibraryController setDatabaseController:self];
         [serverHomeController setDatabaseController:self];
+        [serverDirectoryController setDatabaseController:self];
         [serverSearchController setDatabaseController:self];
         [serverUserController setDatabaseController:self];
         [inspectorController setDatabaseController:self];
@@ -659,6 +661,7 @@
     }
     [server getServerLicense];
     [server getArtists];
+    [server getServerDirectories];
     [server getServerPlaylists];
     // XXX: Check if it's the current VC too?
     if (server != nil && serverHomeController.server == server) {
@@ -1201,6 +1204,7 @@
     editServerController.server = server;
     addServerPlaylistController.server = server;
     serverHomeController.server = server;
+    serverDirectoryController.server = server;
     serverUserController.server = server;
     serverSearchController.server = server;
     serverLibraryController.server = server;
@@ -1955,7 +1959,7 @@
             @"Downloads": downloadsController,
             @"ServerLibrary": serverLibraryController,
             @"ServerHome": serverHomeController,
-            @"ServerPodcasts": serverPodcastController,
+            @"ServerPodcasts": serverDirectoryController,
             @"ServerSearch": serverSearchController,
             @"MusicSearch": musicSearchController,
             @"Playlist": playlistController,

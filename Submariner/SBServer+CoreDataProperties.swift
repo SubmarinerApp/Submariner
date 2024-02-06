@@ -32,6 +32,24 @@ extension SBServer {
     @NSManaged public var nowPlayings: NSSet?
     @NSManaged public var home: SBHome?
     @NSManaged public var indexes: NSSet?
+    @NSManaged public var directories: NSSet?
+
+}
+
+// MARK: Generated accessors for directories
+extension SBServer {
+
+    @objc(addDirectoriesObject:)
+    @NSManaged public func addToDirectories(_ value: SBDirectory)
+
+    @objc(removeDirectoriesObject:)
+    @NSManaged public func removeFromDirectories(_ value: SBDirectory)
+
+    @objc(addDirectories:)
+    @NSManaged public func addToDirectories(_ values: NSSet)
+
+    @objc(removeDirectories:)
+    @NSManaged public func removeFromDirectories(_ values: NSSet)
 
 }
 

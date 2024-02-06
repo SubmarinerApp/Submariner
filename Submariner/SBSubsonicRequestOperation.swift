@@ -250,6 +250,12 @@ class SBSubsonicRequestOperation: SBOperation {
         case .getTrack(id: let id):
             parameters["id"] = id
             url = URL.URLWith(string: server.url, command: "rest/getSong.view", parameters: parameters)
+        case .getDirectories:
+            // XXX: there is a lastIndexDate param but since the changeover to ID3 tag primary, that's not relevant anymore
+            url = URL.URLWith(string: server.url, command: "rest/getIndexes.view", parameters: parameters)
+        case .getDirectory(id: let id):
+            parameters["id"] = id
+            url = URL.URLWith(string: server.url, command: "rest/getMusicDirectory.view", parameters: parameters)
         }
     }
 }

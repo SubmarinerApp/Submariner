@@ -201,6 +201,47 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         }
     }
     
+    private func parseElementDirectory(attributeDict: [String: String]) {
+        if let directoryId = attributeDict["id"] {
+            if let directory = fetchDirectory(id: directoryId) {
+                updateDirectory(directory, attributes: attributeDict, inContextOf: .directoryElement)
+                return
+            }
+            logger.info("Creating new directory with ID \(directoryId, privacy: .public)")
+            let _ = createDirectory(attributes: attributeDict, inContextOf: .directoryElement)
+            
+            // Directory is not a type of index to avoid confusing the artist view (which looks at server.indexes)
+        }
+    }
+    
+    private func parseElementChild(attributeDict: [String: String]) {
+        if attributeDict["isDir"] == "true", let directoryId = attributeDict["id"] {
+            if let directory = fetchDirectory(id: directoryId) {
+                updateDirectory(directory, attributes: attributeDict, inContextOf: .childDirectory)
+                return
+            }
+            let _ = createDirectory(attributes: attributeDict, inContextOf: .childDirectory)
+        } else if let id = attributeDict["id"], let parent = attributeDict["id"] {
+            if let type = attributeDict["type"], type != "music" {
+                logger.info("Ignoring directory entry for non-music")
+                return
+            }
+            // track instead of dir
+            if let track = fetchTrack(id: id) {
+                logger.info("Updating track with ID: \(id, privacy: .public) for directory ID \(parent, privacy: .public)")
+                
+                // this should update and associate directory et al
+                updateTrackDependenciesForTag(track, attributeDict: attributeDict, shouldFetchAlbumArt: false)
+            } else {
+                // if the track doesn't exist yet, it'll be born without context. provide that context (artist/album/cover)
+                // FIXME: Should we update *existing* tracks regardless? For previous cases they were pulled anew...
+                logger.info("Creating track with ID: \(id, privacy: .public) for directory ID \(parent, privacy: .public)")
+                let track = createTrack(attributes: attributeDict)
+                updateTrackDependenciesForTag(track, attributeDict: attributeDict, shouldFetchAlbumArt: false)
+            }
+        }
+    }
+    
     private func parseElementArtist(attributeDict: [String: String]) {
         if let id = attributeDict["id"], let name = attributeDict["name"] {
             if let existingArtist = fetchArtist(id: id) {
@@ -522,8 +563,20 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             parseElementIndexes(attributeDict: attributeDict)
         } else if elementName == "index" { // build group index
             parseElementIndex(attributeDict: attributeDict)
+        } else if elementName == "directory" { // for looking at directories - we don't use index/section yet for these?
+            parseElementDirectory(attributeDict: attributeDict)
+        } else if elementName == "child" { // directory member
+            parseElementChild(attributeDict: attributeDict)
         } else if elementName == "artist" { // build artist index
-            parseElementArtist(attributeDict: attributeDict)
+            // artist in context of getIndexes -> directories; artist in context of getArtist(s) -> artistId
+            switch (requestType) {
+            case .getArtists, .getArtist(id: _):
+                parseElementArtist(attributeDict: attributeDict)
+            case .getDirectories:
+                parseElementDirectory(attributeDict: attributeDict)
+            default:
+                break
+            }
         } else if elementName == "albumList" || elementName == "albumList2" { // the ServerHome controller's album list...
             parseElementAlbumList(attributeDict: attributeDict)
         } else if elementName == "album" { // ...and its albums
@@ -626,6 +679,14 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     
     // #MARK: - Fetch Core Data objects
     // TODO: These might make more sense on their Core Data classes.
+    
+    private func fetchDirectory(id: String) -> SBDirectory? {
+        let fetchRequest = NSFetchRequest<SBDirectory>(entityName: "Directory")
+        fetchRequest.predicate = NSPredicate(format: "(itemId == %@) && (server == %@)", id, server)
+        let results = try? threadedContext.fetch(fetchRequest)
+        
+        return results?.first
+    }
     
     private func fetchGroup(groupName: String) -> SBGroup? {
         let fetchRequest = NSFetchRequest<SBGroup>(entityName: "Group")
@@ -788,6 +849,66 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         return album
     }
     
+    enum DirectoryCreation: Equatable {
+        case directoryElement
+        case childDirectory
+        case parentReferenceOnly
+    }
+    
+    private func updateDirectory(_ directory: SBDirectory, attributes: [String: String], inContextOf directoryCreation: DirectoryCreation) {
+        // <directory> uses "name", <child> dirs use "title", and we can't get the name from i.e. a track
+        switch (directoryCreation) {
+        case .directoryElement:
+            if let name = attributes["name"] {
+                directory.itemName = name
+            }
+        case .childDirectory:
+            if let name = attributes["title"] {
+                directory.itemName = name
+            }
+        case .parentReferenceOnly:
+            break
+        }
+        
+        // if we're fetching a directory, it might have a parent we may or may not know about.
+        // almost certainly we know it (or we wouldn't have requested the directory, but just make sure integrity is kept
+        if let parentDirectoryId = attributes["parent"] {
+            var parentDirectory = fetchDirectory(id: parentDirectoryId)
+            if parentDirectory == nil {
+                parentDirectory = createDirectory(attributes: attributes, inContextOf: .parentReferenceOnly)
+            }
+            
+            directory.parentDirectory = parentDirectory
+            parentDirectory?.addToSubdirectories(directory)
+        }
+    }
+    
+    private func createDirectory(attributes: [String: String], inContextOf directoryCreation: DirectoryCreation) -> SBDirectory {
+        let directory = SBDirectory.insertInManagedObjectContext(context: threadedContext)
+        
+        // is this for a <directory> element with metadata, or any other object with a parent, including another directory? (we can fetch it later if otherwise)
+        switch (directoryCreation) {
+        case .directoryElement, .childDirectory:
+            if let id = attributes["id"] {
+                directory.itemId = id
+            }
+            updateDirectory(directory, attributes: attributes, inContextOf: directoryCreation)
+        case .parentReferenceOnly:
+            // only information we have is the parent
+            if let id = attributes["parent"] {
+                directory.itemId = id
+            }
+        }
+        
+        
+        directory.server = self.server
+        // would this mess up hierarchy? just filter on if parentDirectory == nil
+        server.addToDirectories(directory)
+        directory.isLocal = false
+        
+        return directory
+    }
+    
     private func updateTrackDependenciesForTag(_ track: SBTrack, attributeDict: [String: String], shouldFetchAlbumArt: Bool = true) {
         var attachedArtist: SBArtist?
         // is this right for album artist? the artist object can get corrected on fetch though...
@@ -846,6 +967,20 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         if let attachedAlbum = attachedAlbum {
             attachedAlbum.addToTracks(track)
             track.album = attachedAlbum
+        }
+        
+        var attachedDirectory: SBDirectory?
+        if let directoryId = attributeDict["parent"] {
+            attachedDirectory = fetchDirectory(id: directoryId)
+            if attachedDirectory == nil {
+                logger.info("Creating new directory with ID \(directoryId, privacy: .public) in track context")
+                attachedDirectory = createDirectory(attributes: attributeDict, inContextOf: .parentReferenceOnly)
+            }
+        }
+        
+        if let attachedDirectory = attachedDirectory {
+            track.parentDirectory = attachedDirectory
+            attachedDirectory.addToTracks(track)
         }
     }
     

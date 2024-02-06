@@ -430,6 +430,16 @@ public class SBServer: SBResource {
         OperationQueue.sharedServerQueue.addOperation(request)
     }
     
+    @objc func getServerDirectories() {
+        let request = SBSubsonicRequestOperation(server: self, request: .getDirectories)
+        OperationQueue.sharedServerQueue.addOperation(request)
+    }
+    
+    func getServerDirectory(id: String) {
+        let request = SBSubsonicRequestOperation(server: self, request: .getDirectory(id: id))
+        OperationQueue.sharedServerQueue.addOperation(request)
+    }
+    
     // #MARK: - Subsonic Client (Playlists)
     
     @objc func getServerPlaylists() {
