@@ -32,7 +32,47 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         title = "Directories"
     }
     
-    @objc @Published var server: SBServer?
+    @objc @Published var server: SBServer? {
+        didSet {
+            if let server = self.server, let name = server.resourceName {
+                title = "Directories for \(name)"
+            }
+        }
+    }
+    
+    // #MARK: - Actions
+    
+    // FIXME: duplicated in server user view controller
+    
+    func play(_ tracks: [SBTrack]) {
+        let newIndex = SBPlayer.sharedInstance().playlist.count
+        SBPlayer.sharedInstance().add(tracks: tracks, replace: false)
+        SBPlayer.sharedInstance().play(index: newIndex)
+    }
+    
+    func addToTracklist(_ tracks: [SBTrack]) {
+        SBPlayer.sharedInstance().add(tracks: tracks, replace: false)
+    }
+    
+    func addToNewLocalPlaylist(_ tracks: [SBTrack]) {
+        self.createLocalPlaylist(withSelected: tracks, databaseController: databaseController)
+    }
+    
+    func addToNewServerPlaylist(_ tracks: [SBTrack]) {
+        databaseController?.addServerPlaylistController.server = server
+        databaseController?.addServerPlaylistController.tracks = tracks
+        databaseController?.addServerPlaylistController.openSheet(self)
+    }
+    
+    func download(_ tracks: [SBTrack]) {
+        self.downloadTracks(tracks, databaseController: databaseController)
+    }
+    
+    func showInLibrary(track: SBTrack) {
+        databaseController?.go(to: track)
+    }
+    
+    // #MARK: - SwiftUI
     
     struct DirectoryItem: View {
         let directory: SBDirectory
@@ -65,11 +105,104 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         }
     }
     
+    struct BottomText: View {
+        let count: Int
+        
+        var body: some View {
+            // XXX: ugly for localization
+            Text("\(count) item\(count == 1 ? "" : "s")")
+                .multilineTextAlignment(.center)
+                .foregroundStyle(.secondary)
+            // keep same font/baseline as the nibs w/ System 13pt
+                .font(.system(size: 13))
+                .padding(.bottom, 4)
+                .frame(height: 41)
+        }
+    }
+    
+    struct DirectoryContextMenu: View {
+        let serverDirectoryController: SBServerDirectoryController
+        
+        let tracks: [SBTrack]
+        let status: SBSelectedRowStatus
+        
+        static func gather(_ items: [SBMusicItem]) -> [SBTrack] {
+            // XXX: would like to use
+            var tracks: [SBTrack] = []
+            for item in items {
+                if let directory = item as? SBDirectory {
+                    tracks.append(contentsOf: gather(directory.children))
+                } else if let track = item as? SBTrack {
+                    tracks.append(track)
+                }
+            }
+            return tracks
+        }
+        
+        init(selected: Set<SBMusicItem>, serverDirectoryController: SBServerDirectoryController) {
+            self.serverDirectoryController = serverDirectoryController
+            
+            self.tracks = DirectoryContextMenu.gather(Array(selected))
+            self.status = serverDirectoryController.selectedRowStatus(self.tracks)
+        }
+        
+        var body: some View {
+            Button {
+                serverDirectoryController.play(tracks)
+            } label: {
+                Text("Play Selection")
+            }
+            .disabled(tracks.count == 0)
+            Button {
+                serverDirectoryController.addToTracklist(tracks)
+            } label: {
+                Text("Add Selection to Tracklist")
+            }
+            .disabled(tracks.count == 0)
+            Divider()
+            Button {
+                serverDirectoryController.addToNewLocalPlaylist(tracks)
+            } label: {
+                Text("Create Playlist with Selected")
+            }
+            .disabled(tracks.count == 0)
+            Button {
+                serverDirectoryController.addToNewServerPlaylist(tracks)
+            } label: {
+                Text("Create Server Playlist with Selected")
+            }
+            .disabled(tracks.count == 0)
+            Divider()
+            Button {
+                serverDirectoryController.download(tracks)
+            } label: {
+                Text("Download")
+            }
+            .disabled(!status.contains(.downloadable))
+            Button {
+                // will always succeedd since tracks must be 1
+                serverDirectoryController.showInLibrary(track: tracks.first!)
+            } label: {
+                Text("Show in Library")
+            }
+            .disabled(tracks.count != 1)
+            Button {
+                serverDirectoryController.showTracksInFinder(tracks)
+            } label: {
+                Text("Show in Finder")
+            }
+            .disabled(!status.contains(.showableInFinder))
+        }
+    }
+    
     struct ChildDirectoriesView: View {
+        let serverDirectoryController: SBServerDirectoryController
+        
         let directories: [SBMusicItem]
         @State var selected: Set<SBMusicItem> = Set()
         
         func updateSelection(newValue: Set<SBMusicItem>) {
+            // In the future, it would be nice to show directory info in the inspector.
             if let directory = newValue.first as? SBDirectory, let id = directory.itemId {
                 directory.server?.getServerDirectory(id: id)
             } else if let tracks = newValue as? Set<SBTrack> {
@@ -89,6 +222,9 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                             TrackItem(track: track)
                         }
                     }
+                    .contextMenu {
+                        DirectoryContextMenu(selected: selected, serverDirectoryController: serverDirectoryController)
+                    }
                     .onChange(of: directories) { _ in
                         // Invalidate to avoid changes to the left of us from keeping new columns around.
                         selected = Set()
@@ -100,17 +236,11 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                         updateSelection(newValue: selected)
                     }
                     .frame(width: 250)
-                    // XXX: ugly for localization
-                    Text("\(directories.count) item\(directories.count == 1 ? "" : "s")")
-                        .multilineTextAlignment(.center)
-                        .foregroundStyle(.secondary)
-                    // keep same font/baseline as the nibs w/ System 13pt
-                        .font(.system(size: 13))
-                        .padding(.bottom, 4)
-                        .frame(height: 41)
+                    BottomText(count: directories.count)
                 }
                 if selected.count == 1, let directory = selected.first as? SBDirectory {
-                    ChildDirectoriesView(directories: directory.children)
+                    ChildDirectoriesView(serverDirectoryController: serverDirectoryController,
+                                         directories: directory.children)
                 }
             }
         }
@@ -138,7 +268,10 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         
         var body: some View {
             if serverDirectoryController.server != nil {
-                ScrollView(.horizontal) {
+                // Rely on scrolling to the right whenever we need to scroll;
+                // avoid having to fix visual glitch w/ scrollbar
+                // (harder to hardcode a size)
+                ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 1) {
                         VStack(spacing: 0) {
                             // XXX: unlike the child dirs this will always be directories for now
@@ -151,7 +284,6 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                             .onChange(of: serverDirectoryController.server) { newValue in
                                 selected = nil
                                 updatePredicate(server: newValue)
-                                // FIXME: Check if we're visible and reload directories if so
                             }
                             .onAppear {
                                 // the selection views to the right should handle it
@@ -159,6 +291,8 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                                     NotificationCenter.default.post(name: .SBTrackSelectionChanged, object: [])
                                 }
                                 updatePredicate(server: serverDirectoryController.server)
+                                
+                                serverDirectoryController.server?.getServerDirectories()
                             }
                             .onChange(of: selected) { newValue in
                                 // We're not doing anything with this in leftmost
@@ -167,18 +301,19 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                                     directory.server?.getServerDirectory(id: id)
                                 }
                             }
-                            // XXX: ugly for localization
-                            Text("\(rootDirectories.count) item\(rootDirectories.count == 1 ? "" : "s")")
-                                .multilineTextAlignment(.center)
-                                .foregroundStyle(.secondary)
-                            // keep same font/baseline as the nibs w/ System 13pt
-                                .font(.system(size: 13))
-                                .padding(.bottom, 4)
-                                .frame(height: 41)
+                            BottomText(count: rootDirectories.count)
                         }
                         if let selected = selected {
-                            ChildDirectoriesView(directories: selected.children)
+                            ChildDirectoriesView(serverDirectoryController: serverDirectoryController,
+                                                 directories: selected.children)
                         }
+                    }
+                }
+                .modify {
+                    if #available(macOS 14, *) {
+                        $0.defaultScrollAnchor(.trailing)
+                    } else {
+                        $0
                     }
                 }
             } else {

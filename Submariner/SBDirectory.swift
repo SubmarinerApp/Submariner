@@ -26,7 +26,7 @@ public class SBDirectory: SBMusicItem {
         return super.keyPathsForValuesAffectingValue(forKey: key)
     }
     
-    // FIXME: keyPathsForValuesAffectingValue
+    // FIXME: keyPathsForValuesAffectingValue doesn't work as well as I'd hope with SwiftUI
     @objc dynamic var children: [SBMusicItem] {
         let directories = Array(self.subdirectories as? Set<SBDirectory> ?? Set())
             .sorted {

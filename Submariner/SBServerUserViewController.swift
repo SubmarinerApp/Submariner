@@ -43,15 +43,7 @@ extension NSNotification.Name {
     }
     
     func addToNewLocalPlaylist(track: SBTrack) {
-        let playlistSectionRequest: NSFetchRequest<SBSection> = SBSection.fetchRequest()
-        playlistSectionRequest.predicate = NSPredicate(format: "(resourceName = %@)", "Playlists")
-        if let playlistsSection = try? managedObjectContext.fetch(playlistSectionRequest).first {
-            let newPlaylist = SBPlaylist.insertInManagedObjectContext(context: managedObjectContext)
-            newPlaylist.resourceName = "New Playlist"
-            newPlaylist.tracks = Set([track]) as NSSet
-            newPlaylist.section = playlistsSection
-            playlistsSection.addToResources(newPlaylist)
-        }
+        self.createLocalPlaylist(withSelected: [track], databaseController: databaseController)
     }
     
     func addToNewServerPlaylist(track: SBTrack) {
@@ -61,10 +53,7 @@ extension NSNotification.Name {
     }
     
     func download(track: SBTrack) {
-        if let downloadOperation = SBSubsonicDownloadOperation(managedObjectContext: managedObjectContext, trackID: track.objectID) {
-            OperationQueue.sharedDownloadQueue.addOperation(downloadOperation)
-            databaseController?.showDownloadView(self)
-        }
+        self.downloadTracks([track], databaseController: databaseController)
     }
     
     func showInLibrary(track: SBTrack) {
@@ -72,10 +61,7 @@ extension NSNotification.Name {
     }
     
     func showInFinder(track: SBTrack) {
-        if let localTrack = track.localTrack, let localPath = localTrack.path {
-            let url = URL(fileURLWithPath: localPath)
-            NSWorkspace.shared.activateFileViewerSelecting([url])
-        }
+        self.showTracksInFinder([track])
     }
     
     // #MARK: - View Management
