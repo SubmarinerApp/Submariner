@@ -848,6 +848,15 @@
     [self navigateForwardToNavItem: navItem];
 }
 
+- (IBAction)showDirectories:(id)sender {
+    if (!self.server) {
+        return;
+    }
+    [self.server setSelectedTabIndex: 3];
+    SBNavigationItem *navItem = [[SBServerDirectoriesNavigationItem alloc] initWithServer: self.server];
+    [self navigateForwardToNavItem: navItem];
+}
+
 - (IBAction)showPodcasts:(id)sender {
     if (!self.server) {
         return;
@@ -1276,7 +1285,9 @@
             case 2:
                 navItem = [[SBServerPodcastsNavigationItem alloc] initWithServer: server];
                 break;
-            // 3 was search and 4 was server users
+            case 3:
+                navItem = [[SBServerDirectoriesNavigationItem alloc] initWithServer: server];
+                break;
         }
     } else if([resource isKindOfClass:[SBAlbum class]]) {
         SBAlbum *album = (SBAlbum*)resource;
@@ -1959,7 +1970,8 @@
             @"Downloads": downloadsController,
             @"ServerLibrary": serverLibraryController,
             @"ServerHome": serverHomeController,
-            @"ServerPodcasts": serverDirectoryController,
+            @"ServerDirectories": serverDirectoryController,
+            @"ServerPodcasts": serverPodcastController,
             @"ServerSearch": serverSearchController,
             @"MusicSearch": musicSearchController,
             @"Playlist": playlistController,

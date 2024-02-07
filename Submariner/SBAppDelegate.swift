@@ -308,6 +308,10 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         databaseController.showAlbums(sender)
     }
     
+    @IBAction func showDirectories(_ sender: Any?) {
+        databaseController.showDirectories(sender)
+    }
+    
     @IBAction func showPodcasts(_ sender: Any?) {
         databaseController.showPodcasts(sender)
     }

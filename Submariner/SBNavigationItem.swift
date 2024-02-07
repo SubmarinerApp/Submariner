@@ -12,6 +12,10 @@ import Cocoa
     override var identifier: NSString { "ServerPodcasts" }
 }
 
+@objc class SBServerDirectoriesNavigationItem: SBServerNavigationItem {
+    override var identifier: NSString { "ServerDirectories" }
+}
+
 @objc class SBServerHomeNavigationItem: SBServerNavigationItem {
     override var identifier: NSString { "ServerHome" }
 }

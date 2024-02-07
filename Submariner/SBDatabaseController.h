@@ -182,6 +182,7 @@
 - (IBAction)search:(id)sender;
 - (IBAction)showIndices:(id)sender;
 - (IBAction)showAlbums:(id)sender;
+- (IBAction)showDirectories:(id)sender;
 - (IBAction)showPodcasts:(id)sender;
 - (IBAction)cleanTracklist:(id)sender;
 - (IBAction)goToCurrentTrack:(id)sender;

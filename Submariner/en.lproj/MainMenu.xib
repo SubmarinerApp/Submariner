@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -305,10 +305,15 @@ CA
                             </menuItem>
                             <menuItem title="By Albums" keyEquivalent="2" id="vwP-t7-5am">
                                 <connections>
-                                    <action selector="showAlbums:" target="494" id="RdI-cS-9fM"/>
+                                    <action selector="showAlbums:" target="494" id="J9l-xR-deB"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Podcasts" keyEquivalent="3" id="q8o-ph-bkR">
+                            <menuItem title="By Directories" keyEquivalent="3" id="7L2-8m-bYP">
+                                <connections>
+                                    <action selector="showDirectories:" target="494" id="wSR-kt-g5D"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Podcasts" keyEquivalent="4" id="q8o-ph-bkR">
                                 <connections>
                                     <action selector="showPodcasts:" target="494" id="hjt-sE-qFb"/>
                                 </connections>
