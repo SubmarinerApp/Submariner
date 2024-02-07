@@ -201,10 +201,24 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         let directories: [SBMusicItem]
         @State var selected: Set<SBMusicItem> = Set()
         
+        // HORRIFIC HACK: SwiftUI won't update a computed property.
+        // Since we want to have an updated list when fetching the directory,
+        // we have to get a new list when it updates.
+        // Annoyingly, posting from end-of-XML parsing like other things didn't work.
+        // The easiest way is to just wait for MOC saves,
+        // since the new items should be there by the time it saves.
+        // This could be made more specific notification or object wise.
+        @State var children: [SBMusicItem] = []
+        
+        var publisher = NotificationCenter.default
+            .publisher(for: .NSManagedObjectContextDidSave)
+            .receive(on: RunLoop.main)
+        
         func updateSelection(newValue: Set<SBMusicItem>) {
             // In the future, it would be nice to show directory info in the inspector.
             if let directory = newValue.first as? SBDirectory, let id = directory.itemId {
                 directory.server?.getServerDirectory(id: id)
+                children = directory.children
             } else if let tracks = newValue as? Set<SBTrack> {
                 NotificationCenter.default.post(name: .SBTrackSelectionChanged, object: Array(tracks))
             } else if newValue.isEmpty {
@@ -240,7 +254,10 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                 }
                 if selected.count == 1, let directory = selected.first as? SBDirectory {
                     ChildDirectoriesView(serverDirectoryController: serverDirectoryController,
-                                         directories: directory.children)
+                                         directories: children)
+                    .onReceive(publisher) { notification in
+                        children = directory.children
+                    }
                 }
             }
         }
