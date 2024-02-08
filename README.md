@@ -38,6 +38,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Fix tracks not having a cover when imported.
 * Fix imported tracks having the wrong bitrate shown in the inspector.
 * Fix imported tracks not having a content type.
+* Fix playlists not getting selected when navigating through history.
 
 ### Version 3.0
 

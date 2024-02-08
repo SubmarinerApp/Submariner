@@ -1862,6 +1862,8 @@
         SBPlaylist *playlist = playlistNavItem.playlist;
         // set server for UI properly recognizes this
         self.server = playlist.server;
+        
+        [self updateSourceListSelection: playlist];
     } else {
         self.server = nil;
     }
