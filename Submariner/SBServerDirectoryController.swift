@@ -95,13 +95,18 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                     Text(path.lastPathComponent)
                 }
             }
-            /*
-            .onDrag {
-                // FIXME: Set the right Pasteboard type
-                let url = track.objectID.uriRepresentation()
-                return NSItemProvider(object: url as NSURL)
+        }
+    }
+    
+    struct MusicItem: View {
+        let item: SBMusicItem
+        
+        var body: some View {
+            if let directory = item as? SBDirectory {
+                DirectoryItem(directory: directory)
+            } else if let track = item as? SBTrack {
+                TrackItem(track: track)
             }
-             */
         }
     }
     
@@ -195,6 +200,22 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         }
     }
     
+    struct DragPreview: View {
+        let items: [SBMusicItem]
+        
+        var body: some View {
+            VStack(alignment: .leading) {
+                ForEach(items) {
+                    MusicItem(item: $0)
+                }
+            }
+            .padding(1)
+            .background(.selection)
+            .cornerRadius(5.0)
+            //.frame(maxWidth: 500, maxHeight: 500)
+        }
+    }
+    
     struct ChildDirectoriesView: View {
         let serverDirectoryController: SBServerDirectoryController
         
@@ -226,14 +247,31 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
             }
         }
         
+        func selectedArray() -> [SBMusicItem] {
+            return Array(selected)
+                .sorted {
+                    let lhs = $0.path ?? ""
+                    let rhs = $1.path ?? ""
+                    return lhs.localizedCompare(rhs) == .orderedAscending
+                }
+        }
+        
         var body: some View {
             HStack(spacing: 1) {
                 VStack(spacing: 0) {
                     List(directories, id: \.self, selection: $selected) {
-                        if let directory = $0 as? SBDirectory {
-                            DirectoryItem(directory: directory)
-                        } else if let track = $0 as? SBTrack {
-                            TrackItem(track: track)
+                        MusicItem(item: $0)
+                        .onDrag {
+                            // FIXME: Set the right Pasteboard type
+                            let urls = DirectoryContextMenu.gather(selectedArray())
+                                .map { $0.objectID.uriRepresentation() }
+                            let type = NSPasteboard.PasteboardType.libraryType.rawValue
+                            let item = NSItemProvider(item: urls as NSArray,
+                                                      typeIdentifier: type)
+                            logger.info("\(item.registeredTypeIdentifiers, privacy: .public)")
+                            return item
+                        } preview: {
+                            DragPreview(items: selectedArray())
                         }
                     }
                     .contextMenu {
@@ -294,7 +332,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                             // XXX: unlike the child dirs this will always be directories for now
                             // (we could support top-level items in the future)
                             List(rootDirectories, id: \.self, selection: $selected) {
-                                DirectoryItem(directory: $0)
+                                MusicItem(item: $0)
                             }
                             // XXX: We should make this resizable (split view with synchronized sizes?)
                             .frame(width: 250)

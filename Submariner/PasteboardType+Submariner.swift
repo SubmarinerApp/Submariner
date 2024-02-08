@@ -12,7 +12,7 @@ import Cocoa
 
 extension NSPasteboard.PasteboardType {
     /// Tracks from the library views.
-    static let libraryType = NSPasteboard.PasteboardType(rawValue: "SBLibraryTableViewDataType")
+    static let libraryType = NSPasteboard.PasteboardType(rawValue: "com.submarinerapp.item-url-list")
     /// Tracks from the tracklist.
-    static let tracklistType = NSPasteboard.PasteboardType(rawValue: "SBTracklistTableViewDataType")
+    static let tracklistType = NSPasteboard.PasteboardType(rawValue: "com.submariner.tracklist-indices")
 }
