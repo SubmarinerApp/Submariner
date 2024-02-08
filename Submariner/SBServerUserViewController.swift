@@ -34,8 +34,7 @@ extension NSNotification.Name {
     }
     
     func play(track: SBTrack) {
-        SBPlayer.sharedInstance().add(track: track, replace: false)
-        SBPlayer.sharedInstance().play(track: track)
+        SBPlayer.sharedInstance().play(tracks: [track], startingAt: 0)
     }
     
     func addToTracklist(track: SBTrack) {

@@ -44,10 +44,9 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     
     // FIXME: duplicated in server user view controller
     
-    func play(_ tracks: [SBTrack]) {
+    func play(_ tracks: [SBTrack], startingAt index: Int = 0) {
         let newIndex = SBPlayer.sharedInstance().playlist.count
-        SBPlayer.sharedInstance().add(tracks: tracks, replace: false)
-        SBPlayer.sharedInstance().play(index: newIndex)
+        SBPlayer.sharedInstance().play(tracks: tracks, startingAt: index)
     }
     
     func addToTracklist(_ tracks: [SBTrack]) {
@@ -207,6 +206,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
             VStack(alignment: .leading) {
                 ForEach(items) {
                     MusicItem(item: $0)
+                        .padding(1)
                 }
             }
             .padding(1)
@@ -259,17 +259,24 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         var body: some View {
             HStack(spacing: 1) {
                 VStack(spacing: 0) {
-                    List(directories, id: \.self, selection: $selected) {
-                        MusicItem(item: $0)
+                    List(directories, id: \.self, selection: $selected) { item in
+                        MusicItem(item: item)
+                        .onTapGesture(count: 2) {
+                            if !selected.isEmpty {
+                                let tracks = DirectoryContextMenu.gather(selectedArray())
+                                var index = 0
+                                if let actingTrack = item as? SBTrack {
+                                    index = tracks.firstIndex(of: actingTrack) ?? 0
+                                }
+                                serverDirectoryController.play(tracks, startingAt: index)
+                            }
+                        }
                         .onDrag {
-                            // FIXME: Set the right Pasteboard type
                             let urls = DirectoryContextMenu.gather(selectedArray())
                                 .map { $0.objectID.uriRepresentation() }
                             let type = NSPasteboard.PasteboardType.libraryType.rawValue
-                            let item = NSItemProvider(item: urls as NSArray,
-                                                      typeIdentifier: type)
-                            logger.info("\(item.registeredTypeIdentifiers, privacy: .public)")
-                            return item
+                            return NSItemProvider(item: urls as NSArray,
+                                                  typeIdentifier: type)
                         } preview: {
                             DragPreview(items: selectedArray())
                         }
