@@ -911,7 +911,12 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     
     private func updateTrackDependenciesForTag(_ track: SBTrack, attributeDict: [String: String], shouldFetchAlbumArt: Bool = true) {
         var attachedArtist: SBArtist?
-        // is this right for album artist? the artist object can get corrected on fetch though...
+        // Note that the artist ID isn't infallible; it can be a different artist from the album
+        // (for diff performers, i.e. "OutKast" vs. "OutKast feat. Killer Mike", each w/ diff artistID).
+        // Unfortunately, this can cause those droppings to appear confusingly to users from i.e.
+        // a directory listing (as well as playlists, now playing, or search).
+        // However, a reload of that should clean up the detritus artists that appear -
+        // problem is where it should go.
         if let artistID = attributeDict["artistId"] {
             attachedArtist = fetchArtist(id: artistID)
             if attachedArtist == nil, let artistName = attributeDict["artist"] {
