@@ -32,6 +32,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ### Not yet released
 
+* A directory view has been added, for users of servers that organize files by directory and prefer managing files that way.
 * Files can be dropped onto the dock icon to import them.
 * Empty artists entries are deleted from the local library on deleting downloaded items.
 * Move request handling into an off-thread queue.
