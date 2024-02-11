@@ -18,8 +18,7 @@ class SBTabViewController: NSTabViewController {
         let newFrame = window.frameRect(forContentRect: viewFrame)
         let oldFrame = window.frame
         var calculatedFrame = window.frame
-        // instead of size, keeps everything at a consistent width so it doesn't twitch around
-        calculatedFrame.size.height = newFrame.size.height
+        calculatedFrame.size = newFrame.size
         calculatedFrame.origin.y -= (newFrame.size.height - oldFrame.size.height)
         return calculatedFrame
     }
@@ -100,8 +99,9 @@ class SBPreferencesController: NSWindowController {
         var body: some View {
             Form {
                 Section {
-                    Toggle("Automatically download playing track", isOn: $automaticallyDownload)
-                    Toggle("Delete from tracklist at track end", isOn: $deleteOnEnd)
+                    Toggle("Automatically download track when playing", isOn: $automaticallyDownload)
+                    Toggle("Delete track from tracklist when completed", isOn: $deleteOnEnd)
+                    Spacer()
                 }
                 Section {
                     Picker(selection: $whenQueueing, label: Text("When queueing a track")) {
@@ -128,7 +128,8 @@ class SBPreferencesController: NSWindowController {
         var body: some View {
             Form {
                 Section {
-                    Toggle("Automatically refresh server users view", isOn: $autoRefreshNowPlaying)
+                    Toggle("Automatically refresh server users", isOn: $autoRefreshNowPlaying)
+                    Spacer()
                 }
                 Section {
                     Picker(selection: $coverSize, label: Text("Cover size to download")) {
