@@ -98,7 +98,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         
         // #MARK: Init Window Controllers
         self.databaseController = SBDatabaseController(managedObjectContext: self.managedObjectContext)
-        self.preferencesController = SBPreferencesController(managedObjectContext: self.managedObjectContext)
+        self.preferencesController = SBPreferencesController()
     }
     
     // #MARK: - NSApplicationDelegate

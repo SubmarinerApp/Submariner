@@ -15,6 +15,7 @@
 		3E04F6342B7AC83600E24E56 /* SBAlbumViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F6332B7AC83600E24E56 /* SBAlbumViewItem.swift */; };
 		3E04F6362B7AD22600E24E56 /* SBCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F6352B7AD22600E24E56 /* SBCollectionView.swift */; };
 		3E04F6382B7B117400E24E56 /* SBCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F6372B7B117400E24E56 /* SBCollectionViewFlowLayout.swift */; };
+		3E04F6112B783BEC00E24E56 /* SBPreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F6102B783BEC00E24E56 /* SBPreferencesController.swift */; };
 		3E0DAD5C29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */; };
 		3E189E4028EF5BAB0062ACA0 /* SBAudioMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */; };
 		3E1B785E2ACE5039008927C6 /* SBInspectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B785D2ACE5039008927C6 /* SBInspectorController.swift */; };
@@ -109,9 +110,7 @@
 		4C87EDA1139CD97B0064DE2E /* SBSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED94139CD97B0064DE2E /* SBSplitView.m */; };
 		4C87EDAB139CD9DA0064DE2E /* Database.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C87EDAA139CD9DA0064DE2E /* Database.xib */; };
 		4C87EDB0139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDAF139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m */; };
-		4C87EDB6139CDAA50064DE2E /* SBPreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDB5139CDAA40064DE2E /* SBPreferencesController.m */; };
 		4C87EDBA139CDAB90064DE2E /* SBDatabaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDB9139CDAB90064DE2E /* SBDatabaseController.m */; };
-		4C87EDBC139CDACE0064DE2E /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C87EDBB139CDACE0064DE2E /* Preferences.xib */; };
 		4C87EDC1139CDC260064DE2E /* SBSourceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDBE139CDC250064DE2E /* SBSourceList.m */; };
 		4CAD75C813AA597E00E7455C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAD75C713AA597E00E7455C /* CoreServices.framework */; };
 		4CC6B56814041F7E003AEAC0 /* SBServerPodcastController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6B56614041F7E003AEAC0 /* SBServerPodcastController.m */; };
@@ -155,6 +154,7 @@
 		3E04F6332B7AC83600E24E56 /* SBAlbumViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBAlbumViewItem.swift; sourceTree = "<group>"; };
 		3E04F6352B7AD22600E24E56 /* SBCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBCollectionView.swift; sourceTree = "<group>"; };
 		3E04F6372B7B117400E24E56 /* SBCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		3E04F6102B783BEC00E24E56 /* SBPreferencesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPreferencesController.swift; sourceTree = "<group>"; };
 		3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTrackListLengthTransformer.swift; sourceTree = "<group>"; };
 		3E189E3228EBBAC40062ACA0 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBAudioMetadata.swift; sourceTree = "<group>"; };
@@ -270,11 +270,8 @@
 		4C87EDAA139CD9DA0064DE2E /* Database.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Database.xib; sourceTree = "<group>"; };
 		4C87EDAE139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBezierPath+PXRoundedRectangleAdditions.h"; sourceTree = "<group>"; };
 		4C87EDAF139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+PXRoundedRectangleAdditions.m"; sourceTree = "<group>"; };
-		4C87EDB4139CDAA40064DE2E /* SBPreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPreferencesController.h; sourceTree = "<group>"; };
-		4C87EDB5139CDAA40064DE2E /* SBPreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPreferencesController.m; sourceTree = "<group>"; };
 		4C87EDB8139CDAB90064DE2E /* SBDatabaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDatabaseController.h; sourceTree = "<group>"; };
 		4C87EDB9139CDAB90064DE2E /* SBDatabaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDatabaseController.m; sourceTree = "<group>"; };
-		4C87EDBB139CDACE0064DE2E /* Preferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
 		4C87EDBD139CDC250064DE2E /* SBSourceList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSourceList.h; sourceTree = "<group>"; };
 		4C87EDBE139CDC250064DE2E /* SBSourceList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSourceList.m; sourceTree = "<group>"; };
 		4C87EDBF139CDC250064DE2E /* SBSourceListDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSourceListDataSource.h; sourceTree = "<group>"; };
@@ -501,7 +498,6 @@
 			children = (
 				4C87ED78139CD8BE0064DE2E /* MainMenu.xib */,
 				4C87EDAA139CD9DA0064DE2E /* Database.xib */,
-				4C87EDBB139CDACE0064DE2E /* Preferences.xib */,
 				4C7AA231139D57A00050BE95 /* Music.xib */,
 				4CFCE443140257EE00D35770 /* MusicSearch.xib */,
 				4CFB3EF1139D4693008DC01A /* Tracklist.xib */,
@@ -645,8 +641,7 @@
 			children = (
 				4C87EDB8139CDAB90064DE2E /* SBDatabaseController.h */,
 				4C87EDB9139CDAB90064DE2E /* SBDatabaseController.m */,
-				4C87EDB4139CDAA40064DE2E /* SBPreferencesController.h */,
-				4C87EDB5139CDAA40064DE2E /* SBPreferencesController.m */,
+				3E04F6102B783BEC00E24E56 /* SBPreferencesController.swift */,
 				3E04F60E2B771C4500E24E56 /* SBEditServerController.swift */,
 				3E04F5EC2B70487200E24E56 /* SBAddServerPlaylistController.swift */,
 				3E04F5EA2B7043F600E24E56 /* SBMergeArtistsController.swift */,
@@ -744,7 +739,6 @@
 				4C87ED74139CD8BE0064DE2E /* Credits.rtf in Resources */,
 				4C87ED7A139CD8BE0064DE2E /* MainMenu.xib in Resources */,
 				4C87EDAB139CD9DA0064DE2E /* Database.xib in Resources */,
-				4C87EDBC139CDACE0064DE2E /* Preferences.xib in Resources */,
 				4CFB3EF3139D4693008DC01A /* Tracklist.xib in Resources */,
 				4C7AA22E139D563A0050BE95 /* Playlist.xib in Resources */,
 				4C7AA233139D57A00050BE95 /* Music.xib in Resources */,
@@ -804,6 +798,7 @@
 				3EB2BCC12992D28A00DC5056 /* String+Hex.swift in Sources */,
 				3E0DAD5C29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift in Sources */,
 				3E45201829F5DBDC00604079 /* SBTrackArtistNameTransformer.swift in Sources */,
+				3E04F6112B783BEC00E24E56 /* SBPreferencesController.swift in Sources */,
 				3E87E9122B436B4500E85000 /* PasteboardType+Submariner.swift in Sources */,
 				3E2155142B281E7D004BCCFC /* UTType+AudioToolbox.swift in Sources */,
 				3E04F5ED2B70487200E24E56 /* SBAddServerPlaylistController.swift in Sources */,
