@@ -5,4 +5,3 @@
 #import "SBServerViewController.h"
 #import "SBSheetController.h"
 #import "SBDatabaseController.h"
-#import "SBPreferencesController.h"
