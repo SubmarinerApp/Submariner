@@ -36,6 +36,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Files can be dropped onto the dock icon to import them.
 * Empty artists entries are deleted from the local library on deleting downloaded items.
 * Move request handling into an off-thread queue.
+* The album selection view has been rewritten to avoid deprecated types.
 * Fix tracks not having a cover when imported.
 * Fix imported tracks having the wrong bitrate shown in the inspector.
 * Fix imported tracks not having a content type.

@@ -43,12 +43,13 @@
 @class SBArtist;
 @class SBDatabaseController;
 @class SBPrioritySplitViewDelegate;
+@class SBCollectionView;
 
-@interface SBServerLibraryController : SBServerViewController <NSTableViewDelegate, NSSplitViewDelegate> {
+@interface SBServerLibraryController : SBServerViewController <NSTableViewDelegate, NSSplitViewDelegate, NSCollectionViewDataSource, NSCollectionViewDelegate> {
 @private
     IBOutlet NSTableView        *artistsTableView;
     IBOutlet SBTableView        *tracksTableView;
-    IBOutlet IKImageBrowserView *albumsBrowserView;
+    __weak IBOutlet SBCollectionView *albumsCollectionView;
     IBOutlet NSArrayController  *artistsController;
     IBOutlet NSArrayController  *albumsController;
     IBOutlet NSArrayController  *tracksController;

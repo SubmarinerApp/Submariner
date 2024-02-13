@@ -12,6 +12,9 @@
 		3E04F5F02B71D60F00E24E56 /* SBDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F5EF2B71D60F00E24E56 /* SBDirectory.swift */; };
 		3E04F5F22B71E33000E24E56 /* SBServerDirectoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F5F12B71E33000E24E56 /* SBServerDirectoryController.swift */; };
 		3E04F60F2B771C4500E24E56 /* SBEditServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F60E2B771C4500E24E56 /* SBEditServerController.swift */; };
+		3E04F6342B7AC83600E24E56 /* SBAlbumViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F6332B7AC83600E24E56 /* SBAlbumViewItem.swift */; };
+		3E04F6362B7AD22600E24E56 /* SBCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F6352B7AD22600E24E56 /* SBCollectionView.swift */; };
+		3E04F6382B7B117400E24E56 /* SBCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F6372B7B117400E24E56 /* SBCollectionViewFlowLayout.swift */; };
 		3E0DAD5C29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */; };
 		3E189E4028EF5BAB0062ACA0 /* SBAudioMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */; };
 		3E1B785E2ACE5039008927C6 /* SBInspectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B785D2ACE5039008927C6 /* SBInspectorController.swift */; };
@@ -86,7 +89,6 @@
 		3ED4C4D42AC0E25400649FB2 /* SBLibraryPurgeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4C4D32AC0E25400649FB2 /* SBLibraryPurgeOperation.swift */; };
 		4C4DE62413A200AD006A1EC1 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4DE62213A200AA006A1EC1 /* Carbon.framework */; };
 		4C4DE62513A200AD006A1EC1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4DE62313A200AC006A1EC1 /* Security.framework */; };
-		4C56868214050AD000BE3478 /* SBCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56868114050AD000BE3478 /* SBCollectionView.m */; };
 		4C56868514050B9A00BE3478 /* SBPodcastItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56868414050B9A00BE3478 /* SBPodcastItemView.m */; };
 		4C56868814050C1100BE3478 /* SBPodcastViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56868714050C1100BE3478 /* SBPodcastViewItem.m */; };
 		4C7AA229139D53A50050BE95 /* SBTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C7AA228139D53A50050BE95 /* SBTableView.m */; };
@@ -112,8 +114,6 @@
 		4C87EDBC139CDACE0064DE2E /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C87EDBB139CDACE0064DE2E /* Preferences.xib */; };
 		4C87EDC1139CDC260064DE2E /* SBSourceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDBE139CDC250064DE2E /* SBSourceList.m */; };
 		4CAD75C813AA597E00E7455C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAD75C713AA597E00E7455C /* CoreServices.framework */; };
-		4CC18E8013B9145400AA4FDB /* SBImageBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC18E7D13B9145400AA4FDB /* SBImageBrowserCell.m */; };
-		4CC18E8113B9145400AA4FDB /* SBImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC18E7F13B9145400AA4FDB /* SBImageBrowserView.m */; };
 		4CC6B56814041F7E003AEAC0 /* SBServerPodcastController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6B56614041F7E003AEAC0 /* SBServerPodcastController.m */; };
 		4CC6B56914041F7E003AEAC0 /* ServerPodcasts.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CC6B56714041F7E003AEAC0 /* ServerPodcasts.xib */; };
 		4CCF7FF013B673CA00954C6E /* ServerSearch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CCF7FEE13B673C900954C6E /* ServerSearch.xib */; };
@@ -152,6 +152,9 @@
 		3E04F5EF2B71D60F00E24E56 /* SBDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBDirectory.swift; sourceTree = "<group>"; };
 		3E04F5F12B71E33000E24E56 /* SBServerDirectoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBServerDirectoryController.swift; sourceTree = "<group>"; };
 		3E04F60E2B771C4500E24E56 /* SBEditServerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBEditServerController.swift; sourceTree = "<group>"; };
+		3E04F6332B7AC83600E24E56 /* SBAlbumViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBAlbumViewItem.swift; sourceTree = "<group>"; };
+		3E04F6352B7AD22600E24E56 /* SBCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBCollectionView.swift; sourceTree = "<group>"; };
+		3E04F6372B7B117400E24E56 /* SBCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTrackListLengthTransformer.swift; sourceTree = "<group>"; };
 		3E189E3228EBBAC40062ACA0 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBAudioMetadata.swift; sourceTree = "<group>"; };
@@ -232,8 +235,6 @@
 		3ED4C4D32AC0E25400649FB2 /* SBLibraryPurgeOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBLibraryPurgeOperation.swift; sourceTree = "<group>"; };
 		4C4DE62213A200AA006A1EC1 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		4C4DE62313A200AC006A1EC1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		4C56868014050AD000BE3478 /* SBCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCollectionView.h; sourceTree = "<group>"; };
-		4C56868114050AD000BE3478 /* SBCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCollectionView.m; sourceTree = "<group>"; };
 		4C56868314050B9A00BE3478 /* SBPodcastItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPodcastItemView.h; sourceTree = "<group>"; };
 		4C56868414050B9A00BE3478 /* SBPodcastItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBPodcastItemView.m; sourceTree = "<group>"; };
 		4C56868614050C1100BE3478 /* SBPodcastViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPodcastViewItem.h; sourceTree = "<group>"; };
@@ -280,10 +281,6 @@
 		4C87EDC0139CDC260064DE2E /* SBSourceListDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSourceListDelegate.h; sourceTree = "<group>"; };
 		4C9DE9A91451749D00632936 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		4CAD75C713AA597E00E7455C /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
-		4CC18E7C13B9145400AA4FDB /* SBImageBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBImageBrowserCell.h; sourceTree = "<group>"; };
-		4CC18E7D13B9145400AA4FDB /* SBImageBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBImageBrowserCell.m; sourceTree = "<group>"; };
-		4CC18E7E13B9145400AA4FDB /* SBImageBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBImageBrowserView.h; sourceTree = "<group>"; };
-		4CC18E7F13B9145400AA4FDB /* SBImageBrowserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBImageBrowserView.m; sourceTree = "<group>"; };
 		4CC6B56514041F7E003AEAC0 /* SBServerPodcastController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBServerPodcastController.h; sourceTree = "<group>"; };
 		4CC6B56614041F7E003AEAC0 /* SBServerPodcastController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBServerPodcastController.m; sourceTree = "<group>"; };
 		4CC6B56714041F7E003AEAC0 /* ServerPodcasts.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServerPodcasts.xib; sourceTree = "<group>"; };
@@ -335,6 +332,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E04F6392B7B3CED00E24E56 /* View Item Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4C56868614050C1100BE3478 /* SBPodcastViewItem.h */,
+				4C56868714050C1100BE3478 /* SBPodcastViewItem.m */,
+				4C56868314050B9A00BE3478 /* SBPodcastItemView.h */,
+				4C56868414050B9A00BE3478 /* SBPodcastItemView.m */,
+				3E04F6332B7AC83600E24E56 /* SBAlbumViewItem.swift */,
+			);
+			name = "View Item Controllers";
+			sourceTree = "<group>";
+		};
 		3E0DAD5D29CA3EAD00D895E2 /* Value Transformers */ = {
 			isa = PBXGroup;
 			children = (
@@ -449,10 +458,6 @@
 			isa = PBXGroup;
 			children = (
 				3E0DAD5D29CA3EAD00D895E2 /* Value Transformers */,
-				4CC18E7C13B9145400AA4FDB /* SBImageBrowserCell.h */,
-				4CC18E7D13B9145400AA4FDB /* SBImageBrowserCell.m */,
-				4CC18E7E13B9145400AA4FDB /* SBImageBrowserView.h */,
-				4CC18E7F13B9145400AA4FDB /* SBImageBrowserView.m */,
 				4CFAFC32139EF20500E82B57 /* MGScopeBar.h */,
 				4CFAFC33139EF20500E82B57 /* MGScopeBar.m */,
 				4CFAFC34139EF20500E82B57 /* MGScopeBarDelegateProtocol.h */,
@@ -468,8 +473,8 @@
 				4C87EDC0139CDC260064DE2E /* SBSourceListDelegate.h */,
 				4CFAFC7B13A0F7E000E82B57 /* SBAnimatedView.h */,
 				4CFAFC7C13A0F7E000E82B57 /* SBAnimatedView.m */,
-				4C56868314050B9A00BE3478 /* SBPodcastItemView.h */,
-				4C56868414050B9A00BE3478 /* SBPodcastItemView.m */,
+				3E04F6352B7AD22600E24E56 /* SBCollectionView.swift */,
+				3E04F6372B7B117400E24E56 /* SBCollectionViewFlowLayout.swift */,
 				3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */,
 				3E94E5F92915AB130080FDF6 /* SBRoutePickerView.swift */,
 				3EB2BCCE2992F3CA00DC5056 /* SBVolumeButton.swift */,
@@ -520,8 +525,6 @@
 				4CFB3EF7139D47EA008DC01A /* SBViewController.m */,
 				4CFB3E12139D028D008DC01A /* SBServerViewController.h */,
 				4CFB3E13139D028D008DC01A /* SBServerViewController.m */,
-				4C56868014050AD000BE3478 /* SBCollectionView.h */,
-				4C56868114050AD000BE3478 /* SBCollectionView.m */,
 			);
 			name = Superclasses;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 			children = (
 				4CFB3EF4139D46A1008DC01A /* Window Controllers */,
 				4CFB3EF5139D46AC008DC01A /* View Controllers */,
+				3E04F6392B7B3CED00E24E56 /* View Item Controllers */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -665,8 +669,6 @@
 				4CFAFC2A139EF08800E82B57 /* SBServerHomeController.m */,
 				4CC6B56514041F7E003AEAC0 /* SBServerPodcastController.h */,
 				4CC6B56614041F7E003AEAC0 /* SBServerPodcastController.m */,
-				4C56868614050C1100BE3478 /* SBPodcastViewItem.h */,
-				4C56868714050C1100BE3478 /* SBPodcastViewItem.m */,
 				3E5C42DE29846E25009B9699 /* SBOnboardingController.swift */,
 				3EC039C629EFB867001FDE50 /* SBDownloadsController.swift */,
 				3E45201B29FA488C00604079 /* SBServerUserViewController.swift */,
@@ -784,6 +786,7 @@
 				3EC03B5629F4F2E0001FDE50 /* SBArtist.swift in Sources */,
 				4C87EDB0139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m in Sources */,
 				4C87EDB6139CDAA50064DE2E /* SBPreferencesController.m in Sources */,
+				3E04F6382B7B117400E24E56 /* SBCollectionViewFlowLayout.swift in Sources */,
 				3E1C6C432A5264570085B578 /* SBOperation.swift in Sources */,
 				3EB2BCC72992E13700DC5056 /* String+Time.swift in Sources */,
 				3ED4C4D42AC0E25400649FB2 /* SBLibraryPurgeOperation.swift in Sources */,
@@ -796,6 +799,7 @@
 				3EC03B4229F4F2E0001FDE50 /* SBResource.swift in Sources */,
 				3EC039C529EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift in Sources */,
 				4C87EDC1139CDC260064DE2E /* SBSourceList.m in Sources */,
+				3E04F6362B7AD22600E24E56 /* SBCollectionView.swift in Sources */,
 				3E94E5F62912EEC40080FDF6 /* SBNavigationItem.swift in Sources */,
 				3EB2BCC12992D28A00DC5056 /* String+Hex.swift in Sources */,
 				3E0DAD5C29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift in Sources */,
@@ -845,19 +849,17 @@
 				3EB2BCCF2992F3CA00DC5056 /* SBVolumeButton.swift in Sources */,
 				3EA929BB29E4785F00938582 /* SBRepeatModeTransformer.swift in Sources */,
 				3EC03B4629F4F2E0001FDE50 /* SBTrack.swift in Sources */,
+				3E04F6342B7AC83600E24E56 /* SBAlbumViewItem.swift in Sources */,
 				4CFAFC7D13A0F7E000E82B57 /* SBAnimatedView.m in Sources */,
 				3EC03B3629F4F2E0001FDE50 /* SBEpisode.swift in Sources */,
 				3EC03AC529F42C95001FDE50 /* URL+Parameters.swift in Sources */,
 				3E69507D2A707A2A006E5868 /* NSIndexSet+Array.swift in Sources */,
 				3EC03B6329F5B0E2001FDE50 /* SBServer+CoreDataProperties.swift in Sources */,
-				4CC18E8013B9145400AA4FDB /* SBImageBrowserCell.m in Sources */,
-				4CC18E8113B9145400AA4FDB /* SBImageBrowserView.m in Sources */,
 				3EC03B4429F4F2E0001FDE50 /* SBGroup.swift in Sources */,
 				3EB2BCC32992D94E00DC5056 /* Data+Type.swift in Sources */,
 				4CFCE4471402582400D35770 /* SBMusicSearchController.m in Sources */,
 				4CC6B56814041F7E003AEAC0 /* SBServerPodcastController.m in Sources */,
 				3E45201A29F5DE9100604079 /* SBImportOperation.swift in Sources */,
-				4C56868214050AD000BE3478 /* SBCollectionView.m in Sources */,
 				4C56868514050B9A00BE3478 /* SBPodcastItemView.m in Sources */,
 				4C56868814050C1100BE3478 /* SBPodcastViewItem.m in Sources */,
 			);

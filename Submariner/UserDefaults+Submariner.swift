@@ -45,4 +45,9 @@ extension UserDefaults {
     @objc dynamic var playerBehavior: Int {
         return integer(forKey: "playerBehavior")
     }
+    
+    // This can't be a float return because Swift KVO ignores it otherwise
+    @objc dynamic var coverSize: NSNumber {
+        return NSNumber(value: float(forKey: "coverSize"))
+    }
 }

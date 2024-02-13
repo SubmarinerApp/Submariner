@@ -85,22 +85,22 @@
 
 - (void)viewDidAppear {
     [super viewDidAppear];
-    // XXX: It's not accounting for the safe area on initial appearance.
-    // It *will* correct itself when redisplayed (i.e. view controller switch).
-    [albumsBrowserView setZoomValue:[[NSUserDefaults standardUserDefaults] floatForKey:@"coverSize"]];
     [[NSNotificationCenter defaultCenter] postNotificationName: @"SBTrackSelectionChanged"
                                                         object: tracksController.selectedObjects];
 }
 
 - (void)dealloc
 {
-    [[NSUserDefaults standardUserDefaults] removeObserver:self forKeyPath:@"coverSize"];
+    [artistsController removeObserver:self forKeyPath:@"selectedObjects"];
     [albumsController removeObserver:self forKeyPath:@"selectedObjects"];
     [tracksController removeObserver:self forKeyPath:@"selectedObjects"];
 }
 
 - (void)loadView {
     [super loadView];
+    
+    // this has to be registered at load, not awake time
+    //[albumsCollectionView registerClass: SBAlbumViewItem.class forItemWithIdentifier: @"SBAlbumViewItem"];
 
     // add drag and drop support
     [tracksTableView registerForDraggedTypes:[NSArray arrayWithObject:SBLibraryTableViewDataType]];
@@ -109,16 +109,13 @@
     [tracksTableView setDoubleAction:@selector(trackDoubleClick:)];
     
     [mergeArtistsController setParentWindow:[databaseController window]];
-
-    [albumsBrowserView setZoomValue:[[NSUserDefaults standardUserDefaults] floatForKey:@"coverSize"]];
-
-    // observer browser zoom value
-    [[NSUserDefaults standardUserDefaults] addObserver:self
-                                            forKeyPath:@"coverSize" 
-                                               options:NSKeyValueObservingOptionNew
-                                               context:nil];
     
-    // Observe album for saving. Artist isn't observed because it triggers after for some reason.
+    // Observe album for saving. Artist isn't observed for saving because it triggers after for some reason.
+    [artistsController addObserver:self
+                       forKeyPath:@"selectedObjects"
+                       options:NSKeyValueObservingOptionNew
+                       context:nil];
+    
     [albumsController addObserver:self
                       forKeyPath:@"selectedObjects"
                       options:NSKeyValueObservingOptionNew
@@ -136,15 +133,16 @@
                         change:(NSDictionary *)change 
                        context:(void *)context {
     
-    if(object == [NSUserDefaults standardUserDefaults] && [keyPath isEqualToString:@"coverSize"]) {
-        [albumsBrowserView setZoomValue:[[NSUserDefaults standardUserDefaults] floatForKey:@"coverSize"]];
-        [albumsBrowserView setNeedsDisplay:YES];
-    } else if (object == albumsController && [keyPath isEqualToString:@"selectedObjects"]) {
+    if (object == albumsController && [keyPath isEqualToString:@"selectedObjects"]) {
         SBAlbum *album = albumsController.selectedObjects.firstObject;
         if (album != nil) {
             NSString *urlString = album.objectID.URIRepresentation.absoluteString;
             [[NSUserDefaults standardUserDefaults] setObject: urlString forKey: @"LastViewedResource"];
         }
+    } else if (object == artistsController && [keyPath isEqualToString:@"selectedObjects"]) {
+        // albums collection view has no way to know otherwise
+        [albumsCollectionView reloadData];
+        [albumsCollectionView setSelectionIndexes: albumsController.selectionIndexes];
     } else if (object == tracksController && [keyPath isEqualToString:@"selectedObjects"] && self.view.window != nil) {
         [[NSNotificationCenter defaultCenter] postNotificationName: @"SBTrackSelectionChanged"
                                                             object: tracksController.selectedObjects];
@@ -177,7 +175,7 @@
     if (selectedTracks != -1) {
         return [tracksController.arrangedObjects objectAtIndex: selectedTracks];
     }
-    NSIndexSet *selectedAlbums = [albumsBrowserView selectionIndexes];
+    NSIndexSet *selectedAlbums = [albumsCollectionView selectionIndexes];
     if ([selectedAlbums count] > 0) {
         return [albumsController.arrangedObjects objectAtIndex: [selectedAlbums firstIndex]];
     }
@@ -222,7 +220,7 @@
 
 
 - (IBAction)albumDoubleClick:(id)sender {
-    NSIndexSet *indexSet = [albumsBrowserView selectionIndexes];
+    NSIndexSet *indexSet = [albumsCollectionView selectionIndexes];
     NSInteger selectedRow = [indexSet firstIndex];
     if(selectedRow != -1) {
         SBAlbum *doubleClickedAlbum = [[albumsController arrangedObjects] objectAtIndex:selectedRow];
@@ -239,7 +237,7 @@
     NSResponder *responder = self.databaseController.window.firstResponder;
     if (responder == tracksTableView) {
         [self trackDoubleClick: self];
-    } else if (responder == albumsBrowserView) {
+    } else if (responder == albumsCollectionView) {
         [self albumDoubleClick: self];
     }
 }
@@ -281,7 +279,7 @@
 }
 
 - (IBAction)removeAlbum:(id)sender {
-    NSIndexSet *indexSet = [albumsBrowserView selectionIndexes];
+    NSIndexSet *indexSet = [albumsCollectionView selectionIndexes];
     NSInteger selectedRow = [indexSet firstIndex];
     
     if(selectedRow != -1) {
@@ -357,7 +355,7 @@
     NSResponder *responder = self.databaseController.window.firstResponder;
     if (responder == tracksTableView) {
         [self removeTrack: self];
-    } else if (responder == albumsBrowserView) {
+    } else if (responder == albumsCollectionView) {
         [self removeAlbum: self];
     } else if (responder == artistsTableView) {
         [self removeArtist: self];
@@ -381,7 +379,7 @@
 }
 
 - (IBAction)showAlbumInFinder:(in)sender {
-    NSIndexSet *indexSet = [albumsBrowserView selectionIndexes];
+    NSIndexSet *indexSet = [albumsCollectionView selectionIndexes];
     NSInteger selectedRow = [indexSet firstIndex];
     
     if(selectedRow != -1) {
@@ -408,7 +406,7 @@
     NSResponder *responder = self.databaseController.window.firstResponder;
     if (responder == tracksTableView) {
         [self showTrackInFinder: self];
-    } else if (responder == albumsBrowserView) {
+    } else if (responder == albumsCollectionView) {
         [self showAlbumInFinder: self];
     } else if (responder == artistsTableView) {
         [self showArtistInFinder: self];
@@ -433,7 +431,7 @@
 
 
 - (IBAction)addAlbumToTracklist:(id)sender {
-    NSIndexSet *indexSet = [albumsBrowserView selectionIndexes];
+    NSIndexSet *indexSet = [albumsCollectionView selectionIndexes];
     NSInteger selectedRow = [indexSet firstIndex];
     
     if(selectedRow != -1) {
@@ -472,7 +470,7 @@
     NSResponder *responder = self.databaseController.window.firstResponder;
     if (responder == tracksTableView) {
         [self addTrackToTracklist: self];
-    } else if (responder == albumsBrowserView) {
+    } else if (responder == albumsCollectionView) {
         [self addAlbumToTracklist: self];
     } else if (responder == artistsTableView) {
         [self addArtistToTracklist: self];
@@ -484,7 +482,7 @@
     [artistsController setSelectedObjects: @[track.album.artist]];
     [artistsTableView scrollRowToVisible: [artistsTableView selectedRow]];
     [albumsController setSelectedObjects: @[track.album]];
-    [albumsBrowserView scrollIndexToVisible: [[albumsBrowserView selectionIndexes] firstIndex]];
+    [albumsCollectionView scrollToItemsAtIndexPaths: albumsCollectionView.selectionIndexPaths scrollPosition: NSCollectionViewScrollPositionTop];
     [tracksController setSelectedObjects: @[track]];
     [tracksTableView scrollRowToVisible: [tracksTableView selectedRow]];
 }
@@ -508,7 +506,7 @@
     [artistsController setSelectedObjects: @[album.artist]];
     [artistsTableView scrollRowToVisible: [artistsTableView selectedRow]];
     [albumsController setSelectedObjects: @[album]];
-    [albumsBrowserView scrollIndexToVisible: [[albumsBrowserView selectionIndexes] firstIndex]];
+    [albumsCollectionView scrollToItemsAtIndexPaths: albumsCollectionView.selectionIndexPaths scrollPosition: NSCollectionViewScrollPositionTop];
 }
 
 
@@ -566,7 +564,7 @@
     if (returnCode == NSAlertSecondButtonReturn) {
         return;
     }
-    NSIndexSet *selectedRows = [albumsBrowserView selectionIndexes];
+    NSIndexSet *selectedRows = [albumsCollectionView selectionIndexes];
     NSMutableArray *albumsToDelete = [NSMutableArray arrayWithCapacity: [selectedRows count]];
     [selectedRows enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
         SBAlbum *selectedAlbum = [[albumsController arrangedObjects] objectAtIndex: idx];
@@ -755,14 +753,30 @@
 //
 
 
+#pragma mark - NSCollectionView Data Source
 
-#pragma mark -
-#pragma mark IKImageBrowserView Delegate
-
-- (void)imageBrowser:(IKImageBrowserView *)aBrowser cellWasDoubleClickedAtIndex:(NSUInteger)index {
-    [self albumDoubleClick:self];
+- (NSInteger)collectionView:(NSCollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return [albumsController.arrangedObjects count];
 }
 
+- (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
+    SBAlbum *album = albumsController.arrangedObjects[indexPath.item];
+    // XXX: Insane Objective-C exception, or nonsensical lifecycle (becomes ready before the representation)
+    //SBAlbumViewItem *item = [albumsCollectionView makeItemWithIdentifier: @"SBAlbumViewItem" forIndexPath: indexPath];
+    NSCollectionViewItem *item = [[SBAlbumViewItem alloc] init];
+    item.representedObject = album;
+    return item;
+}
+
+- (void)collectionView:(NSCollectionView *)collectionView didDeselectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
+    // we only have a single selection
+    [albumsController setSelectionIndexes: [[NSIndexSet alloc] init]];
+}
+
+- (void)collectionView:(NSCollectionView *)collectionView didSelectItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths {
+    NSInteger index = indexPaths.anyObject.item;
+    [albumsController setSelectionIndex: index];
+}
 
 #pragma mark -
 #pragma mark NSSplitViewDelegate
@@ -782,12 +796,12 @@
     SEL action = [item action];
     
     NSInteger artistsSelected = artistsTableView.selectedRowIndexes.count;
-    NSInteger albumSelected = albumsBrowserView.selectionIndexes.count;
+    NSInteger albumSelected = albumsCollectionView.selectionIndexes.count;
     NSInteger tracksSelected = tracksTableView.selectedRowIndexes.count;
     
     NSResponder *responder = self.databaseController.window.firstResponder;
     BOOL tracksActive = responder == tracksTableView;
-    BOOL albumsActive = responder == albumsBrowserView;
+    BOOL albumsActive = responder == albumsCollectionView;
     BOOL artistsActive = responder == artistsTableView;
     
     if (action == @selector(mergeArtists:)) {

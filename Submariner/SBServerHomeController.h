@@ -39,11 +39,12 @@
 
 
 @class SBDatabaseController;
+@class SBCollectionView;
 
-@interface SBServerHomeController : SBServerViewController <MGScopeBarDelegate> {
+@interface SBServerHomeController : SBServerViewController <MGScopeBarDelegate, NSCollectionViewDataSource, NSCollectionViewDelegate> {
     IBOutlet MGScopeBar *scopeBar;
+    __weak IBOutlet SBCollectionView *albumsCollectionView;
     IBOutlet NSTableView *tracksTableView;
-    IBOutlet IKImageBrowserView *albumsBrowserView;
     IBOutlet NSArrayController *tracksController;
     IBOutlet NSArrayController *albumsController;
     

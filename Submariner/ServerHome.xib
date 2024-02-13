@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
-        <plugIn identifier="com.apple.imagekit.ibplugin" version="21701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBServerHomeController">
             <connections>
-                <outlet property="albumsBrowserView" destination="9" id="35"/>
+                <outlet property="albumsCollectionView" destination="e4s-mK-rfe" id="PjX-56-LT9"/>
                 <outlet property="albumsController" destination="37" id="40"/>
                 <outlet property="scopeBar" destination="32" id="34"/>
                 <outlet property="tracksController" destination="44" id="55"/>
@@ -31,35 +30,35 @@
                             <rect key="frame" x="0.0" y="0.0" width="619" height="184"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
-                                <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="113.16666412353516" horizontalPageScroll="10" verticalLineScroll="140" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="8">
-                                    <rect key="frame" x="0.0" y="0.0" width="620" height="184"/>
+                                <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="iAv-yE-Qy4">
+                                    <rect key="frame" x="0.0" y="0.0" width="619" height="184"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <clipView key="contentView" copiesOnScroll="NO" id="0Bx-3S-W0O">
-                                        <rect key="frame" x="0.0" y="0.0" width="605" height="184"/>
+                                    <clipView key="contentView" id="eKw-Te-m9A">
+                                        <rect key="frame" x="0.0" y="0.0" width="619" height="184"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <ikImageBrowserView autoresizesSubviews="NO" focusRingType="none" zoomValue="1.0246950387954712" allowsMultipleSelection="NO" id="9" customClass="SBImageBrowserView">
-                                                <rect key="frame" x="0.0" y="0.0" width="605" height="1566"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <ikCellsStyle key="cellsStyleMask" shadowed="YES" titled="YES"/>
-                                                <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
-                                                <size key="cellSize" width="149" height="149"/>
+                                            <collectionView selectable="YES" id="e4s-mK-rfe" customClass="SBCollectionView">
+                                                <rect key="frame" x="0.0" y="0.0" width="619" height="157"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                                <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="cgu-Dk-NcI" customClass="SBCollectionViewFlowLayout">
+                                                    <size key="itemSize" width="220" height="230"/>
+                                                </collectionViewFlowLayout>
+                                                <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 <connections>
-                                                    <binding destination="37" name="content" keyPath="arrangedObjects" id="41"/>
-                                                    <binding destination="37" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="41" id="65"/>
-                                                    <outlet property="delegate" destination="-2" id="43"/>
-                                                    <outlet property="menu" destination="Vqp-Qf-yvC" id="XAt-0M-029"/>
+                                                    <outlet property="dataSource" destination="-2" id="Qt9-18-yeC"/>
+                                                    <outlet property="delegate" destination="-2" id="ePd-IP-qNq"/>
+                                                    <outlet property="menu" destination="Vqp-Qf-yvC" id="uEG-Xc-zMf"/>
+                                                    <outlet property="nextKeyView" destination="13" id="7Wk-Hd-dnV"/>
                                                 </connections>
-                                            </ikImageBrowserView>
+                                            </collectionView>
                                         </subviews>
-                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </clipView>
-                                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="10">
-                                        <rect key="frame" x="-100" y="-100" width="602" height="15"/>
+                                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="Uhx-uD-6Kx">
+                                        <rect key="frame" x="-100" y="-100" width="233" height="15"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
-                                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="11">
-                                        <rect key="frame" x="605" y="0.0" width="15" height="184"/>
+                                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="K3l-KW-WGp">
+                                        <rect key="frame" x="428" y="1" width="15" height="155"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                 </scrollView>
@@ -235,7 +234,7 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                     </tableHeaderView>
                                 </scrollView>
-                                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="92A-f6-kBb">
+                                <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="92A-f6-kBb">
                                     <rect key="frame" x="6" y="13" width="606" height="16"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <textFieldCell key="cell" lineBreakMode="truncatingTail" alignment="center" title="Track length" id="yE1-MS-WI1">

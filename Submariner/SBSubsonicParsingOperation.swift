@@ -657,7 +657,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 }
             }
             postServerNotification(.SBSubsonicIndexesUpdated)
-        case .getArtist(_):
+        case .getArtist(_), .getAlbumList(type: _):
             postServerNotification(.SBSubsonicAlbumsUpdated)
         case .getAlbum(_):
             postServerNotification(.SBSubsonicTracksUpdated)

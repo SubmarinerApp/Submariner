@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22155" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22155"/>
-        <plugIn identifier="com.apple.imagekit.ibplugin" version="22155"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBServerLibraryController">
             <connections>
-                <outlet property="albumsBrowserView" destination="104" id="149"/>
+                <outlet property="albumsCollectionView" destination="Cpu-Be-JbG" id="c2Q-wi-vRT"/>
                 <outlet property="albumsController" destination="137" id="148"/>
                 <outlet property="artistSplitView" destination="81" id="164"/>
                 <outlet property="artistsController" destination="128" id="134"/>
@@ -49,7 +48,6 @@
                                             </searchFieldCell>
                                             <connections>
                                                 <action selector="filterArtist:" target="-2" id="162"/>
-                                                <outlet property="nextKeyView" destination="104" id="174"/>
                                             </connections>
                                         </searchField>
                                     </subviews>
@@ -114,39 +112,37 @@
                                             <rect key="frame" x="0.0" y="0.0" width="443" height="158"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="118" horizontalPageScroll="10" verticalLineScroll="118" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="103">
-                                                    <rect key="frame" x="0.0" y="0.0" width="444" height="158"/>
+                                                <scrollView wantsLayer="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" id="8EO-7r-9yw">
+                                                    <rect key="frame" x="-1" y="1" width="444" height="157"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <clipView key="contentView" copiesOnScroll="NO" id="rl6-t2-l9H">
-                                                        <rect key="frame" x="0.0" y="0.0" width="429" height="158"/>
+                                                    <clipView key="contentView" id="b3J-Nm-Xwy">
+                                                        <rect key="frame" x="0.0" y="0.0" width="444" height="157"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
-                                                            <ikImageBrowserView autoresizesSubviews="NO" zoomValue="1" allowsMultipleSelection="NO" id="104" customClass="SBImageBrowserView">
-                                                                <rect key="frame" x="0.0" y="0.0" width="429" height="2534"/>
-                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                <ikCellsStyle key="cellsStyleMask" shadowed="YES" titled="YES" subtitled="YES"/>
-                                                                <autoresizingMask key="contentResizingMask" heightSizable="YES"/>
-                                                                <size key="cellSize" width="98" height="98"/>
+                                                            <collectionView selectable="YES" id="Cpu-Be-JbG" customClass="SBCollectionView">
+                                                                <rect key="frame" x="0.0" y="0.0" width="444" height="157"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                                                <collectionViewFlowLayout key="collectionViewLayout" minimumInteritemSpacing="10" minimumLineSpacing="10" id="yKk-mh-aOx" customClass="SBCollectionViewFlowLayout">
+                                                                    <size key="itemSize" width="220" height="230"/>
+                                                                </collectionViewFlowLayout>
+                                                                <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                 <connections>
-                                                                    <binding destination="137" name="content" keyPath="arrangedObjects" id="140"/>
-                                                                    <binding destination="137" name="selectionIndexes" keyPath="selectionIndexes" previousBinding="140" id="169"/>
-                                                                    <outlet property="delegate" destination="-2" id="142"/>
-                                                                    <outlet property="menu" destination="GfF-3d-b7a" id="1pk-QD-Z0f"/>
+                                                                    <outlet property="dataSource" destination="-2" id="3og-I8-Q9r"/>
+                                                                    <outlet property="delegate" destination="-2" id="rc3-Sy-dOe"/>
+                                                                    <outlet property="menu" destination="GfF-3d-b7a" id="Xxm-ST-icp"/>
+                                                                    <outlet property="nextKeyView" destination="86" id="re5-YE-MM4"/>
                                                                 </connections>
-                                                            </ikImageBrowserView>
+                                                            </collectionView>
                                                         </subviews>
                                                     </clipView>
-                                                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="105">
-                                                        <rect key="frame" x="-100" y="-100" width="127" height="15"/>
+                                                    <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="tUW-ze-ZZ5">
+                                                        <rect key="frame" x="-100" y="-100" width="233" height="15"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
-                                                    <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="106">
-                                                        <rect key="frame" x="429" y="0.0" width="15" height="158"/>
+                                                    <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="sbA-jj-qae">
+                                                        <rect key="frame" x="428" y="1" width="15" height="155"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
-                                                    <connections>
-                                                        <outlet property="nextKeyView" destination="108" id="171"/>
-                                                    </connections>
                                                 </scrollView>
                                             </subviews>
                                         </customView>

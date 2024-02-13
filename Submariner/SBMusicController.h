@@ -44,11 +44,11 @@
 @class SBPrioritySplitViewDelegate;
 @class SBMergeArtistsController;
 
-@interface SBMusicController : SBViewController <NSTableViewDelegate, NSSplitViewDelegate>  {
+@interface SBMusicController : SBViewController <NSTableViewDelegate, NSSplitViewDelegate, NSCollectionViewDataSource, NSCollectionViewDelegate>  {
 @private
     IBOutlet SBMergeArtistsController *mergeArtistsController;
     IBOutlet NSTableView        *artistsTableView;
-    IBOutlet IKImageBrowserView *albumsBrowserView;
+    __weak IBOutlet NSCollectionView *albumsCollectionView;
     IBOutlet NSTableView        *tracksTableView;
     IBOutlet NSArrayController  *artistsController;
     IBOutlet NSArrayController  *albumsController;

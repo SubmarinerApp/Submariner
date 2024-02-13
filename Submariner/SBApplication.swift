@@ -17,7 +17,7 @@ import Cocoa
             // only trigger if we're not in something editing shaped,
             // where space does something the user expects
             if let firstResponder = event.window?.firstResponder,
-               (firstResponder is NSText || firstResponder is IKImageBrowserView) {
+               firstResponder is NSText {
                 return
             }
             if let fakeEvent = NSEvent.keyEvent(with: .keyDown,
