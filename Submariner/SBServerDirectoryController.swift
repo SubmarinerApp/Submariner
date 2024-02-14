@@ -45,7 +45,6 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     // FIXME: duplicated in server user view controller
     
     func play(_ tracks: [SBTrack], startingAt index: Int = 0) {
-        let newIndex = SBPlayer.sharedInstance().playlist.count
         SBPlayer.sharedInstance().play(tracks: tracks, startingAt: index)
     }
     
