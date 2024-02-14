@@ -11,13 +11,6 @@
 import Cocoa
 
 @objc(SBCollectionView) class SBCollectionView: NSCollectionView {
-    func item(at position: NSPoint) -> IndexPath? {
-        if let attribs = self.collectionViewLayout?.layoutAttributesForDropTarget(at: position) {
-            return attribs.indexPath
-        }
-        return nil
-    }
-    
     // Make it so right-clicking for the menu will select the item under the cursor.
     override func rightMouseDown(with event: NSEvent) {
         defer {
@@ -25,7 +18,7 @@ import Cocoa
         }
         
         let point = self.convert(event.locationInWindow, from: nil)
-        if let path = item(at: point) {
+        if let path = indexPathForItem(at: point) {
             deselectAll(self)
             
             guard numberOfItems(inSection: 0) > path.item else {
@@ -36,5 +29,10 @@ import Cocoa
             selectItems(at: paths, scrollPosition: .nearestVerticalEdge)
             delegate?.collectionView?(self, didSelectItemsAt: paths)
         }
+    }
+    
+    @objc(scrollToItemsInIndices:scrollPosition:) func selectItems(in indices: IndexSet, scrollPosition: NSCollectionView.ScrollPosition) {
+        let indexPaths = Set(indices.map { IndexPath(item: $0, section: 0) })
+        self.selectItems(at: indexPaths, scrollPosition: scrollPosition)
     }
 }

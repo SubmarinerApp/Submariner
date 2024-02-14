@@ -415,7 +415,7 @@
     [artistsController setSelectedObjects: @[track.album.artist]];
     [artistsTableView scrollRowToVisible: [artistsTableView selectedRow]];
     [albumsController setSelectedObjects: @[track.album]];
-    [artistsTableView scrollRowToVisible: [artistsTableView selectedRow]];
+    [albumsCollectionView scrollToItemsInIndices: albumsController.selectionIndexes scrollPosition: NSCollectionViewScrollPositionCenteredVertically];
     [tracksController setSelectedObjects: @[track]];
     [tracksTableView scrollRowToVisible: [tracksTableView selectedRow]];
 }
@@ -423,7 +423,7 @@
 
 - (void)showAlbumInLibrary:(SBAlbum*)album {
     [artistsController setSelectedObjects: @[album.artist]];
-    [artistsTableView scrollRowToVisible: [artistsTableView selectedRow]];
+    [albumsCollectionView scrollToItemsInIndices: albumsController.selectionIndexes scrollPosition: NSCollectionViewScrollPositionCenteredVertically];
     [albumsController setSelectedObjects: @[album]];
     [artistsTableView scrollRowToVisible: [artistsTableView selectedRow]];
 }
@@ -598,7 +598,8 @@
     SBAlbum *album = albumsController.arrangedObjects[indexPath.item];
     // XXX: Insane Objective-C exception, or nonsensical lifecycle (becomes ready before the representation)
     //SBAlbumViewItem *item = [albumsCollectionView makeItemWithIdentifier: @"SBAlbumViewItem" forIndexPath: indexPath];
-    NSCollectionViewItem *item = [[SBAlbumViewItem alloc] init];
+    SBAlbumViewItem *item = [[SBAlbumViewItem alloc] init];
+    item.unowningCollectionView = collectionView;
     item.representedObject = album;
     return item;
 }

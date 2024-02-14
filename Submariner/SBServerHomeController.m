@@ -384,7 +384,8 @@
     SBAlbum *album = albumsController.arrangedObjects[indexPath.item];
     // XXX: Insane Objective-C exception, or nonsensical lifecycle (becomes ready before the representation)
     //SBAlbumViewItem *item = [albumsCollectionView makeItemWithIdentifier: @"SBAlbumViewItem" forIndexPath: indexPath];
-    NSCollectionViewItem *item = [[SBAlbumViewItem alloc] init];
+    SBAlbumViewItem *item = [[SBAlbumViewItem alloc] init];
+    item.unowningCollectionView = collectionView;
     item.representedObject = album;
     return item;
 }

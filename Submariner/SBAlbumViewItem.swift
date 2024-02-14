@@ -10,6 +10,9 @@
 
 import Cocoa
 import SwiftUI
+import os
+
+fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "SBAlbumViewItem")
 
 @objc(SBAlbumViewItem) class SBAlbumViewItem: NSCollectionViewItem, ObservableObject {
     private func regenerateView() {
@@ -18,8 +21,13 @@ import SwiftUI
         }
         
         // use a padding of 4 on the root view as a margin, instead of inserts in collection view flow
-        view = NSHostingView(rootView: AlbumItem(host: self, album: album)
-            .padding(4))
+        let newView = AlbumItem(host: self, album: album)
+            .padding(4)
+        if let view = view as? NSHostingView<AlbumItem> {
+            view.rootView = newView as! AlbumItem
+        } else {
+            view = NSHostingView(rootView: newView)
+        }
         
         // I'd prefer to do .onTapGesture(2), but that makes SwiftUI eat the normal click events
         let doubleClickGesture = NSClickGestureRecognizer(target: self, action: #selector(SBAlbumViewItem.doubleClick(_:)))
@@ -27,6 +35,12 @@ import SwiftUI
         // Delays normal clicks otherwise
         doubleClickGesture.delaysPrimaryMouseButtonEvents = false
         view.addGestureRecognizer(doubleClickGesture)
+        
+        if let collectionView = unowningCollectionView ?? collectionView {
+            firstResponderObserver = collectionView.observe(\.isFirstResponder, options: [.initial, .new]) { collectionView, change in
+                self.isHostingViewFirstResponder = change.newValue ?? false
+            }
+        }
     }
     
     override func loadView() {
@@ -59,7 +73,22 @@ import SwiftUI
         }
     }
     
-    // #MARK: - SwiftUI property wrapper
+    // #MARK: - First Responder wrapper
+    // This exists so that the SwiftUI view inside can change the background colour for selections as the hosting collection view's responderiness changes.
+    
+    private var firstResponderObserver: NSKeyValueObservation?
+    
+    // HACK: We can't use collectionView, because it requires you to use makeItemWithIdentifier:forIndexPath:,
+    // which doesn't work for some reason (mangled frame/size for the view, or bizarre exceptions),
+    // forcing us to make an unowned view item (This also presumably affects caching too.).
+    // However, we want to know if the parent view is first responder for drawing reasons,
+    // so we make this variable that has to be manually assigned instead.
+    // If this can be fixed, get rid of this and just observe collectionView.
+    @objc weak var unowningCollectionView: NSCollectionView?
+    
+    @Published private var isHostingViewFirstResponder = false
+    
+    // #MARK: - SwiftUI selection wrapper
     
     /// Wrapper for isSelected that can be published for SwiftUI.
     @Published private var drawSelection: Bool = false
@@ -73,10 +102,15 @@ import SwiftUI
     // #MARK: - SwiftUI View
     
     struct AlbumItem: View {
+        // used to detect if we're the key window
+        @Environment(\.controlActiveState) var controlActiveState: ControlActiveState
+        
         @ObservedObject var host: SBAlbumViewItem
         let album: SBAlbum
         
         var body: some View {
+            // Convert to if-expr once CI is newer
+            let backgroundColour = host.drawSelection ? (host.isHostingViewFirstResponder && controlActiveState == .key ? Color(nsColor: .selectedContentBackgroundColor) : Color(nsColor: .unemphasizedSelectedContentBackgroundColor)) : .clear
             VStack {
                 Image(nsImage: album.imageRepresentation() as! NSImage)
                     .interpolation(.medium)
@@ -89,16 +123,20 @@ import SwiftUI
                     // lineLimit 2 w/ space reservation is interesting, but requires newer target
                     .lineLimit(1)
                     .modify {
-                        if false && host.drawSelection {
-                            $0.foregroundStyle(Color(nsColor: .selectedTextColor))
+                        // match the background; there is no selected content text colour annoyingly
+                        if host.drawSelection && host.isHostingViewFirstResponder && controlActiveState == .key {
+                            // we have the selected content colour; menu item matches because those use the same colour
+                            $0.foregroundStyle(Color(nsColor: .selectedMenuItemTextColor))
+                        } else if host.drawSelection {
+                            // match the unemphasized selected text colour; this should be same as text really
+                            $0.foregroundStyle(Color(nsColor: .unemphasizedSelectedTextColor))
                         } else {
                             $0
                         }
                     }
                     .padding([.leading, .bottom, .trailing], 6)
             }
-            // control accent colour might have been more appropriate, but we have text too
-            .background(host.drawSelection ? Color(nsColor: .selectedTextBackgroundColor) : .clear)
+            .background(backgroundColour)
             .clipShape(RoundedRectangle(cornerRadius: 8))
         }
     }
