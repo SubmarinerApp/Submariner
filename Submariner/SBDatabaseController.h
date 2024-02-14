@@ -60,7 +60,7 @@
 @class SBVolumeButton;
 
 
-#define SBLibraryTableViewDataType @"SBLibraryTableViewDataType"
+#define SBLibraryTableViewDataType @"com.submarinerapp.item-url-list"
 
 // forward declarations for Swift classes (otherwise it's painful to reference,
 // the swift bridging header can only be included in the impl)
