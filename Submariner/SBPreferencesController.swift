@@ -12,13 +12,23 @@ import Cocoa
 import SwiftUI
 
 // TODO: break into own file or subsume into window controller
-class SBTabViewController: NSTabViewController {
+/// A tab view controller that changes the frame of the window hosting it, for the common macOS Preferences/Settings metaphor.
+///
+/// This should be embedded as the only view controller in a window, as it manages the toolbar and resizes its frame.
+class SBPreferencesTabViewController: NSTabViewController {
+    /// If the height of the frame changes with the new tab, or the width as well.
+    var preserveWidth: Bool = true
+    
     func newFrame(window: NSWindow, view: NSView) -> NSRect {
         let viewFrame = NSRect(origin: .zero, size: view.fittingSize)
         let newFrame = window.frameRect(forContentRect: viewFrame)
         let oldFrame = window.frame
         var calculatedFrame = window.frame
-        calculatedFrame.size = newFrame.size
+        if preserveWidth {
+            calculatedFrame.size.height = newFrame.size.height
+        } else {
+            calculatedFrame.size = newFrame.size
+        }
         calculatedFrame.origin.y -= (newFrame.size.height - oldFrame.size.height)
         return calculatedFrame
     }
@@ -70,7 +80,7 @@ class SBPreferencesController: NSWindowController {
         appearanceTab.label = appearanceSettingsView.title!
         appearanceTab.image = NSImage(systemSymbolName: "macwindow", accessibilityDescription: "Appearance Settings")
         
-        let tabViewController = SBTabViewController()
+        let tabViewController = SBPreferencesTabViewController()
         tabViewController.tabStyle = .toolbar
         tabViewController.transitionOptions = [.allowUserInteraction]
         tabViewController.tabViewItems = [playerTab, serverTab, appearanceTab]
@@ -87,8 +97,7 @@ class SBPreferencesController: NSWindowController {
         return nil
     }
 
-    // #MARK: -
-    // #MARK: SwiftUI Views
+    // #MARK: - SwiftUI Views
 
     struct PlayerView: View {
         @AppStorage("enableCacheStreaming") var automaticallyDownload = false
@@ -153,7 +162,8 @@ class SBPreferencesController: NSWindowController {
         var body: some View {
             Form {
                 Section {
-                    Slider(value: $coverSize, in: 0...1, step: 0.05) {
+                    // A size too low causes problems with the cover view and is generally dumb
+                    Slider(value: $coverSize, in: 0.1...1, step: 0.05) {
                         Text("Cover size")
                     } minimumValueLabel: {
                         Text("Min")
@@ -161,7 +171,7 @@ class SBPreferencesController: NSWindowController {
                         Text("Max")
                     }
                     // the default minimum intrinsic width for a slider is paltry
-                    .frame(minWidth: 250)
+                    .frame(minWidth: 300)
                 }
             }
             .fixedSize()
