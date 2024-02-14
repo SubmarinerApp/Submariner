@@ -362,15 +362,10 @@ public class SBServer: SBResource {
         var parameters: [String: String] = [:]
         if let username = self.username, let password = self.password {
             parameters["u"] = username
-            if self.useTokenAuth?.boolValue == true {
+            if self.useTokenAuth?.boolValue == true,
+               // we can fall back to password if this somehow fails
+               let saltBytes = Data(randomByteCount: 64) {
                 parameters.removeValue(forKey: "p")
-                var saltBytes = Data(count: 64)
-                let saltResult = saltBytes.withUnsafeMutableBytes { mutableData in
-                    SecRandomCopyBytes(kSecRandomDefault, 64, mutableData)
-                }
-                if saltResult != errSecSuccess {
-                    abort()
-                }
                 let salt = String.hexStringFrom(bytes: saltBytes)
                 parameters["s"] = salt
                 let token = (password + salt).md5()

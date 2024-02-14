@@ -12,10 +12,11 @@
 		3E04F5F02B71D60F00E24E56 /* SBDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F5EF2B71D60F00E24E56 /* SBDirectory.swift */; };
 		3E04F5F22B71E33000E24E56 /* SBServerDirectoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F5F12B71E33000E24E56 /* SBServerDirectoryController.swift */; };
 		3E04F60F2B771C4500E24E56 /* SBEditServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F60E2B771C4500E24E56 /* SBEditServerController.swift */; };
+		3E04F6112B783BEC00E24E56 /* SBPreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F6102B783BEC00E24E56 /* SBPreferencesController.swift */; };
 		3E04F6342B7AC83600E24E56 /* SBAlbumViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F6332B7AC83600E24E56 /* SBAlbumViewItem.swift */; };
 		3E04F6362B7AD22600E24E56 /* SBCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F6352B7AD22600E24E56 /* SBCollectionView.swift */; };
 		3E04F6382B7B117400E24E56 /* SBCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F6372B7B117400E24E56 /* SBCollectionViewFlowLayout.swift */; };
-		3E04F6112B783BEC00E24E56 /* SBPreferencesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F6102B783BEC00E24E56 /* SBPreferencesController.swift */; };
+		3E04F63B2B7CA48400E24E56 /* Data+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F63A2B7CA48400E24E56 /* Data+Random.swift */; };
 		3E0DAD5C29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */; };
 		3E189E4028EF5BAB0062ACA0 /* SBAudioMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */; };
 		3E1B785E2ACE5039008927C6 /* SBInspectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B785D2ACE5039008927C6 /* SBInspectorController.swift */; };
@@ -151,10 +152,11 @@
 		3E04F5EF2B71D60F00E24E56 /* SBDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBDirectory.swift; sourceTree = "<group>"; };
 		3E04F5F12B71E33000E24E56 /* SBServerDirectoryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBServerDirectoryController.swift; sourceTree = "<group>"; };
 		3E04F60E2B771C4500E24E56 /* SBEditServerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBEditServerController.swift; sourceTree = "<group>"; };
+		3E04F6102B783BEC00E24E56 /* SBPreferencesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPreferencesController.swift; sourceTree = "<group>"; };
 		3E04F6332B7AC83600E24E56 /* SBAlbumViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBAlbumViewItem.swift; sourceTree = "<group>"; };
 		3E04F6352B7AD22600E24E56 /* SBCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBCollectionView.swift; sourceTree = "<group>"; };
 		3E04F6372B7B117400E24E56 /* SBCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
-		3E04F6102B783BEC00E24E56 /* SBPreferencesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPreferencesController.swift; sourceTree = "<group>"; };
+		3E04F63A2B7CA48400E24E56 /* Data+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Random.swift"; sourceTree = "<group>"; };
 		3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTrackListLengthTransformer.swift; sourceTree = "<group>"; };
 		3E189E3228EBBAC40062ACA0 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBAudioMetadata.swift; sourceTree = "<group>"; };
@@ -535,6 +537,7 @@
 				3EC03AC229F33C68001FDE50 /* OperationQueue+Shared.swift */,
 				3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */,
 				3EB2BCC02992D28A00DC5056 /* String+Hex.swift */,
+				3E04F63A2B7CA48400E24E56 /* Data+Random.swift */,
 				3EB2BCC22992D94E00DC5056 /* Data+Type.swift */,
 				3EB2BCC42992DA8E00DC5056 /* String+File.swift */,
 				3EB2BCC62992E13700DC5056 /* String+Time.swift */,
@@ -779,7 +782,6 @@
 				3E45201E29FAD41900604079 /* UserDefaults+Submariner.swift in Sources */,
 				3EC03B5629F4F2E0001FDE50 /* SBArtist.swift in Sources */,
 				4C87EDB0139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m in Sources */,
-				4C87EDB6139CDAA50064DE2E /* SBPreferencesController.m in Sources */,
 				3E04F6382B7B117400E24E56 /* SBCollectionViewFlowLayout.swift in Sources */,
 				3E1C6C432A5264570085B578 /* SBOperation.swift in Sources */,
 				3EB2BCC72992E13700DC5056 /* String+Time.swift in Sources */,
@@ -824,6 +826,7 @@
 				3EC039C729EFB867001FDE50 /* SBDownloadsController.swift in Sources */,
 				3EA929B929E4766900938582 /* SBVolumeIconTransformer.swift in Sources */,
 				3E04F5EB2B7043F600E24E56 /* SBMergeArtistsController.swift in Sources */,
+				3E04F63B2B7CA48400E24E56 /* Data+Random.swift in Sources */,
 				3E702DE92A428CF6005F7184 /* SBSubsonicParsingOperation.swift in Sources */,
 				4C7AA229139D53A50050BE95 /* SBTableView.m in Sources */,
 				3EC03B5F29F5B0E2001FDE50 /* SBMusicItem+CoreDataProperties.swift in Sources */,
