@@ -530,27 +530,27 @@
 		4C87EDAC139CD9E90064DE2E /* Additions */ = {
 			isa = PBXGroup;
 			children = (
-				4C87EDAE139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.h */,
-				4C87EDAF139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m */,
-				4CFB3E05139CEA76008DC01A /* NSOutlineView+Expand.h */,
-				4CFB3E06139CEA76008DC01A /* NSOutlineView+Expand.m */,
-				3EC03AC229F33C68001FDE50 /* OperationQueue+Shared.swift */,
-				3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */,
-				3EB2BCC02992D28A00DC5056 /* String+Hex.swift */,
+				3E87E90F2B4364CF00E85000 /* Collection+IndexSet.swift */,
 				3E04F63A2B7CA48400E24E56 /* Data+Random.swift */,
 				3EB2BCC22992D94E00DC5056 /* Data+Type.swift */,
-				3EB2BCC42992DA8E00DC5056 /* String+File.swift */,
-				3EB2BCC62992E13700DC5056 /* String+Time.swift */,
+				4C87EDAE139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.h */,
+				4C87EDAF139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m */,
 				3EB2BCC82992E85F00DC5056 /* NSImage+Additions.swift */,
-				3EC039C829EFC259001FDE50 /* View+Modify.swift */,
+				3E69507C2A707A2A006E5868 /* NSIndexSet+Array.swift */,
+				3E87E9132B460FFB00E85000 /* NSManagedObjectContext+Fetch.swift */,
+				4CFB3E05139CEA76008DC01A /* NSOutlineView+Expand.h */,
+				4CFB3E06139CEA76008DC01A /* NSOutlineView+Expand.m */,
+				3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */,
+				3EC03AC229F33C68001FDE50 /* OperationQueue+Shared.swift */,
+				3E87E9112B436B4500E85000 /* PasteboardType+Submariner.swift */,
+				3EB2BCC42992DA8E00DC5056 /* String+File.swift */,
+				3EB2BCC02992D28A00DC5056 /* String+Hex.swift */,
+				3EB2BCC62992E13700DC5056 /* String+Time.swift */,
+				3E702DE62A428A1B005F7184 /* Synchronized.swift */,
 				3EC03AC429F42C95001FDE50 /* URL+Parameters.swift */,
 				3E45201D29FAD41900604079 /* UserDefaults+Submariner.swift */,
-				3E702DE62A428A1B005F7184 /* Synchronized.swift */,
-				3E69507C2A707A2A006E5868 /* NSIndexSet+Array.swift */,
 				3E2155132B281E7D004BCCFC /* UTType+AudioToolbox.swift */,
-				3E87E90F2B4364CF00E85000 /* Collection+IndexSet.swift */,
-				3E87E9112B436B4500E85000 /* PasteboardType+Submariner.swift */,
-				3E87E9132B460FFB00E85000 /* NSManagedObjectContext+Fetch.swift */,
+				3EC039C829EFC259001FDE50 /* View+Modify.swift */,
 			);
 			name = Additions;
 			sourceTree = "<group>";
@@ -568,25 +568,25 @@
 		4C87EE11139CE4370064DE2E /* Concrete */ = {
 			isa = PBXGroup;
 			children = (
-				3EC03B1029F4F2E0001FDE50 /* SBMusicItem.swift */,
-				3EC03B1229F4F2E0001FDE50 /* SBEpisode.swift */,
-				3EC03B1429F4F2E0001FDE50 /* SBHome.swift */,
 				3EC03B1629F4F2E0001FDE50 /* SBAlbum.swift */,
-				3EC03B1829F4F2E0001FDE50 /* SBTracklist.swift */,
-				3EC03B1A29F4F2E0001FDE50 /* SBCover.swift */,
-				3EC03B1C29F4F2E0001FDE50 /* SBDownloads.swift */,
-				3EC03B1E29F4F2E0001FDE50 /* SBResource.swift */,
-				3EC03B2029F4F2E0001FDE50 /* SBGroup.swift */,
-				3EC03B2229F4F2E0001FDE50 /* SBTrack.swift */,
-				3EC03B2429F4F2E0001FDE50 /* SBNowPlaying.swift */,
-				3EC03B2629F4F2E0001FDE50 /* SBLibrary.swift */,
-				3EC03B2829F4F2E0001FDE50 /* SBServer.swift */,
-				3EC03B2A29F4F2E0001FDE50 /* SBSection.swift */,
-				3EC03B2C29F4F2E0001FDE50 /* SBPodcast.swift */,
-				3EC03B2E29F4F2E0001FDE50 /* SBIndex.swift */,
-				3EC03B3029F4F2E0001FDE50 /* SBPlaylist.swift */,
 				3EC03B3229F4F2E0001FDE50 /* SBArtist.swift */,
+				3EC03B1A29F4F2E0001FDE50 /* SBCover.swift */,
 				3E04F5EF2B71D60F00E24E56 /* SBDirectory.swift */,
+				3EC03B1C29F4F2E0001FDE50 /* SBDownloads.swift */,
+				3EC03B1229F4F2E0001FDE50 /* SBEpisode.swift */,
+				3EC03B2029F4F2E0001FDE50 /* SBGroup.swift */,
+				3EC03B1429F4F2E0001FDE50 /* SBHome.swift */,
+				3EC03B2E29F4F2E0001FDE50 /* SBIndex.swift */,
+				3EC03B2629F4F2E0001FDE50 /* SBLibrary.swift */,
+				3EC03B1029F4F2E0001FDE50 /* SBMusicItem.swift */,
+				3EC03B2429F4F2E0001FDE50 /* SBNowPlaying.swift */,
+				3EC03B3029F4F2E0001FDE50 /* SBPlaylist.swift */,
+				3EC03B2C29F4F2E0001FDE50 /* SBPodcast.swift */,
+				3EC03B1E29F4F2E0001FDE50 /* SBResource.swift */,
+				3EC03B2A29F4F2E0001FDE50 /* SBSection.swift */,
+				3EC03B2829F4F2E0001FDE50 /* SBServer.swift */,
+				3EC03B2229F4F2E0001FDE50 /* SBTrack.swift */,
+				3EC03B1829F4F2E0001FDE50 /* SBTracklist.swift */,
 			);
 			name = Concrete;
 			sourceTree = "<group>";
@@ -594,8 +594,8 @@
 		4C87EE12139CE4380064DE2E /* Abstract */ = {
 			isa = PBXGroup;
 			children = (
-				3EC03B5929F5B0E2001FDE50 /* SBMusicItem+CoreDataProperties.swift */,
 				3EC03B5B29F5B0E2001FDE50 /* SBCover+CoreDataProperties.swift */,
+				3EC03B5929F5B0E2001FDE50 /* SBMusicItem+CoreDataProperties.swift */,
 				3EC03B5D29F5B0E2001FDE50 /* SBServer+CoreDataProperties.swift */,
 			);
 			name = Abstract;
