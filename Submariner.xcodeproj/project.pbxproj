@@ -17,6 +17,11 @@
 		3E04F6362B7AD22600E24E56 /* SBCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F6352B7AD22600E24E56 /* SBCollectionView.swift */; };
 		3E04F6382B7B117400E24E56 /* SBCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F6372B7B117400E24E56 /* SBCollectionViewFlowLayout.swift */; };
 		3E04F63B2B7CA48400E24E56 /* Data+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F63A2B7CA48400E24E56 /* Data+Random.swift */; };
+		3E04F63D2B7DC02F00E24E56 /* Submariner.sdef in Resources */ = {isa = PBXBuildFile; fileRef = 3E04F63C2B7DC02F00E24E56 /* Submariner.sdef */; };
+		3E04F6422B7DE48400E24E56 /* SBPlayCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F6412B7DE48400E24E56 /* SBPlayCommand.swift */; };
+		3E04F6442B7DE4B400E24E56 /* SBPauseCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F6432B7DE4B400E24E56 /* SBPauseCommand.swift */; };
+		3E04F6462B7DE4C300E24E56 /* SBPreviousTrackCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F6452B7DE4C300E24E56 /* SBPreviousTrackCommand.swift */; };
+		3E04F6482B7DE4D000E24E56 /* SBNextTrackCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F6472B7DE4D000E24E56 /* SBNextTrackCommand.swift */; };
 		3E0DAD5C29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */; };
 		3E189E4028EF5BAB0062ACA0 /* SBAudioMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */; };
 		3E1B785E2ACE5039008927C6 /* SBInspectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B785D2ACE5039008927C6 /* SBInspectorController.swift */; };
@@ -157,6 +162,11 @@
 		3E04F6352B7AD22600E24E56 /* SBCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBCollectionView.swift; sourceTree = "<group>"; };
 		3E04F6372B7B117400E24E56 /* SBCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		3E04F63A2B7CA48400E24E56 /* Data+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Random.swift"; sourceTree = "<group>"; };
+		3E04F63C2B7DC02F00E24E56 /* Submariner.sdef */ = {isa = PBXFileReference; lastKnownFileType = text; path = Submariner.sdef; sourceTree = "<group>"; };
+		3E04F6412B7DE48400E24E56 /* SBPlayCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPlayCommand.swift; sourceTree = "<group>"; };
+		3E04F6432B7DE4B400E24E56 /* SBPauseCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPauseCommand.swift; sourceTree = "<group>"; };
+		3E04F6452B7DE4C300E24E56 /* SBPreviousTrackCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPreviousTrackCommand.swift; sourceTree = "<group>"; };
+		3E04F6472B7DE4D000E24E56 /* SBNextTrackCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBNextTrackCommand.swift; sourceTree = "<group>"; };
 		3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTrackListLengthTransformer.swift; sourceTree = "<group>"; };
 		3E189E3228EBBAC40062ACA0 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBAudioMetadata.swift; sourceTree = "<group>"; };
@@ -343,6 +353,17 @@
 			name = "View Item Controllers";
 			sourceTree = "<group>";
 		};
+		3E04F63E2B7DC12300E24E56 /* AppleScript Commands */ = {
+			isa = PBXGroup;
+			children = (
+				3E04F6412B7DE48400E24E56 /* SBPlayCommand.swift */,
+				3E04F6432B7DE4B400E24E56 /* SBPauseCommand.swift */,
+				3E04F6452B7DE4C300E24E56 /* SBPreviousTrackCommand.swift */,
+				3E04F6472B7DE4D000E24E56 /* SBNextTrackCommand.swift */,
+			);
+			name = "AppleScript Commands";
+			sourceTree = "<group>";
+		};
 		3E0DAD5D29CA3EAD00D895E2 /* Value Transformers */ = {
 			isa = PBXGroup;
 			children = (
@@ -449,6 +470,7 @@
 				4C87ED6F139CD8BE0064DE2E /* Submariner-Prefix.pch */,
 				4C87ED70139CD8BE0064DE2E /* main.m */,
 				4C87ED72139CD8BE0064DE2E /* Credits.rtf */,
+				3E04F63C2B7DC02F00E24E56 /* Submariner.sdef */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -611,6 +633,7 @@
 		4CEF83261449059A005E28EE /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				3E04F63E2B7DC12300E24E56 /* AppleScript Commands */,
 				3E702DE22A3E8E1F005F7184 /* SBAppDelegate.swift */,
 				3E70B2DE2A2BDC55002C0B93 /* SBApplication.swift */,
 			);
@@ -745,6 +768,7 @@
 				4CFB3EF3139D4693008DC01A /* Tracklist.xib in Resources */,
 				4C7AA22E139D563A0050BE95 /* Playlist.xib in Resources */,
 				4C7AA233139D57A00050BE95 /* Music.xib in Resources */,
+				3E04F63D2B7DC02F00E24E56 /* Submariner.sdef in Resources */,
 				4C7AA24E139D64930050BE95 /* ServerLibrary.xib in Resources */,
 				4CFAFC2D139EF08800E82B57 /* ServerHome.xib in Resources */,
 				4CCF7FF013B673CA00954C6E /* ServerSearch.xib in Resources */,
@@ -770,6 +794,7 @@
 				3E702DE32A3E8E1F005F7184 /* SBAppDelegate.swift in Sources */,
 				3E2F86D828E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift in Sources */,
 				3EC5A6452A019B5C00025812 /* SBRepeatModeButtonStateTransformer.swift in Sources */,
+				3E04F6442B7DE4B400E24E56 /* SBPauseCommand.swift in Sources */,
 				3E87E9142B460FFB00E85000 /* NSManagedObjectContext+Fetch.swift in Sources */,
 				4C87ED7D139CD8BE0064DE2E /* Submariner.xcdatamodeld in Sources */,
 				3EC03B4E29F4F2E0001FDE50 /* SBSection.swift in Sources */,
@@ -787,12 +812,14 @@
 				3EB2BCC72992E13700DC5056 /* String+Time.swift in Sources */,
 				3ED4C4D42AC0E25400649FB2 /* SBLibraryPurgeOperation.swift in Sources */,
 				4C87EDBA139CDAB90064DE2E /* SBDatabaseController.m in Sources */,
+				3E04F6462B7DE4C300E24E56 /* SBPreviousTrackCommand.swift in Sources */,
 				3E7491972B6A1AE00052CBCE /* SBTracklistController.swift in Sources */,
 				3E1B785E2ACE5039008927C6 /* SBInspectorController.swift in Sources */,
 				3E70B2DF2A2BDC55002C0B93 /* SBApplication.swift in Sources */,
 				3E702DE72A428A1B005F7184 /* Synchronized.swift in Sources */,
 				3EC03B4029F4F2E0001FDE50 /* SBDownloads.swift in Sources */,
 				3EC03B4229F4F2E0001FDE50 /* SBResource.swift in Sources */,
+				3E04F6482B7DE4D000E24E56 /* SBNextTrackCommand.swift in Sources */,
 				3EC039C529EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift in Sources */,
 				4C87EDC1139CDC260064DE2E /* SBSourceList.m in Sources */,
 				3E04F6362B7AD22600E24E56 /* SBCollectionView.swift in Sources */,
@@ -841,6 +868,7 @@
 				3E94E5FA2915AB130080FDF6 /* SBRoutePickerView.swift in Sources */,
 				3E70B2E12A2D52A1002C0B93 /* SBPlayer.swift in Sources */,
 				3EC03B4C29F4F2E0001FDE50 /* SBServer.swift in Sources */,
+				3E04F6422B7DE48400E24E56 /* SBPlayCommand.swift in Sources */,
 				3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */,
 				3EB2BCCB2992F03A00DC5056 /* SBSearchResult.swift in Sources */,
 				3EB2BCC52992DA8E00DC5056 /* String+File.swift in Sources */,

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dictionary SYSTEM "file://localhost/System/Library/DTDs/sdef.dtd">
+
+<!-- This scripting dictionary is mostly intended for Sleeve (https://replay.software/help/sleeve/developers) - it only has the minimum to make it happy, unless you want more -->
+
+<dictionary title="Submariner Terminology">
+    <suite name="Submariner Suite" code="????" description="Submariner Scripts">
+        <class name="track" plural="tracks" code="SBtr" description="track">
+            <cocoa class="SBTrack"/>
+            <property name="id" code="IDID" type="text" access="r" description="the Core Data ID of the track">
+                <cocoa key="objectIDString" />
+            </property>
+            <property name="artist" code="artN" type="text" access="r" description="the artist name of the track">
+                <cocoa key="artistString" />
+            </property>
+            <property name="album" code="albN" type="text" access="r" description="the album name of the track">
+                <cocoa key="albumString" />
+            </property>
+            <property name="name" code="name" type="text" access="r" description="the title of the track">
+                <cocoa key="itemName" />
+            </property>
+            <!-- I think we prefer the URL since it's already on disk and doesn't mean complicated marshalling of an image, if inconvenient, can make this data -->
+            <property name="artwork url" code="cURL" type="text" access="r" description="the path to the track's cover image">
+                <cocoa key="coverImageURL" />
+            </property>
+            <!-- XXX: get/set loved; represent as starring, or rating? -->
+        </class>
+        
+        <!-- magic capp value for the application -->
+        <class name="application" code="capp" description="the application">
+            <!-- it's unfortunate player state is in SBPlayer as SBApplication doesn't do much -->
+            <cocoa class="SBApplication" />
+            
+            <property name="current track" code="cTrk" type="track" access="r" description="the currently playing track">
+                <cocoa key="currentTrack" />
+            </property>
+            <property name="player state" code="cPSt" type="text" access="r" description="the playback status">
+                <cocoa key="playState" />
+            </property>
+        </class>
+        
+        <command name="play" code="submPlay" description="resumes playing the track">
+            <cocoa class="SBPlayCommand" />
+        </command>
+        <command name="pause" code="submPaus" description="pauses the track">
+            <cocoa class="SBPauseCommand" />
+        </command>
+        <command name="prev track" code="submPrev" description="go back a track in the tracklist">
+            <cocoa class="SBPreviousTrackCommand" />
+        </command>
+        <command name="next track" code="submNext" description="go forward a track in the tracklist">
+            <cocoa class="SBNextTrackCommand" />
+        </command>
+    </suite>
+</dictionary>

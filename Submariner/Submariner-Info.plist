@@ -41,6 +41,10 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>SBApplication</string>
+	<key>NSAppleScriptEnabled</key>
+	<true/>
+	<key>OSAScriptingDefinition</key>
+	<string>Submariner.sdef</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>

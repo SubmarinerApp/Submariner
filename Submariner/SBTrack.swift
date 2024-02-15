@@ -107,6 +107,17 @@ public class SBTrack: SBMusicItem {
         }
         return self.contentType
     }
+    
+    // #MARK: - AppleScript wrappers
+    
+    @objc var objectIDString: String {
+        return objectID.uriRepresentation().absoluteString
+    }
+    
+    @objc var coverImageURL: NSString? {
+        return album?.cover?.imagePath
+    }
+    
     // #MARK: - Core Data insert compatibility shim
     
     @objc(insertInManagedObjectContext:) class func insertInManagedObjectContext(context: NSManagedObjectContext) -> SBTrack {

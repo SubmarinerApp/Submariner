@@ -34,4 +34,23 @@ import Cocoa
             }
         }
     }
+    
+    // #MARK: - AppleScript handlers
+    
+    @objc var currentTrack: SBTrack? {
+        SBPlayer.sharedInstance().currentTrack
+    }
+    
+    @objc var playState: String {
+        let playingTrack = SBPlayer.sharedInstance().isPlaying
+        let pausedTrack = SBPlayer.sharedInstance().isPaused
+        
+        if playingTrack && pausedTrack {
+            return "paused"
+        } else if playingTrack {
+            return "playing"
+        } else {
+            return "stopped"
+        }
+    }
 }
