@@ -117,6 +117,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                     .resizable()
                     .scaledToFit()
                     .aspectRatio(1, contentMode: .fit)
+                    .shadow(color: .black, radius: 1, y: 1)
                     .padding(6)
                 Text(album.itemName ?? "")
                     .controlSize(.small)
