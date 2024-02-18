@@ -43,7 +43,8 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
             "MaxCoverSize": NSNumber(value: 300),
             "scrobbleToServer": NSNumber(value: true),
             "deleteAfterPlay": NSNumber(value: false),
-            "SkipIncrement": NSNumber(value: 5.0)
+            "SkipIncrement": NSNumber(value: 5.0),
+            "albumSortOrder": "OldestFirst",
         ]
         UserDefaults.standard.register(defaults: defaults)
         

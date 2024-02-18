@@ -91,6 +91,7 @@
 
 - (void)dealloc
 {
+    [[NSUserDefaults standardUserDefaults] removeObserver: self forKeyPath: @"albumSortOrder"];
     [artistsController removeObserver:self forKeyPath:@"selectedObjects"];
     [albumsController removeObserver:self forKeyPath:@"selectedObjects"];
     [tracksController removeObserver:self forKeyPath:@"selectedObjects"];
@@ -125,6 +126,11 @@
                       forKeyPath:@"selectedObjects"
                       options:NSKeyValueObservingOptionNew
                       context:nil];
+    
+    [[NSUserDefaults standardUserDefaults] addObserver: self
+                                            forKeyPath: @"albumSortOrder"
+                                               options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
+                                               context: nil];
 }
 
 
@@ -147,6 +153,9 @@
     } else if (object == tracksController && [keyPath isEqualToString:@"selectedObjects"] && self.view.window != nil) {
         [[NSNotificationCenter defaultCenter] postNotificationName: @"SBTrackSelectionChanged"
                                                             object: tracksController.selectedObjects];
+    } else if (object == [NSUserDefaults standardUserDefaults] && [keyPath isEqualToString: @"albumSortOrder"]) {
+        albumSortDescriptor = [self sortDescriptorsForPreference];
+        albumsController.sortDescriptors = albumSortDescriptor;
     }
 }
 

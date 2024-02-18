@@ -36,6 +36,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * A basic AppleScript dictionary has been added as a way to inspect and control playback programatically.
 * Files can be dropped onto the dock icon to import them.
 * Empty artists entries are deleted from the local library on deleting downloaded items.
+* The album sort order is configurable. By default, it sorts from oldest to newest.
 * Move request handling into an off-thread queue.
 * The album selection view has been rewritten to avoid deprecated types.
 * Fix tracks not having a cover when imported.

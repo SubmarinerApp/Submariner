@@ -95,6 +95,21 @@
 #pragma mark -
 #pragma mark Library View Helper Functions
 
+- (NSArray<NSSortDescriptor*>*) sortDescriptorsForPreference: (NSString*)preference {
+    NSSortDescriptor *albumNameDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"itemName" ascending:YES];
+    if ([preference isEqualToString: @"OldestFirst"]) {
+        NSSortDescriptor *albumYearDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"year" ascending:YES];
+        return @[albumYearDescriptor, albumNameDescriptor];
+    } else {
+        return @[albumNameDescriptor];
+    }
+}
+
+- (NSArray<NSSortDescriptor*>*) sortDescriptorsForPreference {
+    NSString *newOrderType = [[NSUserDefaults standardUserDefaults] stringForKey: @"albumSortOrder"];
+    return [self sortDescriptorsForPreference: newOrderType];
+}
+
 -(void)showTracksInFinder:(NSArray<SBTrack*>*)trackList selectedIndices:(NSIndexSet*)indexSet
 {
     NSArray *selectedTracks = [trackList objectsAtIndexes: indexSet];

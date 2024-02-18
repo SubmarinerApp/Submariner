@@ -112,6 +112,7 @@
 - (void)dealloc
 {
     // remove subsonic observers
+    [[NSUserDefaults standardUserDefaults] removeObserver: self forKeyPath: @"albumSortOrder"];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBSubsonicCoversUpdatedNotification" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBSubsonicTracksUpdatedNotification" object:nil];
     [albumsController removeObserver:self forKeyPath:@"arrangedObjects"];
@@ -153,6 +154,11 @@
                       forKeyPath:@"selectedObjects"
                       options:NSKeyValueObservingOptionNew
                       context:nil];
+    
+    [[NSUserDefaults standardUserDefaults] addObserver: self
+                                            forKeyPath: @"albumSortOrder"
+                                               options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
+                                               context: nil];
 }
 
 
@@ -173,6 +179,9 @@
     } else if (object == albumsController && [keyPath isEqualToString:@"arrangedObjects"]) {
         [albumsCollectionView reloadData];
         [albumsCollectionView setSelectionIndexes: albumsController.selectionIndexes];
+    } else if (object == [NSUserDefaults standardUserDefaults] && [keyPath isEqualToString: @"albumSortOrder"]) {
+        albumSortDescriptor = [self sortDescriptorsForPreference];
+        albumsController.sortDescriptors = albumSortDescriptor;
     }
 }
 

@@ -97,6 +97,7 @@
 
 
 - (void)dealloc {
+    [[NSUserDefaults standardUserDefaults] removeObserver: self forKeyPath: @"albumSortOrder"];
     [albumsController removeObserver:self forKeyPath:@"arrangedObjects"];
     [tracksController removeObserver:self forKeyPath:@"selectedObjects"];
 }
@@ -168,6 +169,11 @@
                       forKeyPath:@"selectedObjects"
                       options:NSKeyValueObservingOptionNew
                       context:nil];
+    
+    [[NSUserDefaults standardUserDefaults] addObserver: self
+                                            forKeyPath: @"albumSortOrder"
+                                               options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
+                                               context: nil];
 }
 
 
@@ -361,6 +367,9 @@
     } else if (object == albumsController && [keyPath isEqualToString:@"arrangedObjects"]) {
         [albumsCollectionView reloadData];
         [albumsCollectionView setSelectionIndexes: albumsController.selectionIndexes];
+    } else if (object == [NSUserDefaults standardUserDefaults] && [keyPath isEqualToString: @"albumSortOrder"]) {
+        albumSortDescriptor = [self sortDescriptorsForPreference];
+        albumsController.sortDescriptors = albumSortDescriptor;
     }
 }
 

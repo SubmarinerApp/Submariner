@@ -158,6 +158,7 @@ class SBPreferencesController: NSWindowController {
     
     struct AppearanceView: View {
         @AppStorage("coverSize") var coverSize = 0.75
+        @AppStorage("albumSortOrder") var albumSortOrder = "OldestFirst"
 
         var body: some View {
             Form {
@@ -172,6 +173,12 @@ class SBPreferencesController: NSWindowController {
                     }
                     // the default minimum intrinsic width for a slider is paltry
                     .frame(minWidth: 300)
+                }
+                Section {
+                    Picker(selection: $albumSortOrder, label: Text("Album sort order")) {
+                        Text("Alphabetical").tag("Alphabetical")
+                        Text("Oldest to newest").tag("OldestFirst")
+                    }
                 }
             }
             .fixedSize()

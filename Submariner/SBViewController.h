@@ -69,4 +69,6 @@ typedef NS_OPTIONS(NSInteger, SBSelectedRowStatus) {
 - (SBSelectedRowStatus) selectedRowStatus:(NSArray<SBTrack*>*)trackList selectedIndices:(NSIndexSet*)indexSet;
 - (SBSelectedRowStatus) selectedRowStatus:(NSArray<SBTrack*>*)trackList;
 
+- (NSArray<NSSortDescriptor*>*) sortDescriptorsForPreference;
+
 @end
