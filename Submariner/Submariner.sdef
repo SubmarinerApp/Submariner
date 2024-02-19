@@ -23,7 +23,10 @@
             <property name="artwork url" code="cURL" type="text" access="r" description="the path to the track's cover image">
                 <cocoa key="coverImageURL" />
             </property>
-            <!-- XXX: get/set loved; represent as starring, or rating? -->
+            <!-- sleeve only cares about starring -->
+            <property name="loved" code="cFav" type="boolean" access="rw" description="if the track is favourited">
+                <cocoa key="starredBool" />
+            </property>
         </class>
         
         <!-- magic capp value for the application -->

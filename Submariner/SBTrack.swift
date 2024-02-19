@@ -20,6 +20,8 @@ public class SBTrack: SBMusicItem {
             return Set(["isPlaying"])
         } else if key == "onlineImage" {
             return Set(["isLocal"])
+        } else if key == "starredImage" || key == "starredBool" {
+            return Set(["starred"])
         }
         return Set()
     }
@@ -90,6 +92,29 @@ public class SBTrack: SBMusicItem {
             return NSImage(systemSymbolName: "bolt.horizontal.fill", accessibilityDescription: "Cached")!
         }
         return NSImage(systemSymbolName: "bolt.horizontal", accessibilityDescription: "Online")!
+    }
+    
+    @objc var starredImage: NSImage? {
+        if self.starred != nil {
+            return NSImage(systemSymbolName: "heart.fill", accessibilityDescription: "Favourited")!
+        }
+        //return NSImage(systemSymbolName: "heart", accessibilityDescription: "Not Favourited")!
+        return nil
+    }
+    
+    @objc var starredBool: Bool {
+        get {
+            return starred != nil
+        } set {
+            // setting it locally is mostly for the sake of instant update - we should refresh the track later
+            if starred != nil {
+                starred = nil
+                server?.unstar(tracks: [self], albums: [], artists: [])
+            } else {
+                starred = Date.now
+                server?.star(tracks: [self], albums: [], artists: [])
+            }
+        }
     }
     
     @objc func isVideo() -> Bool {
