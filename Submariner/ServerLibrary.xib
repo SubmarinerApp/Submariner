@@ -158,7 +158,7 @@
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveName="ServerMusicTable" headerView="110" id="108" customClass="SBTableView">
-                                                                <rect key="frame" x="0.0" y="0.0" width="692" height="156"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="711" height="156"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -285,6 +285,20 @@
                                                                             <binding destination="144" name="value" keyPath="arrangedObjects.onlineImage" id="168"/>
                                                                         </connections>
                                                                     </tableColumn>
+                                                                    <tableColumn identifier="starred" width="16" minWidth="16" maxWidth="16" headerToolTip="Favourited" id="8V9-Sx-1I7">
+                                                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        </tableHeaderCell>
+                                                                        <buttonCell key="dataCell" type="bevel" title="Favourited" bezelStyle="regularSquare" image="heart" catalog="system" imagePosition="left" alternateImage="heart.fill" inset="2" id="ID1-pb-ogP">
+                                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                            <font key="font" metaFont="system"/>
+                                                                        </buttonCell>
+                                                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                                        <connections>
+                                                                            <binding destination="144" name="value" keyPath="arrangedObjects.starredBool" id="P7P-MK-pIB"/>
+                                                                        </connections>
+                                                                    </tableColumn>
                                                                     <tableColumn identifier="rating" width="64" minWidth="10" maxWidth="3.4028234663852886e+38" id="175">
                                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Rating">
                                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -316,7 +330,7 @@
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                     <tableHeaderView key="headerView" wantsLayer="YES" id="110">
-                                                        <rect key="frame" x="0.0" y="0.0" width="692" height="28"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="711" height="28"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </tableHeaderView>
                                                 </scrollView>
@@ -460,4 +474,8 @@
             <point key="canvasLocation" x="505" y="-162"/>
         </menu>
     </objects>
+    <resources>
+        <image name="heart" catalog="system" width="17" height="14"/>
+        <image name="heart.fill" catalog="system" width="17" height="14"/>
+    </resources>
 </document>
