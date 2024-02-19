@@ -249,6 +249,8 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 // doing this in ID3 migration, but may be useful if servers keep ID if artist renames
                 // i.e. "British Sea Power" -> "Sea Power" (and avoid deadnames, etc.)
                 existingArtist.itemName = name
+                // star status
+                existingArtist.starred = attributeDict["starred"]?.dateTimeFromISO()
                 // as we don't do it in updateTrackDependencies
                 server.addToIndexes(existingArtist)
                 // Experiment: clear albums list to remove stale albums from transitional period
@@ -262,6 +264,8 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 artistsReturned.append(existingArtist)
                 // legacy for cases where we have artists without IDs from i.e. getNowPlaying/search2
                 existingArtist.itemId = id
+                // update star status
+                existingArtist.starred = attributeDict["starred"]?.dateTimeFromISO()
                 // as we don't do it in updateTrackDependencies
                 server.addToIndexes(existingArtist)
                 // same as experiment
@@ -313,6 +317,9 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             if let name = attributeDict["name"] {
                 album!.itemName = name
             }
+            
+            // if starriness is missing, it's no longer started
+            album!.starred = attributeDict["starred"]?.dateTimeFromISO()
             
             // always reassociate due to possible transitions
             if artist != nil {
@@ -1035,6 +1042,9 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         if let path = attributes["path"] {
             track.path = path
         }
+        
+        // special case: if starriness is missing, it's no longer started
+        track.starred = attributes["starred"]?.dateTimeFromISO()
     }
     
     private func createTrack(attributes: [String: String]) -> SBTrack {

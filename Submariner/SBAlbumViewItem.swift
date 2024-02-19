@@ -119,6 +119,17 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                     .aspectRatio(1, contentMode: .fit)
                     .shadow(color: .black, radius: 1, y: 1)
                     .padding(6)
+                    .modify {
+                        if album.starred != nil {
+                            $0.overlay(alignment: .bottomTrailing) {
+                                Image(systemName: "heart.fill")
+                                    .foregroundStyle(.pink)
+                                    .shadow(color: .black, radius: 1)
+                            }
+                        } else {
+                            $0
+                        }
+                    }
                 Text(album.itemName ?? "")
                     .controlSize(.small)
                     // lineLimit 2 w/ space reservation is interesting, but requires newer target

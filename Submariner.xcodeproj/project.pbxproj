@@ -178,6 +178,7 @@
 		3E2F86C928DD36E600C5CE23 /* Submariner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Submariner-Bridging-Header.h"; sourceTree = "<group>"; };
 		3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBMonospaceTextField.swift; sourceTree = "<group>"; };
 		3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTreeController+IndexPath.swift"; sourceTree = "<group>"; };
+		3E32BE462B82F35900E77CF0 /* Submariner v6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Submariner v6.xcdatamodel"; sourceTree = "<group>"; };
 		3E45201729F5DBDC00604079 /* SBTrackArtistNameTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTrackArtistNameTransformer.swift; sourceTree = "<group>"; };
 		3E45201929F5DE9100604079 /* SBImportOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBImportOperation.swift; sourceTree = "<group>"; };
 		3E45201B29FA488C00604079 /* SBServerUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBServerUserViewController.swift; sourceTree = "<group>"; };
@@ -1141,13 +1142,14 @@
 		4C87ED7B139CD8BE0064DE2E /* Submariner.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				3E32BE462B82F35900E77CF0 /* Submariner v6.xcdatamodel */,
 				3E04F5EE2B71D46E00E24E56 /* Submariner v5.xcdatamodel */,
 				3E6126EB2AD7363100B2A1E2 /* Submariner v4.xcdatamodel */,
 				3E5C41DB297F2E15009B9699 /* Submariner v3.xcdatamodel */,
 				3EA06A4E28B2C04B0091A75F /* Submariner v2.xcdatamodel */,
 				4C87ED7C139CD8BE0064DE2E /* Submariner.xcdatamodel */,
 			);
-			currentVersion = 3E04F5EE2B71D46E00E24E56 /* Submariner v5.xcdatamodel */;
+			currentVersion = 3E32BE462B82F35900E77CF0 /* Submariner v6.xcdatamodel */;
 			path = Submariner.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
