@@ -151,8 +151,22 @@ extension NSNotification.Name {
         remoteCommandCenter.ratingCommand.addTarget { event in
             let ratingEvent = event as! MPRatingCommandEvent
             // technically we can set the one in local DB for local tracks
-            if let currentTrack = self.currentTrack, currentTrack.server != nil {
+            if let currentTrack = self.currentTrack {
                 currentTrack.rating = NSNumber(value: ratingEvent.rating)
+                if let server = currentTrack.server, let id = currentTrack.itemId {
+                    server.setRating(Int(ratingEvent.rating), id: id)
+                }
+                return .success
+            }
+            return .noActionableNowPlayingItem
+        }
+        
+        // Not exposed in macOS yet
+        remoteCommandCenter.likeCommand.isEnabled = true
+        remoteCommandCenter.likeCommand.addTarget { event in
+            if let currentTrack = self.currentTrack {
+                currentTrack.starredBool = !currentTrack.starredBool
+                remoteCommandCenter.likeCommand.isActive = currentTrack.starredBool
                 return .success
             }
             return .noActionableNowPlayingItem
@@ -201,9 +215,13 @@ extension NSNotification.Name {
     // These two are separate because updating metadata is more expensive than i.e. seek position
     
     private func updateSystemNowPlayingStatus() {
+        let remoteCommandCenter = MPRemoteCommandCenter.shared()
         let centre = MPNowPlayingInfoCenter.default()
         
         if let currentTrack = self.currentTrack {
+            // TODO: User can change this externally, subscribe to starriness to keep like command status updated
+            remoteCommandCenter.likeCommand.isActive = currentTrack.starredBool
+            
             // times are in sec; trust the SBTrack if the player isn't ready
             // as passing NaNs here will crash the menu bar (!)
             let duration = durationTime
