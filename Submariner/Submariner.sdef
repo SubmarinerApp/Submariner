@@ -24,7 +24,7 @@
                 <cocoa key="coverImageURL" />
             </property>
             <!-- sleeve only cares about starring -->
-            <property name="loved" code="cFav" type="boolean" access="rw" description="if the track is favourited">
+            <property name="loved" code="star" type="boolean" access="rw" description="if the track is favourited">
                 <cocoa key="starredBool" />
             </property>
         </class>
