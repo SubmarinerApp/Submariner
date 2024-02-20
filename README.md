@@ -32,6 +32,8 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ### Not yet released
 
+* Albums and tracks can be favourited ("starred" in Subsonic parlance; we use a heart to avoid being confused with ratings).
+  * Starred albums can be recalled in the server albums view.
 * A directory view has been added, for users of servers that organize files by directory and prefer managing files that way.
 * A basic AppleScript dictionary has been added as a way to inspect and control playback programatically.
 * Files can be dropped onto the dock icon to import them.
