@@ -42,6 +42,7 @@ enum SBSubsonicRequestType: Equatable {
     @objc(SBSubsonicRequestGetAlbumListRandom) case random
     @objc(SBSubsonicRequestGetAlbumListNewest) case newest
     @objc(SBSubsonicRequestGetAlbumListHighest) case highest
+    @objc(SBSubsonicRequestGetAlbumListStarred) case starred
     @objc(SBSubsonicRequestGetAlbumListFrequent) case frequent
     @objc(SBSubsonicRequestGetAlbumListRecent) case recent
 }

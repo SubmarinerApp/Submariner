@@ -153,9 +153,8 @@ class SBSubsonicRequestOperation: SBOperation {
                 parameters["type"] = "highest"
             case .recent:
                 parameters["type"] = "recent"
-            default:
-                logger.error("getAlbumList type: unrecognized")
-                abort()
+            case .starred:
+                parameters["type"] = "starred"
             }
             
             url = URL.URLWith(string: server.url, command: "rest/getAlbumList2.view", parameters: parameters)

@@ -124,7 +124,10 @@
 //                      [NSDictionary dictionaryWithObjectsAndKeys:
 //                       @"HighestItem", ITEM_IDENTIFIER,
 //                       @"Highest", ITEM_NAME, nil],
-                      [NSDictionary dictionaryWithObjectsAndKeys: 
+                      [NSDictionary dictionaryWithObjectsAndKeys:
+                       @"StarredItem", ITEM_IDENTIFIER,
+                       @"Favourited", ITEM_NAME, nil],
+                      [NSDictionary dictionaryWithObjectsAndKeys:
                        @"FrequentItem", ITEM_IDENTIFIER, 
                        @"Frequent", ITEM_NAME, nil],
                       [NSDictionary dictionaryWithObjectsAndKeys: 
@@ -186,6 +189,8 @@
         [self.server getAlbumListForType:SBSubsonicRequestGetAlbumListHighest];
     } else if([identifier isEqualToString:@"FrequentItem"]) {
         [self.server getAlbumListForType:SBSubsonicRequestGetAlbumListFrequent];
+    } else if([identifier isEqualToString:@"StarredItem"]) {
+        [self.server getAlbumListForType:SBSubsonicRequestGetAlbumListStarred];
     } else if([identifier isEqualToString:@"RecentItem"]) {
         [self.server getAlbumListForType:SBSubsonicRequestGetAlbumListRecent];
     }
@@ -557,8 +562,10 @@
         return [NSImage imageWithSystemSymbolName: @"wand.and.stars" accessibilityDescription: @"Random"];
     } else if ([identifier isEqualToString: @"HighestItem"]) {
         return [NSImage imageWithSystemSymbolName: @"star.fill" accessibilityDescription: @"Highest"];
+    } else if ([identifier isEqualToString: @"StarredItem"]) {
+        return [NSImage imageWithSystemSymbolName: @"heart.fill" accessibilityDescription: @"Favourited"];
     } else if ([identifier isEqualToString: @"FrequentItem"]) {
-        return [NSImage imageWithSystemSymbolName: @"heart.fill" accessibilityDescription: @"Frequent"];
+        return [NSImage imageWithSystemSymbolName: @"arrowshape.up" accessibilityDescription: @"Frequent"];
     } else if ([identifier isEqualToString: @"RecentItem"]) {
         return [NSImage imageWithSystemSymbolName: @"clock.arrow.circlepath" accessibilityDescription: @"Recent"];
     }
