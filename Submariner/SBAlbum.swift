@@ -54,6 +54,21 @@ public class SBAlbum: SBMusicItem {
         return 0
     }
     
+    @objc var starredBool: Bool {
+        get {
+            return starred != nil
+        } set {
+            // setting it locally is mostly for the sake of instant update - we should refresh the track later
+            if starred != nil {
+                starred = nil
+                artist?.server?.unstar(tracks: [], albums: [self], artists: [])
+            } else {
+                starred = Date.now
+                artist?.server?.star(tracks: [], albums: [self], artists: [])
+            }
+        }
+    }
+    
     // #MARK: - Derived Attributes
     
     // XXX: This is better off living in Core Data, but adding a derived attribute

@@ -108,6 +108,8 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         @ObservedObject var host: SBAlbumViewItem
         let album: SBAlbum
         
+        @State var hovering = false
+        
         var body: some View {
             // Convert to if-expr once CI is newer
             let backgroundColour = host.drawSelection ? (host.isHostingViewFirstResponder && controlActiveState == .key ? Color(nsColor: .selectedContentBackgroundColor) : Color(nsColor: .unemphasizedSelectedContentBackgroundColor)) : .clear
@@ -120,11 +122,26 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                     .shadow(color: .black, radius: 1, y: 1)
                     .padding(6)
                     .modify {
+                        // This could perhaps use some polish in how it works
                         if album.starred != nil {
                             $0.overlay(alignment: .bottomTrailing) {
-                                Image(systemName: "heart.fill")
+                                Image(systemName: hovering ? "heart.fill" : "heart")
                                     .foregroundStyle(.pink)
                                     .shadow(color: .black, radius: 1)
+                                    .onTapGesture {
+                                        album.starredBool = false
+                                    }
+                                    .help("Favourited")
+                            }
+                        } else if hovering {
+                            $0.overlay(alignment: .bottomTrailing) {
+                                Image(systemName: "heart")
+                                    .foregroundStyle(.pink)
+                                    .shadow(color: .black, radius: 1)
+                                    .onTapGesture {
+                                        album.starredBool = true
+                                    }
+                                    .help("Not favourited")
                             }
                         } else {
                             $0
@@ -147,6 +164,11 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                         }
                     }
                     .padding([.leading, .bottom, .trailing], 6)
+            }
+            .onHover { _ in
+                // It's a little weird that the hover can appear when you're anywhere over the item,
+                // but it's unusually CPU intensive if we i.e. only do it on the Image.
+                self.hovering.toggle()
             }
             .background(backgroundColour)
             .clipShape(RoundedRectangle(cornerRadius: 8))
