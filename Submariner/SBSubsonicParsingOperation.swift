@@ -1045,6 +1045,12 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         
         // special case: if starriness is missing, it's no longer started
         track.starred = attributes["starred"]?.dateTimeFromISO()
+        // same with rating, tho a bit more complex because parsing here
+        if let ratingString = attributes["rating"], let rating = Int(ratingString) {
+            track.rating = NSNumber(value: rating)
+        } else {
+            track.rating = 0 // or nil?
+        }
     }
     
     private func createTrack(attributes: [String: String]) -> SBTrack {

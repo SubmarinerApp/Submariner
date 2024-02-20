@@ -41,6 +41,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * The album sort order is configurable. By default, it sorts from oldest to newest.
 * Move request handling into an off-thread queue.
 * The album selection view has been rewritten to avoid deprecated types.
+* Fix track ratings not getting updated from the remote server.
 * Fix tracks not having a cover when imported.
 * Fix imported tracks having the wrong bitrate shown in the inspector.
 * Fix imported tracks not having a content type.
