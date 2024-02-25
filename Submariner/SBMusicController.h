@@ -61,11 +61,7 @@
     NSArray *artistSortDescriptor;
     NSArray *albumSortDescriptor;
     NSArray *trackSortDescriptor;
-    NSDictionary *artistCellSelectedAttributes;
-    NSDictionary *artistCellUnselectedAttributes;
 }
-@property (readonly, strong) NSDictionary *artistCellSelectedAttributes;
-@property (readonly, strong) NSDictionary *artistCellUnselectedAttributes;
 @property (readwrite, strong) SBDatabaseController *databaseController;
 @property (readwrite, strong) NSArray *artistSortDescriptor;
 @property (readwrite, strong) NSArray *trackSortDescriptor;

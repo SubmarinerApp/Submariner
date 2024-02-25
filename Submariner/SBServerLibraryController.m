@@ -68,9 +68,6 @@
 @synthesize artistSortDescriptor;
 @synthesize trackSortDescriptor;
 
-@dynamic artistCellSelectedAttributes;
-@dynamic artistCellUnselectedAttributes;
-
 
 
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context {
@@ -183,24 +180,6 @@
         albumSortDescriptor = [self sortDescriptorsForPreference];
         albumsController.sortDescriptors = albumSortDescriptor;
     }
-}
-
-- (NSDictionary *)artistCellSelectedAttributes {
-    if(artistCellSelectedAttributes == nil) {
-        artistCellSelectedAttributes = [NSMutableDictionary dictionary];
-        
-        return artistCellSelectedAttributes;
-    }
-    return artistCellSelectedAttributes;
-}
-
-- (NSDictionary *)artistCellUnselectedAttributes {
-    if(artistCellUnselectedAttributes == nil) {
-        artistCellUnselectedAttributes = [NSMutableDictionary dictionary];
-        
-        return artistCellUnselectedAttributes;
-    }
-    return artistCellUnselectedAttributes;
 }
 
 
@@ -500,22 +479,6 @@
             if(selectedArtist && [selectedArtist isKindOfClass:[SBArtist class]]) {
                 [self.server getArtist:selectedArtist];
                 [albumsCollectionView deselectAll: self];
-            }
-        }
-    }
-}
-
-- (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    if (tableView == artistsTableView) {
-        if (row > -1 &&  [tableColumn.identifier isEqualToString: @"itemName"]) {
-            SBIndex *index = [[artistsController arrangedObjects] objectAtIndex:row];
-            if(index && [index isKindOfClass:[SBArtist class]]) {
-
-                NSDictionary *attr = (row == [tableView selectedRow]) ? self.artistCellSelectedAttributes : self.artistCellUnselectedAttributes;
-                NSString *str = index.itemName ?: @"";
-                NSAttributedString *newString = [[NSAttributedString alloc] initWithString: str attributes:attr];
-                
-                [cell setAttributedStringValue:newString];
             }
         }
     }
