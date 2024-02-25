@@ -59,14 +59,14 @@
                                         <rect key="frame" x="0.0" y="0.0" width="175" height="357"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
-                                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" autosaveColumns="NO" id="18" customClass="SBTableView">
-                                                <rect key="frame" x="0.0" y="0.0" width="175" height="357"/>
+                                            <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnResizing="NO" autosaveColumns="NO" id="18" customClass="SBTableView">
+                                                <rect key="frame" x="0.0" y="0.0" width="195" height="357"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                 <tableColumns>
-                                                    <tableColumn identifier="artistName" width="143" minWidth="40" maxWidth="1000" id="21">
+                                                    <tableColumn identifier="artistName" width="144" minWidth="40" maxWidth="1000" id="21">
                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="artistName">
                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
@@ -76,13 +76,26 @@
                                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         </textFieldCell>
-                                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                        <tableColumnResizingMask key="resizingMask" resizeWithTable="YES"/>
                                                         <connections>
                                                             <binding destination="61" name="value" keyPath="arrangedObjects.itemName" id="63">
                                                                 <dictionary key="options">
                                                                     <integer key="NSConditionallySetsEditable" value="0"/>
                                                                 </dictionary>
                                                             </binding>
+                                                        </connections>
+                                                    </tableColumn>
+                                                    <tableColumn identifier="starred" width="16" minWidth="16" maxWidth="16" headerToolTip="Favourited" id="eut-sa-Cmc">
+                                                        <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                                            <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </tableHeaderCell>
+                                                        <buttonCell key="dataCell" type="bevel" title="Not Favourited" alternateTitle="Favourited" bezelStyle="regularSquare" imagePosition="left" alternateImage="heart.fill" catalog="system" inset="2" id="ks3-6G-q6l">
+                                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                            <font key="font" metaFont="system"/>
+                                                        </buttonCell>
+                                                        <connections>
+                                                            <binding destination="61" name="value" keyPath="arrangedObjects.starredBool" id="Yxj-a2-vuI"/>
                                                         </connections>
                                                     </tableColumn>
                                                 </tableColumns>

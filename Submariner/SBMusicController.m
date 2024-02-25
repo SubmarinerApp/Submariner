@@ -671,8 +671,8 @@
 }
 
 - (void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    if(tableView == artistsTableView) {
-        if(row > -1) {
+    if (tableView == artistsTableView) {
+        if (row > -1 &&  [tableColumn.identifier isEqualToString: @"itemName"]) {
             SBIndex *index = [[artistsController arrangedObjects] objectAtIndex:row];
             if(index && [index isKindOfClass:[SBArtist class]]) {
                 

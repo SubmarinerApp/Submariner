@@ -12,5 +12,10 @@ import CoreData
 
 @objc(SBIndex)
 public class SBIndex: SBMusicItem {
-
+    // implemented for SBArtist; stars are only relevant for artist, but the arrays are for SBIndex.
+    // SBGroup has no need for starring (AFAIK?), so
+    @objc var starredBool: Bool {
+        get { false }
+        set {}
+    }
 }
