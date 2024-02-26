@@ -204,7 +204,7 @@
                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </tableHeaderCell>
-                                                        <buttonCell key="dataCell" type="bevel" title="Favourited" bezelStyle="regularSquare" image="heart" catalog="system" imagePosition="left" alternateImage="heart.fill" inset="2" id="5ac-mg-MaF">
+                                                        <buttonCell key="dataCell" type="bevel" title="Not Favourited" alternateTitle="Favourited" bezelStyle="regularSquare" imagePosition="left" alternateImage="heart.fill" catalog="system" inset="2" id="5ac-mg-MaF">
                                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                             <font key="font" metaFont="system"/>
                                                         </buttonCell>
@@ -366,7 +366,6 @@
         </menu>
     </objects>
     <resources>
-        <image name="heart" catalog="system" width="17" height="14"/>
         <image name="heart.fill" catalog="system" width="17" height="14"/>
     </resources>
 </document>
