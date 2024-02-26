@@ -123,25 +123,27 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                     .padding(6)
                     .modify {
                         // This could perhaps use some polish in how it works
-                        if album.starred != nil {
-                            $0.overlay(alignment: .bottomTrailing) {
-                                Image(systemName: hovering ? "heart.fill" : "heart")
-                                    .foregroundStyle(.pink)
-                                    .shadow(color: .black, radius: 1)
-                                    .onTapGesture {
-                                        album.starredBool = false
-                                    }
-                                    .help("Favourited")
-                            }
-                        } else if hovering {
+                        let helpText = album.starred != nil ? "Favourited" : "Not Favourited"
+                        if hovering {
                             $0.overlay(alignment: .bottomTrailing) {
                                 Image(systemName: "heart")
                                     .foregroundStyle(.pink)
                                     .shadow(color: .black, radius: 1)
                                     .onTapGesture {
-                                        album.starredBool = true
+                                        // hover could be for either state
+                                        album.starredBool = !album.starredBool
                                     }
-                                    .help("Not favourited")
+                                    .help(helpText)
+                            }
+                        } else if album.starred != nil {
+                            $0.overlay(alignment: .bottomTrailing) {
+                                Image(systemName: "heart.fill")
+                                    .foregroundStyle(.pink)
+                                    .shadow(color: .black, radius: 1)
+                                    .onTapGesture {
+                                        album.starredBool = false
+                                    }
+                                    .help(helpText)
                             }
                         } else {
                             $0
