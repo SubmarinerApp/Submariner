@@ -75,7 +75,7 @@
 - (void)loadView {
     [super loadView];
     
-    [tracksTableView registerForDraggedTypes:[NSArray arrayWithObject:SBLibraryTableViewDataType]];
+    [tracksTableView registerForDraggedTypes: @[SBLibraryTableViewDataType, SBLibraryItemTableViewDataType]];
     
     [tracksController addObserver:self
                       forKeyPath:@"selectedObjects"
@@ -243,44 +243,22 @@
 #pragma mark -
 #pragma mark NSTableView (Drag & Drop)
 
-- (BOOL)tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
-    
-    BOOL ret = NO;
-    if(tableView == tracksTableView) {
-        /*** Internal drop track */
-        NSMutableArray *trackURIs = [NSMutableArray array];
-        
-        // get tracks URIs
-        [rowIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-            SBTrack *track = [[tracksController arrangedObjects] objectAtIndex:idx];
-            [trackURIs addObject:[[track objectID] URIRepresentation]];
-        }];
-        
-        // encode to data
-        NSError *error = nil;
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:trackURIs requiringSecureCoding: YES error: &error];
-        if (error != nil) {
-            NSLog(@"Error archiving track URIs: %@", error);
-            return NO;
-        }
-        
-        // register data to pastboard
-        [pboard declareTypes:[NSArray arrayWithObject:SBLibraryTableViewDataType] owner:self];
-        [pboard setData:data forType:SBLibraryTableViewDataType];
-        ret = YES;
+- (id<NSPasteboardWriting>)tableView:(NSTableView *)tableView pasteboardWriterForRow:(NSInteger)row {
+    if (tableView == tracksTableView) {
+        SBTrack *track = tracksController.arrangedObjects[row];
+        return [[SBLibraryItemPasteboardWriter alloc] initWithItem: track index: row];
     }
-    return ret;
+    return nil;
 }
 
 - (NSDragOperation)tableView:(NSTableView*)tv validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)op
 {
-    
-    if(row == -1)
+    if (row == -1)
         return NSDragOperationNone;
     
-    if(op == NSTableViewDropAbove) {
+    if (op == NSTableViewDropAbove) {
         // internal drop track
-        if ([[[info draggingPasteboard] types] containsObject:SBLibraryTableViewDataType] ) {
+        if ([info.draggingPasteboard libraryItems] != nil) {
             return NSDragOperationMove;
         }
     }
@@ -292,28 +270,12 @@
 - (BOOL)tableView:(NSTableView *)aTableView acceptDrop:(id <NSDraggingInfo>)info
               row:(NSInteger)row dropOperation:(NSTableViewDropOperation)operation
 {
-    NSSet *allowedClasses = [NSSet setWithObjects: NSIndexSet.class, NSArray.class, NSURL.class, nil];
-    NSError *error = nil;
-    NSPasteboard* pboard = [info draggingPasteboard];
+    NSArray<SBTrack*> *tracks = [info.draggingPasteboard libraryItemsWithManagedObjectContext: self.managedObjectContext];
     
     // internal drop track
-    if ([[pboard types] containsObject:SBLibraryTableViewDataType] ) {
-        NSData* rowData = [pboard dataForType:SBLibraryTableViewDataType];
-        NSArray *trackURIs = [NSKeyedUnarchiver unarchivedObjectOfClasses: allowedClasses fromData: rowData error: &error];
-        if (error != nil) {
-            NSLog(@"Error unserializing array %@", error);
-            return NO;
-        }
-        NSMutableArray *tracks = [NSMutableArray array];
-        NSArray *reversedArray  = nil;
-        NSInteger sourceRow = 0;    
+    if (tracks != nil) {
+        NSInteger sourceRow = 0;
         NSInteger destinationRow = 0;
-        
-        // compute selected track
-        [trackURIs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            SBTrack *track = (SBTrack *)[self.managedObjectContext objectWithID:[self.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:obj]];
-            [tracks addObject:track];
-        }];
         
         // update playlist indexes 
         if([[[tracks objectAtIndex:0] playlistIndex] integerValue] < row) {
@@ -344,7 +306,7 @@
     
         
         // reverse track array
-        reversedArray = [[tracks reverseObjectEnumerator] allObjects];
+        NSArray<SBTrack*> *reversedArray = [[tracks reverseObjectEnumerator] allObjects];
         
         // add reversed track at index
         for(SBTrack *track in reversedArray) {
