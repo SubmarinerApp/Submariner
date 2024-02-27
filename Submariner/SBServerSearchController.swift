@@ -37,8 +37,6 @@ import Cocoa
             }
         }
         
-        tracksTableView.registerForDraggedTypes([.libraryType])
-        
         selectionObserver = tracksController.observe(\.selectedObjects) { arrayController, change in
             NotificationCenter.default.post(name: .SBTrackSelectionChanged, object: arrayController.selectedObjects)
         }
@@ -103,24 +101,12 @@ import Cocoa
     
     // #MARK: - NSTableView Delegate
     
-    // FIXME: Replace with tableView:pasteboardWriterForRow:?
-    func tableView(_ tableView: NSTableView, writeRowsWith rowIndexes: IndexSet, to pboard: NSPasteboard) -> Bool {
+    func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
         guard tableView == tracksTableView else {
-            return false
+            return nil
         }
         
-        let desiredTracks = tracks[rowIndexes].map { $0.objectID.uriRepresentation() }
-        
-        do {
-            let data = try NSKeyedArchiver.archivedData(withRootObject: desiredTracks, requiringSecureCoding: true)
-            
-            pboard.declareTypes([.libraryType], owner: self)
-            pboard.setData(data, forType: .libraryType)
-            
-            return true
-        } catch {
-            return false
-        }
+        return SBLibraryItemPasteboardWriter(item: tracks[row], index: row)
     }
     
     // #MARK: - UI Validator

@@ -205,7 +205,7 @@
     [addServerPlaylistController setManagedObjectContext:self.managedObjectContext];
     
     // source list drag and drop
-    [sourceList registerForDraggedTypes:[NSArray arrayWithObject:SBLibraryTableViewDataType]];
+    [sourceList registerForDraggedTypes: @[SBLibraryTableViewDataType, SBLibraryItemTableViewDataType]];
     
     // re-layout when visible, so that ServerHome MGScopeBar doesn't get swallowed
     // the insets are the variable that changes, not the safeAreaRect (which is presumably calculated)
@@ -1517,38 +1517,22 @@
 #pragma mark SourceList DataSource (Drag & Drop)
 
 - (NSDragOperation)sourceList:(SBSourceList *)sourceList validateDrop:(id<NSDraggingInfo>)info proposedItem:(id)item proposedChildIndex:(NSInteger)index {
-    NSSet *allowedClasses = [NSSet setWithObjects: NSIndexSet.class, NSArray.class, NSURL.class, nil];
-    NSError *error = nil;
-    if([[item representedObject] isKindOfClass:[SBPlaylist class]]) {
-        if([[[info draggingPasteboard] types] containsObject:SBLibraryTableViewDataType]) {
-            NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
-            NSArray *tracksURIs = [NSKeyedUnarchiver unarchivedObjectOfClasses: allowedClasses fromData: data error: &error];
-            if (error != nil) {
-                [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
-                return NSDragOperationNone;
-            }
-            
-            SBTrack *firstTrack = (SBTrack *)[self.managedObjectContext objectWithID:[self.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[tracksURIs objectAtIndex:0]]];
-            SBPlaylist *targetPlaylist = [item representedObject];
-            
-            if(targetPlaylist.server == nil) { // is local playlist and local track
-                return NSDragOperationCopy;
-            } else if([targetPlaylist.server isEqualTo:firstTrack.server]) {
-                return NSDragOperationCopy;
-            }
-        }
-    } else if([[item representedObject] isKindOfClass:[SBDownloads class]] || [[item representedObject] isKindOfClass:[SBLibrary class]]) {
-        NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
-        NSArray *tracksURIs = [NSKeyedUnarchiver unarchivedObjectOfClasses: allowedClasses fromData: data error: &error];
-        if (error != nil) {
-            [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
-            return NSDragOperationNone;
-        }
+    NSArray<SBTrack*> *tracks = [info.draggingPasteboard libraryItemsWithManagedObjectContext: self.managedObjectContext];
+    if (tracks == nil) {
+        return NSDragOperationNone;
+    }
+    SBTrack *firstTrack = [tracks firstObject];
+    if ([[item representedObject] isKindOfClass:[SBPlaylist class]]) {
+        SBPlaylist *targetPlaylist = [item representedObject];
         
-        SBTrack *firstTrack = (SBTrack *)[self.managedObjectContext objectWithID:[self.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[tracksURIs objectAtIndex:0]]];
-        
+        if (targetPlaylist.server == nil) { // is local playlist and local track
+            return NSDragOperationCopy;
+        } else if ([targetPlaylist.server isEqualTo:firstTrack.server]) {
+            return NSDragOperationCopy;
+        }
+    } else if ([[item representedObject] isKindOfClass:[SBDownloads class]] || [[item representedObject] isKindOfClass:[SBLibrary class]]) {
         // if remote or not in cache
-        if(firstTrack.server != nil || (firstTrack.server != nil && firstTrack.localTrack == nil)) {
+        if (firstTrack.server != nil || (firstTrack.server != nil && firstTrack.localTrack == nil)) {
             return NSDragOperationCopy;
         }
     }
@@ -1558,66 +1542,32 @@
 
 
 - (BOOL)sourceList:(SBSourceList *)aSourceList acceptDrop:(id<NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index {
-    NSSet *allowedClasses = [NSSet setWithObjects: NSIndexSet.class, NSArray.class, NSURL.class, nil];
-    NSError *error = nil;
-    if([[item representedObject] isKindOfClass:[SBPlaylist class]]) {
+    NSArray<SBTrack*> *tracks = [info.draggingPasteboard libraryItemsWithManagedObjectContext: self.managedObjectContext];
+    if (tracks == nil) {
+        return NO;
+    }
+    if ([[item representedObject] isKindOfClass:[SBPlaylist class]]) {
         SBPlaylist *playlist = (SBPlaylist *)[item representedObject];
         
-        if([[[info draggingPasteboard] types] containsObject:SBLibraryTableViewDataType]) {
-           
-            if(playlist.server == nil) {
-                NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
-                NSArray *tracksURIs = [NSKeyedUnarchiver unarchivedObjectOfClasses: allowedClasses fromData: data error: &error];
-                if (error != nil) {
-                    [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
-                    return NO;
-                }
-                
-                // also add new track IDs to the array
-                [tracksURIs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    SBTrack *track = (SBTrack *)[self.managedObjectContext objectWithID:[[self.managedObjectContext persistentStoreCoordinator] managedObjectIDForURIRepresentation:obj]];
-                    
-                    [track setPlaylistIndex:[NSNumber numberWithInteger:[playlist.tracks count]]];
-                    [playlist addTracksObject:track];
-                }];
-            } else {
-                
-                NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
-                NSArray *tracksURIs = [NSKeyedUnarchiver unarchivedObjectOfClasses: allowedClasses fromData: data error: &error];
-                if (error != nil) {
-                    [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
-                    return NO;
-                }
-                
-                NSMutableArray *tracks = [NSMutableArray array];
-                NSString *playlistID = playlist.itemId;
-                
-                // append these tracks using the updatePlaylist endpoint
-                [tracksURIs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-                    SBTrack *track = (SBTrack *)[self.managedObjectContext objectWithID:[[self.managedObjectContext persistentStoreCoordinator] managedObjectIDForURIRepresentation:obj]];
-                    [tracks addObject: track];
-                }];
-                
-                [playlist.server updatePlaylistWithID: playlistID name: nil comment: nil appending: tracks removing: nil];
-            }
+        if(playlist.server == nil) {
+            // also add new track IDs to the array
+            [tracks enumerateObjectsUsingBlock:^(SBTrack *track, NSUInteger idx, BOOL *stop) {
+                [track setPlaylistIndex:[NSNumber numberWithInteger:[playlist.tracks count]]];
+                [playlist addTracksObject:track];
+            }];
+        } else {
+            NSString *playlistID = playlist.itemId;
             
-            return YES;
-        }
-    } else if([[item representedObject] isKindOfClass:[SBDownloads class]] || [[item representedObject] isKindOfClass:[SBLibrary class]]) {
-		
-		[self switchToResource:[item representedObject]];
-		
-        NSData *data = [[info draggingPasteboard] dataForType:SBLibraryTableViewDataType];
-        NSArray *tracksURIs = [NSKeyedUnarchiver unarchivedObjectOfClasses: allowedClasses fromData: data error: &error];
-        if (error != nil) {
-            [NSApp performSelectorOnMainThread:@selector(presentError:) withObject:error waitUntilDone:NO];
-            return NO;
+            // append these tracks using the updatePlaylist endpoint
+            [playlist.server updatePlaylistWithID: playlistID name: nil comment: nil appending: tracks removing: nil];
         }
         
+        return YES;
+    } else if ([[item representedObject] isKindOfClass:[SBDownloads class]] || [[item representedObject] isKindOfClass:[SBLibrary class]]) {
+		[self switchToResource:[item representedObject]];
+        
         // also add new track IDs to the array
-        [tracksURIs enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-            SBTrack *track = (SBTrack *)[self.managedObjectContext objectWithID:[[self.managedObjectContext persistentStoreCoordinator] managedObjectIDForURIRepresentation:obj]];
-
+        [tracks enumerateObjectsUsingBlock:^(SBTrack *track, NSUInteger idx, BOOL *stop) {
             // download track
             SBSubsonicDownloadOperation *op = [[SBSubsonicDownloadOperation alloc]
                                                initWithManagedObjectContext: self.managedObjectContext

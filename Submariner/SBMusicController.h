@@ -45,7 +45,7 @@
 @class SBMergeArtistsController;
 @class SBCollectionView;
 
-@interface SBMusicController : SBViewController <NSTableViewDelegate, NSSplitViewDelegate, NSCollectionViewDataSource, NSCollectionViewDelegate>  {
+@interface SBMusicController : SBViewController <NSTableViewDelegate, NSTableViewDataSource, NSSplitViewDelegate, NSCollectionViewDataSource, NSCollectionViewDelegate>  {
 @private
     IBOutlet SBMergeArtistsController *mergeArtistsController;
     IBOutlet NSTableView        *artistsTableView;

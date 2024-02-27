@@ -36,7 +36,7 @@
 #import "SBViewController.h"
 #import "SBDatabaseController.h"
 
-@interface SBMusicSearchController : SBViewController {
+@interface SBMusicSearchController : SBViewController <NSTableViewDataSource> {
     IBOutlet NSTableView *tracksTableView;
     IBOutlet NSArrayController *tracksController;
     SBDatabaseController *databaseController;

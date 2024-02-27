@@ -39,7 +39,7 @@
 
 @class SBPlaylist;
 
-@interface SBPlaylistController : SBViewController <NSTableViewDelegate> {
+@interface SBPlaylistController : SBViewController <NSTableViewDelegate, NSTableViewDataSource> {
 @private
     SBPlaylist *playlist;
     

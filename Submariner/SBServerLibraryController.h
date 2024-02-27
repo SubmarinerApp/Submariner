@@ -45,7 +45,7 @@
 @class SBPrioritySplitViewDelegate;
 @class SBCollectionView;
 
-@interface SBServerLibraryController : SBServerViewController <NSTableViewDelegate, NSSplitViewDelegate, NSCollectionViewDataSource, NSCollectionViewDelegate> {
+@interface SBServerLibraryController : SBServerViewController <NSTableViewDelegate, NSTableViewDataSource, NSSplitViewDelegate, NSCollectionViewDataSource, NSCollectionViewDelegate> {
 @private
     IBOutlet NSTableView        *artistsTableView;
     IBOutlet SBTableView        *tracksTableView;

@@ -273,7 +273,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                         .onDrag {
                             let urls = DirectoryContextMenu.gather(selectedArray())
                                 .map { $0.objectID.uriRepresentation() }
-                            let type = NSPasteboard.PasteboardType.libraryType.rawValue
+                            let type = NSPasteboard.PasteboardType.libraryItems.rawValue
                             return NSItemProvider(item: urls as NSArray,
                                                   typeIdentifier: type)
                         } preview: {

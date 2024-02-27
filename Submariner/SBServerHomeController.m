@@ -152,10 +152,6 @@
     // tracks double click
     [tracksTableView setTarget:self];
     [tracksTableView setDoubleAction:@selector(trackDoubleClick:)];
-    [tracksTableView registerForDraggedTypes:[NSArray arrayWithObject:SBLibraryTableViewDataType]];
-        
-    // tracks drag & drop
-    //[tracksTableView registerForDraggedTypes:[NSArray arrayWithObjects:SBLibraryTableViewDataType, nil]];
     
     // observe album covers
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -437,41 +433,26 @@
     }
 }
 
+- (BOOL)collectionView:(NSCollectionView *)collectionView canDragItemsAtIndexPaths:(NSSet<NSIndexPath *> *)indexPaths withEvent:(NSEvent *)event {
+    return YES;
+}
 
-
-
+- (id<NSPasteboardWriting>)collectionView:(NSCollectionView *)collectionView pasteboardWriterForItemAtIndexPath:(NSIndexPath *)indexPath {
+    SBAlbum *album = [[albumsController arrangedObjects] objectAtIndex: indexPath.item];
+    NSArray<SBTrack*>* tracks = [album.tracks sortedArrayUsingDescriptors: tracksController.sortDescriptors];
+    return [[SBLibraryPasteboardWriter alloc] initWithItems: tracks];
+}
 
 
 #pragma mark -
 #pragma mark NSTableView (Drag & Drop)
 
-- (BOOL)tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
-    
-    BOOL ret = NO;
-    if(tableView == tracksTableView) {
-        /*** Internal drop track */
-        NSMutableArray *trackURIs = [NSMutableArray array];
-        
-        // get tracks URIs
-        [rowIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-            SBTrack *track = [[tracksController arrangedObjects] objectAtIndex:idx];
-            [trackURIs addObject:[[track objectID] URIRepresentation]];
-        }];
-        
-        // encode to data
-        NSError *error = nil;
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:trackURIs requiringSecureCoding: YES error: &error];
-        if (error != nil) {
-            NSLog(@"Error archiving track URIs: %@", error);
-            return NO;
-        }
-        
-        // register data to pastboard
-        [pboard declareTypes:[NSArray arrayWithObject:SBLibraryTableViewDataType] owner:self];
-        [pboard setData:data forType:SBLibraryTableViewDataType];
-        ret = YES;
+- (id<NSPasteboardWriting>)tableView:(NSTableView *)tableView pasteboardWriterForRow:(NSInteger)row {
+    if (tableView == tracksTableView) {
+        SBTrack *track = tracksController.arrangedObjects[row];
+        return [[SBLibraryItemPasteboardWriter alloc] initWithItem: track index: row];
     }
-    return ret;
+    return nil;
 }
 
 

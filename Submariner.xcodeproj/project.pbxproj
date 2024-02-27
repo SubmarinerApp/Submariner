@@ -31,6 +31,10 @@
 		3E2E1C842A395B79001A3148 /* SBSubsonicRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E1C832A395B79001A3148 /* SBSubsonicRequestOperation.swift */; };
 		3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */; };
 		3E2F86D828E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */; };
+		3E32BE4E2B8D4E4400E77CF0 /* SBLibraryPasteboardWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E32BE4D2B8D4E4400E77CF0 /* SBLibraryPasteboardWriter.swift */; };
+		3E32BE502B8D9A5C00E77CF0 /* SBTableView+DragImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E32BE4F2B8D9A5C00E77CF0 /* SBTableView+DragImage.swift */; };
+		3E32BE522B8D9FDE00E77CF0 /* SBLibraryItemPasteboardWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E32BE512B8D9FDE00E77CF0 /* SBLibraryItemPasteboardWriter.swift */; };
+		3E32BE552B8E500500E77CF0 /* NSPasteboard+Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E32BE542B8E500500E77CF0 /* NSPasteboard+Library.swift */; };
 		3E45201829F5DBDC00604079 /* SBTrackArtistNameTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E45201729F5DBDC00604079 /* SBTrackArtistNameTransformer.swift */; };
 		3E45201A29F5DE9100604079 /* SBImportOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E45201929F5DE9100604079 /* SBImportOperation.swift */; };
 		3E45201C29FA488C00604079 /* SBServerUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E45201B29FA488C00604079 /* SBServerUserViewController.swift */; };
@@ -179,6 +183,10 @@
 		3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBMonospaceTextField.swift; sourceTree = "<group>"; };
 		3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTreeController+IndexPath.swift"; sourceTree = "<group>"; };
 		3E32BE462B82F35900E77CF0 /* Submariner v6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Submariner v6.xcdatamodel"; sourceTree = "<group>"; };
+		3E32BE4D2B8D4E4400E77CF0 /* SBLibraryPasteboardWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBLibraryPasteboardWriter.swift; sourceTree = "<group>"; };
+		3E32BE4F2B8D9A5C00E77CF0 /* SBTableView+DragImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SBTableView+DragImage.swift"; sourceTree = "<group>"; };
+		3E32BE512B8D9FDE00E77CF0 /* SBLibraryItemPasteboardWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBLibraryItemPasteboardWriter.swift; sourceTree = "<group>"; };
+		3E32BE542B8E500500E77CF0 /* NSPasteboard+Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPasteboard+Library.swift"; sourceTree = "<group>"; };
 		3E45201729F5DBDC00604079 /* SBTrackArtistNameTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTrackArtistNameTransformer.swift; sourceTree = "<group>"; };
 		3E45201929F5DE9100604079 /* SBImportOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBImportOperation.swift; sourceTree = "<group>"; };
 		3E45201B29FA488C00604079 /* SBServerUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBServerUserViewController.swift; sourceTree = "<group>"; };
@@ -386,6 +394,15 @@
 			name = Build;
 			sourceTree = "<group>";
 		};
+		3E32BE532B8DA02200E77CF0 /* Pasteboard */ = {
+			isa = PBXGroup;
+			children = (
+				3E32BE4D2B8D4E4400E77CF0 /* SBLibraryPasteboardWriter.swift */,
+				3E32BE512B8D9FDE00E77CF0 /* SBLibraryItemPasteboardWriter.swift */,
+			);
+			name = Pasteboard;
+			sourceTree = "<group>";
+		};
 		4C7A3E97148F07F7009C6EE6 /* Subprojects */ = {
 			isa = PBXGroup;
 			children = (
@@ -479,6 +496,7 @@
 		4C87ED83139CD8CD0064DE2E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3E32BE532B8DA02200E77CF0 /* Pasteboard */,
 				3E0DAD5D29CA3EAD00D895E2 /* Value Transformers */,
 				4CFAFC32139EF20500E82B57 /* MGScopeBar.h */,
 				4CFAFC33139EF20500E82B57 /* MGScopeBar.m */,
@@ -563,9 +581,11 @@
 				3E87E9132B460FFB00E85000 /* NSManagedObjectContext+Fetch.swift */,
 				4CFB3E05139CEA76008DC01A /* NSOutlineView+Expand.h */,
 				4CFB3E06139CEA76008DC01A /* NSOutlineView+Expand.m */,
+				3E32BE542B8E500500E77CF0 /* NSPasteboard+Library.swift */,
 				3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */,
 				3EC03AC229F33C68001FDE50 /* OperationQueue+Shared.swift */,
 				3E87E9112B436B4500E85000 /* PasteboardType+Submariner.swift */,
+				3E32BE4F2B8D9A5C00E77CF0 /* SBTableView+DragImage.swift */,
 				3EB2BCC42992DA8E00DC5056 /* String+File.swift */,
 				3EB2BCC02992D28A00DC5056 /* String+Hex.swift */,
 				3EB2BCC62992E13700DC5056 /* String+Time.swift */,
@@ -815,6 +835,7 @@
 				4C87EDBA139CDAB90064DE2E /* SBDatabaseController.m in Sources */,
 				3E04F6462B7DE4C300E24E56 /* SBPreviousTrackCommand.swift in Sources */,
 				3E7491972B6A1AE00052CBCE /* SBTracklistController.swift in Sources */,
+				3E32BE522B8D9FDE00E77CF0 /* SBLibraryItemPasteboardWriter.swift in Sources */,
 				3E1B785E2ACE5039008927C6 /* SBInspectorController.swift in Sources */,
 				3E70B2DF2A2BDC55002C0B93 /* SBApplication.swift in Sources */,
 				3E702DE72A428A1B005F7184 /* Synchronized.swift in Sources */,
@@ -824,9 +845,11 @@
 				3EC039C529EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift in Sources */,
 				4C87EDC1139CDC260064DE2E /* SBSourceList.m in Sources */,
 				3E04F6362B7AD22600E24E56 /* SBCollectionView.swift in Sources */,
+				3E32BE4E2B8D4E4400E77CF0 /* SBLibraryPasteboardWriter.swift in Sources */,
 				3E94E5F62912EEC40080FDF6 /* SBNavigationItem.swift in Sources */,
 				3EB2BCC12992D28A00DC5056 /* String+Hex.swift in Sources */,
 				3E0DAD5C29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift in Sources */,
+				3E32BE552B8E500500E77CF0 /* NSPasteboard+Library.swift in Sources */,
 				3E45201829F5DBDC00604079 /* SBTrackArtistNameTransformer.swift in Sources */,
 				3E04F6112B783BEC00E24E56 /* SBPreferencesController.swift in Sources */,
 				3E87E9122B436B4500E85000 /* PasteboardType+Submariner.swift in Sources */,
@@ -861,6 +884,7 @@
 				3EC03B5029F4F2E0001FDE50 /* SBPodcast.swift in Sources */,
 				4C7AA22D139D563A0050BE95 /* SBPlaylistController.m in Sources */,
 				4C7AA232139D57A00050BE95 /* SBMusicController.m in Sources */,
+				3E32BE502B8D9A5C00E77CF0 /* SBTableView+DragImage.swift in Sources */,
 				4C7AA24D139D64930050BE95 /* SBServerLibraryController.m in Sources */,
 				4CFAFC2C139EF08800E82B57 /* SBServerHomeController.m in Sources */,
 				3E04F5F22B71E33000E24E56 /* SBServerDirectoryController.swift in Sources */,

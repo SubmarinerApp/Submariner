@@ -11,8 +11,17 @@
 import Cocoa
 
 extension NSPasteboard.PasteboardType {
-    /// Tracks from the library views.
-    static let libraryType = NSPasteboard.PasteboardType(rawValue: "com.submarinerapp.item-url-list")
-    /// Tracks from the tracklist.
-    static let tracklistType = NSPasteboard.PasteboardType(rawValue: "com.submariner.tracklist-indices")
+    /// Tracks from the library views, represented as an array of track object IDs as a URL.
+    ///
+    /// This was used for i.e. `tableView:writeRowsWithIndexes:toPasteboard`, which worked with every row at once and made a single pasteboard item.
+    /// It's still used for dragging albums, but things using `tableView:pasteboardWriterForRow:` should be using `.libraryItemType` instead.
+    static let libraryItems = NSPasteboard.PasteboardType(rawValue: "com.submarinerapp.item-url-list")
+    /// A track from the library views, represented as a track object ID as a string.
+    ///
+    /// Usually multiple of these will exist on a pasteboard.
+    static let libraryItem = NSPasteboard.PasteboardType(rawValue: "com.submarinerapp.item-url-string")
+    /// Tracks from the tracklist, represented as an index set.
+    static let tracklistIndices = NSPasteboard.PasteboardType(rawValue: "com.submarinerapp.tracklist-indices")
+    /// The index of a row, as a raw integer in a Data wrapper.
+    static let rowIndex = NSPasteboard.PasteboardType(rawValue: "com.submarinerapp.row-index")
 }

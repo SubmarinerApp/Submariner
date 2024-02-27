@@ -193,6 +193,19 @@
 }
 
 
+
+#pragma mark -
+#pragma mark NSTableView (Drag & Drop)
+
+- (id<NSPasteboardWriting>)tableView:(NSTableView *)tableView pasteboardWriterForRow:(NSInteger)row {
+    if (tableView == tracksTableView) {
+        SBTrack *track = tracksController.arrangedObjects[row];
+        return [[SBLibraryItemPasteboardWriter alloc] initWithItem: track index: row];
+    }
+    return nil;
+}
+
+
 #pragma mark -
 #pragma mark UI Validator
 

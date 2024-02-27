@@ -27,7 +27,7 @@ import Cocoa
         
         title = "Tracklist"
         
-        playlistTableView.registerForDraggedTypes([.libraryType, .tracklistType])
+        playlistTableView.registerForDraggedTypes([.libraryItems, .libraryItem, .tracklistIndices])
         
         notificationObserver = NotificationCenter.default.addObserver(forName: .SBPlayerPlaylistUpdated,
                                                                       object: nil,
@@ -127,8 +127,8 @@ import Cocoa
         do {
             let data = try NSKeyedArchiver.archivedData(withRootObject: rowIndexes, requiringSecureCoding: true)
             
-            pboard.declareTypes([.tracklistType], owner: self)
-            pboard.setData(data, forType: .tracklistType)
+            pboard.declareTypes([.tracklistIndices], owner: self)
+            pboard.setData(data, forType: .tracklistIndices)
             
             return true
         } catch {
@@ -142,10 +142,10 @@ import Cocoa
         }
         
         if let types = info.draggingPasteboard.types {
-            if types.contains(.tracklistType) {
-                return [.move]
-            } else if types.contains(.libraryType) { // for cursor
-                return [.copy]
+            if types.contains(.tracklistIndices) {
+                return .move
+            } else if types.contains(.libraryItems) || types.contains(.libraryItem) { // for cursor
+                return .copy
             }
         }
         
@@ -155,7 +155,7 @@ import Cocoa
     static let allowedClasses = [NSIndexSet.self, NSArray.self, NSURL.self]
     
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
-        if let data = info.draggingPasteboard.data(forType: .tracklistType),
+        if let data = info.draggingPasteboard.data(forType: .tracklistIndices),
            let rowIndexes = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: SBTracklistController.allowedClasses,
                                                                     from: data) as? IndexSet {
             SBPlayer.sharedInstance().move(trackIndexSet: rowIndexes, index: row)
@@ -171,15 +171,8 @@ import Cocoa
             let newRange = newRow...lastRow
             let newIndexSet = IndexSet(integersIn: newRange)
             playlistTableView.selectRowIndexes(newIndexSet, byExtendingSelection: false)
-        } else if let data = info.draggingPasteboard.data(forType: .libraryType),
-                  let trackURLs = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: SBTracklistController.allowedClasses,
-                                                                          from: data) as? [URL] {
-            let tracks = trackURLs.map { url in
-                // this should always be non-nil SBTrack since they should be dragged in from the library views
-                let oid = self.managedObjectContext.persistentStoreCoordinator!.managedObjectID(forURIRepresentation: url)!
-                return self.managedObjectContext.object(with: oid) as! SBTrack
-            }
-            
+        } else if let tracks = info.draggingPasteboard.libraryItems(managedObjectContext: self.managedObjectContext) {
+            // handles both kinds of library track
             SBPlayer.sharedInstance().add(tracks: tracks, index: row)
         }
         
