@@ -327,6 +327,7 @@
                                                                     </tableColumn>
                                                                 </tableColumns>
                                                                 <connections>
+                                                                    <action trigger="doubleAction" selector="trackDoubleClick:" target="-2" id="Rlx-Nq-G0H"/>
                                                                     <outlet property="dataSource" destination="-2" id="161"/>
                                                                     <outlet property="delegate" destination="-2" id="160"/>
                                                                     <outlet property="menu" destination="02w-79-D7t" id="eaE-yR-PR7"/>

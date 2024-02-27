@@ -60,7 +60,7 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnResizing="NO" autosaveColumns="NO" id="18" customClass="SBTableView">
-                                                <rect key="frame" x="0.0" y="0.0" width="195" height="357"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="175" height="357"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -319,6 +319,7 @@
                                                                     </tableColumn>
                                                                 </tableColumns>
                                                                 <connections>
+                                                                    <action trigger="doubleAction" selector="trackDoubleClick:" target="-2" id="OuI-2q-24t"/>
                                                                     <outlet property="dataSource" destination="-2" id="88"/>
                                                                     <outlet property="delegate" destination="-2" id="85"/>
                                                                     <outlet property="menu" destination="pJB-xm-6Zx" id="FfU-Ek-9F6"/>

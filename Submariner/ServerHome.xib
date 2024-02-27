@@ -228,6 +228,7 @@
                                                     </tableColumn>
                                                 </tableColumns>
                                                 <connections>
+                                                    <action trigger="doubleAction" selector="trackDoubleClick:" target="-2" id="nVO-dd-oy4"/>
                                                     <outlet property="dataSource" destination="-2" id="64"/>
                                                     <outlet property="delegate" destination="-2" id="59"/>
                                                     <outlet property="menu" destination="PBo-4W-v2N" id="Az7-RP-pvx"/>

@@ -147,11 +147,6 @@
     [scopeBar sizeToFit];
     // This will call reloadServersWithIdentifier: for us.
     [scopeBar reloadData];
-
-    
-    // tracks double click
-    [tracksTableView setTarget:self];
-    [tracksTableView setDoubleAction:@selector(trackDoubleClick:)];
     
     // observe album covers
     [[NSNotificationCenter defaultCenter] addObserver:self

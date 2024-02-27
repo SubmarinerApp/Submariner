@@ -101,9 +101,6 @@
     // this has to be registered at load, not awake time
     //[albumsCollectionView registerClass: SBAlbumViewItem.class forItemWithIdentifier: @"SBAlbumViewItem"];
     
-    [tracksTableView setTarget:self];
-    [tracksTableView setDoubleAction:@selector(trackDoubleClick:)];
-    
     [mergeArtistsController setParentWindow:[databaseController window]];
     
     // Observe album for saving. Artist isn't observed for saving because it triggers after for some reason.

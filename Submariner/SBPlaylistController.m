@@ -75,8 +75,6 @@
 - (void)loadView {
     [super loadView];
     
-    [tracksTableView setTarget:self];
-    [tracksTableView setDoubleAction:@selector(trackDoubleClick:)];
     [tracksTableView registerForDraggedTypes:[NSArray arrayWithObject:SBLibraryTableViewDataType]];
     
     [tracksController addObserver:self

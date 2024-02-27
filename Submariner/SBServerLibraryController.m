@@ -120,9 +120,6 @@
 - (void)loadView {
     [super loadView];
     
-    [tracksTableView setTarget:self];
-    [tracksTableView setDoubleAction:@selector(trackDoubleClick:)];
-    
     // observe album covers
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(subsonicCoversUpdatedNotification:) 
