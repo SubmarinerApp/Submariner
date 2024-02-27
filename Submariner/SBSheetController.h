@@ -23,12 +23,5 @@
 - (IBAction)openSheet:(id)sender;
 - (IBAction)closeSheet:(id)sender;
 - (IBAction)cancelSheet:(id)sender;
-- (IBAction)messageDelegateAndCloseSheet:(id)sender;
-
-// The optional delegate should implement the method:
-// - (BOOL)shouldCloseSheet:(id)sender
-// Return YES if you want the sheet to close after the button click, NO if it shouldn't close. The sender
-// object is the button that requested the close. This is helpful because in the event that there are multiple buttons
-// hooked up to the messageDelegateAndCloseSheet: method, you can distinguish which button called the method. 
 
 @end

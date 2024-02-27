@@ -66,18 +66,5 @@
 	[NSApp endSheet:sheet];
 }
 
-- (IBAction)messageDelegateAndCloseSheet:(id)sender
-{
-	if (delegate != nil && [delegate respondsToSelector:@selector(shouldCloseSheet:)])
-	{	
-		if ([delegate performSelector:@selector(shouldCloseSheet:) withObject:sender])	
-			[self closeSheet:self];
-	}
-	else
-	{
-		[self closeSheet:self];
-	}
-}
-
 
 @end
