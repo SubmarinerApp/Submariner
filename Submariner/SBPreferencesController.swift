@@ -46,6 +46,9 @@ class SBPreferencesTabViewController: NSTabViewController {
     override func tabView(_ tabView: NSTabView, didSelect tabViewItem: NSTabViewItem?) {
         super.tabView(tabView, didSelect: tabViewItem)
         
+        // We have to put a transaction here, or i.e. quickly switching between tabs will break very badly.
+        CATransaction.begin()
+        defer { CATransaction.commit() }
         NSAnimationContext.runAnimationGroup { context in
             context.duration = 0.1
             
