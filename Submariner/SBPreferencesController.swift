@@ -123,9 +123,22 @@ class SBPreferencesController: NSWindowController {
                 }
             }
             .fixedSize()
-            // seems to be about what system apps use for padding value
-            .padding(14)
+            // 14 seems to be about what system apps use for padding value for edges from window border
+            .padding([.horizontal, .top], 14)
+            .padding(.bottom, 7)
             // formStyle(.grouped) is tempting, but it's not really macOS HIG for app settings (yet?)
+            Divider()
+            HStack {
+                Spacer()
+                Button {
+                    let url = URL(string: "x-apple.systempreferences:com.apple.preference.notifications?id=\(Bundle.main.bundleIdentifier!)")!
+                    NSWorkspace.shared.open(url)
+                } label: {
+                    Text("Notification Settings...")
+                }
+            }
+            .padding([.horizontal, .bottom], 14)
+            .padding(.top, 7)
         }
     }
 
