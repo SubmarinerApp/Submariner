@@ -187,6 +187,7 @@
 		3E32BE4F2B8D9A5C00E77CF0 /* SBTableView+DragImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SBTableView+DragImage.swift"; sourceTree = "<group>"; };
 		3E32BE512B8D9FDE00E77CF0 /* SBLibraryItemPasteboardWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBLibraryItemPasteboardWriter.swift; sourceTree = "<group>"; };
 		3E32BE542B8E500500E77CF0 /* NSPasteboard+Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPasteboard+Library.swift"; sourceTree = "<group>"; };
+		3E32BE562B94407300E77CF0 /* Submariner v7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Submariner v7.xcdatamodel"; sourceTree = "<group>"; };
 		3E45201729F5DBDC00604079 /* SBTrackArtistNameTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTrackArtistNameTransformer.swift; sourceTree = "<group>"; };
 		3E45201929F5DE9100604079 /* SBImportOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBImportOperation.swift; sourceTree = "<group>"; };
 		3E45201B29FA488C00604079 /* SBServerUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBServerUserViewController.swift; sourceTree = "<group>"; };
@@ -1166,6 +1167,7 @@
 		4C87ED7B139CD8BE0064DE2E /* Submariner.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				3E32BE562B94407300E77CF0 /* Submariner v7.xcdatamodel */,
 				3E32BE462B82F35900E77CF0 /* Submariner v6.xcdatamodel */,
 				3E04F5EE2B71D46E00E24E56 /* Submariner v5.xcdatamodel */,
 				3E6126EB2AD7363100B2A1E2 /* Submariner v4.xcdatamodel */,
@@ -1173,7 +1175,7 @@
 				3EA06A4E28B2C04B0091A75F /* Submariner v2.xcdatamodel */,
 				4C87ED7C139CD8BE0064DE2E /* Submariner.xcdatamodel */,
 			);
-			currentVersion = 3E32BE462B82F35900E77CF0 /* Submariner v6.xcdatamodel */;
+			currentVersion = 3E32BE562B94407300E77CF0 /* Submariner v7.xcdatamodel */;
 			path = Submariner.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

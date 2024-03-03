@@ -300,7 +300,9 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             }
             
             var album = fetchAlbum(id: id)
-            if album == nil {
+            if let album = album {
+                updateAlbum(album, attributes: attributeDict)
+            } else {
                 logger.info("Creating new album with ID: \(id, privacy: .public) for artist ID \(artistId, privacy: .public)")
                 album = createAlbum(attributes: attributeDict)
             }
@@ -312,14 +314,6 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             default:
                 break
             }
-            
-            // refresh name
-            if let name = attributeDict["name"] {
-                album!.itemName = name
-            }
-            
-            // if starriness is missing, it's no longer started
-            album!.starred = attributeDict["starred"]?.dateTimeFromISO()
             
             // always reassociate due to possible transitions
             if artist != nil {
@@ -837,17 +831,26 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         return artist
     }
     
-    private func createAlbum(attributes: [String: String]) -> SBAlbum {
-        let album = SBAlbum.insertInManagedObjectContext(context: threadedContext)
-        
+    private func updateAlbum(_ album: SBAlbum, attributes: [String: String]) {
         // ID3 based routes use name instead of title
         if let name = attributes["name"] {
             album.itemName = name
         }
+        if let yearString = attributes["year"], let year = Int(yearString) {
+            album.year = NSNumber(value: year)
+        }
+        // if starriness is missing, it's no longer started
+        album.starred = attributes["starred"]?.dateTimeFromISO()
+    }
+    
+    private func createAlbum(attributes: [String: String]) -> SBAlbum {
+        let album = SBAlbum.insertInManagedObjectContext(context: threadedContext)
         
         if let id = attributes["id"] {
             album.itemId = id
         }
+        
+        updateAlbum(album, attributes: attributes)
         
         // don't assume cover yet
         
