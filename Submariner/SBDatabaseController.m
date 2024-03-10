@@ -1961,11 +1961,13 @@
     // only works if we have a server set
     if (action == @selector(showIndices:)
         || action == @selector(showAlbums:)
+        || action == @selector(showDirectories:)
         || action == @selector(showPodcasts:)
         || action == @selector(reloadCurrentServer:)
         || action == @selector(openCurrentServerHomePage:)
         || action == @selector(addPlaylistToCurrentServer:)
-        || action == @selector(configureCurrentServer:)) {
+        || action == @selector(configureCurrentServer:)
+        || action == @selector(scanCurrentLibrary:)) {
         return self.server != nil;
     }
     
