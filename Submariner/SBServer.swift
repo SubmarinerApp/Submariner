@@ -36,8 +36,7 @@ public class SBServer: SBResource {
     // items either; if the dictionary grows to where it becomes a problem, just restart.
     // This is NSNumber for Cocoa binding's sake
     fileprivate static var _supportsNowPlaying: [NSManagedObjectID: NSNumber] = [:]
-    // TODO: Need to bind this to the UI so it'll hide in menu bar
-    var supportsPodcasts: Bool = true
+    fileprivate static var _supportsPodcasts: [NSManagedObjectID: NSNumber] = [:]
     
     @objc dynamic var supportsNowPlaying: NSNumber {
         get {
@@ -49,6 +48,16 @@ public class SBServer: SBResource {
         }
     }
     
+    @objc dynamic var supportsPodcasts: NSNumber {
+        get {
+            // ?? true is because we only set this if overriden to be unsupported
+            return SBServer._supportsPodcasts[self.objectID] ?? true
+        }
+        set {
+            SBServer._supportsPodcasts[self.objectID] = newValue
+        }
+    }
+    
     func markNotSupported(feature: SBSubsonicRequestType) {
         switch (feature) {
         case .getNowPlaying:
@@ -57,7 +66,7 @@ public class SBServer: SBResource {
             // we don't need to show a message here, since SBServerUserViewController will display this for us
         case .getPodcasts:
             // TODO: UI stuff beyond an initial dialog displayed once (switch away, hide UI like now playing SwiftUI view does, etc.)
-            if supportsPodcasts {
+            if supportsPodcasts.boolValue {
                 DispatchQueue.main.async {
                     let alert = NSAlert()
                     // XXX: suppressable?

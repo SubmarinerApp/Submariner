@@ -1962,13 +1962,16 @@
     if (action == @selector(showIndices:)
         || action == @selector(showAlbums:)
         || action == @selector(showDirectories:)
-        || action == @selector(showPodcasts:)
         || action == @selector(reloadCurrentServer:)
         || action == @selector(openCurrentServerHomePage:)
         || action == @selector(addPlaylistToCurrentServer:)
         || action == @selector(configureCurrentServer:)
         || action == @selector(scanCurrentLibrary:)) {
         return self.server != nil;
+    }
+    
+    if (action == @selector(showPodcasts:)) {
+        return self.server != nil && [self.server.supportsPodcasts boolValue];
     }
     
     if (action == @selector(toggleServerUsers:)) {
