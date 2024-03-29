@@ -11,6 +11,7 @@ import os
 
 fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "SBAppDelegate")
 
+@main
 @objc(SBAppDelegate) class SBAppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSUserInterfaceValidations {
     
     // #MARK: - Singleton

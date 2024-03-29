@@ -112,7 +112,6 @@
 		4C7AA24E139D64930050BE95 /* ServerLibrary.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C7AA24C139D64920050BE95 /* ServerLibrary.xib */; };
 		4C87ED64139CD8BE0064DE2E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C87ED63139CD8BE0064DE2E /* Cocoa.framework */; };
 		4C87ED6E139CD8BE0064DE2E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4C87ED6C139CD8BE0064DE2E /* InfoPlist.strings */; };
-		4C87ED71139CD8BE0064DE2E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED70139CD8BE0064DE2E /* main.m */; };
 		4C87ED74139CD8BE0064DE2E /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4C87ED72139CD8BE0064DE2E /* Credits.rtf */; };
 		4C87ED7A139CD8BE0064DE2E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C87ED78139CD8BE0064DE2E /* MainMenu.xib */; };
 		4C87ED7D139CD8BE0064DE2E /* Submariner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED7B139CD8BE0064DE2E /* Submariner.xcdatamodeld */; };
@@ -281,7 +280,6 @@
 		4C87ED6B139CD8BE0064DE2E /* Submariner-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Submariner-Info.plist"; sourceTree = "<group>"; };
 		4C87ED6D139CD8BE0064DE2E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4C87ED6F139CD8BE0064DE2E /* Submariner-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Submariner-Prefix.pch"; sourceTree = "<group>"; };
-		4C87ED70139CD8BE0064DE2E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4C87ED73139CD8BE0064DE2E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		4C87ED79139CD8BE0064DE2E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		4C87ED7C139CD8BE0064DE2E /* Submariner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Submariner.xcdatamodel; sourceTree = "<group>"; };
@@ -487,7 +485,6 @@
 				4C87ED6C139CD8BE0064DE2E /* InfoPlist.strings */,
 				3E2F86C928DD36E600C5CE23 /* Submariner-Bridging-Header.h */,
 				4C87ED6F139CD8BE0064DE2E /* Submariner-Prefix.pch */,
-				4C87ED70139CD8BE0064DE2E /* main.m */,
 				4C87ED72139CD8BE0064DE2E /* Credits.rtf */,
 				3E04F63C2B7DC02F00E24E56 /* Submariner.sdef */,
 			);
@@ -807,7 +804,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C87ED71139CD8BE0064DE2E /* main.m in Sources */,
 				3EC03AC329F33C68001FDE50 /* OperationQueue+Shared.swift in Sources */,
 				3E2E1C842A395B79001A3148 /* SBSubsonicRequestOperation.swift in Sources */,
 				3EC03B3829F4F2E0001FDE50 /* SBHome.swift in Sources */,
