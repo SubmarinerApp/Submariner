@@ -1319,17 +1319,19 @@
 
 
 - (BOOL)openImportAlert:(NSWindow *)sender files:(NSArray<NSURL*> *)files {
-    NSAlert *importAlert = [[NSAlert alloc] init];
-    [importAlert setMessageText:@"Do you want to copy the imported audio files?"];
-    [importAlert setInformativeText: @"The files will copied into the library directory, or have the new library items link to the original files."];
-    [importAlert addButtonWithTitle: @"Copy into Library"];
-    [importAlert addButtonWithTitle: @"Link Existing Files"];
-    [importAlert addButtonWithTitle: @"Cancel"];
-    [importAlert beginSheetModalForWindow: sender completionHandler:^(NSModalResponse alertReturnCode) {
-        [self importSheetDidEnd: sender returnCode: alertReturnCode contextInfo: files];
-    }];
-    
-    //[files autorelease];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: @"canLinkImport"]) {
+        NSAlert *importAlert = [[NSAlert alloc] init];
+        [importAlert setMessageText:@"Do you want to copy the imported audio files?"];
+        [importAlert setInformativeText: @"The files will copied into the library directory, or have the new library items link to the original files."];
+        [importAlert addButtonWithTitle: @"Copy into Library"];
+        [importAlert addButtonWithTitle: @"Link Existing Files"];
+        [importAlert addButtonWithTitle: @"Cancel"];
+        [importAlert beginSheetModalForWindow: sender completionHandler:^(NSModalResponse alertReturnCode) {
+            [self importSheetDidEnd: sender returnCode: alertReturnCode contextInfo: files];
+        }];
+    } else {
+        [self importSheetDidEnd: sender returnCode: NSAlertFirstButtonReturn contextInfo: files];
+    }
     return NO;
 }
 

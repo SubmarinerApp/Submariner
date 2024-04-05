@@ -35,6 +35,10 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Artists, albums, and tracks can be favourited ("starred" in Subsonic parlance; we use a heart to avoid being confused with ratings).
   * Favourited albums can be recalled in the server albums view.
   * Favourited status is synchronized to the server.
+* Linking artists has been deprecated for now, and hidden behind an manual option.
+  * It requires a lot more work to work correctly with arbitrary directores together with  App Sandbox.
+  * To re-enable it (for now, knowing the issues), run `defaults write fr.read-write.Submariner canLinkImport -bool YES`.
+  * See the discussion thread on https://github.com/SubmarinerApp/Submariner/discussions/201 for possible plans.
 * A directory view has been added, for users of servers that organize files by directory and prefer managing files that way.
 * A basic AppleScript dictionary has been added as a way to inspect and control playback programatically.
 * Albums can be dragged tracklist or playlist drop targets to add their containing tracks.
