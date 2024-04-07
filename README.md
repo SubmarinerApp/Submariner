@@ -30,7 +30,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes
 
-### Not yet released
+### Version 3.1 for Workgroups
 
 * Artists, albums, and tracks can be favourited ("starred" in Subsonic parlance; we use a heart to avoid being confused with ratings).
   * Favourited albums can be recalled in the server albums view.
