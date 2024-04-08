@@ -30,6 +30,12 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes
 
+### Not yet released
+
+* Inspector window has been improved
+  * You can now switch between now playing and current selection with a tab view.
+  * Playlist information can be viewed and edited.
+
 ### Version 3.1 for Workgroups
 
 * Artists, albums, and tracks can be favourited ("starred" in Subsonic parlance; we use a heart to avoid being confused with ratings).
