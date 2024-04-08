@@ -13,6 +13,7 @@ import QuickLook
 extension NSNotification.Name {
     // Actually defined in ParsingOperation for now
     static let SBTrackSelectionChanged = NSNotification.Name("SBTrackSelectionChanged")
+    static let SBPlaylistSelectionChanged = NSNotification.Name("SBPlaylistSelectionChanged")
 }
 
 @objc class SBInspectorController: SBViewController, ObservableObject {
@@ -29,10 +30,15 @@ extension NSNotification.Name {
                                                selector: #selector(SBInspectorController.trackSelectionChange(notification:)),
                                                name: .SBTrackSelectionChanged,
                                                object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(SBInspectorController.playlistSelectionChange(notification:)),
+                                               name: .SBPlaylistSelectionChanged,
+                                               object: nil)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: .SBTrackSelectionChanged, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .SBPlaylistSelectionChanged, object: nil)
     }
     
     @objc private func trackSelectionChange(notification: Notification) {
@@ -41,7 +47,12 @@ extension NSNotification.Name {
         }
     }
     
+    @objc private func playlistSelectionChange(notification: Notification) {
+        self.selectedPlaylist = notification.object as? SBPlaylist
+    }
+    
     @Published var selectedTracks: [SBTrack] = []
+    @Published var selectedPlaylist: SBPlaylist?
     
     struct AlbumArtView: View {
         // used for quick look preview
@@ -138,6 +149,56 @@ extension NSNotification.Name {
         }
     }
     
+    struct PlaylistInspectorView: View, SBMusicItemInfoView {
+        @ObservedObject var playlist: SBPlaylist
+        
+        // We don't yet use the protocol methods for the read-only stuff,
+        // but likely will with i.e. author field
+        typealias MI = SBPlaylist
+        var items: [SBPlaylist] {
+            return [playlist]
+        }
+        
+        var body: some View {
+            VStack(spacing: 0) {
+                Form {
+                    Section {
+                        TextField("Name", text: Binding($playlist.resourceName, replacingNilWith: ""))
+                            .onSubmit {
+                                if let server = playlist.server, let id = playlist.itemId {
+                                    server.updatePlaylist(ID: id, name: playlist.resourceName)
+                                }
+                            }
+                        if playlist.server != nil {
+                            Toggle(isOn: $playlist.isPublic) {
+                                Text("Public?")
+                            }
+                            .onSubmit {
+                                if let server = playlist.server, let id = playlist.itemId {
+                                    server.updatePlaylist(ID: id, isPublic: playlist.isPublic)
+                                }
+                            }
+                        }
+                        TextField("Comment", text: Binding($playlist.comment, replacingNilWith: ""))
+                            .onSubmit {
+                                if let server = playlist.server, let id = playlist.itemId {
+                                    server.updatePlaylist(ID: id, comment: playlist.comment)
+                                }
+                            }
+                    }
+                    // count and duration are already displayed in status bar
+                }
+                .modify {
+                    if #available(macOS 13, *) {
+                        $0.formStyle(.grouped)
+                    } else {
+                        $0.frame(maxHeight: .infinity)
+                    }
+                }
+            }
+        }
+    }
+    
     struct InspectorView: View {
         @ObservedObject var inspectorController: SBInspectorController
         @ObservedObject var player = SBPlayer.sharedInstance()
@@ -146,7 +207,7 @@ extension NSNotification.Name {
         
         enum InspectorTab {
             // TODO: selected artist or artist if those ever has interesting properties in the future
-            // TODO: selected playlist is also important and has values not currently exposed in UI
+            case selectedPlaylist
             case selectedTracks
             case trackNowPlaying
         }
@@ -156,21 +217,30 @@ extension NSNotification.Name {
                inspectorController.selectedTracks.count == 0,
                player.isPlaying {
                 selectedType = .trackNowPlaying
-            } else if selectedType == .trackNowPlaying,
+            } else if (selectedType == .trackNowPlaying || selectedType == .selectedPlaylist),
                 inspectorController.selectedTracks.count > 0 {
                  selectedType = .selectedTracks
+            } else if inspectorController.selectedPlaylist != nil {
+                selectedType = .selectedPlaylist
             }
         }
         
         var body: some View {
             VStack(spacing: 0) {
-                if (selectedType == .trackNowPlaying) {
+                switch selectedType {
+                case .selectedPlaylist:
+                    if let currentPlaylist = inspectorController.selectedPlaylist {
+                        PlaylistInspectorView(playlist: currentPlaylist)
+                    } else {
+                        SBMessageTextView(message: "There is no selected playlist.")
+                    }
+                case .trackNowPlaying:
                     if let currentTrack = player.currentTrack {
                         TrackInfoView(tracks: [currentTrack], isFromSelection: false)
                     } else {
                         SBMessageTextView(message: "There is no playing track.")
                     }
-                } else if selectedType == .selectedTracks {
+                case .selectedTracks:
                     if inspectorController.selectedTracks.count > 0 {
                         TrackInfoView(tracks: inspectorController.selectedTracks, isFromSelection: true)
                     } else {
@@ -180,6 +250,10 @@ extension NSNotification.Name {
                 HStack {
                     Picker("Selected Item Type", selection: $selectedType) {
                         // We can't disable picker items, so hide what we can't use.
+                        if inspectorController.selectedPlaylist != nil {
+                            Text("Playlist")
+                                .tag(InspectorTab.selectedPlaylist)
+                        }
                         if inspectorController.selectedTracks.count > 0 {
                             // We're using text here for now since we can't combine it with the selection count very well.
                             Text("\(inspectorController.selectedTracks.count) Selected")

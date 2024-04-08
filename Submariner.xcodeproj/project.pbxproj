@@ -99,6 +99,7 @@
 		3ECF63FA280362BA004F9176 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ECF63F9280362BA004F9176 /* Assets.xcassets */; };
 		3ED4C4D42AC0E25400649FB2 /* SBLibraryPurgeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4C4D32AC0E25400649FB2 /* SBLibraryPurgeOperation.swift */; };
 		3EF978022BC3C4E300C986E9 /* SBMessageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF978012BC3C4E300C986E9 /* SBMessageTextView.swift */; };
+		3EF978042BC4659B00C986E9 /* Binding+Nil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF978032BC4659B00C986E9 /* Binding+Nil.swift */; };
 		4C4DE62413A200AD006A1EC1 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4DE62213A200AA006A1EC1 /* Carbon.framework */; };
 		4C4DE62513A200AD006A1EC1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4DE62313A200AC006A1EC1 /* Security.framework */; };
 		4C56868514050B9A00BE3478 /* SBPodcastItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56868414050B9A00BE3478 /* SBPodcastItemView.m */; };
@@ -256,6 +257,7 @@
 		3ECF63F9280362BA004F9176 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3ED4C4D32AC0E25400649FB2 /* SBLibraryPurgeOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBLibraryPurgeOperation.swift; sourceTree = "<group>"; };
 		3EF978012BC3C4E300C986E9 /* SBMessageTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBMessageTextView.swift; sourceTree = "<group>"; };
+		3EF978032BC4659B00C986E9 /* Binding+Nil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Nil.swift"; sourceTree = "<group>"; };
 		4C4DE62213A200AA006A1EC1 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		4C4DE62313A200AC006A1EC1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		4C56868314050B9A00BE3478 /* SBPodcastItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPodcastItemView.h; sourceTree = "<group>"; };
@@ -572,6 +574,7 @@
 		4C87EDAC139CD9E90064DE2E /* Additions */ = {
 			isa = PBXGroup;
 			children = (
+				3EF978032BC4659B00C986E9 /* Binding+Nil.swift */,
 				3E87E90F2B4364CF00E85000 /* Collection+IndexSet.swift */,
 				3E04F63A2B7CA48400E24E56 /* Data+Random.swift */,
 				3EB2BCC22992D94E00DC5056 /* Data+Type.swift */,
@@ -888,6 +891,7 @@
 				3E32BE502B8D9A5C00E77CF0 /* SBTableView+DragImage.swift in Sources */,
 				4C7AA24D139D64930050BE95 /* SBServerLibraryController.m in Sources */,
 				4CFAFC2C139EF08800E82B57 /* SBServerHomeController.m in Sources */,
+				3EF978042BC4659B00C986E9 /* Binding+Nil.swift in Sources */,
 				3E04F5F22B71E33000E24E56 /* SBServerDirectoryController.swift in Sources */,
 				4CFAFC37139EF20600E82B57 /* MGScopeBar.m in Sources */,
 				4CFAFC38139EF20600E82B57 /* MGRecessedPopUpButtonCell.m in Sources */,

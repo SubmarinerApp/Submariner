@@ -471,6 +471,16 @@ public class SBServer: SBResource {
         OperationQueue.sharedServerQueue.addOperation(request)
     }
     
+    func updatePlaylist(ID: String,
+                        name: String? = nil,
+                        comment: String? = nil,
+                        isPublic: Bool?,
+                        appending: [SBTrack]? = nil,
+                        removing: [Int]? = nil) {
+        let request = SBSubsonicRequestOperation(server: self, request: .updatePlaylist(id: ID, name: name, comment: comment, isPublic: isPublic, appending: appending, removing: removing))
+        OperationQueue.sharedServerQueue.addOperation(request)
+    }
+    
     @objc func deletePlaylist(ID: String) {
         let request = SBSubsonicRequestOperation(server: self, request: .deletePlaylist(id: ID))
         OperationQueue.sharedServerQueue.addOperation(request)
