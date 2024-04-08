@@ -8,7 +8,6 @@
 
 import Cocoa
 
-// Remove when Objective-C version of parsing op is gone
 extension String {
     fileprivate static let iso8601Formatter = ISO8601DateFormatter()
     fileprivate static let rfc3339DateFormatter: DateFormatter = {
