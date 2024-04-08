@@ -179,6 +179,7 @@ extension NSNotification.Name {
                 }
                 HStack {
                     Picker("Selected Item Type", selection: $selectedType) {
+                        // We can't disable picker items, so hide what we can't use.
                         if inspectorController.selectedTracks.count > 0 {
                             // We're using text here for now since we can't combine it with the selection count very well.
                             Text("\(inspectorController.selectedTracks.count) Selected")
