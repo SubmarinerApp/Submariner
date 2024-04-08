@@ -43,21 +43,14 @@ extension NSNotification.Name {
     
     @Published var selectedTracks: [SBTrack] = []
     
-    struct AlbumArtView: View, SBMusicItemInfoView {
+    struct AlbumArtView: View {
         // used for quick look preview
         @State var coverUrl: URL?
         
-        typealias MI = SBAlbum
-        var items: [SBAlbum] {
-            return albums
-        }
-        
-        let albums: [SBAlbum]
+        let album: SBAlbum?
         
         var body: some View {
-            if albums.count == 1,
-               let album = albums.first, let cover = album.cover,
-               let path = cover.imagePath, let image = NSImage(contentsOfFile: path as String) {
+            if let path = album?.cover?.imagePath, let image = NSImage(contentsOfFile: path as String) {
                 Image(nsImage: image)
                     .resizable()
                     .scaledToFit()
@@ -95,7 +88,7 @@ extension NSNotification.Name {
         
         var body: some View {
             VStack(spacing: 0) {
-                AlbumArtView(albums: tracks.compactMap { $0.album })
+                AlbumArtView(album: valueIfSame(property: \.album)!)
                 Form {
                     // Try to generalize, if multiple are selected then show something that indicates they differ
                     Section {
@@ -145,35 +138,6 @@ extension NSNotification.Name {
         }
     }
     
-    struct AlbumInfoView: View, SBMusicItemInfoView {
-        let albums: [SBAlbum]
-        
-        typealias MI = SBAlbum
-        var items: [SBAlbum] {
-            return albums
-        }
-        
-        var body: some View {
-            VStack(spacing: 0) {
-                AlbumArtView(albums: albums)
-                Form {
-                    Section {
-                        stringField(label: "Title", for: \.itemName)
-                        stringField(label: "Artist", for: \.artist?.itemName)
-                        numberField(label: "Year", for: \.year)
-                    }
-                }
-                .modify {
-                    if #available(macOS 13, *) {
-                        $0.formStyle(.grouped)
-                    } else {
-                        $0.frame(maxHeight: .infinity)
-                    }
-                }
-            }
-        }
-    }
-    
     struct EmptyCollectionText: View {
         let message: String
         
@@ -190,14 +154,23 @@ extension NSNotification.Name {
         @ObservedObject var player = SBPlayer.sharedInstance()
         
         @State var selectedType: InspectorTab = .trackNowPlaying
-        @State var showCurrentTrack = false
         
         enum InspectorTab {
-            // TODO: selected artist if that ever has interesting properties in the future
+            // TODO: selected artist or artist if those ever has interesting properties in the future
             // TODO: selected playlist is also important and has values not currently exposed in UI
-            case selectedAlbum
             case selectedTracks
             case trackNowPlaying
+        }
+        
+        func updateSelection() {
+            if selectedType == .selectedTracks,
+               inspectorController.selectedTracks.count == 0,
+               player.isPlaying {
+                selectedType = .trackNowPlaying
+            } else if selectedType == .trackNowPlaying,
+                inspectorController.selectedTracks.count > 0 {
+                 selectedType = .selectedTracks
+            }
         }
         
         var body: some View {
@@ -214,30 +187,16 @@ extension NSNotification.Name {
                     } else {
                         EmptyCollectionText(message: "There are no selected tracks.")
                     }
-                } else if selectedType == .selectedAlbum {
-                    if inspectorController.selectedTracks.count > 0 {
-                        AlbumInfoView(albums: inspectorController.selectedTracks.compactMap { $0.album })
-                    } else {
-                        EmptyCollectionText(message: "There are no selected albums.")
-                    }
                 }
                 HStack {
                     Picker("Selected Item Type", selection: $selectedType) {
                         if inspectorController.selectedTracks.count > 0 {
-                            Image(systemName: "square.stack")
-                                .accessibilityLabel("Selected Album")
-                                .tag(InspectorTab.selectedAlbum)
-                        }
-                        if inspectorController.selectedTracks.count > 0 {
-                            // TODO: Put in the image (since apparently we can't mix image and text the item count,
-                            // and indicate in the accessibility desc
-                            Image(systemName: "music.note")
-                                .accessibilityLabel("Selected Artists")
+                            // We're using text here for now since we can't combine it with the selection count very well.
+                            Text("\(inspectorController.selectedTracks.count) Selected")
                                 .tag(InspectorTab.selectedTracks)
                         }
                         if player.isPlaying {
-                            Image(systemName: "play.circle")
-                                .accessibilityLabel("Currently Playing Track")
+                            Text("Now Playing")
                                 .tag(InspectorTab.trackNowPlaying)
                         }
                     }
@@ -246,6 +205,15 @@ extension NSNotification.Name {
                 }
                 .frame(height: 41)
                 .padding([.leading, .trailing], 8)
+            }
+            .onChange(of: inspectorController.selectedTracks) { _ in
+                updateSelection()
+            }
+            .onChange(of: player.isPlaying) { _ in
+                updateSelection()
+            }
+            .onAppear {
+                updateSelection()
             }
         }
     }
