@@ -378,9 +378,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                     }
                 }
             } else {
-                Text("There is no server selected.")
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.secondary)
+                SBMessageTextView(message: "There is no server selected.")
             }
         }
     }

@@ -1844,6 +1844,12 @@
             [playlist.server getPlaylistTracks:playlist];
         }
         [self updateSourceListSelection: playlistNavItem.playlist];
+        // Sidebar for playlist; update the current playlist in inspector sidebar.
+        [[NSNotificationCenter defaultCenter] postNotificationName: @"SBPlaylistSelectionChanged"
+                                                            object: playlistNavItem.playlist];
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName: @"SBPlaylistSelectionChanged"
+                                                            object: nil];
     }
     // Selected item
     // XXX: Kinda messed up by the fact the controllers and nav item don't have a common ancestor for music item

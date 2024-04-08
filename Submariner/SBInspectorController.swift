@@ -13,6 +13,7 @@ import QuickLook
 extension NSNotification.Name {
     // Actually defined in ParsingOperation for now
     static let SBTrackSelectionChanged = NSNotification.Name("SBTrackSelectionChanged")
+    static let SBPlaylistSelectionChanged = NSNotification.Name("SBPlaylistSelectionChanged")
 }
 
 @objc class SBInspectorController: SBViewController, ObservableObject {
@@ -29,10 +30,15 @@ extension NSNotification.Name {
                                                selector: #selector(SBInspectorController.trackSelectionChange(notification:)),
                                                name: .SBTrackSelectionChanged,
                                                object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(SBInspectorController.playlistSelectionChange(notification:)),
+                                               name: .SBPlaylistSelectionChanged,
+                                               object: nil)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: .SBTrackSelectionChanged, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .SBPlaylistSelectionChanged, object: nil)
     }
     
     @objc private func trackSelectionChange(notification: Notification) {
@@ -41,98 +47,59 @@ extension NSNotification.Name {
         }
     }
     
-    @Published var selectedTracks: [SBTrack] = []
+    @objc private func playlistSelectionChange(notification: Notification) {
+        self.selectedPlaylist = notification.object as? SBPlaylist
+    }
     
-    struct TrackInfoView: View {
-        static let multipleDiffer = "..."
+    @Published var selectedTracks: [SBTrack] = []
+    @Published var selectedPlaylist: SBPlaylist?
+    
+    struct AlbumArtView: View {
+        // used for quick look preview
+        @State var coverUrl: URL?
+        
+        let album: SBAlbum?
+        
+        var body: some View {
+            if let path = album?.cover?.imagePath, let image = NSImage(contentsOfFile: path as String) {
+                Image(nsImage: image)
+                    .resizable()
+                    .scaledToFit()
+                    .aspectRatio(contentMode: .fit)
+                    .onTapGesture {
+                        coverUrl = URL(fileURLWithPath: path as String)
+                    }
+                    .clipShape(
+                        RoundedRectangle(cornerRadius: 6)
+                    )
+                    .padding(.top, 20)
+                    .padding(.horizontal, 20)
+                    .quickLookPreview($coverUrl)
+            } else {
+                Image(systemName: "questionmark.square.dashed")
+                    .resizable()
+                    .scaledToFit()
+                    .aspectRatio(contentMode: .fit)
+                    .padding()
+                    .foregroundColor(.secondary)
+            }
+        }
+    }
+    
+    struct TrackInfoView: SBPropertyFieldView {
         static var byteFormatter = ByteCountFormatter()
+        
+        typealias MI = SBTrack
+        var items: [SBTrack] {
+            return tracks
+        }
         
         let tracks: [SBTrack]
         let isFromSelection: Bool
-        // used for quick look preview
-        @State var coverUrl: URL?
-
-        func valueIfSame<T: Hashable>(property: KeyPath<SBTrack, T>) -> T? {
-            // one or none
-            if tracks.count == 1 {
-                return tracks[0][keyPath: property]
-            } else if tracks.count == 0 {
-                return nil
-            }
-            // if multiple
-            let values = Set(tracks.map { $0[keyPath: property] })
-            if values.count > 1 {
-                return nil // too many
-            } else {
-                return tracks[0][keyPath: property]
-            }
-        }
-        
-        @ViewBuilder func field(label: String, string: String) -> some View {
-            if #available(macOS 13, *) {
-                LabeledContent {
-                    Text(string)
-                        .textSelection(.enabled)
-                } label: {
-                    Text(label)
-                }
-            } else {
-                TextField(label, text: .constant(string))
-            }
-        }
-        
-        @ViewBuilder func stringField(label: String, for property: KeyPath<SBTrack, String?>) -> some View {
-            if let stringMaybeSingular = valueIfSame(property: property) {
-                if let string = stringMaybeSingular {
-                    field(label: label, string: string)
-                }
-                // no thing -> nothing
-            } else {
-                field(label: label, string: TrackInfoView.multipleDiffer)
-            }
-        }
-        
-        @ViewBuilder func numberField(label: String, for property: KeyPath<SBTrack, NSNumber?>, formatter: Formatter? = nil) -> some View {
-            if let numberMaybeSingular = valueIfSame(property: property) {
-                if let number = numberMaybeSingular, number != 0 {
-                    if let formatter = formatter, let string = formatter.string(for: number) {
-                        field(label: label, string: string)
-                    } else {
-                        field(label: label, string: number.stringValue)
-                    }
-                }
-                // no thing -> nothing
-            } else {
-                field(label: label, string: TrackInfoView.multipleDiffer)
-            }
-        }
         
         var body: some View {
             VStack(spacing: 0) {
-                if let albumMaybeSingular = valueIfSame(property: \.album),
-                   let album = albumMaybeSingular, let cover = album.cover,
-                   let path = cover.imagePath, let image = NSImage(contentsOfFile: path as String) {
-                    Image(nsImage: image)
-                        .resizable()
-                        .scaledToFit()
-                        .aspectRatio(contentMode: .fit)
-                        .onTapGesture {
-                            coverUrl = URL(fileURLWithPath: path as String)
-                        }
-                        .clipShape(
-                            RoundedRectangle(cornerRadius: 6)
-                        )
-                        .padding(.top, 20)
-                        .padding(.horizontal, 20)
-                        .quickLookPreview($coverUrl)
-                } else {
-                    Image(systemName: "questionmark.square.dashed")
-                        .resizable()
-                        .scaledToFit()
-                        .aspectRatio(contentMode: .fit)
-                        .padding()
-                        .foregroundColor(.secondary)
-                }
+                AlbumArtView(album: valueIfSame(property: \.album)!)
                 Form {
                     // Try to generalize, if multiple are selected then show something that indicates they differ
                     Section {
@@ -175,21 +142,59 @@ extension NSNotification.Name {
                     if #available(macOS 13, *) {
                         $0.formStyle(.grouped)
                     } else {
-                        $0
+                        $0.frame(maxHeight: .infinity)
                     }
                 }
-                HStack {
-                    if isFromSelection {
-                        // XXX: ugly for localization
-                        Text("\(tracks.count) selected track\(tracks.count == 1 ? "" : "s")")
-                            .multilineTextAlignment(.center)
-                            .foregroundStyle(.secondary)
-                            // keep same font/baseline as the nibs w/ System 13pt
-                            .font(.system(size: 13))
-                            .padding(.bottom, 4)
+            }
+        }
+    }
+    
+    struct PlaylistInspectorView: View, SBPropertyFieldView {
+        @ObservedObject var playlist: SBPlaylist
+        
+        // We don't yet use the protocol methods for the read-only stuff,
+        // but likely will with i.e. author field
+        typealias MI = SBPlaylist
+        var items: [SBPlaylist] {
+            return [playlist]
+        }
+        
+        var body: some View {
+            VStack(spacing: 0) {
+                Form {
+                    Section {
+                        TextField("Name", text: Binding($playlist.resourceName, replacingNilWith: ""))
+                            .onSubmit {
+                                if let server = playlist.server, let id = playlist.itemId {
+                                    server.updatePlaylist(ID: id, name: playlist.resourceName)
+                                }
+                            }
+                        if playlist.server != nil {
+                            Toggle(isOn: $playlist.isPublic) {
+                                Text("Public?")
+                            }
+                            .onSubmit {
+                                if let server = playlist.server, let id = playlist.itemId {
+                                    server.updatePlaylist(ID: id, isPublic: playlist.isPublic)
+                                }
+                            }
+                        }
+                        TextField("Comment", text: Binding($playlist.comment, replacingNilWith: ""))
+                            .onSubmit {
+                                if let server = playlist.server, let id = playlist.itemId {
+                                    server.updatePlaylist(ID: id, comment: playlist.comment)
+                                }
+                            }
+                    }
+                    // count and duration are already displayed in status bar
+                }
+                .modify {
+                    if #available(macOS 13, *) {
+                        $0.formStyle(.grouped)
+                    } else {
+                        $0.frame(maxHeight: .infinity)
                     }
                 }
-                .frame(height: 41)
             }
         }
     }
@@ -198,15 +203,81 @@ extension NSNotification.Name {
         @ObservedObject var inspectorController: SBInspectorController
         @ObservedObject var player = SBPlayer.sharedInstance()
         
+        @State var selectedType: InspectorTab = .trackNowPlaying
+        
+        enum InspectorTab {
+            // TODO: selected artist or artist if those ever has interesting properties in the future
+            case selectedPlaylist
+            case selectedTracks
+            case trackNowPlaying
+        }
+        
+        func updateSelection() {
+            if selectedType == .selectedTracks,
+               inspectorController.selectedTracks.count == 0,
+               player.isPlaying {
+                selectedType = .trackNowPlaying
+            } else if (selectedType == .trackNowPlaying || selectedType == .selectedPlaylist),
+                inspectorController.selectedTracks.count > 0 {
+                 selectedType = .selectedTracks
+            } else if inspectorController.selectedPlaylist != nil {
+                selectedType = .selectedPlaylist
+            }
+        }
+        
         var body: some View {
-            if inspectorController.selectedTracks.count > 0 {
-                TrackInfoView(tracks: inspectorController.selectedTracks, isFromSelection: true)
-            } else if let currentTrack = player.currentTrack {
-                TrackInfoView(tracks: [currentTrack], isFromSelection: false)
-            } else {
-                Text("There are no tracks playing or selected.")
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.secondary)
+            VStack(spacing: 0) {
+                switch selectedType {
+                case .selectedPlaylist:
+                    if let currentPlaylist = inspectorController.selectedPlaylist {
+                        PlaylistInspectorView(playlist: currentPlaylist)
+                    } else {
+                        SBMessageTextView(message: "There is no selected playlist.")
+                    }
+                case .trackNowPlaying:
+                    if let currentTrack = player.currentTrack {
+                        TrackInfoView(tracks: [currentTrack], isFromSelection: false)
+                    } else {
+                        SBMessageTextView(message: "There is no playing track.")
+                    }
+                case .selectedTracks:
+                    if inspectorController.selectedTracks.count > 0 {
+                        TrackInfoView(tracks: inspectorController.selectedTracks, isFromSelection: true)
+                    } else {
+                        SBMessageTextView(message: "There are no selected tracks.")
+                    }
+                }
+                HStack {
+                    Picker("Selected Item Type", selection: $selectedType) {
+                        // We can't disable picker items, so hide what we can't use.
+                        if inspectorController.selectedPlaylist != nil {
+                            Text("Playlist")
+                                .tag(InspectorTab.selectedPlaylist)
+                        }
+                        if inspectorController.selectedTracks.count > 0 {
+                            // We're using text here for now since we can't combine it with the selection count very well.
+                            Text("\(inspectorController.selectedTracks.count) Selected")
+                                .tag(InspectorTab.selectedTracks)
+                        }
+                        if player.isPlaying {
+                            Text("Now Playing")
+                                .tag(InspectorTab.trackNowPlaying)
+                        }
+                    }
+                    .labelsHidden()
+                    .pickerStyle(.segmented)
+                }
+                .frame(height: 41)
+                .padding([.leading, .trailing], 8)
+            }
+            .onChange(of: inspectorController.selectedTracks) { _ in
+                updateSelection()
+            }
+            .onChange(of: player.isPlaying) { _ in
+                updateSelection()
+            }
+            .onAppear {
+                updateSelection()
             }
         }
     }
