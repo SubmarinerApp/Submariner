@@ -295,13 +295,9 @@ extension NSNotification.Name {
                     .frame(height: 41)
                 }
             } else if let server = serverUsersController.server {
-                Text("\(server.resourceName ?? "This server") doesn't support now playing.")
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.secondary)
+                SBMessageTextView(message: "\(server.resourceName ?? "This server") doesn't support now playing.")
             } else {
-                Text("There is no server selected.")
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.secondary)
+                SBMessageTextView(message: "There is no server selected.")
             }
         }
     }

@@ -98,6 +98,7 @@
 		3EC5A6452A019B5C00025812 /* SBRepeatModeButtonStateTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC5A6442A019B5C00025812 /* SBRepeatModeButtonStateTransformer.swift */; };
 		3ECF63FA280362BA004F9176 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ECF63F9280362BA004F9176 /* Assets.xcassets */; };
 		3ED4C4D42AC0E25400649FB2 /* SBLibraryPurgeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4C4D32AC0E25400649FB2 /* SBLibraryPurgeOperation.swift */; };
+		3EF978022BC3C4E300C986E9 /* SBMessageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF978012BC3C4E300C986E9 /* SBMessageTextView.swift */; };
 		4C4DE62413A200AD006A1EC1 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4DE62213A200AA006A1EC1 /* Carbon.framework */; };
 		4C4DE62513A200AD006A1EC1 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4DE62313A200AC006A1EC1 /* Security.framework */; };
 		4C56868514050B9A00BE3478 /* SBPodcastItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C56868414050B9A00BE3478 /* SBPodcastItemView.m */; };
@@ -254,6 +255,7 @@
 		3EC5A6442A019B5C00025812 /* SBRepeatModeButtonStateTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBRepeatModeButtonStateTransformer.swift; sourceTree = "<group>"; };
 		3ECF63F9280362BA004F9176 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3ED4C4D32AC0E25400649FB2 /* SBLibraryPurgeOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBLibraryPurgeOperation.swift; sourceTree = "<group>"; };
+		3EF978012BC3C4E300C986E9 /* SBMessageTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBMessageTextView.swift; sourceTree = "<group>"; };
 		4C4DE62213A200AA006A1EC1 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		4C4DE62313A200AC006A1EC1 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		4C56868314050B9A00BE3478 /* SBPodcastItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBPodcastItemView.h; sourceTree = "<group>"; };
@@ -517,6 +519,7 @@
 				3E94E5F92915AB130080FDF6 /* SBRoutePickerView.swift */,
 				3EB2BCCE2992F3CA00DC5056 /* SBVolumeButton.swift */,
 				3EB2BCD02992FD5A00DC5056 /* SBTracklistButton.swift */,
+				3EF978012BC3C4E300C986E9 /* SBMessageTextView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -834,6 +837,7 @@
 				3E7491972B6A1AE00052CBCE /* SBTracklistController.swift in Sources */,
 				3E32BE522B8D9FDE00E77CF0 /* SBLibraryItemPasteboardWriter.swift in Sources */,
 				3E1B785E2ACE5039008927C6 /* SBInspectorController.swift in Sources */,
+				3EF978022BC3C4E300C986E9 /* SBMessageTextView.swift in Sources */,
 				3E70B2DF2A2BDC55002C0B93 /* SBApplication.swift in Sources */,
 				3E702DE72A428A1B005F7184 /* Synchronized.swift in Sources */,
 				3EC03B4029F4F2E0001FDE50 /* SBDownloads.swift in Sources */,

@@ -138,17 +138,6 @@ extension NSNotification.Name {
         }
     }
     
-    struct EmptyCollectionText: View {
-        let message: String
-        
-        var body: some View {
-            Text(message)
-                .multilineTextAlignment(.center)
-                .foregroundColor(.secondary)
-                .frame(maxHeight: .infinity)
-        }
-    }
-    
     struct InspectorView: View {
         @ObservedObject var inspectorController: SBInspectorController
         @ObservedObject var player = SBPlayer.sharedInstance()
@@ -179,13 +168,13 @@ extension NSNotification.Name {
                     if let currentTrack = player.currentTrack {
                         TrackInfoView(tracks: [currentTrack], isFromSelection: false)
                     } else {
-                        EmptyCollectionText(message: "There is no playing track.")
+                        SBMessageTextView(message: "There is no playing track.")
                     }
                 } else if selectedType == .selectedTracks {
                     if inspectorController.selectedTracks.count > 0 {
                         TrackInfoView(tracks: inspectorController.selectedTracks, isFromSelection: true)
                     } else {
-                        EmptyCollectionText(message: "There are no selected tracks.")
+                        SBMessageTextView(message: "There are no selected tracks.")
                     }
                 }
                 HStack {
