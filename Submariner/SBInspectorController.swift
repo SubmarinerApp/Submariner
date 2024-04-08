@@ -58,10 +58,13 @@ extension NSNotification.Name {
         // used for quick look preview
         @State var coverUrl: URL?
         
-        let album: SBAlbum?
+        // horrific, but basically SBAlbum?? == nil -> difference in album between selection (i.e. in a playlist)
+        // SBAlbum? == nil -> nil album in tracks
+        let album: SBAlbum??
         
         var body: some View {
-            if let path = album?.cover?.imagePath, let image = NSImage(contentsOfFile: path as String) {
+            if let singularAlbum = self.album,
+               let path = singularAlbum?.cover?.imagePath, let image = NSImage(contentsOfFile: path as String) {
                 Image(nsImage: image)
                     .resizable()
                     .scaledToFit()
@@ -99,7 +102,7 @@ extension NSNotification.Name {
         
         var body: some View {
             VStack(spacing: 0) {
-                AlbumArtView(album: valueIfSame(property: \.album)!)
+                AlbumArtView(album: valueIfSame(property: \.album))
                 Form {
                     // Try to generalize, if multiple are selected then show something that indicates they differ
                     Section {
