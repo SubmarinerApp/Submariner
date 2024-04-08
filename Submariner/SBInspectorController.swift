@@ -211,13 +211,13 @@ extension NSNotification.Name {
 
 // This must be top-level
 protocol SBMusicItemInfoView: View {
-    associatedtype MI: SBMusicItem
+    associatedtype Item
     
-    var items: [MI] { get }
+    var items: [Item] { get }
 }
 
 extension SBMusicItemInfoView {
-    func valueIfSame<T: Hashable>(property: KeyPath<MI, T>) -> T? {
+    func valueIfSame<T: Hashable>(property: KeyPath<Item, T>) -> T? {
         // one or none
         if items.count == 1 {
             return items[0][keyPath: property]
@@ -246,7 +246,7 @@ extension SBMusicItemInfoView {
         }
     }
     
-    @ViewBuilder func stringField(label: String, for property: KeyPath<MI, String?>) -> some View {
+    @ViewBuilder func stringField(label: String, for property: KeyPath<Item, String?>) -> some View {
         if let stringMaybeSingular = valueIfSame(property: property) {
             if let string = stringMaybeSingular {
                 field(label: label, string: string)
@@ -257,7 +257,7 @@ extension SBMusicItemInfoView {
         }
     }
     
-    @ViewBuilder func numberField(label: String, for property: KeyPath<MI, NSNumber?>, formatter: Formatter? = nil) -> some View {
+    @ViewBuilder func numberField(label: String, for property: KeyPath<Item, NSNumber?>, formatter: Formatter? = nil) -> some View {
         if let numberMaybeSingular = valueIfSame(property: property) {
             if let number = numberMaybeSingular, number != 0 {
                 if let formatter = formatter, let string = formatter.string(for: number) {
