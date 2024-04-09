@@ -14,15 +14,6 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
 @main
 @objc(SBAppDelegate) class SBAppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, NSUserInterfaceValidations {
     
-    // #MARK: - Singleton
-    
-    private static var _sharedInstance = SBAppDelegate()
-    
-    // FIXME: Make var
-    @objc static func sharedInstance() -> SBAppDelegate {
-        return _sharedInstance
-    }
-    
     // #MARK: - Initialization
     
     let databaseController: SBDatabaseController
