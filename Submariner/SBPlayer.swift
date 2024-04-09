@@ -36,6 +36,8 @@ extension NSNotification.Name {
     private override init() {
         super.init()
         
+        initNotifications()
+        
         initializeMediaControls()
         
         // This is counter-intuitive, but this has to be *off* for AirPlay from the app to work
