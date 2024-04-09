@@ -411,8 +411,10 @@ extension NSNotification.Name {
             // Default, so not one of the buttons (if we have them or not)
             if response.actionIdentifier == UNNotificationDefaultActionIdentifier {
                 DispatchQueue.main.async {
-                    SBAppDelegate.sharedInstance().zoomDatabaseWindow(self)
-                    SBAppDelegate.sharedInstance().goToCurrentTrack(self)
+                    if let appDelegate = NSApp.delegate as? SBAppDelegate {
+                        appDelegate.zoomDatabaseWindow(self)
+                        appDelegate.goToCurrentTrack(self)
+                    }
                 }
             } else if response.actionIdentifier == "SubmarinerSkipAction" {
                 self.next()
