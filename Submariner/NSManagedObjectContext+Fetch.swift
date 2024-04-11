@@ -21,7 +21,14 @@ extension NSManagedObjectContext {
             request.predicate = predicate
             
             let entities = try self.fetch(request)
-            return entities.first!
+            if let first = entities.first {
+                return first
+            } else {
+                // we can't do this instead of unwrapping failure, so do this to return nil
+                throw NSError(domain: "com.submarinerapp.Submariner.ErrorDomain", code: 1, userInfo: [
+                    NSLocalizedDescriptionKey: "No entity with the name was found."
+                ])
+            }
         }
     }
 }
