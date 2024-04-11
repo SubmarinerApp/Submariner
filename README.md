@@ -30,6 +30,12 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes
 
+### Version 3.1.1
+
+* Fix an issue with notification actions not working correctly.
+* Fix an issue where a duplicate window was opened when clicking a notification.
+* Fix an issue with database fetch code causing a crash when no items were returned.
+
 ### Version 3.1 for Workgroups
 
 * Artists, albums, and tracks can be favourited ("starred" in Subsonic parlance; we use a heart to avoid being confused with ratings).
