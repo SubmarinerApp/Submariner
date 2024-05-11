@@ -50,6 +50,7 @@
 		3E70B2DF2A2BDC55002C0B93 /* SBApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E70B2DE2A2BDC55002C0B93 /* SBApplication.swift */; };
 		3E70B2E12A2D52A1002C0B93 /* SBPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E70B2E02A2D52A1002C0B93 /* SBPlayer.swift */; };
 		3E7491972B6A1AE00052CBCE /* SBTracklistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7491962B6A1AE00052CBCE /* SBTracklistController.swift */; };
+		3E8124272BEFF4F80060DDAF /* SBToggleNameTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8124262BEFF4F80060DDAF /* SBToggleNameTransformer.swift */; };
 		3E82701827E653F0007E5695 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E82701727E653F0007E5695 /* MediaPlayer.framework */; };
 		3E87E90E2B43557400E85000 /* SBServerSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E87E90D2B43557400E85000 /* SBServerSearchController.swift */; };
 		3E87E9102B4364CF00E85000 /* Collection+IndexSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E87E90F2B4364CF00E85000 /* Collection+IndexSet.swift */; };
@@ -207,6 +208,7 @@
 		3E70B2DE2A2BDC55002C0B93 /* SBApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBApplication.swift; sourceTree = "<group>"; };
 		3E70B2E02A2D52A1002C0B93 /* SBPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPlayer.swift; sourceTree = "<group>"; };
 		3E7491962B6A1AE00052CBCE /* SBTracklistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTracklistController.swift; sourceTree = "<group>"; };
+		3E8124262BEFF4F80060DDAF /* SBToggleNameTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBToggleNameTransformer.swift; sourceTree = "<group>"; };
 		3E82701727E653F0007E5695 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		3E87E90D2B43557400E85000 /* SBServerSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBServerSearchController.swift; sourceTree = "<group>"; };
 		3E87E90F2B4364CF00E85000 /* Collection+IndexSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+IndexSet.swift"; sourceTree = "<group>"; };
@@ -387,6 +389,7 @@
 				3EA929B829E4766900938582 /* SBVolumeIconTransformer.swift */,
 				3E45201729F5DBDC00604079 /* SBTrackArtistNameTransformer.swift */,
 				3EC5A6442A019B5C00025812 /* SBRepeatModeButtonStateTransformer.swift */,
+				3E8124262BEFF4F80060DDAF /* SBToggleNameTransformer.swift */,
 			);
 			name = "Value Transformers";
 			sourceTree = "<group>";
@@ -866,6 +869,7 @@
 				3E5C42E029846E25009B9699 /* SBOnboardingController.swift in Sources */,
 				3EC03B4A29F4F2E0001FDE50 /* SBLibrary.swift in Sources */,
 				3EC03B3E29F4F2E0001FDE50 /* SBCover.swift in Sources */,
+				3E8124272BEFF4F80060DDAF /* SBToggleNameTransformer.swift in Sources */,
 				3EA929B729E4745600938582 /* SBRepeatIconTransformer.swift in Sources */,
 				4CFB3E07139CEA76008DC01A /* NSOutlineView+Expand.m in Sources */,
 				3E04F60F2B771C4500E24E56 /* SBEditServerController.swift in Sources */,

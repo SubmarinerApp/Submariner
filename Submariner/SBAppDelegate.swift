@@ -16,7 +16,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     
     // #MARK: - Initialization
     
-    let databaseController: SBDatabaseController
+    @objc let databaseController: SBDatabaseController
     let preferencesController: SBPreferencesController
     
     override init() {
@@ -52,6 +52,16 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         let allTrans = SBRepeatModeTransformer(mode: .all)
         let allTransName = NSValueTransformerName(rawValue: "SBRepeatModeAllTransformer")
         ValueTransformer.setValueTransformer(allTrans, forName: allTransName)
+        
+        let tracklistTrans = SBToggleNameTransformer(name: "Tracklist")
+        let tracklistTransName = NSValueTransformerName(rawValue: "SBToggleTracklistNameTransformer")
+        ValueTransformer.setValueTransformer(tracklistTrans, forName: tracklistTransName)
+        let serverUsersTrans = SBToggleNameTransformer(name: "Server Users")
+        let serverUsersTransName = NSValueTransformerName(rawValue: "SBToggleServerUsersNameTransformer")
+        ValueTransformer.setValueTransformer(serverUsersTrans, forName: serverUsersTransName)
+        let inspectorTrans = SBToggleNameTransformer(name: "Inspector")
+        let inspectorTransName = NSValueTransformerName(rawValue: "SBToggleInspectorNameTransformer")
+        ValueTransformer.setValueTransformer(inspectorTrans, forName: inspectorTransName)
         
         // #MARK: Init Core Data (managed object model)
         let modelURL = Bundle.main.url(forResource: "Submariner", withExtension: "momd")!

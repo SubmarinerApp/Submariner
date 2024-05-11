@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -255,16 +255,31 @@ CA
                             <menuItem title="Toggle Tracklist" keyEquivalent="t" id="542">
                                 <connections>
                                     <action selector="toogleTracklist:" target="494" id="543"/>
+                                    <binding destination="494" name="title" keyPath="databaseController.isTracklistShown" id="JbC-6M-aWY">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">SBToggleTracklistNameTransformer</string>
+                                        </dictionary>
+                                    </binding>
                                 </connections>
                             </menuItem>
                             <menuItem title="Toggle Server Users" keyEquivalent="u" id="QXo-h3-Ijg">
                                 <connections>
                                     <action selector="toggleServerUsers:" target="494" id="QuS-kO-6Ep"/>
+                                    <binding destination="494" name="title" keyPath="databaseController.isServerUsersShown" id="QHk-o3-Uba">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">SBToggleServerUsersNameTransformer</string>
+                                        </dictionary>
+                                    </binding>
                                 </connections>
                             </menuItem>
                             <menuItem title="Toggle Inspector" keyEquivalent="i" id="iey-02-CZw">
                                 <connections>
                                     <action selector="toggleInspector:" target="-1" id="dnq-Zg-KFV"/>
+                                    <binding destination="494" name="title" keyPath="databaseController.isInspectorShown" id="96N-7Z-d9s">
+                                        <dictionary key="options">
+                                            <string key="NSValueTransformerName">SBToggleInspectorNameTransformer</string>
+                                        </dictionary>
+                                    </binding>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="2b6-cD-4uz"/>
