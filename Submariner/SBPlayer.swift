@@ -316,10 +316,14 @@ extension NSNotification.Name {
             }
             
             let artwork = currentTrack.coverImage
-            let mpArtwork = MPMediaItemArtwork(boundsSize: artwork.size) { size in
-                return artwork
+            if artwork != SBAlbum.nullCover {
+                let mpArtwork = MPMediaItemArtwork(boundsSize: artwork.size) { size in
+                    return artwork
+                }
+                songInfo[MPMediaItemPropertyArtwork] = mpArtwork
+            } else {
+                songInfo.removeValue(forKey: MPMediaItemPropertyArtwork)
             }
-            songInfo[MPMediaItemPropertyArtwork] = mpArtwork
         } else {
             // should be safe if update status is called *after*
             songInfo.removeAll()
