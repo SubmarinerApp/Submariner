@@ -35,6 +35,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Inspector window has been improved
   * You can now switch between now playing and current selection with a tab view.
   * Playlist information can be viewed and edited.
+* Lower case artist names are properly sorted in the artist list.
 * Fix the null cover being used for system now playing information.
 
 ### Version 3.1.1

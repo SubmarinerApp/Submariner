@@ -96,7 +96,7 @@
 #pragma mark Library View Helper Functions
 
 - (NSArray<NSSortDescriptor*>*) sortDescriptorsForPreference: (NSString*)preference {
-    NSSortDescriptor *albumNameDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"itemName" ascending:YES];
+    NSSortDescriptor *albumNameDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"itemName" ascending:YES selector: @selector(caseInsensitiveCompare:)];
     if ([preference isEqualToString: @"OldestFirst"]) {
         NSSortDescriptor *albumYearDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"year" ascending:YES];
         return @[albumYearDescriptor, albumNameDescriptor];
