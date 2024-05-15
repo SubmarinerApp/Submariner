@@ -51,6 +51,7 @@
 		3E70B2E12A2D52A1002C0B93 /* SBPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E70B2E02A2D52A1002C0B93 /* SBPlayer.swift */; };
 		3E7491972B6A1AE00052CBCE /* SBTracklistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7491962B6A1AE00052CBCE /* SBTracklistController.swift */; };
 		3E8124272BEFF4F80060DDAF /* SBToggleNameTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8124262BEFF4F80060DDAF /* SBToggleNameTransformer.swift */; };
+		3E8124292BF408110060DDAF /* NSString+Comparison.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E8124282BF408110060DDAF /* NSString+Comparison.swift */; };
 		3E82701827E653F0007E5695 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E82701727E653F0007E5695 /* MediaPlayer.framework */; };
 		3E87E90E2B43557400E85000 /* SBServerSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E87E90D2B43557400E85000 /* SBServerSearchController.swift */; };
 		3E87E9102B4364CF00E85000 /* Collection+IndexSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E87E90F2B4364CF00E85000 /* Collection+IndexSet.swift */; };
@@ -209,6 +210,7 @@
 		3E70B2E02A2D52A1002C0B93 /* SBPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPlayer.swift; sourceTree = "<group>"; };
 		3E7491962B6A1AE00052CBCE /* SBTracklistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTracklistController.swift; sourceTree = "<group>"; };
 		3E8124262BEFF4F80060DDAF /* SBToggleNameTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBToggleNameTransformer.swift; sourceTree = "<group>"; };
+		3E8124282BF408110060DDAF /* NSString+Comparison.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+Comparison.swift"; sourceTree = "<group>"; };
 		3E82701727E653F0007E5695 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		3E87E90D2B43557400E85000 /* SBServerSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBServerSearchController.swift; sourceTree = "<group>"; };
 		3E87E90F2B4364CF00E85000 /* Collection+IndexSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+IndexSet.swift"; sourceTree = "<group>"; };
@@ -592,6 +594,7 @@
 				4CFB3E05139CEA76008DC01A /* NSOutlineView+Expand.h */,
 				4CFB3E06139CEA76008DC01A /* NSOutlineView+Expand.m */,
 				3E32BE542B8E500500E77CF0 /* NSPasteboard+Library.swift */,
+				3E8124282BF408110060DDAF /* NSString+Comparison.swift */,
 				3E2F86D728E8F5BD00C5CE23 /* NSTreeController+IndexPath.swift */,
 				3EC03AC229F33C68001FDE50 /* OperationQueue+Shared.swift */,
 				3E87E9112B436B4500E85000 /* PasteboardType+Submariner.swift */,
@@ -876,6 +879,7 @@
 				3EC039C929EFC259001FDE50 /* View+Modify.swift in Sources */,
 				3EC03B3A29F4F2E0001FDE50 /* SBAlbum.swift in Sources */,
 				3EB2BCD12992FD5A00DC5056 /* SBTracklistButton.swift in Sources */,
+				3E8124292BF408110060DDAF /* NSString+Comparison.swift in Sources */,
 				4CFB3E14139D028D008DC01A /* SBSheetController.m in Sources */,
 				4CFB3E15139D028D008DC01A /* SBServerViewController.m in Sources */,
 				3E189E4028EF5BAB0062ACA0 /* SBAudioMetadata.swift in Sources */,

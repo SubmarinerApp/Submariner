@@ -75,7 +75,7 @@
     if (self) {
         groupEntity = [NSEntityDescription entityForName: @"Group" inManagedObjectContext: managedObjectContext];
         
-        NSSortDescriptor *artistDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"itemName" ascending:YES selector: @selector(caseInsensitiveCompare:)];
+        NSSortDescriptor *artistDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"itemName" ascending:YES selector: @selector(artistListCompare:)];
         artistSortDescriptor = [NSArray arrayWithObject:artistDescriptor];
         
         NSSortDescriptor *albumYearDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"year" ascending:YES];
