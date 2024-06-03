@@ -57,6 +57,8 @@
 		3E87E9102B4364CF00E85000 /* Collection+IndexSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E87E90F2B4364CF00E85000 /* Collection+IndexSet.swift */; };
 		3E87E9122B436B4500E85000 /* PasteboardType+Submariner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E87E9112B436B4500E85000 /* PasteboardType+Submariner.swift */; };
 		3E87E9142B460FFB00E85000 /* NSManagedObjectContext+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E87E9132B460FFB00E85000 /* NSManagedObjectContext+Fetch.swift */; };
+		3E9090A12C0BC9CE0080284F /* SBPlaylistV8MigrationPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9090A02C0BC9CE0080284F /* SBPlaylistV8MigrationPolicy.swift */; };
+		3E9090AA2C0BD58B0080284F /* MigrateV7ToV8.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 3E9090A92C0BD58B0080284F /* MigrateV7ToV8.xcmappingmodel */; };
 		3E94E5F62912EEC40080FDF6 /* SBNavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E5F52912EEC40080FDF6 /* SBNavigationItem.swift */; };
 		3E94E5F82915AAB80080FDF6 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E94E5F72915AAB80080FDF6 /* AVKit.framework */; };
 		3E94E5FA2915AB130080FDF6 /* SBRoutePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E5F92915AB130080FDF6 /* SBRoutePickerView.swift */; };
@@ -216,6 +218,9 @@
 		3E87E90F2B4364CF00E85000 /* Collection+IndexSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+IndexSet.swift"; sourceTree = "<group>"; };
 		3E87E9112B436B4500E85000 /* PasteboardType+Submariner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PasteboardType+Submariner.swift"; sourceTree = "<group>"; };
 		3E87E9132B460FFB00E85000 /* NSManagedObjectContext+Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Fetch.swift"; sourceTree = "<group>"; };
+		3E9090A02C0BC9CE0080284F /* SBPlaylistV8MigrationPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPlaylistV8MigrationPolicy.swift; sourceTree = "<group>"; };
+		3E9090A22C0BCA4D0080284F /* Submariner v8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Submariner v8.xcdatamodel"; sourceTree = "<group>"; };
+		3E9090A92C0BD58B0080284F /* MigrateV7ToV8.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = MigrateV7ToV8.xcmappingmodel; sourceTree = "<group>"; };
 		3E94E5F52912EEC40080FDF6 /* SBNavigationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBNavigationItem.swift; sourceTree = "<group>"; };
 		3E94E5F72915AAB80080FDF6 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		3E94E5F92915AB130080FDF6 /* SBRoutePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBRoutePickerView.swift; sourceTree = "<group>"; };
@@ -413,6 +418,15 @@
 			name = Pasteboard;
 			sourceTree = "<group>";
 		};
+		3E90909F2C0BC9B30080284F /* Migrations */ = {
+			isa = PBXGroup;
+			children = (
+				3E9090A02C0BC9CE0080284F /* SBPlaylistV8MigrationPolicy.swift */,
+				3E9090A92C0BD58B0080284F /* MigrateV7ToV8.xcmappingmodel */,
+			);
+			name = Migrations;
+			sourceTree = "<group>";
+		};
 		4C7A3E97148F07F7009C6EE6 /* Subprojects */ = {
 			isa = PBXGroup;
 			children = (
@@ -540,6 +554,7 @@
 				4C87ED7B139CD8BE0064DE2E /* Submariner.xcdatamodeld */,
 				4C87EE12139CE4380064DE2E /* Abstract */,
 				4C87EE11139CE4370064DE2E /* Concrete */,
+				3E90909F2C0BC9B30080284F /* Migrations */,
 				3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */,
 				3E94E5F52912EEC40080FDF6 /* SBNavigationItem.swift */,
 				3EB2BCCA2992F03A00DC5056 /* SBSearchResult.swift */,
@@ -833,6 +848,7 @@
 				3EC03B4E29F4F2E0001FDE50 /* SBSection.swift in Sources */,
 				3EC03B4829F4F2E0001FDE50 /* SBNowPlaying.swift in Sources */,
 				4C87ED8E139CD91B0064DE2E /* SBWindowController.m in Sources */,
+				3E9090AA2C0BD58B0080284F /* MigrateV7ToV8.xcmappingmodel in Sources */,
 				3E2155122B26E6F0004BCCFC /* SBSubsonicRequestType.swift in Sources */,
 				3E04F5F02B71D60F00E24E56 /* SBDirectory.swift in Sources */,
 				4C87EDA1139CD97B0064DE2E /* SBSplitView.m in Sources */,
@@ -926,6 +942,7 @@
 				3EC03B4429F4F2E0001FDE50 /* SBGroup.swift in Sources */,
 				3EB2BCC32992D94E00DC5056 /* Data+Type.swift in Sources */,
 				4CFCE4471402582400D35770 /* SBMusicSearchController.m in Sources */,
+				3E9090A12C0BC9CE0080284F /* SBPlaylistV8MigrationPolicy.swift in Sources */,
 				4CC6B56814041F7E003AEAC0 /* SBServerPodcastController.m in Sources */,
 				3E45201A29F5DE9100604079 /* SBImportOperation.swift in Sources */,
 				4C56868514050B9A00BE3478 /* SBPodcastItemView.m in Sources */,
@@ -1183,6 +1200,7 @@
 		4C87ED7B139CD8BE0064DE2E /* Submariner.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				3E9090A22C0BCA4D0080284F /* Submariner v8.xcdatamodel */,
 				3E32BE562B94407300E77CF0 /* Submariner v7.xcdatamodel */,
 				3E32BE462B82F35900E77CF0 /* Submariner v6.xcdatamodel */,
 				3E04F5EE2B71D46E00E24E56 /* Submariner v5.xcdatamodel */,
@@ -1191,7 +1209,7 @@
 				3EA06A4E28B2C04B0091A75F /* Submariner v2.xcdatamodel */,
 				4C87ED7C139CD8BE0064DE2E /* Submariner.xcdatamodel */,
 			);
-			currentVersion = 3E32BE562B94407300E77CF0 /* Submariner v7.xcdatamodel */;
+			currentVersion = 3E9090A22C0BCA4D0080284F /* Submariner v8.xcdatamodel */;
 			path = Submariner.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

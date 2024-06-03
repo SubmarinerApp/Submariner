@@ -63,8 +63,7 @@
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context {
     self = [super initWithManagedObjectContext:context];
     if (self) {
-        NSSortDescriptor *desc = [NSSortDescriptor sortDescriptorWithKey:@"playlistIndex" ascending:YES];
-        playlistSortDescriptors = [NSArray arrayWithObject:desc];
+        playlistSortDescriptors = @[];
     }
     return self;
 }
@@ -270,52 +269,14 @@
 - (BOOL)tableView:(NSTableView *)aTableView acceptDrop:(id <NSDraggingInfo>)info
               row:(NSInteger)row dropOperation:(NSTableViewDropOperation)operation
 {
-    NSArray<SBTrack*> *tracks = [info.draggingPasteboard libraryItemsWithManagedObjectContext: self.managedObjectContext];
-    
-    // internal drop track
-    if (tracks != nil) {
-        NSInteger sourceRow = 0;
-        NSInteger destinationRow = 0;
-        
-        // update playlist indexes 
-        if([[[tracks objectAtIndex:0] playlistIndex] integerValue] < row) {
-            sourceRow = [[[tracks objectAtIndex:0] playlistIndex] integerValue];
-            destinationRow = row;
-            
-            // increment interval rows
-            NSArray *trackInInterval = [[tracksController arrangedObjects] subarrayWithRange:NSMakeRange(sourceRow, destinationRow-sourceRow)];
-            for(SBTrack *track in trackInInterval) {
-                NSInteger playlistIndex = [[track playlistIndex] integerValue];
-                playlistIndex--;
-                
-                [track setPlaylistIndex:[NSNumber numberWithInteger:playlistIndex]];
-            }
-        } else {
-            sourceRow = row;
-            destinationRow = [[[tracks objectAtIndex:0] playlistIndex] integerValue];
-            
-            // increment interval rows
-            NSArray *trackInInterval = [[tracksController arrangedObjects] subarrayWithRange:NSMakeRange(sourceRow, destinationRow-sourceRow)];
-            for(SBTrack *track in trackInInterval) {
-                NSInteger playlistIndex = [[track playlistIndex] integerValue];
-                playlistIndex++;
-                
-                [track setPlaylistIndex:[NSNumber numberWithInteger:playlistIndex]];
-            }
-        }
-    
-        
-        // reverse track array
-        NSArray<SBTrack*> *reversedArray = [[tracks reverseObjectEnumerator] allObjects];
-        
-        // add reversed track at index
-        for(SBTrack *track in reversedArray) {
-            if(row > [[tracksController arrangedObjects] count])
-                row--;
-            
-            [track setPlaylistIndex:[NSNumber numberWithInteger:row]];
+    if (info.draggingSourceOperationMask & NSDragOperationMove) {
+        // get indices of source rows, then move
+        NSIndexSet *indices = [info.draggingPasteboard rowIndices];
+        if (indices == nil || indices.count == 0) {
+            return NO;
         }
         
+        [playlist moveIndices: indices toRow: row];
         
         [tracksController rearrangeObjects];
         [tracksTableView reloadData];
