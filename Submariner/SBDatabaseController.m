@@ -34,7 +34,6 @@
 
 #import "SBDatabaseController.h"
 #import "SBMusicController.h"
-#import "SBPlaylistController.h"
 #import "SBAnimatedView.h"
 #import "SBTableView.h"
 
@@ -563,15 +562,13 @@
 
 
 - (IBAction)addPlaylistFromTracklist:(id)sender {
-    NSSet *tracklistSet = [NSSet setWithArray: [[SBPlayer sharedInstance] playlist]];
-    
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@)", @"Playlists"];
     SBSection *playlistsSection = [self.managedObjectContext fetchEntityNammed:@"Section" withPredicate:predicate error:nil];
     
     SBPlaylist *newPlaylist = [SBPlaylist insertInManagedObjectContext:self.managedObjectContext];
     [newPlaylist setResourceName:@"New Saved Tracklist"];
     [newPlaylist setSection:playlistsSection];
-    [newPlaylist setTracks: tracklistSet];
+    [newPlaylist setTracks: [[SBPlayer sharedInstance] playlist]];
     [playlistsSection addResourcesObject:newPlaylist];
     
     [sourceList expandURIs:[NSArray arrayWithObject:[[[playlistsSection objectID] URIRepresentation] absoluteString]]];
@@ -1553,10 +1550,7 @@
         
         if(playlist.server == nil) {
             // also add new track IDs to the array
-            [tracks enumerateObjectsUsingBlock:^(SBTrack *track, NSUInteger idx, BOOL *stop) {
-                [track setPlaylistIndex:[NSNumber numberWithInteger:[playlist.tracks count]]];
-                [playlist addTracksObject:track];
-            }];
+            [playlist addTracks: tracks];
         } else {
             NSString *playlistID = playlist.itemId;
             
@@ -1837,9 +1831,6 @@
         SBPlaylist *playlist = playlistNavItem.playlist;
         [playlistController setPlaylist: playlist];
         if (playlist.server != nil) { // is remote playlist
-            // clear playlist
-            [playlistController clearPlaylist];
-            
             // update playlist
             [playlist.server getPlaylistTracks:playlist];
         }

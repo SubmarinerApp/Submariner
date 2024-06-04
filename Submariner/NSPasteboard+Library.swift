@@ -42,4 +42,22 @@ extension NSPasteboard {
             return moc.object(with: objID) as! SBTrack
         }
     }
+    
+    @objc func rowIndices() -> IndexSet {
+        guard let types = self.types, let pasteboardItems = pasteboardItems else {
+            return IndexSet()
+        }
+        
+        if types.contains(.rowIndex) {
+            let indices = pasteboardItems.compactMap { item in
+                let data = item.data(forType: .rowIndex)!
+                // this is pretty gross
+                return data.withUnsafeBytes { ptr in
+                    ptr.load(as: Int.self)
+                }
+            }
+            return IndexSet(indices)
+        }
+        return IndexSet()
+    }
 }

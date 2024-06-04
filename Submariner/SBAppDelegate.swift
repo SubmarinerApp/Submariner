@@ -73,27 +73,21 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
             NSInferMappingModelAutomaticallyOption: true,
             NSMigratePersistentStoresAutomaticallyOption: true
         ]
-        // migrate legacy stores when possible; legacyStoreFile
-        // XXX: Error handling sufficient here?
-        let oldURL = SBAppDelegate.legacyStoreFileName
+        // check if the model needs a migration; we let Core Data do lightweight migrations and let us handle heavyweight,
+        // but we should probably invalidate object IDs in the defaults DB. migration should handle OIDs in the store.
+        // if we were doing the migration manually we could try to convert the ID, but we don't have this control with
+        // NSMigratePersistentStoresAutomaticallyOption.
         let newURL = SBAppDelegate.storeFileName
-        if FileManager.default.fileExists(atPath: oldURL.path) && !FileManager.default.fileExists(atPath: newURL.path) {
-            let oldStore = try! self.persistentStoreCoordinator.addPersistentStore(type: .xml,
-                                                                                   configuration: nil,
-                                                                                   at: oldURL,
-                                                                                   options: storeOpts)
-            // It's OK to ignore the return value, since it mutates the coordinator to include it
-            _ = try! self.persistentStoreCoordinator.migratePersistentStore(oldStore,
-                                                                            to: newURL,
-                                                                            options: storeOpts,
-                                                                            type: .sqlite)
-        } else {
-            // usual path, we aren't converting, but just using modern store
-            _ = try! self.persistentStoreCoordinator.addPersistentStore(type: .sqlite,
-                                                                        configuration: nil,
-                                                                        at: newURL,
-                                                                        options: storeOpts)
+        if let metadata = try? NSPersistentStoreCoordinator.metadataForPersistentStore(type: .sqlite, at: newURL),
+           !self.managedObjectModel.isConfiguration(withName: nil, compatibleWithStoreMetadata: metadata) {
+            // SBDatabaseController defaults to local music for now
+            UserDefaults.standard.removeObject(forKey: "LastViewedResource")
         }
+        // we no longer migrate from Submariner 1.x stores. use 3.1.1 or older first beforehand
+        _ = try! self.persistentStoreCoordinator.addPersistentStore(type: .sqlite,
+                                                                    configuration: nil,
+                                                                    at: newURL,
+                                                                    options: storeOpts)
         
         // #MARK: Init Core Data (managed object store)
         // must be main queue for SwiftUI
@@ -159,12 +153,6 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     }
     
     // #MARK: - Application Files/Directories
-    
-    static var legacyStoreFileName: URL {
-        let libraryURL = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).last!
-        let storeURL = libraryURL.appendingPathComponent("Submariner.storedata")
-        return storeURL
-    }
     
     @objc static var musicDirectory: URL {
         let path = FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).last!.appendingPathComponent("Submariner/Music")

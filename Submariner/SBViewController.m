@@ -205,8 +205,6 @@
 }
 
 - (void)createLocalPlaylistWithSelected:(NSArray<SBTrack*>*)trackList databaseController:(SBDatabaseController*)databaseController {
-    NSSet *selectedTracksAsSet = [NSSet setWithArray: trackList];
-    
     // create playlist
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(resourceName == %@)", @"Playlists"];
     SBSection *playlistsSection = [self.managedObjectContext fetchEntityNammed:@"Section" withPredicate:predicate error:nil];
@@ -214,7 +212,7 @@
     SBPlaylist *newPlaylist = [SBPlaylist insertInManagedObjectContext:self.managedObjectContext];
     [newPlaylist setResourceName:@"New Playlist"];
     [newPlaylist setSection:playlistsSection];
-    [newPlaylist setTracks: selectedTracksAsSet];
+    [newPlaylist setTracks: trackList];
     [playlistsSection addResourcesObject:newPlaylist];
 }
 

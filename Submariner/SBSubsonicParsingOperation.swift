@@ -38,7 +38,6 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     
     // state
     var errored: Bool = false
-    var playlistIndex: Int = 0
     
     // state for selected object
     var currentPlaylist: SBPlaylist?
@@ -365,6 +364,9 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             if let id = attributeDict["id"] {
                 currentPlaylist = fetchPlaylist(id: id)
             }
+            
+            // empty it out so we can update from server
+            currentPlaylist?.trackIDs = []
         default:
             logger.warning("Invalid request type \(String(describing: self.requestType)) for playlist element")
         }
@@ -373,21 +375,11 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     private func parseElementEntryForPlaylist(attributeDict: [String: String]) {
         if let currentPlaylist = self.currentPlaylist, let id = attributeDict["id"] {
             if let track = fetchTrack(id: id) {
-                let exists = currentPlaylist.tracks?.contains { (playlistTrack: SBTrack) in
-                    return track.itemId == playlistTrack.itemId
-                } ?? false
-                logger.info("Adding track (and updating) with ID: \(id, privacy: .public) to playlist \(currentPlaylist.itemId ?? "(no ID?)", privacy: .public), exists? \(exists) index? \(self.playlistIndex)")
+                logger.info("Adding track (and updating) with ID: \(id, privacy: .public) to playlist \(currentPlaylist.itemId ?? "(no ID?)", privacy: .public)")
                 
                 updateTrackDependenciesForTag(track, attributeDict: attributeDict, shouldFetchAlbumArt: false)
                 
-                // limitation if the same track exists twice
-                track.playlistIndex = NSNumber(value: playlistIndex)
-                playlistIndex += 1
-                
-                if !exists {
-                    currentPlaylist.addToTracks(track)
-                    track.playlist = currentPlaylist
-                }
+                currentPlaylist.add(track: track)
             } else {
                 // if the track doesn't exist yet, it'll be born without context. provide that context (artist/album/cover)
                 // FIXME: Should we update *existing* tracks regardless? For previous cases they were pulled anew...
@@ -395,11 +387,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 let track = createTrack(attributes: attributeDict)
                 updateTrackDependenciesForTag(track, attributeDict: attributeDict, shouldFetchAlbumArt: false)
                 
-                track.playlistIndex = NSNumber(value: playlistIndex)
-                playlistIndex += 1
-                
-                currentPlaylist.addToTracks(track)
-                track.playlist = currentPlaylist
+                currentPlaylist.add(track: track)
             }
         } else {
             logger.warning("No current playlist, even though we have an entry element?")
@@ -608,8 +596,6 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "podcast" {
             currentPodcast = nil
-        } else if elementName == "playlist" {
-            playlistIndex = 0
         }
     }
     
