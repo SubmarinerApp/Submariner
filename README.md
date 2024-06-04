@@ -35,8 +35,10 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Inspector window has been improved
   * You can now switch between now playing and current selection with a tab view.
   * Playlist information can be viewed and edited.
+* The playlist model has been corrected to handle multiple of the same track.
 * Lower case artist names are properly sorted in the artist list.
 * Fix the null cover being used for system now playing information.
+* Upgrading from Submariner 1.x is no longer supported.
 
 ### Version 3.1.1
 
