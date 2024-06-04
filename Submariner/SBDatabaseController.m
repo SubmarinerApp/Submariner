@@ -34,7 +34,6 @@
 
 #import "SBDatabaseController.h"
 #import "SBMusicController.h"
-#import "SBPlaylistController.h"
 #import "SBAnimatedView.h"
 #import "SBTableView.h"
 
@@ -1832,9 +1831,6 @@
         SBPlaylist *playlist = playlistNavItem.playlist;
         [playlistController setPlaylist: playlist];
         if (playlist.server != nil) { // is remote playlist
-            // clear playlist
-            [playlistController clearPlaylist];
-            
             // update playlist
             [playlist.server getPlaylistTracks:playlist];
         }

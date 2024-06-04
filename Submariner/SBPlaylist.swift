@@ -58,6 +58,10 @@ public class SBPlaylist: SBResource {
         })
     }
     
+    func remove(indices: IndexSet) {
+        trackIDs?.remove(atOffsets: indices)
+    }
+    
     @objc(moveIndices:toRow:) func moveTracks(fromOffsets indices: IndexSet, toOffset row: Int) {
         trackIDs?.move(fromOffsets: indices, toOffset: row)
     }
