@@ -52,12 +52,6 @@ public class SBPlaylist: SBResource {
         trackIDs?.append(contentsOf: additionalIDs)
     }
     
-    @objc(removeTracksObject:) func remove(track: SBTrack) {
-        trackIDs?.removeAll(where: { (id: URL) in
-            id == track.objectID.uriRepresentation()
-        })
-    }
-    
     func remove(indices: IndexSet) {
         trackIDs?.remove(atOffsets: indices)
     }
