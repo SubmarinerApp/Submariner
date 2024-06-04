@@ -82,7 +82,8 @@ class SBLibraryPurgeOperation: SBOperation {
         alert.alertStyle = .informational
         alert.messageText = "Do you want to delete \(tracks!.count) downloaded items?"
         alert.informativeText = "Tracks downloaded to the library take up \(totalSizeString) of space on disk. Items that were imported to the library outside of a server won't be affected. You can redownload tracks from a server at any time."
-        alert.addButton(withTitle: "Delete Items")
+        let deleteButton = alert.addButton(withTitle: "Delete Items")
+        deleteButton.hasDestructiveAction = true
         alert.addButton(withTitle: "Cancel")
         if alert.runModal() == .alertFirstButtonReturn {
             self.deleteItems()

@@ -234,9 +234,11 @@
         if(selectedArtist != nil) {
             if([selectedArtist.isLinked boolValue] == NO) {
                 NSAlert *alert = [[NSAlert alloc] init];
-                [alert addButtonWithTitle:@"Remove"];
+                NSButton *removeButton = [alert addButtonWithTitle: @"Remove from Database"];
+                removeButton.hasDestructiveAction = YES;
                 [alert addButtonWithTitle:@"Cancel"];
-                [alert addButtonWithTitle:@"Delete"];
+                NSButton *deleteButton = [alert addButtonWithTitle: @"Delete Files"];
+                deleteButton.hasDestructiveAction = YES;
                 [alert setMessageText:@"Delete the selected artist?"];
                 [alert setInformativeText:@"This artist has been copied into the Submariner database. If you choose Delete, the artist will be removed from the database and deleted from the file system. If you choose Remove, the copied files will be preserved."];
                 [alert setAlertStyle:NSAlertStyleWarning];
@@ -247,7 +249,8 @@
                 
             } else {
                 NSAlert *alert = [[NSAlert alloc] init];
-                [alert addButtonWithTitle:@"OK"];
+                NSButton *removeButton = [alert addButtonWithTitle:@"Remove"];
+                removeButton.hasDestructiveAction = YES;
                 [alert addButtonWithTitle:@"Cancel"];
                 [alert setMessageText:@"Remove the selected artist?"];
                 [alert setInformativeText:@"This can't be undone."];
@@ -271,9 +274,11 @@
             if([selectedAlbum.isLinked boolValue] == NO) {
                 
                 NSAlert *alert = [[NSAlert alloc] init];
-                [alert addButtonWithTitle:@"Remove"];
+                NSButton *removeButton = [alert addButtonWithTitle: @"Remove from Database"];
+                removeButton.hasDestructiveAction = YES;
                 [alert addButtonWithTitle:@"Cancel"];
-                [alert addButtonWithTitle:@"Delete"];
+                NSButton *deleteButton = [alert addButtonWithTitle: @"Delete Files"];
+                deleteButton.hasDestructiveAction = YES;
                 [alert setMessageText:@"Delete the selected album?"];
                 [alert setInformativeText:@"This album has been copied into the Submariner database. If you choose Delete, the album will be removed from the database and deleted from the file system. If you choose Remove, the copied files will be preserved."];
                 [alert setAlertStyle:NSAlertStyleWarning];
@@ -284,7 +289,8 @@
                 
             } else {
                 NSAlert *alert = [[NSAlert alloc] init];
-                [alert addButtonWithTitle:@"OK"];
+                NSButton *removeButton = [alert addButtonWithTitle: @"Remove"];
+                removeButton.hasDestructiveAction = YES;
                 [alert addButtonWithTitle:@"Cancel"];
                 [alert setMessageText:@"Remove the selected album?"];
                 [alert setInformativeText:@"This can't be undone."];
@@ -306,9 +312,11 @@
         if(selectedTrack != nil) {
             if([selectedTrack.isLinked boolValue] == NO) {
                 NSAlert *alert = [[NSAlert alloc] init];
-                [alert addButtonWithTitle:@"Remove"];
+                NSButton *removeButton = [alert addButtonWithTitle: @"Remove from Database"];
+                removeButton.hasDestructiveAction = YES;
                 [alert addButtonWithTitle:@"Cancel"];
-                [alert addButtonWithTitle:@"Delete"];
+                NSButton *deleteButton = [alert addButtonWithTitle: @"Delete Files"];
+                deleteButton.hasDestructiveAction = YES;
                 [alert setMessageText:@"Delete the selected track?"];
                 [alert setInformativeText:@"This track has been copied into the Submariner database. If you choose Delete, the track will be removed from the database and deleted from the file system. If you choose Remove, the copied files will be preserved."];
                 [alert setAlertStyle:NSAlertStyleWarning];
@@ -319,9 +327,10 @@
                 
             } else {
                 NSAlert *alert = [[NSAlert alloc] init];
-                [alert addButtonWithTitle:@"OK"];
+                NSButton *removeButton = [alert addButtonWithTitle: @"Remove"];
+                removeButton.hasDestructiveAction = YES;
                 [alert addButtonWithTitle:@"Cancel"];
-                [alert setMessageText:@"Remove the selected track ?"];
+                [alert setMessageText:@"Remove the selected track?"];
                 [alert setInformativeText:@"Removed tracks cannot be restored."];
                 [alert setAlertStyle:NSAlertStyleWarning];
                 

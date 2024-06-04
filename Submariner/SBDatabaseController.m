@@ -583,7 +583,8 @@
         if(resource && ([resource isKindOfClass:[SBPlaylist class]] || [resource isKindOfClass:[SBServer class]])) {
             
             NSAlert *alert = [[NSAlert alloc] init];
-            [alert addButtonWithTitle:@"OK"];
+            NSButton *removeButton = [alert addButtonWithTitle: @"Remove"];
+            removeButton.hasDestructiveAction = YES;
             [alert addButtonWithTitle:@"Cancel"];
             [alert setMessageText:@"Delete the selected item?"];
             [alert setInformativeText:@"Deleted items cannot be restored."];
