@@ -94,6 +94,10 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         self.managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         self.managedObjectContext.persistentStoreCoordinator = self.persistentStoreCoordinator
         
+        // #MARK: Run cleanup steps
+        let cleanupOperation = SBLibraryCleanupOrphansOperation(managedObjectContext: self.managedObjectContext)
+        OperationQueue.sharedServerQueue.addOperation(cleanupOperation)
+        
         // #MARK: Init Window Controllers
         self.databaseController = SBDatabaseController(managedObjectContext: self.managedObjectContext)
         self.preferencesController = SBPreferencesController()

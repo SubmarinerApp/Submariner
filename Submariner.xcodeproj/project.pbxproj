@@ -103,6 +103,7 @@
 		3EC5A6452A019B5C00025812 /* SBRepeatModeButtonStateTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC5A6442A019B5C00025812 /* SBRepeatModeButtonStateTransformer.swift */; };
 		3ECF63FA280362BA004F9176 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ECF63F9280362BA004F9176 /* Assets.xcassets */; };
 		3ED4C4D42AC0E25400649FB2 /* SBLibraryPurgeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4C4D32AC0E25400649FB2 /* SBLibraryPurgeOperation.swift */; };
+		3EE4C1882C18EB780063BB9D /* SBLibraryCleanupOrphansOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4C1872C18EB780063BB9D /* SBLibraryCleanupOrphansOperation.swift */; };
 		3EF978022BC3C4E300C986E9 /* SBMessageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF978012BC3C4E300C986E9 /* SBMessageTextView.swift */; };
 		3EF978042BC4659B00C986E9 /* Binding+Nil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF978032BC4659B00C986E9 /* Binding+Nil.swift */; };
 		3EF978062BC49A9100C986E9 /* SBPropertyFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF978052BC49A9100C986E9 /* SBPropertyFieldView.swift */; };
@@ -267,6 +268,7 @@
 		3EC5A6442A019B5C00025812 /* SBRepeatModeButtonStateTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBRepeatModeButtonStateTransformer.swift; sourceTree = "<group>"; };
 		3ECF63F9280362BA004F9176 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3ED4C4D32AC0E25400649FB2 /* SBLibraryPurgeOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBLibraryPurgeOperation.swift; sourceTree = "<group>"; };
+		3EE4C1872C18EB780063BB9D /* SBLibraryCleanupOrphansOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBLibraryCleanupOrphansOperation.swift; sourceTree = "<group>"; };
 		3EF978012BC3C4E300C986E9 /* SBMessageTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBMessageTextView.swift; sourceTree = "<group>"; };
 		3EF978032BC4659B00C986E9 /* Binding+Nil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Nil.swift"; sourceTree = "<group>"; };
 		3EF978052BC49A9100C986E9 /* SBPropertyFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPropertyFieldView.swift; sourceTree = "<group>"; };
@@ -706,6 +708,7 @@
 				3E702DE82A428CF6005F7184 /* SBSubsonicParsingOperation.swift */,
 				3ED4C4D32AC0E25400649FB2 /* SBLibraryPurgeOperation.swift */,
 				3E2E1C832A395B79001A3148 /* SBSubsonicRequestOperation.swift */,
+				3EE4C1872C18EB780063BB9D /* SBLibraryCleanupOrphansOperation.swift */,
 			);
 			name = Operations;
 			sourceTree = "<group>";
@@ -917,6 +920,7 @@
 				3E32BE502B8D9A5C00E77CF0 /* SBTableView+DragImage.swift in Sources */,
 				4C7AA24D139D64930050BE95 /* SBServerLibraryController.m in Sources */,
 				4CFAFC2C139EF08800E82B57 /* SBServerHomeController.m in Sources */,
+				3EE4C1882C18EB780063BB9D /* SBLibraryCleanupOrphansOperation.swift in Sources */,
 				3EF978042BC4659B00C986E9 /* Binding+Nil.swift in Sources */,
 				3E04F5F22B71E33000E24E56 /* SBServerDirectoryController.swift in Sources */,
 				4CFAFC37139EF20600E82B57 /* MGScopeBar.m in Sources */,
