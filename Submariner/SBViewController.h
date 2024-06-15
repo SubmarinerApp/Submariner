@@ -38,6 +38,7 @@
 // forward declare since importing is not good here
 @class SBDatabaseController;
 @class SBTrack;
+@protocol SBStarrable;
 
 @interface SBViewController : NSViewController {
 @protected
@@ -47,6 +48,9 @@
     __weak NSSplitView *compensatedSplitView;
 }
 @property (nonatomic, strong, readwrite) NSManagedObjectContext *managedObjectContext;
+
+@property (nonatomic, strong, readonly) NSArray<SBTrack*> *selectedTracks;
+@property (nonatomic, strong, readonly) NSArray<id<SBStarrable>> *selectedMusicItems;
 
 + (NSString *)nibName;
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context;
@@ -64,6 +68,7 @@ typedef NS_OPTIONS(NSInteger, SBSelectedRowStatus) {
     SBSelectedRowNone = 0,
     SBSelectedRowDownloadable = 1,
     SBSelectedRowShowableInFinder = 2,
+    SBSelectedRowFavourited = 4,
 };
 
 - (SBSelectedRowStatus) selectedRowStatus:(NSArray<SBTrack*>*)trackList selectedIndices:(NSIndexSet*)indexSet;

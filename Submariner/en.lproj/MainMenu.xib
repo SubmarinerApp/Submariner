@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -218,6 +218,13 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Soo-Td-T1J"/>
+                            <menuItem title="Favourite" keyEquivalent="e" id="ZT5-dn-mi5">
+                                <connections>
+                                    <binding destination="494" name="enabled" keyPath="databaseController.hasSelectedMusicItems" id="CT5-gU-nK7"/>
+                                    <binding destination="494" name="value" keyPath="databaseController.selectedMusicItemsStarred" id="wdE-q6-CkZ"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="z7b-Lk-lcq"/>
                             <menuItem title="Select All" keyEquivalent="a" id="198">
                                 <connections>
                                     <action selector="selectAll:" target="-1" id="232"/>

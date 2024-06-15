@@ -104,6 +104,7 @@
 		3ECF63FA280362BA004F9176 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3ECF63F9280362BA004F9176 /* Assets.xcassets */; };
 		3ED4C4D42AC0E25400649FB2 /* SBLibraryPurgeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED4C4D32AC0E25400649FB2 /* SBLibraryPurgeOperation.swift */; };
 		3EE4C1882C18EB780063BB9D /* SBLibraryCleanupOrphansOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4C1872C18EB780063BB9D /* SBLibraryCleanupOrphansOperation.swift */; };
+		3EE4C1902C1E34680063BB9D /* SBStarrable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4C18F2C1E34680063BB9D /* SBStarrable.swift */; };
 		3EF978022BC3C4E300C986E9 /* SBMessageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF978012BC3C4E300C986E9 /* SBMessageTextView.swift */; };
 		3EF978042BC4659B00C986E9 /* Binding+Nil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF978032BC4659B00C986E9 /* Binding+Nil.swift */; };
 		3EF978062BC49A9100C986E9 /* SBPropertyFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF978052BC49A9100C986E9 /* SBPropertyFieldView.swift */; };
@@ -269,6 +270,7 @@
 		3ECF63F9280362BA004F9176 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3ED4C4D32AC0E25400649FB2 /* SBLibraryPurgeOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBLibraryPurgeOperation.swift; sourceTree = "<group>"; };
 		3EE4C1872C18EB780063BB9D /* SBLibraryCleanupOrphansOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBLibraryCleanupOrphansOperation.swift; sourceTree = "<group>"; };
+		3EE4C18F2C1E34680063BB9D /* SBStarrable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBStarrable.swift; sourceTree = "<group>"; };
 		3EF978012BC3C4E300C986E9 /* SBMessageTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBMessageTextView.swift; sourceTree = "<group>"; };
 		3EF978032BC4659B00C986E9 /* Binding+Nil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Nil.swift"; sourceTree = "<group>"; };
 		3EF978052BC49A9100C986E9 /* SBPropertyFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPropertyFieldView.swift; sourceTree = "<group>"; };
@@ -559,6 +561,7 @@
 				3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */,
 				3E94E5F52912EEC40080FDF6 /* SBNavigationItem.swift */,
 				3EB2BCCA2992F03A00DC5056 /* SBSearchResult.swift */,
+				3EE4C18F2C1E34680063BB9D /* SBStarrable.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -876,6 +879,7 @@
 				4C87EDC1139CDC260064DE2E /* SBSourceList.m in Sources */,
 				3E04F6362B7AD22600E24E56 /* SBCollectionView.swift in Sources */,
 				3E32BE4E2B8D4E4400E77CF0 /* SBLibraryPasteboardWriter.swift in Sources */,
+				3EE4C1902C1E34680063BB9D /* SBStarrable.swift in Sources */,
 				3E94E5F62912EEC40080FDF6 /* SBNavigationItem.swift in Sources */,
 				3EB2BCC12992D28A00DC5056 /* String+Hex.swift in Sources */,
 				3E0DAD5C29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift in Sources */,

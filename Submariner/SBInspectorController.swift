@@ -16,7 +16,8 @@ extension NSNotification.Name {
     static let SBPlaylistSelectionChanged = NSNotification.Name("SBPlaylistSelectionChanged")
 }
 
-@objc class SBInspectorController: SBViewController, ObservableObject {
+// does not inherit from SBViewController
+@objc class SBInspectorController: NSViewController, ObservableObject {
     @objc var databaseController: SBDatabaseController?
     var rootView: InspectorView?
     

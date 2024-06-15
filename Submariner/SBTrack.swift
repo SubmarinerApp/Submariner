@@ -12,7 +12,7 @@ import CoreData
 import UniformTypeIdentifiers
 
 @objc(SBTrack)
-public class SBTrack: SBMusicItem {
+public class SBTrack: SBMusicItem, SBStarrable {
     public override class func keyPathsForValuesAffectingValue(forKey key: String) -> Set<String> {
         if key == "durationString" {
             return Set(["duration"])

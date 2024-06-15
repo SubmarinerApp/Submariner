@@ -52,6 +52,17 @@
 
 
 
+#pragma mark - Properties
+
+- (NSArray<SBTrack*>*)selectedTracks {
+    return @[];
+}
+
+
+- (NSArray<id<SBStarrable>>*)selectedMusicItems {
+    return [self selectedTracks];
+}
+
 #pragma mark -
 #pragma mark Lifecycle
 
@@ -182,7 +193,7 @@
 
 - (SBSelectedRowStatus) selectedRowStatus:(NSArray<SBTrack*>*)trackList
 {
-    __block NSInteger downloadable = 0, showable = 0;
+    __block NSInteger downloadable = 0, showable = 0, favourited = 0;
     for (SBTrack *track in trackList) {
         if (track.isLocal.boolValue == YES || track.localTrack != nil) {
             showable++;
@@ -190,12 +201,17 @@
         if (track.isLocal.boolValue == NO && track.localTrack == nil) {
             downloadable++;
         }
+        if (track.starredBool) {
+            favourited++;
+        }
     }
     SBSelectedRowStatus status = 0;
     if (downloadable)
         status |= SBSelectedRowDownloadable;
     if (showable)
         status |= SBSelectedRowShowableInFinder;
+    if (favourited)
+        status |= SBSelectedRowFavourited;
     return status;
 }
 

@@ -11,7 +11,7 @@ import Foundation
 import CoreData
 
 @objc(SBAlbum)
-public class SBAlbum: SBMusicItem {
+public class SBAlbum: SBMusicItem, SBStarrable {
     static let nullCover = NSImage(systemSymbolName: "questionmark.square.dashed", accessibilityDescription: "No Album Art")
     
     override public func imageRepresentation() -> Any! {

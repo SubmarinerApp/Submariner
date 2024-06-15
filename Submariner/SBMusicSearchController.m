@@ -132,6 +132,16 @@
 }
 
 
+#pragma mark - Properties
+
+- (NSArray<SBTrack*>*) selectedTracks {
+    return [tracksController selectedObjects];
+}
+
+
+#pragma mark - IBActions
+
+
 - (IBAction)trackDoubleClick:(id)sender {
     NSInteger selectedRow = [tracksTableView selectedRow];
     if (selectedRow != -1) {

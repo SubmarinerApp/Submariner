@@ -188,6 +188,24 @@
 }
 
 
+#pragma mark - Properties
+
+- (NSArray<SBTrack*>*) selectedTracks {
+    return [tracksController selectedObjects];
+}
+
+
+- (NSArray<id<SBStarrable>>*) selectedMusicItems {
+    NSResponder *responder = self.databaseController.window.firstResponder;
+    if (responder == tracksTableView) {
+        return [tracksController selectedObjects];
+    } else if (responder == albumsCollectionView) {
+        return [albumsController selectedObjects];
+    }
+    return @[];
+}
+
+
 #pragma mark - 
 #pragma mark IBActions
 

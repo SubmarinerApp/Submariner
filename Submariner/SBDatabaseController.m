@@ -130,7 +130,7 @@
         serverPodcastController = [[SBServerPodcastController alloc] initWithManagedObjectContext:self.managedObjectContext];
         serverUserController = [[SBServerUserViewController alloc] initWithManagedObjectContext:self.managedObjectContext];
         serverSearchController = [[SBServerSearchController alloc] initWithManagedObjectContext:self.managedObjectContext];
-        inspectorController = [[SBInspectorController alloc] initWithManagedObjectContext:self.managedObjectContext];
+        inspectorController = [[SBInspectorController alloc] init];
         
         [onboardingController setDatabaseController:self];
         [musicController setDatabaseController:self];
@@ -156,6 +156,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBSubsonicConnectionFailedNotification" object:nil];
     // remove window observers
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidChangeOcclusionStateNotification object:nil];
+    // remove selection observers
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBTrackSelectionChanged" object:nil];
     // remove queue operations observer
     [[NSOperationQueue sharedServerQueue] removeObserver:self forKeyPath:@"operationCount"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -257,6 +259,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(windowDidChangeOcclusionState:)
                                                  name:NSWindowDidChangeOcclusionStateNotification
+                                               object:nil];
+    
+    // update the selectedMusicItem for binding (SBPlaylistSelectionChanged)
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(trackSelectionChanged:)
+                                                 name:@"SBTrackSelectionChanged"
                                                object:nil];
 
 
@@ -1410,7 +1418,14 @@
 }
 
 
+#pragma mark - Selection Notifications (Private)
 
+- (void)trackSelectionChanged: (NSNotification *)notification {
+    [self willChangeValueForKey: @"selectedMusicItems"];
+    [self willChangeValueForKey: @"selectedMusicItemsStarred"];
+    [self didChangeValueForKey: @"selectedMusicItemsStarred"];
+    [self didChangeValueForKey: @"selectedMusicItems"];
+}
 
 
 #pragma mark -
@@ -2038,6 +2053,44 @@
 - (void)setIsInspectorShown:(NSNumber *)isServerUsersShown {
     [self toggleInspector: nil];
 }
+
+- (NSArray<id<SBStarrable>>*) selectedMusicItems {
+    id target = [NSApp targetForAction: @selector(selectedMusicItems)];
+    if (target != self) {
+        return [target selectedMusicItems];
+    }
+    return nil;
+}
+
+- (BOOL) hasSelectedMusicItems {
+    return self.selectedMusicItems.count > 0;
+}
+
+- (NSControlStateValue) selectedMusicItemsStarred {
+    NSArray<id<SBStarrable>>* selected = [self selectedMusicItems];
+    // because NSArray has poor functionality for testing
+    int starredCount = 0;
+    for (id<SBStarrable> item in selected) {
+        if ([item starredBool])
+            starredCount++;
+    }
+    if (starredCount == 0) {
+        return NSControlStateValueOff;
+    } else if (starredCount == selected.count) {
+        return NSControlStateValueOn;
+    } else {
+        return NSControlStateValueMixed;
+    }
+}
+
+- (void)setSelectedMusicItemsStarred: (NSControlStateValue)newValue {
+    NSArray<id<SBStarrable>>* selected = [self selectedMusicItems];
+    for (id<SBStarrable> item in selected) {
+        item.starredBool = newValue;
+    }
+}
+
+
 
 @end
 

@@ -42,6 +42,10 @@ import Cocoa
                                  options: [.valueTransformerName: "SBTrackListLengthTransformer"])
     }
     
+    override var selectedTracks: [SBTrack]! {
+        return SBPlayer.sharedInstance().playlist[playlistTableView.selectedRowIndexes]
+    }
+    
     // #MARK: - IBActions
     
     @IBAction func playSelected(_ sender: Any) {

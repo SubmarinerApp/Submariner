@@ -59,14 +59,13 @@
 @class SBAnimatedView;
 @class SBVolumeButton;
 
-
 #define SBLibraryTableViewDataType @"com.submarinerapp.item-url-list"
 #define SBLibraryItemTableViewDataType @"com.submarinerapp.item-url-string"
 
 // forward declarations for Swift classes (otherwise it's painful to reference,
 // the swift bridging header can only be included in the impl)
 @class SBRoutePickerView, SBOnboardingController, SBTracklistButton;
-
+@protocol SBStarrable;
 
 @interface SBDatabaseController : SBWindowController <NSWindowDelegate, SBSourceListDelegate, SBSourceListDataSource, NSPageControllerDelegate> {
 @private
@@ -139,6 +138,10 @@
 @property (readonly, strong) IBOutlet NSNumber *isTracklistShown;
 @property (readonly, strong) IBOutlet NSNumber *isServerUsersShown;
 @property (readonly, strong) IBOutlet NSNumber *isInspectorShown;
+
+@property (nonatomic, strong, readonly) NSArray<id<SBStarrable>> *selectedMusicItems;
+@property (readonly) BOOL hasSelectedMusicItems;
+@property (readwrite) NSControlStateValue selectedMusicItemsStarred;
 
 - (BOOL)openImportAlert:(NSWindow *)sender files:(NSArray<NSURL*> *)files;
 

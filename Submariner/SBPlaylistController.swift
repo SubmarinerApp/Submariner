@@ -55,7 +55,7 @@ import Cocoa
         tracksController.arrangedObjects as? [SBTrack]
     }
     
-    var selectedTracks: [SBTrack]! {
+    override var selectedTracks: [SBTrack]! {
         tracksController.selectedObjects as? [SBTrack]
     }
     
