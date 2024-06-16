@@ -64,6 +64,18 @@
     [super willOpenMenu: menu withEvent: event];
 }
 
+
+- (BOOL)becomeFirstResponder {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SBFirstResponderBecame" object: self];
+    return [super becomeFirstResponder];
+}
+
+
+- (BOOL)resignFirstResponder {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SBFirstResponderNoLonger" object: self];
+    return [super resignFirstResponder];
+}
+
 #pragma mark -
 #pragma mark Header Menu Toggles
 

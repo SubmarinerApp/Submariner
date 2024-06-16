@@ -156,6 +156,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBSubsonicConnectionFailedNotification" object:nil];
     // remove window observers
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidChangeOcclusionStateNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBFirstResponderBecame" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBFirstResponderNoLonger" object:nil];
     // remove selection observers
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBTrackSelectionChanged" object:nil];
     // remove queue operations observer
@@ -263,8 +265,16 @@
     
     // update the selectedMusicItem for binding (SBPlaylistSelectionChanged)
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(trackSelectionChanged:)
+                                             selector:@selector(updateMenuBindings:)
                                                  name:@"SBTrackSelectionChanged"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateMenuBindings:)
+                                                 name:@"SBFirstResponderBecame"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateMenuBindings:)
+                                                 name:@"SBFirstResponderNoLonger"
                                                object:nil];
 
 
@@ -1418,11 +1428,15 @@
 }
 
 
-#pragma mark - Selection Notifications (Private)
+#pragma mark - First Responder/Selection Notifications (Private)
+// this is so that the bindings in the menu may update if i.e. the current first responder changes to a different table;
+// it may do so for track selection or first responder updating. tell cocoa bindings to update by firing events on the relevant cases
 
-- (void)trackSelectionChanged: (NSNotification *)notification {
+- (void)updateMenuBindings: (NSNotification *)notification {
     [self willChangeValueForKey: @"selectedMusicItems"];
     [self willChangeValueForKey: @"selectedMusicItemsStarred"];
+    [self willChangeValueForKey: @"hasSelectedMusicItems"];
+    [self didChangeValueForKey: @"hasSelectedMusicItems"];
     [self didChangeValueForKey: @"selectedMusicItemsStarred"];
     [self didChangeValueForKey: @"selectedMusicItems"];
 }

@@ -35,4 +35,16 @@ import Cocoa
         let indexPaths = Set(indices.map { IndexPath(item: $0, section: 0) })
         self.selectItems(at: indexPaths, scrollPosition: scrollPosition)
     }
+    
+    // #MARK: - First Responder notification
+    
+    override func becomeFirstResponder() -> Bool {
+        NotificationCenter.default.post(name: .init(rawValue: "SBFirstResponderBecame"), object: self)
+        return super.becomeFirstResponder()
+    }
+    
+    override func resignFirstResponder() -> Bool {
+        NotificationCenter.default.post(name: .init(rawValue: "SBFirstResponderNoLonger"), object: self)
+        return super.resignFirstResponder()
+    }
 }
