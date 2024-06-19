@@ -10,6 +10,14 @@ import Cocoa
 
 extension String {
     fileprivate static let iso8601Formatter = ISO8601DateFormatter()
+    // Navidrome returns fractional time, but ISO8601DateFormatter will reject it.
+    // The .withFractionalSeconds option is what we want, but it mandates fractional seconds then.
+    // Have two formatters to try to use. To have one is blocking on FB13972481.
+    fileprivate static let iso8601FractionalFormatter: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        return formatter
+    }()
     fileprivate static let rfc3339DateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
@@ -26,7 +34,7 @@ extension String {
     }()
     
     func dateTimeFromISO() -> Date? {
-        return String.iso8601Formatter.date(from: self as String)
+        return String.iso8601Formatter.date(from: self as String) ?? String.iso8601FractionalFormatter.date(from: self as String)
     }
     
     func dateTimeFromRFC3339() -> Date? {
