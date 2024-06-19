@@ -183,6 +183,10 @@ import Cocoa
         return true
     }
     
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        NotificationCenter.default.post(name: .SBTrackSelectionChanged, object: selectedTracks)
+    }
+    
     // #MARK: - UI Validator
     
     func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
