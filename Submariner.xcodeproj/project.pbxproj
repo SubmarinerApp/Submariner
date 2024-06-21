@@ -23,6 +23,7 @@
 		3E04F6462B7DE4C300E24E56 /* SBPreviousTrackCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F6452B7DE4C300E24E56 /* SBPreviousTrackCommand.swift */; };
 		3E04F6482B7DE4D000E24E56 /* SBNextTrackCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E04F6472B7DE4D000E24E56 /* SBNextTrackCommand.swift */; };
 		3E0DAD5C29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */; };
+		3E0FDDDA2C24FDD000910E49 /* MutableCollection+Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0FDDD92C24FDD000910E49 /* MutableCollection+Move.swift */; };
 		3E189E4028EF5BAB0062ACA0 /* SBAudioMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */; };
 		3E1B785E2ACE5039008927C6 /* SBInspectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B785D2ACE5039008927C6 /* SBInspectorController.swift */; };
 		3E1C6C432A5264570085B578 /* SBOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1C6C422A5264570085B578 /* SBOperation.swift */; };
@@ -42,7 +43,6 @@
 		3E53DBBA27E4192B00DB4C84 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBB927E4192B00DB4C84 /* AVFoundation.framework */; };
 		3E53DBBC27E41B6400DB4C84 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */; };
 		3E5C42E029846E25009B9699 /* SBOnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5C42DE29846E25009B9699 /* SBOnboardingController.swift */; };
-		3E69507D2A707A2A006E5868 /* NSIndexSet+Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E69507C2A707A2A006E5868 /* NSIndexSet+Array.swift */; };
 		3E69A2FF28B02D86009800D8 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E69A2FD28B02D86009800D8 /* UserNotifications.framework */; };
 		3E702DE32A3E8E1F005F7184 /* SBAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E702DE22A3E8E1F005F7184 /* SBAppDelegate.swift */; };
 		3E702DE72A428A1B005F7184 /* Synchronized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E702DE62A428A1B005F7184 /* Synchronized.swift */; };
@@ -180,6 +180,7 @@
 		3E04F6452B7DE4C300E24E56 /* SBPreviousTrackCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPreviousTrackCommand.swift; sourceTree = "<group>"; };
 		3E04F6472B7DE4D000E24E56 /* SBNextTrackCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBNextTrackCommand.swift; sourceTree = "<group>"; };
 		3E0DAD5B29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTrackListLengthTransformer.swift; sourceTree = "<group>"; };
+		3E0FDDD92C24FDD000910E49 /* MutableCollection+Move.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MutableCollection+Move.swift"; sourceTree = "<group>"; };
 		3E189E3228EBBAC40062ACA0 /* Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Shared.xcconfig; sourceTree = "<group>"; };
 		3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBAudioMetadata.swift; sourceTree = "<group>"; };
 		3E1B785D2ACE5039008927C6 /* SBInspectorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBInspectorController.swift; sourceTree = "<group>"; };
@@ -205,7 +206,6 @@
 		3E5C41DB297F2E15009B9699 /* Submariner v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Submariner v3.xcdatamodel"; sourceTree = "<group>"; };
 		3E5C42DE29846E25009B9699 /* SBOnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBOnboardingController.swift; sourceTree = "<group>"; };
 		3E6126EB2AD7363100B2A1E2 /* Submariner v4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Submariner v4.xcdatamodel"; sourceTree = "<group>"; };
-		3E69507C2A707A2A006E5868 /* NSIndexSet+Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSIndexSet+Array.swift"; sourceTree = "<group>"; };
 		3E69A2FD28B02D86009800D8 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		3E702DE22A3E8E1F005F7184 /* SBAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBAppDelegate.swift; sourceTree = "<group>"; };
 		3E702DE62A428A1B005F7184 /* Synchronized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Synchronized.swift; sourceTree = "<group>"; };
@@ -605,10 +605,10 @@
 				3E87E90F2B4364CF00E85000 /* Collection+IndexSet.swift */,
 				3E04F63A2B7CA48400E24E56 /* Data+Random.swift */,
 				3EB2BCC22992D94E00DC5056 /* Data+Type.swift */,
+				3E0FDDD92C24FDD000910E49 /* MutableCollection+Move.swift */,
 				4C87EDAE139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.h */,
 				4C87EDAF139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m */,
 				3EB2BCC82992E85F00DC5056 /* NSImage+Additions.swift */,
-				3E69507C2A707A2A006E5868 /* NSIndexSet+Array.swift */,
 				3E87E9132B460FFB00E85000 /* NSManagedObjectContext+Fetch.swift */,
 				4CFB3E05139CEA76008DC01A /* NSOutlineView+Expand.h */,
 				4CFB3E06139CEA76008DC01A /* NSOutlineView+Expand.m */,
@@ -934,6 +934,7 @@
 				3EC03B4C29F4F2E0001FDE50 /* SBServer.swift in Sources */,
 				3E04F6422B7DE48400E24E56 /* SBPlayCommand.swift in Sources */,
 				3E2F86CB28DD36E600C5CE23 /* SBMonospaceTextField.swift in Sources */,
+				3E0FDDDA2C24FDD000910E49 /* MutableCollection+Move.swift in Sources */,
 				3EB2BCCB2992F03A00DC5056 /* SBSearchResult.swift in Sources */,
 				3EB2BCC52992DA8E00DC5056 /* String+File.swift in Sources */,
 				3EB2BCCF2992F3CA00DC5056 /* SBVolumeButton.swift in Sources */,
@@ -943,7 +944,6 @@
 				4CFAFC7D13A0F7E000E82B57 /* SBAnimatedView.m in Sources */,
 				3EC03B3629F4F2E0001FDE50 /* SBEpisode.swift in Sources */,
 				3EC03AC529F42C95001FDE50 /* URL+Parameters.swift in Sources */,
-				3E69507D2A707A2A006E5868 /* NSIndexSet+Array.swift in Sources */,
 				3EC03B6329F5B0E2001FDE50 /* SBServer+CoreDataProperties.swift in Sources */,
 				3EC03B4429F4F2E0001FDE50 /* SBGroup.swift in Sources */,
 				3EB2BCC32992D94E00DC5056 /* Data+Type.swift in Sources */,

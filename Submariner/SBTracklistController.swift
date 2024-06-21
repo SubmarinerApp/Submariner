@@ -153,18 +153,7 @@ import Cocoa
         // XXX: For some reason, draggingSourceOperationMask has all bits set?
         if let sourceTable = info.draggingSource as? SBTableView, sourceTable == playlistTableView {
             let rowIndexes = info.draggingPasteboard.rowIndices()
-            SBPlayer.sharedInstance().move(trackIndexSet: rowIndexes, index: row)
-            
-            // change selection to match new indices, since Array.move doesn't return them
-            var newRow = row
-            for index in rowIndexes {
-                if index < newRow {
-                    newRow -= 1
-                }
-            }
-            let lastRow = newRow + rowIndexes.count - 1
-            let newRange = newRow...lastRow
-            let newIndexSet = IndexSet(integersIn: newRange)
+            let newIndexSet = SBPlayer.sharedInstance().move(trackIndexSet: rowIndexes, index: row)
             playlistTableView.selectRowIndexes(newIndexSet, byExtendingSelection: false)
         } else if let tracks = info.draggingPasteboard.libraryItems(managedObjectContext: self.managedObjectContext) {
             // handles both kinds of library track

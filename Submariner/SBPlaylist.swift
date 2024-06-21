@@ -61,8 +61,8 @@ public class SBPlaylist: SBResource {
         trackIDs?.remove(atOffsets: indices)
     }
     
-    @objc(moveIndices:toRow:) func moveTracks(fromOffsets indices: IndexSet, toOffset row: Int) {
-        trackIDs?.move(fromOffsets: indices, toOffset: row)
+    @objc(moveIndices:toRow:) func moveTracks(fromOffsets indices: IndexSet, toOffset row: Int) -> IndexSet? {
+        return trackIDs?.moveReturningNewIndices(fromOffsets: indices, toOffset: row)
     }
     
     // #MARK: - Core Data insert compatibility shim

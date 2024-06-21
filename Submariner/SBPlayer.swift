@@ -488,7 +488,7 @@ extension NSNotification.Name {
         NotificationCenter.default.post(name: .SBPlayerPlaylistUpdated, object: self)
     }
     
-    @objc(moveTrackIndexSet:toIndex:) func move(trackIndexSet: IndexSet, index: Int) {
+    @objc(moveTrackIndexSet:toIndex:) func move(trackIndexSet: IndexSet, index: Int) -> IndexSet {
         // TODO: Avoid making a copy of the playlist here, and calculate the new offset instead
         if let currentIndex = self.currentIndex {
             var playlistWithIndices = playlist.enumerated().map { ($0, $1) }
@@ -497,8 +497,9 @@ extension NSNotification.Name {
                 return i == currentIndex
             }
         }
-        playlist.move(fromOffsets: trackIndexSet, toOffset: index)
+        let newIndexSet = playlist.moveReturningNewIndices(fromOffsets: trackIndexSet, toOffset: index)
         NotificationCenter.default.post(name: .SBPlayerPlaylistUpdated, object: self)
+        return newIndexSet
     }
     
     // #MARK: - Playlist+Playback Frontend Helpers
