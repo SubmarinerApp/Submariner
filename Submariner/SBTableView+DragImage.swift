@@ -32,7 +32,9 @@ extension SBTableView {
     func setDragImage(of item: NSDraggingItem, for row: Int, at screenPoint: NSPoint) {
         // Find the left edge of the row by converting the header view origin to
         // the table view coordinate
-        var headerOrigin = convert(headerView?.frame.origin ?? NSZeroPoint, fromDescendant: headerView)
+        // If the header view doesn't exist (i.e. tracklist), let's use our superview,
+        // since we can't use ourself.
+        var headerOrigin = convert(headerView?.frame.origin ?? NSZeroPoint, fromDescendant: headerView ?? self.superview)
         
         // Generate the drag image from the current row with all the columns
         var p: NSPoint = .zero

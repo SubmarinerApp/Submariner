@@ -52,6 +52,11 @@ public class SBPlaylist: SBResource {
         trackIDs?.append(contentsOf: additionalIDs)
     }
     
+    func add(tracks: [SBTrack], at row: Int) {
+        let additionalIDs = tracks.map { $0.objectID.uriRepresentation() }
+        trackIDs?.insert(contentsOf: additionalIDs, at: row)
+    }
+    
     func remove(indices: IndexSet) {
         trackIDs?.remove(atOffsets: indices)
     }

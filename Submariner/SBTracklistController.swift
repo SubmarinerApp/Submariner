@@ -27,7 +27,7 @@ import Cocoa
         
         title = "Tracklist"
         
-        playlistTableView.registerForDraggedTypes([.libraryItems, .libraryItem, .tracklistIndices])
+        playlistTableView.registerForDraggedTypes([.libraryItems, .libraryItem])
         
         notificationObserver = NotificationCenter.default.addObserver(forName: .SBPlayerPlaylistUpdated,
                                                                       object: nil,
@@ -126,18 +126,12 @@ import Cocoa
     
     // #MARK: - NSTableView Delegate
     
-    // FIXME: Replace with tableView:pasteboardWriterForRow:?
-    func tableView(_ tableView: NSTableView, writeRowsWith rowIndexes: IndexSet, to pboard: NSPasteboard) -> Bool {
-        do {
-            let data = try NSKeyedArchiver.archivedData(withRootObject: rowIndexes, requiringSecureCoding: true)
-            
-            pboard.declareTypes([.tracklistIndices], owner: self)
-            pboard.setData(data, forType: .tracklistIndices)
-            
-            return true
-        } catch {
-            return false
+    func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> (any NSPasteboardWriting)? {
+        if tableView == playlistTableView {
+            let track = SBPlayer.sharedInstance().playlist[row]
+            return SBLibraryItemPasteboardWriter(item: track, index: row)
         }
+        return nil
     }
     
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
@@ -145,23 +139,20 @@ import Cocoa
             return []
         }
         
-        if let types = info.draggingPasteboard.types {
-            if types.contains(.tracklistIndices) {
-                return .move
-            } else if types.contains(.libraryItems) || types.contains(.libraryItem) { // for cursor
-                return .copy
-            }
+        if let sourceTable = info.draggingSource as? SBTableView, sourceTable == playlistTableView {
+            return .move
+        } else if info.draggingPasteboard.libraryItems() != nil {
+            return .copy
         }
-        
         return []
     }
     
     static let allowedClasses = [NSIndexSet.self, NSArray.self, NSURL.self]
     
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
-        if let data = info.draggingPasteboard.data(forType: .tracklistIndices),
-           let rowIndexes = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: SBTracklistController.allowedClasses,
-                                                                    from: data) as? IndexSet {
+        // XXX: For some reason, draggingSourceOperationMask has all bits set?
+        if let sourceTable = info.draggingSource as? SBTableView, sourceTable == playlistTableView {
+            let rowIndexes = info.draggingPasteboard.rowIndices()
             SBPlayer.sharedInstance().move(trackIndexSet: rowIndexes, index: row)
             
             // change selection to match new indices, since Array.move doesn't return them

@@ -20,8 +20,6 @@ extension NSPasteboard.PasteboardType {
     ///
     /// Usually multiple of these will exist on a pasteboard.
     static let libraryItem = NSPasteboard.PasteboardType(rawValue: "com.submarinerapp.item-url-string")
-    /// Tracks from the tracklist, represented as an index set.
-    static let tracklistIndices = NSPasteboard.PasteboardType(rawValue: "com.submarinerapp.tracklist-indices")
     /// The index of a row, as a raw integer in a Data wrapper.
     static let rowIndex = NSPasteboard.PasteboardType(rawValue: "com.submarinerapp.row-index")
 }

@@ -142,27 +142,45 @@ import Cocoa
     }
     
     func tableView(_ tableView: NSTableView, validateDrop info: any NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
-        // internal drop track
-        if row != -1 && dropOperation == .above && info.draggingPasteboard.libraryItems() != nil {
-            return .move
+        guard row != -1 && dropOperation == .above else {
+            return []
         }
         
+        if let sourceTable = info.draggingSource as? SBTableView, sourceTable == tracksTableView {
+            return .move
+        } else if info.draggingPasteboard.libraryItems() != nil {
+            return .copy
+        }
         return []
     }
     
     func tableView(_ tableView: NSTableView, acceptDrop info: any NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
-        if info.draggingSourceOperationMask.contains(.move) {
+        // XXX: For some reason, draggingSourceOperationMask has all bits set?
+        if let sourceTable = info.draggingSource as? SBTableView, sourceTable == tracksTableView {
             let indices = info.draggingPasteboard.rowIndices()
-            
             playlist.moveTracks(fromOffsets: indices, toOffset: row)
             
-            tracksController.rearrangeObjects()
-            tracksTableView.reloadData()
-            
-            // submit changes to server, this uses createPlaylist behind the scenes since we can reorder with it
-            if let server = playlist.server, let playlistID = playlist.itemId {
-                server.updatePlaylist(ID: playlistID, tracks: tracks)
+            // change selection to match new indices, since Array.move doesn't return them
+            var newRow = row
+            for index in indices {
+                if index < newRow {
+                    newRow -= 1
+                }
             }
+            let lastRow = newRow + indices.count - 1
+            let newRange = newRow...lastRow
+            let newIndexSet = IndexSet(integersIn: newRange)
+            tracksTableView.selectRowIndexes(newIndexSet, byExtendingSelection: false)
+        } else if let tracks = info.draggingPasteboard.libraryItems(managedObjectContext: self.managedObjectContext) {
+            playlist.add(tracks: tracks, at: row)
+        }
+        
+        tracksController.rearrangeObjects()
+        tracksTableView.reloadData()
+        
+        // submit changes to server, this uses createPlaylist behind the scenes since we can reorder with it
+        if let server = playlist.server, let playlistID = playlist.itemId {
+            server.updatePlaylist(ID: playlistID, tracks: tracks)
         }
         return true
     }
