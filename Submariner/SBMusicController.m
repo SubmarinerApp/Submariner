@@ -177,6 +177,16 @@
 }
 
 
+- (NSArray<SBAlbum*>*) selectedAlbums {
+    return [albumsController selectedObjects];
+}
+
+
+- (NSArray<SBArtist*>*) selectedArtists {
+    return [artistsController selectedObjects];
+}
+
+
 - (NSArray<id<SBStarrable>>*) selectedMusicItems {
     NSResponder *responder = self.databaseController.window.firstResponder;
     if (responder == tracksTableView) {

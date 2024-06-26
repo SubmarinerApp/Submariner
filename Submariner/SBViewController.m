@@ -59,6 +59,16 @@
 }
 
 
+- (NSArray<SBAlbum*>*)selectedAlbums {
+    return @[];
+}
+
+
+- (NSArray<SBArtist*>*)selectedArtists {
+    return @[];
+}
+
+
 - (NSArray<id<SBStarrable>>*)selectedMusicItems {
     return [self selectedTracks];
 }

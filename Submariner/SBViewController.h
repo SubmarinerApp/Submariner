@@ -37,7 +37,7 @@
 
 // forward declare since importing is not good here
 @class SBDatabaseController;
-@class SBTrack;
+@class SBTrack, SBAlbum, SBArtist;
 @protocol SBStarrable;
 
 @interface SBViewController : NSViewController {
@@ -50,6 +50,8 @@
 @property (nonatomic, strong, readwrite) NSManagedObjectContext *managedObjectContext;
 
 @property (nonatomic, strong, readonly) NSArray<SBTrack*> *selectedTracks;
+@property (nonatomic, strong, readonly) NSArray<SBAlbum*> *selectedAlbums;
+@property (nonatomic, strong, readonly) NSArray<SBArtist*> *selectedArtists;
 @property (nonatomic, strong, readonly) NSArray<id<SBStarrable>> *selectedMusicItems;
 
 + (NSString *)nibName;
