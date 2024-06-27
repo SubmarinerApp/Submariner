@@ -10,6 +10,6 @@
 
 import Foundation
 
-@objc(SBStarrable) protocol SBStarrable {
+@objc(SBStarrable) protocol SBStarrable: NSObjectProtocol {
     @objc var starredBool: Bool { get set }
 }
