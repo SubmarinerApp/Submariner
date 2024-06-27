@@ -62,32 +62,6 @@ import Cocoa
         SBPlayer.sharedInstance().clear()
     }
     
-    @IBAction func showSelectedInFinder(_ sender: Any) {
-        if playlistTableView.selectedRow != -1 {
-            self.showTracksInFinder(SBPlayer.sharedInstance().playlist, selectedIndices: playlistTableView.selectedRowIndexes)
-        }
-    }
-    
-    @IBAction func showSelectedInLibrary(_ sender: Any) {
-        if playlistTableView.selectedRow != -1 {
-            // only makes sense with a single track
-            let track = SBPlayer.sharedInstance().playlist[playlistTableView.selectedRow]
-            databaseController.go(to: track)
-        }
-    }
-    
-    @IBAction func downloadSelected(_ sender: Any) {
-        if playlistTableView.selectedRow != -1 {
-            self.downloadTracks(SBPlayer.sharedInstance().playlist, selectedIndices: playlistTableView.selectedRowIndexes, databaseController: databaseController)
-        }
-    }
-    
-    @IBAction func createNewLocalPlaylistWithSelectedTracks(_ sender: Any) {
-        if playlistTableView.selectedRow != -1 {
-            self.createLocalPlaylist(withSelected: SBPlayer.sharedInstance().playlist, selectedIndices: playlistTableView.selectedRowIndexes, databaseController: databaseController)
-        }
-    }
-    
     // #MARK: - NSTableView DataSource
     
     func numberOfRows(in tableView: NSTableView) -> Int {

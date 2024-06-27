@@ -56,12 +56,6 @@
 @property (readwrite, strong) NSArray *trackSortDescriptor;
 
 - (IBAction)trackDoubleClick:(id)sender;
-- (IBAction)albumDoubleClick:(id)sender;
-- (IBAction)addAlbumToTracklist:(id)sender;
-- (IBAction)addTrackToTracklist:(id)sender;
-- (IBAction)createNewPlaylistWithSelectedTracks:(id)sender;
-- (IBAction)downloadTrack:(id)sender;
-- (IBAction)downloadAlbum:(id)sender;
 
 - (IBAction)reloadSelected:(id)sender;
 

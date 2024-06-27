@@ -246,83 +246,6 @@
 #pragma mark - 
 #pragma mark IBActions
 
-- (IBAction)addArtistToTracklist:(id)sender {
-    NSInteger selectedRow = [artistsTableView selectedRow];
-    
-    if(selectedRow != -1) {
-        SBArtist *artist = [[artistsController arrangedObjects] objectAtIndex:selectedRow];
-        NSMutableArray *tracks = [NSMutableArray array];
-        
-        for(SBAlbum *album in artist.albums) {
-            [tracks addObjectsFromArray:[album.tracks sortedArrayUsingDescriptors:trackSortDescriptor]];
-        }
-        
-        [[SBPlayer sharedInstance] addTrackArray:tracks replace:NO];
-    }
-}
-
-
-- (IBAction)addAlbumToTracklist:(id)sender {
-    NSIndexSet *indexSet = [albumsController selectionIndexes];
-    NSInteger selectedRow = [indexSet firstIndex];
-    
-    if(selectedRow != -1) {
-        SBAlbum *album = [[albumsController arrangedObjects] objectAtIndex:selectedRow];
-        [[SBPlayer sharedInstance] addTrackArray:[album.tracks sortedArrayUsingDescriptors:trackSortDescriptor] replace:NO];
-    }
-}
-
-
-- (IBAction)addTrackToTracklist:(id)sender {
-    NSIndexSet *indexSet = [tracksTableView selectedRowIndexes];
-    NSMutableArray *tracks = [NSMutableArray array];
-    
-    [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        [tracks addObject:[[tracksController arrangedObjects] objectAtIndex:idx]];
-    }];
-    
-    [[SBPlayer sharedInstance] addTrackArray:tracks replace:NO];
-}
-
-
-- (IBAction)addSelectedToTracklist:(id)sender {
-    NSResponder *responder = self.databaseController.window.firstResponder;
-    if (responder == tracksTableView) {
-        [self addTrackToTracklist: self];
-    } else if (responder == albumsCollectionView) {
-        [self addAlbumToTracklist: self];
-    } else if (responder == artistsTableView) {
-        [self addArtistToTracklist: self];
-    }
-}
-
-
-- (IBAction)createNewLocalPlaylistWithSelectedTracks:(id)sender {
-    NSInteger selectedRow = [tracksTableView selectedRow];
-    
-    if(selectedRow == -1) {
-        return;
-    }
-    
-    [self createLocalPlaylistWithSelected: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes databaseController: self.databaseController];
-}
-
-
-- (IBAction)createNewPlaylistWithSelectedTracks:(id)sender {
-    // get selected rows track objects
-    NSIndexSet *rowIndexes = [tracksTableView selectedRowIndexes];
-    NSMutableArray *tracks = [NSMutableArray array];
-    
-    // create an IDs array
-    [rowIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        [tracks addObject:[[tracksController arrangedObjects] objectAtIndex:idx]];
-    }];
-    
-    [databaseController.addServerPlaylistController setServer:self.server];
-    [databaseController.addServerPlaylistController setTracks:tracks];
-    [databaseController.addServerPlaylistController openSheet:sender];
-}
-
 
 - (IBAction)filterArtist:(id)sender {
     
@@ -352,19 +275,6 @@
     }
 }
 
-- (IBAction)albumDoubleClick:(id)sender {
-    NSIndexSet *indexSet = [albumsController selectionIndexes];
-    NSInteger selectedRow = [indexSet firstIndex];
-    if(selectedRow != -1) {
-        SBAlbum *doubleClickedAlbum = [[albumsController arrangedObjects] objectAtIndex:selectedRow];
-        if(doubleClickedAlbum) {
-            
-            NSArray *tracks = [doubleClickedAlbum.tracks sortedArrayUsingDescriptors:trackSortDescriptor];
-            [[SBPlayer sharedInstance] playTracks: tracks startingAt: 0];
-        }
-    }
-}
-
 
 - (IBAction)playSelected:(id)sender {
     NSResponder *responder = self.databaseController.window.firstResponder;
@@ -372,59 +282,6 @@
         [self trackDoubleClick: self];
     } else if (responder == albumsCollectionView) {
         [self albumDoubleClick: self];
-    }
-}
-
-
-- (IBAction)showSelectedInFinder:(id)sender {
-    NSInteger selectedRow = [tracksTableView selectedRow];
-    
-    if(selectedRow == -1) {
-        return;
-    }
-    
-    [self showTracksInFinder: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes];
-}
-
-
-- (IBAction)downloadTrack:(id)sender {
-    NSInteger selectedRow = [tracksTableView selectedRow];
-    
-    if(selectedRow != -1) {
-        [self downloadTracks: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes databaseController: databaseController];
-    }
-}
-
- 
-- (IBAction)downloadAlbum:(id)sender{
-    NSIndexSet *indexSet = [albumsController selectionIndexes];
-    NSInteger selectedRow = [indexSet firstIndex];
-    if(selectedRow != -1) {
-        SBAlbum *doubleClickedAlbum = [[albumsController arrangedObjects] objectAtIndex:selectedRow];
-        if(doubleClickedAlbum) {
-            
-            [databaseController showDownloadView: self];
-			
-            NSArray *tracks = [doubleClickedAlbum.tracks sortedArrayUsingDescriptors:trackSortDescriptor];
-            
-            for(SBTrack *track in tracks) {
-                SBSubsonicDownloadOperation *op = [[SBSubsonicDownloadOperation alloc]
-                                                   initWithManagedObjectContext: self.managedObjectContext
-                                                   trackID: [track objectID]];
-                
-                [[NSOperationQueue sharedDownloadQueue] addOperation:op];
-            }
-        }
-    }
-}
-
-
-- (IBAction)downloadSelected:(id)sender {
-    NSResponder *responder = self.databaseController.window.firstResponder;
-    if (responder == tracksTableView) {
-        [self downloadTrack: self];
-    } else if (responder == albumsCollectionView) {
-        [self downloadAlbum: self];
     }
 }
 

@@ -47,4 +47,6 @@
 
 - (id)initWithServer:(SBServer *)server context:(NSManagedObjectContext *)context;
 
+- (IBAction)createNewPlaylistWithSelectedTracks:(id)sender;
+
 @end

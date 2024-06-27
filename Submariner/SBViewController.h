@@ -61,6 +61,20 @@
 + (NSString *)nibName;
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context;
 
+// Shared IBActions for view controllers
+- (IBAction)albumDoubleClick:(id)sender;
+- (IBAction)addArtistToTracklist:(id)sender;
+- (IBAction)addAlbumToTracklist:(id)sender;
+- (IBAction)addTrackToTracklist:(id)sender;
+- (IBAction)addSelectedToTracklist:(id)sender;
+- (IBAction)createNewLocalPlaylistWithSelectedTracks:(id)sender;
+- (IBAction)downloadTrack:(id)sender;
+- (IBAction)downloadAlbum:(id)sender;
+- (IBAction)downloadSelected:(id)sender;
+- (IBAction)showSelectedInLibrary:(id)sender;
+- (IBAction)showTrackInFinder:(id)sender;
+- (IBAction)showSelectedInFinder:(id)sender;
+
 // Helper functions for library views (XXX: Is this the best place for them?)
 -(void)showTracksInFinder:(NSArray<SBTrack*>*)trackList selectedIndices:(NSIndexSet*)indexSet NS_SWIFT_NAME(showTracksInFinder(_:selectedIndices:));
 -(void)showTracksInFinder:(NSArray<SBTrack*>*)trackList NS_SWIFT_NAME(showTracksInFinder(_:));

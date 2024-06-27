@@ -56,5 +56,14 @@
 }
 
 
+#pragma mark - IBActions
+
+
+- (IBAction)createNewPlaylistWithSelectedTracks:(id)sender {
+    [databaseController.addServerPlaylistController setServer:self.server];
+    [databaseController.addServerPlaylistController setTracks:self.selectedTracks];
+    [databaseController.addServerPlaylistController openSheet:sender];
+}
+
 
 @end

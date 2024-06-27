@@ -152,54 +152,6 @@
 }
 
 
-- (IBAction)addSelectedToTracklist:(id)sender {
-    NSIndexSet *indexSet = [tracksTableView selectedRowIndexes];
-    NSMutableArray *tracks = [NSMutableArray array];
-    
-    [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        [tracks addObject:[[tracksController arrangedObjects] objectAtIndex:idx]];
-    }];
-    
-    [[SBPlayer sharedInstance] addTrackArray:tracks replace:NO];
-}
-
-
-- (IBAction)showSelectedInFinder:(id)sender {
-    NSInteger selectedRow = [tracksTableView selectedRow];
-    
-    if(selectedRow == -1) {
-        return;
-    }
-    
-    [self showTracksInFinder: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes];
-}
-
-
-- (IBAction)showSelectedInLibrary:(id)sender {
-    NSInteger selectedRow = [tracksTableView selectedRow];
-    
-    if(selectedRow == -1) {
-        return;
-    }
-    
-    // only makes sense to have a single track, imho
-    NSUInteger index = tracksTableView.selectedRowIndexes.firstIndex;
-    SBTrack *track = (SBTrack*)[tracksController.arrangedObjects objectAtIndex: index];
-    [[self databaseController] goToTrack: track];
-}
-
-
-- (IBAction)createNewLocalPlaylistWithSelectedTracks:(id)sender {
-    NSInteger selectedRow = [tracksTableView selectedRow];
-    
-    if(selectedRow == -1) {
-        return;
-    }
-    
-    [self createLocalPlaylistWithSelected: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes databaseController: self.databaseController];
-}
-
-
 
 #pragma mark -
 #pragma mark NSTableView (Drag & Drop)

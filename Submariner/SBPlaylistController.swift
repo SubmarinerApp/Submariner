@@ -70,10 +70,6 @@ import Cocoa
         self.trackDoubleClick(sender)
     }
     
-    @IBAction func addSelectedToTracklist(_ sender: Any) {
-        SBPlayer.sharedInstance().add(tracks: selectedTracks, replace: false)
-    }
-    
     @IBAction func removeTrack(_ sender: Any) {
         if selectedTracks.count > 0 {
             let alert = NSAlert()
@@ -104,30 +100,6 @@ import Cocoa
     
     @IBAction func delete(_ sender: Any) {
         self.removeTrack(sender)
-    }
-    
-    @IBAction func showSelectedInFinder(_ sender: Any) {
-        if tracksTableView.selectedRow != -1 {
-            self.showTracksInFinder(tracks, selectedIndices: tracksTableView.selectedRowIndexes)
-        }
-    }
-    
-    @IBAction func downloadSelected(_ sender: Any) {
-        if tracksTableView.selectedRow != -1 {
-            self.downloadTracks(tracks, selectedIndices: tracksTableView.selectedRowIndexes, databaseController: databaseController)
-        }
-    }
-    
-    @IBAction func createNewLocalPlaylistWithSelectedTracks(_ sender: Any) {
-        if tracksTableView.selectedRow != -1 {
-            self.createLocalPlaylist(withSelected: tracks, selectedIndices: tracksTableView.selectedRowIndexes, databaseController: databaseController)
-        }
-    }
-    
-    @IBAction func showSelectedInLibrary(_ sender: Any) {
-        if let first = selectedTracks.first {
-            databaseController.go(to: first)
-        }
     }
     
     // #MARK: - NSTableView (Drag & Drop)

@@ -71,32 +71,6 @@ import Cocoa
         }
     }
     
-    @IBAction func addSelectedToTracklist(_ sender: Any) {
-        SBPlayer.sharedInstance().add(tracks: selectedTracks, replace: false)
-    }
-    
-    @IBAction func downloadSelected(_ sender: Any) {
-        if tracksTableView.selectedRow != -1 {
-            self.downloadTracks(selectedTracks, databaseController: databaseController)
-        }
-    }
-    
-    @IBAction func showSelectedInFinder(_ sender: Any) {
-        if tracksTableView.selectedRow != -1 {
-            self.showTracksInFinder(selectedTracks)
-        }
-    }
-    
-    @IBAction func showSelectedInLibrary(_ sender: Any) {
-        if let selectedTrack = selectedTracks.first {
-            databaseController.go(to: selectedTrack)
-        }
-    }
-    
-    @IBAction func createNewLocalPlaylistWithSelectedTracks(_ sender: Any) {
-        self.createLocalPlaylist(withSelected: selectedTracks, databaseController: databaseController)
-    }
-    
     // #MARK: - NSTableView Delegate
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {

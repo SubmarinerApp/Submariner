@@ -71,11 +71,6 @@
 - (IBAction)trackDoubleClick:(id)sender;
 - (IBAction)playSelected:(id)sender;
 
-- (IBAction)addArtistToTracklist:(id)sender;
-- (IBAction)addAlbumToTracklist:(id)sender;
-- (IBAction)addTrackToTracklist:(id)sender;
-- (IBAction)addSelectedToTracklist:(id)sender;
-
 - (IBAction)removeArtist:(id)sender;
 - (IBAction)removeAlbum:(id)sender;
 - (IBAction)removeTrack:(id)sender;
@@ -83,8 +78,6 @@
 
 - (IBAction)showArtistInFinder:(id)sender;
 - (IBAction)showAlbumInFinder:(id)sender;
-- (IBAction)showTrackInFinder:(id)sender;
-- (IBAction)showSelectedInFinder:(id)sender;
 
 - (IBAction)mergeArtists:(id)sender;
 

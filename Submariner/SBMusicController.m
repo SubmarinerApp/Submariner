@@ -232,20 +232,6 @@
 }
 
 
-- (IBAction)albumDoubleClick:(id)sender {
-    NSIndexSet *indexSet = [albumsCollectionView selectionIndexes];
-    NSInteger selectedRow = [indexSet firstIndex];
-    if(selectedRow != -1) {
-        SBAlbum *doubleClickedAlbum = [[albumsController arrangedObjects] objectAtIndex:selectedRow];
-        if(doubleClickedAlbum) {
-            
-            NSArray *tracks = [doubleClickedAlbum.tracks sortedArrayUsingDescriptors:trackSortDescriptor];
-            [[SBPlayer sharedInstance] playTracks: tracks startingAt: 0];
-        }
-    }
-}
-
-
 - (IBAction)playSelected:(id)sender {
     NSResponder *responder = self.databaseController.window.firstResponder;
     if (responder == tracksTableView) {
@@ -413,17 +399,7 @@
 }
 
 
-- (IBAction)showTrackInFinder:(in)sender {
-    NSInteger selectedRow = [tracksTableView selectedRow];
-    
-    if(selectedRow == -1) {
-        return;
-    }
-    
-    [self showTracksInFinder: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes];
-}
-
-
+// Overrides the SBViewController implementation, as we have local artists and albums
 - (IBAction)showSelectedInFinder:(id)sender {
     NSResponder *responder = self.databaseController.window.firstResponder;
     if (responder == tracksTableView) {
@@ -436,45 +412,6 @@
 }
 
 
-- (IBAction)addArtistToTracklist:(id)sender {
-    NSInteger selectedRow = [artistsTableView selectedRow];
-    
-    if(selectedRow != -1) {
-        SBArtist *artist = [[artistsController arrangedObjects] objectAtIndex:selectedRow];
-        NSMutableArray *tracks = [NSMutableArray array];
-        
-        for(SBAlbum *album in artist.albums) {
-            [tracks addObjectsFromArray:[album.tracks sortedArrayUsingDescriptors:trackSortDescriptor]];
-        }
-        
-        [[SBPlayer sharedInstance] addTrackArray:tracks replace:NO];
-    }
-}
-
-
-- (IBAction)addAlbumToTracklist:(id)sender {
-    NSIndexSet *indexSet = [albumsCollectionView selectionIndexes];
-    NSInteger selectedRow = [indexSet firstIndex];
-    
-    if(selectedRow != -1) {
-        SBAlbum *album = [[albumsController arrangedObjects] objectAtIndex:selectedRow];
-        [[SBPlayer sharedInstance] addTrackArray:[album.tracks sortedArrayUsingDescriptors:trackSortDescriptor] replace:NO];
-    }
-}
-
-
-- (IBAction)addTrackToTracklist:(id)sender {
-
-    NSIndexSet *indexSet = [tracksTableView selectedRowIndexes];
-    NSMutableArray *tracks = [NSMutableArray array];
-    
-    [indexSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        [tracks addObject:[[tracksController arrangedObjects] objectAtIndex:idx]];
-    }];
-    
-    [[SBPlayer sharedInstance] addTrackArray:tracks replace:NO];
-}
-
 - (IBAction)mergeArtists:(id)sender {
     NSIndexSet *indexSet = [artistsTableView selectedRowIndexes];
     if(indexSet && [indexSet count]) {
@@ -484,18 +421,6 @@
         
         [mergeArtistsController setArtists:artists];
         [mergeArtistsController openSheet:sender];  
-    }
-}
-
-
-- (IBAction)addSelectedToTracklist:(id)sender {
-    NSResponder *responder = self.databaseController.window.firstResponder;
-    if (responder == tracksTableView) {
-        [self addTrackToTracklist: self];
-    } else if (responder == albumsCollectionView) {
-        [self addAlbumToTracklist: self];
-    } else if (responder == artistsTableView) {
-        [self addArtistToTracklist: self];
     }
 }
 

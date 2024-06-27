@@ -80,6 +80,116 @@
     return @[];
 }
 
+
+#pragma mark - IBActions
+
+#pragma mark Playing
+
+- (IBAction)albumDoubleClick:(id)sender {
+    SBAlbum *album = self.selectedAlbums.firstObject;
+    
+    if (album != nil) {
+        [[SBPlayer sharedInstance] playTracks:[album.tracks sortedArrayUsingDescriptors: self.trackSortDescriptors] startingAt:0];
+    }
+}
+
+#pragma mark Add to Tracklist
+
+- (IBAction)addArtistToTracklist:(id)sender {
+    NSMutableArray *tracks = [NSMutableArray array];
+    for (SBArtist *artist in self.selectedArtists) {
+        for (SBAlbum *album in artist.albums) {
+            [tracks addObjectsFromArray: [album.tracks sortedArrayUsingDescriptors: self.trackSortDescriptors]];
+        }
+    }
+    
+    [[SBPlayer sharedInstance] addTrackArray:tracks replace:NO];
+}
+
+
+- (IBAction)addAlbumToTracklist:(id)sender {
+    SBAlbum *album = self.selectedAlbums.firstObject;
+    
+    if (album != nil) {
+        [[SBPlayer sharedInstance] addTrackArray:[album.tracks sortedArrayUsingDescriptors: self.trackSortDescriptors] replace:NO];
+    }
+}
+
+
+- (IBAction)addSelectedToTracklist:(id)sender {
+    NSObject<SBStarrable> *first = self.selectedMusicItems.firstObject;
+    if (first == nil) {
+        return;
+    } else if ([first isKindOfClass: SBArtist.class]) {
+        [self addArtistToTracklist: sender];
+    } else if ([first isKindOfClass: SBAlbum.class]) {
+        [self addAlbumToTracklist: sender];
+    } else if ([first isKindOfClass: SBTrack.class]) {
+        [self addTrackToTracklist: sender];
+    }
+}
+
+
+- (IBAction)addTrackToTracklist:(id)sender {
+    [[SBPlayer sharedInstance] addTrackArray: self.selectedTracks replace:NO];
+}
+
+#pragma mark Playlist
+
+- (IBAction)createNewLocalPlaylistWithSelectedTracks:(id)sender {
+    [self createLocalPlaylistWithSelected: self.selectedTracks databaseController: self.databaseController];
+}
+
+#pragma mark Downloading
+
+- (IBAction)downloadTrack:(id)sender {
+    [self downloadTracks: self.selectedTracks databaseController: self.databaseController];
+}
+ 
+- (IBAction)downloadAlbum:(id)sender {
+    SBAlbum *doubleClickedAlbum = self.selectedAlbums.firstObject;
+    if (doubleClickedAlbum) {
+        [databaseController showDownloadView: self];
+        
+        NSArray *tracks = [doubleClickedAlbum.tracks sortedArrayUsingDescriptors: self.trackSortDescriptors];
+        
+        for (SBTrack *track in tracks) {
+            SBSubsonicDownloadOperation *op = [[SBSubsonicDownloadOperation alloc]
+                                               initWithManagedObjectContext: self.managedObjectContext
+                                               trackID: [track objectID]];
+            
+            [[NSOperationQueue sharedDownloadQueue] addOperation:op];
+        }
+    }
+}
+
+- (IBAction)downloadSelected:(id)sender {
+    NSObject<SBStarrable> *first = self.selectedMusicItems.firstObject;
+    if (first == nil) {
+        return;
+    } else if ([first isKindOfClass: SBAlbum.class]) {
+        [self downloadAlbum: sender];
+    } else if ([first isKindOfClass: SBTrack.class]) {
+        [self downloadTrack: sender];
+    }
+}
+
+#pragma mark Show in
+
+- (IBAction)showSelectedInLibrary:(id)sender {
+    [self.databaseController goToTrack: self.selectedTracks.firstObject];
+}
+
+- (IBAction)showTrackInFinder:(id)sender {
+    [self showTracksInFinder: self.selectedTracks];
+}
+
+// This is overriden by SBMusicController which has local albums as a concept
+- (IBAction)showSelectedInFinder:(id)sender {
+    [self showTracksInFinder: self.selectedTracks];
+}
+
+
 #pragma mark -
 #pragma mark Lifecycle
 
