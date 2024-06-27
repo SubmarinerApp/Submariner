@@ -61,7 +61,7 @@
 @property (nonatomic, strong, readonly) NSArray<SBAlbum*> *selectedAlbums;
 @property (nonatomic, strong, readonly) NSArray<SBArtist*> *selectedArtists;
 @property (nonatomic, strong, readonly) NSArray<id<SBStarrable>> *selectedMusicItems;
-@property (strong, readonly) NSArray<NSSortDescriptor*> *trackSortDescriptor;
+@property (strong, readwrite) NSArray<NSSortDescriptor*> *trackSortDescriptor;
 
 + (NSString *)nibName;
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context;
