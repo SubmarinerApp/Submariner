@@ -56,6 +56,12 @@ import Cocoa
     
     // #MARK: - IBActions
     
+    override func trackDoubleClick(_ sender: Any!) {
+        // We have to override this because if the replace tracklist option is enabled,
+        // it duplicates the tracklist
+        SBPlayer.sharedInstance().play(index: self.selectedTrackRow)
+    }
+    
     @IBAction func delete(_ sender: Any) {
         if playlistTableView.selectedRow != -1 {
             SBPlayer.sharedInstance().remove(trackIndexSet: playlistTableView.selectedRowIndexes)
