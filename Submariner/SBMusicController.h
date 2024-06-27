@@ -59,10 +59,8 @@
     
     NSArray *artistSortDescriptor;
     NSArray *albumSortDescriptor;
-    NSArray *trackSortDescriptor;
 }
 @property (readwrite, strong) NSArray *artistSortDescriptor;
-@property (readwrite, strong) NSArray *trackSortDescriptor;
 
 
 - (SBMusicItem*) selectedItem;

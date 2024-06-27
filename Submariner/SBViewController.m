@@ -55,6 +55,7 @@
 #pragma mark - Properties
 
 @synthesize databaseController;
+@synthesize trackSortDescriptor;
 
 - (NSArray<SBTrack*>*)tracks {
     return @[];
@@ -86,24 +87,19 @@
 }
 
 
-- (NSArray<NSSortDescriptor*>*)trackSortDescriptors {
-    return @[];
-}
-
-
 #pragma mark - IBActions
 
 #pragma mark Playing
 
 - (IBAction)trackDoubleClick:(id)sender {
-    [[SBPlayer sharedInstance] playTracks:[self.tracks sortedArrayUsingDescriptors: self.trackSortDescriptors] startingAt:self.selectedTrackRow];
+    [[SBPlayer sharedInstance] playTracks:[self.tracks sortedArrayUsingDescriptors: self.trackSortDescriptor] startingAt:self.selectedTrackRow];
 }
 
 - (IBAction)albumDoubleClick:(id)sender {
     SBAlbum *album = self.selectedAlbums.firstObject;
     
     if (album != nil) {
-        [[SBPlayer sharedInstance] playTracks:[album.tracks sortedArrayUsingDescriptors: self.trackSortDescriptors] startingAt:0];
+        [[SBPlayer sharedInstance] playTracks:[album.tracks sortedArrayUsingDescriptors: self.trackSortDescriptor] startingAt:0];
     }
 }
 
@@ -124,7 +120,7 @@
     NSMutableArray *tracks = [NSMutableArray array];
     for (SBArtist *artist in self.selectedArtists) {
         for (SBAlbum *album in artist.albums) {
-            [tracks addObjectsFromArray: [album.tracks sortedArrayUsingDescriptors: self.trackSortDescriptors]];
+            [tracks addObjectsFromArray: [album.tracks sortedArrayUsingDescriptors: self.trackSortDescriptor]];
         }
     }
     
@@ -136,7 +132,7 @@
     SBAlbum *album = self.selectedAlbums.firstObject;
     
     if (album != nil) {
-        [[SBPlayer sharedInstance] addTrackArray:[album.tracks sortedArrayUsingDescriptors: self.trackSortDescriptors] replace:NO];
+        [[SBPlayer sharedInstance] addTrackArray:[album.tracks sortedArrayUsingDescriptors: self.trackSortDescriptor] replace:NO];
     }
 }
 
@@ -176,7 +172,7 @@
     if (doubleClickedAlbum) {
         [databaseController showDownloadView: self];
         
-        NSArray *tracks = [doubleClickedAlbum.tracks sortedArrayUsingDescriptors: self.trackSortDescriptors];
+        NSArray *tracks = [doubleClickedAlbum.tracks sortedArrayUsingDescriptors: self.trackSortDescriptor];
         
         for (SBTrack *track in tracks) {
             SBSubsonicDownloadOperation *op = [[SBSubsonicDownloadOperation alloc]

@@ -59,12 +59,10 @@
     __weak IBOutlet NSSplitView *rightSplitView;
     NSArray *artistSortDescriptor;
     NSArray *albumSortDescriptor;
-    NSArray *trackSortDescriptor;
     
     NSEntityDescription *groupEntity;
 }
 @property (readwrite, strong) NSArray *artistSortDescriptor;
-@property (readwrite, strong) NSArray *trackSortDescriptor;
 
 
 - (SBMusicItem*) selectedItem;

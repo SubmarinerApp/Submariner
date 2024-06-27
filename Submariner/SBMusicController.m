@@ -52,7 +52,6 @@
 }
 
 @synthesize artistSortDescriptor;
-@synthesize trackSortDescriptor;
 
 
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context {
@@ -206,11 +205,6 @@
         return [artistsController selectedObjects];
     }
     return @[];
-}
-
-
-- (NSArray<NSSortDescriptor*>*)trackSortDescriptors {
-    return self.trackSortDescriptor;
 }
 
 

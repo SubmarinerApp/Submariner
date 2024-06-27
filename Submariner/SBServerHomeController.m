@@ -73,10 +73,6 @@
 
 
 
-@synthesize trackSortDescriptor;
-
-
-
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context {
     self = [super initWithManagedObjectContext:context];
     if (self) {
@@ -217,11 +213,6 @@
         return [albumsController selectedObjects];
     }
     return @[];
-}
-
-
-- (NSArray<NSSortDescriptor*>*)trackSortDescriptors {
-    return self.trackSortDescriptor;
 }
 
 

@@ -65,7 +65,6 @@
 
 
 @synthesize artistSortDescriptor;
-@synthesize trackSortDescriptor;
 
 
 
@@ -233,11 +232,6 @@
         return [artistsController selectedObjects];
     }
     return @[];
-}
-
-
-- (NSArray<NSSortDescriptor*>*)trackSortDescriptors {
-    return self.trackSortDescriptor;
 }
 
 

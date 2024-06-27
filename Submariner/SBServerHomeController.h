@@ -50,10 +50,7 @@
     
     NSMutableArray *scopeGroups;
     NSArray *albumSortDescriptor;
-    NSArray *trackSortDescriptor;
 }
-
-@property (readwrite, strong) NSArray *trackSortDescriptor;
 
 - (IBAction)reloadSelected:(id)sender;
 
