@@ -160,33 +160,4 @@
     return nil;
 }
 
-
-#pragma mark -
-#pragma mark UI Validator
-
-- (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item {
-    SEL action = [item action];
-    
-    NSInteger tracksSelected = tracksTableView.selectedRowIndexes.count;
-    
-    SBSelectedRowStatus selectedTrackRowStatus = 0;
-    selectedTrackRowStatus = [self selectedRowStatus: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes];
-    
-    if (action == @selector(addSelectedToTracklist:)
-        || action == @selector(playSelected:)
-        || action == @selector(createNewLocalPlaylistWithSelectedTracks:)) {
-        return tracksSelected;
-    }
-    
-    if (action == @selector(showSelectedInFinder:)) {
-        return selectedTrackRowStatus & SBSelectedRowShowableInFinder;
-    }
-    
-    if (action == @selector(showSelectedInLibrary:)) {
-        return tracksTableView.selectedRowIndexes.count == 1;
-    }
-
-    return YES;
-}
-
 @end

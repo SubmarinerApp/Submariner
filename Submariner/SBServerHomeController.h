@@ -54,6 +54,4 @@
 
 - (IBAction)reloadSelected:(id)sender;
 
-- (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item;
-
 @end

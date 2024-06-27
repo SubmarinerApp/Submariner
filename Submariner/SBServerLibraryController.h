@@ -73,6 +73,4 @@
 - (void)showAlbumInLibrary:(SBAlbum*)album;
 - (void)showArtistInLibrary:(SBArtist*)artist;
 
-- (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item;
-
 @end

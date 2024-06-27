@@ -66,4 +66,20 @@
 }
 
 
+#pragma mark - UI Validator
+
+
+- (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item {
+    SEL action = [item action];
+    
+    NSInteger tracksSelected = self.selectedTracks.count;
+    
+    if (action == @selector(createNewPlaylistWithSelectedTracks:)) {
+        return tracksSelected > 0;
+    }
+    
+    return [super validateUserInterfaceItem: item];
+}
+
+
 @end

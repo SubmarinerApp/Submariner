@@ -708,39 +708,34 @@
     NSInteger tracksSelected = tracksTableView.selectedRowIndexes.count;
     
     NSResponder *responder = self.databaseController.window.firstResponder;
-    BOOL tracksActive = responder == tracksTableView;
-    BOOL albumsActive = responder == albumsCollectionView;
     BOOL artistsActive = responder == artistsTableView;
     
     if (action == @selector(mergeArtists:)) {
         return artistsSelected > 1 && artistsActive;
     }
     
-    if (action == @selector(addSelectedToTracklist:)) {
-        return (albumSelected > 0 && albumsActive) || (tracksSelected > 0 && tracksActive) || (artistsSelected > 0 && artistsActive);
-    }
-    
-    if (action == @selector(playSelected:)) {
-        return (albumSelected > 0 && albumsActive) || (tracksSelected > 0 && tracksActive);
-    }
-    
-    if (action == @selector(showSelectedInFinder:)
-        || action == @selector(delete:)) {
+    if (action == @selector(delete:)) {
         return artistsSelected > 0 || albumSelected > 0 || tracksSelected > 0;
     }
     
-    // For the sake of context menus; IKImageBrowserView is weird with focus.
-    if (action == @selector(albumDoubleClick:)
-        || action == @selector(removeAlbum:)
-        || action == @selector(addAlbumToTracklist:)) {
+    if (action == @selector(removeArtist:)) {
+        return artistsSelected > 0;
+    }
+    
+    if (action == @selector(removeAlbum:)) {
         return albumSelected > 0;
     }
     
-    if (action == @selector(createNewLocalPlaylistWithSelectedTracks:)) {
+    if (action == @selector(removeTrack:)) {
         return tracksSelected > 0;
     }
+    
+    if (action == @selector(showSelectedInLibrary:)) {
+        // We're already in the library, so it doesn't make sense to show this...
+        return NO;
+    }
 
-    return YES;
+    return [super validateUserInterfaceItem: item];
 }
 
 

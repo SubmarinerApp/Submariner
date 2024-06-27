@@ -10,7 +10,7 @@
 
 import Cocoa
 
-@objc class SBServerSearchController: SBServerViewController, NSTableViewDataSource, NSUserInterfaceValidations {
+@objc class SBServerSearchController: SBServerViewController, NSTableViewDataSource {
     @objc dynamic var searchResult: SBSearchResult?
     
     @IBOutlet var tracksTableView: NSTableView!
@@ -77,26 +77,5 @@ import Cocoa
         }
         
         return SBLibraryItemPasteboardWriter(item: tracks[row], index: row)
-    }
-    
-    // #MARK: - UI Validator
-    
-    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
-        let selectedTrackRowStatus = self.selectedRowStatus(selectedTracks)
-        
-        switch (item.action) {
-        case #selector(SBServerSearchController.downloadSelected(_:)):
-            return selectedTrackRowStatus.contains(.downloadable)
-        case #selector(SBServerSearchController.showSelectedInFinder(_:)):
-            return selectedTrackRowStatus.contains(.showableInFinder)
-        case #selector(SBServerSearchController.addSelectedToTracklist(_:)),
-            #selector(SBServerSearchController.playSelected(_:)),
-            #selector(SBServerSearchController.createNewLocalPlaylistWithSelectedTracks(_:)):
-            return selectedTracks.count > 0
-        case #selector(SBServerSearchController.showSelectedInLibrary(_:)):
-            return selectedTracks.count == 1
-        default:
-            return true
-        }
     }
 }

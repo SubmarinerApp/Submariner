@@ -10,7 +10,7 @@
 
 import Cocoa
 
-@objc class SBTracklistController: SBViewController, NSTableViewDelegate, NSTableViewDataSource, NSUserInterfaceValidations {
+@objc class SBTracklistController: SBViewController, NSTableViewDelegate, NSTableViewDataSource {
     @IBOutlet var playlistTableView: NSTableView!
     @IBOutlet var tracklistLengthView: NSTextField!
     
@@ -145,22 +145,12 @@ import Cocoa
     
     // #MARK: - UI Validator
     
-    func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
-        let selectedTrackRowStatus = self.selectedRowStatus(SBPlayer.sharedInstance().playlist,
-                                                            selectedIndices: playlistTableView.selectedRowIndexes)
+    override func validateUserInterfaceItem(_ item: NSValidatedUserInterfaceItem) -> Bool {
         let count = playlistTableView.numberOfSelectedRows
         
         switch (item.action) {
-        case #selector(SBTracklistController.downloadSelected(_:)):
-            return selectedTrackRowStatus.contains(.downloadable)
-        case #selector(SBTracklistController.showSelectedInFinder(_:)):
-            return selectedTrackRowStatus.contains(.showableInFinder)
-        case #selector(SBTracklistController.playSelected(_:)),
-            #selector(SBTracklistController.delete(_:)),
-            #selector(SBTracklistController.createNewLocalPlaylistWithSelectedTracks(_:)):
+        case #selector(SBTracklistController.delete(_:)):
             return count > 0
-        case #selector(SBTracklistController.showSelectedInLibrary(_:)):
-            return count == 1
         default:
             return true
         }

@@ -493,59 +493,12 @@
 - (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item {
     SEL action = [item action];
     
-    NSInteger artistsSelected = artistsTableView.selectedRowIndexes.count;
-    NSInteger albumSelected = albumsController.selectionIndexes.count;
-    NSInteger tracksSelected = tracksTableView.selectedRowIndexes.count;
-    
-    NSResponder *responder = self.databaseController.window.firstResponder;
-    BOOL tracksActive = responder == tracksTableView;
-    BOOL albumsActive = responder == albumsCollectionView;
-    BOOL artistsActive = responder == artistsTableView;
-    
-    SBSelectedRowStatus selectedTrackRowStatus = 0;
-    if (tracksActive) {
-        selectedTrackRowStatus = [self selectedRowStatus: tracksController.arrangedObjects selectedIndices: tracksTableView.selectedRowIndexes];
-    }
-    
-    if (action == @selector(playSelected:)) {
-        return (albumSelected > 0 && albumsActive) || (tracksSelected > 0 && tracksActive);
-    }
-    
-    if (action == @selector(addSelectedToTracklist:)) {
-        return (albumSelected > 0 && albumsActive) || (tracksSelected > 0 && tracksActive) || (artistsSelected > 0 && artistsActive);
-    }
-    
-    if (action == @selector(createNewPlaylistWithSelectedTracks:)
-        || action == @selector(trackDoubleClick:)
-        || action == @selector(addTrackToTracklist:)
-        || action == @selector(createNewLocalPlaylistWithSelectedTracks:)) {
-        return tracksSelected > 0;
-    }
-    
-    if (action == @selector(showSelectedInFinder:)) {
-        return selectedTrackRowStatus & SBSelectedRowShowableInFinder;
-    }
-    
-    if (action == @selector(downloadTrack:)) {
-        return selectedTrackRowStatus & SBSelectedRowDownloadable;
-    }
-    
-    if (action == @selector(downloadSelected:)) {
-        return (selectedTrackRowStatus & SBSelectedRowDownloadable) || (albumSelected > 0 && albumsActive);
-    }
-    
-    // for context menus
-    if (action == @selector(albumDoubleClick:)
-        || action == @selector(downloadAlbum:)
-        || action == @selector(addAlbumToTracklist:)) {
-        return albumSelected > 0;
-    }
-    
-    if (action == @selector(addArtistToTracklist:)) {
-        return artistsSelected > 0;
+    if (action == @selector(showSelectedInLibrary:)) {
+        // We're already in the library, so it doesn't make sense to show this...
+        return NO;
     }
 
-    return YES;
+    return [super validateUserInterfaceItem: item];
 }
 
 

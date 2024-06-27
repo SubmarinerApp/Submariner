@@ -104,12 +104,10 @@
 }
 
 - (IBAction)playSelected:(id)sender {
-    NSObject<SBStarrable> *first = self.selectedMusicItems.firstObject;
-    if (first == nil) {
-        return;
-    } else if ([first isKindOfClass: SBAlbum.class]) {
+    SBSelectedItemType itemType = [self selectedItemType];
+    if (itemType == SBSelectedItemTypeAlbum) {
         [self albumDoubleClick: sender];
-    } else if ([first isKindOfClass: SBTrack.class]) {
+    } else if (itemType == SBSelectedItemTypeTrack) {
         [self trackDoubleClick: sender];
     }
 }
@@ -138,14 +136,12 @@
 
 
 - (IBAction)addSelectedToTracklist:(id)sender {
-    NSObject<SBStarrable> *first = self.selectedMusicItems.firstObject;
-    if (first == nil) {
-        return;
-    } else if ([first isKindOfClass: SBArtist.class]) {
+    SBSelectedItemType itemType = [self selectedItemType];
+    if (itemType == SBSelectedItemTypeArtist) {
         [self addArtistToTracklist: sender];
-    } else if ([first isKindOfClass: SBAlbum.class]) {
+    } else if (itemType == SBSelectedItemTypeAlbum) {
         [self addAlbumToTracklist: sender];
-    } else if ([first isKindOfClass: SBTrack.class]) {
+    } else if (itemType == SBSelectedItemTypeTrack) {
         [self addTrackToTracklist: sender];
     }
 }
@@ -185,12 +181,10 @@
 }
 
 - (IBAction)downloadSelected:(id)sender {
-    NSObject<SBStarrable> *first = self.selectedMusicItems.firstObject;
-    if (first == nil) {
-        return;
-    } else if ([first isKindOfClass: SBAlbum.class]) {
+    SBSelectedItemType itemType = [self selectedItemType];
+    if (itemType == SBSelectedItemTypeAlbum) {
         [self downloadAlbum: sender];
-    } else if ([first isKindOfClass: SBTrack.class]) {
+    } else if (itemType == SBSelectedItemTypeTrack) {
         [self downloadTrack: sender];
     }
 }
@@ -378,6 +372,81 @@
     [newPlaylist setSection:playlistsSection];
     [newPlaylist setTracks: trackList];
     [playlistsSection addResourcesObject:newPlaylist];
+}
+
+- (SBSelectedItemType) selectedItemType {
+    NSObject<SBStarrable> *first = self.selectedMusicItems.firstObject;
+    if ([first isKindOfClass: SBArtist.class]) {
+        return SBSelectedItemTypeArtist;
+    } else if ([first isKindOfClass: SBAlbum.class]) {
+        return SBSelectedItemTypeAlbum;
+    } else if ([first isKindOfClass: SBTrack.class]) {
+        return SBSelectedItemTypeTrack;
+    }
+    return SBSelectedItemTypeNone;
+}
+
+#pragma mark - UI Validator
+
+- (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item {
+    SEL action = [item action];
+    
+    NSInteger artistsSelected = self.selectedArtists.count;
+    NSInteger albumSelected = self.selectedAlbums.count;
+    NSInteger tracksSelected = self.selectedTracks.count;
+    
+    SBSelectedItemType selectedItemType = [self selectedItemType];
+    BOOL tracksActive = selectedItemType == SBSelectedItemTypeTrack;
+    BOOL albumsActive = selectedItemType == SBSelectedItemTypeAlbum;
+    BOOL artistsActive = selectedItemType == SBSelectedItemTypeArtist;
+    
+    SBSelectedRowStatus selectedTrackRowStatus = 0;
+    if (tracksActive) {
+        selectedTrackRowStatus = [self selectedRowStatus: self.selectedTracks];
+    }
+    
+    if (action == @selector(playSelected:)) {
+        return (albumSelected > 0 && albumsActive) || (tracksSelected > 0 && tracksActive);
+    }
+    
+    if (action == @selector(addSelectedToTracklist:)) {
+        return (albumSelected > 0 && albumsActive) || (tracksSelected > 0 && tracksActive) || (artistsSelected > 0 && artistsActive);
+    }
+    
+    if (action == @selector(trackDoubleClick:)
+        || action == @selector(addTrackToTracklist:)
+        || action == @selector(createNewLocalPlaylistWithSelectedTracks:)) {
+        return tracksSelected > 0;
+    }
+    
+    if (action == @selector(showSelectedInLibrary:)) {
+        return tracksSelected == 1;
+    }
+    
+    if (action == @selector(showSelectedInFinder:)) {
+        return selectedTrackRowStatus & SBSelectedRowShowableInFinder;
+    }
+    
+    if (action == @selector(downloadTrack:)) {
+        return selectedTrackRowStatus & SBSelectedRowDownloadable;
+    }
+    
+    if (action == @selector(downloadSelected:)) {
+        return (selectedTrackRowStatus & SBSelectedRowDownloadable) || (albumSelected > 0 && albumsActive);
+    }
+    
+    // for context menus
+    if (action == @selector(albumDoubleClick:)
+        || action == @selector(downloadAlbum:)
+        || action == @selector(addAlbumToTracklist:)) {
+        return albumSelected > 0;
+    }
+    
+    if (action == @selector(addArtistToTracklist:)) {
+        return artistsSelected > 0;
+    }
+
+    return YES;
 }
 
 @end

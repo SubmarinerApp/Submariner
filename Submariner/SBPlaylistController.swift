@@ -10,7 +10,7 @@
 
 import Cocoa
 
-@objc(SBPlaylistController) class SBPlaylistController: SBViewController, NSTableViewDelegate, NSTableViewDataSource, NSUserInterfaceValidations {
+@objc(SBPlaylistController) class SBPlaylistController: SBViewController, NSTableViewDelegate, NSTableViewDataSource {
     // nulled means this playlist got deleted and hopefully the UI switched away from this VC correctly
     @objc var playlist: SBPlaylist! {
         didSet {
@@ -157,26 +157,16 @@ import Cocoa
     
     // #MARK: - UI Validator
     
-    func validateUserInterfaceItem(_ item: any NSValidatedUserInterfaceItem) -> Bool {
+    override func validateUserInterfaceItem(_ item: any NSValidatedUserInterfaceItem) -> Bool {
         let tracksSelected = selectedTracks.count
         let selectedTrackRowStatus = self.selectedRowStatus(tracks, selectedIndices: tracksController.selectionIndexes)
         
         switch item.action {
-        case #selector(SBPlaylistController.addSelectedToTracklist(_:)),
-            #selector(SBPlaylistController.playSelected(_:)),
-            #selector(SBPlaylistController.trackDoubleClick(_:)),
-            #selector(SBPlaylistController.removeTrack(_:)),
-            #selector(SBPlaylistController.delete(_:)),
-            #selector(SBPlaylistController.createNewLocalPlaylistWithSelectedTracks(_:)):
+        case #selector(SBPlaylistController.removeTrack(_:)),
+            #selector(SBPlaylistController.delete(_:)):
             return tracksSelected > 0
-        case #selector(SBPlaylistController.showSelectedInFinder(_:)):
-            return selectedTrackRowStatus.contains(.showableInFinder)
-        case #selector(SBPlaylistController.downloadSelected(_:)):
-            return selectedTrackRowStatus.contains(.downloadable)
-        case #selector(SBPlaylistController.showSelectedInLibrary(_:)):
-            return tracksSelected == 1
         default:
-            return true
+            return super.validateUserInterfaceItem(item)
         }
     }
 }

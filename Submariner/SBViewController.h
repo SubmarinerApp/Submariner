@@ -40,7 +40,7 @@
 @class SBTrack, SBAlbum, SBArtist;
 @protocol SBStarrable;
 
-@interface SBViewController : NSViewController {
+@interface SBViewController : NSViewController<NSUserInterfaceValidations> {
 @protected
     NSManagedObjectContext *managedObjectContext;
     
@@ -96,6 +96,13 @@ typedef NS_OPTIONS(NSInteger, SBSelectedRowStatus) {
     SBSelectedRowDownloadable = 1,
     SBSelectedRowShowableInFinder = 2,
     SBSelectedRowFavourited = 4,
+};
+
+typedef NS_ENUM(NSInteger, SBSelectedItemType) {
+    SBSelectedItemTypeNone = 0,
+    SBSelectedItemTypeArtist = 1,
+    SBSelectedItemTypeAlbum = 2,
+    SBSelectedItemTypeTrack = 4,
 };
 
 - (SBSelectedRowStatus) selectedRowStatus:(NSArray<SBTrack*>*)trackList selectedIndices:(NSIndexSet*)indexSet;
