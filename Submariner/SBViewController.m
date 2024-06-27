@@ -73,6 +73,11 @@
     return [self selectedTracks];
 }
 
+
+- (NSArray<NSSortDescriptor*>*)trackSortDescriptors {
+    return @[];
+}
+
 #pragma mark -
 #pragma mark Lifecycle
 

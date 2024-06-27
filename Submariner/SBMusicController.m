@@ -200,6 +200,11 @@
 }
 
 
+- (NSArray<NSSortDescriptor*>*)trackSortDescriptors {
+    return self.trackSortDescriptor;
+}
+
+
 #pragma mark -
 #pragma mark IBAction
 
