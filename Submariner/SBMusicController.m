@@ -171,6 +171,16 @@
 
 #pragma mark - Properties
 
+- (NSArray<SBTrack*>*) tracks {
+    return [tracksController arrangedObjects];
+}
+
+
+- (NSInteger) selectedTrackRow {
+    return tracksTableView.selectedRow;
+}
+
+
 - (NSArray<SBTrack*>*) selectedTracks {
     return [tracksController selectedObjects];
 }
@@ -223,24 +233,6 @@
         [artistsController setFilterPredicate:predicate];
     }
 }
-
-- (IBAction)trackDoubleClick:(id)sender {
-    NSInteger selectedRow = [tracksTableView selectedRow];
-    if(selectedRow != -1) {
-        [[SBPlayer sharedInstance] playTracks: [tracksController arrangedObjects] startingAt: selectedRow];
-    }
-}
-
-
-- (IBAction)playSelected:(id)sender {
-    NSResponder *responder = self.databaseController.window.firstResponder;
-    if (responder == tracksTableView) {
-        [self trackDoubleClick: self];
-    } else if (responder == albumsCollectionView) {
-        [self albumDoubleClick: self];
-    }
-}
-
 
 - (IBAction)removeArtist:(id)sender {
     NSInteger selectedRow = [artistsTableView selectedRow];

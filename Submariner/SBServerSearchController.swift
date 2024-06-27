@@ -52,10 +52,10 @@ import Cocoa
         set {}
     }
     
-    // #MARK: - Typed Wrappers
+    // #MARK: - Properties
     
     // should be empty if no results
-    var tracks: [SBTrack]! {
+    override var tracks: [SBTrack]! {
         tracksController.arrangedObjects as? [SBTrack]
     }
     
@@ -63,13 +63,11 @@ import Cocoa
         tracksController.selectedObjects as? [SBTrack]
     }
     
-    // #MARK: - IBActions
-    
-    @IBAction func playSelected(_ sender: Any) {
-        if tracksTableView.selectedRow != -1 {
-            SBPlayer.sharedInstance().play(tracks: tracks, startingAt: tracksTableView.selectedRow)
-        }
+    override var selectedTrackRow: Int {
+        tracksTableView.selectedRow
     }
+    
+    // #MARK: - IBActions
     
     // #MARK: - NSTableView Delegate
     

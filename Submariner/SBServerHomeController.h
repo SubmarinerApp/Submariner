@@ -55,8 +55,6 @@
 
 @property (readwrite, strong) NSArray *trackSortDescriptor;
 
-- (IBAction)trackDoubleClick:(id)sender;
-
 - (IBAction)reloadSelected:(id)sender;
 
 - (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item;

@@ -48,9 +48,9 @@ import Cocoa
         NotificationCenter.default.post(name: .SBTrackSelectionChanged, object: self.tracksController.selectedObjects)
     }
     
-    // #MARK: - Typed Wrappers
+    // #MARK: - Properties
     
-    var tracks: [SBTrack]! {
+    override var tracks: [SBTrack]! {
         tracksController.arrangedObjects as? [SBTrack]
     }
     
@@ -58,17 +58,11 @@ import Cocoa
         tracksController.selectedObjects as? [SBTrack]
     }
     
+    override var selectedTrackRow: Int {
+        tracksTableView.selectedRow
+    }
+    
     // #MARK: - Actions
-    
-    @IBAction func trackDoubleClick(_ sender: Any) {
-        if tracksTableView.selectedRow != -1 {
-            SBPlayer.sharedInstance().play(tracks: tracks, startingAt: tracksTableView.selectedRow)
-        }
-    }
-    
-    @IBAction func playSelected(_ sender: Any) {
-        self.trackDoubleClick(sender)
-    }
     
     @IBAction func removeTrack(_ sender: Any) {
         if selectedTracks.count > 0 {

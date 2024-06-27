@@ -56,6 +56,16 @@
 
 @synthesize databaseController;
 
+- (NSArray<SBTrack*>*)tracks {
+    return @[];
+}
+
+
+- (NSInteger)selectedTrackRow {
+    return -1;
+}
+
+
 - (NSArray<SBTrack*>*)selectedTracks {
     return @[];
 }
@@ -85,11 +95,26 @@
 
 #pragma mark Playing
 
+- (IBAction)trackDoubleClick:(id)sender {
+    [[SBPlayer sharedInstance] playTracks:[self.tracks sortedArrayUsingDescriptors: self.trackSortDescriptors] startingAt:self.selectedTrackRow];
+}
+
 - (IBAction)albumDoubleClick:(id)sender {
     SBAlbum *album = self.selectedAlbums.firstObject;
     
     if (album != nil) {
         [[SBPlayer sharedInstance] playTracks:[album.tracks sortedArrayUsingDescriptors: self.trackSortDescriptors] startingAt:0];
+    }
+}
+
+- (IBAction)playSelected:(id)sender {
+    NSObject<SBStarrable> *first = self.selectedMusicItems.firstObject;
+    if (first == nil) {
+        return;
+    } else if ([first isKindOfClass: SBAlbum.class]) {
+        [self albumDoubleClick: sender];
+    } else if ([first isKindOfClass: SBTrack.class]) {
+        [self trackDoubleClick: sender];
     }
 }
 

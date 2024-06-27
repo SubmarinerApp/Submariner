@@ -68,8 +68,6 @@
 - (SBMusicItem*) selectedItem;
 
 - (IBAction)filterArtist:(id)sender;
-- (IBAction)trackDoubleClick:(id)sender;
-- (IBAction)playSelected:(id)sender;
 
 - (IBAction)removeArtist:(id)sender;
 - (IBAction)removeAlbum:(id)sender;

@@ -41,7 +41,6 @@
     IBOutlet NSArrayController *tracksController;
 }
 
-- (IBAction)trackDoubleClick:(id)sender;
 - (void)searchString:(NSString *)query;
 
 @end

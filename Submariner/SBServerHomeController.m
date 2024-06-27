@@ -189,8 +189,18 @@
 
 #pragma mark - Properties
 
+- (NSArray<SBTrack*>*) tracks {
+    return [tracksController arrangedObjects];
+}
+
+
 - (NSArray<SBTrack*>*) selectedTracks {
     return [tracksController selectedObjects];
+}
+
+
+- (NSInteger) selectedTrackRow {
+    return tracksTableView.selectedRow;
 }
 
 
@@ -217,23 +227,6 @@
 
 #pragma mark - 
 #pragma mark IBActions
-
-- (IBAction)trackDoubleClick:(id)sender {
-    NSInteger selectedRow = [tracksTableView selectedRow];
-    if(selectedRow != -1) {
-        [[SBPlayer sharedInstance] playTracks: [tracksController arrangedObjects] startingAt: selectedRow];
-    }
-}
-
-
-- (IBAction)playSelected:(id)sender {
-    NSResponder *responder = self.databaseController.window.firstResponder;
-    if (responder == tracksTableView) {
-        [self trackDoubleClick: self];
-    } else if (responder == albumsCollectionView) {
-        [self albumDoubleClick: self];
-    }
-}
 
 
 - (IBAction)reloadSelected: (id)sender {

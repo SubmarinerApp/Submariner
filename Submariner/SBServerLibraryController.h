@@ -69,8 +69,6 @@
 
 - (SBMusicItem*) selectedItem;
 
-- (IBAction)trackDoubleClick:(id)sender;
-- (IBAction)playSelected:(id)sender;
 - (IBAction)filterArtist:(id)sender;
 
 - (void)showTrackInLibrary:(SBTrack*)track;

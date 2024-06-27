@@ -52,6 +52,10 @@
 
 @property (readwrite, weak) SBDatabaseController *databaseController;
 
+// These two have to exist for trackDoubleClick:
+@property (nonatomic, strong, readonly) NSArray<SBTrack*> *tracks;
+@property (readonly) NSInteger selectedTrackRow;
+
 @property (nonatomic, strong, readonly) NSArray<SBTrack*> *selectedTracks;
 @property (nonatomic, strong, readonly) NSArray<SBAlbum*> *selectedAlbums;
 @property (nonatomic, strong, readonly) NSArray<SBArtist*> *selectedArtists;
@@ -62,7 +66,9 @@
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context;
 
 // Shared IBActions for view controllers
+- (IBAction)trackDoubleClick:(id)sender;
 - (IBAction)albumDoubleClick:(id)sender;
+- (IBAction)playSelected:(id)sender;
 - (IBAction)addArtistToTracklist:(id)sender;
 - (IBAction)addAlbumToTracklist:(id)sender;
 - (IBAction)addTrackToTracklist:(id)sender;
