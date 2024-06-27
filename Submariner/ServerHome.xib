@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -72,11 +72,11 @@
                                     <rect key="frame" x="-2" y="41" width="622" height="158"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <clipView key="contentView" id="SWK-O6-Z3Q">
-                                        <rect key="frame" x="0.0" y="0.0" width="622" height="143"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="622" height="158"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveName="ServerAlbumsTable" headerView="15" id="13" customClass="SBTableView">
-                                                <rect key="frame" x="0.0" y="0.0" width="707" height="115"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="707" height="130"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -237,7 +237,7 @@
                                         </subviews>
                                     </clipView>
                                     <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="14">
-                                        <rect key="frame" x="0.0" y="143" width="622" height="15"/>
+                                        <rect key="frame" x="0.0" y="142" width="622" height="16"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                     <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="16">
@@ -310,6 +310,19 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="addAlbumToTracklist:" target="-2" id="zDA-gm-oDK"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="4sd-vx-bix"/>
+                <menuItem title="Play First Disc" id="k5I-2Y-c7J">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="playFirstDiscFromAlbum:" target="-2" id="ru9-Xh-94m"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Add First Disc to Tracklist" id="rXg-2R-jU0">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="queueFirstDiscFromAlbum:" target="-2" id="FvQ-zB-R9x"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="8z0-m8-feZ"/>

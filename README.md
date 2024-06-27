@@ -37,8 +37,10 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
   * You can now switch between now playing and current selection with a tab view.
   * Playlist information can be viewed and edited.
 * The playlist model has been corrected to handle multiple of the same track. (GH-192)
+* Added a command to play the first disc from an album. (GH-211)
 * Lower case artist names are properly sorted in the artist list.
 * Favouriting items is available from the menu bar, or Cmd+E.
+* Adding items to the tracklist now has a shortcut of Cmd+D.
 * Fix parsing fractional dates returned by some servers.
 * Fix the null cover being used for system now playing information.
 * Upgrading from Submariner 1.x is no longer supported.

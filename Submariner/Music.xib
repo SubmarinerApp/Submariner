@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="22505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -66,7 +66,7 @@
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                 <tableColumns>
-                                                    <tableColumn identifier="artistName" width="144" minWidth="40" maxWidth="1000" id="21">
+                                                    <tableColumn identifier="artistName" width="124" minWidth="40" maxWidth="1000" id="21">
                                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="artistName">
                                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                             <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
@@ -174,11 +174,11 @@
                                                     <rect key="frame" x="-1" y="41" width="446" height="199"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <clipView key="contentView" id="oeS-uH-lBG">
-                                                        <rect key="frame" x="0.0" y="0.0" width="446" height="184"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="446" height="199"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveName="LocalMusicTable" headerView="36" id="38" customClass="SBTableView">
-                                                                <rect key="frame" x="0.0" y="0.0" width="692" height="156"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="692" height="171"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -328,7 +328,7 @@
                                                         </subviews>
                                                     </clipView>
                                                     <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="37">
-                                                        <rect key="frame" x="0.0" y="184" width="446" height="15"/>
+                                                        <rect key="frame" x="0.0" y="183" width="446" height="16"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                     <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="35">
@@ -406,7 +406,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="196" y="240" width="404" height="120"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1800" height="1125"/>
             <view key="contentView" id="97">
                 <rect key="frame" x="0.0" y="0.0" width="404" height="120"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -536,6 +536,19 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="addAlbumToTracklist:" target="-2" id="G0o-Zq-P2Z"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="73S-05-gTS"/>
+                <menuItem title="Play First Disc" id="6Bo-Ls-nIg">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="playFirstDiscFromAlbum:" target="-2" id="iIp-fk-xty"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Add First Disc to Tracklist" id="Pxi-7v-C0P">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="queueFirstDiscFromAlbum:" target="-1" id="xsa-zY-B1P"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="2oY-tZ-Yig"/>

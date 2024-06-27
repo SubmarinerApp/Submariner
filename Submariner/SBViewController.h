@@ -70,10 +70,12 @@
 - (IBAction)trackDoubleClick:(id)sender;
 - (IBAction)albumDoubleClick:(id)sender;
 - (IBAction)playSelected:(id)sender;
+- (IBAction)playFirstDiscFromAlbum:(id)sender;
 - (IBAction)addArtistToTracklist:(id)sender;
 - (IBAction)addAlbumToTracklist:(id)sender;
 - (IBAction)addTrackToTracklist:(id)sender;
 - (IBAction)addSelectedToTracklist:(id)sender;
+- (IBAction)queueFirstDiscFromAlbum:(id)sender;
 - (IBAction)createNewLocalPlaylistWithSelectedTracks:(id)sender;
 - (IBAction)downloadTrack:(id)sender;
 - (IBAction)downloadAlbum:(id)sender;

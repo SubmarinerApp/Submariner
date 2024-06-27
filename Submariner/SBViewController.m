@@ -112,6 +112,11 @@
     }
 }
 
+- (IBAction)playFirstDiscFromAlbum:(id)sender {
+    NSArray<SBTrack*> *tracks = [self firstDiscTracksFor: self.selectedAlbums.firstObject];
+    [[SBPlayer sharedInstance] playTracks: tracks startingAt: 0];
+}
+
 #pragma mark Add to Tracklist
 
 - (IBAction)addArtistToTracklist:(id)sender {
@@ -144,6 +149,12 @@
     } else if (itemType == SBSelectedItemTypeTrack) {
         [self addTrackToTracklist: sender];
     }
+}
+
+
+- (IBAction)queueFirstDiscFromAlbum:(id)sender {
+    NSArray<SBTrack*> *tracks = [self firstDiscTracksFor: self.selectedAlbums.firstObject];
+    [[SBPlayer sharedInstance] addTrackArray: tracks replace: NO];
 }
 
 
@@ -374,6 +385,21 @@
     [playlistsSection addResourcesObject:newPlaylist];
 }
 
+- (NSArray<SBTrack*>*)firstDiscTracksFor:(SBAlbum*)album {
+    NSArray<SBTrack*> *sortedTracks = [album.tracks sortedArrayUsingDescriptors: self.trackSortDescriptor];
+    NSIndexSet *trackIndices = [sortedTracks indexesOfObjectsPassingTest: ^BOOL(SBTrack * _Nonnull track, NSUInteger index, BOOL * _Nonnull stop) {
+        // Albums almost always start 1 indexed
+        return track.discNumber.intValue == 1;
+    }];
+    // Fallback if we just don't have numbered discs
+    if (trackIndices.count == 0) {
+        trackIndices = [sortedTracks indexesOfObjectsPassingTest: ^BOOL(SBTrack * _Nonnull track, NSUInteger index, BOOL * _Nonnull stop) {
+            return track.discNumber.intValue == 0;
+        }];
+    }
+    return [sortedTracks objectsAtIndexes: trackIndices];
+}
+
 - (SBSelectedItemType) selectedItemType {
     NSObject<SBStarrable> *first = self.selectedMusicItems.firstObject;
     if ([first isKindOfClass: SBArtist.class]) {
@@ -438,8 +464,10 @@
     // for context menus
     if (action == @selector(albumDoubleClick:)
         || action == @selector(downloadAlbum:)
-        || action == @selector(addAlbumToTracklist:)) {
-        return albumSelected > 0;
+        || action == @selector(addAlbumToTracklist:)
+        || action == @selector(playFirstDiscFromAlbum:)
+        || action == @selector(queueFirstDiscFromAlbum:)) {
+        return albumSelected > 0 && albumsActive;
     }
     
     if (action == @selector(addArtistToTracklist:)) {

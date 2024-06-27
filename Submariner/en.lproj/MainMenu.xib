@@ -394,10 +394,24 @@ DQ
                                     <action selector="playSelected:" target="-1" id="L78-bm-tIL"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Add Selected to Tracklist" id="BRM-Ur-u3g">
-                                <modifierMask key="keyEquivalentModifierMask"/>
+                            <menuItem title="Play First Disc from Selected Album" alternate="YES" id="zOW-MY-scf">
+                                <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                <modifierMask key="keyEquivalentModifierMask" control="YES"/>
+                                <connections>
+                                    <action selector="playFirstDiscFromAlbum:" target="-1" id="Y9q-C8-Ok1"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Add Selected to Tracklist" keyEquivalent="d" id="BRM-Ur-u3g">
                                 <connections>
                                     <action selector="addSelectedToTracklist:" target="-1" id="dEe-Se-OfZ"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Add First Disc to Tracklist" alternate="YES" keyEquivalent="d" id="wGo-hg-yR4">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                <connections>
+                                    <action selector="queueFirstDiscFromAlbum:" target="-1" id="a4z-86-w7C"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="irQ-gk-QUO"/>
