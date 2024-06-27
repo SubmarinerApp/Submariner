@@ -64,7 +64,6 @@
 }
 
 
-@synthesize databaseController;
 @synthesize artistSortDescriptor;
 @synthesize trackSortDescriptor;
 

@@ -46,8 +46,11 @@
     
     dispatch_once_t compensatedSplitViewToken;
     __weak NSSplitView *compensatedSplitView;
+    __weak SBDatabaseController *databaseController;
 }
 @property (nonatomic, strong, readwrite) NSManagedObjectContext *managedObjectContext;
+
+@property (readwrite, weak) SBDatabaseController *databaseController;
 
 @property (nonatomic, strong, readonly) NSArray<SBTrack*> *selectedTracks;
 @property (nonatomic, strong, readonly) NSArray<SBAlbum*> *selectedAlbums;

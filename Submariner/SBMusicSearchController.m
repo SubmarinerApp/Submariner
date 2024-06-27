@@ -50,9 +50,6 @@
 }
 
 
-@synthesize databaseController;
-
-
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context {
     self = [super initWithManagedObjectContext:context];
     if (self) {

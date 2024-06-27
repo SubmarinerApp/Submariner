@@ -10,9 +10,6 @@ import Cocoa
 import SwiftUI
 
 @objc class SBOnboardingController: SBViewController {
-    // annoyingly an optional because of the stupid coder ctor
-    @objc var databaseController: SBDatabaseController? = nil
-    
     @objc static override func nibName() -> String! {
         nil
     }

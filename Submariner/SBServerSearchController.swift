@@ -13,8 +13,6 @@ import Cocoa
 @objc class SBServerSearchController: SBServerViewController, NSTableViewDataSource, NSUserInterfaceValidations {
     @objc dynamic var searchResult: SBSearchResult?
     
-    @objc var databaseController: SBDatabaseController!
-    
     @IBOutlet var tracksTableView: NSTableView!
     @IBOutlet var tracksController: NSArrayController!
     

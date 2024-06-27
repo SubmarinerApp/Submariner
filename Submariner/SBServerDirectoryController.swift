@@ -15,8 +15,6 @@ import os
 fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "SBServerDirectoryController")
 
 @objc class SBServerDirectoryController: SBViewController, ObservableObject {
-    @objc weak var databaseController: SBDatabaseController!
-    
     @objc static override func nibName() -> String! {
         nil
     }

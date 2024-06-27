@@ -57,14 +57,12 @@
     __weak IBOutlet NSSearchField *filterView;
     
     __weak IBOutlet NSSplitView *rightSplitView;
-    SBDatabaseController *databaseController;
     NSArray *artistSortDescriptor;
     NSArray *albumSortDescriptor;
     NSArray *trackSortDescriptor;
     
     NSEntityDescription *groupEntity;
 }
-@property (readwrite, strong) SBDatabaseController *databaseController;
 @property (readwrite, strong) NSArray *artistSortDescriptor;
 @property (readwrite, strong) NSArray *trackSortDescriptor;
 

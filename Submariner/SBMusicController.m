@@ -53,7 +53,6 @@
 
 @synthesize artistSortDescriptor;
 @synthesize trackSortDescriptor;
-@synthesize databaseController;
 
 
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context {

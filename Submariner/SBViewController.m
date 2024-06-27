@@ -54,6 +54,8 @@
 
 #pragma mark - Properties
 
+@synthesize databaseController;
+
 - (NSArray<SBTrack*>*)selectedTracks {
     return @[];
 }

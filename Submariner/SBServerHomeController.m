@@ -74,7 +74,6 @@
 
 
 @synthesize trackSortDescriptor;
-@synthesize databaseController;
 
 
 

@@ -22,7 +22,6 @@ import Cocoa
         }
     }
     @objc var playlistSortDescriptors: [NSSortDescriptor] = []
-    @objc var databaseController: SBDatabaseController!
     
     @IBOutlet var tracksTableView: SBTableView!
     @IBOutlet var tracksController: NSArrayController!

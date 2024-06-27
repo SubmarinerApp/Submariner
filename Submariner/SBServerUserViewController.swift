@@ -15,8 +15,6 @@ extension NSNotification.Name {
 }
 
 @objc class SBServerUserViewController: SBViewController, ObservableObject {
-    @objc var databaseController: SBDatabaseController?
-    
     // #MARK: - Commands
     // TODO: Some of the logic is similar to that of SBViewController, but different due to that fact we're not working with tables.
     // As such, it could be made more consistent eventually.

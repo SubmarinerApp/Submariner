@@ -14,8 +14,6 @@ import Cocoa
     @IBOutlet var playlistTableView: NSTableView!
     @IBOutlet var tracklistLengthView: NSTextField!
     
-    @objc var databaseController: SBDatabaseController!
-    
     private var notificationObserver: Any?
     
     override class func nibName() -> String! {

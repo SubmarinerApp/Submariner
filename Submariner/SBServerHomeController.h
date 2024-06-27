@@ -51,11 +51,9 @@
     NSMutableArray *scopeGroups;
     NSArray *albumSortDescriptor;
     NSArray *trackSortDescriptor;
-    SBDatabaseController *databaseController;
 }
 
 @property (readwrite, strong) NSArray *trackSortDescriptor;
-@property (readwrite, strong) SBDatabaseController *databaseController;
 
 - (IBAction)trackDoubleClick:(id)sender;
 - (IBAction)albumDoubleClick:(id)sender;

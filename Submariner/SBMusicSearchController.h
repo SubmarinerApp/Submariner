@@ -39,10 +39,7 @@
 @interface SBMusicSearchController : SBViewController <NSTableViewDataSource> {
     IBOutlet NSTableView *tracksTableView;
     IBOutlet NSArrayController *tracksController;
-    SBDatabaseController *databaseController;
 }
-
-@property (readwrite, strong) SBDatabaseController *databaseController;
 
 - (IBAction)trackDoubleClick:(id)sender;
 - (void)searchString:(NSString *)query;
