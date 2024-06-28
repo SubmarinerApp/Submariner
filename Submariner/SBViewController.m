@@ -92,6 +92,10 @@
 #pragma mark Playing
 
 - (IBAction)trackDoubleClick:(id)sender {
+    if (self.selectedTrackRow < 0) {
+        return;
+    }
+    
     [[SBPlayer sharedInstance] playTracks:[self.tracks sortedArrayUsingDescriptors: self.trackSortDescriptor] startingAt:self.selectedTrackRow];
 }
 
