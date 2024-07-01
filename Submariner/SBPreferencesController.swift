@@ -116,7 +116,7 @@ class SBPreferencesController: NSWindowController {
                     Spacer()
                 }
                 Section {
-                    Picker(selection: $whenQueueing, label: Text("When queueing a track")) {
+                    Picker(selection: $whenQueueing, label: Text("When queueing multiple tracks")) {
                         Text("Append to tracklist").tag(0)
                         Text("Replace tracklist").tag(1)
                     }
