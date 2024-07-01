@@ -125,7 +125,6 @@
 		4C87ED7A139CD8BE0064DE2E /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C87ED78139CD8BE0064DE2E /* MainMenu.xib */; };
 		4C87ED7D139CD8BE0064DE2E /* Submariner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED7B139CD8BE0064DE2E /* Submariner.xcdatamodeld */; };
 		4C87ED8E139CD91B0064DE2E /* SBWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED8D139CD91B0064DE2E /* SBWindowController.m */; };
-		4C87EDA1139CD97B0064DE2E /* SBSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED94139CD97B0064DE2E /* SBSplitView.m */; };
 		4C87EDAB139CD9DA0064DE2E /* Database.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C87EDAA139CD9DA0064DE2E /* Database.xib */; };
 		4C87EDB0139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDAF139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m */; };
 		4C87EDBA139CDAB90064DE2E /* SBDatabaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDB9139CDAB90064DE2E /* SBDatabaseController.m */; };
@@ -139,7 +138,6 @@
 		4CFAFC37139EF20600E82B57 /* MGScopeBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC33139EF20500E82B57 /* MGScopeBar.m */; };
 		4CFAFC38139EF20600E82B57 /* MGRecessedPopUpButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC36139EF20500E82B57 /* MGRecessedPopUpButtonCell.m */; };
 		4CFAFC6613A0150300E82B57 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CFAFC6513A0150300E82B57 /* AudioToolbox.framework */; };
-		4CFAFC7D13A0F7E000E82B57 /* SBAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFAFC7C13A0F7E000E82B57 /* SBAnimatedView.m */; };
 		4CFB3E07139CEA76008DC01A /* NSOutlineView+Expand.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB3E06139CEA76008DC01A /* NSOutlineView+Expand.m */; };
 		4CFB3E14139D028D008DC01A /* SBSheetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB3E11139D028D008DC01A /* SBSheetController.m */; };
 		4CFB3E15139D028D008DC01A /* SBServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFB3E13139D028D008DC01A /* SBServerViewController.m */; };
@@ -303,8 +301,6 @@
 		4C87ED7C139CD8BE0064DE2E /* Submariner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Submariner.xcdatamodel; sourceTree = "<group>"; };
 		4C87ED8C139CD91B0064DE2E /* SBWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBWindowController.h; sourceTree = "<group>"; };
 		4C87ED8D139CD91B0064DE2E /* SBWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBWindowController.m; sourceTree = "<group>"; };
-		4C87ED93139CD97B0064DE2E /* SBSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSplitView.h; sourceTree = "<group>"; };
-		4C87ED94139CD97B0064DE2E /* SBSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSplitView.m; sourceTree = "<group>"; };
 		4C87EDAA139CD9DA0064DE2E /* Database.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Database.xib; sourceTree = "<group>"; };
 		4C87EDAE139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBezierPath+PXRoundedRectangleAdditions.h"; sourceTree = "<group>"; };
 		4C87EDAF139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+PXRoundedRectangleAdditions.m"; sourceTree = "<group>"; };
@@ -329,8 +325,6 @@
 		4CFAFC35139EF20500E82B57 /* MGRecessedPopUpButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGRecessedPopUpButtonCell.h; sourceTree = "<group>"; };
 		4CFAFC36139EF20500E82B57 /* MGRecessedPopUpButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGRecessedPopUpButtonCell.m; sourceTree = "<group>"; };
 		4CFAFC6513A0150300E82B57 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		4CFAFC7B13A0F7E000E82B57 /* SBAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAnimatedView.h; sourceTree = "<group>"; };
-		4CFAFC7C13A0F7E000E82B57 /* SBAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAnimatedView.m; sourceTree = "<group>"; };
 		4CFB3E05139CEA76008DC01A /* NSOutlineView+Expand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSOutlineView+Expand.h"; sourceTree = "<group>"; };
 		4CFB3E06139CEA76008DC01A /* NSOutlineView+Expand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSOutlineView+Expand.m"; sourceTree = "<group>"; };
 		4CFB3E10139D028D008DC01A /* SBSheetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSheetController.h; sourceTree = "<group>"; };
@@ -531,14 +525,10 @@
 				4CFAFC36139EF20500E82B57 /* MGRecessedPopUpButtonCell.m */,
 				4C7AA227139D53A40050BE95 /* SBTableView.h */,
 				4C7AA228139D53A50050BE95 /* SBTableView.m */,
-				4C87ED93139CD97B0064DE2E /* SBSplitView.h */,
-				4C87ED94139CD97B0064DE2E /* SBSplitView.m */,
 				4C87EDBD139CDC250064DE2E /* SBSourceList.h */,
 				4C87EDBE139CDC250064DE2E /* SBSourceList.m */,
 				4C87EDBF139CDC250064DE2E /* SBSourceListDataSource.h */,
 				4C87EDC0139CDC260064DE2E /* SBSourceListDelegate.h */,
-				4CFAFC7B13A0F7E000E82B57 /* SBAnimatedView.h */,
-				4CFAFC7C13A0F7E000E82B57 /* SBAnimatedView.m */,
 				3E04F6352B7AD22600E24E56 /* SBCollectionView.swift */,
 				3E04F6372B7B117400E24E56 /* SBCollectionViewFlowLayout.swift */,
 				3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */,
@@ -855,7 +845,6 @@
 				3E9090AA2C0BD58B0080284F /* MigrateV7ToV8.xcmappingmodel in Sources */,
 				3E2155122B26E6F0004BCCFC /* SBSubsonicRequestType.swift in Sources */,
 				3E04F5F02B71D60F00E24E56 /* SBDirectory.swift in Sources */,
-				4C87EDA1139CD97B0064DE2E /* SBSplitView.m in Sources */,
 				3E87E9102B4364CF00E85000 /* Collection+IndexSet.swift in Sources */,
 				3E45201E29FAD41900604079 /* UserDefaults+Submariner.swift in Sources */,
 				3EC03B5629F4F2E0001FDE50 /* SBArtist.swift in Sources */,
@@ -941,7 +930,6 @@
 				3EA929BB29E4785F00938582 /* SBRepeatModeTransformer.swift in Sources */,
 				3EC03B4629F4F2E0001FDE50 /* SBTrack.swift in Sources */,
 				3E04F6342B7AC83600E24E56 /* SBAlbumViewItem.swift in Sources */,
-				4CFAFC7D13A0F7E000E82B57 /* SBAnimatedView.m in Sources */,
 				3EC03B3629F4F2E0001FDE50 /* SBEpisode.swift in Sources */,
 				3EC03AC529F42C95001FDE50 /* URL+Parameters.swift in Sources */,
 				3EC03B6329F5B0E2001FDE50 /* SBServer+CoreDataProperties.swift in Sources */,

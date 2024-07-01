@@ -34,10 +34,7 @@
 
 #import "SBDatabaseController.h"
 #import "SBMusicController.h"
-#import "SBAnimatedView.h"
 #import "SBTableView.h"
-
-#import "SBSplitView.h"
 
 #import "NSOutlineView+Expand.h"
 

@@ -41,7 +41,6 @@
 #import "SBServerPodcastController.h"
 #import "SBSourceList.h"
 
-@class SBSplitView;
 @class SBSourceList;
 @class SBEditServerController;
 @class SBAddServerPlaylistController;
@@ -71,8 +70,8 @@
 @private
     IBOutlet NSView *titleView;
     IBOutlet NSView *hostView;
-    IBOutlet SBSplitView *mainSplitView;
-    IBOutlet SBSplitView *titleSplitView;   
+    IBOutlet NSSplitView *mainSplitView;
+    IBOutlet NSSplitView *titleSplitView;
     IBOutlet NSSplitView *coverSplitView;
     IBOutlet NSImageView *handleSplitView;
     IBOutlet SBSourceList *sourceList;
