@@ -44,6 +44,7 @@
 @class SBSourceList;
 @class SBEditServerController;
 @class SBAddServerPlaylistController;
+@class SBJumpToTimestampController;
 @class SBMusicController;
 @class SBMusicSearchController;
 @class SBServerSearchController;
@@ -77,6 +78,7 @@
     IBOutlet SBSourceList *sourceList;
     IBOutlet NSTreeController *resourcesController;
     IBOutlet SBEditServerController *editServerController;
+    SBJumpToTimestampController *jumpToTimestampController;
     SBAddServerPlaylistController *addServerPlaylistController;
     IBOutlet NSProgressIndicator *progressIndicator;
     IBOutlet NSButton *toggleButton;
@@ -191,6 +193,7 @@
 - (IBAction)goToCurrentTrack:(id)sender;
 - (IBAction)renameItem:(id)sender;
 - (IBAction)createDemoServer:(id)sender;
+- (IBAction)jumpToTimestamp:(id)sender;
 
 // NSUserInterfaceValidations protocol is implemented by AppDelegate, but logic lives here
 - (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item;

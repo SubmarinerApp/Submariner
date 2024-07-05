@@ -438,6 +438,12 @@ DQ
                                     <action selector="fastForward:" target="494" id="uO1-eC-qfv"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Seek to Timestamp..." id="b9o-90-knN">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="jumpToTimestamp:" target="-1" id="ucq-Si-Hqr"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="bLI-cD-qZv"/>
                             <menuItem title="Increase Volume" keyEquivalent="" id="eoq-8d-aSq">
                                 <connections>

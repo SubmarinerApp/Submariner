@@ -128,6 +128,9 @@
         serverUserController = [[SBServerUserViewController alloc] initWithManagedObjectContext:self.managedObjectContext];
         serverSearchController = [[SBServerSearchController alloc] initWithManagedObjectContext:self.managedObjectContext];
         inspectorController = [[SBInspectorController alloc] init];
+        // init sheet controllers not managed by IB
+        jumpToTimestampController = [[SBJumpToTimestampController alloc] init];
+        jumpToTimestampController.parentWindow = self.window;
         
         [onboardingController setDatabaseController:self];
         [musicController setDatabaseController:self];
@@ -960,6 +963,9 @@
 }
 
 
+- (IBAction)jumpToTimestamp:(id)sender {
+    [jumpToTimestampController openSheet: sender];
+}
 
 #pragma mark -
 #pragma mark NSTimer
@@ -1973,6 +1979,7 @@
     }
     if (action == @selector(stop:)
         || action == @selector(rewind:) || action == @selector(fastForward:)
+        || action == @selector(jumpToTimestamp:)
         || action == @selector(goToCurrentTrack:)) {
         return isPlaying;
     }

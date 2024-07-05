@@ -44,6 +44,27 @@ extension String {
     func dateTimeFromHTTP() -> Date? {
         return String.httpDateFormatter.date(from: self)
     }
+    
+    // https://stackoverflow.com/a/35407213 but extended for fractional time
+    func toTimeInterval() -> TimeInterval {
+        guard self != "" else {
+            return 0
+        }
+
+        var interval: Double = 0
+
+        let firstParts = self.components(separatedBy: ".")
+        let parts = firstParts[0].components(separatedBy: ":")
+        for (index, part) in parts.reversed().enumerated() {
+            interval += (Double(part) ?? 0) * pow(Double(60), Double(index))
+        }
+        
+        if firstParts.count > 1, let ms = Double("0.\(firstParts[1])") {
+            interval += ms
+        }
+
+        return interval
+    }
 
     init(timeInterval: TimeInterval) {
         if timeInterval == 0 || timeInterval.isNaN {

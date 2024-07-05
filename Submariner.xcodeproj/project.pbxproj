@@ -63,6 +63,7 @@
 		3E94E5F62912EEC40080FDF6 /* SBNavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E5F52912EEC40080FDF6 /* SBNavigationItem.swift */; };
 		3E94E5F82915AAB80080FDF6 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E94E5F72915AAB80080FDF6 /* AVKit.framework */; };
 		3E94E5FA2915AB130080FDF6 /* SBRoutePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E5F92915AB130080FDF6 /* SBRoutePickerView.swift */; };
+		3EA755522C37749D00852938 /* SBJumpToTimestampController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA755512C37749D00852938 /* SBJumpToTimestampController.swift */; };
 		3EA929B729E4745600938582 /* SBRepeatIconTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA929B629E4745600938582 /* SBRepeatIconTransformer.swift */; };
 		3EA929B929E4766900938582 /* SBVolumeIconTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA929B829E4766900938582 /* SBVolumeIconTransformer.swift */; };
 		3EA929BB29E4785F00938582 /* SBRepeatModeTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA929BA29E4785F00938582 /* SBRepeatModeTransformer.swift */; };
@@ -227,6 +228,7 @@
 		3E94E5F92915AB130080FDF6 /* SBRoutePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBRoutePickerView.swift; sourceTree = "<group>"; };
 		3EA06A4E28B2C04B0091A75F /* Submariner v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Submariner v2.xcdatamodel"; sourceTree = "<group>"; };
 		3EA06A5028B9AD220091A75F /* Submariner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Submariner.entitlements; sourceTree = "<group>"; };
+		3EA755512C37749D00852938 /* SBJumpToTimestampController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBJumpToTimestampController.swift; sourceTree = "<group>"; };
 		3EA929B629E4745600938582 /* SBRepeatIconTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBRepeatIconTransformer.swift; sourceTree = "<group>"; };
 		3EA929B829E4766900938582 /* SBVolumeIconTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBVolumeIconTransformer.swift; sourceTree = "<group>"; };
 		3EA929BA29E4785F00938582 /* SBRepeatModeTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBRepeatModeTransformer.swift; sourceTree = "<group>"; };
@@ -715,6 +717,7 @@
 				3E04F60E2B771C4500E24E56 /* SBEditServerController.swift */,
 				3E04F5EC2B70487200E24E56 /* SBAddServerPlaylistController.swift */,
 				3E04F5EA2B7043F600E24E56 /* SBMergeArtistsController.swift */,
+				3EA755512C37749D00852938 /* SBJumpToTimestampController.swift */,
 			);
 			name = "Window Controllers";
 			sourceTree = "<group>";
@@ -890,6 +893,7 @@
 				3EC03B3A29F4F2E0001FDE50 /* SBAlbum.swift in Sources */,
 				3EB2BCD12992FD5A00DC5056 /* SBTracklistButton.swift in Sources */,
 				3E8124292BF408110060DDAF /* NSString+Comparison.swift in Sources */,
+				3EA755522C37749D00852938 /* SBJumpToTimestampController.swift in Sources */,
 				4CFB3E14139D028D008DC01A /* SBSheetController.m in Sources */,
 				4CFB3E15139D028D008DC01A /* SBServerViewController.m in Sources */,
 				3E189E4028EF5BAB0062ACA0 /* SBAudioMetadata.swift in Sources */,
