@@ -16,6 +16,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
 
 extension NSNotification.Name {
     static let SBPlayerPlaylistUpdated = NSNotification.Name("SBPlayerPlaylistUpdatedNotification")
+    static let SBPlaySeekNotification = NSNotification.Name("SBPlaySeekNotification")
     static let SBPlayerPlayState = NSNotification.Name("SBPlayerPlayStateNotification")
 }
 
@@ -714,6 +715,7 @@ extension NSNotification.Name {
         
         // seeks will desync the NPIC
         updateSystemNowPlayingStatus()
+        NotificationCenter.default.post(name: .SBPlaySeekNotification, object: self)
     }
     
     @objc(seek:) func seek(percentage: Double) {
@@ -725,6 +727,7 @@ extension NSNotification.Name {
         
         // seeks will desync the NPIC
         updateSystemNowPlayingStatus()
+        NotificationCenter.default.post(name: .SBPlaySeekNotification, object: self)
     }
     
     @objc(relativeSeekBy:) func relativeSeekBy(increment: Float) {

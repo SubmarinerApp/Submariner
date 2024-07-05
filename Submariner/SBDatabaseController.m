@@ -149,6 +149,8 @@
 
 - (void)dealloc
 {
+    // remove player observer
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBPlaySeekNotification" object:nil];
     // remove window observer
     [self.window.contentView removeObserver: self forKeyPath: @"safeAreaInsets"];
     // remove Subsonic observers
@@ -275,6 +277,12 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateMenuBindings:)
                                                  name:@"SBFirstResponderNoLonger"
+                                               object:nil];
+    
+    // update the seek progress
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(playerSeekNotification:)
+                                                 name:@"SBPlaySeekNotification"
                                                object:nil];
 
 
@@ -1479,6 +1487,12 @@
         [self clearPlaybackProgress];
         [playPauseButton setState:NSControlStateValueOn];
     }
+}
+
+- (void)playerSeekNotification:(NSNotification*)notification {
+    // we get this from seek dialog, NPIC seeks, toolbar seeks
+    // note that dragging the toolbar slider does not constantly send notifications
+    [self updateProgress];
 }
 
 - (void)playerHaveMovieToPlayNotification:(NSNotification *)notification {
