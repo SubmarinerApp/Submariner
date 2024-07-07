@@ -33,6 +33,7 @@ extension NSNotification.Name {
     @objc let remotePlayer = AVPlayer()
     
     var playerStatusObserver: NSKeyValueObservation?
+    var playRateObserver: NSKeyValueObservation?
     
     private override init() {
         super.init()
@@ -47,6 +48,17 @@ extension NSNotification.Name {
         remotePlayer.allowsExternalPlayback = false;
         
         // observers
+        playRateObserver = UserDefaults.standard.observe(\.playRate, options: [.initial, .new], changeHandler: { defaults, change in
+            if let playRate = change.newValue?.floatValue {
+                if #available(macOS 13, *) {
+                    self.remotePlayer.defaultRate = playRate
+                }
+                if self.isPlaying && !self.isPaused {
+                    self.remotePlayer.rate = playRate
+                }
+            }
+        })
+        
         playerStatusObserver = remotePlayer.observe(\.status, options: [.old, .new]) { player, change in
             // workaround newValue sometimes returning nil if AVPlayer fails (even with .new)
             switch (player.status) {
@@ -620,6 +632,9 @@ extension NSNotification.Name {
             remotePlayer.replaceCurrentItem(with: newItem)
             remotePlayer.volume = volume
             remotePlayer.play()
+            if #unavailable(macOS 13) {
+                remotePlayer.rate = UserDefaults.standard.playRate.floatValue
+            }
             
             return true
         } else {

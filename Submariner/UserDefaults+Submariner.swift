@@ -50,4 +50,8 @@ extension UserDefaults {
     @objc dynamic var coverSize: NSNumber {
         return NSNumber(value: float(forKey: "coverSize"))
     }
+    
+    @objc dynamic var playRate: NSNumber {
+        return NSNumber(value: float(forKey: "playRate"))
+    }
 }

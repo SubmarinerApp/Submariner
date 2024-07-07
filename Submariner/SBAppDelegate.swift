@@ -38,6 +38,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
             "SkipIncrement": NSNumber(value: 5.0),
             "albumSortOrder": "OldestFirst",
             "canLinkImport": NSNumber(value: false),
+            "playRate": NSNumber(value: 1.0),
         ]
         UserDefaults.standard.register(defaults: defaults)
         
