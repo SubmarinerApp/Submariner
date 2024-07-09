@@ -42,6 +42,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Favouriting items is available from the menu bar, or Cmd+E.
 * Adding items to the tracklist now has a shortcut of Cmd+D.
 * You can seek to a specific timestamp. (GH-84)
+* You can now adjust the speed of playback. (GH-83)
 * Fix parsing fractional dates returned by some servers.
 * Fix the null cover being used for system now playing information.
 * Upgrading from Submariner 1.x is no longer supported.
