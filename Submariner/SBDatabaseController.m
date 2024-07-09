@@ -131,6 +131,8 @@
         // init sheet controllers not managed by IB
         jumpToTimestampController = [[SBJumpToTimestampController alloc] init];
         jumpToTimestampController.parentWindow = self.window;
+        playRateController = [[SBPlayRateController alloc] init];
+        playRateController.parentWindow = self.window;
         
         [onboardingController setDatabaseController:self];
         [musicController setDatabaseController:self];
@@ -973,6 +975,11 @@
 
 - (IBAction)jumpToTimestamp:(id)sender {
     [jumpToTimestampController openSheet: sender];
+}
+
+
+- (IBAction)showPlayRate:(id)sender {
+    [playRateController openSheet: sender];
 }
 
 #pragma mark -

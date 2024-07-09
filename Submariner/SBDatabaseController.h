@@ -45,6 +45,7 @@
 @class SBEditServerController;
 @class SBAddServerPlaylistController;
 @class SBJumpToTimestampController;
+@class SBPlayRateController;
 @class SBMusicController;
 @class SBMusicSearchController;
 @class SBServerSearchController;
@@ -79,6 +80,7 @@
     IBOutlet NSTreeController *resourcesController;
     IBOutlet SBEditServerController *editServerController;
     SBJumpToTimestampController *jumpToTimestampController;
+    SBPlayRateController *playRateController;
     SBAddServerPlaylistController *addServerPlaylistController;
     IBOutlet NSProgressIndicator *progressIndicator;
     IBOutlet NSButton *toggleButton;

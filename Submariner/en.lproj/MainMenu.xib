@@ -518,6 +518,13 @@ DQ
                                     <binding destination="s2r-9F-vP5" name="value" keyPath="values.shuffle" id="hud-gw-zmG"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="RXO-ow-3eh"/>
+                            <menuItem title="Playback Speed..." id="ZS2-kE-T3v">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="showPlayRate:" target="-1" id="KSg-pu-9n2"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
