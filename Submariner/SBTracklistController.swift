@@ -158,7 +158,7 @@ import Cocoa
         case #selector(SBTracklistController.delete(_:)):
             return count > 0
         default:
-            return true
+            return super.validateUserInterfaceItem(item)
         }
     }
 }
