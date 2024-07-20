@@ -31,7 +31,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes
 
-### Not yet released
+### Version 3.2
 
 * Inspector window has been improved
   * You can now switch between now playing and current selection with a tab view.
