@@ -471,6 +471,7 @@
     s.username = @"guest1";
     s.password = @"guest";
     [s updateKeychainPassword]; // or it won't work when switched to
+    [s setSection:serverSection]; // or it disappears next time we load
     [serversSection addResourcesObject:s];
     [self.managedObjectContext save:nil];
     
