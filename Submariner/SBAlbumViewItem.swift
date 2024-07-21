@@ -44,7 +44,9 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     }
     
     override func loadView() {
-        super.loadView()
+        // don't call super.loadView(), it's for nib based
+        // but do set an empty view here; if not, then calling the view getter in regenerateView will infinite loop
+        view = NSView()
         
         regenerateView()
     }
