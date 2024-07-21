@@ -31,6 +31,11 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes
 
+### Not yet released
+
+* Fix the onboarding window not showing buttons on macOS 12.
+* Fix a crash with the album list on macOS 12.
+
 ### Version 3.2
 
 * Inspector window has been improved
