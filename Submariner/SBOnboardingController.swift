@@ -54,6 +54,8 @@ import SwiftUI
                             // XXX: For some reason, the tint isn't applying for the prominent button.
                             $0.tint(.accentColor)
                                 .buttonStyle(.borderedProminent)
+                        } else {
+                            $0
                         }
                     }
                     
