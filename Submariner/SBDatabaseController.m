@@ -391,6 +391,8 @@
     [splitVC.view.leftAnchor constraintEqualToAnchor:((NSLayoutGuide*)self.window.contentLayoutGuide).leftAnchor].active=YES;
     [splitVC.view.rightAnchor constraintEqualToAnchor:((NSLayoutGuide*)self.window.contentLayoutGuide).rightAnchor].active=YES;
     
+    NSLog(@"Constraint fuckery: %@\nSource list/superview frame, %@/%@", sourceList.constraints, NSStringFromRect(sourceList.frame), NSStringFromRect(sourceList.superview.frame));
+    
     // Need to set both for some reason? And after assignment to the parent?
     splitVC.splitView.autosaveName = @"DatabaseWindowSplitViewController";
     splitVC.splitView.identifier = @"SBDatabaseWindowSplitViewController";
@@ -747,6 +749,7 @@
 }
 
 - (IBAction)nextTrack:(id)sender {
+    NSLog(@"SV Constraint fuckery: %@\nSource list/superview frame, %@/%@", sourceList.superview.constraints, NSStringFromRect(sourceList.frame), NSStringFromRect(sourceList.superview.frame));
     [[SBPlayer sharedInstance] next];
 }
 
