@@ -31,7 +31,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes
 
-### Not yet released
+### Version 3.2.1
 
 * Fix the demo server disappearing on restart.
 * Fix the onboarding window not showing buttons on macOS 12.
