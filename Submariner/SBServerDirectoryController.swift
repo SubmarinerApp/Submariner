@@ -38,14 +38,18 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         }
     }
     
-    var _selectedMusicItems: [SBStarrable] = []
-    override var selectedMusicItems: [any SBStarrable]! {
-        self._selectedMusicItems
+    var _selectedDirectories: [SBDirectory] = []
+    override var selectedDirectories: [SBDirectory]! {
+        self._selectedDirectories
     }
     
     var _selectedTracks: [SBTrack] = []
     override var selectedTracks: [SBTrack]! {
         self._selectedTracks
+    }
+    
+    override var selectedMusicItems: [any SBStarrable]! {
+        self.selectedDirectories + self.selectedTracks
     }
     
     // #MARK: - Actions
@@ -293,19 +297,19 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
             // In the future, it would be nice to show directory info in the inspector.
             if let directory = newValue.first as? SBDirectory, let id = directory.itemId {
                 serverDirectoryController._selectedTracks = []
-                serverDirectoryController._selectedMusicItems = [directory]
+                serverDirectoryController._selectedDirectories = [directory]
                 directory.server?.getServerDirectory(id: id)
                 children = directory.children
                 NotificationCenter.default.post(name: .SBTrackSelectionChanged, object: [])
             } else if newValue.isEmpty {
                 // use ourselves for current selection, so favourites menu works
                 serverDirectoryController._selectedTracks = []
-                serverDirectoryController._selectedMusicItems = [directory]
+                serverDirectoryController._selectedDirectories = [directory]
                 NotificationCenter.default.post(name: .SBTrackSelectionChanged, object: [])
             } else if let tracks = newValue as? Set<SBTrack> {
                 let tracksArray = Array(tracks)
                 serverDirectoryController._selectedTracks = tracksArray
-                serverDirectoryController._selectedMusicItems = tracksArray
+                serverDirectoryController._selectedDirectories = []
                 NotificationCenter.default.post(name: .SBTrackSelectionChanged, object: tracksArray)
             }
         }
@@ -446,7 +450,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                             .onChange(of: selected) { newValue in
                                 // We're not doing anything with this in leftmost
                                 self.serverDirectoryController._selectedTracks = []
-                                self.serverDirectoryController._selectedMusicItems = selected != nil ? [selected!] : []
+                                self.serverDirectoryController._selectedDirectories = selected != nil ? [selected!] : []
                                 NotificationCenter.default.post(name: .SBTrackSelectionChanged, object: [])
                                 if let directory = newValue, let id = directory.itemId {
                                     directory.server?.getServerDirectory(id: id)

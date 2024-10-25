@@ -82,6 +82,11 @@
 }
 
 
+- (NSArray<SBDirectory*>*)selectedDirectories {
+    return @[];
+}
+
+
 - (NSArray<id<SBStarrable>>*)selectedMusicItems {
     return [self selectedTracks];
 }
@@ -107,12 +112,23 @@
     }
 }
 
+- (IBAction)playDirectory:(id)sender {
+    SBDirectory *directory = self.selectedDirectories.firstObject;
+    
+    if (directory != nil) {
+        NSArray<SBTrack*> *tracks = [self recursiveTracksFromDirectory: directory];
+        [[SBPlayer sharedInstance] playTracks:[tracks sortedArrayUsingDescriptors: self.trackSortDescriptor] startingAt:0];
+    }
+}
+
 - (IBAction)playSelected:(id)sender {
     SBSelectedItemType itemType = [self selectedItemType];
     if (itemType == SBSelectedItemTypeAlbum) {
         [self albumDoubleClick: sender];
     } else if (itemType == SBSelectedItemTypeTrack) {
         [self trackDoubleClick: sender];
+    } else if (itemType == SBSelectedItemTypeDirectory) {
+        [self playDirectory: sender];
     }
 }
 
@@ -122,6 +138,16 @@
 }
 
 #pragma mark Add to Tracklist
+
+- (IBAction)addDirectoryToTracklist:(id)sender {
+    SBDirectory *directory = self.selectedDirectories.firstObject;
+    
+    if (directory != nil) {
+        NSArray<SBTrack*> *tracks = [self recursiveTracksFromDirectory: directory];
+        [[SBPlayer sharedInstance] addTrackArray:tracks replace:NO];
+    }
+}
+
 
 - (IBAction)addArtistToTracklist:(id)sender {
     NSMutableArray *tracks = [NSMutableArray array];
@@ -152,6 +178,8 @@
         [self addAlbumToTracklist: sender];
     } else if (itemType == SBSelectedItemTypeTrack) {
         [self addTrackToTracklist: sender];
+    } else if (itemType == SBSelectedItemTypeDirectory) {
+        [self addDirectoryToTracklist: sender];
     }
 }
 
@@ -173,6 +201,22 @@
 }
 
 #pragma mark Downloading
+
+- (IBAction)downloadDirectory:(id)sender {
+    SBDirectory *directory = self.selectedDirectories.firstObject;
+    
+    if (directory != nil) {
+        NSArray<SBTrack*> *tracks = [self recursiveTracksFromDirectory: directory];
+        
+        for (SBTrack *track in tracks) {
+            SBSubsonicDownloadOperation *op = [[SBSubsonicDownloadOperation alloc]
+                                               initWithManagedObjectContext: self.managedObjectContext
+                                               trackID: [track objectID]];
+            
+            [[NSOperationQueue sharedDownloadQueue] addOperation:op];
+        }
+    }
+}
 
 - (IBAction)downloadTrack:(id)sender {
     [self downloadTracks: self.selectedTracks databaseController: self.databaseController];
@@ -201,6 +245,8 @@
         [self downloadAlbum: sender];
     } else if (itemType == SBSelectedItemTypeTrack) {
         [self downloadTrack: sender];
+    } else if (itemType == SBSelectedItemTypeDirectory) {
+        [self downloadDirectory: sender];
     }
 }
 
@@ -404,6 +450,21 @@
     return [sortedTracks objectsAtIndexes: trackIndices];
 }
 
+- (NSArray<SBTrack*>*) recursiveTracksFromDirectory:(SBDirectory*) directory {
+    NSMutableArray<SBTrack*> *tracks = [[NSMutableArray alloc] init];
+    NSArray<SBMusicItem*>* children = [directory children];
+    for (SBMusicItem *item in children) {
+        if ([item isKindOfClass: SBTrack.class]) {
+            [tracks addObject: (SBTrack*)item];
+        } else if ([item isKindOfClass: SBDirectory.class]) {
+            SBDirectory *child = (SBDirectory*)item;
+            NSArray<SBTrack*> *childTracks = [self recursiveTracksFromDirectory: child];
+            [tracks addObjectsFromArray: childTracks];
+        }
+    }
+    return tracks;
+}
+
 - (SBSelectedItemType) selectedItemType {
     NSObject<SBStarrable> *first = self.selectedMusicItems.firstObject;
     if ([first isKindOfClass: SBArtist.class]) {
@@ -412,6 +473,8 @@
         return SBSelectedItemTypeAlbum;
     } else if ([first isKindOfClass: SBTrack.class]) {
         return SBSelectedItemTypeTrack;
+    } else if ([first isKindOfClass: SBDirectory.class]) {
+        return SBSelectedItemTypeDirectory;
     }
     return SBSelectedItemTypeNone;
 }
@@ -424,11 +487,13 @@
     NSInteger artistsSelected = self.selectedArtists.count;
     NSInteger albumSelected = self.selectedAlbums.count;
     NSInteger tracksSelected = self.selectedTracks.count;
+    NSInteger directoriesSelected = self.selectedDirectories.count;
     
     SBSelectedItemType selectedItemType = [self selectedItemType];
     BOOL tracksActive = selectedItemType == SBSelectedItemTypeTrack;
     BOOL albumsActive = selectedItemType == SBSelectedItemTypeAlbum;
     BOOL artistsActive = selectedItemType == SBSelectedItemTypeArtist;
+    BOOL directoriesActive = selectedItemType == SBSelectedItemTypeDirectory;
     
     SBSelectedRowStatus selectedTrackRowStatus = 0;
     if (tracksActive) {
@@ -436,11 +501,16 @@
     }
     
     if (action == @selector(playSelected:)) {
-        return (albumSelected > 0 && albumsActive) || (tracksSelected > 0 && tracksActive);
+        return (albumSelected > 0 && albumsActive)
+            || (tracksSelected > 0 && tracksActive)
+            || (directoriesSelected > 0 && directoriesActive);
     }
     
     if (action == @selector(addSelectedToTracklist:)) {
-        return (albumSelected > 0 && albumsActive) || (tracksSelected > 0 && tracksActive) || (artistsSelected > 0 && artistsActive);
+        return (albumSelected > 0 && albumsActive)
+            || (tracksSelected > 0 && tracksActive)
+            || (artistsSelected > 0 && artistsActive)
+            || (directoriesSelected > 0 && directoriesActive);
     }
     
     if (action == @selector(trackDoubleClick:)
@@ -462,7 +532,9 @@
     }
     
     if (action == @selector(downloadSelected:)) {
-        return (selectedTrackRowStatus & SBSelectedRowDownloadable) || (albumSelected > 0 && albumsActive);
+        return (selectedTrackRowStatus & SBSelectedRowDownloadable)
+            || (albumSelected > 0 && albumsActive)
+            || (directoriesSelected > 0 && directoriesActive);
     }
     
     // for context menus
