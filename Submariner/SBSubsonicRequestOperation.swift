@@ -255,16 +255,18 @@ class SBSubsonicRequestOperation: SBOperation {
         case .getDirectory(id: let id):
             parameters["id"] = id
             url = URL.URLWith(string: server.url, command: "rest/getMusicDirectory.view", parameters: parameters)
-        case .star(tracks: let tracks, albums: let albums, artists: let artists):
-            // Directories are id= as well if we support those
+        case .star(tracks: let tracks, albums: let albums, artists: let artists, directories: let directories):
+            // Directories share the same namespace as tracks
             let allParams = parameters.map { (k, v) in  URLQueryItem(name: k, value: v) } +
                 (tracks.map { track in URLQueryItem(name: "id", value: track.itemId) } ) +
+                (directories.map { track in URLQueryItem(name: "id", value: track.itemId) } ) +
                 (albums.map { album in URLQueryItem(name: "albumId", value: album.itemId) } ) +
                 (artists.map { artist in URLQueryItem(name: "artistId", value: artist.itemId) } )
             url = URL.URLWith(string: server.url, command: "rest/star.view", queryItems: allParams)
-        case .unstar(tracks: let tracks, albums: let albums, artists: let artists):
+        case .unstar(tracks: let tracks, albums: let albums, artists: let artists, directories: let directories):
             let allParams = parameters.map { (k, v) in  URLQueryItem(name: k, value: v) } +
                 (tracks.map { track in URLQueryItem(name: "id", value: track.itemId) } ) +
+                (directories.map { track in URLQueryItem(name: "id", value: track.itemId) } ) +
                 (albums.map { album in URLQueryItem(name: "albumId", value: album.itemId) } ) +
                 (artists.map { artist in URLQueryItem(name: "artistId", value: artist.itemId) } )
             url = URL.URLWith(string: server.url, command: "rest/unstar.view", queryItems: allParams)

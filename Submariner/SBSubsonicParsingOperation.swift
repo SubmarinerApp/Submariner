@@ -866,6 +866,10 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             break
         }
         
+        if directoryCreation != .parentReferenceOnly {
+            directory.starred = attributes["starred"]?.dateTimeFromISO()
+        }
+        
         // if we're fetching a directory, it might have a parent we may or may not know about.
         // almost certainly we know it (or we wouldn't have requested the directory, but just make sure integrity is kept
         if let parentDirectoryId = attributes["parent"] {
@@ -896,6 +900,9 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             }
         }
         
+        if directoryCreation != .parentReferenceOnly {
+            directory.starred = attributes["starred"]?.dateTimeFromISO()
+        }
         
         directory.server = self.server
         // would this mess up hierarchy? just filter on if parentDirectory == nil

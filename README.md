@@ -31,6 +31,10 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes
 
+### Not yet released
+
+* Directories can be starred.
+
 ### Version 3.2.1
 
 * Fix the demo server disappearing on restart.

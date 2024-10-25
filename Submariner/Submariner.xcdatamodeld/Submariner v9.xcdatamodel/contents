@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23231" systemVersion="23H124" minimumToolsVersion="Xcode 8.0" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Album" representedClassName="SBAlbum" parentEntity="MusicItem" syncable="YES" codeGenerationType="category">
+        <attribute name="starred" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="year" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="artist" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Artist" inverseName="albums" inverseEntity="Artist" indexed="YES" syncable="YES"/>
+        <relationship name="cover" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="Cover" inverseName="album" inverseEntity="Cover" indexed="YES" syncable="YES"/>
+        <relationship name="home" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Home" inverseName="albums" inverseEntity="Home" indexed="YES" syncable="YES"/>
+        <relationship name="tracks" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Track" inverseName="album" inverseEntity="Track" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Artist" representedClassName="SBArtist" parentEntity="Index" syncable="YES" codeGenerationType="category">
+        <attribute name="starred" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="albums" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Album" inverseName="artist" inverseEntity="Album" indexed="YES" syncable="YES"/>
+        <relationship name="library" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Library" inverseName="artists" inverseEntity="Library" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Cover" representedClassName="SBCover" parentEntity="MusicItem" syncable="YES">
+        <attribute name="imagePath" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="album" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Album" inverseName="cover" inverseEntity="Album" indexed="YES" syncable="YES"/>
+        <relationship name="track" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Track" inverseName="cover" inverseEntity="Track" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Directory" representedClassName="SBDirectory" parentEntity="MusicItem" syncable="YES" codeGenerationType="category">
+        <attribute name="starred" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="parentDirectory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Directory" inverseName="subdirectories" inverseEntity="Directory" syncable="YES"/>
+        <relationship name="server" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Server" inverseName="directories" inverseEntity="Server" syncable="YES"/>
+        <relationship name="subdirectories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Directory" inverseName="parentDirectory" inverseEntity="Directory" syncable="YES"/>
+        <relationship name="tracks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Track" inverseName="parentDirectory" inverseEntity="Track" syncable="YES"/>
+    </entity>
+    <entity name="Downloads" representedClassName="SBDownloads" parentEntity="Resource" syncable="YES" codeGenerationType="category"/>
+    <entity name="Episode" representedClassName="SBEpisode" parentEntity="Track" syncable="YES" codeGenerationType="category">
+        <attribute name="episodeDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="episodeStatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="publishDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="streamID" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="podcast" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Podcast" inverseName="episodes" inverseEntity="Podcast" indexed="YES" syncable="YES"/>
+        <relationship name="track" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Track" inverseName="episode" inverseEntity="Track" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Group" representedClassName="SBGroup" parentEntity="Index" syncable="YES" codeGenerationType="category"/>
+    <entity name="Home" representedClassName="SBHome" syncable="YES" codeGenerationType="category">
+        <relationship name="albums" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Album" inverseName="home" inverseEntity="Album" indexed="YES" syncable="YES"/>
+        <relationship name="server" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Server" inverseName="home" inverseEntity="Server" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Index" representedClassName="SBIndex" parentEntity="MusicItem" syncable="YES" codeGenerationType="category">
+        <relationship name="server" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Server" inverseName="indexes" inverseEntity="Server" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Library" representedClassName="SBLibrary" parentEntity="Resource" syncable="YES" codeGenerationType="category">
+        <relationship name="artists" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Artist" inverseName="library" inverseEntity="Artist" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="MusicItem" representedClassName="SBMusicItem" syncable="YES">
+        <attribute name="isLinked" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="isLocal" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="itemId" optional="YES" attributeType="String" elementID="id" syncable="YES"/>
+        <attribute name="itemName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="path" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="NowPlaying" representedClassName="SBNowPlaying" syncable="YES" codeGenerationType="category">
+        <attribute name="minutesAgo" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="server" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Server" inverseName="nowPlayings" inverseEntity="Server" indexed="YES" syncable="YES"/>
+        <relationship name="track" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Track" inverseName="nowPlaying" inverseEntity="Track" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Playlist" representedClassName="SBPlaylist" parentEntity="Resource" syncable="YES" codeGenerationType="category">
+        <attribute name="comment" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isPublic" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="itemId" optional="YES" attributeType="String" elementID="id" syncable="YES"/>
+        <attribute name="trackIDs" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformer" customClassName="[URL]" syncable="YES"/>
+        <relationship name="server" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Server" inverseName="playlists" inverseEntity="Server" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Podcast" representedClassName="SBPodcast" parentEntity="MusicItem" syncable="YES" codeGenerationType="category">
+        <attribute name="channelDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="channelStatus" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="channelURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="errorMessage" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="episodes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Episode" inverseName="podcast" inverseEntity="Episode" indexed="YES" syncable="YES"/>
+        <relationship name="server" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Server" inverseName="podcasts" inverseEntity="Server" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Resource" representedClassName="SBResource" syncable="YES" codeGenerationType="category">
+        <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="resourceName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="section" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Section" inverseName="resources" inverseEntity="Section" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Section" representedClassName="SBSection" parentEntity="Resource" syncable="YES" codeGenerationType="category">
+        <relationship name="resources" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Resource" inverseName="section" inverseEntity="Resource" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Server" representedClassName="SBServer" parentEntity="Resource" syncable="YES">
+        <attribute name="apiVersion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isValidLicense" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="lastIndexesDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="licenseDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="licenseEmail" optional="YES" attributeType="String" defaultValueString="Unvalid License" syncable="YES"/>
+        <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="useTokenAuth" optional="YES" attributeType="Boolean" defaultValueString="YES" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="directories" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Directory" inverseName="server" inverseEntity="Directory" syncable="YES"/>
+        <relationship name="home" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="Home" inverseName="server" inverseEntity="Home" indexed="YES" syncable="YES"/>
+        <relationship name="indexes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Index" inverseName="server" inverseEntity="Index" indexed="YES" syncable="YES"/>
+        <relationship name="nowPlayings" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NowPlaying" inverseName="server" inverseEntity="NowPlaying" indexed="YES" syncable="YES"/>
+        <relationship name="playlists" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Playlist" inverseName="server" inverseEntity="Playlist" indexed="YES" syncable="YES"/>
+        <relationship name="podcasts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Podcast" inverseName="server" inverseEntity="Podcast" indexed="YES" syncable="YES"/>
+        <relationship name="tracks" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Track" inverseName="server" inverseEntity="Track" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Track" representedClassName="SBTrack" parentEntity="MusicItem" syncable="YES" codeGenerationType="category">
+        <attribute name="albumName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="artistName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="bitRate" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="contentSuffix" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contentType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coverID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="discNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="duration" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="genre" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isPlaying" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="rating" optional="YES" attributeType="Integer 32" minValueString="0" maxValueString="5" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="size" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="starred" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="trackNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="transcodedType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="transcodeSuffix" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="year" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="album" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Album" inverseName="tracks" inverseEntity="Album" indexed="YES" syncable="YES"/>
+        <relationship name="cover" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Cover" inverseName="track" inverseEntity="Cover" indexed="YES" syncable="YES"/>
+        <relationship name="episode" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Episode" inverseName="track" inverseEntity="Episode" indexed="YES" syncable="YES"/>
+        <relationship name="localTrack" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Track" inverseName="remoteTrack" inverseEntity="Track" indexed="YES" syncable="YES"/>
+        <relationship name="nowPlaying" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="NowPlaying" inverseName="track" inverseEntity="NowPlaying" indexed="YES" syncable="YES"/>
+        <relationship name="parentDirectory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Directory" inverseName="tracks" inverseEntity="Directory" syncable="YES"/>
+        <relationship name="remoteTrack" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Track" inverseName="localTrack" inverseEntity="Track" indexed="YES" syncable="YES"/>
+        <relationship name="server" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Server" inverseName="tracks" inverseEntity="Server" indexed="YES" syncable="YES"/>
+    </entity>
+    <entity name="Tracklist" representedClassName="SBTracklist" parentEntity="Resource" syncable="YES" codeGenerationType="category"/>
+</model>

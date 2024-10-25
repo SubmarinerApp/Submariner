@@ -38,6 +38,16 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         }
     }
     
+    var _selectedMusicItems: [SBStarrable] = []
+    override var selectedMusicItems: [any SBStarrable]! {
+        self._selectedMusicItems
+    }
+    
+    var _selectedTracks: [SBTrack] = []
+    override var selectedTracks: [SBTrack]! {
+        self._selectedTracks
+    }
+    
     // #MARK: - Actions
     
     // FIXME: duplicated in server user view controller
@@ -70,13 +80,51 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     
     // #MARK: - SwiftUI
     
+    struct FavouriteToggle: View {
+        @ObservedObject var starrable: SBMusicItem
+        
+        @Binding var hovering: Bool
+        
+        var body: some View {
+            // TODO: This should have some kind of empty space when not hovering,
+            // so text doesn't shift about
+            if hovering, let starrable = starrable as? any SBStarrable {
+                let helpText = starrable.starredBool ? "Favourited" : "Not Favourited"
+                if starrable.starredBool {
+                    Image(systemName: "heart.fill")
+                        .foregroundStyle(.pink)
+                        .shadow(color: .black, radius: 1)
+                        .onTapGesture {
+                            starrable.starredBool = false
+                        }
+                        .help(helpText)
+                } else {
+                    Image(systemName: "heart")
+                        .foregroundStyle(.pink)
+                        .shadow(color: .black, radius: 1)
+                        .onTapGesture {
+                            starrable.starredBool = true
+                        }
+                        .help(helpText)
+                }
+            }
+        }
+    }
+    
     struct DirectoryItem: View {
         let directory: SBDirectory
+        
+        @State var hovering = false
         
         var body: some View {
             HStack {
                 Image(systemName: "folder")
                 Text(directory.itemName ?? "")
+                Spacer()
+                FavouriteToggle(starrable: directory, hovering: $hovering)
+            }
+            .onHover { _ in
+                self.hovering.toggle()
             }
         }
     }
@@ -84,12 +132,19 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     struct TrackItem: View {
         let track: SBTrack
         
+        @State var hovering = false
+        
         var body: some View {
             HStack {
                 Image(systemName: "music.note")
                 if let path = track.path as? NSString {
                     Text(path.lastPathComponent)
                 }
+                Spacer()
+                FavouriteToggle(starrable: track, hovering: $hovering)
+            }
+            .onHover { _ in
+                self.hovering.toggle()
             }
         }
     }
@@ -216,6 +271,8 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     struct ChildDirectoriesView: View {
         let serverDirectoryController: SBServerDirectoryController
         
+        let directory: SBDirectory
+        
         let directories: [SBMusicItem]
         @State var selected: Set<SBMusicItem> = Set()
         
@@ -235,12 +292,21 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         func updateSelection(newValue: Set<SBMusicItem>) {
             // In the future, it would be nice to show directory info in the inspector.
             if let directory = newValue.first as? SBDirectory, let id = directory.itemId {
+                serverDirectoryController._selectedTracks = []
+                serverDirectoryController._selectedMusicItems = [directory]
                 directory.server?.getServerDirectory(id: id)
                 children = directory.children
-            } else if let tracks = newValue as? Set<SBTrack> {
-                NotificationCenter.default.post(name: .SBTrackSelectionChanged, object: Array(tracks))
-            } else if newValue.isEmpty {
                 NotificationCenter.default.post(name: .SBTrackSelectionChanged, object: [])
+            } else if newValue.isEmpty {
+                // use ourselves for current selection, so favourites menu works
+                serverDirectoryController._selectedTracks = []
+                serverDirectoryController._selectedMusicItems = [directory]
+                NotificationCenter.default.post(name: .SBTrackSelectionChanged, object: [])
+            } else if let tracks = newValue as? Set<SBTrack> {
+                let tracksArray = Array(tracks)
+                serverDirectoryController._selectedTracks = tracksArray
+                serverDirectoryController._selectedMusicItems = tracksArray
+                NotificationCenter.default.post(name: .SBTrackSelectionChanged, object: tracksArray)
             }
         }
         
@@ -269,13 +335,18 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                             }
                         }
                         .onDrag {
-                            let urls = DirectoryContextMenu.gather(selectedArray())
+                            let items = selected.contains(item) ? selectedArray() : [item]
+                            let urls = DirectoryContextMenu.gather(items)
                                 .map { $0.objectID.uriRepresentation() }
                             let type = NSPasteboard.PasteboardType.libraryItems.rawValue
                             return NSItemProvider(item: urls as NSArray,
                                                   typeIdentifier: type)
                         } preview: {
-                            DragPreview(items: selectedArray())
+                            if selected.contains(item) {
+                                DragPreview(items: selectedArray())
+                            } else {
+                                DragPreview(items: [item])
+                            }
                         }
                     }
                     .contextMenu {
@@ -296,6 +367,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                 }
                 if selected.count == 1, let directory = selected.first as? SBDirectory {
                     ChildDirectoriesView(serverDirectoryController: serverDirectoryController,
+                                         directory: directory,
                                          directories: children)
                     .onReceive(publisher) { notification in
                         children = directory.children
@@ -335,8 +407,26 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                         VStack(spacing: 0) {
                             // XXX: unlike the child dirs this will always be directories for now
                             // (we could support top-level items in the future)
-                            List(rootDirectories, id: \.self, selection: $selected) {
-                                MusicItem(item: $0)
+                            List(rootDirectories, id: \.self, selection: $selected) { item in
+                                MusicItem(item: item)
+                                .onTapGesture(count: 2) {
+                                    let tracks = DirectoryContextMenu.gather([item])
+                                    serverDirectoryController.play(tracks)
+                                }
+                                .onDrag {
+                                    let urls = DirectoryContextMenu.gather([item])
+                                        .map { $0.objectID.uriRepresentation() }
+                                    let type = NSPasteboard.PasteboardType.libraryItems.rawValue
+                                    return NSItemProvider(item: urls as NSArray,
+                                                          typeIdentifier: type)
+                                } preview: {
+                                    DragPreview(items: [item])
+                                }
+                            }
+                            .contextMenu {
+                                if let selected = selected {
+                                    DirectoryContextMenu(selected: [selected], serverDirectoryController: serverDirectoryController)
+                                }
                             }
                             // XXX: We should make this resizable (split view with synchronized sizes?)
                             .frame(width: 250)
@@ -355,6 +445,8 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                             }
                             .onChange(of: selected) { newValue in
                                 // We're not doing anything with this in leftmost
+                                self.serverDirectoryController._selectedTracks = []
+                                self.serverDirectoryController._selectedMusicItems = selected != nil ? [selected!] : []
                                 NotificationCenter.default.post(name: .SBTrackSelectionChanged, object: [])
                                 if let directory = newValue, let id = directory.itemId {
                                     directory.server?.getServerDirectory(id: id)
@@ -364,6 +456,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                         }
                         if let selected = selected {
                             ChildDirectoriesView(serverDirectoryController: serverDirectoryController,
+                                                 directory: selected,
                                                  directories: selected.children)
                         }
                     }

@@ -12,7 +12,23 @@ import Foundation
 import CoreData
 
 @objc(SBDirectory)
-public class SBDirectory: SBMusicItem {
+public class SBDirectory: SBMusicItem, SBStarrable {
+    
+    @objc var starredBool: Bool {
+        get {
+            return starred != nil
+        } set {
+            // setting it locally is mostly for the sake of instant update - we should refresh the track later
+            if starred != nil {
+                starred = nil
+                server?.unstar(directories: [self])
+            } else {
+                starred = Date.now
+                server?.star(directories: [self])
+            }
+        }
+    }
+    
     // #MARK: - Children wrapper
     
     override public class func keyPathsForValuesAffectingValue(forKey key: String) -> Set<String> {

@@ -105,6 +105,7 @@ typedef NS_ENUM(NSInteger, SBSelectedItemType) {
     SBSelectedItemTypeArtist = 1,
     SBSelectedItemTypeAlbum = 2,
     SBSelectedItemTypeTrack = 4,
+    SBSelectedItemTypeDirectory = 8,
 };
 
 - (SBSelectedRowStatus) selectedRowStatus:(NSArray<SBTrack*>*)trackList selectedIndices:(NSIndexSet*)indexSet;

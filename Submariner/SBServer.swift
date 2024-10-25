@@ -527,13 +527,15 @@ public class SBServer: SBResource {
         OperationQueue.sharedServerQueue.addOperation(request)
     }
     
-    func star(tracks: [SBTrack], albums: [SBAlbum], artists: [SBArtist]) {
-        let request = SBSubsonicRequestOperation(server: self, request: .star(tracks: tracks, albums: albums, artists: artists))
+    func star(tracks: [SBTrack] = [], albums: [SBAlbum] = [], artists: [SBArtist] = [], directories: [SBDirectory] = []) {
+        let request = SBSubsonicRequestOperation(server: self,
+                                                 request: .star(tracks: tracks, albums: albums, artists: artists, directories: directories))
         OperationQueue.sharedServerQueue.addOperation(request)
     }
     
-    func unstar(tracks: [SBTrack], albums: [SBAlbum], artists: [SBArtist]) {
-        let request = SBSubsonicRequestOperation(server: self, request: .unstar(tracks: tracks, albums: albums, artists: artists))
+    func unstar(tracks: [SBTrack] = [], albums: [SBAlbum] = [], artists: [SBArtist] = [], directories: [SBDirectory] = []) {
+        let request = SBSubsonicRequestOperation(server: self,
+                                                 request: .unstar(tracks: tracks, albums: albums, artists: artists, directories: directories))
         OperationQueue.sharedServerQueue.addOperation(request)
     }
     
