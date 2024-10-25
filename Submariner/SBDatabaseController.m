@@ -1458,7 +1458,6 @@
     [self didChangeValueForKey: @"hasSelectedMusicItems"];
     [self didChangeValueForKey: @"selectedMusicItemsStarred"];
     [self didChangeValueForKey: @"selectedMusicItems"];
-    NSLog(@"Selected music items: %@", self.selectedMusicItems);
 }
 
 
