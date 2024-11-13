@@ -921,17 +921,28 @@
         return;
     }
     
-    
-    if(query && [query length] > 0) {
+    [searchToolbarItem endSearchInteraction];
+    if (query && [query length] > 0) {
         SBNavigationItem *navItem = nil;
+        // Seems if we hit enter, it triggers search: (good), and then again if the search field resigns first responder (bad)
+        // So, check if this is redundant (XXX: ugly, lack of DRY, and needs some if let)
+        SBNavigationItem *topItem = rightVC.arrangedObjects[rightVC.selectedIndex];
         if (self.server) {
+            if ([topItem isKindOfClass: SBServerSearchNavigationItem.class] &&
+                [[(SBServerSearchNavigationItem*)topItem searchQuery] isEqualToString:query]) {
+                return;
+            }
             navItem = [[SBServerSearchNavigationItem alloc] initWithServer: self.server query: query];
         } else {
+            if ([topItem isKindOfClass: SBLocalSearchNavigationItem.class] &&
+                [[(SBServerSearchNavigationItem*)topItem searchQuery] isEqualToString:query]) {
+                return;
+            }
             navItem = [[SBLocalSearchNavigationItem alloc] initWithQuery: query];
         }
+        
         [self navigateForwardToNavItem: navItem];
     } else {
-        [searchToolbarItem endSearchInteraction];
         if ([rightVC.selectedViewController isKindOfClass: SBMusicSearchController.class]
                || [rightVC.selectedViewController isKindOfClass: SBServerSearchController.class]) {
             [rightVC navigateBack: sender];
