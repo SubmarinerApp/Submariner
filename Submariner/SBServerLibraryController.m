@@ -273,6 +273,15 @@
 }
 
 
+- (IBAction)getTopTracksForSelectedArtist:(id)sender {
+    SBArtist *artist = [[self selectedArtists] firstObject];
+    if (artist) {
+        NSString *name = [artist itemName];
+        [self.databaseController getTopTracksFor: name];
+    }
+}
+
+
 - (void)showTrackInLibrary:(SBTrack*)track {
     [artistsController setSelectedObjects: @[track.album.artist]];
     [artistsTableView scrollRowToVisible: [artistsTableView selectedRow]];

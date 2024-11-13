@@ -153,6 +153,8 @@
 - (IBAction)showDownloadView:(id)sender;
 - (IBAction)showLibraryView:(id)sender;
 
+- (void)getTopTracksFor:(NSString*)artistName;
+
 - (IBAction)openAudioFiles:(id)sender;
 - (IBAction)toggleTrackList:(id)sender;
 - (IBAction)toggleServerUsers:(id)sender;

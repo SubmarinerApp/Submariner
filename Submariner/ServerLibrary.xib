@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -22,7 +22,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-	<customView id="80">
+        <customView id="80">
             <rect key="frame" x="0.0" y="0.0" width="619" height="398"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -167,11 +167,11 @@
                                                     <rect key="frame" x="-2" y="41" width="446" height="199"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <clipView key="contentView" id="uNg-bD-Z0H">
-                                                        <rect key="frame" x="0.0" y="0.0" width="446" height="199"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="446" height="184"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
                                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveName="ServerMusicTable" headerView="110" id="108" customClass="SBTableView">
-                                                                <rect key="frame" x="0.0" y="0.0" width="711" height="171"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="711" height="156"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -336,7 +336,7 @@
                                                         </subviews>
                                                     </clipView>
                                                     <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="109">
-                                                        <rect key="frame" x="0.0" y="183" width="446" height="16"/>
+                                                        <rect key="frame" x="0.0" y="184" width="446" height="15"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                     </scroller>
                                                     <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="111">
@@ -415,6 +415,13 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="addArtistToTracklist:" target="-2" id="8WC-C9-moT"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="S4t-oH-lEJ"/>
+                <menuItem title="Top Tracks" id="ZBC-Ib-PPY">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="getTopTracksForSelectedArtist:" target="-1" id="hnt-lV-CEC"/>
                     </connections>
                 </menuItem>
             </items>

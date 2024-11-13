@@ -934,6 +934,12 @@
 }
 
 
+- (void)getTopTracksFor:(NSString*)artistName {
+    SBNavigationItem *navItem = [[SBServerSearchNavigationItem alloc] initWithServer: self.server topTracksFor:artistName];
+    [self navigateForwardToNavItem: navItem];
+}
+
+
 - (IBAction)cleanTracklist:(id)sender {
     [self stop: sender];
     [tracklistController cleanTracklist: sender];
