@@ -43,9 +43,12 @@ import Cocoa
     // this may be better
     override var title: String? {
         get {
-            if let searchResult = self.searchResult {
-                return "Search Results for \(searchResult.query)"
-            } else {
+            switch self.searchResult?.query {
+            case .search(let query):
+                return "Search Results for \(query)"
+            case .topTracksFor(let artistName):
+                return "Top Tracks for \(artistName)"
+            default:
                 return "Search Results"
             }
         }

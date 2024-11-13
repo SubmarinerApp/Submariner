@@ -520,6 +520,11 @@ public class SBServer: SBResource {
         OperationQueue.sharedServerQueue.addOperation(request)
     }
     
+    @objc(getTopTracksForArtistName:) func getTopTracks(artistName: String) {
+        let request = SBSubsonicRequestOperation(server: self, request: .getTopTracks(artistName: artistName))
+        OperationQueue.sharedServerQueue.addOperation(request)
+    }
+    
     // #MARK: - Subsonic Client (Rating)
     
     @objc(setRating:forID:) func setRating(_ rating: Int, id: String) {

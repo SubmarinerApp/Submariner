@@ -1874,8 +1874,14 @@
         [searchField setStringValue: searchNavItem.query];
     } else if ([navItem isKindOfClass: SBServerSearchNavigationItem.class]) {
         SBServerSearchNavigationItem *searchNavItem = (SBServerSearchNavigationItem*)navItem;
-        [self.server searchWithQuery: searchNavItem.query];
-        [searchField setStringValue: searchNavItem.query];
+        // HACK: No sum types in ObjC, see SBNavigationItem
+        if (searchNavItem.searchQuery) {
+            [self.server searchWithQuery: searchNavItem.searchQuery];
+            [searchField setStringValue: searchNavItem.searchQuery];
+        } else if (searchNavItem.topTracksForArtist) {
+            [self.server getTopTracksForArtistName: searchNavItem.topTracksForArtist];
+            [searchField setStringValue: @""];
+        }
     } else {
         [searchField setStringValue: @""];
         [searchToolbarItem endSearchInteraction];
@@ -1922,7 +1928,7 @@
     if ([navItem isKindOfClass: SBLocalMusicNavigationItem.class] || [navItem isKindOfClass: SBLocalSearchNavigationItem.class]) {
         [searchToolbarItem setEnabled: YES];
         [searchField setPlaceholderString: @"Local Search"];
-    } else if ([navItem isKindOfClass: SBServerNavigationItem.class] || [navItem isKindOfClass: SBServerSearchNavigationItem.class]) {
+    } else if ([navItem isKindOfClass: SBServerNavigationItem.class]) {
         [searchToolbarItem setEnabled: YES];
         [searchField setPlaceholderString: @"Server Search"];
     } else {
