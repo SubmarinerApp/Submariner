@@ -160,6 +160,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBSubsonicConnectionFailedNotification" object:nil];
     // remove window observers
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidChangeOcclusionStateNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBTitleUpdated" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBFirstResponderBecame" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBFirstResponderNoLonger" object:nil];
     // remove selection observers
@@ -265,6 +266,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(windowDidChangeOcclusionState:)
                                                  name:NSWindowDidChangeOcclusionStateNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateTitle:)
+                                                 name:@"SBTitleUpdated"
                                                object:nil];
     
     // update the selectedMusicItem for binding (SBPlaylistSelectionChanged)
@@ -1464,6 +1470,11 @@
     [self didChangeValueForKey: @"hasSelectedMusicItems"];
     [self didChangeValueForKey: @"selectedMusicItemsStarred"];
     [self didChangeValueForKey: @"selectedMusicItems"];
+}
+
+
+- (void)updateTitle:(NSNotification*)notification {
+    [self updateTitle];
 }
 
 
