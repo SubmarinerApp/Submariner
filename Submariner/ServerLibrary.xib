@@ -424,6 +424,12 @@
                         <action selector="getTopTracksForSelectedArtist:" target="-1" id="hnt-lV-CEC"/>
                     </connections>
                 </menuItem>
+                <menuItem title="Similar Tracks" id="TTQ-qJ-d48">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="getSimilarTracksForSelectedArtist:" target="-1" id="hSY-iE-iCA"/>
+                    </connections>
+                </menuItem>
             </items>
             <point key="canvasLocation" x="89" y="-153"/>
         </menu>

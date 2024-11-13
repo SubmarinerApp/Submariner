@@ -957,6 +957,12 @@
 }
 
 
+- (void)getSimilarTracksTo:(SBArtist*)artist {
+    SBNavigationItem *navItem = [[SBServerSearchNavigationItem alloc] initWithServer: self.server similarTo:artist];
+    [self navigateForwardToNavItem: navItem];
+}
+
+
 - (IBAction)cleanTracklist:(id)sender {
     [self stop: sender];
     [tracklistController cleanTracklist: sender];
@@ -1908,6 +1914,9 @@
             [searchField setStringValue: searchNavItem.searchQuery];
         } else if (searchNavItem.topTracksForArtist) {
             [self.server getTopTracksForArtistName: searchNavItem.topTracksForArtist];
+            [searchField setStringValue: @""];
+        } else if (searchNavItem.similarToArtist) {
+            [self.server getSimilarTracksTo: searchNavItem.similarToArtist];
             [searchField setStringValue: @""];
         }
     } else {

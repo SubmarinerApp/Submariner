@@ -525,6 +525,11 @@ public class SBServer: SBResource {
         OperationQueue.sharedServerQueue.addOperation(request)
     }
     
+    @objc func getSimilarTracks(to artist: SBArtist) {
+        let request = SBSubsonicRequestOperation(server: self, request: .getSimilarTracks(artist: artist))
+        OperationQueue.sharedServerQueue.addOperation(request)
+    }
+    
     // #MARK: - Subsonic Client (Rating)
     
     @objc(setRating:forID:) func setRating(_ rating: Int, id: String) {

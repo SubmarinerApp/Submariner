@@ -46,6 +46,13 @@ import Cocoa
         return nil
     }
     
+    @objc var similarToArtist: SBArtist? {
+        if case let .similarTo(artist) = self.query {
+            return artist
+        }
+        return nil
+    }
+    
     @objc init(server: SBServer, query: String) {
         self.query = .search(query: query)
         super.init(server: server)
@@ -53,6 +60,11 @@ import Cocoa
     
     @objc init(server: SBServer, topTracksFor artistName: String) {
         self.query = .topTracksFor(artistName: artistName)
+        super.init(server: server)
+    }
+    
+    @objc init(server: SBServer, similarTo artist: SBArtist) {
+        self.query = .similarTo(artist: artist)
         super.init(server: server)
     }
 }

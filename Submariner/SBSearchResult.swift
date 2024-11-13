@@ -11,7 +11,7 @@ import Cocoa
 @objc class SBSearchResult: NSObject {
     enum QueryType {
         case search(query: String)
-        //case similarTo(trackID: String)
+        case similarTo(artist: SBArtist)
         case topTracksFor(artistName: String)
     }
     

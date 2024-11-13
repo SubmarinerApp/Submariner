@@ -154,6 +154,7 @@
 - (IBAction)showLibraryView:(id)sender;
 
 - (void)getTopTracksFor:(NSString*)artistName;
+- (void)getSimilarTracksTo:(SBArtist*)artist;
 
 - (IBAction)openAudioFiles:(id)sender;
 - (IBAction)toggleTrackList:(id)sender;

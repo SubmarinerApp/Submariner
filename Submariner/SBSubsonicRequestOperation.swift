@@ -276,6 +276,12 @@ class SBSubsonicRequestOperation: SBOperation {
             customization = { operation in
                 operation.currentSearch = SBSearchResult(query: .topTracksFor(artistName: artistName))
             }
+        case .getSimilarTracks(let artist):
+            parameters["id"] = artist.itemId
+            url = URL.URLWith(string: server.url, command: "rest/getSimilarSongs2.view", parameters: parameters)
+            customization = { operation in
+                operation.currentSearch = SBSearchResult(query: .similarTo(artist: artist))
+            }
         }
     }
 }

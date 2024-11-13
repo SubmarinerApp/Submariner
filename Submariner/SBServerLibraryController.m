@@ -282,6 +282,14 @@
 }
 
 
+- (IBAction)getSimilarTracksForSelectedArtist:(id)sender {
+    SBArtist *artist = [[self selectedArtists] firstObject];
+    if (artist) {
+        [self.databaseController getSimilarTracksTo: artist];
+    }
+}
+
+
 - (void)showTrackInLibrary:(SBTrack*)track {
     [artistsController setSelectedObjects: @[track.album.artist]];
     [artistsTableView scrollRowToVisible: [artistsTableView selectedRow]];

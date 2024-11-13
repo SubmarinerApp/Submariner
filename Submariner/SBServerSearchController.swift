@@ -16,6 +16,8 @@ import Cocoa
             switch self.searchResult?.query {
             case .search(let query):
                 self.title = "Search Results for \(query)"
+            case .similarTo(let artist):
+                self.title = "Similar Tracks to \(artist.itemName ?? "(unknown artist)")"
             case .topTracksFor(let artistName):
                 self.title = "Top Tracks for \(artistName)"
             default:
