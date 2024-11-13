@@ -33,6 +33,10 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ### Not yet released
 
+* Basic support for displaying related tracks. This reuses the search infrastructure. The server may call external servers if configured to do so.
+    * Top tracks for an artist can now be displayed
+    * Similar tracks for an artist (sometimes called "radio") can now be displayed
+* Fix searches being ran twice.
 * Directories can be starred.
 
 ### Version 3.2.1
