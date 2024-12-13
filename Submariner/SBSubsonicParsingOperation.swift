@@ -54,6 +54,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     // state for deleting elements not in this list
     var playlistsReturned: [SBPlaylist] = []
     var artistsReturned: [SBArtist] = []
+    var albumsReturned: [SBAlbum] = []
     
     init!(managedObjectContext mainContext: NSManagedObjectContext!,
           requestType: SBSubsonicRequestType,
@@ -252,13 +253,6 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 existingArtist.starred = attributeDict["starred"]?.dateTimeFromISO()
                 // as we don't do it in updateTrackDependencies
                 server.addToIndexes(existingArtist)
-                // Experiment: clear albums list to remove stale albums from transitional period
-                switch requestType {
-                case .getArtist(_):
-                    existingArtist.albums = NSSet()
-                default:
-                    break
-                }
             } else if let existingArtist = fetchArtist(name: name) {
                 artistsReturned.append(existingArtist)
                 // legacy for cases where we have artists without IDs from i.e. getNowPlaying/search2
@@ -267,13 +261,6 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 existingArtist.starred = attributeDict["starred"]?.dateTimeFromISO()
                 // as we don't do it in updateTrackDependencies
                 server.addToIndexes(existingArtist)
-                // same as experiment
-                switch requestType {
-                case .getArtist(_):
-                    existingArtist.albums = NSSet()
-                default:
-                    break
-                }
             } else {
                 logger.info("Creating new artist with ID: \(id, privacy: .public) and name \(name, privacy: .public)")
                 let artist = createArtist(attributes: attributeDict)
@@ -298,7 +285,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 artist = createArtist(attributes: attributeDict)
             }
             
-            var album = fetchAlbum(id: id)
+            var album = fetchAlbum(id: id, artist: artist)
             if let album = album {
                 updateAlbum(album, attributes: attributeDict)
             } else {
@@ -308,6 +295,8 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             
             // for future song elements under this one
             switch requestType {
+            case .getArtist(id: _):
+                currentArtist = artist // prob better in artist element
             case .getAlbum(_):
                 currentAlbum = album
             default:
@@ -339,6 +328,8 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                     server.getCover(id: coverArt, for: album!.itemId)
                 }
             }
+            
+            albumsReturned.append(album!)
         }
     }
     
@@ -644,7 +635,14 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 }
             }
             postServerNotification(.SBSubsonicIndexesUpdated)
-        case .getArtist(_), .getAlbumList(type: _):
+        case .getArtist(_):
+            // purge albums not returned to deal with ID transition
+            if let currentArtist = self.currentArtist, let albums = currentArtist.albums as? Set<SBAlbum> {
+                let union = Set(albumsReturned).union(albums) as? NSSet
+                currentArtist.albums = union
+            }
+            postServerNotification(.SBSubsonicAlbumsUpdated)
+        case .getAlbumList(type: _):
             postServerNotification(.SBSubsonicAlbumsUpdated)
         case .getAlbum(_):
             postServerNotification(.SBSubsonicTracksUpdated)
