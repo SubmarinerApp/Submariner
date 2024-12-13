@@ -702,7 +702,12 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         if let artist = artist {
             fetchRequest.predicate = NSPredicate(format: "(itemId == %@) && (artist == %@)", id, artist)
         } else {
-            fetchRequest.predicate = NSPredicate(format: "(itemId == %@)", id)
+            // Be careful to keep it with the same server; two Navidrome instances
+            // can have the same album ID for the same album.
+            // The second condition should be written as "ALL tracks.server == %@",
+            // but Core Data doesn't like that. See https://stackoverflow.com/a/47762233
+            // for the workaround used.
+            fetchRequest.predicate = NSPredicate(format: "(itemId == %@) && SUBQUERY(tracks, $X, $X.server == %@).@count == tracks.@count", id, server)
         }
         let results = try? threadedContext.fetch(fetchRequest)
         
@@ -714,7 +719,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         if let artist = artist {
             fetchRequest.predicate = NSPredicate(format: "(itemName == %@) && (artist == %@)", name, artist)
         } else {
-            fetchRequest.predicate = NSPredicate(format: "(itemName == %@)", name)
+            fetchRequest.predicate = NSPredicate(format: "(itemName == %@) && SUBQUERY(tracks, $X, $X.server == %@).@count == tracks.@count", name, server)
         }
         let results = try? threadedContext.fetch(fetchRequest)
         
