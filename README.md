@@ -36,8 +36,9 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Basic support for displaying related tracks. This reuses the search infrastructure. The server may call external servers if configured to do so.
     * Top tracks for an artist can now be displayed
     * Similar tracks for an artist (sometimes called "radio") can now be displayed
-* Fix searches being ran twice.
 * Directories can be starred.
+* Fix searches being ran twice.
+* Fix albums with the same ID across multiple servers being mixed.
 
 ### Version 3.2.1
 
