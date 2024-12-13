@@ -616,7 +616,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             postServerNotification(.SBSubsonicPlaylistsCreated)
         case .getNowPlaying:
             postServerNotification(.SBSubsonicNowPlayingUpdated)
-        case .search(_):
+        case .search(_), .getTopTracks(artistName: _), .getSimilarTracks(artist: _):
             NotificationCenter.default.post(name: .SBSubsonicSearchResultUpdated, object: currentSearch)
         case .getPodcasts:
             postServerNotification(.SBSubsonicPodcastsUpdated)

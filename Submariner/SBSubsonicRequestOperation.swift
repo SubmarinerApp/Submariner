@@ -185,7 +185,7 @@ class SBSubsonicRequestOperation: SBOperation {
             parameters["songCount"] = "100" // XXX: Configurable? Pagination?
             url = URL.URLWith(string: server.url, command: "rest/search3.view", parameters: parameters)
             customization = { operation in
-                operation.currentSearch = SBSearchResult(query: query)
+                operation.currentSearch = SBSearchResult(query: .search(query: query))
             }
         case .setRating(id: let id, rating: let rating):
             parameters["rating"] = String(rating)
@@ -270,6 +270,18 @@ class SBSubsonicRequestOperation: SBOperation {
                 (albums.map { album in URLQueryItem(name: "albumId", value: album.itemId) } ) +
                 (artists.map { artist in URLQueryItem(name: "artistId", value: artist.itemId) } )
             url = URL.URLWith(string: server.url, command: "rest/unstar.view", queryItems: allParams)
+        case .getTopTracks(let artistName):
+            parameters["artist"] = artistName
+            url = URL.URLWith(string: server.url, command: "rest/getTopSongs.view", parameters: parameters)
+            customization = { operation in
+                operation.currentSearch = SBSearchResult(query: .topTracksFor(artistName: artistName))
+            }
+        case .getSimilarTracks(let artist):
+            parameters["id"] = artist.itemId
+            url = URL.URLWith(string: server.url, command: "rest/getSimilarSongs2.view", parameters: parameters)
+            customization = { operation in
+                operation.currentSearch = SBSearchResult(query: .similarTo(artist: artist))
+            }
         }
     }
 }

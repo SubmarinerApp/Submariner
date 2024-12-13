@@ -36,6 +36,8 @@ enum SBSubsonicRequestType: Equatable {
     case getDirectory(id: String)
     case star(tracks: [SBTrack], albums: [SBAlbum], artists: [SBArtist], directories: [SBDirectory])
     case unstar(tracks: [SBTrack], albums: [SBAlbum], artists: [SBArtist], directories: [SBDirectory])
+    case getTopTracks(artistName: String)
+    case getSimilarTracks(artist: SBArtist)
 }
 
 @objc enum SBAlbumListType: Int {

@@ -273,6 +273,23 @@
 }
 
 
+- (IBAction)getTopTracksForSelectedArtist:(id)sender {
+    SBArtist *artist = [[self selectedArtists] firstObject];
+    if (artist) {
+        NSString *name = [artist itemName];
+        [self.databaseController getTopTracksFor: name];
+    }
+}
+
+
+- (IBAction)getSimilarTracksForSelectedArtist:(id)sender {
+    SBArtist *artist = [[self selectedArtists] firstObject];
+    if (artist) {
+        [self.databaseController getSimilarTracksTo: artist];
+    }
+}
+
+
 - (void)showTrackInLibrary:(SBTrack*)track {
     [artistsController setSelectedObjects: @[track.album.artist]];
     [artistsTableView scrollRowToVisible: [artistsTableView selectedRow]];

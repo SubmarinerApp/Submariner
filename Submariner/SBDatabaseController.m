@@ -160,6 +160,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBSubsonicConnectionFailedNotification" object:nil];
     // remove window observers
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSWindowDidChangeOcclusionStateNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBTitleUpdated" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBFirstResponderBecame" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SBFirstResponderNoLonger" object:nil];
     // remove selection observers
@@ -265,6 +266,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(windowDidChangeOcclusionState:)
                                                  name:NSWindowDidChangeOcclusionStateNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateTitle:)
+                                                 name:@"SBTitleUpdated"
                                                object:nil];
     
     // update the selectedMusicItem for binding (SBPlaylistSelectionChanged)
@@ -915,22 +921,45 @@
         return;
     }
     
-    
-    if(query && [query length] > 0) {
+    [searchToolbarItem endSearchInteraction];
+    if (query && [query length] > 0) {
         SBNavigationItem *navItem = nil;
+        // Seems if we hit enter, it triggers search: (good), and then again if the search field resigns first responder (bad)
+        // So, check if this is redundant (XXX: ugly, lack of DRY, and needs some if let)
+        SBNavigationItem *topItem = rightVC.arrangedObjects[rightVC.selectedIndex];
         if (self.server) {
+            if ([topItem isKindOfClass: SBServerSearchNavigationItem.class] &&
+                [[(SBServerSearchNavigationItem*)topItem searchQuery] isEqualToString:query]) {
+                return;
+            }
             navItem = [[SBServerSearchNavigationItem alloc] initWithServer: self.server query: query];
         } else {
+            if ([topItem isKindOfClass: SBLocalSearchNavigationItem.class] &&
+                [[(SBServerSearchNavigationItem*)topItem searchQuery] isEqualToString:query]) {
+                return;
+            }
             navItem = [[SBLocalSearchNavigationItem alloc] initWithQuery: query];
         }
+        
         [self navigateForwardToNavItem: navItem];
     } else {
-        [searchToolbarItem endSearchInteraction];
         if ([rightVC.selectedViewController isKindOfClass: SBMusicSearchController.class]
                || [rightVC.selectedViewController isKindOfClass: SBServerSearchController.class]) {
             [rightVC navigateBack: sender];
         }
     }
+}
+
+
+- (void)getTopTracksFor:(NSString*)artistName {
+    SBNavigationItem *navItem = [[SBServerSearchNavigationItem alloc] initWithServer: self.server topTracksFor:artistName];
+    [self navigateForwardToNavItem: navItem];
+}
+
+
+- (void)getSimilarTracksTo:(SBArtist*)artist {
+    SBNavigationItem *navItem = [[SBServerSearchNavigationItem alloc] initWithServer: self.server similarTo:artist];
+    [self navigateForwardToNavItem: navItem];
 }
 
 
@@ -1461,6 +1490,11 @@
 }
 
 
+- (void)updateTitle:(NSNotification*)notification {
+    [self updateTitle];
+}
+
+
 #pragma mark -
 #pragma mark Player Notifications (Private)
 
@@ -1874,8 +1908,17 @@
         [searchField setStringValue: searchNavItem.query];
     } else if ([navItem isKindOfClass: SBServerSearchNavigationItem.class]) {
         SBServerSearchNavigationItem *searchNavItem = (SBServerSearchNavigationItem*)navItem;
-        [self.server searchWithQuery: searchNavItem.query];
-        [searchField setStringValue: searchNavItem.query];
+        // HACK: No sum types in ObjC, see SBNavigationItem
+        if (searchNavItem.searchQuery) {
+            [self.server searchWithQuery: searchNavItem.searchQuery];
+            [searchField setStringValue: searchNavItem.searchQuery];
+        } else if (searchNavItem.topTracksForArtist) {
+            [self.server getTopTracksForArtistName: searchNavItem.topTracksForArtist];
+            [searchField setStringValue: @""];
+        } else if (searchNavItem.similarToArtist) {
+            [self.server getSimilarTracksTo: searchNavItem.similarToArtist];
+            [searchField setStringValue: @""];
+        }
     } else {
         [searchField setStringValue: @""];
         [searchToolbarItem endSearchInteraction];
@@ -1922,7 +1965,7 @@
     if ([navItem isKindOfClass: SBLocalMusicNavigationItem.class] || [navItem isKindOfClass: SBLocalSearchNavigationItem.class]) {
         [searchToolbarItem setEnabled: YES];
         [searchField setPlaceholderString: @"Local Search"];
-    } else if ([navItem isKindOfClass: SBServerNavigationItem.class] || [navItem isKindOfClass: SBServerSearchNavigationItem.class]) {
+    } else if ([navItem isKindOfClass: SBServerNavigationItem.class]) {
         [searchToolbarItem setEnabled: YES];
         [searchField setPlaceholderString: @"Server Search"];
     } else {

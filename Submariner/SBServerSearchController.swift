@@ -11,7 +11,20 @@
 import Cocoa
 
 @objc class SBServerSearchController: SBServerViewController, NSTableViewDataSource {
-    @objc dynamic var searchResult: SBSearchResult?
+    @objc dynamic var searchResult: SBSearchResult? {
+        didSet {
+            switch self.searchResult?.query {
+            case .search(let query):
+                self.title = "Search Results for \(query)"
+            case .similarTo(let artist):
+                self.title = "Similar Tracks to \(artist.itemName ?? "(unknown artist)")"
+            case .topTracksFor(let artistName):
+                self.title = "Top Tracks for \(artistName)"
+            default:
+                self.title = "Search Results"
+            }
+        }
+    }
     
     @IBOutlet var tracksTableView: NSTableView!
     @IBOutlet var tracksController: NSArrayController!
@@ -38,18 +51,6 @@ import Cocoa
         selectionObserver = tracksController.observe(\.selectedObjects) { arrayController, change in
             NotificationCenter.default.post(name: .SBTrackSelectionChanged, object: arrayController.selectedObjects)
         }
-    }
-    
-    // this may be better
-    override var title: String? {
-        get {
-            if let searchResult = self.searchResult {
-                return "Search Results for \(searchResult.query)"
-            } else {
-                return "Search Results"
-            }
-        }
-        set {}
     }
     
     // #MARK: - Properties

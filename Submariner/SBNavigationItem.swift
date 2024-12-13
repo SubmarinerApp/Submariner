@@ -29,10 +29,42 @@ import Cocoa
 @objc class SBServerSearchNavigationItem: SBServerNavigationItem {
     override var identifier: NSString { "ServerSearch" }
     
-    @objc var query: NSString
+    var query: SBSearchResult.QueryType
     
-    @objc init(server: SBServer, query: NSString) {
-        self.query = query
+    // HACK: Workaround for ObjC not having sum types (remove when we can just expose query to DatabaseController)
+    @objc var searchQuery: NSString? {
+        if case let .search(query) = self.query {
+            return query as NSString
+        }
+        return nil
+    }
+    
+    @objc var topTracksForArtist: NSString? {
+        if case let .topTracksFor(artistName) = self.query {
+            return artistName as NSString
+        }
+        return nil
+    }
+    
+    @objc var similarToArtist: SBArtist? {
+        if case let .similarTo(artist) = self.query {
+            return artist
+        }
+        return nil
+    }
+    
+    @objc init(server: SBServer, query: String) {
+        self.query = .search(query: query)
+        super.init(server: server)
+    }
+    
+    @objc init(server: SBServer, topTracksFor artistName: String) {
+        self.query = .topTracksFor(artistName: artistName)
+        super.init(server: server)
+    }
+    
+    @objc init(server: SBServer, similarTo artist: SBArtist) {
+        self.query = .similarTo(artist: artist)
         super.init(server: server)
     }
 }

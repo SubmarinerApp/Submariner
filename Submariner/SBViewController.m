@@ -92,6 +92,12 @@
 }
 
 
+- (void)setTitle:(NSString *)title {
+    [super setTitle:title];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SBTitleUpdated" object:self];
+}
+
+
 #pragma mark - IBActions
 
 #pragma mark Playing

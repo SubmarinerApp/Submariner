@@ -9,9 +9,15 @@
 import Cocoa
 
 @objc class SBSearchResult: NSObject {
+    enum QueryType {
+        case search(query: String)
+        case similarTo(artist: SBArtist)
+        case topTracksFor(artistName: String)
+    }
+    
     /// Used for bindings and contains the actual tracks fetched from `fetchTracks:`.
     @objc var tracks: [SBTrack] = []
-    @objc let query: String // NSString
+    let query: QueryType
     
     /// Contains the list of tracks to fetch on the main thread, and fills `tracks` from that.
     ///
@@ -21,13 +27,13 @@ import Cocoa
     /// Updates the tracks array after getting the results.
     ///
     /// This has to be done on the main thread, as the parse operation that builds the list runs off the main thread.
-    @objc func fetchTracks(managedObjectContext: NSManagedObjectContext) {
+    func fetchTracks(managedObjectContext: NSManagedObjectContext) {
         tracks = tracksToFetch.map { trackID in
             managedObjectContext.object(with: trackID) as! SBTrack
         }
     }
     
-    @objc(initWithQuery:) init(query: String) {
+    init(query: QueryType) {
         self.query = query
         super.init()
     }
