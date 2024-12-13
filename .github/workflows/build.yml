@@ -11,7 +11,7 @@ jobs:
       XCODE_DERIVEDDATA_PATH: build
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           submodules: recursive
       - name: Install xcpretty
@@ -19,10 +19,10 @@ jobs:
       - name: Build Executable
         run: xcodebuild build -configuration Release -project Submariner.xcodeproj -scheme Submariner -arch x86_64 -arch arm64 -derivedDataPath $XCODE_DERIVEDDATA_PATH CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY= | xcpretty -c
       - name: Package Release
-        run: ditto -c -k --sequesterRsrc --keepParent "$XCODE_DERIVEDDATA_PATH/Build/Products/Release/Submariner.app" "$XCODE_DERIVEDDATA_PATH/Submariner.zip"
+        run: ditto -c -k --sequesterRsrc --keepParent "$XCODE_DERIVEDDATA_PATH/Build/Products/Release/Submariner.app" "$XCODE_DERIVEDDATA_PATH/Submariner-$GITHUB_SHA.zip"
       - name: Archive Release
         # XXX: best action type?
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: Submariner
-          path: ${{ env.XCODE_DERIVEDDATA_PATH }}/Submariner.zip
+          name: Submariner-${{ github.sha }}
+          path: ${{ env.XCODE_DERIVEDDATA_PATH }}/Submariner-${{ github.sha }}.zip
