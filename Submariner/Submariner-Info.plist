@@ -32,6 +32,8 @@
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
 	</dict>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2022-2024 Calvin Buckley, Copyright © 2011-2014 Rafaël Warnault, All rights reserved.</string>
@@ -64,5 +66,7 @@
 			</array>
 		</dict>
 	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Submariner needs permission if your server is on your local network.</string>
 </dict>
 </plist>
