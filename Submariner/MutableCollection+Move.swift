@@ -10,8 +10,12 @@
 
 import Foundation
 
-extension MutableCollection {
+extension MutableCollection where Index == Int {
     mutating func moveReturningNewIndices(fromOffsets offsets: IndexSet, toOffset offset: Int) -> IndexSet {
+        if #available(macOS 15, *) {
+            return IndexSet(integersIn: self.moveSubranges(RangeSet(offsets), to: offset))
+        }
+        
         self.move(fromOffsets: offsets, toOffset: offset)
         
         var newRow = offset
