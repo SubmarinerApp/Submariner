@@ -393,8 +393,15 @@ extension NSNotification.Name {
             // This means there's also a bunch of empty dupe cover objects in the DB...
             if let newCover = currentTrack.album?.cover, let coverPath = newCover.imagePath {
                 let coverURL = URL(fileURLWithPath: coverPath as String)
-                if let attachment = try? UNNotificationAttachment(identifier: "", url: coverURL) {
+                // macOS 15 starts deleting attachment files; make a copy in temp dir to avoid this fate
+                let tempURL = URL.temporaryFile(fileExtension: coverURL.pathExtension)
+                do {
+                    try FileManager.default.copyItem(at: coverURL,
+                                                      to: tempURL)
+                    let attachment = try UNNotificationAttachment(identifier: "", url: tempURL)
                     content.attachments = [attachment]
+                } catch {
+                    // if we fail, then just skip making an attachment
                 }
             }
             

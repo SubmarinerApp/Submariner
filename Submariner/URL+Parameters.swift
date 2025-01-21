@@ -15,9 +15,13 @@ extension URL {
     // #MARK: -
     // #MARK: Temporary Files
     
-    static func temporaryFile() -> URL {
+    static func temporaryFile(fileExtension: String? = nil) -> URL {
         let tempDir = FileManager.default.temporaryDirectory
-        let randomName = UUID().uuidString
+        var randomName = UUID().uuidString
+        // better to use the UTType appendingPathExtension if possible
+        if let fileExtension = fileExtension, !fileExtension.isEmpty {
+            randomName += ".\(fileExtension)"
+        }
         return tempDir.appendingPathComponent(randomName)
     }
     
