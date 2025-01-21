@@ -324,7 +324,8 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                     album!.cover = cover
                 }
                 
-                if album?.cover?.imagePath == nil {
+                let imagePath = album?.cover?.imagePath
+                if imagePath == nil || !FileManager.default.fileExists(atPath: imagePath! as String) {
                     server.getCover(id: coverArt, for: album!.itemId)
                 }
             }
@@ -970,7 +971,8 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 attachedAlbum.cover = cover
             }
             
-            if attachedAlbum.cover?.imagePath == nil {
+            let imagePath = attachedAlbum.cover?.imagePath
+            if imagePath == nil || !FileManager.default.fileExists(atPath: imagePath! as String) {
                 server.getCover(id: coverArt, for: attributeDict["albumId"])
             }
         }

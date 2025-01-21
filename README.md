@@ -37,6 +37,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
     * Top tracks for an artist can now be displayed
     * Similar tracks for an artist (sometimes called "radio") can now be displayed
 * Directories can be starred.
+* Recover from situations where the cover file was deleted from the filesystem.
 * Fix covers being deleted by the system on macOS 15.
 * Fix searches being ran twice.
 * Fix albums with the same ID across multiple servers being mixed.
