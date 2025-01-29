@@ -223,8 +223,9 @@ extension NSNotification.Name {
                 selectedType = .trackNowPlaying
             } else if (selectedType == .trackNowPlaying || selectedType == .selectedPlaylist),
                 inspectorController.selectedTracks.count > 0 {
-                 selectedType = .selectedTracks
-            } else if inspectorController.selectedPlaylist != nil {
+                selectedType = .selectedTracks
+            } else if inspectorController.selectedPlaylist != nil,
+                      inspectorController.selectedTracks.count == 0 {
                 selectedType = .selectedPlaylist
             }
         }

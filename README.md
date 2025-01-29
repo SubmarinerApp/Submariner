@@ -41,6 +41,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Searches can be performed from the playlist view.
 * Server playlists can be created from the playlist view.
 * Allow multiple items to be selected in searches.
+* Fix the inspector alternating between modes when moving between playlist tracks.
 * Fix covers being deleted by the system on macOS 15.
 * Fix searches being ran twice.
 * Fix albums with the same ID across multiple servers being mixed.
