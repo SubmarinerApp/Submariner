@@ -96,6 +96,20 @@ import Cocoa
         self.removeTrack(sender)
     }
     
+    // SBPlaylistController doesn't inherit from SBServerViewController,
+    // because it isn't inherently a server thing. This means we have to
+    // implement it ourselves. Luckily, the ObjC world only cares if we
+    // implement this selector, not if we inherit from the server VC.
+    @IBAction func createNewPlaylistWithSelectedTracks(_ sender: Any) {
+        guard let server = playlist.server else {
+            return
+        }
+        
+        databaseController.addServerPlaylistController.server = server
+        databaseController.addServerPlaylistController.tracks = selectedTracks
+        databaseController.addServerPlaylistController.openSheet(sender)
+    }
+    
     // #MARK: - NSTableView (Drag & Drop)
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> (any NSPasteboardWriting)? {
@@ -159,9 +173,10 @@ import Cocoa
     
     override func validateUserInterfaceItem(_ item: any NSValidatedUserInterfaceItem) -> Bool {
         let tracksSelected = selectedTracks.count
-        let selectedTrackRowStatus = self.selectedRowStatus(tracks, selectedIndices: tracksController.selectionIndexes)
         
         switch item.action {
+        case #selector(SBPlaylistController.createNewPlaylistWithSelectedTracks(_:)):
+            return playlist.server != nil && tracksSelected > 0
         case #selector(SBPlaylistController.removeTrack(_:)),
             #selector(SBPlaylistController.delete(_:)):
             return tracksSelected > 0
