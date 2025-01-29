@@ -38,7 +38,8 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
     * Similar tracks for an artist (sometimes called "radio") can now be displayed
 * Directories can be starred.
 * Recover from situations where the cover file was deleted from the filesystem.
-* Can create server playlists from the playlist view.
+* Searches can be performed from the playlist view.
+* Server playlists can be created from the playlist view.
 * Allow multiple items to be selected in searches.
 * Fix covers being deleted by the system on macOS 15.
 * Fix searches being ran twice.

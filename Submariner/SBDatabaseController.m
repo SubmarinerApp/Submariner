@@ -1968,6 +1968,12 @@
     } else if ([navItem isKindOfClass: SBServerNavigationItem.class]) {
         [searchToolbarItem setEnabled: YES];
         [searchField setPlaceholderString: @"Server Search"];
+    } else if ([navItem isKindOfClass: SBPlaylistNavigationItem.class]) {
+        [searchToolbarItem setEnabled: YES];
+        SBPlaylistNavigationItem *playlistNavItem = (SBPlaylistNavigationItem*)navItem;
+        SBPlaylist *playlist = playlistNavItem.playlist;
+        // this does seem to set self.server in usage, so we don't need to special case search:
+        [searchField setPlaceholderString: playlist.server != nil ? @"Server Search" : @"Local Search"];
     } else {
         [searchToolbarItem setEnabled: NO];
         [searchField setPlaceholderString: @""];
