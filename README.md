@@ -46,6 +46,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Fix covers being deleted by the system on macOS 15.
 * Fix searches being ran twice.
 * Fix albums with the same ID across multiple servers being mixed.
+* Fix the initial server not refreshing on application launch.
 
 ### Version 3.2.1
 

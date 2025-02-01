@@ -1449,11 +1449,17 @@
 
 
 - (void)subsonicConnectionSucceeded:(NSNotification *)notification {
-    // loading of server content, major !!!
-    [self.server getOpenSubsonicExtensions];
-    [self.server getServerLicense];
-    [self.server getArtists];
-    [self.server getServerPlaylists];
+    // The server that got the successful connection isn't necessarily the current server;
+    // this is the case on startup when self.server may not set yet but we get a connection
+    SBServer *server = (SBServer*)[managedObjectContext objectWithID: (NSManagedObjectID*)notification.object];
+    if (server == nil) {
+        NSLog(@"subsonicConnectionSucceeded got a server that doesn't exist");
+        return;
+    }
+    [server getOpenSubsonicExtensions];
+    [server getServerLicense];
+    [server getArtists];
+    [server getServerPlaylists];
 }
 
 
