@@ -10,7 +10,7 @@ Please see the [old README](https://github.com/Read-Write/Submariner/blob/a1a10e
 
 * Submariner requires macOS 12 or newer. It works on both Intel and Apple Silicon machines.
   * The last supported version for macOS 11 is 2.4.2.
-* Your Subsonic server must implement API version 1.15.0 or newer. Non-Subsonic implementations are supported.
+* Your Subsonic server must implement API version 1.16.1 or newer. Non-Subsonic implementations are supported, with limited OpenSubsonic extension support.
 
 ## Building
 
@@ -41,6 +41,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Searches can be performed from the playlist view.
 * Server playlists can be created from the playlist view.
 * Allow multiple items to be selected in searches.
+* HTTP POST is used when the server supports it, using OpenSubsonic extensions.
 * Fix the inspector alternating between modes when moving between playlist tracks.
 * Fix covers being deleted by the system on macOS 15.
 * Fix searches being ran twice.
