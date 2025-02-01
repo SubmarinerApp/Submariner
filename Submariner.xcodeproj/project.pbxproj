@@ -27,6 +27,7 @@
 		3E189E4028EF5BAB0062ACA0 /* SBAudioMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */; };
 		3E1B785E2ACE5039008927C6 /* SBInspectorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1B785D2ACE5039008927C6 /* SBInspectorController.swift */; };
 		3E1C6C432A5264570085B578 /* SBOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1C6C422A5264570085B578 /* SBOperation.swift */; };
+		3E2108122D4C7ECA00A1A4F2 /* Array+QueryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2108112D4C7EC500A1A4F2 /* Array+QueryItem.swift */; };
 		3E2155122B26E6F0004BCCFC /* SBSubsonicRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2155112B26E6F0004BCCFC /* SBSubsonicRequestType.swift */; };
 		3E2155142B281E7D004BCCFC /* UTType+AudioToolbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2155132B281E7D004BCCFC /* UTType+AudioToolbox.swift */; };
 		3E2E1C842A395B79001A3148 /* SBSubsonicRequestOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E2E1C832A395B79001A3148 /* SBSubsonicRequestOperation.swift */; };
@@ -186,6 +187,7 @@
 		3E189E3F28EF5BAB0062ACA0 /* SBAudioMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBAudioMetadata.swift; sourceTree = "<group>"; };
 		3E1B785D2ACE5039008927C6 /* SBInspectorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBInspectorController.swift; sourceTree = "<group>"; };
 		3E1C6C422A5264570085B578 /* SBOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBOperation.swift; sourceTree = "<group>"; };
+		3E2108112D4C7EC500A1A4F2 /* Array+QueryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+QueryItem.swift"; sourceTree = "<group>"; };
 		3E2155112B26E6F0004BCCFC /* SBSubsonicRequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBSubsonicRequestType.swift; sourceTree = "<group>"; };
 		3E2155132B281E7D004BCCFC /* UTType+AudioToolbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UTType+AudioToolbox.swift"; sourceTree = "<group>"; };
 		3E2E1C832A395B79001A3148 /* SBSubsonicRequestOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBSubsonicRequestOperation.swift; sourceTree = "<group>"; };
@@ -596,6 +598,7 @@
 		4C87EDAC139CD9E90064DE2E /* Additions */ = {
 			isa = PBXGroup;
 			children = (
+				3E2108112D4C7EC500A1A4F2 /* Array+QueryItem.swift */,
 				3EF978032BC4659B00C986E9 /* Binding+Nil.swift */,
 				3E87E90F2B4364CF00E85000 /* Collection+IndexSet.swift */,
 				3E04F63A2B7CA48400E24E56 /* Data+Random.swift */,
@@ -866,6 +869,7 @@
 				3E32BE522B8D9FDE00E77CF0 /* SBLibraryItemPasteboardWriter.swift in Sources */,
 				3E1B785E2ACE5039008927C6 /* SBInspectorController.swift in Sources */,
 				3EF978022BC3C4E300C986E9 /* SBMessageTextView.swift in Sources */,
+				3E2108122D4C7ECA00A1A4F2 /* Array+QueryItem.swift in Sources */,
 				3E6DF3D72C3DEA6800055A52 /* SBPlayRateController.swift in Sources */,
 				3E70B2DF2A2BDC55002C0B93 /* SBApplication.swift in Sources */,
 				3E702DE72A428A1B005F7184 /* Synchronized.swift in Sources */,

@@ -23,7 +23,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         // #MARK: Init User Defaults
         let defaults: [String: Any] = [
             "clientIdentifier": "submariner",
-            "apiVersion": "1.15.0",
+            "apiVersion": "1.16.1",
             "playerBehavior": NSNumber(value: 1),
             "playerVolume": NSNumber(value: 0.5),
             "repeatMode": NSNumber(value: SBPlayer.RepeatMode.no.rawValue),

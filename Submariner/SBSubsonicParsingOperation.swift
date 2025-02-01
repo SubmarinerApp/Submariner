@@ -580,6 +580,17 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             // nop
         } else if elementName == "scanStatus" {
             parseElementScanStatus(attributeDict: attributeDict)
+        } else if elementName == "openSubsonicExtensions" {
+            guard let name = attributeDict["name"] else {
+                return
+            }
+            
+            logger.debug("Server supports feature \(name)")
+            if name == "formPost" {
+                server.supportsFormPost = true
+            }
+        } else if elementName == "versions" {
+            // nop
         } else {
             logger.error("Unknown XML element \(elementName, privacy: .public), attributes \(attributeDict, privacy: .public)")
         }

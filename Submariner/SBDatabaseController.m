@@ -691,6 +691,7 @@
     if (server == nil || ![server isKindOfClass:[SBServer class]]) {
         return;
     }
+    [server getOpenSubsonicExtensions];
     [server getServerLicense];
     [server getArtists];
     [server getServerDirectories];
@@ -1449,6 +1450,7 @@
 
 - (void)subsonicConnectionSucceeded:(NSNotification *)notification {
     // loading of server content, major !!!
+    [self.server getOpenSubsonicExtensions];
     [self.server getServerLicense];
     [self.server getArtists];
     [self.server getServerPlaylists];

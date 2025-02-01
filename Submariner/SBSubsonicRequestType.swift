@@ -12,6 +12,7 @@ import Foundation
 
 enum SBSubsonicRequestType: Equatable {
     case ping
+    case getOpenSubsonicExtensions
     case getLicense
     case getCoverArt(id: String, forAlbumId: String?)
     case getPlaylists

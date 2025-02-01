@@ -37,6 +37,7 @@ public class SBServer: SBResource {
     // This is NSNumber for Cocoa binding's sake
     fileprivate static var _supportsNowPlaying: [NSManagedObjectID: NSNumber] = [:]
     fileprivate static var _supportsPodcasts: [NSManagedObjectID: NSNumber] = [:]
+    fileprivate static var _supportsFormPost: [NSManagedObjectID: NSNumber] = [:]
     
     @objc dynamic var supportsNowPlaying: NSNumber {
         get {
@@ -55,6 +56,16 @@ public class SBServer: SBResource {
         }
         set {
             SBServer._supportsPodcasts[self.objectID] = newValue
+        }
+    }
+    
+    @objc dynamic var supportsFormPost: NSNumber {
+        get {
+            // we must prove it to be true, hence ?? false
+            return SBServer._supportsFormPost[self.objectID] ?? false
+        }
+        set {
+            SBServer._supportsFormPost[self.objectID] = newValue
         }
     }
     
@@ -357,6 +368,11 @@ public class SBServer: SBResource {
         request.main()
     }
     
+    @objc func getOpenSubsonicExtensions() {
+        let request = SBSubsonicRequestOperation(server: self, request: .getOpenSubsonicExtensions)
+        request.main()
+    }
+    
     @objc func getServerLicense() {
         let request = SBSubsonicRequestOperation(server: self, request: .getLicense)
         request.main()
@@ -398,6 +414,10 @@ public class SBServer: SBResource {
             }
         }
         return parameters
+    }
+    
+    func getBaseQueryItems() -> [URLQueryItem] {
+        return getBaseParameters().map { k, v in URLQueryItem(name: k, value: v) }
     }
     
     // #MARK: - Subsonic Client (Server Data)

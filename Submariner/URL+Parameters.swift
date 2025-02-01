@@ -29,7 +29,7 @@ extension URL {
     // #MARK: Parameters
     
     // XXX: Convert to initializers
-    static func URLWith(string: String?, command: String, queryItems:  [URLQueryItem]) -> URL? {
+    static func URLWith(string: String?, command: String, parameters:  [URLQueryItem]) -> URL? {
         if string == nil {
             return nil
         }
@@ -51,7 +51,7 @@ extension URL {
         // XXX: Debug?
         logger.info("Assembling base URL \(components.string ?? "<nil>")")
         logger.info("\tAPI endpoint \(components.path, privacy: .public)")
-        for item in queryItems {
+        for item in parameters {
             // XXX: Debug?
             if let value = item.value, item.name == "p" || item.name == "t" || item.name == "s" {
                 logger.info("\tSensitive parameter \(item.name, privacy: .public) = \(value.count) long")
@@ -62,19 +62,17 @@ extension URL {
             }
         }
         
-        components.query = "" // we have to init it to use it
-        components.queryItems?.append(contentsOf: queryItems)
-        // objc version had strange check for converting ":/" into "://" - probably NSURL bug in snep?
+        if !parameters.isEmpty {
+            components.query = "" // we have to init it to use it
+            components.queryItems?.append(contentsOf: parameters)
+        }
         
         return components.url
     }
     
     static func URLWith(string: String?, command: String, parameters:  [String: String]) -> URL? {
-        // XXX: the Objective-C version called into a CF API for specific escaping rules
-        // (that is, CFURLCreateStringByAddingPercentEscapes
-        //  and legal characters escaped as @";?:/@&=+$,")
         let queryItems = parameters.map { (k, v) in  URLQueryItem(name: k, value: v) }
-        return URLWith(string: string, command: command, queryItems: queryItems)
+        return URLWith(string: string, command: command, parameters: queryItems)
     }
     
     // #MARK: -

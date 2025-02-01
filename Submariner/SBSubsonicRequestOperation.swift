@@ -16,41 +16,58 @@ class SBSubsonicRequestOperation: SBOperation {
     
     var server: SBServer!
     
-    var parameters: [String: String] = [:]
+    var parameters: [URLQueryItem] = []
     let request: SBSubsonicRequestType
-    var url: URL? // XXX: Make into let
     var customization: ParsingCustomization? = nil
+    var endpoint: String! // XXX: Make into let
+    // Note that POST method is supported by almost all servers, even Subsonic,
+    // but OpenSubsonic API says to check for the extension first.
+    let usesPost: Bool
     
     init(server: SBServer, request: SBSubsonicRequestType) {
-        parameters = server.getBaseParameters()
+        parameters = server.getBaseQueryItems()
         self.request = request
         
         // name is temporary, and we're on the same thread as what passed us this i hope
         let baseName = "Requesting from \(server.resourceName ?? "server")"
+        self.usesPost = server.supportsFormPost.boolValue
         super.init(managedObjectContext: server.managedObjectContext!, name: baseName)
         self.server = threadedContext.object(with: server.objectID) as? SBServer
         
-        DispatchQueue.main.async {
-            if let url = self.url {
-                self.name = "\(baseName): \(url)"
-            }
-        }
-        
         buildUrl()
+        
+        DispatchQueue.main.async {
+            self.name = "\(baseName): \(self.endpoint!)"
+        }
     }
     
     // #MARK: - HTTP Requests
     
+    private func buildFormParams() -> String {
+        self.parameters.map { item in
+            "\(item.name)=\(item.value?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
+        }.joined(separator: "&")
+    }
+    
     private func request(url: URL, type: SBSubsonicRequestType, customization: ParsingCustomization? = nil) {
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
-        let request = URLRequest(url: url)
+        var request = URLRequest(url: url)
+        if self.usesPost {
+            request.httpMethod = "POST"
+            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+            request.httpBody = self.buildFormParams().data(using: .utf8)
+        }
         // No auth header needed since we just pass them over query string
         
         let task = session.dataTask(with: request) { data, response, error in
-            // sensitive because &p= contains user password
-            logger.info("Handling URL \(url, privacy: .sensitive)")
-            logger.info("\tAPI endpoint \(url.path, privacy: .public)")
+            if self.usesPost {
+                logger.info("Handling POST URL \(url, privacy: .public)")
+            } else {
+                // sensitive because &p= contains user password
+                logger.info("Handling URL \(url, privacy: .sensitive)")
+                logger.info("\tAPI endpoint \(url.path, privacy: .public)")
+            }
             
             defer { self.finish() }
             
@@ -118,29 +135,38 @@ class SBSubsonicRequestOperation: SBOperation {
     }
     
     override func main() {
-        if let url = self.url {
-            request(url: url, type: self.request, customization: self.customization)
-        } else {
+        let queryParameters = self.usesPost ? [] : self.parameters
+        guard let baseUrl = server.url else {
+            logger.error("Base server URL was nil for request \(String(describing: self.request)), the server URL likely needs to be reset")
+            self.finish()
+            return
+        }
+        guard let url = URL.URLWith(string: baseUrl, command: "rest/\(endpoint!).view", parameters: queryParameters) else {
             logger.error("URL was nil for request \(String(describing: self.request)), the server URL likely needs to be reset")
             self.finish()
+            return
         }
+        
+        request(url: url, type: self.request, customization: self.customization)
     }
     
     private func buildUrl() {
         switch request {
         case .ping:
-            url = URL.URLWith(string: server.url, command: "rest/ping.view", parameters: parameters)
+            endpoint = "ping"
+        case .getOpenSubsonicExtensions:
+            endpoint = "getOpenSubsonicExtensions"
         case .getLicense:
-            url = URL.URLWith(string: server.url, command: "rest/getLicense.view", parameters: parameters)
+            endpoint = "getLicense"
         case .getCoverArt(id: let id, forAlbumId: let albumId):
             parameters["id"] = id
-            url = URL.URLWith(string: server.url, command: "rest/getCoverArt.view", parameters: parameters)
+            endpoint = "getCoverArt"
             customization = { operation in
                 operation.currentCoverID = id
                 operation.currentAlbumID = albumId
             }
         case .getPlaylists:
-            url = URL.URLWith(string: server.url, command: "rest/getPlaylists.view", parameters: parameters)
+            endpoint = "getPlaylists"
         case .getAlbumList(type: let type):
             switch type {
             case .random:
@@ -157,16 +183,16 @@ class SBSubsonicRequestOperation: SBOperation {
                 parameters["type"] = "starred"
             }
             
-            url = URL.URLWith(string: server.url, command: "rest/getAlbumList2.view", parameters: parameters)
+            endpoint = "getAlbumList2"
         case .getPlaylist(id: let id):
             parameters["id"] = id
-            url = URL.URLWith(string: server.url, command: "rest/getPlaylist.view", parameters: parameters)
+            endpoint = "getPlaylist"
             customization = { operation in
                 operation.currentPlaylistID = id
             }
         case .deletePlaylist(id: let id):
             parameters["id"] = id
-            url = URL.URLWith(string: server.url, command: "rest/deletePlaylist.view", parameters: parameters)
+            endpoint = "deletePlaylist"
             customization = { operation in
                 operation.currentPlaylistID = id
             }
@@ -174,41 +200,39 @@ class SBSubsonicRequestOperation: SBOperation {
             parameters["name"] = name
             
             // XXX: DRY this with update
-            let allParams = parameters.map { (k, v) in  URLQueryItem(name: k, value: v) } +
-                tracks.map { track in URLQueryItem(name: "songId", value: track.itemId) }
+            parameters += tracks.map { track in URLQueryItem(name: "songId", value: track.itemId) }
             
-            url = URL.URLWith(string: server.url, command: "rest/createPlaylist.view", queryItems: allParams)
+            endpoint = "createPlaylist"
         case .getNowPlaying:
-            url = URL.URLWith(string: server.url, command: "rest/getNowPlaying.view", parameters: parameters)
+            endpoint = "getNowPlaying"
         case .search(query: let query):
             parameters["query"] = query
             parameters["songCount"] = "100" // XXX: Configurable? Pagination?
-            url = URL.URLWith(string: server.url, command: "rest/search3.view", parameters: parameters)
+            endpoint = "search3"
             customization = { operation in
                 operation.currentSearch = SBSearchResult(query: .search(query: query))
             }
         case .setRating(id: let id, rating: let rating):
             parameters["rating"] = String(rating)
             parameters["id"] = id
-            url = URL.URLWith(string: server.url, command: "rest/setRating.view", parameters: parameters)
+            endpoint = "setRating"
         case .getPodcasts:
-            url = URL.URLWith(string: server.url, command: "rest/getPodcasts.view", parameters: parameters)
+            endpoint = "getPodcasts"
         case .scrobble(id: let id):
             parameters["id"] = id
             let currentTimeMS = Int64(Date().timeIntervalSince1970 * 1000)
             parameters["time"] = String(currentTimeMS)
-            url = URL.URLWith(string: server.url, command: "rest/scrobble.view", parameters: parameters)
+            endpoint = "scrobble"
         case .scanLibrary:
-            url = URL.URLWith(string: server.url, command: "rest/startScan.view", parameters: parameters)
+            endpoint = "startScan"
         case .getScanStatus:
-            url = URL.URLWith(string: server.url, command: "rest/getScanStatus.view", parameters: parameters)
+            endpoint = "getScanStatus"
         case .replacePlaylist(id: let id, tracks: let tracks):
             parameters["playlistId"] = id
             
-            let allParams = parameters.map { (k, v) in  URLQueryItem(name: k, value: v) } +
-                tracks.map { track in URLQueryItem(name: "songId", value: track.itemId) }
+            parameters += tracks.map { track in URLQueryItem(name: "songId", value: track.itemId) }
             
-            url = URL.URLWith(string: server.url, command: "rest/createPlaylist.view", queryItems: allParams)
+            endpoint = "createPlaylist"
             customization = { operation in
                 operation.currentPlaylistID = id
             }
@@ -224,61 +248,57 @@ class SBSubsonicRequestOperation: SBOperation {
                 parameters["public"] = "\(isPublic)"
             }
             
-            let allParams = parameters.map { (k, v) in  URLQueryItem(name: k, value: v) } +
-                (appending?.map { track in URLQueryItem(name: "songIdToAdd", value: track.itemId) } ?? []) +
-                (removing?.map { index in URLQueryItem(name: "songIndexToRemove", value: "\(index)") } ?? [])
+            parameters += appending?.map { track in URLQueryItem(name: "songIdToAdd", value: track.itemId) } ?? []
+            parameters += removing?.map { index in URLQueryItem(name: "songIndexToRemove", value: "\(index)") } ?? []
             
-            url = URL.URLWith(string: server.url, command: "rest/updatePlaylist.view", queryItems: allParams)
+            endpoint = "updatePlaylist"
             customization = { operation in
                 operation.currentPlaylistID = id
             }
         case .getArtists:
-            url = URL.URLWith(string: server.url, command: "rest/getArtists.view", parameters: parameters)
+            endpoint = "getArtists"
         case .getArtist(id: let id):
             parameters["id"] = id
-            url = URL.URLWith(string: server.url, command: "rest/getArtist.view", parameters: parameters)
+            endpoint = "getArtist"
             customization = { operation in
                 operation.currentArtistID = id
             }
         case .getAlbum(id: let id):
             parameters["id"] = id
-            url = URL.URLWith(string: server.url, command: "rest/getAlbum.view", parameters: parameters)
+            endpoint = "getAlbum"
             customization = { operation in
                 operation.currentAlbumID = id
             }
         case .getTrack(id: let id):
             parameters["id"] = id
-            url = URL.URLWith(string: server.url, command: "rest/getSong.view", parameters: parameters)
+            endpoint = "getSong"
         case .getDirectories:
             // XXX: there is a lastIndexDate param but since the changeover to ID3 tag primary, that's not relevant anymore
-            url = URL.URLWith(string: server.url, command: "rest/getIndexes.view", parameters: parameters)
+            endpoint = "getIndexes"
         case .getDirectory(id: let id):
             parameters["id"] = id
-            url = URL.URLWith(string: server.url, command: "rest/getMusicDirectory.view", parameters: parameters)
+            endpoint = "getMusicDirectory"
         case .star(tracks: let tracks, albums: let albums, artists: let artists, directories: let directories):
-            // Directories share the same namespace as tracks
-            let allParams = parameters.map { (k, v) in  URLQueryItem(name: k, value: v) } +
-                (tracks.map { track in URLQueryItem(name: "id", value: track.itemId) } ) +
-                (directories.map { track in URLQueryItem(name: "id", value: track.itemId) } ) +
-                (albums.map { album in URLQueryItem(name: "albumId", value: album.itemId) } ) +
-                (artists.map { artist in URLQueryItem(name: "artistId", value: artist.itemId) } )
-            url = URL.URLWith(string: server.url, command: "rest/star.view", queryItems: allParams)
+            parameters += tracks.map { track in URLQueryItem(name: "id", value: track.itemId) }
+            parameters += directories.map { track in URLQueryItem(name: "id", value: track.itemId) }
+            parameters += albums.map { album in URLQueryItem(name: "albumId", value: album.itemId) }
+            parameters += artists.map { artist in URLQueryItem(name: "artistId", value: artist.itemId) }
+            endpoint = "star"
         case .unstar(tracks: let tracks, albums: let albums, artists: let artists, directories: let directories):
-            let allParams = parameters.map { (k, v) in  URLQueryItem(name: k, value: v) } +
-                (tracks.map { track in URLQueryItem(name: "id", value: track.itemId) } ) +
-                (directories.map { track in URLQueryItem(name: "id", value: track.itemId) } ) +
-                (albums.map { album in URLQueryItem(name: "albumId", value: album.itemId) } ) +
-                (artists.map { artist in URLQueryItem(name: "artistId", value: artist.itemId) } )
-            url = URL.URLWith(string: server.url, command: "rest/unstar.view", queryItems: allParams)
+            parameters += tracks.map { track in URLQueryItem(name: "id", value: track.itemId) }
+            parameters += directories.map { track in URLQueryItem(name: "id", value: track.itemId) }
+            parameters += albums.map { album in URLQueryItem(name: "albumId", value: album.itemId) }
+            parameters += artists.map { artist in URLQueryItem(name: "artistId", value: artist.itemId) }
+            endpoint = "unstar"
         case .getTopTracks(let artistName):
             parameters["artist"] = artistName
-            url = URL.URLWith(string: server.url, command: "rest/getTopSongs.view", parameters: parameters)
+            endpoint = "getTopSongs"
             customization = { operation in
                 operation.currentSearch = SBSearchResult(query: .topTracksFor(artistName: artistName))
             }
         case .getSimilarTracks(let artist):
             parameters["id"] = artist.itemId
-            url = URL.URLWith(string: server.url, command: "rest/getSimilarSongs2.view", parameters: parameters)
+            endpoint = "getSimilarSongs2"
             customization = { operation in
                 operation.currentSearch = SBSearchResult(query: .similarTo(artist: artist))
             }
