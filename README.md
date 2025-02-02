@@ -31,7 +31,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes
 
-### Not yet released
+### Version 3.3
 
 * Basic support for displaying related tracks. This reuses the search infrastructure. The server may call external servers if configured to do so.
     * Top tracks for an artist can now be displayed
