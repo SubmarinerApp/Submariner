@@ -71,6 +71,9 @@ public class SBServer: SBResource {
     
     func markNotSupported(feature: SBSubsonicRequestType) {
         switch (feature) {
+        case .getOpenSubsonicExtensions:
+            // We could check for form POST in another way, but for now just ignore
+            break
         case .getNowPlaying:
             // not supported by OC Music, we special case because this gets called in the background
             supportsNowPlaying = false
