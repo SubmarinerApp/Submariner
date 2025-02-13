@@ -31,6 +31,11 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes
 
+### Not yet released
+
+* Fix getting an error message about OpenSubsonic extensions on non-OpenSubsonic servers.
+* Fix a regression with the ATS plist entries that blocked non-HTTPS servers.
+
 ### Version 3.3
 
 * Basic support for displaying related tracks. This reuses the search infrastructure. The server may call external servers if configured to do so.
