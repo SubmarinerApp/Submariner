@@ -79,12 +79,16 @@ class SBSubsonicRequestOperation: SBOperation {
             } else if let response = response as? HTTPURLResponse {
                 logger.info("\tStatus code is \(response.statusCode)")
                 // Note that Subsonic and Navidrome return app-level error bodies in HTTP 200
-                // HTTP 404s are used for unsupported features in Subsonic and Navidrome,
-                // but OC Music uses code 70 Subsonic responses
-                if response.statusCode == 404 {
+                switch (response.statusCode) {
+                case 404, 410, 501:
+                    // For unsupported features, it may vary. 404 is used for features that
+                    // seem unknown to the server in Subsonic and Navidrome. Navidrome at least
+                    // uses 501 for features that may be implemented in the future, and 410 for
+                    // features that will never be implemented. OwnCloud Music returns a 200 with
+                    // a code 70 Subsonic error instead, so we handle that in the response parser.
                     self.server.markNotSupported(feature: type)
                     return
-                } else if response.statusCode == 429 {
+                case 429:
                     // Newer versions of Navidrome back getCoverArt w/ third-party APIs.
                     // As such, it rate limits API requests that can invoke them.
                     // Instead of bothering the user, retry the request later.
@@ -108,7 +112,9 @@ class SBSubsonicRequestOperation: SBOperation {
                         }
                     }
                     return
-                } else if response.statusCode != 200 {
+                case 200: // OK, continue
+                    break
+                default:
                     let message = "HTTP \(response.statusCode) for \(url.path)"
                     let userInfo = [NSLocalizedDescriptionKey: message]
                     // XXX: Right domain?

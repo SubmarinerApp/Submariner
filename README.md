@@ -35,6 +35,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 * Fix getting an error message about OpenSubsonic extensions on non-OpenSubsonic servers.
 * Fix a regression with the ATS plist entries that blocked non-HTTPS servers.
+* Handle HTTP 410 and 501 from servers for unimplemented features.
 
 ### Version 3.3
 
