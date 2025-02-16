@@ -31,6 +31,10 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes
 
+## Not yet released
+
+* Fix album information not getting pulled in from tracks on search.
+
 ### Version 3.3.1
 
 * Fix getting an error message about OpenSubsonic extensions on non-OpenSubsonic servers.

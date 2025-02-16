@@ -953,7 +953,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         // same idea
         if let albumID = attributeDict["albumId"] {
             attachedAlbum = fetchAlbum(id: albumID, artist: attachedArtist)
-            if attachedAlbum == nil, let albumName = attributeDict["albumName"] {
+            if attachedAlbum == nil, let albumName = attributeDict["albumName"] ?? attributeDict["album"] {
                 logger.info("Creating album ID \(albumID, privacy: .public) for tag based entry")
                 // XXX: Lack of ID seems like it'll be agony
                 attachedAlbum = SBAlbum.insertInManagedObjectContext(context: threadedContext)
