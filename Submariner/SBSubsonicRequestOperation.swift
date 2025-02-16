@@ -174,21 +174,13 @@ class SBSubsonicRequestOperation: SBOperation {
         case .getPlaylists:
             endpoint = "getPlaylists"
         case .getAlbumList(type: let type):
-            switch type {
-            case .random:
-                parameters["type"] = "random"
-            case .newest:
-                parameters["type"] = "newest"
-            case .frequent:
-                parameters["type"] = "frequent"
-            case .highest:
-                parameters["type"] = "highest"
-            case .recent:
-                parameters["type"] = "recent"
-            case .starred:
-                parameters["type"] = "starred"
-            }
-            
+            parameters["type"] = type.subsonicParameter()
+            parameters["count"] = String(10)
+            endpoint = "getAlbumList2"
+        case .updateAlbumList(type: let type):
+            parameters["type"] = type.subsonicParameter()
+            parameters["count"] = String(10)
+            parameters["offset"] = String(server.home?.albums?.count ?? 0)
             endpoint = "getAlbumList2"
         case .getPlaylist(id: let id):
             parameters["id"] = id

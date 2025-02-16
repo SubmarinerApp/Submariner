@@ -270,8 +270,11 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     }
     
     private func parseElementAlbumList(attributeDict: [String: String]) {
-        // Clear the ServerHome controller
-        server.home?.albums = nil
+        // Clear the ServerHome controller if we're not appending
+        // Note that it's weird to append to it because albums is a Set, not an Array, so it has no ordering
+        if case .getAlbumList(type: _) = requestType {
+            server.home?.albums = nil
+        }
     }
     
     private func parseElementAlbum(attributeDict: [String: String]) {
@@ -603,8 +606,8 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         }
     }
     
-    private func postServerNotification(_ notificationName: NSNotification.Name) {
-        NotificationCenter.default.post(name: notificationName, object: server.objectID)
+    private func postServerNotification(_ notificationName: NSNotification.Name, userInfo: [AnyHashable: Any]? = nil) {
+        NotificationCenter.default.post(name: notificationName, object: server.objectID, userInfo: userInfo)
     }
     
     func parserDidEndDocument(_ parser: XMLParser) {
@@ -655,8 +658,9 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 currentArtist.albums = union
             }
             postServerNotification(.SBSubsonicAlbumsUpdated)
-        case .getAlbumList(type: _):
-            postServerNotification(.SBSubsonicAlbumsUpdated)
+        case .getAlbumList(type: _), .updateAlbumList(type: _):
+            let userInfo = ["count": NSNumber(integerLiteral: albumsReturned.count)]
+            postServerNotification(.SBSubsonicAlbumsUpdated, userInfo: userInfo)
         case .getAlbum(_):
             postServerNotification(.SBSubsonicTracksUpdated)
         default:

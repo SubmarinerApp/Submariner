@@ -17,6 +17,7 @@ enum SBSubsonicRequestType: Equatable {
     case getCoverArt(id: String, forAlbumId: String?)
     case getPlaylists
     case getAlbumList(type: SBAlbumListType)
+    case updateAlbumList(type: SBAlbumListType)
     case getPlaylist(id: String)
     case deletePlaylist(id: String)
     case createPlaylist(name: String, tracks: [SBTrack])
@@ -49,4 +50,21 @@ enum SBSubsonicRequestType: Equatable {
     @objc(SBSubsonicRequestGetAlbumListStarred) case starred
     @objc(SBSubsonicRequestGetAlbumListFrequent) case frequent
     @objc(SBSubsonicRequestGetAlbumListRecent) case recent
+    
+    func subsonicParameter() -> String {
+        switch self {
+        case .random:
+            return "random"
+        case .newest:
+            return "newest"
+        case .frequent:
+            return "frequent"
+        case .highest:
+            return "highest"
+        case .recent:
+            return "recent"
+        case .starred:
+            return "starred"
+        }
+    }
 }

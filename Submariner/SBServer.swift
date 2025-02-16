@@ -457,6 +457,11 @@ public class SBServer: SBResource {
         OperationQueue.sharedServerQueue.addOperation(request)
     }
     
+    @objc func updateAlbumListFor(type: SBAlbumListType) {
+        let request = SBSubsonicRequestOperation(server: self, request: .updateAlbumList(type: type))
+        OperationQueue.sharedServerQueue.addOperation(request)
+    }
+    
     @objc func getServerDirectories() {
         let request = SBSubsonicRequestOperation(server: self, request: .getDirectories)
         OperationQueue.sharedServerQueue.addOperation(request)

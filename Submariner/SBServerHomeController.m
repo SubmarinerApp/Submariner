@@ -78,6 +78,8 @@
     if (self) {
         scopeGroups = [[NSMutableArray alloc] init];
         
+        shouldInfiniteScroll = NO;
+        
         // XXX: Does it make sense to do a year sort for this view?
         NSSortDescriptor *albumYearDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"year" ascending:YES];
         NSSortDescriptor *albumNameDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"itemName" ascending:YES selector: @selector(caseInsensitiveCompare:)];
@@ -92,6 +94,10 @@
 
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:@"SBSubsonicCoversUpdatedNotification"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:@"SBSubsonicAlbumsUpdated"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self forKeyPath:NSViewBoundsDidChangeNotification];
+    
     [[NSUserDefaults standardUserDefaults] removeObserver: self forKeyPath: @"albumSortOrder"];
     [albumsController removeObserver:self forKeyPath:@"arrangedObjects"];
     [tracksController removeObserver:self forKeyPath:@"selectedObjects"];
@@ -149,6 +155,11 @@
                                                  name:@"SBSubsonicCoversUpdatedNotification"
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(subsonicAlbumsUpdatedNotification:)
+                                                 name:@"SBSubsonicAlbumsUpdatedNotification"
+                                               object:nil];
+    
     [albumsController addObserver:self
                       forKeyPath:@"arrangedObjects"
                       options:NSKeyValueObservingOptionNew
@@ -163,23 +174,43 @@
                                             forKeyPath: @"albumSortOrder"
                                                options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial
                                                context: nil];
+    
+    NSClipView *albumClipView = albumsCollectionView.enclosingScrollView.contentView;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(albumClipViewBoundsChanged:)
+                                                 name:NSViewBoundsDidChangeNotification
+                                               object:albumClipView];
 }
 
 
-- (void) reloadServersWithIdentifier: (NSString*)identifier {
-    if([identifier isEqualToString:@"RandomItem"]) {
-        [self.server getAlbumListForType:SBSubsonicRequestGetAlbumListRandom];
-    } else if([identifier isEqualToString:@"NewestItem"]) {
-        [self.server getAlbumListForType:SBSubsonicRequestGetAlbumListNewest];
-    } else if([identifier isEqualToString:@"HighestItem"]) {
-        [self.server getAlbumListForType:SBSubsonicRequestGetAlbumListHighest];
-    } else if([identifier isEqualToString:@"FrequentItem"]) {
-        [self.server getAlbumListForType:SBSubsonicRequestGetAlbumListFrequent];
-    } else if([identifier isEqualToString:@"StarredItem"]) {
-        [self.server getAlbumListForType:SBSubsonicRequestGetAlbumListStarred];
-    } else if([identifier isEqualToString:@"RecentItem"]) {
-        [self.server getAlbumListForType:SBSubsonicRequestGetAlbumListRecent];
+- (SBAlbumListType)albumListTypeForIdentifier: (NSString*)identifier {
+    if ([identifier isEqualToString:@"RandomItem"]) {
+        return SBSubsonicRequestGetAlbumListRandom;
+    } else if ([identifier isEqualToString:@"NewestItem"]) {
+        return SBSubsonicRequestGetAlbumListNewest;
+    } else if ([identifier isEqualToString:@"HighestItem"]) {
+        return SBSubsonicRequestGetAlbumListHighest;
+    } else if ([identifier isEqualToString:@"FrequentItem"]) {
+        return SBSubsonicRequestGetAlbumListFrequent;
+    } else if ([identifier isEqualToString:@"StarredItem"]) {
+        return SBSubsonicRequestGetAlbumListStarred;
+    } else if ([identifier isEqualToString:@"RecentItem"]) {
+        return SBSubsonicRequestGetAlbumListRecent;
     }
+    // fallback
+    return SBSubsonicRequestGetAlbumListRandom;
+}
+
+
+- (SBAlbumListType)currentAlbumListType {
+    NSArray *nested = scopeBar.selectedItems.firstObject;
+    NSString *identifier = nested.firstObject;
+    return [self albumListTypeForIdentifier:identifier];
+}
+
+
+- (void) reloadServersWithType: (SBAlbumListType)albumListType {
+    [self.server getAlbumListForType:albumListType];
 }
 
 
@@ -221,9 +252,7 @@
 
 
 - (IBAction)reloadSelected: (id)sender {
-    NSArray *nested = scopeBar.selectedItems.firstObject;
-    NSString *identifier = nested.firstObject;
-    [self reloadServersWithIdentifier: identifier];
+    [self reloadServersWithType:[self currentAlbumListType]];
 }
 
 
@@ -261,6 +290,35 @@
 
 #pragma mark - 
 #pragma mark Notification
+
+- (void)loadWhenAtBottom {
+    if (!self->shouldInfiniteScroll) {
+        return;
+    }
+    
+    NSScrollView *scrollView = self->albumsCollectionView.enclosingScrollView;
+    NSView *documentView = scrollView.documentView;
+    NSClipView *clipView = scrollView.contentView;
+    
+    CGFloat verticalPosition = clipView.bounds.origin.y + clipView.bounds.size.height;
+    if (verticalPosition == documentView.bounds.size.height) {
+        self->shouldInfiniteScroll = NO;
+        [self.server updateAlbumListForType: [self currentAlbumListType]];
+    }
+}
+
+- (void)albumClipViewBoundsChanged:(NSNotification *)notification {
+    [self loadWhenAtBottom];
+}
+
+- (void)subsonicAlbumsUpdatedNotification:(NSNotification *)notification {
+    // No need to reload with observation, but do increment our infinite scroll state
+    NSNumber *count = notification.userInfo[@"count"];
+    shouldInfiniteScroll = count.intValue > 0;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self loadWhenAtBottom];
+    });
+}
 
 - (void)subsonicCoversUpdatedNotification:(NSNotification *)notification {
     [albumsCollectionView performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
@@ -441,7 +499,7 @@
 - (void)scopeBar:(MGScopeBar *)theScopeBar selectedStateChanged:(BOOL)selected forItem:(NSString *)identifier inGroup:(NSInteger)groupNumber {
     [albumsController setSelectionIndexes: [[NSIndexSet alloc] init]];
     
-    [self reloadServersWithIdentifier: identifier];
+    [self reloadServersWithType:[self currentAlbumListType]];
 }
 
 

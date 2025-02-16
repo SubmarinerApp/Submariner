@@ -50,6 +50,7 @@
     
     NSMutableArray *scopeGroups;
     NSArray *albumSortDescriptor;
+    BOOL shouldInfiniteScroll;
 }
 
 - (IBAction)reloadSelected:(id)sender;
