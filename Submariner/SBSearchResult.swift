@@ -15,6 +15,8 @@ import Cocoa
         case topTracksFor(artistName: String)
     }
     
+    var returnedTracks = 0
+    
     /// Used for bindings and contains the actual tracks fetched from `fetchTracks:`.
     @objc var tracks: [SBTrack] = []
     let query: QueryType

@@ -543,6 +543,11 @@ public class SBServer: SBResource {
         OperationQueue.sharedServerQueue.addOperation(request)
     }
     
+    func updateSearch(existingResult: SBSearchResult) {
+        let request = SBSubsonicRequestOperation(server: self, request: .updateSearch(existingResult: existingResult))
+        OperationQueue.sharedServerQueue.addOperation(request)
+    }
+    
     @objc(getTopTracksForArtistName:) func getTopTracks(artistName: String) {
         let request = SBSubsonicRequestOperation(server: self, request: .getTopTracks(artistName: artistName))
         OperationQueue.sharedServerQueue.addOperation(request)

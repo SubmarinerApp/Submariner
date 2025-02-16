@@ -213,10 +213,24 @@ class SBSubsonicRequestOperation: SBOperation {
             endpoint = "getNowPlaying"
         case .search(query: let query):
             parameters["query"] = query
-            parameters["songCount"] = "100" // XXX: Configurable? Pagination?
+            parameters["songCount"] = "100" // XXX: Configurable?
             endpoint = "search3"
             customization = { operation in
                 operation.currentSearch = SBSearchResult(query: .search(query: query))
+            }
+        case .updateSearch(existingResult: let existingResult):
+            switch existingResult.query {
+            case .search(let query):
+                parameters["query"] = query
+                parameters["songCount"] = "100"
+                parameters["songOffset"] = String(existingResult.tracks.count)
+                endpoint = "search3"
+            default: // shouldn't happen
+                break
+            }
+            existingResult.returnedTracks = 0
+            customization = { operation in
+                operation.currentSearch = existingResult
             }
         case .setRating(id: let id, rating: let rating):
             parameters["rating"] = String(rating)

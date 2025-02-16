@@ -22,6 +22,7 @@ enum SBSubsonicRequestType: Equatable {
     case createPlaylist(name: String, tracks: [SBTrack])
     case getNowPlaying
     case search(query: String)
+    case updateSearch(existingResult: SBSearchResult)
     case setRating(id: String, rating: Int)
     case getPodcasts
     case scrobble(id: String)

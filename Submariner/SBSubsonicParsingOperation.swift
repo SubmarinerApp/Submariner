@@ -429,6 +429,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     
     private func parseElementSong(attributeDict: [String: String]) {
         if let currentSearch = self.currentSearch, let id = attributeDict["id"] {
+            currentSearch.returnedTracks += 1
             if let track = fetchTrack(id: id) {
                 logger.info("Creating track ID \(id, privacy: .public) for search")
                 // the song element has the same format as the one used in nowPlaying, complete with artist name without ID
@@ -628,7 +629,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             postServerNotification(.SBSubsonicPlaylistsCreated)
         case .getNowPlaying:
             postServerNotification(.SBSubsonicNowPlayingUpdated)
-        case .search(_), .getTopTracks(artistName: _), .getSimilarTracks(artist: _):
+        case .search(_), .getTopTracks(artistName: _), .getSimilarTracks(artist: _), .updateSearch(existingResult: _):
             NotificationCenter.default.post(name: .SBSubsonicSearchResultUpdated, object: currentSearch)
         case .getPodcasts:
             postServerNotification(.SBSubsonicPodcastsUpdated)
