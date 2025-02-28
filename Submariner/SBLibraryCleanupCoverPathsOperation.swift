@@ -74,6 +74,7 @@ class SBLibraryCleanupCoverPathsOperation: SBOperation {
     
     private func cleanupCoverPaths() {
         let fetchRequest: NSFetchRequest<SBCover> = SBCover.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "imagePath BEGINSWITH %@", "/")
         if let covers = try? threadedContext.fetch(fetchRequest) {
             for cover in covers {
                 cleanupCoverPath(cover)
