@@ -36,6 +36,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Infinite scrolling is added to search results and server albums.
   * This enables pulling results beyond the first page of results.
 * Fix album information not getting pulled in from tracks on search.
+* Refactor cover handling to avoid cross-linked files and avoid writing on reads.
 
 ### Version 3.3.1
 

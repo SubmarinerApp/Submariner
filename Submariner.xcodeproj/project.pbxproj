@@ -41,6 +41,7 @@
 		3E45201A29F5DE9100604079 /* SBImportOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E45201929F5DE9100604079 /* SBImportOperation.swift */; };
 		3E45201C29FA488C00604079 /* SBServerUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E45201B29FA488C00604079 /* SBServerUserViewController.swift */; };
 		3E45201E29FAD41900604079 /* UserDefaults+Submariner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E45201D29FAD41900604079 /* UserDefaults+Submariner.swift */; };
+		3E5297CA2D7028E0001E91B7 /* SBLibraryCleanupCoverPathsOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5297C92D7028DB001E91B7 /* SBLibraryCleanupCoverPathsOperation.swift */; };
 		3E53DBBA27E4192B00DB4C84 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBB927E4192B00DB4C84 /* AVFoundation.framework */; };
 		3E53DBBC27E41B6400DB4C84 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */; };
 		3E5C42E029846E25009B9699 /* SBOnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5C42DE29846E25009B9699 /* SBOnboardingController.swift */; };
@@ -204,6 +205,7 @@
 		3E45201929F5DE9100604079 /* SBImportOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBImportOperation.swift; sourceTree = "<group>"; };
 		3E45201B29FA488C00604079 /* SBServerUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBServerUserViewController.swift; sourceTree = "<group>"; };
 		3E45201D29FAD41900604079 /* UserDefaults+Submariner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Submariner.swift"; sourceTree = "<group>"; };
+		3E5297C92D7028DB001E91B7 /* SBLibraryCleanupCoverPathsOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBLibraryCleanupCoverPathsOperation.swift; sourceTree = "<group>"; };
 		3E53DBB927E4192B00DB4C84 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3E53DBBB27E41B6400DB4C84 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		3E5C41DB297F2E15009B9699 /* Submariner v3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Submariner v3.xcdatamodel"; sourceTree = "<group>"; };
@@ -710,6 +712,7 @@
 				3ED4C4D32AC0E25400649FB2 /* SBLibraryPurgeOperation.swift */,
 				3E2E1C832A395B79001A3148 /* SBSubsonicRequestOperation.swift */,
 				3EE4C1872C18EB780063BB9D /* SBLibraryCleanupOrphansOperation.swift */,
+				3E5297C92D7028DB001E91B7 /* SBLibraryCleanupCoverPathsOperation.swift */,
 			);
 			name = Operations;
 			sourceTree = "<group>";
@@ -928,6 +931,7 @@
 				4CFAFC2C139EF08800E82B57 /* SBServerHomeController.m in Sources */,
 				3EE4C1882C18EB780063BB9D /* SBLibraryCleanupOrphansOperation.swift in Sources */,
 				3EF978042BC4659B00C986E9 /* Binding+Nil.swift in Sources */,
+				3E5297CA2D7028E0001E91B7 /* SBLibraryCleanupCoverPathsOperation.swift in Sources */,
 				3E04F5F22B71E33000E24E56 /* SBServerDirectoryController.swift in Sources */,
 				4CFAFC37139EF20600E82B57 /* MGScopeBar.m in Sources */,
 				4CFAFC38139EF20600E82B57 /* MGRecessedPopUpButtonCell.m in Sources */,

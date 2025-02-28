@@ -209,7 +209,7 @@ import UniformTypeIdentifiers
                 .appendingPathExtension(for: coverType)
             try coverData.write(to: finalPath, options: [.atomic])
             
-            let relativePath = albumArtistString! + "/" + albumString! + "." + coverType.preferredFilenameExtension!
+            let relativePath = "\(albumArtistString!)/\(albumString!).\(coverType.preferredFilenameExtension!)"
             // HACK: check if cover in album is nil; usually somehow track's isn't
             if newAlbum!.cover == nil {
                 newAlbum!.cover = SBCover.init(entity: SBCover.entity(), insertInto: threadedContext)
@@ -235,9 +235,13 @@ import UniformTypeIdentifiers
                         let finalPath = artistCoverDir
                             .appendingPathComponent(fileName)
                             .appendingPathExtension(for: type)
+                        // if needed overwrite in case of remannts
+                        if FileManager.default.fileExists(atPath: finalPath.path) {
+                            try FileManager.default.removeItem(at: finalPath)
+                        }
                         try FileManager.default.copyItem(at: fullPath, to: finalPath)
                         
-                        let relativePath = albumArtistString! + "/" + albumString! + type.preferredFilenameExtension!
+                        let relativePath = "\(albumArtistString!)/\(albumString!).\(type.preferredFilenameExtension!)"
                         
                         // same as above
                         if newAlbum!.cover == nil {
@@ -272,7 +276,19 @@ import UniformTypeIdentifiers
             if newAlbum!.cover == nil {
                 newAlbum!.cover = SBCover.init(entity: SBCover.entity(), insertInto: threadedContext)
             }
-            newAlbum!.cover!.imagePath = remoteTrack.album?.cover?.imagePath
+            
+            if let remoteCoverPath = remoteTrack.album?.cover?.imagePath {
+                let basePath = newAlbum!.cover!.coversDir()!
+                let relativePath = "\(albumArtistString!)/\(albumString!).\(remoteCoverPath.pathExtension)"
+                let newAbsolutePath = basePath.appendingPathComponent(relativePath)
+                do {
+                    // Make a copy in local library covers to avoid crossing the streams
+                    try FileManager.default.copyItem(atPath: remoteCoverPath as String, toPath: newAbsolutePath)
+                    newAlbum!.cover!.imagePath = remoteTrack.album?.cover?.imagePath
+                } catch {
+                    // not fatal
+                }
+            }
         }
     }
     

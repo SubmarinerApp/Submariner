@@ -96,8 +96,10 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         self.managedObjectContext.persistentStoreCoordinator = self.persistentStoreCoordinator
         
         // #MARK: Run cleanup steps
-        let cleanupOperation = SBLibraryCleanupOrphansOperation(managedObjectContext: self.managedObjectContext)
-        OperationQueue.sharedServerQueue.addOperation(cleanupOperation)
+        let cleanupOrphansOperation = SBLibraryCleanupOrphansOperation(managedObjectContext: self.managedObjectContext)
+        OperationQueue.sharedServerQueue.addOperation(cleanupOrphansOperation)
+        let cleanupCoverPathsOperation = SBLibraryCleanupCoverPathsOperation(managedObjectContext: self.managedObjectContext)
+        OperationQueue.sharedServerQueue.addOperation(cleanupCoverPathsOperation)
         
         // #MARK: Init Window Controllers
         self.databaseController = SBDatabaseController(managedObjectContext: self.managedObjectContext)

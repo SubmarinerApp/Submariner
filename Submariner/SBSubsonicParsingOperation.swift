@@ -115,7 +115,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                     cover.album = album
                     album.cover = cover
                 }
-                cover.imagePath = fileName.path as NSString
+                cover.imagePath = fileName.lastPathComponent as NSString
                 logger.info("Set cover \(currentCoverID, privacy: .public) to file \(fileName, privacy: .public)")
             }
         }
