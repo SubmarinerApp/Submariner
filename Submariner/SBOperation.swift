@@ -20,12 +20,16 @@ class SBOperation: Operation, ObservableObject, Identifiable {
     public let mainContext: NSManagedObjectContext
     public let threadedContext: NSManagedObjectContext
     
-    init(managedObjectContext: NSManagedObjectContext, name: String) {
+    init(managedObjectContext: NSManagedObjectContext, name: String, author: String? = nil) {
         self.mainContext = managedObjectContext
         self.threadedContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        self.threadedContext.persistentStoreCoordinator = self.mainContext.persistentStoreCoordinator
+        // For automatic merging to work, seems we need to associate with the parent MOC,
+        // rather than attaching to the persistent store coordinator.
+        self.threadedContext.parent = managedObjectContext
+        self.threadedContext.automaticallyMergesChangesFromParent = true
         self.threadedContext.mergePolicy = self.mainContext.mergePolicy
         self.threadedContext.retainsRegisteredObjects = true
+        self.threadedContext.transactionAuthor = author
         
         super.init()
         
@@ -99,18 +103,11 @@ class SBOperation: Operation, ObservableObject, Identifiable {
         if self.threadedContext.hasChanges {
             logger.info("Changes to Core Data will be saved...")
             do {
-                let observer = NotificationCenter.default.addObserver(forName: .NSManagedObjectContextDidSave, object: self.threadedContext, queue: nil) { notification in
-                    logger.info("Merging changes onto main thread...")
-                    DispatchQueue.main.async {
-                        self.mainContext.mergeChanges(fromContextDidSave: notification)
-                    }
-                }
+                // Merging is now done by NSManagedObjectContext.automaticallyMergesChangesFromParent
                 try self.threadedContext.save()
-                NotificationCenter.default.removeObserver(observer)
             } catch {
                 logger.error("Failed to save: \(error, privacy: .public)")
             }
         }
-        self.finish()
     }
 }

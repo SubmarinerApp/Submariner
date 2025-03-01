@@ -94,6 +94,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         // must be main queue for SwiftUI
         self.managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         self.managedObjectContext.persistentStoreCoordinator = self.persistentStoreCoordinator
+        self.managedObjectContext.automaticallyMergesChangesFromParent = true
         
         // #MARK: Run cleanup steps
         let cleanupOrphansOperation = SBLibraryCleanupOrphansOperation(managedObjectContext: self.managedObjectContext)
