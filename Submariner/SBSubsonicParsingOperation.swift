@@ -613,9 +613,8 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     func parserDidEndDocument(_ parser: XMLParser) {
         logger.info("Finished XML processing")
         
+        // Do some cleanup before we post notifications.
         switch requestType {
-        case .ping where !errored:
-            postServerNotification(.SBSubsonicConnectionSucceeded)
         case .getPlaylists:
             let playlistRequest: NSFetchRequest<SBPlaylist> = SBPlaylist.fetchRequest()
             playlistRequest.predicate = NSPredicate(format: "(server == %@) && (NOT (self IN %@))", server, playlistsReturned)
@@ -625,6 +624,40 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                     threadedContext.delete(playlist)
                 }
             }
+        case .getArtists:
+            // purge artists not returned, since unlike getIndexes, getArtists returns the full list
+            let artistRequest: NSFetchRequest<SBArtist> = SBArtist.fetchRequest()
+            artistRequest.predicate = NSPredicate(format: "(server == %@) && (NOT (self IN %@))", server, artistsReturned)
+            if let artists = try? threadedContext.fetch(artistRequest) {
+                for artist in artists {
+                    logger.info("Removing artist not in list \(artist.itemId ?? "<nil>", privacy: .public) name \(artist.itemName ?? "<nil>")")
+                    threadedContext.delete(artist)
+                }
+            }
+        case .getArtist(_):
+            // purge albums not returned to deal with ID transition
+            if let currentArtist = self.currentArtist, let albums = currentArtist.albums as? Set<SBAlbum> {
+                let union = Set(albumsReturned).union(albums) as? NSSet
+                currentArtist.albums = union
+            }
+        default:
+            break
+        }
+        
+        // We might have added/removed a bunch of items to the DB,
+        // but if we post notifications before updating the DB,
+        // we'll get weirdness in the UI. We'll save again at the
+        // end when we call finish().
+        logger.info(" !! Processing from parser end")
+        threadedContext.processPendingChanges()
+        logger.info(" !! Saving from parser end")
+        saveThreadedContext()
+        logger.info(" !! Saved from parser end")
+        
+        switch requestType {
+        case .ping where !errored:
+            postServerNotification(.SBSubsonicConnectionSucceeded)
+        case .getPlaylists:
             postServerNotification(.SBSubsonicPlaylistsUpdated)
         case .getPlaylist(_):
             currentPlaylist = nil
@@ -641,22 +674,8 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         case .updatePlaylist(_, _, _, _, _, _):
             postServerNotification(.SBSubsonicPlaylistUpdated)
         case .getArtists:
-            // purge artists not returned, since unlike getIndexes, getArtists returns the full list
-            let artistRequest: NSFetchRequest<SBArtist> = SBArtist.fetchRequest()
-            artistRequest.predicate = NSPredicate(format: "(server == %@) && (NOT (self IN %@))", server, artistsReturned)
-            if let artists = try? threadedContext.fetch(artistRequest) {
-                for artist in artists {
-                    logger.info("Removing artist not in list \(artist.itemId ?? "<nil>", privacy: .public) name \(artist.itemName ?? "<nil>")")
-                    threadedContext.delete(artist)
-                }
-            }
             postServerNotification(.SBSubsonicIndexesUpdated)
         case .getArtist(_):
-            // purge albums not returned to deal with ID transition
-            if let currentArtist = self.currentArtist, let albums = currentArtist.albums as? Set<SBAlbum> {
-                let union = Set(albumsReturned).union(albums) as? NSSet
-                currentArtist.albums = union
-            }
             postServerNotification(.SBSubsonicAlbumsUpdated)
         case .getAlbumList(type: _), .updateAlbumList(type: _):
             let userInfo = ["count": NSNumber(integerLiteral: albumsReturned.count)]
@@ -666,10 +685,6 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         default:
             break
         }
-        
-        // since we can run DB ops here now, save this for last
-        threadedContext.processPendingChanges()
-        saveThreadedContext()
     }
     
     func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
