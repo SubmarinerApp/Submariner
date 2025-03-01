@@ -23,11 +23,26 @@ class SBLibraryCleanupOrphansOperation: SBOperation {
             saveThreadedContext()
             finish()
         }
+        logger.info("Deleting orphan albums")
+        cleanupOrphanAlbums()
         logger.info("Deleting orphan playlists")
         cleanupOrphanPlaylists()
         logger.info("Deleting orphan covers")
         cleanupOrphanCovers()
         // XXX: Do tracks/albums/artists have similar issues?
+    }
+    
+    private func cleanupOrphanAlbums() {
+        let fetchRequest: NSFetchRequest<SBAlbum> = SBAlbum.fetchRequest()
+        // Albums must belong to an artist
+        fetchRequest.predicate = NSPredicate(format: "(artist == nil)")
+        if let albums = try? threadedContext.fetch(fetchRequest) {
+            for album in albums {
+                let name = album.itemName ?? "<nil>"
+                logger.info("Deleting orphan album \"\(name, privacy: .public)\"")
+                self.threadedContext.delete(album)
+            }
+        }
     }
     
     private func cleanupOrphanPlaylists() {
