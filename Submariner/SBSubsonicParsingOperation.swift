@@ -648,11 +648,8 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         // but if we post notifications before updating the DB,
         // we'll get weirdness in the UI. We'll save again at the
         // end when we call finish().
-        logger.info(" !! Processing from parser end")
         threadedContext.processPendingChanges()
-        logger.info(" !! Saving from parser end")
         saveThreadedContext()
-        logger.info(" !! Saved from parser end")
         
         switch requestType {
         case .ping where !errored:
