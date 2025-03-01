@@ -890,6 +890,15 @@
     [self navigateForwardToNavItem: navItem];
 }
 
+- (IBAction)showSongs:(id)sender {
+    if (!self.server) {
+        return;
+    }
+    [self.server setSelectedTabIndex: 4];
+    SBNavigationItem *navItem = [[SBServerSearchNavigationItem alloc] initWithServer: self.server query: @""];
+    [self navigateForwardToNavItem: navItem];
+}
+
 - (IBAction)showPodcasts:(id)sender {
     if (!self.server) {
         return;
@@ -1351,6 +1360,9 @@
                 break;
             case 3:
                 navItem = [[SBServerDirectoriesNavigationItem alloc] initWithServer: server];
+                break;
+            case 4:
+                navItem = [[SBServerSearchNavigationItem alloc] initWithServer: server query: @""];
                 break;
         }
     } else if([resource isKindOfClass:[SBAlbum class]]) {
@@ -1917,7 +1929,11 @@
     } else if ([navItem isKindOfClass: SBServerSearchNavigationItem.class]) {
         SBServerSearchNavigationItem *searchNavItem = (SBServerSearchNavigationItem*)navItem;
         // HACK: No sum types in ObjC, see SBNavigationItem
-        if (searchNavItem.searchQuery) {
+        if (searchNavItem.searchQuery && [searchNavItem.searchQuery isEqualToString:@""]) {
+            [self.server searchWithQuery: @""];
+            [searchField setStringValue: @""];
+            [searchToolbarItem endSearchInteraction];
+        } else if (searchNavItem.searchQuery) {
             [self.server searchWithQuery: searchNavItem.searchQuery];
             [searchField setStringValue: searchNavItem.searchQuery];
         } else if (searchNavItem.topTracksForArtist) {

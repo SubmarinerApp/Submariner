@@ -14,6 +14,8 @@ import Cocoa
     @objc dynamic var searchResult: SBSearchResult? {
         didSet {
             switch self.searchResult?.query {
+            case .search(query: let query) where query.isEmpty:
+                self.title = "All Tracks"
             case .search(let query):
                 self.title = "Search Results for \(query)"
             case .similarTo(let artist):
