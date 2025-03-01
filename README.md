@@ -41,6 +41,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Use updated Core Data features for automatic merging of changes between threads.
   * This should reduce weirdness such as faults appearing where they shouldn't.
 * Refactor cover handling to avoid cross-linked files and avoid writing on reads.
+* Report progress for slow running operations.
 
 ### Version 3.3.1
 

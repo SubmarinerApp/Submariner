@@ -43,6 +43,8 @@ class SBSubsonicRequestOperation: SBOperation {
     
     // #MARK: - HTTP Requests
     
+    private var progressObserver: NSKeyValueObservation?
+    
     private func buildFormParams() -> String {
         self.parameters.map { item in
             "\(item.name)=\(item.value?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
@@ -137,6 +139,11 @@ class SBSubsonicRequestOperation: SBOperation {
                 }
             }
         }
+        progressObserver = task.progress.observe(\.fractionCompleted, changeHandler: { progress, change in
+            DispatchQueue.main.async {
+                self.progress = .determinate(n: Float(progress.completedUnitCount), outOf: Float(progress.totalUnitCount))
+            }
+        })
         task.resume()
     }
     
