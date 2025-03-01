@@ -108,6 +108,10 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     
     // #MARK: - NSApplicationDelegate
     
+    func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
+        true
+    }
+    
     func applicationDidFinishLaunching(_ notification: Notification) {
         zoomDatabaseWindow(self)
     }
