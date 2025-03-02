@@ -126,8 +126,10 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             }
         }
         
-        NotificationCenter.default.post(name: .SBSubsonicCoversUpdated, object: nil)
+        self.threadedContext.processPendingChanges()
         self.saveThreadedContext()
+        
+        NotificationCenter.default.post(name: .SBSubsonicCoversUpdated, object: nil)
     }
     
     private func mainXML() throws {
@@ -652,17 +654,18 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             break
         }
         
-        // If we have covers to fetch...
-        for (albumID, coverID) in coversToFetch {
-            server.getCover(id: coverID, for: albumID)
-        }
-        
         // We might have added/removed a bunch of items to the DB,
         // but if we post notifications before updating the DB,
         // we'll get weirdness in the UI. We'll save again at the
         // end when we call finish().
         threadedContext.processPendingChanges()
         saveThreadedContext()
+        
+        // If we have covers to fetch, do it after updating the DB,
+        // or we'll have issues with the path getting unset
+        for (albumID, coverID) in coversToFetch {
+            server.getCover(id: coverID, for: albumID)
+        }
         
         switch requestType {
         case .ping where !errored:

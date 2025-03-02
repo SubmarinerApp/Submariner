@@ -104,7 +104,12 @@ class SBOperation: Operation, ObservableObject, Identifiable {
             logger.info("Changes to Core Data will be saved...")
             do {
                 // Merging is now done by NSManagedObjectContext.automaticallyMergesChangesFromParent
-                try self.threadedContext.save()
+                try self.threadedContext.performAndWait {
+                    try self.threadedContext.save()
+                }
+                try self.mainContext.performAndWait {
+                    try self.mainContext.save()
+                }
             } catch {
                 logger.error("Failed to save: \(error, privacy: .public)")
             }
