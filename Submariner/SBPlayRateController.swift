@@ -15,7 +15,6 @@ import SwiftUI
     var newTimestampString: String?
     
     override func openSheet(_ sender: Any!) {
-        let timestampString = SBPlayer.sharedInstance().currentTimeString
         let viewController = NSHostingController(rootView: PlayRateControllerView(playRateController: self))
         let sheet = NSWindow(contentViewController: viewController)
         sheet.hasShadow = true
