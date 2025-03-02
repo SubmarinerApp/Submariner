@@ -647,8 +647,10 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         case .getArtist(_):
             // purge albums not returned to deal with ID transition
             if let currentArtist = self.currentArtist, let albums = currentArtist.albums as? Set<SBAlbum> {
-                let union = Set(albumsReturned).union(albums) as? NSSet
-                currentArtist.albums = union
+                let difference = albums.subtracting(Set(albumsReturned))
+                for album in difference {
+                    currentArtist.removeFromAlbums(album)
+                }
             }
         default:
             break
