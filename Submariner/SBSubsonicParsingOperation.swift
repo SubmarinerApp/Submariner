@@ -55,6 +55,12 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     var playlistsReturned: [SBPlaylist] = []
     var artistsReturned: [SBArtist] = []
     var albumsReturned: [SBAlbum] = []
+
+    // This is for coalescing cover fetches, since we might keep fetching the same ID.
+    // The mapping is albumID: coverID; note that at least Navidrome has separate coverArt entries
+    // per track. The Core Data schema models this internally, but our track-cover relation is
+    // vestigal since we care about the album's cover in the UI. This means first match wins.
+    var coversToFetch: [String: String] = [:]
     
     init!(managedObjectContext mainContext: NSManagedObjectContext!,
           requestType: SBSubsonicRequestType,
@@ -65,7 +71,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         self.xmlData = xml
         self.mimeType = mimeType
         
-        super.init(managedObjectContext: mainContext, name: "Parsing Subsonic Request")
+        super.init(managedObjectContext: mainContext, name: "Parsing Subsonic Request", author: "Request \(requestType)")
         self.server = threadedContext.object(with: server) as? SBServer
     }
     
@@ -329,7 +335,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 
                 let imagePath = album?.cover?.imagePath
                 if imagePath == nil || !FileManager.default.fileExists(atPath: imagePath! as String) {
-                    server.getCover(id: coverArt, for: album!.itemId)
+                    coversToFetch[album!.itemId!] = coverArt
                 }
             }
             
@@ -436,13 +442,15 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             if let track = fetchTrack(id: id) {
                 logger.info("Creating track ID \(id, privacy: .public) for search")
                 // the song element has the same format as the one used in nowPlaying, complete with artist name without ID
-                updateTrackDependenciesForTag(track, attributeDict: attributeDict)
+                // XXX: We don't fetch cover art because from i.e. search endpoint, this can be wasteful,
+                // but does mean we have to wait for it to show up in other contexts before we can fetch it
+                updateTrackDependenciesForTag(track, attributeDict: attributeDict, shouldFetchAlbumArt: false)
                 // objc version did some check in playlist, which didn't make sense
                 currentSearch.tracksToFetch.append(track.objectID)
             } else {
                 logger.info("Creating track ID \(id, privacy: .public) for search")
                 let track = createTrack(attributes: attributeDict)
-                updateTrackDependenciesForTag(track, attributeDict: attributeDict)
+                updateTrackDependenciesForTag(track, attributeDict: attributeDict, shouldFetchAlbumArt: false)
                 currentSearch.tracksToFetch.append(track.objectID)
             }
         } else if let currentAlbum = self.currentAlbum, let id = attributeDict["id"], let name = attributeDict["title"] {
@@ -642,6 +650,11 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             }
         default:
             break
+        }
+        
+        // If we have covers to fetch...
+        for (albumID, coverID) in coversToFetch {
+            server.getCover(id: coverID, for: albumID)
         }
         
         // We might have added/removed a bunch of items to the DB,
@@ -1001,7 +1014,8 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             
             let imagePath = attachedAlbum.cover?.imagePath
             if imagePath == nil || !FileManager.default.fileExists(atPath: imagePath! as String) {
-                server.getCover(id: coverArt, for: attributeDict["albumId"])
+                // albumId must exist to get this far
+                coversToFetch[attributeDict["albumId"]!] = coverArt
             }
         }
         
