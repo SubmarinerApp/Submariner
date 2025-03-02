@@ -77,7 +77,7 @@ class SBLibraryCleanupOrphansOperation: SBOperation {
     
     private func cleanupOrphanCovers() {
         let fetchRequest: NSFetchRequest<SBCover> = SBCover.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "(track == nil) && (album == nil)")
+        fetchRequest.predicate = NSPredicate(format: "((track == nil) && (album == nil)) || (imagePath == nil)")
         if let covers = try? threadedContext.fetch(fetchRequest) {
             for cover in covers {
                 let name = cover.itemId ?? "<nil>"
