@@ -269,7 +269,7 @@
                                                                         </textFieldCell>
                                                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                         <connections>
-                                                                            <binding destination="144" name="value" keyPath="arrangedObjects.album.itemName" id="156"/>
+                                                                            <binding destination="144" name="value" keyPath="arrangedObjects.albumString" id="156"/>
                                                                         </connections>
                                                                     </tableColumn>
                                                                     <tableColumn width="100" minWidth="100" maxWidth="1000" id="113">
