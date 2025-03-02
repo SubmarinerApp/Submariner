@@ -213,6 +213,9 @@ class SBSubsonicRequestOperation: SBOperation {
         case .search(query: let query):
             parameters["query"] = query
             parameters["songCount"] = "100" // XXX: Configurable?
+            // We don't yet surface albums/artists, so this is just merely noise
+            parameters["albumCount"] = "0"
+            parameters["artistCount"] = "0"
             endpoint = "search3"
             customization = { operation in
                 operation.currentSearch = SBSearchResult(query: .search(query: query))
@@ -223,6 +226,8 @@ class SBSubsonicRequestOperation: SBOperation {
                 parameters["query"] = query
                 parameters["songCount"] = "100"
                 parameters["songOffset"] = String(existingResult.tracks.count)
+                parameters["albumCount"] = "0"
+                parameters["artistCount"] = "0"
                 endpoint = "search3"
             default: // shouldn't happen
                 break
