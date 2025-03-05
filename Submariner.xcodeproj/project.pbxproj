@@ -130,9 +130,7 @@
 		4C87ED7D139CD8BE0064DE2E /* Submariner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED7B139CD8BE0064DE2E /* Submariner.xcdatamodeld */; };
 		4C87ED8E139CD91B0064DE2E /* SBWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87ED8D139CD91B0064DE2E /* SBWindowController.m */; };
 		4C87EDAB139CD9DA0064DE2E /* Database.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4C87EDAA139CD9DA0064DE2E /* Database.xib */; };
-		4C87EDB0139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDAF139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m */; };
 		4C87EDBA139CDAB90064DE2E /* SBDatabaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDB9139CDAB90064DE2E /* SBDatabaseController.m */; };
-		4C87EDC1139CDC260064DE2E /* SBSourceList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C87EDBE139CDC250064DE2E /* SBSourceList.m */; };
 		4CAD75C813AA597E00E7455C /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAD75C713AA597E00E7455C /* CoreServices.framework */; };
 		4CC6B56814041F7E003AEAC0 /* SBServerPodcastController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC6B56614041F7E003AEAC0 /* SBServerPodcastController.m */; };
 		4CC6B56914041F7E003AEAC0 /* ServerPodcasts.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4CC6B56714041F7E003AEAC0 /* ServerPodcasts.xib */; };
@@ -311,14 +309,8 @@
 		4C87ED8C139CD91B0064DE2E /* SBWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBWindowController.h; sourceTree = "<group>"; };
 		4C87ED8D139CD91B0064DE2E /* SBWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBWindowController.m; sourceTree = "<group>"; };
 		4C87EDAA139CD9DA0064DE2E /* Database.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Database.xib; sourceTree = "<group>"; };
-		4C87EDAE139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBezierPath+PXRoundedRectangleAdditions.h"; sourceTree = "<group>"; };
-		4C87EDAF139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+PXRoundedRectangleAdditions.m"; sourceTree = "<group>"; };
 		4C87EDB8139CDAB90064DE2E /* SBDatabaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBDatabaseController.h; sourceTree = "<group>"; };
 		4C87EDB9139CDAB90064DE2E /* SBDatabaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBDatabaseController.m; sourceTree = "<group>"; };
-		4C87EDBD139CDC250064DE2E /* SBSourceList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSourceList.h; sourceTree = "<group>"; };
-		4C87EDBE139CDC250064DE2E /* SBSourceList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSourceList.m; sourceTree = "<group>"; };
-		4C87EDBF139CDC250064DE2E /* SBSourceListDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSourceListDataSource.h; sourceTree = "<group>"; };
-		4C87EDC0139CDC260064DE2E /* SBSourceListDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBSourceListDelegate.h; sourceTree = "<group>"; };
 		4C9DE9A91451749D00632936 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		4CAD75C713AA597E00E7455C /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		4CC6B56514041F7E003AEAC0 /* SBServerPodcastController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBServerPodcastController.h; sourceTree = "<group>"; };
@@ -534,10 +526,6 @@
 				4CFAFC36139EF20500E82B57 /* MGRecessedPopUpButtonCell.m */,
 				4C7AA227139D53A40050BE95 /* SBTableView.h */,
 				4C7AA228139D53A50050BE95 /* SBTableView.m */,
-				4C87EDBD139CDC250064DE2E /* SBSourceList.h */,
-				4C87EDBE139CDC250064DE2E /* SBSourceList.m */,
-				4C87EDBF139CDC250064DE2E /* SBSourceListDataSource.h */,
-				4C87EDC0139CDC260064DE2E /* SBSourceListDelegate.h */,
 				3E04F6352B7AD22600E24E56 /* SBCollectionView.swift */,
 				3E04F6372B7B117400E24E56 /* SBCollectionViewFlowLayout.swift */,
 				3E2F86CA28DD36E600C5CE23 /* SBMonospaceTextField.swift */,
@@ -606,8 +594,6 @@
 				3E04F63A2B7CA48400E24E56 /* Data+Random.swift */,
 				3EB2BCC22992D94E00DC5056 /* Data+Type.swift */,
 				3E0FDDD92C24FDD000910E49 /* MutableCollection+Move.swift */,
-				4C87EDAE139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.h */,
-				4C87EDAF139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m */,
 				3EB2BCC82992E85F00DC5056 /* NSImage+Additions.swift */,
 				3E87E9132B460FFB00E85000 /* NSManagedObjectContext+Fetch.swift */,
 				4CFB3E05139CEA76008DC01A /* NSOutlineView+Expand.h */,
@@ -861,7 +847,6 @@
 				3E87E9102B4364CF00E85000 /* Collection+IndexSet.swift in Sources */,
 				3E45201E29FAD41900604079 /* UserDefaults+Submariner.swift in Sources */,
 				3EC03B5629F4F2E0001FDE50 /* SBArtist.swift in Sources */,
-				4C87EDB0139CDA050064DE2E /* NSBezierPath+PXRoundedRectangleAdditions.m in Sources */,
 				3E04F6382B7B117400E24E56 /* SBCollectionViewFlowLayout.swift in Sources */,
 				3E1C6C432A5264570085B578 /* SBOperation.swift in Sources */,
 				3EB2BCC72992E13700DC5056 /* String+Time.swift in Sources */,
@@ -880,7 +865,6 @@
 				3EC03B4229F4F2E0001FDE50 /* SBResource.swift in Sources */,
 				3E04F6482B7DE4D000E24E56 /* SBNextTrackCommand.swift in Sources */,
 				3EC039C529EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift in Sources */,
-				4C87EDC1139CDC260064DE2E /* SBSourceList.m in Sources */,
 				3E04F6362B7AD22600E24E56 /* SBCollectionView.swift in Sources */,
 				3E32BE4E2B8D4E4400E77CF0 /* SBLibraryPasteboardWriter.swift in Sources */,
 				3EE4C1902C1E34680063BB9D /* SBStarrable.swift in Sources */,

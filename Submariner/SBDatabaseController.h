@@ -39,9 +39,7 @@
 #import "SBServerLibraryController.h"
 #import "SBServerHomeController.h"
 #import "SBServerPodcastController.h"
-#import "SBSourceList.h"
 
-@class SBSourceList;
 @class SBEditServerController;
 @class SBAddServerPlaylistController;
 @class SBJumpToTimestampController;
@@ -68,7 +66,7 @@
 @class SBRoutePickerView, SBOnboardingController, SBTracklistButton;
 @protocol SBStarrable;
 
-@interface SBDatabaseController : SBWindowController <NSWindowDelegate, SBSourceListDelegate, SBSourceListDataSource, NSPageControllerDelegate> {
+@interface SBDatabaseController : SBWindowController <NSWindowDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource, NSPageControllerDelegate> {
 @private
     IBOutlet NSView *titleView;
     IBOutlet NSView *hostView;
@@ -76,7 +74,7 @@
     IBOutlet NSSplitView *titleSplitView;
     IBOutlet NSSplitView *coverSplitView;
     IBOutlet NSImageView *handleSplitView;
-    IBOutlet SBSourceList *sourceList;
+    IBOutlet NSOutlineView *sourceList;
     IBOutlet NSTreeController *resourcesController;
     IBOutlet SBEditServerController *editServerController;
     SBJumpToTimestampController *jumpToTimestampController;

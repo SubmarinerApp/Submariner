@@ -88,7 +88,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="218" height="600"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" autosaveName="SourceList" rowHeight="24" indentationPerLevel="13" autosaveExpandedItems="YES" indentationMarkerFollowsCell="NO" outlineTableColumn="16" id="15" customClass="SBSourceList">
+                                                <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" autosaveName="SourceList" rowHeight="24" indentationPerLevel="13" autosaveExpandedItems="YES" indentationMarkerFollowsCell="NO" outlineTableColumn="16" id="15">
                                                     <rect key="frame" x="0.0" y="0.0" width="218" height="600"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="0.0"/>

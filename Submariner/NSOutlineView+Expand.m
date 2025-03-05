@@ -37,7 +37,7 @@
 
 
 
-@interface SBSourceList (PrivateHelper)
+@interface NSOutlineView (PrivateHelper)
 - (void)_expandAllItems;
 - (void)_expandURIs:(NSArray *)someURIs;
 - (void)_reloadURIs:(NSArray *)someURIs;
@@ -47,7 +47,7 @@
 
 
 
-@implementation SBSourceList (Expand)
+@implementation NSOutlineView (Expand)
 
 - (void)expandAllItems {
     [self performSelector:@selector(_expandAllItems) withObject:nil afterDelay:0.0f];
@@ -67,7 +67,7 @@
 
 
 
-@implementation SBSourceList (PrivateHelper)
+@implementation NSOutlineView (PrivateHelper)
 
 - (void)_expandAllItems {
     [self expandItem:nil expandChildren:YES];

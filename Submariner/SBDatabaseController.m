@@ -1567,19 +1567,19 @@
 #pragma mark -
 #pragma mark SourceList DataSource
 
-- (NSUInteger)sourceList:(SBSourceList*)sourceList numberOfChildrenOfItem:(id)item {
+- (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {
     return [[[item representedObject] resources] count];
 }
 
-- (id)sourceList:(SBSourceList*)aSourceList child:(NSUInteger)index ofItem:(id)item {
+- (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item {
     return nil;
 }
 
-- (id)sourceList:(SBSourceList*)aSourceList objectValueForItem:(id)item {
+- (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
     return nil;
 }
 
-- (void)sourceList:(SBSourceList *)aSourceList setObjectValue:(id)object forItem:(id)item {
+- (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
     NSString *newName = (NSString*)object;
     SBResource *resource = (SBResource*)[item representedObject];
     // Let the remote server have a say first, just do it for local
@@ -1591,10 +1591,11 @@
     }
 }
 
-- (BOOL)sourceList:(SBSourceList*)aSourceList isItemExpandable:(id)item {
+- (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item {
     return YES;
 }
 
+/*
 - (BOOL)sourceList:(SBSourceList*)aSourceList itemHasIcon:(id)item {
     return YES;
 }
@@ -1618,13 +1619,13 @@
     
     return nil;
 }
-
+*/
 
 
 #pragma mark -
 #pragma mark SourceList DataSource (Drag & Drop)
 
-- (NSDragOperation)sourceList:(SBSourceList *)sourceList validateDrop:(id<NSDraggingInfo>)info proposedItem:(id)item proposedChildIndex:(NSInteger)index {
+- (NSDragOperation)outlineView:(NSOutlineView *)outlineView validateDrop:(id<NSDraggingInfo>)info proposedItem:(id)item proposedChildIndex:(NSInteger)index {
     NSArray<SBTrack*> *tracks = [info.draggingPasteboard libraryItemsWithManagedObjectContext: self.managedObjectContext];
     if (tracks == nil) {
         return NSDragOperationNone;
@@ -1648,8 +1649,7 @@
     return NSDragOperationNone;
 }
 
-
-- (BOOL)sourceList:(SBSourceList *)aSourceList acceptDrop:(id<NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index {
+- (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id<NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index {
     NSArray<SBTrack*> *tracks = [info.draggingPasteboard libraryItemsWithManagedObjectContext: self.managedObjectContext];
     if (tracks == nil) {
         return NO;
@@ -1692,6 +1692,7 @@
 #pragma mark -
 #pragma mark SourceList DataSource (Badges)
 
+/*
 - (BOOL)sourceList:(SBSourceList*)aSourceList itemHasBadge:(id)item {
     BOOL result = NO;
     
@@ -1713,7 +1714,7 @@
     
     return result;
 }
-
+*/
 
 
 
@@ -1721,7 +1722,7 @@
 #pragma mark -
 #pragma mark SourceList Delegate
 
-- (void)sourceListSelectionDidChange:(NSNotification *)notification {
+- (void)outlineViewSelectionDidChange:(NSNotification *)notification  {
     if (ignoreNextSelection) {
         ignoreNextSelection = NO;
         return;
@@ -1735,7 +1736,7 @@
     }
 }
 
-- (CGFloat)sourceList:(SBSourceList *)aSourceList heightOfRowByItem:(id)item {
+- (CGFloat)outlineView:(NSOutlineView *)outlineView heightOfRowByItem:(id)item {
     
     if([[item representedObject] isKindOfClass:[SBSection class]]) {
         return 26.0f;
@@ -1743,17 +1744,17 @@
     return 22.0f;
 }
 
-- (BOOL)sourceList:(SBSourceList*)aSourceList shouldSelectItem:(id)item {
+- (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item {
     if([[item representedObject] isKindOfClass:[SBSection class]])
         return NO;
     return YES;
 }
 
-
-- (BOOL)sourceList:(SBSourceList*)aSourceList shouldExpandItem:(id)item {
+- (BOOL)outlineView:(NSOutlineView *)outlineView shouldExpandItem:(id)item {
     return YES;
 }
 
+/*
 - (BOOL)sourceList:(SBSourceList *)aSourceList isGroupAlwaysExpanded:(id)group {
     
     if([[[group representedObject] resourceName] isEqualToString:@"Library"])
@@ -1761,8 +1762,9 @@
     
     return NO;
 }
+ */
 
-- (BOOL)sourceList:(SBSourceList*)aSourceList shouldEditItem:(id)item {
+- (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item {
     if([[item representedObject] isKindOfClass:[SBLibrary class]])
         return NO;
 
@@ -1782,6 +1784,7 @@
 
 }
 
+/*
 - (NSMenu*)sourceList:(SBSourceList *)aSourceList menuForEvent:(NSEvent*)theEvent item:(id)item {
     
     if ([theEvent type] == NSEventTypeRightMouseDown || ([theEvent type] == NSEventTypeLeftMouseDown && ([theEvent modifierFlags] & NSEventModifierFlagControl) == NSEventModifierFlagControl)) {
@@ -1828,9 +1831,10 @@
 	}
 	return nil;
 }
+ */
 
 
-- (id)sourceList:(SBSourceList *)aSourceList persistentObjectForItem:(id)item {
+- (id)outlineView:(NSOutlineView *)outlineView persistentObjectForItem:(id)item {
     return [[[(NSManagedObject*)[item representedObject] objectID] URIRepresentation] absoluteString];
 }
 
