@@ -40,6 +40,8 @@
 #import "SBServerHomeController.h"
 #import "SBServerPodcastController.h"
 
+@class SBSourceListViewItem;
+@class SBSourceListRowView;
 @class SBEditServerController;
 @class SBAddServerPlaylistController;
 @class SBJumpToTimestampController;

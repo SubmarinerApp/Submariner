@@ -66,6 +66,8 @@
 		3E94E5F62912EEC40080FDF6 /* SBNavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E5F52912EEC40080FDF6 /* SBNavigationItem.swift */; };
 		3E94E5F82915AAB80080FDF6 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E94E5F72915AAB80080FDF6 /* AVKit.framework */; };
 		3E94E5FA2915AB130080FDF6 /* SBRoutePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E94E5F92915AB130080FDF6 /* SBRoutePickerView.swift */; };
+		3E961E9B2D79124D00C35141 /* SBSourceListViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E961E9A2D79124D00C35141 /* SBSourceListViewItem.swift */; };
+		3E961E9D2D7A5F0300C35141 /* SBSourceListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E961E9C2D7A5EFD00C35141 /* SBSourceListRowView.swift */; };
 		3EA755522C37749D00852938 /* SBJumpToTimestampController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA755512C37749D00852938 /* SBJumpToTimestampController.swift */; };
 		3EA929B729E4745600938582 /* SBRepeatIconTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA929B629E4745600938582 /* SBRepeatIconTransformer.swift */; };
 		3EA929B929E4766900938582 /* SBVolumeIconTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA929B829E4766900938582 /* SBVolumeIconTransformer.swift */; };
@@ -74,7 +76,6 @@
 		3EB2BCC32992D94E00DC5056 /* Data+Type.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCC22992D94E00DC5056 /* Data+Type.swift */; };
 		3EB2BCC52992DA8E00DC5056 /* String+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCC42992DA8E00DC5056 /* String+File.swift */; };
 		3EB2BCC72992E13700DC5056 /* String+Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCC62992E13700DC5056 /* String+Time.swift */; };
-		3EB2BCC92992E85F00DC5056 /* NSImage+Additions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCC82992E85F00DC5056 /* NSImage+Additions.swift */; };
 		3EB2BCCB2992F03A00DC5056 /* SBSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCCA2992F03A00DC5056 /* SBSearchResult.swift */; };
 		3EB2BCCF2992F3CA00DC5056 /* SBVolumeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCCE2992F3CA00DC5056 /* SBVolumeButton.swift */; };
 		3EB2BCD12992FD5A00DC5056 /* SBTracklistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCD02992FD5A00DC5056 /* SBTracklistButton.swift */; };
@@ -231,6 +232,8 @@
 		3E94E5F52912EEC40080FDF6 /* SBNavigationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBNavigationItem.swift; sourceTree = "<group>"; };
 		3E94E5F72915AAB80080FDF6 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		3E94E5F92915AB130080FDF6 /* SBRoutePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBRoutePickerView.swift; sourceTree = "<group>"; };
+		3E961E9A2D79124D00C35141 /* SBSourceListViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBSourceListViewItem.swift; sourceTree = "<group>"; };
+		3E961E9C2D7A5EFD00C35141 /* SBSourceListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBSourceListRowView.swift; sourceTree = "<group>"; };
 		3EA06A4E28B2C04B0091A75F /* Submariner v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Submariner v2.xcdatamodel"; sourceTree = "<group>"; };
 		3EA06A5028B9AD220091A75F /* Submariner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Submariner.entitlements; sourceTree = "<group>"; };
 		3EA755512C37749D00852938 /* SBJumpToTimestampController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBJumpToTimestampController.swift; sourceTree = "<group>"; };
@@ -241,7 +244,6 @@
 		3EB2BCC22992D94E00DC5056 /* Data+Type.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Type.swift"; sourceTree = "<group>"; };
 		3EB2BCC42992DA8E00DC5056 /* String+File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+File.swift"; sourceTree = "<group>"; };
 		3EB2BCC62992E13700DC5056 /* String+Time.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Time.swift"; sourceTree = "<group>"; };
-		3EB2BCC82992E85F00DC5056 /* NSImage+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Additions.swift"; sourceTree = "<group>"; };
 		3EB2BCCA2992F03A00DC5056 /* SBSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBSearchResult.swift; sourceTree = "<group>"; };
 		3EB2BCCE2992F3CA00DC5056 /* SBVolumeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBVolumeButton.swift; sourceTree = "<group>"; };
 		3EB2BCD02992FD5A00DC5056 /* SBTracklistButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTracklistButton.swift; sourceTree = "<group>"; };
@@ -369,6 +371,8 @@
 				4C56868714050C1100BE3478 /* SBPodcastViewItem.m */,
 				4C56868314050B9A00BE3478 /* SBPodcastItemView.h */,
 				4C56868414050B9A00BE3478 /* SBPodcastItemView.m */,
+				3E961E9C2D7A5EFD00C35141 /* SBSourceListRowView.swift */,
+				3E961E9A2D79124D00C35141 /* SBSourceListViewItem.swift */,
 				3E04F6332B7AC83600E24E56 /* SBAlbumViewItem.swift */,
 			);
 			name = "View Item Controllers";
@@ -594,7 +598,6 @@
 				3E04F63A2B7CA48400E24E56 /* Data+Random.swift */,
 				3EB2BCC22992D94E00DC5056 /* Data+Type.swift */,
 				3E0FDDD92C24FDD000910E49 /* MutableCollection+Move.swift */,
-				3EB2BCC82992E85F00DC5056 /* NSImage+Additions.swift */,
 				3E87E9132B460FFB00E85000 /* NSManagedObjectContext+Fetch.swift */,
 				4CFB3E05139CEA76008DC01A /* NSOutlineView+Expand.h */,
 				4CFB3E06139CEA76008DC01A /* NSOutlineView+Expand.m */,
@@ -892,9 +895,9 @@
 				3EA755522C37749D00852938 /* SBJumpToTimestampController.swift in Sources */,
 				4CFB3E14139D028D008DC01A /* SBSheetController.m in Sources */,
 				4CFB3E15139D028D008DC01A /* SBServerViewController.m in Sources */,
+				3E961E9B2D79124D00C35141 /* SBSourceListViewItem.swift in Sources */,
 				3E189E4028EF5BAB0062ACA0 /* SBAudioMetadata.swift in Sources */,
 				3EC03B6129F5B0E2001FDE50 /* SBCover+CoreDataProperties.swift in Sources */,
-				3EB2BCC92992E85F00DC5056 /* NSImage+Additions.swift in Sources */,
 				3E45201C29FA488C00604079 /* SBServerUserViewController.swift in Sources */,
 				3E9090AE2C0E7D3B0080284F /* SBPlaylistController.swift in Sources */,
 				3EC03B3429F4F2E0001FDE50 /* SBMusicItem.swift in Sources */,
@@ -908,6 +911,7 @@
 				3E702DE92A428CF6005F7184 /* SBSubsonicParsingOperation.swift in Sources */,
 				4C7AA229139D53A50050BE95 /* SBTableView.m in Sources */,
 				3EC03B5F29F5B0E2001FDE50 /* SBMusicItem+CoreDataProperties.swift in Sources */,
+				3E961E9D2D7A5F0300C35141 /* SBSourceListRowView.swift in Sources */,
 				3EC03B5029F4F2E0001FDE50 /* SBPodcast.swift in Sources */,
 				4C7AA232139D57A00050BE95 /* SBMusicController.m in Sources */,
 				3E32BE502B8D9A5C00E77CF0 /* SBTableView+DragImage.swift in Sources */,

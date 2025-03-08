@@ -205,6 +205,13 @@
     
     [super windowDidLoad];
     
+    // set up the constraints so that the new `NSSplitView` to fill the window
+    [splitVC.view.topAnchor constraintEqualToAnchor:self.window.contentView.topAnchor
+                                           constant:0].active=YES;
+    [splitVC.view.bottomAnchor constraintEqualToAnchor:((NSLayoutGuide*)self.window.contentLayoutGuide).bottomAnchor].active=YES;
+    [splitVC.view.leftAnchor constraintEqualToAnchor:((NSLayoutGuide*)self.window.contentLayoutGuide).leftAnchor].active=YES;
+    [splitVC.view.rightAnchor constraintEqualToAnchor:((NSLayoutGuide*)self.window.contentLayoutGuide).rightAnchor].active=YES;
+    
     // populate default sections
     [self populatedDefaultSections];
     
@@ -324,7 +331,10 @@
         [self navigateForwardToNavItem: navItem];
     }
     // Reset history
-    [rightVC setArrangedObjects: @[ [rightVC.arrangedObjects objectAtIndex: 1] ]];
+    NSLog(@"VC items: %@", rightVC.arrangedObjects);
+    if (rightVC.arrangedObjects.count > 1) {
+        [rightVC setArrangedObjects: @[ [rightVC.arrangedObjects objectAtIndex: 1] ]];
+    }
     [rightVC setSelectedIndex: 0];
     
     NSString *lastRightSidebar = [[NSUserDefaults standardUserDefaults] objectForKey: @"RightSidebar"];
@@ -389,13 +399,6 @@
     
     // swap the old NSSplitView with the new one
     [self.window.contentView replaceSubview:mainSplitView with:splitVC.view ];
-
-    // set up the constraints so that the new `NSSplitView` to fill the window
-    [splitVC.view.topAnchor constraintEqualToAnchor:self.window.contentView.topAnchor
-                                           constant:0].active=YES;
-    [splitVC.view.bottomAnchor constraintEqualToAnchor:((NSLayoutGuide*)self.window.contentLayoutGuide).bottomAnchor].active=YES;
-    [splitVC.view.leftAnchor constraintEqualToAnchor:((NSLayoutGuide*)self.window.contentLayoutGuide).leftAnchor].active=YES;
-    [splitVC.view.rightAnchor constraintEqualToAnchor:((NSLayoutGuide*)self.window.contentLayoutGuide).rightAnchor].active=YES;
     
     // Need to set both for some reason? And after assignment to the parent?
     splitVC.splitView.autosaveName = @"DatabaseWindowSplitViewController";
@@ -619,9 +622,10 @@
             
             NSAlert *alert = [[NSAlert alloc] init];
             NSButton *removeButton = [alert addButtonWithTitle: @"Remove"];
+            NSString *title = [NSString stringWithFormat:@"Delete %@?", resource.resourceName, nil];
             removeButton.hasDestructiveAction = YES;
             [alert addButtonWithTitle:@"Cancel"];
-            [alert setMessageText:@"Delete the selected item?"];
+            [alert setMessageText:title];
             [alert setInformativeText:@"Deleted items cannot be restored."];
             [alert setAlertStyle:NSAlertStyleWarning];
             
@@ -1020,6 +1024,11 @@
 
 - (IBAction)showPlayRate:(id)sender {
     [playRateController openSheet: sender];
+}
+
+// This handles the selector for the source list
+- (IBAction)delete:(id)sender {
+    [self removeItem:sender];
 }
 
 #pragma mark -
@@ -1595,32 +1604,6 @@
     return YES;
 }
 
-/*
-- (BOOL)sourceList:(SBSourceList*)aSourceList itemHasIcon:(id)item {
-    return YES;
-}
-
-- (NSImage*)sourceList:(SBSourceList*)aSourceList iconForItem:(id)item {
-
-    if([[item representedObject] isKindOfClass:[SBLibrary class]])
-        return [NSImage imageWithSystemSymbolName:@"music.note" accessibilityDescription:@"Library"];
-    
-    if([[item representedObject] isKindOfClass:[SBTracklist class]])
-        return [NSImage imageWithSystemSymbolName:@"music.note.list" accessibilityDescription:@"Tracklist"];
-    
-    if([[item representedObject] isKindOfClass:[SBPlaylist class]])
-        return [NSImage imageWithSystemSymbolName:@"music.note.list" accessibilityDescription:@"Playlist"];
-    
-    if([[item representedObject] isKindOfClass:[SBServer class]])
-        return [NSImage imageWithSystemSymbolName:@"network" accessibilityDescription:@"Network"];
-    
-    if([[item representedObject] isKindOfClass:[SBDownloads class]])
-        return [NSImage imageWithSystemSymbolName:@"tray.and.arrow.down.fill" accessibilityDescription:@"Downloads"];
-    
-    return nil;
-}
-*/
-
 
 #pragma mark -
 #pragma mark SourceList DataSource (Drag & Drop)
@@ -1688,41 +1671,28 @@
 
 
 
-
-#pragma mark -
-#pragma mark SourceList DataSource (Badges)
-
-/*
-- (BOOL)sourceList:(SBSourceList*)aSourceList itemHasBadge:(id)item {
-    BOOL result = NO;
-    
-    if([[item representedObject] isKindOfClass:[SBDownloads class]]) {
-        if(downloadsController.itemCount > 0)
-            result = YES;
-    }
-    
-    return result;
-}
-
-- (NSInteger)sourceList:(SBSourceList*)aSourceList badgeValueForItem:(id)item {
-    NSInteger result = 0;
-    
-    if ([[item representedObject] isKindOfClass:[SBDownloads class]]) {
-        if(downloadsController.itemCount > 0)
-            result = downloadsController.itemCount;
-    }
-    
-    return result;
-}
-*/
-
-
-
-
 #pragma mark -
 #pragma mark SourceList Delegate
 
-- (void)outlineViewSelectionDidChange:(NSNotification *)notification  {
+- (NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(id)item {
+    // XXX: Use NSOutlineView.makeViewWithIdentifier?
+    return [SBSourceListViewItem createViewFor:[item representedObject]];
+}
+
+- (NSTableRowView *)outlineView:(NSOutlineView *)outlineView rowViewForItem:(id)item {
+    return [[SBSourceListRowView alloc] init];
+}
+
+- (NSTintConfiguration *)outlineView:(NSOutlineView *)outlineView tintConfigurationForItem:(id)item {
+    return [NSTintConfiguration defaultTintConfiguration];
+}
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView isGroupItem:(id)item {
+    return [[item representedObject] isKindOfClass: SBSection.class];
+}
+
+- (void)outlineViewSelectionDidChange:(NSNotification *)notification {
+    NSLog(@"Did Change Sel: %@", notification);
     if (ignoreNextSelection) {
         ignoreNextSelection = NO;
         return;
@@ -1737,11 +1707,11 @@
 }
 
 - (CGFloat)outlineView:(NSOutlineView *)outlineView heightOfRowByItem:(id)item {
-    
-    if([[item representedObject] isKindOfClass:[SBSection class]]) {
-        return 26.0f;
+    if ([[item representedObject] isKindOfClass:[SBSection class]]) {
+        return 22.0f;
     }
-    return 22.0f;
+    // Medium size sidebar; https://developer.apple.com/design/human-interface-guidelines/sidebars#macOS
+    return 28.0f;
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item {
@@ -1750,19 +1720,13 @@
     return YES;
 }
 
+- (void)outlineViewSelectionIsChanging:(NSNotification *)notification {
+    NSLog(@"Will Change Sel: %@", notification);
+}
+
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldExpandItem:(id)item {
     return YES;
 }
-
-/*
-- (BOOL)sourceList:(SBSourceList *)aSourceList isGroupAlwaysExpanded:(id)group {
-    
-    if([[[group representedObject] resourceName] isEqualToString:@"Library"])
-        return YES;
-    
-    return NO;
-}
- */
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item {
     if([[item representedObject] isKindOfClass:[SBLibrary class]])
@@ -1836,20 +1800,6 @@
 
 - (id)outlineView:(NSOutlineView *)outlineView persistentObjectForItem:(id)item {
     return [[[(NSManagedObject*)[item representedObject] objectID] URIRepresentation] absoluteString];
-}
-
-
-- (void)sourceListDeleteKeyPressedOnRows:(NSNotification *)notification {
-    NSInteger selectedRow = [sourceList selectedRow];
-    
-    if(selectedRow != -1) {
-        SBResource *res = [[sourceList itemAtRow:selectedRow] representedObject];
-        if(![res isKindOfClass:[SBSection class]] &&
-           (![res.resourceName isEqualToString:@"Music"] ||
-            ![res.resourceName isEqualToString:@"Tracklist"])) {
-               [self removeItem:self];
-           }
-    }
 }
 
 
@@ -2116,10 +2066,8 @@
         return [searchToolbarItem isEnabled] && canBeVisible;
     }
     
-    if (action == @selector(renameItem:)) {
-        if (self.window.firstResponder != sourceList) {
-            return NO;
-        }
+    if (self.window.firstResponder == sourceList
+        && (action == @selector(renameItem:) || (action == @selector(delete:)))) {
         NSInteger selectedRow = [sourceList selectedRow];
         if (selectedRow != -1) {
             SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
