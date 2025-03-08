@@ -306,6 +306,25 @@
     SBNavigationItem *navItem = [[SBLocalMusicNavigationItem alloc] init];
     [self navigateForwardToNavItem: navItem];
     
+    NSString *lastRightSidebar = [[NSUserDefaults standardUserDefaults] objectForKey: @"RightSidebar"];
+    if ([lastRightSidebar isEqualToString: @"ServerUsers"]) {
+        [self toggleServerUsers: self];
+    } else if ([lastRightSidebar isEqualToString: @"Tracklist"]) {
+        [self toggleTrackList: self];
+    } else if ([lastRightSidebar isEqualToString: @"Inspector"]) {
+        [self toggleInspector: self];
+    }
+    
+    [resourcesController addObserver:self
+                          forKeyPath:@"content"
+                             options:NSKeyValueObservingOptionNew
+                             context:nil];
+    
+
+    [hostView setWantsLayer:YES];
+}
+
+- (void)loadInitialContentView {
     id lastViewed = nil;
     NSString *lastViewedURLString = [[NSUserDefaults standardUserDefaults] objectForKey: @"LastViewedResource"];
     if (lastViewedURLString != nil) {
@@ -336,23 +355,6 @@
         [rightVC setArrangedObjects: @[ [rightVC.arrangedObjects objectAtIndex: 1] ]];
     }
     [rightVC setSelectedIndex: 0];
-    
-    NSString *lastRightSidebar = [[NSUserDefaults standardUserDefaults] objectForKey: @"RightSidebar"];
-    if ([lastRightSidebar isEqualToString: @"ServerUsers"]) {
-        [self toggleServerUsers: self];
-    } else if ([lastRightSidebar isEqualToString: @"Tracklist"]) {
-        [self toggleTrackList: self];
-    } else if ([lastRightSidebar isEqualToString: @"Inspector"]) {
-        [self toggleInspector: self];
-    }
-    
-    [resourcesController addObserver:self
-                          forKeyPath:@"content"
-                             options:NSKeyValueObservingOptionNew
-                             context:nil];
-    
-
-    [hostView setWantsLayer:YES];
 }
 
 #pragma mark -
@@ -452,6 +454,9 @@
 			
 			[sourceList expandURIs:[NSArray arrayWithObject:[[[serversSection objectID] URIRepresentation] absoluteString]]];
 			[self.managedObjectContext save:nil];
+            
+            // Now we can update the current view now that we have the items
+            [self loadInitialContentView];
         }
     } else if (object == self.window.contentView && [keyPath isEqualToString: @"safeAreaInsets"]) { // this should be ok main thread wise
         NSRect targetRect = rightVC.selectedViewController == serverHomeController ? rightVC.view.safeAreaRect : rightVC.view.frame;
@@ -1315,7 +1320,8 @@
 
 - (void)displayViewControllerForResource:(SBResource *)resource {
     // NSURLs dont go to plists
-    if (!([resource isKindOfClass: [SBResource class]] || [resource isKindOfClass: [SBMusicItem class]])) {
+    if (!([resource isKindOfClass: [SBResource class]] || [resource isKindOfClass: [SBMusicItem class]])
+        || [resource isKindOfClass:SBSection.class]) {
         return;
     }
     NSString *urlString = resource.objectID.URIRepresentation.absoluteString;
@@ -1663,10 +1669,6 @@
     if([[item representedObject] isKindOfClass:[SBSection class]])
         return NO;
     return YES;
-}
-
-- (void)outlineViewSelectionIsChanging:(NSNotification *)notification {
-    NSLog(@"Will Change Sel: %@", notification);
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldExpandItem:(id)item {
