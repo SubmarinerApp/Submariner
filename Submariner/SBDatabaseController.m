@@ -576,16 +576,12 @@
 }
 
 - (IBAction)addRemotePlaylist:(id)sender {
-    NSInteger selectedRow = [sourceList selectedRow];
-    
-    if (selectedRow != -1) {
-        SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
-        if(resource && [resource isKindOfClass:[SBServer class]]) {
-            SBServer *server = (SBServer *)resource;
-            
-            [addServerPlaylistController setServer:server];
-            [addServerPlaylistController openSheet:sender];
-        }
+    SBResource *resource = [self sourceListSelectedResource];
+    if (resource && [resource isKindOfClass:[SBServer class]]) {
+        SBServer *server = (SBServer *)resource;
+        
+        [addServerPlaylistController setServer:server];
+        [addServerPlaylistController openSheet:sender];
     }
 }
 
@@ -614,25 +610,21 @@
 
 
 - (IBAction)removeItem:(id)sender {
-    NSInteger selectedRow = [sourceList selectedRow];
-    
-    if (selectedRow != -1) {
-        SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
-        if(resource && ([resource isKindOfClass:[SBPlaylist class]] || [resource isKindOfClass:[SBServer class]])) {
-            
-            NSAlert *alert = [[NSAlert alloc] init];
-            NSButton *removeButton = [alert addButtonWithTitle: @"Remove"];
-            NSString *title = [NSString stringWithFormat:@"Delete %@?", resource.resourceName, nil];
-            removeButton.hasDestructiveAction = YES;
-            [alert addButtonWithTitle:@"Cancel"];
-            [alert setMessageText:title];
-            [alert setInformativeText:@"Deleted items cannot be restored."];
-            [alert setAlertStyle:NSAlertStyleWarning];
-            
-            [alert beginSheetModalForWindow: [self window] completionHandler:^(NSModalResponse returnCode) {
-                [self removeItemAlertDidEnd: alert returnCode: returnCode contextInfo: nil];
-            }];
-        }
+    SBResource *resource = [self sourceListSelectedResource];
+    if (resource && ([resource isKindOfClass:[SBPlaylist class]] || [resource isKindOfClass:[SBServer class]])) {
+        
+        NSAlert *alert = [[NSAlert alloc] init];
+        NSButton *removeButton = [alert addButtonWithTitle: @"Remove"];
+        NSString *title = [NSString stringWithFormat:@"Delete %@?", resource.resourceName, nil];
+        removeButton.hasDestructiveAction = YES;
+        [alert addButtonWithTitle:@"Cancel"];
+        [alert setMessageText:title];
+        [alert setInformativeText:@"Deleted items cannot be restored."];
+        [alert setAlertStyle:NSAlertStyleWarning];
+        
+        [alert beginSheetModalForWindow: [self window] completionHandler:^(NSModalResponse returnCode) {
+            [self removeItemAlertDidEnd:alert returnCode:returnCode resource:resource];
+        }];
     }
 }
 
@@ -666,28 +658,20 @@
 }
 
 - (IBAction)renameItem:(id)sender {
-    NSInteger selectedRow = [sourceList selectedRow];
-    
-    if (selectedRow != -1) {
-        SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
-        if(resource && ([resource isKindOfClass:[SBPlaylist class]] || [resource isKindOfClass:[SBServer class]]) ) {
-            [sourceList editColumn:0 row:selectedRow withEvent:nil select:YES];
-        }
+    SBResource *resource = [self sourceListSelectedResource];
+    if (resource && ([resource isKindOfClass:[SBPlaylist class]] || [resource isKindOfClass:[SBServer class]]) ) {
+        [sourceList editColumn:0 row:[self sourceListSelectedRow] withEvent:nil select:YES];
     }
 }
 
 - (IBAction)editItem:(id)sender {
-    NSInteger selectedRow = [sourceList selectedRow];
-    
-    if (selectedRow != -1) {
-        SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
-        if(resource && [resource isKindOfClass:[SBPlaylist class]]) {
-            [sourceList editColumn:0 row:selectedRow withEvent:nil select:YES];
-        } else if(resource && [resource isKindOfClass:[SBServer class]]) {
-            [editServerController setEditMode:YES];
-            [editServerController setServer:(SBServer *)resource];
-            [editServerController openSheet:sender];
-        }
+    SBResource *resource = [self sourceListSelectedResource];
+    if ([resource isKindOfClass:[SBPlaylist class]]) {
+        [sourceList editColumn:0 row:[self sourceListSelectedRow] withEvent:nil select:YES];
+    } else if (resource && [resource isKindOfClass:[SBServer class]]) {
+        [editServerController setEditMode:YES];
+        [editServerController setServer:(SBServer *)resource];
+        [editServerController openSheet:sender];
     }
 }
 
@@ -708,10 +692,9 @@
 }
 
 - (IBAction)reloadServer:(id)sender {
-    NSInteger selectedRow = [sourceList selectedRow];
-    
-    if (selectedRow != -1) {
-        SBServer *server = [[sourceList itemAtRow:selectedRow] representedObject];
+    SBResource *resource = [self sourceListSelectedResource];
+    if (resource && [resource isKindOfClass:[SBServer class]]) {
+        SBServer *server = (SBServer*)resource;
         [self reloadServerInternal: server];
     }
 }
@@ -730,10 +713,9 @@
 }
 
 - (IBAction)scanLibrary:(id)sender {
-    NSInteger selectedRow = [sourceList selectedRow];
-    
-    if (selectedRow != -1) {
-        SBServer *server = [[sourceList itemAtRow:selectedRow] representedObject];
+    SBResource *resource = [self sourceListSelectedResource];
+    if (resource && [resource isKindOfClass:[SBServer class]]) {
+        SBServer *server = (SBServer*)resource;
         [self scanLibraryInternal: server];
     }
 }
@@ -837,13 +819,10 @@
 
 
 - (IBAction)openHomePage:(id)sender {
-    NSInteger selectedRow = [sourceList selectedRow];
-    
-    if (selectedRow != -1) {
-        SBServer *server = [[sourceList itemAtRow:selectedRow] representedObject];
-        if(server && [server isKindOfClass:[SBServer class]]) {
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:server.url]];
-        }
+    SBResource *resource = [self sourceListSelectedResource];
+    if (resource && [resource isKindOfClass:[SBServer class]]) {
+        SBServer *server = (SBServer*)resource;
+        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:server.url]];
     }
 }
 
@@ -1149,39 +1128,34 @@
 }
 
 
-- (void)removeItemAlertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+- (void)removeItemAlertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode resource:(SBResource*)resource {
     if (returnCode == NSAlertFirstButtonReturn) {
-        NSInteger selectedRow = [sourceList selectedRow];
-        
-        if (selectedRow != -1) {
-            SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
-            if (resource == nil) {
-                // What was the point?
-                return;
+        if (resource == nil) {
+            // What was the point?
+            return;
+        }
+        // FIXME: Remove references from the navigation stack
+        if (self.server == resource) {
+            // Clean out any possible state involving this server...
+            self.server = nil;
+            // if it's open, close it
+            if (tracklistContainmentBox.contentView == [serverUserController view]) {
+                // keeps the sidebar open
+                [self toggleTrackList: nil];
             }
-            // FIXME: Remove references from the navigation stack
-            if (self.server == resource) {
-                // Clean out any possible state involving this server...
-                self.server = nil;
-                // if it's open, close it
-                if (tracklistContainmentBox.contentView == [serverUserController view]) {
-                    // keeps the sidebar open
-                    [self toggleTrackList: nil];
-                }
-                [self showLibraryView: nil];
+            [self showLibraryView: nil];
+        }
+        if ([resource isKindOfClass:[SBPlaylist class]]) {
+            SBPlaylist *playlist = (SBPlaylist *)resource;
+            SBServer *server = playlist.server;
+            
+            if (server != nil) {
+                [server deletePlaylistWithID: playlist.itemId];
             }
-            if ([resource isKindOfClass:[SBPlaylist class]]) {
-                SBPlaylist *playlist = (SBPlaylist *)resource;
-                SBServer *server = playlist.server;
-                
-                if (server != nil) {
-                    [server deletePlaylistWithID: playlist.itemId];
-                }
-            }
-            if ([resource isKindOfClass:[SBPlaylist class]] || [resource isKindOfClass:[SBServer class]]) {
-                [self.managedObjectContext deleteObject:resource];
-                [self.managedObjectContext processPendingChanges];
-            }
+        }
+        if ([resource isKindOfClass:[SBPlaylist class]] || [resource isKindOfClass:[SBServer class]]) {
+            [self.managedObjectContext deleteObject:resource];
+            [self.managedObjectContext processPendingChanges];
         }
     }
 }
@@ -1572,39 +1546,6 @@
 }
 
 
-
-#pragma mark -
-#pragma mark SourceList DataSource
-
-- (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {
-    return [[[item representedObject] resources] count];
-}
-
-- (id)outlineView:(NSOutlineView *)outlineView child:(NSInteger)index ofItem:(id)item {
-    return nil;
-}
-
-- (id)outlineView:(NSOutlineView *)outlineView objectValueForTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
-    return nil;
-}
-
-- (void)outlineView:(NSOutlineView *)outlineView setObjectValue:(id)object forTableColumn:(NSTableColumn *)tableColumn byItem:(id)item {
-    NSString *newName = (NSString*)object;
-    SBResource *resource = (SBResource*)[item representedObject];
-    // Let the remote server have a say first, just do it for local
-    if ([resource isKindOfClass: SBPlaylist.class] && [(SBPlaylist*)resource server] != nil) {
-        SBPlaylist *playlist = (SBPlaylist*)resource;
-        [playlist.server updatePlaylistWithID: playlist.itemId name: newName comment: nil appending: nil removing: nil];
-    } else {
-        [resource setResourceName: newName];
-    }
-}
-
-- (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item {
-    return YES;
-}
-
-
 #pragma mark -
 #pragma mark SourceList DataSource (Drag & Drop)
 
@@ -1674,6 +1615,10 @@
 #pragma mark -
 #pragma mark SourceList Delegate
 
+- (BOOL)outlineView:(NSOutlineView *)outlineView isItemExpandable:(id)item {
+    return YES;
+}
+
 - (NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(id)item {
     // XXX: Use NSOutlineView.makeViewWithIdentifier?
     return [SBSourceListViewItem createViewFor:[item representedObject]];
@@ -1729,79 +1674,55 @@
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item {
-    if([[item representedObject] isKindOfClass:[SBLibrary class]])
-        return NO;
-
-    if([[item representedObject] isKindOfClass:[SBDownloads class]])
-        return NO;
-    
-    if([[item representedObject] isKindOfClass:[SBTracklist class]])
-        return NO;
-    
-    if([[item representedObject] isKindOfClass:[SBSection class]])
-        return NO;
-    
-    if([[item representedObject] isKindOfClass:[SBPlaylist class]])
-        return NO;
-    
-    return YES;
-
+    id resource = [item representedObject];
+    if ([resource isKindOfClass:[SBPlaylist class]] || [resource isKindOfClass:[SBServer class]]) {
+        return YES;
+    }
+    return NO;
 }
 
-/*
-- (NSMenu*)sourceList:(SBSourceList *)aSourceList menuForEvent:(NSEvent*)theEvent item:(id)item {
-    
-    if ([theEvent type] == NSEventTypeRightMouseDown || ([theEvent type] == NSEventTypeLeftMouseDown && ([theEvent modifierFlags] & NSEventModifierFlagControl) == NSEventModifierFlagControl)) {
-    
-        
-        if(item != nil) {
-            SBResource *resource = [item representedObject];
-            
-            if([resource isKindOfClass:[SBPlaylist class]]) {
-                
-                NSMenu * m = [[NSMenu alloc] init];
-                
-                [m addItemWithTitle: @"Rename Playlist" action:@selector(editItem:) keyEquivalent:@""];
-                [m addItemWithTitle: @"Delete Playlist" action:@selector(removeItem:) keyEquivalent:@""];
-                
-                return m;
-                
-            } else if([resource isKindOfClass:[SBServer class]]) {
-                
-                NSMenu * m = [[NSMenu alloc] init];
-                
-                [m addItemWithTitle:@"Add Playlist to Server" action:@selector(addRemotePlaylist:) keyEquivalent:@""];
-                [m addItem:[NSMenuItem separatorItem]];
-                [m addItemWithTitle:@"Reload Server" action:@selector(reloadServer:) keyEquivalent:@""];
-                [m addItemWithTitle:@"Scan Server Library" action:@selector(scanLibrary:) keyEquivalent:@""];
-                [m addItem:[NSMenuItem separatorItem]];
-                [m addItemWithTitle:@"Open Home Page" action:@selector(openHomePage:) keyEquivalent:@""];
-                [m addItemWithTitle:@"Configure Server" action:@selector(editItem:) keyEquivalent:@""];
-                [m addItem:[NSMenuItem separatorItem]];
-                [m addItemWithTitle:@"Remove Server" action:@selector(removeItem:) keyEquivalent:@""];
-                
-                
-                return m;
-            }
-            
-        } else {
-            NSMenu * m = [[NSMenu alloc] init];
-            
-            [m addItemWithTitle:@"Add Playlist" action:@selector(addPlaylist:) keyEquivalent:@""];
-            [m addItemWithTitle:@"Add Server" action:@selector(addServer:) keyEquivalent:@""];
-            
-            return m;
-        }
-	}
-	return nil;
+/// Used for the rename action from the text field cell in a view based table.
+- (IBAction)outlineViewTextFieldAction:(id)sender {
+    NSString *newName = [sender stringValue];
+    SBResource *resource = (SBResource*)[resourcesController selectedObjects];
+    // Let the remote server have a say first, just do it for local
+    if ([resource isKindOfClass: SBPlaylist.class] && [(SBPlaylist*)resource server] != nil) {
+        SBPlaylist *playlist = (SBPlaylist*)resource;
+        [playlist.server updatePlaylistWithID: playlist.itemId name: newName comment: nil appending: nil removing: nil];
+    } else {
+        [resource setResourceName: newName];
+    }
 }
- */
-
 
 - (id)outlineView:(NSOutlineView *)outlineView persistentObjectForItem:(id)item {
     return [[[(NSManagedObject*)[item representedObject] objectID] URIRepresentation] absoluteString];
 }
 
+
+#pragma mark - NSMenu for Source List Delegate
+
+- (void)menuWillOpen:(NSMenu *)menu {
+    NSInteger selectedRow = [sourceList clickedRow];
+    SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
+    [menu removeAllItems];
+    if ([resource isKindOfClass:[SBPlaylist class]]) {
+        [menu addItemWithTitle: @"Rename Playlist" action:@selector(editItem:) keyEquivalent:@""];
+        [menu addItemWithTitle: @"Delete Playlist" action:@selector(removeItem:) keyEquivalent:@""];
+    } else if ([resource isKindOfClass:[SBServer class]]) {
+        [menu addItemWithTitle:@"Add Playlist to Server" action:@selector(addRemotePlaylist:) keyEquivalent:@""];
+        [menu addItem:[NSMenuItem separatorItem]];
+        [menu addItemWithTitle:@"Reload Server" action:@selector(reloadServer:) keyEquivalent:@""];
+        [menu addItemWithTitle:@"Scan Server Library" action:@selector(scanLibrary:) keyEquivalent:@""];
+        [menu addItem:[NSMenuItem separatorItem]];
+        [menu addItemWithTitle:@"Open Home Page" action:@selector(openHomePage:) keyEquivalent:@""];
+        [menu addItemWithTitle:@"Configure Server" action:@selector(editItem:) keyEquivalent:@""];
+        [menu addItem:[NSMenuItem separatorItem]];
+        [menu addItemWithTitle:@"Remove Server" action:@selector(removeItem:) keyEquivalent:@""];
+    } else if (resource == nil) {
+        [menu addItemWithTitle:@"New Playlist" action:@selector(addPlaylist:) keyEquivalent:@""];
+        [menu addItemWithTitle:@"New Server" action:@selector(addServer:) keyEquivalent:@""];
+    }
+}
 
 
 #pragma mark -
@@ -2091,6 +2012,19 @@
 }
 
 #pragma mark - Bindings for Interface Toggles
+
+/// Gets the clicked or selected row in the source list.
+- (NSInteger)sourceListSelectedRow {
+    NSInteger selectedRow = [sourceList clickedRow];
+    if (selectedRow == -1) {
+        selectedRow = [sourceList selectedRow];
+    }
+    return selectedRow;
+}
+
+- (SBResource*)sourceListSelectedResource {
+    return [[sourceList itemAtRow:[self sourceListSelectedRow]] representedObject];
+}
 
 - (NSNumber*)isTracklistShown {
     return [NSNumber numberWithBool: (!tracklistSplit.collapsed &&

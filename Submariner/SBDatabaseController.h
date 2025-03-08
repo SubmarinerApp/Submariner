@@ -68,7 +68,7 @@
 @class SBRoutePickerView, SBOnboardingController, SBTracklistButton;
 @protocol SBStarrable;
 
-@interface SBDatabaseController : SBWindowController <NSWindowDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource, NSPageControllerDelegate> {
+@interface SBDatabaseController : SBWindowController <NSWindowDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource, NSPageControllerDelegate, NSMenuDelegate> {
 @private
     IBOutlet NSView *titleView;
     IBOutlet NSView *hostView;
@@ -200,6 +200,8 @@
 - (IBAction)renameItem:(id)sender;
 - (IBAction)createDemoServer:(id)sender;
 - (IBAction)jumpToTimestamp:(id)sender;
+
+- (IBAction)outlineViewTextFieldAction:(id)sender;
 
 // NSUserInterfaceValidations protocol is implemented by AppDelegate, but logic lives here
 - (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item;
