@@ -55,6 +55,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
     var playlistsReturned: [SBPlaylist] = []
     var artistsReturned: [SBArtist] = []
     var albumsReturned: [SBAlbum] = []
+    var tracksReturned: [SBTrack] = []
 
     // This is for coalescing cover fetches, since we might keep fetching the same ID.
     // The mapping is albumID: coverID; note that at least Navidrome has separate coverArt entries
@@ -449,11 +450,13 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 updateTrackDependenciesForTag(track, attributeDict: attributeDict, shouldFetchAlbumArt: false)
                 // objc version did some check in playlist, which didn't make sense
                 currentSearch.tracksToFetch.append(track.objectID)
+                tracksReturned.append(track)
             } else {
                 logger.info("Creating track ID \(id, privacy: .public) for search")
                 let track = createTrack(attributes: attributeDict)
                 updateTrackDependenciesForTag(track, attributeDict: attributeDict, shouldFetchAlbumArt: false)
                 currentSearch.tracksToFetch.append(track.objectID)
+                tracksReturned.append(track)
             }
         } else if let currentAlbum = self.currentAlbum, let id = attributeDict["id"], let name = attributeDict["title"] {
             // like parseElementChildForTrackDirectory; shouldn't need to call update dependencies...
@@ -463,6 +466,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 updateTrack(track, attributes: attributeDict)
                 track.album = currentAlbum
                 currentAlbum.addToTracks(track)
+                tracksReturned.append(track)
             } else {
                 // Create
                 logger.info("Creating new track with ID: \(id, privacy: .public) and name \(name, privacy: .public)")
@@ -470,6 +474,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 // now assume not nil
                 track.album = currentAlbum
                 currentAlbum.addToTracks(track)
+                tracksReturned.append(track)
             }
         } else {
             logger.warning("Song ID was nil for get album or search")
@@ -650,6 +655,14 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
                 let difference = albums.subtracting(Set(albumsReturned))
                 for album in difference {
                     currentArtist.removeFromAlbums(album)
+                }
+            }
+        case .getAlbum(id: _):
+            // purge songs not returned
+            if let currentAlbum = self.currentAlbum, let tracks = currentAlbum.tracks as? Set<SBTrack> {
+                let difference = tracks.subtracting(Set(tracksReturned))
+                for track in difference {
+                    currentAlbum.removeFromTracks(track)
                 }
             }
         default:
