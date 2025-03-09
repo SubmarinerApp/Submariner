@@ -92,8 +92,9 @@ import Cocoa
         self.imageView = imageView
         self.addSubview(imageView)
         // image always has a vertical inset of 4px (i.e. medium 28pt row height, 20pt image)
+        // that said, 4 doesn't seem exact either; a multiplier seems to handle S/M/L alignment better?
         // https://developer.apple.com/design/human-interface-guidelines/sidebars#macOS
-        imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10.0).isActive = true
+        imageView.topAnchor.constraint(equalToSystemSpacingBelow: self.topAnchor, multiplier: 0.45).isActive = true
         imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -4.0).isActive = true
         imageView.widthAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
@@ -113,7 +114,7 @@ import Cocoa
         self.textField = textField
         self.addSubview(textField)
         textField.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
-        textField.leadingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
+        textField.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 2).isActive = true
         // XXX: For some reason, this anchor breaks the editing mode for the text field
         //textField.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
     }
