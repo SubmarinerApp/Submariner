@@ -57,7 +57,6 @@
 @class SBTracklistController;
 @class SBPlaylistController;
 @class SBLibrary;
-@class SBAnimatedView;
 @class SBVolumeButton;
 
 #define SBLibraryTableViewDataType @"com.submarinerapp.item-url-list"
