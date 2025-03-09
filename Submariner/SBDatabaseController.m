@@ -350,7 +350,6 @@
         [self navigateForwardToNavItem: navItem];
     }
     // Reset history
-    NSLog(@"VC items: %@", rightVC.arrangedObjects);
     if (rightVC.arrangedObjects.count > 1) {
         [rightVC setArrangedObjects: @[ [rightVC.arrangedObjects objectAtIndex: 1] ]];
     }
