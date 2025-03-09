@@ -1660,14 +1660,6 @@
     }
 }
 
-- (CGFloat)outlineView:(NSOutlineView *)outlineView heightOfRowByItem:(id)item {
-    if ([[item representedObject] isKindOfClass:[SBSection class]]) {
-        return 22.0f;
-    }
-    // Medium size sidebar; https://developer.apple.com/design/human-interface-guidelines/sidebars#macOS
-    return 28.0f;
-}
-
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item {
     if([[item representedObject] isKindOfClass:[SBSection class]])
         return NO;

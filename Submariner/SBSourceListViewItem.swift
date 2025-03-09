@@ -11,11 +11,6 @@
 import Cocoa
 
 @objc(SBSourceListViewItem) class SBSourceListViewItem: NSTableCellView {
-    // https://developer.apple.com/design/human-interface-guidelines/sidebars#macOS
-    // Our row height comes from our hosting NSOutlineView's delegate
-    // Small: 16px icons, subheading text; Medium: 20px icons, body text
-    // XXX: Resize to match system sidebar size
-    
     var resource: SBResource! {
         objectValue as? SBResource
     }
@@ -96,11 +91,12 @@ import Cocoa
         imageView.image = self.icon
         self.imageView = imageView
         self.addSubview(imageView)
-        // 28 high sidebar, 4 point to be centered
-        imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 4.0).isActive = true
+        // image always has a vertical inset of 4px (i.e. medium 28pt row height, 20pt image)
+        // https://developer.apple.com/design/human-interface-guidelines/sidebars#macOS
+        imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10.0).isActive = true
+        imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -4.0).isActive = true
+        imageView.widthAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        imageView.widthAnchor.constraint(equalToConstant: 20).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         let textField = NSTextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -114,11 +110,10 @@ import Cocoa
         // XXX: Seet it here as bindings will set this
         textField.target = self
         textField.action = #selector(SBSourceListViewItem.renameItem(_:))
-        textField.font = NSFont.preferredFont(forTextStyle: .body)
         self.textField = textField
         self.addSubview(textField)
         textField.centerYAnchor.constraint(equalTo: imageView.centerYAnchor).isActive = true
-        textField.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 4.0).isActive = true
+        textField.leadingAnchor.constraint(equalTo: imageView.trailingAnchor).isActive = true
         // XXX: For some reason, this anchor breaks the editing mode for the text field
         //textField.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
     }
