@@ -27,7 +27,6 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 ### Vendored
 
 * MGScopeBar by Matt Gemmell
-* PXSourceList by Alex Rozanski, Stefan Vogt
 
 ## Release Notes
 
@@ -44,6 +43,10 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Avoid fetching covers in some contexts to avoid slow downloads.
 * Remove more dead data that can't be used in the database.
 * Report progress for slow running operations.
+* Rewrote the source list to use views instead of cells.
+  * Context menu actions should work with non-selected items now.
+  * The source list now dynamically adjusts to the system sidebar size.
+  * This removes the PXSourceList vendored library.
 
 ### Version 3.3.1
 

@@ -39,9 +39,9 @@
 #import "SBServerLibraryController.h"
 #import "SBServerHomeController.h"
 #import "SBServerPodcastController.h"
-#import "SBSourceList.h"
 
-@class SBSourceList;
+@class SBSourceListViewItem;
+@class SBSourceListRowView;
 @class SBEditServerController;
 @class SBAddServerPlaylistController;
 @class SBJumpToTimestampController;
@@ -57,7 +57,6 @@
 @class SBTracklistController;
 @class SBPlaylistController;
 @class SBLibrary;
-@class SBAnimatedView;
 @class SBVolumeButton;
 
 #define SBLibraryTableViewDataType @"com.submarinerapp.item-url-list"
@@ -68,7 +67,7 @@
 @class SBRoutePickerView, SBOnboardingController, SBTracklistButton;
 @protocol SBStarrable;
 
-@interface SBDatabaseController : SBWindowController <NSWindowDelegate, SBSourceListDelegate, SBSourceListDataSource, NSPageControllerDelegate> {
+@interface SBDatabaseController : SBWindowController <NSWindowDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource, NSPageControllerDelegate, NSMenuDelegate> {
 @private
     IBOutlet NSView *titleView;
     IBOutlet NSView *hostView;
@@ -76,7 +75,7 @@
     IBOutlet NSSplitView *titleSplitView;
     IBOutlet NSSplitView *coverSplitView;
     IBOutlet NSImageView *handleSplitView;
-    IBOutlet SBSourceList *sourceList;
+    IBOutlet NSOutlineView *sourceList;
     IBOutlet NSTreeController *resourcesController;
     IBOutlet SBEditServerController *editServerController;
     SBJumpToTimestampController *jumpToTimestampController;
