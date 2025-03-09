@@ -30,7 +30,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes
 
-## Not yet released
+### Not yet released
 
 * Infinite scrolling is added to search results and server albums.
   * This enables pulling results beyond the first page of results.
