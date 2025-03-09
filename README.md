@@ -45,6 +45,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * Report progress for slow running operations.
 * Rewrote the source list to use views instead of cells.
   * Context menu actions should work with non-selected items now.
+  * The source list now dynamically adjusts to the system sidebar size.
   * This removes the PXSourceList vendored library.
 
 ### Version 3.3.1
