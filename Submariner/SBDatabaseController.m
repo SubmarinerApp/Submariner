@@ -1951,6 +1951,7 @@
     if (action == @selector(showIndices:)
         || action == @selector(showAlbums:)
         || action == @selector(showDirectories:)
+        || action == @selector(showSongs:)
         || action == @selector(reloadCurrentServer:)
         || action == @selector(openCurrentServerHomePage:)
         || action == @selector(addPlaylistToCurrentServer:)
