@@ -200,8 +200,6 @@
 - (IBAction)createDemoServer:(id)sender;
 - (IBAction)jumpToTimestamp:(id)sender;
 
-- (IBAction)outlineViewTextFieldAction:(id)sender;
-
 // NSUserInterfaceValidations protocol is implemented by AppDelegate, but logic lives here
 - (BOOL)validateUserInterfaceItem: (id<NSValidatedUserInterfaceItem>) item;
 

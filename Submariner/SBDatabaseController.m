@@ -1626,8 +1626,13 @@
 }
 
 - (NSView *)outlineView:(NSOutlineView *)outlineView viewForTableColumn:(NSTableColumn *)tableColumn item:(id)item {
-    // XXX: Use NSOutlineView.makeViewWithIdentifier?
-    return [SBSourceListViewItem createViewFor:[item representedObject]];
+    SBSourceListViewItem *view = [sourceList makeViewWithIdentifier:@"SBSourceListViewItem" owner:self];
+    if (view == nil) {
+        view = [[SBSourceListViewItem alloc] init];
+        view.identifier = @"SBSourceListViewItem";
+    }
+    // the binding on the tree controller's content will set objectValue
+    return view;
 }
 
 - (NSTableRowView *)outlineView:(NSOutlineView *)outlineView rowViewForItem:(id)item {
@@ -1643,7 +1648,6 @@
 }
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification {
-    NSLog(@"Did Change Sel: %@", notification);
     if (ignoreNextSelection) {
         ignoreNextSelection = NO;
         return;
@@ -1683,22 +1687,11 @@
     return NO;
 }
 
-/// Used for the rename action from the text field cell in a view based table.
-- (IBAction)outlineViewTextFieldAction:(id)sender {
-    NSString *newName = [sender stringValue];
-    SBResource *resource = (SBResource*)[resourcesController selectedObjects];
-    // Let the remote server have a say first, just do it for local
-    if ([resource isKindOfClass: SBPlaylist.class] && [(SBPlaylist*)resource server] != nil) {
-        SBPlaylist *playlist = (SBPlaylist*)resource;
-        [playlist.server updatePlaylistWithID: playlist.itemId name: newName comment: nil appending: nil removing: nil];
-    } else {
-        [resource setResourceName: newName];
-    }
-}
-
 - (id)outlineView:(NSOutlineView *)outlineView persistentObjectForItem:(id)item {
     return [[[(NSManagedObject*)[item representedObject] objectID] URIRepresentation] absoluteString];
 }
+
+// rename is handled in SBSourceListViewItem
 
 
 #pragma mark - NSMenu for Source List Delegate
@@ -1720,7 +1713,7 @@
         [menu addItemWithTitle:@"Configure Server" action:@selector(editItem:) keyEquivalent:@""];
         [menu addItem:[NSMenuItem separatorItem]];
         [menu addItemWithTitle:@"Remove Server" action:@selector(removeItem:) keyEquivalent:@""];
-    } else if (resource == nil) {
+    } else if ([resource isKindOfClass:[SBSection class]] || resource == nil) {
         [menu addItemWithTitle:@"New Playlist" action:@selector(addPlaylist:) keyEquivalent:@""];
         [menu addItemWithTitle:@"New Server" action:@selector(addServer:) keyEquivalent:@""];
     }
@@ -1989,8 +1982,10 @@
         return [searchToolbarItem isEnabled] && canBeVisible;
     }
     
-    if (self.window.firstResponder == sourceList
-        && (action == @selector(renameItem:) || (action == @selector(delete:)))) {
+    if (action == @selector(renameItem:) || (action == @selector(delete:))) {
+        if (self.window.firstResponder != sourceList) {
+            return NO;
+        }
         NSInteger selectedRow = [sourceList selectedRow];
         if (selectedRow != -1) {
             SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
