@@ -679,6 +679,22 @@
     }
 }
 
+- (IBAction)playSelected:(id)sender {
+    SBResource *resource = [self sourceListSelectedResource];
+    if ([resource isKindOfClass:[SBPlaylist class]]) {
+        SBPlaylist *playlist = (SBPlaylist*)resource;
+        [[SBPlayer sharedInstance] playTracks:playlist.tracks startingAt:0];
+    }
+}
+
+- (IBAction)addSelectedToTracklist:(id)sender {
+    SBResource *resource = [self sourceListSelectedResource];
+    if ([resource isKindOfClass:[SBPlaylist class]]) {
+        SBPlaylist *playlist = (SBPlaylist*)resource;
+        [[SBPlayer sharedInstance] addTrackArray:playlist.tracks replace:NO];
+    }
+}
+
 - (void)reloadServerInternal: (SBServer*)server {
     if (server == nil || ![server isKindOfClass:[SBServer class]]) {
         return;
@@ -1692,8 +1708,14 @@
     SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
     [menu removeAllItems];
     if ([resource isKindOfClass:[SBPlaylist class]]) {
-        [menu addItemWithTitle: @"Rename Playlist" action:@selector(editItem:) keyEquivalent:@""];
-        [menu addItemWithTitle: @"Delete Playlist" action:@selector(removeItem:) keyEquivalent:@""];
+        SBPlaylist *playlist = (SBPlaylist*)resource;
+        if (playlist.tracks.count > 0) {
+            [menu addItemWithTitle: @"Play" action:@selector(playSelected:) keyEquivalent:@""];
+            [menu addItemWithTitle: @"Add to Tracklist" action:@selector(addSelectedToTracklist:) keyEquivalent:@""];
+            [menu addItem:[NSMenuItem separatorItem]];
+        }
+        [menu addItemWithTitle: @"Rename" action:@selector(editItem:) keyEquivalent:@""];
+        [menu addItemWithTitle: @"Delete" action:@selector(removeItem:) keyEquivalent:@""];
     } else if ([resource isKindOfClass:[SBServer class]]) {
         [menu addItemWithTitle:@"Add Playlist to Server" action:@selector(addRemotePlaylist:) keyEquivalent:@""];
         [menu addItem:[NSMenuItem separatorItem]];
@@ -1974,7 +1996,10 @@
         return [searchToolbarItem isEnabled] && canBeVisible;
     }
     
-    if (action == @selector(renameItem:) || (action == @selector(delete:))) {
+    if (action == @selector(renameItem:)
+        || (action == @selector(delete:))
+        || (action == @selector(playSelected:))
+        || (action == @selector(addSelectedToTracklist:))) {
         if (self.window.firstResponder != sourceList) {
             return NO;
         }
