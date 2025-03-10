@@ -32,7 +32,10 @@ class SBLibraryCleanupCoverPathsOperation: SBOperation {
         do {
             logger.info("Moving absolute cover path \"\(currentPath)\" to \"\(newPath)\", changing filename to \"\(fileName)\"")
             // If this exists already, then it might be fine? (XXX: Delete old if new exists?)
-            if !FileManager.default.fileExists(atPath: newPath) {
+            if !FileManager.default.fileExists(atPath: newPath),
+                let lastSlashOfNewPath = newPath.lastIndex(of: "/") {
+                let directory = String(newPath[...lastSlashOfNewPath])
+                try? FileManager.default.createDirectory(atPath: directory, withIntermediateDirectories: true)
                 try FileManager.default.copyItem(atPath: currentPath as String, toPath: newPath)
             }
             cover.imagePath = fileName as NSString?
