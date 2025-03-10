@@ -23,7 +23,9 @@ class SBLibraryCleanupCoverPathsOperation: SBOperation {
             saveThreadedContext()
             finish()
         }
-        logger.info("Cleaning cover paths")
+        DispatchQueue.main.async {
+            self.operationInfo = "Cleaning cover paths"
+        }
         cleanupCoverPaths()
         // XXX: Do tracks/albums/artists have similar issues?
     }

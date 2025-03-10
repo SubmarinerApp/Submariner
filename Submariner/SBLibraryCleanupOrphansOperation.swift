@@ -23,11 +23,17 @@ class SBLibraryCleanupOrphansOperation: SBOperation {
             saveThreadedContext()
             finish()
         }
-        logger.info("Deleting orphan albums")
+        DispatchQueue.main.async {
+            self.operationInfo = "Deleting orphan albums"
+        }
         cleanupOrphanAlbums()
-        logger.info("Deleting orphan playlists")
+        DispatchQueue.main.async {
+            self.operationInfo = "Deleting orphan playlists"
+        }
         cleanupOrphanPlaylists()
-        logger.info("Deleting orphan covers")
+        DispatchQueue.main.async {
+            self.operationInfo = "Deleting orphan covers"
+        }
         cleanupOrphanCovers()
         // XXX: Do tracks/albums/artists have similar issues?
     }
