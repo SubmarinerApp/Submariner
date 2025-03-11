@@ -47,6 +47,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
   * Context menu actions should work with non-selected items now.
   * The source list now dynamically adjusts to the system sidebar size.
   * This removes the PXSourceList vendored library.
+* Fixed the server users view not being able to handle multiple users playing the same track.
 
 ### Version 3.3.1
 
