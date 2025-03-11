@@ -419,7 +419,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             }
         }
         nowPlaying.track = attachedTrack
-        attachedTrack?.nowPlaying = nowPlaying
+        attachedTrack?.addToNowPlaying(nowPlaying)
         
         updateTrackDependenciesForTag(attachedTrack!, attributeDict: attributeDict)
         
