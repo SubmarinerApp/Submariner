@@ -48,6 +48,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
   * The source list now dynamically adjusts to the system sidebar size.
   * This removes the PXSourceList vendored library.
 * Fixed the server users view not being able to handle multiple users playing the same track.
+* Fixed not being able to append to a newly created playlist.
 
 ### Version 3.3.1
 

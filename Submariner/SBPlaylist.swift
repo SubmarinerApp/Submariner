@@ -44,15 +44,18 @@ public class SBPlaylist: SBResource {
     }
     
     func add(track: SBTrack) {
+        ensureTrackIDsNotNil()
         trackIDs?.append(track.objectID.uriRepresentation())
     }
     
     @objc(addTracks:) func add(tracks: [SBTrack]) {
+        ensureTrackIDsNotNil()
         let additionalIDs = tracks.map { $0.objectID.uriRepresentation() }
         trackIDs?.append(contentsOf: additionalIDs)
     }
     
     func add(tracks: [SBTrack], at row: Int) {
+        ensureTrackIDsNotNil()
         let additionalIDs = tracks.map { $0.objectID.uriRepresentation() }
         trackIDs?.insert(contentsOf: additionalIDs, at: row)
     }
@@ -70,5 +73,15 @@ public class SBPlaylist: SBResource {
     @objc(insertInManagedObjectContext:) class func insertInManagedObjectContext(context: NSManagedObjectContext) -> SBPlaylist {
         let entity = NSEntityDescription.entity(forEntityName: "Playlist", in: context)
         return NSEntityDescription.insertNewObject(forEntityName: entity!.name!, into: context) as! SBPlaylist
+    }
+    
+    private func ensureTrackIDsNotNil() {
+        if trackIDs == nil {
+            trackIDs = []
+        }
+    }
+    
+    public override func awakeFromInsert() {
+        ensureTrackIDsNotNil()
     }
 }
