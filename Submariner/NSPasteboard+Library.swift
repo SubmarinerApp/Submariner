@@ -12,6 +12,20 @@ import Cocoa
 
 // Mostly because SBDatabaseController, SBTracklistButton, and SBTracklistController basically all reimplemented this
 extension NSPasteboard {
+    @objc func playlist(managedObjectContext moc: NSManagedObjectContext) -> SBPlaylist? {
+        guard let types = self.types, let pasteboardItems = pasteboardItems else {
+            return nil
+        }
+        
+        if types.contains(.playlist),
+           let urlString = pasteboardItems.first?.string(forType: .playlist),
+           let url = URL(string: urlString),
+           let objID = moc.persistentStoreCoordinator!.managedObjectID(forURIRepresentation: url) {
+            return moc.object(with: objID) as? SBPlaylist
+        }
+        return nil
+    }
+    
     @objc func libraryItems() -> [URL]? {
         guard let types = self.types, let pasteboardItems = pasteboardItems else {
             return nil

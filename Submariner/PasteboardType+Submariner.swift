@@ -22,4 +22,6 @@ extension NSPasteboard.PasteboardType {
     static let libraryItem = NSPasteboard.PasteboardType(rawValue: "com.submarinerapp.item-url-string")
     /// The index of a row, as a raw integer in a Data wrapper.
     static let rowIndex = NSPasteboard.PasteboardType(rawValue: "com.submarinerapp.row-index")
+    /// A playlist. Mostly used to check if a playlist is being dropped on itself or another playlist.
+    static let playlist = NSPasteboard.PasteboardType(rawValue: "com.submarinerapp.playlist")
 }

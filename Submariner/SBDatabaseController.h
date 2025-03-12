@@ -61,6 +61,7 @@
 
 #define SBLibraryTableViewDataType @"com.submarinerapp.item-url-list"
 #define SBLibraryItemTableViewDataType @"com.submarinerapp.item-url-string"
+#define SBPlaylistDataType @"com.submarinerapp.playlist"
 
 // forward declarations for Swift classes (otherwise it's painful to reference,
 // the swift bridging header can only be included in the impl)

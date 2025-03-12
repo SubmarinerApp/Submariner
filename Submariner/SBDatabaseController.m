@@ -220,7 +220,7 @@
     [addServerPlaylistController setManagedObjectContext:self.managedObjectContext];
     
     // source list drag and drop
-    [sourceList registerForDraggedTypes: @[SBLibraryTableViewDataType, SBLibraryItemTableViewDataType]];
+    [sourceList registerForDraggedTypes: @[SBLibraryTableViewDataType, SBLibraryItemTableViewDataType, SBPlaylistDataType]];
     
     // re-layout when visible, so that ServerHome MGScopeBar doesn't get swallowed
     // the insets are the variable that changes, not the safeAreaRect (which is presumably calculated)
@@ -1571,6 +1571,7 @@
 #pragma mark SourceList DataSource (Drag & Drop)
 
 - (NSDragOperation)outlineView:(NSOutlineView *)outlineView validateDrop:(id<NSDraggingInfo>)info proposedItem:(id)item proposedChildIndex:(NSInteger)index {
+    SBPlaylist *sourcePlaylist = [info.draggingPasteboard playlistWithManagedObjectContext:self.managedObjectContext];
     NSArray<SBTrack*> *tracks = [info.draggingPasteboard libraryItemsWithManagedObjectContext: self.managedObjectContext];
     if (tracks == nil) {
         return NSDragOperationNone;
@@ -1579,7 +1580,9 @@
     if ([[item representedObject] isKindOfClass:[SBPlaylist class]]) {
         SBPlaylist *targetPlaylist = [item representedObject];
         
-        if (targetPlaylist.server == nil) { // is local playlist and local track
+        if (targetPlaylist == sourcePlaylist) { // Don't accidentally drop on ourselves
+            return NSDragOperationNone;
+        } else if (targetPlaylist.server == nil) { // is local playlist and local track
             return NSDragOperationCopy;
         } else if ([targetPlaylist.server isEqualTo:firstTrack.server]) {
             return NSDragOperationCopy;
@@ -1595,12 +1598,18 @@
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView acceptDrop:(id<NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index {
+    SBPlaylist *sourcePlaylist = [info.draggingPasteboard playlistWithManagedObjectContext:self.managedObjectContext];
     NSArray<SBTrack*> *tracks = [info.draggingPasteboard libraryItemsWithManagedObjectContext: self.managedObjectContext];
     if (tracks == nil) {
         return NO;
     }
     if ([[item representedObject] isKindOfClass:[SBPlaylist class]]) {
         SBPlaylist *playlist = (SBPlaylist *)[item representedObject];
+        
+        // Don't accidentally drop on ourselves
+        if (sourcePlaylist == playlist) {
+            return NO;
+        }
         
         if(playlist.server == nil) {
             // also add new track IDs to the array
@@ -1630,7 +1639,16 @@
     return YES;
 }
 
-
+- (id<NSPasteboardWriting>)outlineView:(NSOutlineView *)outlineView pasteboardWriterForItem:(id)item {
+    SBResource *resource = [item representedObject];
+    if ([resource isKindOfClass:SBPlaylist.class]) {
+        SBPlaylist *playlist = (SBPlaylist*)resource;
+        if (playlist.tracks.count > 0) {
+            return [[SBPlaylistPasteboardWriter alloc] initWithPlaylist:playlist];
+        }
+    }
+    return nil;
+}
 
 
 #pragma mark -

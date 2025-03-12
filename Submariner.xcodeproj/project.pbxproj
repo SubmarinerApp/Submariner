@@ -79,6 +79,7 @@
 		3EB2BCCB2992F03A00DC5056 /* SBSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCCA2992F03A00DC5056 /* SBSearchResult.swift */; };
 		3EB2BCCF2992F3CA00DC5056 /* SBVolumeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCCE2992F3CA00DC5056 /* SBVolumeButton.swift */; };
 		3EB2BCD12992FD5A00DC5056 /* SBTracklistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCD02992FD5A00DC5056 /* SBTracklistButton.swift */; };
+		3EB469DE2D80E2EB00913972 /* SBPlaylistPasteboardWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB469DD2D80E2E600913972 /* SBPlaylistPasteboardWriter.swift */; };
 		3EC039C529EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC039C429EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift */; };
 		3EC039C729EFB867001FDE50 /* SBDownloadsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC039C629EFB867001FDE50 /* SBDownloadsController.swift */; };
 		3EC039C929EFC259001FDE50 /* View+Modify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC039C829EFC259001FDE50 /* View+Modify.swift */; };
@@ -248,6 +249,7 @@
 		3EB2BCCE2992F3CA00DC5056 /* SBVolumeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBVolumeButton.swift; sourceTree = "<group>"; };
 		3EB2BCD02992FD5A00DC5056 /* SBTracklistButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTracklistButton.swift; sourceTree = "<group>"; };
 		3EB469DC2D7FA2A800913972 /* Submariner v10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Submariner v10.xcdatamodel"; sourceTree = "<group>"; };
+		3EB469DD2D80E2E600913972 /* SBPlaylistPasteboardWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPlaylistPasteboardWriter.swift; sourceTree = "<group>"; };
 		3EC039C429EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBSubsonicDownloadOperation.swift; sourceTree = "<group>"; };
 		3EC039C629EFB867001FDE50 /* SBDownloadsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBDownloadsController.swift; sourceTree = "<group>"; };
 		3EC039C829EFC259001FDE50 /* View+Modify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Modify.swift"; sourceTree = "<group>"; };
@@ -417,6 +419,7 @@
 			children = (
 				3E32BE4D2B8D4E4400E77CF0 /* SBLibraryPasteboardWriter.swift */,
 				3E32BE512B8D9FDE00E77CF0 /* SBLibraryItemPasteboardWriter.swift */,
+				3EB469DD2D80E2E600913972 /* SBPlaylistPasteboardWriter.swift */,
 			);
 			name = Pasteboard;
 			sourceTree = "<group>";
@@ -874,6 +877,7 @@
 				3EE4C1902C1E34680063BB9D /* SBStarrable.swift in Sources */,
 				3E94E5F62912EEC40080FDF6 /* SBNavigationItem.swift in Sources */,
 				3EB2BCC12992D28A00DC5056 /* String+Hex.swift in Sources */,
+				3EB469DE2D80E2EB00913972 /* SBPlaylistPasteboardWriter.swift in Sources */,
 				3E0DAD5C29CA2A5600D895E2 /* SBTrackListLengthTransformer.swift in Sources */,
 				3EF978062BC49A9100C986E9 /* SBPropertyFieldView.swift in Sources */,
 				3E32BE552B8E500500E77CF0 /* NSPasteboard+Library.swift in Sources */,
