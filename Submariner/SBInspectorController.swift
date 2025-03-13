@@ -151,8 +151,14 @@ extension NSNotification.Name {
                         numberField(label: "Bit Depth", for: \.bitDepth)
                         numberField(label: "Beats Per Minute", for: \.bpm)
                     }
-                    Section {
-                        stringField(label: "MusicBrainz", for: \.musicBrainzId)
+                    if let musicBrainzId = valueIfSame(property: \.musicBrainzId),
+                       let musicBrainzId = musicBrainzId,
+                       let url = URL(string: "http://musicbrainz.org/track/\(musicBrainzId)") {
+                        Link(destination: url) {
+                            Text("View in MusicBrainz")
+                                .foregroundStyle(.secondary)
+                                .font(.subheadline)
+                        }
                     }
                     // Maybe some buttons here?
                 }
