@@ -255,19 +255,12 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         if let id = attributeDict["id"], let name = attributeDict["name"] {
             if let existingArtist = fetchArtist(id: id) {
                 artistsReturned.append(existingArtist)
-                // doing this in ID3 migration, but may be useful if servers keep ID if artist renames
-                // i.e. "British Sea Power" -> "Sea Power" (and avoid deadnames, etc.)
-                existingArtist.itemName = name
-                // star status
-                existingArtist.starred = attributeDict["starred"]?.dateTimeFromISO()
+                updateArtist(existingArtist, attributes: attributeDict)
                 // as we don't do it in updateTrackDependencies
                 server.addToIndexes(existingArtist)
             } else if let existingArtist = fetchArtist(name: name) {
                 artistsReturned.append(existingArtist)
-                // legacy for cases where we have artists without IDs from i.e. getNowPlaying/search2
-                existingArtist.itemId = id
-                // update star status
-                existingArtist.starred = attributeDict["starred"]?.dateTimeFromISO()
+                updateArtist(existingArtist, attributes: attributeDict)
                 // as we don't do it in updateTrackDependencies
                 server.addToIndexes(existingArtist)
             } else {
@@ -851,9 +844,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         return group
     }
     
-    private func createArtist(attributes: [String: String]) -> SBArtist {
-        let artist = SBArtist.insertInManagedObjectContext(context: threadedContext)
-        
+    private func updateArtist(_ artist: SBArtist, attributes: [String: String]) {
         // note that for the <album> context it has both the artist and album in the same element,
         // but this should override that. it may be worth making the context an arg to make sure
         // instead of relying on overrides though
@@ -865,6 +856,7 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
             artist.itemName = artistName
         }
         
+        // legacy for cases where we have artists without IDs from i.e. getNowPlaying/search2
         if let id = attributes["id"] {
             artist.itemId = id
         }
@@ -872,6 +864,21 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         if let id = attributes["artistId"] {
             artist.itemId = id
         }
+        
+        if let sortName = attributes["sortName"] {
+            artist.sortName = sortName
+        }
+        if let musicBrainzId = attributes["musicBrainzId"] {
+            artist.musicBrainzId = musicBrainzId
+        }
+        
+        artist.starred = attributes["starred"]?.dateTimeFromISO()
+    }
+    
+    private func createArtist(attributes: [String: String]) -> SBArtist {
+        let artist = SBArtist.insertInManagedObjectContext(context: threadedContext)
+        
+        updateArtist(artist, attributes: attributes)
         
         artist.isLocal = false
         server.addToIndexes(artist)
@@ -888,6 +895,19 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         if let yearString = attributes["year"], let year = Int(yearString) {
             album.year = NSNumber(value: year)
         }
+        if let sortName = attributes["sortName"] {
+            album.sortName = sortName
+        }
+        if let musicBrainzId = attributes["musicBrainzId"] {
+            album.musicBrainzId = musicBrainzId
+        }
+        if let explicit = attributes["explicitStatus"] {
+            album.explicit = explicit
+        }
+        if let playCountString = attributes["playCount"], let playCount = Int64(playCountString) {
+            album.playCount = NSNumber(value: playCount)
+        }
+        album.played = attributes["played"]?.dateTimeFromISO()
         // if starriness is missing, it's no longer started
         album.starred = attributes["starred"]?.dateTimeFromISO()
     }
@@ -1103,6 +1123,34 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         if let path = attributes["path"] {
             track.path = path
         }
+        if let sortName = attributes["sortName"] {
+            track.sortName = sortName
+        }
+        if let musicBrainzId = attributes["musicBrainzId"] {
+            track.musicBrainzId = musicBrainzId
+        }
+        if let explicit = attributes["explicitStatus"] {
+            track.explicit = explicit
+        }
+        if let explicit = attributes["explicitStatus"] {
+            track.explicit = explicit
+        }
+        if let playCountString = attributes["playCount"], let playCount = Int64(playCountString) {
+            track.playCount = NSNumber(value: playCount)
+        }
+        if let bpmString = attributes["bpm"], let bpm = Int32(bpmString) {
+            track.bpm = NSNumber(value: bpm)
+        }
+        if let channelCountString = attributes["channelCount"], let channelCount = Int32(channelCountString) {
+            track.channelCount = NSNumber(value: channelCount)
+        }
+        if let samplingRateString = attributes["samplingRate"], let samplingRate = Int32(samplingRateString) {
+            track.samplingRate = NSNumber(value: samplingRate)
+        }
+        if let bitDepthString = attributes["bitDepth"], let bitDepth = Int32(bitDepthString) {
+            track.bitDepth = NSNumber(value: bitDepth)
+        }
+        track.played = attributes["played"]?.dateTimeFromISO()
         
         // special case: if starriness is missing, it's no longer started
         track.starred = attributes["starred"]?.dateTimeFromISO()

@@ -36,6 +36,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
   * This enables pulling results beyond the first page of results.
 * All tracks on the server can be shown in a new view.
   * This can be accessed by Go - By Tracks (Cmd+3).
+* More metadata is returned for albums, artists, and tracks.
 * Fix album information not getting pulled in from tracks on search.
 * Use updated Core Data features for automatic merging of changes between threads.
   * This should reduce weirdness such as faults appearing where they shouldn't.

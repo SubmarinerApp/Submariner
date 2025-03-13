@@ -49,7 +49,7 @@ extension SBPropertyFieldView {
     
     @ViewBuilder func stringField(label: String, for property: KeyPath<Item, String?>) -> some View {
         if let stringMaybeSingular = valueIfSame(property: property) {
-            if let string = stringMaybeSingular {
+            if let string = stringMaybeSingular, !string.isEmpty {
                 field(label: label, string: string)
             }
             // no thing -> nothing
@@ -65,6 +65,21 @@ extension SBPropertyFieldView {
                     field(label: label, string: string)
                 } else {
                     field(label: label, string: number.stringValue)
+                }
+            }
+            // no thing -> nothing
+        } else {
+            field(label: label, string: "...")
+        }
+    }
+    
+    @ViewBuilder func dateField(label: String, for property: KeyPath<Item, Date?>, formatter: Formatter? = nil) -> some View {
+        if let dateMaybeSingular = valueIfSame(property: property) {
+            if let date = dateMaybeSingular {
+                if let formatter = formatter, let string = formatter.string(for: date) {
+                    field(label: label, string: string)
+                } else {
+                    field(label: label, string: date.formatted())
                 }
             }
             // no thing -> nothing

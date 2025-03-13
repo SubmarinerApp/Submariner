@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="23605" systemVersion="24D70" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Album" representedClassName="SBAlbum" parentEntity="MusicItem" syncable="YES" codeGenerationType="category">
+        <attribute name="explicit" optional="YES" attributeType="String"/>
+        <attribute name="isCompilation" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="playCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO"/>
+        <attribute name="played" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="starred" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="version" optional="YES" attributeType="String"/>
         <attribute name="year" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
         <relationship name="artist" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Artist" inverseName="albums" inverseEntity="Artist"/>
         <relationship name="cover" optional="YES" minCount="1" maxCount="1" deletionRule="Cascade" destinationEntity="Cover" inverseName="album" inverseEntity="Cover"/>
@@ -92,7 +97,9 @@
         <attribute name="isLocal" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO"/>
         <attribute name="itemId" optional="YES" attributeType="String" elementID="id"/>
         <attribute name="itemName" optional="YES" attributeType="String"/>
+        <attribute name="musicBrainzId" optional="YES" attributeType="String"/>
         <attribute name="path" optional="YES" attributeType="String"/>
+        <attribute name="sortName" optional="YES" attributeType="String"/>
     </entity>
     <entity name="NowPlaying" representedClassName="SBNowPlaying" syncable="YES" codeGenerationType="category">
         <attribute name="minutesAgo" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
@@ -183,15 +190,23 @@
     <entity name="Track" representedClassName="SBTrack" parentEntity="MusicItem" syncable="YES" codeGenerationType="category">
         <attribute name="albumName" optional="YES" attributeType="String"/>
         <attribute name="artistName" optional="YES" attributeType="String"/>
+        <attribute name="bitDepth" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
         <attribute name="bitRate" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
+        <attribute name="bpm" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
+        <attribute name="channelCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
+        <attribute name="comment" optional="YES" attributeType="String"/>
         <attribute name="contentSuffix" optional="YES" attributeType="String"/>
         <attribute name="contentType" optional="YES" attributeType="String"/>
         <attribute name="coverID" optional="YES" attributeType="String"/>
         <attribute name="discNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
         <attribute name="duration" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
+        <attribute name="explicit" optional="YES" attributeType="String"/>
         <attribute name="genre" optional="YES" attributeType="String"/>
         <attribute name="isPlaying" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO"/>
+        <attribute name="playCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO"/>
+        <attribute name="played" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="rating" optional="YES" attributeType="Integer 32" minValueString="0" maxValueString="5" defaultValueString="0" usesScalarValueType="NO"/>
+        <attribute name="samplingRate" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
         <attribute name="size" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>
         <attribute name="starred" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="trackNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO"/>

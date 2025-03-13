@@ -92,6 +92,7 @@ extension NSNotification.Name {
     
     struct TrackInfoView: SBPropertyFieldView {
         static var byteFormatter = ByteCountFormatter()
+        static var relativeDateFormatter = RelativeDateTimeFormatter()
         
         typealias MI = SBTrack
         var items: [SBTrack] {
@@ -112,14 +113,18 @@ extension NSNotification.Name {
                         stringField(label: "Artist", for: \.artistString)
                         stringField(label: "Genre", for: \.genre)
                         numberField(label: "Year", for: \.year)
-                    }
-                    Section {
-                        // TODO: Make this an interactive control. NSTableView has something like it
-                        numberField(label: "Rating", for: \.rating)
+                        stringField(label: "Comment", for: \.comment)
+                        stringField(label: "Explicit", for: \.explicit)
                     }
                     Section {
                         numberField(label: "Track #", for: \.trackNumber)
                         numberField(label: "Disc #", for: \.discNumber)
+                    }
+                    Section {
+                        // TODO: Make this an interactive control. NSTableView has something like it
+                        numberField(label: "Rating", for: \.rating)
+                        numberField(label: "Play Count", for: \.playCount)
+                        dateField(label: "Played", for: \.played, formatter: TrackInfoView.relativeDateFormatter)
                     }
                     Section {
                         // Special behaviour to sum up duration and file size,
@@ -138,7 +143,16 @@ extension NSNotification.Name {
                         } else {
                             numberField(label: "Size", for: \.size, formatter: TrackInfoView.byteFormatter)
                         }
+                    }
+                    Section {
                         numberField(label: "Bitrate (KB/s)", for: \.bitRate)
+                        numberField(label: "Channels", for: \.channelCount)
+                        numberField(label: "Sample Rate", for: \.samplingRate)
+                        numberField(label: "Bit Depth", for: \.bitDepth)
+                        numberField(label: "Beats Per Minute", for: \.bpm)
+                    }
+                    Section {
+                        stringField(label: "MusicBrainz", for: \.musicBrainzId)
                     }
                     // Maybe some buttons here?
                 }

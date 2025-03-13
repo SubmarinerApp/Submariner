@@ -22,6 +22,8 @@ extension SBMusicItem {
     @NSManaged public var isLocal: NSNumber?
     @NSManaged public var itemName: String?
     @NSManaged public var isLinked: NSNumber?
+    @NSManaged public var sortName: String?
+    @NSManaged public var musicBrainzId: String?
 
 }
 
