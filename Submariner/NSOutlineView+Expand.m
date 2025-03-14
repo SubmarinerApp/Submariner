@@ -58,7 +58,7 @@
 }
 
 - (void)reloadURIs:(NSArray *)someURIs {
-    [self performSelector:@selector(_reloadURIs:) withObject:someURIs afterDelay:0.0f];
+    [self _reloadURIs:someURIs];
 }
 
 @end

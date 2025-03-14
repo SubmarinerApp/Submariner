@@ -1423,13 +1423,24 @@
 #pragma mark Subsonic Notifications (Private)
 
 - (void)subsonicPlaylistsUpdatedNotification:(NSNotification *)notification {
-    
-    //[resourcesController rearrangeObjects];
-    [sourceList performSelector:@selector(reloadData) withObject:nil afterDelay:0.0f];
-    
-    NSArray *URIs = [NSArray arrayWithObject:[[[notification object] URIRepresentation] absoluteString]];
-    [sourceList performSelectorOnMainThread:@selector(reloadURIs:) withObject:URIs waitUntilDone:YES];
-    //[sourceList performSelectorOnMainThread:@selector(expandURIs:) withObject:URIs waitUntilDone:YES];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSArray *URIs = [NSArray arrayWithObject:[[[notification object] URIRepresentation] absoluteString]];
+        // Reloading items can clobber the old selection, so keep it handy.
+        // Weirdly, performSelector: vs. doing it in the block can affect it.
+        // With reloadData outside done via performSelector:,
+        // it can be done before the block when selecting non-playlists.
+        // It makes more sense to keep everything in the block, however,
+        // and just adjust the selection for selecting non-playlists too.
+        NSIndexSet *oldIndices = [self->sourceList selectedRowIndexes];
+        [self->sourceList reloadData];
+        [self->sourceList reloadURIs:URIs];
+        NSIndexSet *newIndices = [self->sourceList selectedRowIndexes];
+        NSLog(@"old indices %@ new indices %@", oldIndices, newIndices);
+        if (newIndices.count == 0 && oldIndices.count > 0) {
+            self->ignoreNextSelection = YES;
+            [self->sourceList selectRowIndexes:oldIndices byExtendingSelection:NO];
+        }
+    });
 }
 
 - (void)subsonicPlaylistUpdatedNotification:(NSNotification *)notification {
