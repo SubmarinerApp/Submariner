@@ -1435,7 +1435,6 @@
         [self->sourceList reloadData];
         [self->sourceList reloadURIs:URIs];
         NSIndexSet *newIndices = [self->sourceList selectedRowIndexes];
-        NSLog(@"old indices %@ new indices %@", oldIndices, newIndices);
         if (newIndices.count == 0 && oldIndices.count > 0) {
             self->ignoreNextSelection = YES;
             [self->sourceList selectRowIndexes:oldIndices byExtendingSelection:NO];
