@@ -37,6 +37,8 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * All tracks on the server can be shown in a new view.
   * This can be accessed by Go - By Tracks (Cmd+3).
 * More metadata is returned for albums, artists, and tracks.
+* Track ratings are shown with stars and can be set from the inspector.
+* Fix ratings getting reset when fetching from the server.
 * Fix album information not getting pulled in from tracks on search.
 * Use updated Core Data features for automatic merging of changes between threads.
   * This should reduce weirdness such as faults appearing where they shouldn't.
