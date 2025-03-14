@@ -80,6 +80,7 @@
 		3EB2BCCF2992F3CA00DC5056 /* SBVolumeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCCE2992F3CA00DC5056 /* SBVolumeButton.swift */; };
 		3EB2BCD12992FD5A00DC5056 /* SBTracklistButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB2BCD02992FD5A00DC5056 /* SBTracklistButton.swift */; };
 		3EB469DE2D80E2EB00913972 /* SBPlaylistPasteboardWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB469DD2D80E2E600913972 /* SBPlaylistPasteboardWriter.swift */; };
+		3EB469E02D82B5F100913972 /* SBRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB469DF2D82B5EC00913972 /* SBRatingView.swift */; };
 		3EC039C529EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC039C429EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift */; };
 		3EC039C729EFB867001FDE50 /* SBDownloadsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC039C629EFB867001FDE50 /* SBDownloadsController.swift */; };
 		3EC039C929EFC259001FDE50 /* View+Modify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EC039C829EFC259001FDE50 /* View+Modify.swift */; };
@@ -250,6 +251,7 @@
 		3EB2BCD02992FD5A00DC5056 /* SBTracklistButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBTracklistButton.swift; sourceTree = "<group>"; };
 		3EB469DC2D7FA2A800913972 /* Submariner v10.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Submariner v10.xcdatamodel"; sourceTree = "<group>"; };
 		3EB469DD2D80E2E600913972 /* SBPlaylistPasteboardWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBPlaylistPasteboardWriter.swift; sourceTree = "<group>"; };
+		3EB469DF2D82B5EC00913972 /* SBRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBRatingView.swift; sourceTree = "<group>"; };
 		3EC039C429EF3C6C001FDE50 /* SBSubsonicDownloadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBSubsonicDownloadOperation.swift; sourceTree = "<group>"; };
 		3EC039C629EFB867001FDE50 /* SBDownloadsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SBDownloadsController.swift; sourceTree = "<group>"; };
 		3EC039C829EFC259001FDE50 /* View+Modify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Modify.swift"; sourceTree = "<group>"; };
@@ -542,6 +544,7 @@
 				3EB2BCD02992FD5A00DC5056 /* SBTracklistButton.swift */,
 				3EF978012BC3C4E300C986E9 /* SBMessageTextView.swift */,
 				3EF978052BC49A9100C986E9 /* SBPropertyFieldView.swift */,
+				3EB469DF2D82B5EC00913972 /* SBRatingView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -866,6 +869,7 @@
 				3EF978022BC3C4E300C986E9 /* SBMessageTextView.swift in Sources */,
 				3E2108122D4C7ECA00A1A4F2 /* Array+QueryItem.swift in Sources */,
 				3E6DF3D72C3DEA6800055A52 /* SBPlayRateController.swift in Sources */,
+				3EB469E02D82B5F100913972 /* SBRatingView.swift in Sources */,
 				3E70B2DF2A2BDC55002C0B93 /* SBApplication.swift in Sources */,
 				3E702DE72A428A1B005F7184 /* Synchronized.swift in Sources */,
 				3EC03B4029F4F2E0001FDE50 /* SBDownloads.swift in Sources */,

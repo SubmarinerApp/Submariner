@@ -73,6 +73,21 @@ extension SBPropertyFieldView {
         }
     }
     
+    @ViewBuilder func ratingField(label: String, for property: KeyPath<Item, NSNumber?>, setter: @escaping (Int) -> Void) -> some View {
+        if #available(macOS 13, *) {
+            LabeledContent {
+                let rating = valueIfSame(property: property)??.intValue ?? 0
+                SBRatingView(rating: rating, setter: setter)
+                    .border(.red)
+                    .fixedSize()
+            } label: {
+                Text(label)
+            }
+        } else {
+            numberField(label: label, for: property)
+        }
+    }
+    
     @ViewBuilder func dateField(label: String, for property: KeyPath<Item, Date?>, formatter: Formatter? = nil) -> some View {
         if let dateMaybeSingular = valueIfSame(property: property) {
             if let date = dateMaybeSingular {

@@ -102,6 +102,27 @@ extension NSNotification.Name {
         let tracks: [SBTrack]
         let isFromSelection: Bool
         
+        private func setRating(track: SBTrack, rating: Int) {
+            track.rating = NSNumber(value: rating)
+            if let server = track.server, let itemId = track.itemId {
+                server.setRating(rating, id: itemId)
+            }
+        }
+        
+//        var ratingBinding = Binding(
+//            get: {
+//                if let rating = valueIfSame(property: \.rating), let rating = rating {
+//                    return rating.intValue
+//                }
+//                return 0
+//            },
+//            set: {
+//                for track in items {
+//                    setRating(track: track, rating: $0)
+//                }
+//            }
+//        )
+        
         var body: some View {
             VStack(spacing: 0) {
                 AlbumArtView(album: valueIfSame(property: \.album))
@@ -122,7 +143,11 @@ extension NSNotification.Name {
                     }
                     Section {
                         // TODO: Make this an interactive control. NSTableView has something like it
-                        numberField(label: "Rating", for: \.rating)
+                        ratingField(label: "Rating", for: \.rating) { rating in
+                            for track in tracks {
+                                setRating(track: track, rating: rating)
+                            }
+                        }
                         numberField(label: "Play Count", for: \.playCount)
                         dateField(label: "Played", for: \.played, formatter: TrackInfoView.relativeDateFormatter)
                     }
@@ -152,7 +177,7 @@ extension NSNotification.Name {
                         numberField(label: "Beats Per Minute", for: \.bpm)
                     }
                     if let musicBrainzId = valueIfSame(property: \.musicBrainzId),
-                       let musicBrainzId = musicBrainzId,
+                       let musicBrainzId = musicBrainzId, !musicBrainzId.isEmpty,
                        let url = URL(string: "http://musicbrainz.org/track/\(musicBrainzId)") {
                         Link(destination: url) {
                             Text("View in MusicBrainz")
