@@ -78,7 +78,6 @@ extension SBPropertyFieldView {
             LabeledContent {
                 let rating = valueIfSame(property: property)??.intValue ?? 0
                 SBRatingView(rating: rating, setter: setter)
-                    .border(.red)
                     .fixedSize()
             } label: {
                 Text(label)

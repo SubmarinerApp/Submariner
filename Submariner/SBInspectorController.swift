@@ -109,20 +109,6 @@ extension NSNotification.Name {
             }
         }
         
-//        var ratingBinding = Binding(
-//            get: {
-//                if let rating = valueIfSame(property: \.rating), let rating = rating {
-//                    return rating.intValue
-//                }
-//                return 0
-//            },
-//            set: {
-//                for track in items {
-//                    setRating(track: track, rating: $0)
-//                }
-//            }
-//        )
-        
         var body: some View {
             VStack(spacing: 0) {
                 AlbumArtView(album: valueIfSame(property: \.album))
