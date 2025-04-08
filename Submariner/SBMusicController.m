@@ -97,7 +97,7 @@
     [super loadView];
     
     // this has to be registered at load, not awake time
-    //[albumsCollectionView registerClass: SBAlbumViewItem.class forItemWithIdentifier: @"SBAlbumViewItem"];
+    [albumsCollectionView registerClass: SBAlbumViewItem.class forItemWithIdentifier: @"SBAlbumViewItem"];
     
     [mergeArtistsController setParentWindow:[databaseController window]];
     
@@ -658,10 +658,7 @@
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
     SBAlbum *album = albumsController.arrangedObjects[indexPath.item];
-    // XXX: Insane Objective-C exception, or nonsensical lifecycle (becomes ready before the representation)
-    //SBAlbumViewItem *item = [albumsCollectionView makeItemWithIdentifier: @"SBAlbumViewItem" forIndexPath: indexPath];
-    SBAlbumViewItem *item = [[SBAlbumViewItem alloc] init];
-    item.unowningCollectionView = collectionView;
+    SBAlbumViewItem *item = [albumsCollectionView makeItemWithIdentifier: @"SBAlbumViewItem" forIndexPath: indexPath];
     item.representedObject = album;
     return item;
 }

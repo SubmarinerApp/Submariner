@@ -113,6 +113,8 @@
 - (void)loadView {
     [super loadView];
     
+    [albumsCollectionView registerClass:SBAlbumViewItem.class forItemWithIdentifier:@"SBAlbumViewItem"];
+    
     // scope bar
     NSArray *items = [NSArray arrayWithObjects:
 					  [NSDictionary dictionaryWithObjectsAndKeys: 
@@ -333,10 +335,7 @@
 
 - (NSCollectionViewItem *)collectionView:(NSCollectionView *)collectionView itemForRepresentedObjectAtIndexPath:(NSIndexPath *)indexPath {
     SBAlbum *album = albumsController.arrangedObjects[indexPath.item];
-    // XXX: Insane Objective-C exception, or nonsensical lifecycle (becomes ready before the representation)
-    //SBAlbumViewItem *item = [albumsCollectionView makeItemWithIdentifier: @"SBAlbumViewItem" forIndexPath: indexPath];
-    SBAlbumViewItem *item = [[SBAlbumViewItem alloc] init];
-    item.unowningCollectionView = collectionView;
+    SBAlbumViewItem *item = [albumsCollectionView makeItemWithIdentifier: @"SBAlbumViewItem" forIndexPath: indexPath];
     item.representedObject = album;
     return item;
 }

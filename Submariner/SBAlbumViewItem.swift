@@ -17,16 +17,31 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
 @objc(SBAlbumViewItem) class SBAlbumViewItem: NSCollectionViewItem, ObservableObject {
     private func regenerateView() {
         guard let album = self.album else {
+            // item being reused, remove existing view
+            view.subviews.removeAll()
             return
         }
         
         // use a padding of 4 on the root view as a margin, instead of inserts in collection view flow
         let newView = AlbumItem(host: self, album: album)
+            .accessibilityLabel(album.itemName ?? "Untitled Album")
             .padding(4)
-        if let view = view as? NSHostingView<AlbumItem> {
+        if let view = view.subviews.first as? NSHostingView<AlbumItem> {
             view.rootView = newView as! AlbumItem
         } else {
-            view = NSHostingView(rootView: newView)
+            // We can't have the hosting view directly be the NSCollectionViewItem's view.
+            // Instead, we have to have it as a subview and add constraints,
+            // so that it has the correct frame with proper item reuse.
+            let hostingView = NSHostingView(rootView: newView)
+            hostingView.translatesAutoresizingMaskIntoConstraints = false
+            hostingView.layer?.masksToBounds = true
+            self.view.addSubview(hostingView)
+            NSLayoutConstraint.activate([
+                hostingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+                hostingView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+                hostingView.topAnchor.constraint(equalTo: self.view.topAnchor),
+                hostingView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            ])
         }
         
         // I'd prefer to do .onTapGesture(2), but that makes SwiftUI eat the normal click events
@@ -36,7 +51,7 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         doubleClickGesture.delaysPrimaryMouseButtonEvents = false
         view.addGestureRecognizer(doubleClickGesture)
         
-        if let collectionView = unowningCollectionView ?? collectionView {
+        if let collectionView = self.collectionView {
             firstResponderObserver = collectionView.observe(\.isFirstResponder, options: [.initial, .new]) { collectionView, change in
                 self.isHostingViewFirstResponder = change.newValue ?? false
             }
@@ -79,14 +94,6 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     // This exists so that the SwiftUI view inside can change the background colour for selections as the hosting collection view's responderiness changes.
     
     private var firstResponderObserver: NSKeyValueObservation?
-    
-    // HACK: We can't use collectionView, because it requires you to use makeItemWithIdentifier:forIndexPath:,
-    // which doesn't work for some reason (mangled frame/size for the view, or bizarre exceptions),
-    // forcing us to make an unowned view item (This also presumably affects caching too.).
-    // However, we want to know if the parent view is first responder for drawing reasons,
-    // so we make this variable that has to be manually assigned instead.
-    // If this can be fixed, get rid of this and just observe collectionView.
-    @objc weak var unowningCollectionView: NSCollectionView?
     
     @Published private var isHostingViewFirstResponder = false
     
@@ -135,6 +142,11 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                                         // hover could be for either state
                                         album.starredBool = !album.starredBool
                                     }
+                                    .accessibilityAction {
+                                        album.starredBool = !album.starredBool
+                                    }
+                                    .accessibilityLabel("Not Favourited")
+                                    .accessibilityHint("Favourite Album")
                                     .help(helpText)
                             }
                         } else if album.starred != nil {
@@ -145,12 +157,19 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
                                     .onTapGesture {
                                         album.starredBool = false
                                     }
+                                    .accessibilityAction {
+                                        album.starredBool = !album.starredBool
+                                    }
+                                    .accessibilityLabel("Favourited")
+                                    .accessibilityHint("Unfavourite Album")
                                     .help(helpText)
                             }
                         } else {
                             $0
                         }
                     }
+                    // XXX: This might not be right, because we might want the overlay to be accessible.
+                    .accessibilityHidden(true)
                 Text(album.itemName ?? "")
                     .controlSize(.small)
                     // lineLimit 2 w/ space reservation is interesting, but requires newer target
