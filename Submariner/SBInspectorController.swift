@@ -78,7 +78,8 @@ extension NSNotification.Name {
                     )
                     .padding(.top, 20)
                     .padding(.horizontal, 20)
-                    .quickLookPreview($coverUrl)
+                    .accessibilityLabel("Album cover")
+                    .accessibilityHint("Quick look album cover")                    .quickLookPreview($coverUrl)
             } else {
                 Image(systemName: "questionmark.square.dashed")
                     .resizable()
@@ -86,6 +87,7 @@ extension NSNotification.Name {
                     .aspectRatio(contentMode: .fit)
                     .padding()
                     .foregroundColor(.secondary)
+                    .accessibilityLabel("Blank album cover")
             }
         }
     }
@@ -180,6 +182,7 @@ extension NSNotification.Name {
                         $0.frame(maxHeight: .infinity)
                     }
                 }
+                .accessibilityLabel("Track properties")
             }
         }
     }
@@ -230,6 +233,7 @@ extension NSNotification.Name {
                         $0.frame(maxHeight: .infinity)
                     }
                 }
+                .accessibilityLabel("Playlist properties")
             }
         }
     }

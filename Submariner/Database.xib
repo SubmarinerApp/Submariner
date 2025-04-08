@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
         <capability name="Search Toolbar Item" minToolsVersion="12.0" minSystemVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -135,6 +135,7 @@
                                                             </connections>
                                                         </tableColumn>
                                                     </tableColumns>
+                                                    <accessibility description="Source list"/>
                                                     <connections>
                                                         <outlet property="dataSource" destination="-2" id="21"/>
                                                         <outlet property="delegate" destination="-2" id="22"/>
@@ -887,15 +888,15 @@ DQ
         <image name="chevron.forward" catalog="system" width="10" height="14"/>
         <image name="forward" catalog="system" width="20" height="12"/>
         <image name="info.circle" catalog="system" width="15" height="15"/>
-        <image name="music.note.list" catalog="system" width="17" height="15"/>
-        <image name="pause" catalog="system" width="10" height="13"/>
+        <image name="music.note.list" catalog="system" width="16" height="15"/>
+        <image name="pause" catalog="system" width="9" height="13"/>
         <image name="person.wave.2" width="15" height="14"/>
         <image name="play" catalog="system" width="12" height="13"/>
-        <image name="repeat" catalog="system" width="18" height="14"/>
-        <image name="shuffle" catalog="system" width="19" height="14"/>
-        <image name="sidebar.left" catalog="system" width="19" height="14"/>
-        <image name="speaker" catalog="system" width="13" height="14"/>
+        <image name="repeat" catalog="system" width="17" height="14"/>
+        <image name="shuffle" catalog="system" width="18" height="14"/>
+        <image name="sidebar.left" catalog="system" width="18" height="14"/>
+        <image name="speaker" catalog="system" width="14" height="14"/>
         <image name="speaker.wave.2" catalog="system" width="19" height="14"/>
-        <image name="stop" catalog="system" width="15" height="13"/>
+        <image name="stop" catalog="system" width="14" height="13"/>
     </resources>
 </document>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,7 +18,7 @@
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-	<customView id="3">
+        <customView id="3">
             <rect key="frame" x="0.0" y="0.0" width="619" height="409"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -44,6 +44,7 @@
                                                     <size key="itemSize" width="220" height="230"/>
                                                 </collectionViewFlowLayout>
                                                 <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                <accessibility description="Albums"/>
                                                 <connections>
                                                     <outlet property="dataSource" destination="-2" id="Qt9-18-yeC"/>
                                                     <outlet property="delegate" destination="-2" id="ePd-IP-qNq"/>
@@ -72,11 +73,11 @@
                                     <rect key="frame" x="-2" y="41" width="622" height="158"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <clipView key="contentView" id="SWK-O6-Z3Q">
-                                        <rect key="frame" x="0.0" y="0.0" width="622" height="158"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="622" height="143"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveName="ServerAlbumsTable" headerView="15" id="13" customClass="SBTableView">
-                                                <rect key="frame" x="0.0" y="0.0" width="707" height="130"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="707" height="115"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -227,6 +228,7 @@
                                                         </connections>
                                                     </tableColumn>
                                                 </tableColumns>
+                                                <accessibility description="Tracks for album"/>
                                                 <connections>
                                                     <action trigger="doubleAction" selector="trackDoubleClick:" target="-2" id="nVO-dd-oy4"/>
                                                     <outlet property="dataSource" destination="-2" id="64"/>
@@ -237,7 +239,7 @@
                                         </subviews>
                                     </clipView>
                                     <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="14">
-                                        <rect key="frame" x="0.0" y="142" width="622" height="16"/>
+                                        <rect key="frame" x="0.0" y="143" width="622" height="15"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                     <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="16">
@@ -380,6 +382,6 @@
         </menu>
     </objects>
     <resources>
-        <image name="heart.fill" catalog="system" width="17" height="14"/>
+        <image name="heart.fill" catalog="system" width="16" height="14"/>
     </resources>
 </document>
