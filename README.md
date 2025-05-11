@@ -37,6 +37,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * All tracks on the server can be shown in a new view.
   * This can be accessed by Go - By Tracks (Cmd+3).
 * More metadata is returned for albums, artists, and tracks.
+* All albums on the server can now be browsed through the server albums view.
 * Add some accessibility annotations to various tables and labels.
 * Fix accessibility (i.e. VoiceOver) with the album list.
 * Track ratings are shown with stars and can be set from the inspector.

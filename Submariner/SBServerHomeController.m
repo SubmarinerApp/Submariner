@@ -136,6 +136,13 @@
                       [NSDictionary dictionaryWithObjectsAndKeys: 
                        @"RecentItem", ITEM_IDENTIFIER, 
                        @"Recent", ITEM_NAME, nil],
+                      [NSDictionary dictionaryWithObjectsAndKeys:
+                       @"AlphaNameItem", ITEM_IDENTIFIER,
+                       @"All", ITEM_NAME, nil],
+                      // this may depend on having an ordered set to make sense
+//                      [NSDictionary dictionaryWithObjectsAndKeys:
+//                       @"AlphaArtistItem", ITEM_IDENTIFIER,
+//                       @"All By Artist", ITEM_NAME, nil],
 					  nil];
 	
 	[scopeGroups addObject:[NSDictionary dictionaryWithObjectsAndKeys:
@@ -198,6 +205,10 @@
         return SBSubsonicRequestGetAlbumListStarred;
     } else if ([identifier isEqualToString:@"RecentItem"]) {
         return SBSubsonicRequestGetAlbumListRecent;
+    } else if ([identifier isEqualToString:@"AlphaNameItem"]) {
+        return SBSubsonicRequestGetAlbumListAlphabeticalByName;
+    } else if ([identifier isEqualToString:@"AlphaArtistItem"]) {
+        return SBSubsonicRequestGetAlbumListAlphabeticalByArtist;
     }
     // fallback
     return SBSubsonicRequestGetAlbumListRandom;
@@ -489,6 +500,10 @@
         return [NSImage imageWithSystemSymbolName: @"arrowshape.up" accessibilityDescription: @"Frequent"];
     } else if ([identifier isEqualToString: @"RecentItem"]) {
         return [NSImage imageWithSystemSymbolName: @"clock.arrow.circlepath" accessibilityDescription: @"Recent"];
+    } else if ([identifier isEqualToString: @"AlphaNameItem"]) {
+        return [NSImage imageWithSystemSymbolName: @"square.stack" accessibilityDescription: @"All sorted by name"];
+    } else if ([identifier isEqualToString: @"AlphaArtistItem"]) {
+        return [NSImage imageWithSystemSymbolName: @"music.microphone" accessibilityDescription: @"All sorted by artist"];
     }
     
 	return nil;

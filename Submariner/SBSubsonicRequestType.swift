@@ -43,6 +43,7 @@ enum SBSubsonicRequestType: Equatable {
     case getSimilarTracks(artist: SBArtist)
 }
 
+// TODO: Convert SBServerHomeController to Swift so we can have associated data for genre/year
 @objc enum SBAlbumListType: Int {
     @objc(SBSubsonicRequestGetAlbumListRandom) case random
     @objc(SBSubsonicRequestGetAlbumListNewest) case newest
@@ -50,6 +51,8 @@ enum SBSubsonicRequestType: Equatable {
     @objc(SBSubsonicRequestGetAlbumListStarred) case starred
     @objc(SBSubsonicRequestGetAlbumListFrequent) case frequent
     @objc(SBSubsonicRequestGetAlbumListRecent) case recent
+    @objc(SBSubsonicRequestGetAlbumListAlphabeticalByName) case alphabetical
+    @objc(SBSubsonicRequestGetAlbumListAlphabeticalByArtist) case alphabeticalByArtist
     
     func subsonicParameter() -> String {
         switch self {
@@ -65,6 +68,10 @@ enum SBSubsonicRequestType: Equatable {
             return "recent"
         case .starred:
             return "starred"
+        case .alphabetical:
+            return "alphabeticalByName"
+        case .alphabeticalByArtist:
+            return "alphabeticalByName"
         }
     }
 }
