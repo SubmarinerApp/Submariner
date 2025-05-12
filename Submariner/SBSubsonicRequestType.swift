@@ -71,7 +71,7 @@ enum SBSubsonicRequestType: Equatable {
         case .alphabetical:
             return "alphabeticalByName"
         case .alphabeticalByArtist:
-            return "alphabeticalByName"
+            return "alphabeticalByArtist"
         }
     }
 }
