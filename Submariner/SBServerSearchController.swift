@@ -12,16 +12,31 @@ import Cocoa
 
 @objc class SBServerSearchController: SBServerViewController, NSTableViewDataSource {
     @objc dynamic var searchResult: SBSearchResult? {
+        willSet {
+            self.willChangeValue(for: \.isStarred)
+            self.willChangeValue(for: \.isAllTracks)
+        }
         didSet {
+            self.didChangeValue(for: \.isStarred)
+            self.didChangeValue(for: \.isAllTracks)
+            
+            queryTypeButton.isHidden = true
+            queryTypeButton.isEnabled = false
             switch self.searchResult?.query {
             case .search(query: let query) where query.isEmpty:
                 self.title = "All Tracks"
+                queryTypeButton.isHidden = false
+                queryTypeButton.isEnabled = true
             case .search(let query):
                 self.title = "Search Results for \(query)"
             case .similarTo(let artist):
                 self.title = "Similar Tracks to \(artist.itemName ?? "(unknown artist)")"
             case .topTracksFor(let artistName):
                 self.title = "Top Tracks for \(artistName)"
+            case .starred:
+                self.title = "Starred Tracks"
+                queryTypeButton.isHidden = false
+                queryTypeButton.isEnabled = true
             default:
                 self.title = "Search Results"
             }
@@ -32,6 +47,9 @@ import Cocoa
     
     @IBOutlet var tracksTableView: NSTableView!
     @IBOutlet var tracksController: NSArrayController!
+    
+    @IBOutlet var queryTypeButton: NSButton!
+    @IBOutlet var queryTypePopover: NSPopover!
     
     var selectionObserver: NSKeyValueObservation?
     var boundsObserver: NSObjectProtocol?
@@ -49,7 +67,7 @@ import Cocoa
                 if let results = notification.object as! SBSearchResult? {
                     results.fetchTracks(managedObjectContext: self.managedObjectContext)
                     self.searchResult = results
-                    self.shouldInfiniteScroll = results.returnedTracks > 0;
+                    self.shouldInfiniteScroll = results.paginatable && results.returnedTracks > 0;
                     // Load more tracks if we still haven't filled the visible table
                     self.loadWhenAtBottom()
                 }
@@ -102,6 +120,17 @@ import Cocoa
     
     // #MARK: - IBActions
     
+    @IBAction func showQueryTypePopover(_ sender: Any) {
+        guard !queryTypePopover.isShown else {
+            queryTypePopover.close()
+            return
+        }
+        guard let button = sender as? NSButton else {
+            return
+        }
+        queryTypePopover.show(relativeTo: button.visibleRect, of: button, preferredEdge: .minY)
+    }
+    
     // #MARK: - NSTableView Delegate
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
@@ -110,5 +139,37 @@ import Cocoa
         }
         
         return SBLibraryItemPasteboardWriter(item: tracks[row], index: row)
+    }
+    
+    // #MARK: - Popover Radio Buttons
+    // XXX: Does bindings + variables make sense over an IBAction? Would mean making some IBOutlets instead...
+    
+    @objc dynamic var isAllTracks: Bool {
+        get {
+            if let query = self.searchResult?.query, case let .search(query: queryContents) = query, queryContents.isEmpty {
+                return true
+            }
+            return false
+        }
+        set {
+            guard newValue else {
+                return
+            }
+            let navItem = SBServerSearchNavigationItem(server: self.server, queryType: .search(query: ""))
+            databaseController.navigate(to: navItem)
+        }
+    }
+    
+    @objc dynamic var isStarred: Bool {
+        get {
+            return self.searchResult?.query == .starred
+        }
+        set {
+            guard newValue else {
+                return
+            }
+            let navItem = SBServerSearchNavigationItem(server: self.server, queryType: .starred)
+            databaseController.navigate(to: navItem)
+        }
     }
 }

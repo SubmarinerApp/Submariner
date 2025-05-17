@@ -563,6 +563,11 @@ public class SBServer: SBResource {
         OperationQueue.sharedServerQueue.addOperation(request)
     }
     
+    @objc func getStarred() {
+        let request = SBSubsonicRequestOperation(server: self, request: .getStarred)
+        OperationQueue.sharedServerQueue.addOperation(request)
+    }
+    
     // #MARK: - Subsonic Client (Rating)
     
     @objc(setRating:forID:) func setRating(_ rating: Int, id: String) {

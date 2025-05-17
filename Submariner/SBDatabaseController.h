@@ -58,6 +58,7 @@
 @class SBPlaylistController;
 @class SBLibrary;
 @class SBVolumeButton;
+@class SBNavigationItem;
 
 #define SBLibraryTableViewDataType @"com.submarinerapp.item-url-list"
 #define SBLibraryItemTableViewDataType @"com.submarinerapp.item-url-string"
@@ -149,6 +150,8 @@
 - (BOOL)openImportAlert:(NSWindow *)sender files:(NSArray<NSURL*> *)files;
 
 - (void)goToTrack: (SBTrack*)track;
+
+- (void)navigateForwardToNavItem: (SBNavigationItem*)navItem NS_SWIFT_NAME(navigate(to:));
 
 - (IBAction)showDownloadView:(id)sender;
 - (IBAction)showLibraryView:(id)sender;

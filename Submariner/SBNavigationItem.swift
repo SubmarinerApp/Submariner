@@ -53,6 +53,18 @@ import Cocoa
         return nil
     }
     
+    @objc var starred: Bool {
+        if case .starred = self.query {
+            return true
+        }
+        return false
+    }
+    
+    init(server: SBServer, queryType: SBSearchResult.QueryType) {
+        self.query = queryType
+        super.init(server: server)
+    }
+    
     @objc init(server: SBServer, query: String) {
         self.query = .search(query: query)
         super.init(server: server)

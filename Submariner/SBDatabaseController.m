@@ -1853,6 +1853,9 @@
         } else if (searchNavItem.similarToArtist) {
             [self.server getSimilarTracksTo: searchNavItem.similarToArtist];
             [searchField setStringValue: @""];
+        } else if (searchNavItem.starred) {
+            [self.server getStarred];
+            [searchField setStringValue: @""];
         }
     } else {
         [searchField setStringValue: @""];

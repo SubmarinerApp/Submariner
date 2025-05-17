@@ -8,6 +8,8 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SBServerSearchController">
             <connections>
+                <outlet property="queryTypeButton" destination="8Rq-K5-b1e" id="ezt-w3-fUh"/>
+                <outlet property="queryTypePopover" destination="OiN-38-42c" id="7oz-s9-YaR"/>
                 <outlet property="tracksController" destination="24" id="30"/>
                 <outlet property="tracksTableView" destination="7" id="31"/>
                 <outlet property="view" destination="1" id="2"/>
@@ -212,6 +214,18 @@
                         </binding>
                     </connections>
                 </textField>
+                <button toolTip="Query Type" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Rq-K5-b1e">
+                    <rect key="frame" x="593" y="4" width="46" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <buttonCell key="cell" type="push" bezelStyle="rounded" image="gearshape" catalog="system" imagePosition="overlaps" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="S3s-Ve-AOB">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <accessibility description="Open Query Type Popover"/>
+                    <connections>
+                        <action selector="showQueryTypePopover:" target="-2" id="2Rt-hX-ccT"/>
+                    </connections>
+                </button>
             </subviews>
             <point key="canvasLocation" x="139" y="136"/>
         </customView>
@@ -265,5 +279,47 @@
             </items>
             <point key="canvasLocation" x="4" y="-148"/>
         </menu>
+        <viewController id="30Z-gY-Nm0" userLabel="Popover View Controller">
+            <connections>
+                <outlet property="view" destination="v7j-Oo-lJV" id="aAH-fd-wBz"/>
+            </connections>
+        </viewController>
+        <popover behavior="t" id="OiN-38-42c">
+            <connections>
+                <outlet property="contentViewController" destination="30Z-gY-Nm0" id="HzA-b9-xXG"/>
+            </connections>
+        </popover>
+        <customView id="v7j-Oo-lJV" userLabel="Query Type Popover View">
+            <rect key="frame" x="0.0" y="0.0" width="123" height="81"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bB4-Cj-Yh6">
+                    <rect key="frame" x="18" y="44" width="85" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="All Tracks" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="DEQ-6x-5xj">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="isAllTracks" id="x7t-Ky-Pny"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uTU-hc-pmu">
+                    <rect key="frame" x="18" y="19" width="71" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="radio" title="Starred" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="fNs-pf-RAX">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="-2" name="value" keyPath="isStarred" id="0if-VJ-SuA"/>
+                    </connections>
+                </button>
+            </subviews>
+            <point key="canvasLocation" x="-189.5" y="399.5"/>
+        </customView>
     </objects>
+    <resources>
+        <image name="gearshape" catalog="system" width="16" height="16"/>
+    </resources>
 </document>

@@ -326,6 +326,11 @@ class SBSubsonicRequestOperation: SBOperation {
             customization = { operation in
                 operation.currentSearch = SBSearchResult(query: .similarTo(artist: artist))
             }
+        case .getStarred:
+            endpoint = "getStarred2"
+            customization = { operation in
+                operation.currentSearch = SBSearchResult(query: .starred)
+            }
         }
     }
 }

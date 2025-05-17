@@ -41,6 +41,7 @@ enum SBSubsonicRequestType: Equatable {
     case unstar(tracks: [SBTrack], albums: [SBAlbum], artists: [SBArtist], directories: [SBDirectory])
     case getTopTracks(artistName: String)
     case getSimilarTracks(artist: SBArtist)
+    case getStarred
 }
 
 // TODO: Convert SBServerHomeController to Swift so we can have associated data for genre/year

@@ -9,10 +9,20 @@
 import Cocoa
 
 @objc class SBSearchResult: NSObject {
-    enum QueryType {
+    enum QueryType: Equatable {
         case search(query: String)
         case similarTo(artist: SBArtist)
         case topTracksFor(artistName: String)
+        case starred
+    }
+    
+    var paginatable: Bool {
+        switch (self.query) {
+        case .search(query: _):
+            return true
+        default:
+            return false
+        }
     }
     
     var returnedTracks = 0
