@@ -169,7 +169,16 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     @objc static var musicDirectory: URL {
         let path = FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).last!.appendingPathComponent("Submariner/Music")
         if !FileManager.default.fileExists(atPath: path.path) {
-            try! FileManager.default.createDirectory(at: path, withIntermediateDirectories: true)
+            do {
+                try FileManager.default.createDirectory(at: path, withIntermediateDirectories: true)
+            } catch {
+                let alert = NSAlert()
+                alert.alertStyle = .critical
+                alert.messageText = "Failed to Create Directory"
+                alert.informativeText = "Submariner failed to create the music directory \"\(path)\"."
+                alert.runModal()
+                fatalError("Failed to create music directory at \(path)")
+            }
         }
         return path
     }
@@ -177,7 +186,16 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
     @objc static var coverDirectory: URL {
         let path = FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).last!.appendingPathComponent("Submariner/Covers")
         if !FileManager.default.fileExists(atPath: path.path) {
-            try! FileManager.default.createDirectory(at: path, withIntermediateDirectories: true)
+            do {
+                try FileManager.default.createDirectory(at: path, withIntermediateDirectories: true)
+            } catch {
+                let alert = NSAlert()
+                alert.alertStyle = .critical
+                alert.messageText = "Failed to Create Directory"
+                alert.informativeText = "Submariner failed to create the cover directory \"\(path)\"."
+                alert.runModal()
+                fatalError("Failed to create cover directory at \(path)")
+            }
         }
         return path
     }
@@ -186,7 +204,16 @@ fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, catego
         let baseURL = FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).last!.appendingPathComponent("Submariner")
         let path = FileManager.default.urls(for: .musicDirectory, in: .userDomainMask).last!.appendingPathComponent("Submariner/Submariner Library.sqlite")
         if !FileManager.default.fileExists(atPath: baseURL.path) {
-            try! FileManager.default.createDirectory(at: baseURL, withIntermediateDirectories: true)
+            do {
+                try FileManager.default.createDirectory(at: baseURL, withIntermediateDirectories: true)
+            } catch {
+                let alert = NSAlert()
+                alert.alertStyle = .critical
+                alert.messageText = "Failed to Create Directory"
+                alert.informativeText = "Submariner failed to create the music directory \"\(baseURL)\"."
+                alert.runModal()
+                fatalError("Failed to create music directory at \(baseURL)")
+            }
         }
         return path
     }
