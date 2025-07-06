@@ -66,36 +66,36 @@
         <window title="Submariner" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="Submariner" animationBehavior="default" tabbingMode="disallowed" id="1" userLabel="Database Window">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="328" y="212" width="1024" height="600"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
+            <rect key="contentRect" x="328" y="212" width="1280" height="700"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1800" height="1125"/>
             <value key="minSize" type="size" width="720" height="480"/>
             <view key="contentView" misplaced="YES" id="2">
-                <rect key="frame" x="0.0" y="0.0" width="1024" height="600"/>
+                <rect key="frame" x="0.0" y="0.0" width="1280" height="700"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <splitView focusRingType="none" autosaveName="MainSplitView" dividerStyle="thin" vertical="YES" id="7">
-                        <rect key="frame" x="0.0" y="0.0" width="1024" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1280" height="700"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <customView fixedFrame="YES" id="8">
-                                <rect key="frame" x="0.0" y="0.0" width="218" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="273" height="700"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="28" horizontalPageScroll="10" verticalLineScroll="28" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="11">
-                                        <rect key="frame" x="0.0" y="0.0" width="218" height="600"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="273" height="700"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" drawsBackground="NO" id="cdO-el-ZLY">
-                                            <rect key="frame" x="0.0" y="0.0" width="218" height="600"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="273" height="700"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" autosaveName="SourceList" rowHeight="28" rowSizeStyle="systemDefault" viewBased="YES" floatsGroupRows="NO" indentationPerLevel="13" autosaveExpandedItems="YES" indentationMarkerFollowsCell="NO" outlineTableColumn="16" id="15">
-                                                    <rect key="frame" x="0.0" y="0.0" width="218" height="600"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="273" height="700"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="0.0"/>
                                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn width="186" minWidth="16" maxWidth="1000" id="16">
+                                                        <tableColumn width="241" minWidth="16" maxWidth="1000" id="16">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
@@ -108,11 +108,11 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView id="ZxW-DS-Qre">
-                                                                    <rect key="frame" x="11" y="0.0" width="195" height="24"/>
+                                                                    <rect key="frame" x="11" y="0.0" width="250" height="24"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6MX-fs-mcn">
-                                                                            <rect key="frame" x="0.0" y="4" width="195" height="16"/>
+                                                                            <rect key="frame" x="0.0" y="4" width="250" height="16"/>
                                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                             <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Table View Cell" id="LcR-6b-aDV">
                                                                                 <font key="font" usesAppearanceFont="YES"/>
@@ -146,7 +146,7 @@
                                             <nil key="backgroundColor"/>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="14">
-                                            <rect key="frame" x="0.0" y="585" width="252" height="15"/>
+                                            <rect key="frame" x="0.0" y="684" width="273" height="16"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="12">
@@ -157,11 +157,11 @@
                                 </subviews>
                             </customView>
                             <customView fixedFrame="YES" id="9">
-                                <rect key="frame" x="219" y="0.0" width="805" height="600"/>
+                                <rect key="frame" x="274" y="0.0" width="1006" height="700"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ypw-ak-9Is" userLabel="Holding VIew">
-                                        <rect key="frame" x="0.0" y="0.0" width="805" height="600"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1006" height="700"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </customView>
                                 </subviews>
@@ -195,7 +195,7 @@
                     <toolbarItem implicitItemIdentifier="87708EA7-FC46-4E8B-9D35-38D1CD5AE527" explicitItemIdentifier="SBTBToggleSidebar" label="Sidebar" paletteLabel="Sidebar" image="sidebar.left" catalog="system" sizingBehavior="auto" id="x3E-BS-STX">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="mza-yT-8Pr">
-                            <rect key="frame" x="9" y="14" width="31" height="23"/>
+                            <rect key="frame" x="9" y="14" width="30" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="sidebar.left" catalog="system" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="8DD-f1-XMe">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -223,7 +223,7 @@
                     <toolbarItem implicitItemIdentifier="9525B815-9911-44B9-B3EB-03DA4EB073AA" explicitItemIdentifier="SBTBStop" label="Stop" paletteLabel="Stop" image="stop" catalog="system" sizingBehavior="auto" id="mYo-jG-gtG">
                         <nil key="toolTip"/>
                         <button key="view" imageHugsTitle="YES" verticalHuggingPriority="750" id="6Fs-XI-yyc">
-                            <rect key="frame" x="3" y="14" width="27" height="23"/>
+                            <rect key="frame" x="3" y="14" width="26" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="stop" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="cri-4Y-hpb">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -300,7 +300,7 @@
                     <toolbarItem implicitItemIdentifier="F638AE08-B100-4361-940E-E62D1338014A" explicitItemIdentifier="SBTBToggleRepeat" label="Repeat" paletteLabel="Repeat" image="repeat" catalog="system" sizingBehavior="auto" id="S62-qJ-fzK">
                         <nil key="toolTip"/>
                         <button key="view" imageHugsTitle="YES" verticalHuggingPriority="750" id="308">
-                            <rect key="frame" x="7" y="14" width="30" height="23"/>
+                            <rect key="frame" x="8" y="14" width="29" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="repeat" catalog="system" imagePosition="only" alignment="center" borderStyle="border" allowsMixedState="YES" inset="2" id="309">
                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
@@ -323,7 +323,7 @@
                     <toolbarItem implicitItemIdentifier="A976DC3F-A37E-4600-A750-BC24B516BB13" explicitItemIdentifier="SBTBToggleShuffle" label="Shuffle" paletteLabel="Shuffle" image="shuffle" catalog="system" sizingBehavior="auto" id="4vs-eG-BJh">
                         <nil key="toolTip"/>
                         <button key="view" imageHugsTitle="YES" verticalHuggingPriority="750" id="302">
-                            <rect key="frame" x="7" y="14" width="31" height="23"/>
+                            <rect key="frame" x="8" y="14" width="30" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="shuffle" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="303">
                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
@@ -337,7 +337,7 @@
                     <toolbarItem implicitItemIdentifier="7BB2B735-54FA-4211-874E-DC54D248F3E5" explicitItemIdentifier="SBTBShowVolume" label="Volume" paletteLabel="Volume" image="speaker" catalog="system" sizingBehavior="auto" id="Yk7-oS-omj">
                         <nil key="toolTip"/>
                         <button key="view" imageHugsTitle="YES" verticalHuggingPriority="750" id="Sgq-JE-YWM" customClass="SBVolumeButton" customModule="Submariner" customModuleProvider="target">
-                            <rect key="frame" x="11" y="14" width="25" height="23"/>
+                            <rect key="frame" x="10" y="14" width="26" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="speaker" catalog="system" imagePosition="only" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" inset="2" id="Ofy-se-eTz">
                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -356,7 +356,7 @@
                     <toolbarItem implicitItemIdentifier="7F4AA384-9A44-4EB0-8789-7EEF116D73AF" explicitItemIdentifier="SBTBToggleTacklist" label="Tracklist" paletteLabel="Tracklist" image="music.note.list" catalog="system" sizingBehavior="auto" id="aAW-If-dJs">
                         <nil key="toolTip"/>
                         <button key="view" verticalHuggingPriority="750" id="5fD-bB-Du9" customClass="SBTracklistButton" customModule="Submariner" customModuleProvider="target">
-                            <rect key="frame" x="12" y="14" width="29" height="23"/>
+                            <rect key="frame" x="12" y="14" width="28" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="music.note.list" catalog="system" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" borderStyle="border" inset="2" id="XuZ-5I-yef">
                                 <behavior key="behavior" pushIn="YES" changeContents="YES" lightByContents="YES"/>
@@ -436,7 +436,7 @@
                             </searchFieldCell>
                         </searchField>
                     </searchToolbarItem>
-                    <toolbarItem implicitItemIdentifier="23EF07BA-560F-4224-899F-A74C5930D026" explicitItemIdentifier="SBTBAirPlay" label="AirPlay" paletteLabel="AirPlay" tag="-1" image="airplayaudio" catalog="system" sizingBehavior="auto" id="nvk-gb-iuf">
+                    <toolbarItem implicitItemIdentifier="23EF07BA-560F-4224-899F-A74C5930D026" explicitItemIdentifier="SBTBAirPlay" label="AirPlay" paletteLabel="AirPlay" tag="-1" image="airplayaudio" catalog="system" bordered="YES" sizingBehavior="auto" id="nvk-gb-iuf">
                         <nil key="toolTip"/>
                         <customView key="view" id="QTs-3m-dC6" customClass="SBRoutePickerView" customModule="Submariner" customModuleProvider="target">
                             <rect key="frame" x="9" y="14" width="27" height="23"/>
@@ -491,13 +491,13 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="344"/>
             </connections>
-            <point key="canvasLocation" x="198" y="47"/>
+            <point key="canvasLocation" x="326" y="97"/>
         </window>
         <window title="Edit Server Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" frameAutosaveName="Edit Server Window" animationBehavior="default" id="113" userLabel="Edit Server Window">
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="294" y="363" width="400" height="292"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1800" height="1125"/>
             <value key="minSize" type="size" width="400" height="266"/>
             <view key="contentView" id="114">
                 <rect key="frame" x="0.0" y="0.0" width="400" height="292"/>
@@ -729,13 +729,13 @@ Gw
                     </box>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="-61" y="579"/>
+            <point key="canvasLocation" x="6" y="757"/>
         </window>
         <window title="Add Server Playlist" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" frameAutosaveName="Add Server Playlist" animationBehavior="default" id="199" userLabel="Add Server Playlist">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="485" y="393" width="412" height="124"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1800" height="1125"/>
             <value key="minSize" type="size" width="412" height="124"/>
             <value key="maxSize" type="size" width="600" height="124"/>
             <view key="contentView" id="200">
