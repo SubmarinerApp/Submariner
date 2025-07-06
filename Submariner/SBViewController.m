@@ -301,6 +301,7 @@
         }
         // Reset the holding priority, since we still want even resize,
         // we just need to make the previous size stick.
+        NSLayoutPriority oldPriority = [self->compensatedSplitView holdingPriorityForSubviewAtIndex: 1];
         NSLayoutPriority otherPriority = [self->compensatedSplitView holdingPriorityForSubviewAtIndex: 1];
         [self->compensatedSplitView setHoldingPriority: otherPriority forSubviewAtIndex: 0];
         NSView *topItem = [self->compensatedSplitView.subviews objectAtIndex: 0];
@@ -308,6 +309,9 @@
         // we just need to resize it even though it's the same size. Weird.
         CGFloat oldSize = topItem.frame.size.height;
         [self->compensatedSplitView setPosition: oldSize ofDividerAtIndex: 0];
+        // If we don't reset the holding priority back after setting the height,
+        // we get weird snapping issues on macOS 26 when transitioning views.
+        [self->compensatedSplitView setHoldingPriority: oldPriority forSubviewAtIndex: 0];
     });
 }
 
