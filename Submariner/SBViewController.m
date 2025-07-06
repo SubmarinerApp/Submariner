@@ -292,6 +292,13 @@
 // When restored, it'll shrink a bit based on the safe area height. So, let's compensate for it.
 - (void)viewDidAppear {
     [super viewDidAppear];
+    
+    // This bug in AppKit appears to be fixed in some manner in macOS 26.
+    // The workaround we install will actually bring back the issue instead, so let's skip it.
+    if (@available(macOS 26, *)) {
+        return;
+    }
+    
     if (self->compensatedSplitView == nil) {
         return;
     }
