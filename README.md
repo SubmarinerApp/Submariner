@@ -55,6 +55,11 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
   * This removes the PXSourceList vendored library.
 * Fixed the server users view not being able to handle multiple users playing the same track.
 * Fixed not being able to append to a newly created playlist.
+* Fixed the AirPlay button not having a border on macOS 26.
+* Fix the album list shrinking when moving between views on macOS 26.
+* The default window size has increased to accomodate larger toolbar buttons in macOS 26.
+  * If the buttons in the sidebar are spilling over into overflow, increase the sidebar size.
+  * You can reset the default window size with i.e. `defaults delete fr.read-write.Submariner "NSWindow Frame Submariner"`
 
 ### Version 3.3.1
 
