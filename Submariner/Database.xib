@@ -832,12 +832,12 @@ DQ
             </connections>
         </popover>
         <customView id="Y4Y-TV-6ce" userLabel="Volume Popover View">
-            <rect key="frame" x="0.0" y="0.0" width="286" height="32"/>
+            <rect key="frame" x="0.0" y="0.0" width="286" height="59"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button imageHugsTitle="YES" verticalHuggingPriority="750" id="RQW-nU-T8g">
-                    <rect key="frame" x="19" y="4" width="26" height="23"/>
-                    <autoresizingMask key="autoresizingMask"/>
+                    <rect key="frame" x="19" y="31" width="26" height="23"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="speaker" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="tbS-r3-CVa">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -847,8 +847,8 @@ DQ
                     </connections>
                 </button>
                 <button imageHugsTitle="YES" verticalHuggingPriority="750" id="uWd-YM-CxM">
-                    <rect key="frame" x="236" y="4" width="31" height="23"/>
-                    <autoresizingMask key="autoresizingMask"/>
+                    <rect key="frame" x="236" y="31" width="31" height="23"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" image="speaker.wave.2" catalog="system" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="2Se-ec-wf1">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -858,8 +858,8 @@ DQ
                     </connections>
                 </button>
                 <slider verticalHuggingPriority="750" id="rNC-wE-QO3">
-                    <rect key="frame" x="50" y="0.0" width="181" height="28"/>
-                    <autoresizingMask key="autoresizingMask"/>
+                    <rect key="frame" x="50" y="27" width="181" height="28"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <sliderCell key="cell" continuous="YES" state="on" alignment="left" maxValue="1" doubleValue="0.5" tickMarkPosition="above" sliderType="linear" id="eCr-CU-Ykk"/>
                     <connections>
                         <action selector="setVolume:" target="-2" id="dQr-O0-Dud"/>
@@ -870,8 +870,24 @@ DQ
                         </binding>
                     </connections>
                 </slider>
+                <textField toolTip="Volume percentage" focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9Ks-Zr-JRY">
+                    <rect key="frame" x="125" y="9" width="33" height="16"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <textFieldCell key="cell" lineBreakMode="clipping" title="50%" id="qwI-Me-nIk">
+                        <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="percent" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" id="y7j-wX-1qn" userLabel="Volume Percentage Number Formatter">
+                            <integer key="multiplier" value="100"/>
+                        </numberFormatter>
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="tertiaryLabelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                    <accessibility description="Volume percentage"/>
+                    <connections>
+                        <binding destination="297" name="value" keyPath="values.playerVolume" id="bFN-P2-nI6"/>
+                    </connections>
+                </textField>
             </subviews>
-            <point key="canvasLocation" x="778" y="-169"/>
+            <point key="canvasLocation" x="572" y="-364.5"/>
         </customView>
         <menu id="Fe1-K4-0De" userLabel="Source List Menu">
             <connections>

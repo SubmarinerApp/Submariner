@@ -40,6 +40,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 * All albums on the server can now be browsed through the server albums view.
 * Add some accessibility annotations to various tables and labels.
 * Fix accessibility (i.e. VoiceOver) with the album list.
+* The volume is shown as a percentage in the popover.
 * Track ratings are shown with stars and can be set from the inspector.
 * Fix ratings getting reset when fetching from the server.
 * Fix album information not getting pulled in from tracks on search.
