@@ -301,7 +301,7 @@
         }
         // Reset the holding priority, since we still want even resize,
         // we just need to make the previous size stick.
-        NSLayoutPriority oldPriority = [self->compensatedSplitView holdingPriorityForSubviewAtIndex: 1];
+        NSLayoutPriority oldPriority = [self->compensatedSplitView holdingPriorityForSubviewAtIndex: 0];
         NSLayoutPriority otherPriority = [self->compensatedSplitView holdingPriorityForSubviewAtIndex: 1];
         [self->compensatedSplitView setHoldingPriority: otherPriority forSubviewAtIndex: 0];
         NSView *topItem = [self->compensatedSplitView.subviews objectAtIndex: 0];
