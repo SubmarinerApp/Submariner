@@ -30,6 +30,10 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ## Release Notes
 
+### Not yet released
+
+* Prevent claiming another artist's albums, until we gain multiple artists on a single album.
+
 ### Version 3.4
 
 * Infinite scrolling is added to search results and server albums.
