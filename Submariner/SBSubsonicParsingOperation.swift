@@ -283,6 +283,15 @@ class SBSubsonicParsingOperation: SBOperation, XMLParserDelegate {
         // We must have a parent (artist) to assign to.
         // Use tag based approach; getAlbumList2 and search3 use this.
         if let artistId = attributeDict["artistId"], let id = attributeDict["id"] {
+            // HACK: Until we properly handle Navidrome BFR/OpenSubsonic multiple artists,
+            // ignore diff artist vs. album artist until it can properly be associated.
+            // Until then, changing the association between artists can confuse the DB.
+            if let currentArtistId = currentArtistID ?? currentArtist?.itemId,
+               artistId != currentArtistId { // artistId implicitly not nil
+                logger.info("Album with ID \(id, privacy: .public) has artist ID \(artistId, privacy: .public), but currently scanning albums for \(currentArtistId, privacy: .public). This may be a non-primary artist for an album, which is an OpenSubsonic extension currently not supported by Submariner.")
+                return
+            }
+            
             var artist = fetchArtist(id: artistId)
             if artist == nil {
                 // handles the different context fine
