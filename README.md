@@ -32,6 +32,7 @@ Doing so isn't fatal (it's not a secret), but it is annoying for other contribut
 
 ### Not yet released
 
+* Menu items have icons on macOS 26.
 * Prevent claiming another artist's albums, until we gain multiple artists on a single album.
 
 ### Version 3.4

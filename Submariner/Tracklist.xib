@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24412" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24412"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -120,28 +120,28 @@
         </customView>
         <menu id="ZuB-I1-mw4">
             <items>
-                <menuItem title="Play" id="ZxI-hf-xRA">
+                <menuItem title="Play" secondaryImage="play" catalog="system" id="ZxI-hf-xRA">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="playSelected:" target="-2" id="hEx-5R-aRb"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="8p2-LZ-tRv"/>
-                <menuItem title="Delete" id="G1b-HL-Wxy">
+                <menuItem title="Delete" secondaryImage="trash" catalog="system" id="G1b-HL-Wxy">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="delete:" target="-2" id="VSV-4A-B2c"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="YFh-Ha-TpX"/>
-                <menuItem title="New Playlist with Selected" id="iuG-yd-Qzv">
+                <menuItem title="New Playlist with Selected" secondaryImage="music.note.list" catalog="system" id="iuG-yd-Qzv">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="createNewLocalPlaylistWithSelectedTracks:" target="-2" id="FcE-hB-eXh"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="95v-Cw-f7N"/>
-                <menuItem title="Download" id="xAQ-Xt-1Xf">
+                <menuItem title="Download" secondaryImage="arrow.down.circle" catalog="system" id="xAQ-Xt-1Xf">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="downloadSelected:" target="-2" id="ISY-Jk-trp"/>
@@ -163,4 +163,10 @@
             <point key="canvasLocation" x="104" y="-148"/>
         </menu>
     </objects>
+    <resources>
+        <image name="arrow.down.circle" catalog="system" width="15" height="15"/>
+        <image name="music.note.list" catalog="system" width="16" height="15"/>
+        <image name="play" catalog="system" width="12" height="13"/>
+        <image name="trash" catalog="system" width="15" height="17"/>
+    </resources>
 </document>

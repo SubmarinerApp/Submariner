@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24412" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24412"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -32,7 +32,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="dhh-J0-WuM"/>
-                            <menuItem title="Delete Downloaded Items..." id="iqe-ys-z2b">
+                            <menuItem title="Delete Downloaded Items..." secondaryImage="trash" catalog="system" id="iqe-ys-z2b">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="purgeLocalLibrary:" target="494" id="hx4-Rn-XJj"/>
@@ -83,7 +83,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="547"/>
-                            <menuItem title="New Playlist" keyEquivalent="n" id="538">
+                            <menuItem title="New Playlist" secondaryImage="music.note.list" catalog="system" keyEquivalent="n" id="538">
                                 <connections>
                                     <action selector="newPlaylist:" target="494" id="540"/>
                                 </connections>
@@ -112,13 +112,13 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="5TQ-08-gf5"/>
-                            <menuItem title="New Server" id="539">
+                            <menuItem title="New Server" secondaryImage="network" catalog="system" id="539">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="newServer:" target="494" id="541"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Open Server Home Page" id="i9Q-cn-ygF">
+                            <menuItem title="Open Server Home Page" secondaryImage="house" catalog="system" id="i9Q-cn-ygF">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="openCurrentServerHomePage:" target="494" id="mx7-5D-u65"/>
@@ -137,7 +137,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="dt2-nv-5IQ"/>
-                            <menuItem title="Download" keyEquivalent="S" id="eFU-Sh-VoQ">
+                            <menuItem title="Download" secondaryImage="arrow.down.circle" catalog="system" keyEquivalent="S" id="eFU-Sh-VoQ">
                                 <connections>
                                     <action selector="downloadSelected:" target="-1" id="eoD-aJ-yzw"/>
                                 </connections>
@@ -218,7 +218,7 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="Soo-Td-T1J"/>
-                            <menuItem title="Favourite" keyEquivalent="e" id="ZT5-dn-mi5">
+                            <menuItem title="Favourite" secondaryImage="star" catalog="system" keyEquivalent="e" id="ZT5-dn-mi5">
                                 <connections>
                                     <binding destination="494" name="enabled" keyPath="databaseController.hasSelectedMusicItems" id="CT5-gU-nK7"/>
                                     <binding destination="494" name="value" keyPath="databaseController.selectedMusicItemsStarred" id="wdE-q6-CkZ"/>
@@ -259,7 +259,7 @@ CA
                                     <action selector="toggleSidebar:" target="-1" id="v3y-0N-FQU"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Toggle Tracklist" keyEquivalent="t" id="542">
+                            <menuItem title="Toggle Tracklist" secondaryImage="music.note.list" catalog="system" keyEquivalent="t" id="542">
                                 <connections>
                                     <action selector="toogleTracklist:" target="494" id="543"/>
                                     <binding destination="494" name="title" keyPath="databaseController.isTracklistShown" id="JbC-6M-aWY">
@@ -269,7 +269,7 @@ CA
                                     </binding>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Toggle Server Users" keyEquivalent="u" id="QXo-h3-Ijg">
+                            <menuItem title="Toggle Server Users" secondaryImage="person.wave.2" keyEquivalent="u" id="QXo-h3-Ijg">
                                 <connections>
                                     <action selector="toggleServerUsers:" target="494" id="QuS-kO-6Ep"/>
                                     <binding destination="494" name="title" keyPath="databaseController.isServerUsersShown" id="QHk-o3-Uba">
@@ -279,7 +279,7 @@ CA
                                     </binding>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Toggle Inspector" keyEquivalent="i" id="iey-02-CZw">
+                            <menuItem title="Toggle Inspector" secondaryImage="info.circle" catalog="system" keyEquivalent="i" id="iey-02-CZw">
                                 <connections>
                                     <action selector="toggleInspector:" target="-1" id="dnq-Zg-KFV"/>
                                     <binding destination="494" name="title" keyPath="databaseController.isInspectorShown" id="96N-7Z-d9s">
@@ -290,7 +290,7 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="2b6-cD-4uz"/>
-                            <menuItem title="Reload Server" keyEquivalent="r" id="nCA-zb-sOF">
+                            <menuItem title="Reload Server" secondaryImage="arrow.clockwise" catalog="system" keyEquivalent="r" id="nCA-zb-sOF">
                                 <connections>
                                     <action selector="reloadCurrentServer:" target="494" id="RCp-ZJ-v4P"/>
                                 </connections>
@@ -309,33 +309,33 @@ CA
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Go" id="wz4-X7-wEp">
                         <items>
-                            <menuItem title="Back" keyEquivalent="[" id="XYS-Z8-zMI">
+                            <menuItem title="Back" secondaryImage="chevron.backward" catalog="system" keyEquivalent="[" id="XYS-Z8-zMI">
                                 <connections>
                                     <action selector="navigateBack:" target="-1" id="sxb-23-sna"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Forward" keyEquivalent="]" id="tWM-R6-xbK">
+                            <menuItem title="Forward" secondaryImage="chevron.forward" catalog="system" keyEquivalent="]" id="tWM-R6-xbK">
                                 <connections>
                                     <action selector="navigateForward:" target="-1" id="yXA-kx-JXh"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="HtV-Rh-dJa"/>
-                            <menuItem title="By Artists" keyEquivalent="1" id="55g-AS-KKB">
+                            <menuItem title="By Artists" secondaryImage="music.microphone" catalog="system" keyEquivalent="1" id="55g-AS-KKB">
                                 <connections>
                                     <action selector="showIndices:" target="494" id="uZu-1b-wpM"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="By Albums" keyEquivalent="2" id="vwP-t7-5am">
+                            <menuItem title="By Albums" secondaryImage="square.stack" catalog="system" keyEquivalent="2" id="vwP-t7-5am">
                                 <connections>
                                     <action selector="showAlbums:" target="494" id="J9l-xR-deB"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="By Tracks" keyEquivalent="3" id="RFV-59-ghe">
+                            <menuItem title="By Tracks" secondaryImage="music.note" catalog="system" keyEquivalent="3" id="RFV-59-ghe">
                                 <connections>
                                     <action selector="showSongs:" target="-1" id="bcY-fY-ct4"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="By Directories" keyEquivalent="4" id="7L2-8m-bYP">
+                            <menuItem title="By Directories" secondaryImage="folder" catalog="system" keyEquivalent="4" id="7L2-8m-bYP">
                                 <connections>
                                     <action selector="showDirectories:" target="494" id="wSR-kt-g5D"/>
                                 </connections>
@@ -359,7 +359,7 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="DVs-nI-fnl"/>
-                            <menuItem title="Search" keyEquivalent="f" id="Zla-FM-zx5">
+                            <menuItem title="Search" secondaryImage="magnifyingglass" catalog="system" keyEquivalent="f" id="Zla-FM-zx5">
                                 <connections>
                                     <action selector="search:" target="494" id="LyJ-ab-5mN"/>
                                 </connections>
@@ -370,13 +370,13 @@ CA
                 <menuItem title="Playback" id="HuP-mc-qyh">
                     <menu key="submenu" title="Playback" id="kxK-gs-7Pd">
                         <items>
-                            <menuItem title="Play/Pause" keyEquivalent=" " id="wrD-S0-rVT">
+                            <menuItem title="Play/Pause" secondaryImage="playpause" catalog="system" keyEquivalent=" " id="wrD-S0-rVT">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="playPause:" target="494" id="Uxw-R3-d3b"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Stop Playback" keyEquivalent="." id="6gR-DW-WBs">
+                            <menuItem title="Stop Playback" secondaryImage="stop" catalog="system" keyEquivalent="." id="6gR-DW-WBs">
                                 <connections>
                                     <action selector="stop:" target="494" id="frx-OT-8Cb"/>
                                 </connections>
@@ -390,7 +390,7 @@ CA
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="A3a-PO-UZ7"/>
-                            <menuItem title="Play Selected" id="AHx-gK-1Im">
+                            <menuItem title="Play Selected" secondaryImage="play.square" catalog="system" id="AHx-gK-1Im">
                                 <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
@@ -408,7 +408,7 @@ DQ
                                     <action selector="playFirstDiscFromAlbum:" target="-1" id="Y9q-C8-Ok1"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Add Selected to Tracklist" keyEquivalent="d" id="BRM-Ur-u3g">
+                            <menuItem title="Add Selected to Tracklist" secondaryImage="text.append" catalog="system" keyEquivalent="d" id="BRM-Ur-u3g">
                                 <connections>
                                     <action selector="addSelectedToTracklist:" target="-1" id="dEe-Se-OfZ"/>
                                 </connections>
@@ -420,24 +420,24 @@ DQ
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="irQ-gk-QUO"/>
-                            <menuItem title="Previous Track" keyEquivalent="" id="6eK-AW-rbn">
+                            <menuItem title="Previous Track" secondaryImage="backward.end" catalog="system" keyEquivalent="" id="6eK-AW-rbn">
                                 <connections>
                                     <action selector="previousTrack:" target="494" id="sPC-Wy-T9s"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Next Track" keyEquivalent="" id="h3W-7c-F1g">
+                            <menuItem title="Next Track" secondaryImage="forward.end" catalog="system" keyEquivalent="" id="h3W-7c-F1g">
                                 <connections>
                                     <action selector="nextTrack:" target="494" id="L1E-pv-H7N"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="2Ub-yA-g4d"/>
-                            <menuItem title="Rewind" keyEquivalent="" id="fLe-NG-hf5">
+                            <menuItem title="Rewind" secondaryImage="backward" catalog="system" keyEquivalent="" id="fLe-NG-hf5">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                 <connections>
                                     <action selector="rewind:" target="494" id="8cz-Qi-5ZK"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Fast Forward" keyEquivalent="" id="cci-d6-B42">
+                            <menuItem title="Fast Forward" secondaryImage="forward" catalog="system" keyEquivalent="" id="cci-d6-B42">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES"/>
                                 <connections>
                                     <action selector="fastForward:" target="494" id="uO1-eC-qfv"/>
@@ -450,17 +450,17 @@ DQ
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="bLI-cD-qZv"/>
-                            <menuItem title="Increase Volume" keyEquivalent="" id="eoq-8d-aSq">
+                            <menuItem title="Increase Volume" secondaryImage="speaker.plus" catalog="system" keyEquivalent="" id="eoq-8d-aSq">
                                 <connections>
                                     <action selector="volumeUp:" target="494" id="bL7-Vi-zEf"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Decrease Volume" keyEquivalent="" id="U2j-GV-7Ou">
+                            <menuItem title="Decrease Volume" secondaryImage="speaker.minus" catalog="system" keyEquivalent="" id="U2j-GV-7Ou">
                                 <connections>
                                     <action selector="volumeDown:" target="494" id="eC4-kT-mX0"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Mute" alternate="YES" keyEquivalent="" id="jWK-cF-ext">
+                            <menuItem title="Mute" secondaryImage="speaker.slash" catalog="system" alternate="YES" keyEquivalent="" id="jWK-cF-ext">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <action selector="setMuteOn:" target="494" id="vWZ-WD-KWZ"/>
@@ -483,7 +483,7 @@ DQ
                                                 </binding>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Repeat One" id="EGF-cy-QSn">
+                                        <menuItem title="Repeat One" secondaryImage="repeat.1" catalog="system" id="EGF-cy-QSn">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <binding destination="s2r-9F-vP5" name="value" keyPath="values.repeatMode" id="hqZ-Mq-1v9">
@@ -495,7 +495,7 @@ DQ
                                                 </binding>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Repeat All" id="aNQ-jY-0Pn">
+                                        <menuItem title="Repeat All" secondaryImage="repeat" catalog="system" id="aNQ-jY-0Pn">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <binding destination="s2r-9F-vP5" name="value" keyPath="values.repeatMode" id="8rb-sp-bEP">
@@ -517,14 +517,14 @@ DQ
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Shuffle" keyEquivalent="s" id="azN-bG-LL1">
+                            <menuItem title="Shuffle" secondaryImage="shuffle" catalog="system" keyEquivalent="s" id="azN-bG-LL1">
                                 <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
                                 <connections>
                                     <binding destination="s2r-9F-vP5" name="value" keyPath="values.shuffle" id="hud-gw-zmG"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="RXO-ow-3eh"/>
-                            <menuItem title="Playback Speed..." id="ZS2-kE-T3v">
+                            <menuItem title="Playback Speed..." secondaryImage="speedometer" catalog="system" id="ZS2-kE-T3v">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="showPlayRate:" target="-1" id="KSg-pu-9n2"/>
@@ -590,4 +590,37 @@ DQ
         <customObject id="420" customClass="NSFontManager"/>
         <userDefaultsController representsSharedInstance="YES" id="s2r-9F-vP5"/>
     </objects>
+    <resources>
+        <image name="arrow.clockwise" catalog="system" width="14" height="16"/>
+        <image name="arrow.down.circle" catalog="system" width="15" height="15"/>
+        <image name="backward" catalog="system" width="20" height="12"/>
+        <image name="backward.end" catalog="system" width="13" height="12"/>
+        <image name="chevron.backward" catalog="system" width="10" height="14"/>
+        <image name="chevron.forward" catalog="system" width="10" height="14"/>
+        <image name="folder" catalog="system" width="18" height="14"/>
+        <image name="forward" catalog="system" width="20" height="12"/>
+        <image name="forward.end" catalog="system" width="13" height="12"/>
+        <image name="house" catalog="system" width="19" height="16"/>
+        <image name="info.circle" catalog="system" width="15" height="15"/>
+        <image name="magnifyingglass" catalog="system" width="16" height="15"/>
+        <image name="music.microphone" catalog="system" width="16" height="16"/>
+        <image name="music.note" catalog="system" width="11" height="15"/>
+        <image name="music.note.list" catalog="system" width="16" height="15"/>
+        <image name="network" catalog="system" width="15" height="15"/>
+        <image name="person.wave.2" width="15" height="14"/>
+        <image name="play.square" catalog="system" width="15" height="14"/>
+        <image name="playpause" catalog="system" width="20" height="12"/>
+        <image name="repeat" catalog="system" width="17" height="14"/>
+        <image name="repeat.1" catalog="system" width="17" height="14"/>
+        <image name="shuffle" catalog="system" width="18" height="14"/>
+        <image name="speaker.minus" catalog="system" width="19" height="14"/>
+        <image name="speaker.plus" catalog="system" width="19" height="14"/>
+        <image name="speaker.slash" catalog="system" width="14" height="16"/>
+        <image name="speedometer" catalog="system" width="15" height="15"/>
+        <image name="square.stack" catalog="system" width="15" height="18"/>
+        <image name="star" catalog="system" width="17" height="16"/>
+        <image name="stop" catalog="system" width="14" height="13"/>
+        <image name="text.append" catalog="system" width="16" height="13"/>
+        <image name="trash" catalog="system" width="15" height="17"/>
+    </resources>
 </document>

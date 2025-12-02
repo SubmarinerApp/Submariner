@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24412" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24412"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -73,11 +73,11 @@
                                     <rect key="frame" x="-2" y="41" width="622" height="158"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <clipView key="contentView" id="SWK-O6-Z3Q">
-                                        <rect key="frame" x="0.0" y="0.0" width="622" height="143"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="622" height="158"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveName="ServerAlbumsTable" headerView="15" id="13" customClass="SBTableView">
-                                                <rect key="frame" x="0.0" y="0.0" width="707" height="115"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="707" height="130"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <size key="intercellSpacing" width="3" height="2"/>
                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -239,7 +239,7 @@
                                         </subviews>
                                     </clipView>
                                     <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="14">
-                                        <rect key="frame" x="0.0" y="143" width="622" height="15"/>
+                                        <rect key="frame" x="0.0" y="142" width="622" height="16"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                     </scroller>
                                     <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="16">
@@ -302,13 +302,13 @@
         </arrayController>
         <menu id="Vqp-Qf-yvC" userLabel="Album Menu">
             <items>
-                <menuItem title="Play" id="hyI-Dl-lUi">
+                <menuItem title="Play" secondaryImage="play" catalog="system" id="hyI-Dl-lUi">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="albumDoubleClick:" target="-2" id="JPS-oc-2gx"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Add to Tracklist" id="QuH-S6-eoe">
+                <menuItem title="Add to Tracklist" secondaryImage="text.append" catalog="system" id="QuH-S6-eoe">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="addAlbumToTracklist:" target="-2" id="zDA-gm-oDK"/>
@@ -328,7 +328,7 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="8z0-m8-feZ"/>
-                <menuItem title="Download" id="Mkc-gS-tbg">
+                <menuItem title="Download" secondaryImage="arrow.down.circle" catalog="system" id="Mkc-gS-tbg">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="downloadAlbum:" target="-2" id="YSp-Dw-ejB"/>
@@ -339,20 +339,20 @@
         </menu>
         <menu id="PBo-4W-v2N" userLabel="Track Menu">
             <items>
-                <menuItem title="Play" id="b5P-FX-J4N">
+                <menuItem title="Play" secondaryImage="play" catalog="system" id="b5P-FX-J4N">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="trackDoubleClick:" target="-2" id="roJ-xQ-DuE"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Add to Tracklist" id="svp-8t-rNL">
+                <menuItem title="Add to Tracklist" secondaryImage="text.append" catalog="system" id="svp-8t-rNL">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="addTrackToTracklist:" target="-2" id="1Mh-wR-u8s"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="1dt-TY-vJz"/>
-                <menuItem title="New Playlist with Selected" id="sjj-kN-3Qi">
+                <menuItem title="New Playlist with Selected" secondaryImage="music.note.list" catalog="system" id="sjj-kN-3Qi">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="createNewLocalPlaylistWithSelectedTracks:" target="-2" id="9Kk-Fh-pQG"/>
@@ -365,7 +365,7 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="SsJ-W5-Gjj"/>
-                <menuItem title="Download" id="0Q0-RU-GIJ">
+                <menuItem title="Download" secondaryImage="arrow.down.circle" catalog="system" id="0Q0-RU-GIJ">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="downloadTrack:" target="-2" id="5P8-ki-uYe"/>
@@ -382,6 +382,10 @@
         </menu>
     </objects>
     <resources>
+        <image name="arrow.down.circle" catalog="system" width="15" height="15"/>
         <image name="heart.fill" catalog="system" width="16" height="14"/>
+        <image name="music.note.list" catalog="system" width="16" height="15"/>
+        <image name="play" catalog="system" width="12" height="13"/>
+        <image name="text.append" catalog="system" width="16" height="13"/>
     </resources>
 </document>

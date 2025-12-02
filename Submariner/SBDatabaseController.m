@@ -1731,6 +1731,18 @@
 
 #pragma mark - NSMenu for Source List Delegate
 
+- (void)appendMenuItem:(NSMenu *)menu withAction:(SEL)action title:(NSString *)title symbolName:(NSString *)symbolName {
+    NSMenuItem *item = [menu addItemWithTitle:title action:action keyEquivalent:@""];
+    // This is made a little more complex by the fact we need to make images conditional on macOS 26
+    if (symbolName == nil) {
+        return;
+    }
+    if (@available(macOS 26, *)) {
+        [item setImage: [NSImage imageWithSystemSymbolName:symbolName
+                                  accessibilityDescription:title]];
+    }
+}
+
 - (void)menuWillOpen:(NSMenu *)menu {
     NSInteger selectedRow = [sourceList clickedRow];
     SBResource *resource = [[sourceList itemAtRow:selectedRow] representedObject];
@@ -1738,25 +1750,25 @@
     if ([resource isKindOfClass:[SBPlaylist class]]) {
         SBPlaylist *playlist = (SBPlaylist*)resource;
         if (playlist.tracks.count > 0) {
-            [menu addItemWithTitle: @"Play" action:@selector(playSelected:) keyEquivalent:@""];
-            [menu addItemWithTitle: @"Add to Tracklist" action:@selector(addSelectedToTracklist:) keyEquivalent:@""];
+            [self appendMenuItem:menu withAction:@selector(playSelected:) title:@"Play" symbolName:@"play"];
+            [self appendMenuItem:menu withAction:@selector(addSelectedToTracklist:) title:@"Add to Tracklist" symbolName:@"text.append"];
             [menu addItem:[NSMenuItem separatorItem]];
         }
-        [menu addItemWithTitle: @"Rename" action:@selector(editItem:) keyEquivalent:@""];
-        [menu addItemWithTitle: @"Delete" action:@selector(removeItem:) keyEquivalent:@""];
+        [self appendMenuItem:menu withAction:@selector(editItem:) title:@"Rename" symbolName:nil];
+        [self appendMenuItem:menu withAction:@selector(removeItem:) title:@"Delete" symbolName:@"trash"];
     } else if ([resource isKindOfClass:[SBServer class]]) {
-        [menu addItemWithTitle:@"Add Playlist to Server" action:@selector(addRemotePlaylist:) keyEquivalent:@""];
+        [self appendMenuItem:menu withAction:@selector(addRemotePlaylist:) title:@"Add Playlist to Server" symbolName:@"music.note.list"];
         [menu addItem:[NSMenuItem separatorItem]];
-        [menu addItemWithTitle:@"Reload Server" action:@selector(reloadServer:) keyEquivalent:@""];
-        [menu addItemWithTitle:@"Scan Server Library" action:@selector(scanLibrary:) keyEquivalent:@""];
+        [self appendMenuItem:menu withAction:@selector(reloadServer:) title:@"Reload Server" symbolName:@"arrow.clockwise"];
+        [self appendMenuItem:menu withAction:@selector(scanLibrary:) title:@"Scan Server Library" symbolName:nil];
         [menu addItem:[NSMenuItem separatorItem]];
-        [menu addItemWithTitle:@"Open Home Page" action:@selector(openHomePage:) keyEquivalent:@""];
-        [menu addItemWithTitle:@"Configure Server" action:@selector(editItem:) keyEquivalent:@""];
+        [self appendMenuItem:menu withAction:@selector(openHomePage:) title:@"Open Home Page" symbolName:@"house"];
+        [self appendMenuItem:menu withAction:@selector(editItem:) title:@"Configure Server" symbolName:nil];
         [menu addItem:[NSMenuItem separatorItem]];
-        [menu addItemWithTitle:@"Remove Server" action:@selector(removeItem:) keyEquivalent:@""];
+        [self appendMenuItem:menu withAction:@selector(removeItem:) title:@"Remove Server" symbolName:@"trash"];
     } else if ([resource isKindOfClass:[SBSection class]] || resource == nil) {
-        [menu addItemWithTitle:@"New Playlist" action:@selector(addPlaylist:) keyEquivalent:@""];
-        [menu addItemWithTitle:@"New Server" action:@selector(addServer:) keyEquivalent:@""];
+        [self appendMenuItem:menu withAction:@selector(addPlaylist:) title:@"New Playlist" symbolName:@"music.note.list"];
+        [self appendMenuItem:menu withAction:@selector(addServer:) title:@"New Server" symbolName:@"network"];
     }
 }
 

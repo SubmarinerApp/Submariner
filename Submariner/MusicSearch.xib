@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24412" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24412"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -202,20 +202,20 @@
         </arrayController>
         <menu id="paR-xu-VXT">
             <items>
-                <menuItem title="Play" id="BCR-lr-e1s">
+                <menuItem title="Play" secondaryImage="play" catalog="system" id="BCR-lr-e1s">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="playSelected:" target="-2" id="sa4-GR-5pD"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Add to Tracklist" id="hUl-rN-4Kf">
+                <menuItem title="Add to Tracklist" secondaryImage="text.append" catalog="system" id="hUl-rN-4Kf">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="addSelectedToTracklist:" target="-2" id="fI2-6q-HHA"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="nNZ-BT-mmp"/>
-                <menuItem title="New Playlist with Selected" id="giS-sb-GLV">
+                <menuItem title="New Playlist with Selected" secondaryImage="music.note.list" catalog="system" id="giS-sb-GLV">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="createNewLocalPlaylistWithSelectedTracks:" target="-2" id="rMX-19-Uab"/>
@@ -238,4 +238,9 @@
             <point key="canvasLocation" x="-1" y="-148"/>
         </menu>
     </objects>
+    <resources>
+        <image name="music.note.list" catalog="system" width="16" height="15"/>
+        <image name="play" catalog="system" width="12" height="13"/>
+        <image name="text.append" catalog="system" width="16" height="13"/>
+    </resources>
 </document>

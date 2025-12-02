@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24412" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24412"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,11 +23,11 @@
                     <rect key="frame" x="-2" y="41" width="642" height="320"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <clipView key="contentView" id="He9-AT-H5G">
-                        <rect key="frame" x="0.0" y="0.0" width="642" height="305"/>
+                        <rect key="frame" x="0.0" y="0.0" width="642" height="320"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveName="PlaylistTable" headerView="16" id="14" customClass="SBTableView">
-                                <rect key="frame" x="0.0" y="0.0" width="751" height="277"/>
+                                <rect key="frame" x="0.0" y="0.0" width="751" height="292"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -184,7 +184,7 @@
                         </subviews>
                     </clipView>
                     <scroller key="horizontalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="15">
-                        <rect key="frame" x="0.0" y="305" width="642" height="15"/>
+                        <rect key="frame" x="0.0" y="304" width="642" height="16"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="17">
@@ -226,27 +226,27 @@
         </arrayController>
         <menu id="WxC-0g-ovo">
             <items>
-                <menuItem title="Play" id="8ji-Yx-m9r">
+                <menuItem title="Play" secondaryImage="play" catalog="system" id="8ji-Yx-m9r">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="trackDoubleClick:" target="-2" id="7Jc-rM-vFb"/>
                     </connections>
                 </menuItem>
-                <menuItem title="Add to Tracklist" id="fd6-nC-7Te">
+                <menuItem title="Add to Tracklist" secondaryImage="text.append" catalog="system" id="fd6-nC-7Te">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="addSelectedToTracklist:" target="-2" id="619-km-BeT"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="w1I-lv-OB3"/>
-                <menuItem title="Delete" id="4EA-Jq-HGE">
+                <menuItem title="Delete" secondaryImage="trash" catalog="system" id="4EA-Jq-HGE">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="delete:" target="-2" id="N9m-2E-qm1"/>
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="Jm4-3T-66D"/>
-                <menuItem title="New Playlist with Selected" id="4mt-Ky-lcA">
+                <menuItem title="New Playlist with Selected" secondaryImage="music.note.list" catalog="system" id="4mt-Ky-lcA">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="createNewLocalPlaylistWithSelectedTracks:" target="-2" id="QDh-ek-8tW"/>
@@ -259,7 +259,7 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="Prt-qp-Zoj"/>
-                <menuItem title="Download" id="wZF-7W-byj">
+                <menuItem title="Download" secondaryImage="arrow.down.circle" catalog="system" id="wZF-7W-byj">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="downloadSelected:" target="-2" id="SdJ-4Y-zve"/>
@@ -281,4 +281,11 @@
             <point key="canvasLocation" x="33" y="-307"/>
         </menu>
     </objects>
+    <resources>
+        <image name="arrow.down.circle" catalog="system" width="15" height="15"/>
+        <image name="music.note.list" catalog="system" width="16" height="15"/>
+        <image name="play" catalog="system" width="12" height="13"/>
+        <image name="text.append" catalog="system" width="16" height="13"/>
+        <image name="trash" catalog="system" width="15" height="17"/>
+    </resources>
 </document>
