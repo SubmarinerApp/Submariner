@@ -9,6 +9,9 @@
 //  
 
 import Cocoa
+import os
+
+fileprivate let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "SBServerSearchController")
 
 @objc class SBServerSearchController: SBServerViewController, NSTableViewDataSource {
     @objc dynamic var searchResult: SBSearchResult? {
@@ -90,8 +93,18 @@ import Cocoa
             return
         }
         
-        let scrollView = self.tracksTableView.enclosingScrollView!
-        let documentView = scrollView.documentView!
+        guard let searchResult = self.searchResult else {
+            logger.info("Huh, the result for the search controller is nil.")
+            return
+        }
+        guard let scrollView = self.tracksTableView.enclosingScrollView else {
+            logger.info("Huh, the enclosing scroll view for the search tracks table is nil.")
+            return
+        }
+        guard let documentView = scrollView.documentView else {
+            logger.info("Huh, the document view for the search tracks table is nil.")
+            return
+        }
         let clipView = scrollView.contentView
         
         // The coordinate space of the clip/scroll/document view isn't obvious,
@@ -99,7 +112,7 @@ import Cocoa
         let verticalPosition = clipView.bounds.origin.y + clipView.bounds.height
         if verticalPosition == documentView.bounds.height {
             shouldInfiniteScroll = false
-            server.updateSearch(existingResult: self.searchResult!)
+            server.updateSearch(existingResult: searchResult)
         }
     }
     
